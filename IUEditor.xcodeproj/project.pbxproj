@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D2EF37319F751FF00BBBAE5 /* IUEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF37219F751FF00BBBAE5 /* IUEditorTests.m */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -974,10 +973,13 @@
 		3D2EFCEE19F7964400BBBAE5 /* wpWebTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */; };
 		3D2EFCF019F796D600BBBAE5 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEF19F796D600BBBAE5 /* sample.jpg */; };
 		3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCF119F7976B00BBBAE5 /* image_default.png */; };
+		3DE45F6119F7BFB200A75567 /* IUEditor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */; };
+		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
+		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3D2EF36D19F751FF00BBBAE5 /* PBXContainerItemProxy */ = {
+		3DE45F6219F7BFB200A75567 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D2EF34B19F751FF00BBBAE5 /* Project object */;
 			proxyType = 1;
@@ -988,9 +990,6 @@
 
 /* Begin PBXFileReference section */
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D2EF36C19F751FF00BBBAE5 /* IUEditorTests. */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IUEditorTests.; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D2EF37119F751FF00BBBAE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D2EF37219F751FF00BBBAE5 /* IUEditorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUEditorTests.m; sourceTree = "<group>"; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		3D2EF38019F7527000BBBAE5 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -2207,6 +2206,11 @@
 		3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = wpWebTemplate.html; path = IUEditor/Resource/IUResource/default/wpWebTemplate.html; sourceTree = "<group>"; };
 		3D2EFCEF19F796D600BBBAE5 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sample.jpg; path = IUEditor/Resource/IUResource/editormode/image/sample.jpg; sourceTree = "<group>"; };
 		3D2EFCF119F7976B00BBBAE5 /* image_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_default.png; path = IUEditor/Resource/IUResource/editormode/image/image_default.png; sourceTree = "<group>"; };
+		3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE45F5F19F7BFB200A75567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUEditor_Tests.m; sourceTree = "<group>"; };
+		3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUDataStorageTest.m; sourceTree = "<group>"; };
+		3DE45F6C19F7C04000A75567 /* JDCoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDCoderTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2226,7 +2230,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3D2EF36919F751FF00BBBAE5 /* Frameworks */ = {
+		3DE45F5919F7BFB200A75567 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2240,8 +2244,8 @@
 			isa = PBXGroup;
 			children = (
 				3D2EF35519F751FF00BBBAE5 /* IUEditor */,
-				3D2EF36F19F751FF00BBBAE5 /* IUEditorTests */,
 				3D2EFC2219F7888B00BBBAE5 /* JDLibrary */,
+				3DE45F5D19F7BFB200A75567 /* IUEditor Tests */,
 				3D2EF35419F751FF00BBBAE5 /* Products */,
 				3D2EF38E19F7540C00BBBAE5 /* Framework */,
 			);
@@ -2251,7 +2255,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2EF35319F751FF00BBBAE5 /* IUEditor.app */,
-				3D2EF36C19F751FF00BBBAE5 /* IUEditorTests. */,
+				3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2267,23 +2271,6 @@
 				3D2EF3A419F77C3F00BBBAE5 /* Resource */,
 			);
 			path = IUEditor;
-			sourceTree = "<group>";
-		};
-		3D2EF36F19F751FF00BBBAE5 /* IUEditorTests */ = {
-			isa = PBXGroup;
-			children = (
-				3D2EF37219F751FF00BBBAE5 /* IUEditorTests.m */,
-				3D2EF37019F751FF00BBBAE5 /* Supporting Files */,
-			);
-			path = IUEditorTests;
-			sourceTree = "<group>";
-		};
-		3D2EF37019F751FF00BBBAE5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3D2EF37119F751FF00BBBAE5 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3D2EF38E19F7540C00BBBAE5 /* Framework */ = {
@@ -4136,6 +4123,25 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		3DE45F5D19F7BFB200A75567 /* IUEditor Tests */ = {
+			isa = PBXGroup;
+			children = (
+				3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */,
+				3DE45F6C19F7C04000A75567 /* JDCoderTest.m */,
+				3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */,
+				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
+			);
+			path = "IUEditor Tests";
+			sourceTree = "<group>";
+		};
+		3DE45F5E19F7BFB200A75567 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3DE45F5F19F7BFB200A75567 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4156,22 +4162,22 @@
 			productReference = 3D2EF35319F751FF00BBBAE5 /* IUEditor.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3D2EF36B19F751FF00BBBAE5 /* IUEditorTests */ = {
+		3DE45F5B19F7BFB200A75567 /* IUEditor Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D2EF37919F751FF00BBBAE5 /* Build configuration list for PBXNativeTarget "IUEditorTests" */;
+			buildConfigurationList = 3DE45F6419F7BFB200A75567 /* Build configuration list for PBXNativeTarget "IUEditor Tests" */;
 			buildPhases = (
-				3D2EF36819F751FF00BBBAE5 /* Sources */,
-				3D2EF36919F751FF00BBBAE5 /* Frameworks */,
-				3D2EF36A19F751FF00BBBAE5 /* Resources */,
+				3DE45F5819F7BFB200A75567 /* Sources */,
+				3DE45F5919F7BFB200A75567 /* Frameworks */,
+				3DE45F5A19F7BFB200A75567 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3D2EF36E19F751FF00BBBAE5 /* PBXTargetDependency */,
+				3DE45F6319F7BFB200A75567 /* PBXTargetDependency */,
 			);
-			name = IUEditorTests;
-			productName = IUEditorTests;
-			productReference = 3D2EF36C19F751FF00BBBAE5 /* IUEditorTests. */;
+			name = "IUEditor Tests";
+			productName = "IUEditor Tests";
+			productReference = 3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -4186,7 +4192,7 @@
 					3D2EF35219F751FF00BBBAE5 = {
 						CreatedOnToolsVersion = 6.1;
 					};
-					3D2EF36B19F751FF00BBBAE5 = {
+					3DE45F5B19F7BFB200A75567 = {
 						CreatedOnToolsVersion = 6.1;
 						TestTargetID = 3D2EF35219F751FF00BBBAE5;
 					};
@@ -4206,7 +4212,7 @@
 			projectRoot = "";
 			targets = (
 				3D2EF35219F751FF00BBBAE5 /* IUEditor */,
-				3D2EF36B19F751FF00BBBAE5 /* IUEditorTests */,
+				3DE45F5B19F7BFB200A75567 /* IUEditor Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -4931,7 +4937,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3D2EF36A19F751FF00BBBAE5 /* Resources */ = {
+		3DE45F5A19F7BFB200A75567 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -5193,21 +5199,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3D2EF36819F751FF00BBBAE5 /* Sources */ = {
+		3DE45F5819F7BFB200A75567 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D2EF37319F751FF00BBBAE5 /* IUEditorTests.m in Sources */,
+				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
+				3DE45F6119F7BFB200A75567 /* IUEditor_Tests.m in Sources */,
+				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3D2EF36E19F751FF00BBBAE5 /* PBXTargetDependency */ = {
+		3DE45F6319F7BFB200A75567 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D2EF35219F751FF00BBBAE5 /* IUEditor */;
-			targetProxy = 3D2EF36D19F751FF00BBBAE5 /* PBXContainerItemProxy */;
+			targetProxy = 3DE45F6219F7BFB200A75567 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5338,7 +5346,7 @@
 			};
 			name = Release;
 		};
-		3D2EF37A19F751FF00BBBAE5 /* Debug */ = {
+		3DE45F6519F7BFB200A75567 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -5353,15 +5361,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = IUEditorTests/Info.plist;
+				INFOPLIST_FILE = "IUEditor Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
-				WRAPPER_EXTENSION = "";
 			};
 			name = Debug;
 		};
-		3D2EF37B19F751FF00BBBAE5 /* Release */ = {
+		3DE45F6619F7BFB200A75567 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -5372,11 +5379,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IUEditor/AppDefaultFiles/IUEditor-Prefix.pch";
-				INFOPLIST_FILE = IUEditorTests/Info.plist;
+				INFOPLIST_FILE = "IUEditor Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
-				WRAPPER_EXTENSION = "";
 			};
 			name = Release;
 		};
@@ -5401,14 +5407,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D2EF37919F751FF00BBBAE5 /* Build configuration list for PBXNativeTarget "IUEditorTests" */ = {
+		3DE45F6419F7BFB200A75567 /* Build configuration list for PBXNativeTarget "IUEditor Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3D2EF37A19F751FF00BBBAE5 /* Debug */,
-				3D2EF37B19F751FF00BBBAE5 /* Release */,
+				3DE45F6519F7BFB200A75567 /* Debug */,
+				3DE45F6619F7BFB200A75567 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

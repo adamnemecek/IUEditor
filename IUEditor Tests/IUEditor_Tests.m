@@ -1,6 +1,6 @@
 //
-//  IUEditorTests.m
-//  IUEditorTests
+//  IUEditor_Tests.m
+//  IUEditor Tests
 //
 //  Created by seungmi on 2014. 10. 22..
 //  Copyright (c) 2014년 JDLab. All rights reserved.
@@ -9,11 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 
-@interface IUEditorTests : XCTestCase
+@interface IUEditor_Tests : XCTestCase
 
 @end
 
-@implementation IUEditorTests
+@implementation IUEditor_Tests
 
 - (void)setUp {
     [super setUp];
