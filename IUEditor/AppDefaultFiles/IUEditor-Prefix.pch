@@ -1,0 +1,148 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+    #import "NSObject+JDExtension.h"
+    #import "NSCoder+JDExtension.h"
+    #import "NSDictionary+JDExtension.h"
+    #import "CALayer+JDExtension.h"
+    #import "NSArray+JDExtension.h"
+#import "NSIndexPath+JDExtension.h"
+#import "NSString+JDExtension.h"
+#import "NSMutableDictionary+IUTag.h"
+#import "JDUIUtil.h"
+#import "JDLogUtil.h"
+#import "JDTextField.h"
+#import "JDTransformer.h"
+#import "JDWebUtil.h"
+#import "NSView+JDExtension.h"
+#import "JDShortcut.h"
+#import "JDEnvUtil.h"
+#import "JDGitUtil.h"
+#import "JDFileUtil.h"
+#import "NSString+IUTag.h"
+#import "NSArray+JDExtension.h"
+#import "NSTreeController+JDExtension.h"
+#import "NSIndexPath+JDExtension.h"
+
+#import "IUDefinition.h"
+
+#define _binding_
+#define _observing_
+
+//#define IULogSource 0
+#define IULogSource @"source"
+//#define IULogJS 0
+#define IULogJS @"JS"
+#define IULogAction @"Action"
+#define IULogText @"Text"
+#define IULogDealloc @"Dealloc"
+
+
+#define Integer2Str(a) [NSString stringWithFormat:@"%ld", ((long)a)]
+
+
+//IUVersion codeName
+#define IU_VERSION_BETA2 @"0.3.3"
+#define IU_VERSION_LAYOUT @"0.3.3.1"
+#define IU_VERSION_FONTFIX @"0.3.3.2"
+#define IU_VERSION_TEXTMCE @"0.3.3.3"
+
+//IUVersion Control
+#define IU_VERSION_EQUAL_TO(v)                  ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define IU_VERSION_GREATER_THAN(v)              ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define IU_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define IU_VERSION_LESS_THAN(v)                 ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define IU_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] compare:v options:NSNumericSearch] != NSOrderedDescending)
+
+#define IU_VERSION_V1_EQUAL_TO_V2(v1, v2)                  ([v1 compare:v2 options:NSNumericSearch] == NSOrderedSame)
+#define IU_VERSION_V1_GREATER_THAN_V2(v1, v2)              ([v1 compare:v2 options:NSNumericSearch] == NSOrderedDescending)
+#define IU_VERSION_V1_GREATER_THAN_OR_EQUAL_TO_V2(v1, v2)  ([v1 compare:v2 options:NSNumericSearch] != NSOrderedAscending)
+#define IU_VERSION_V1_LESS_THAN_V2(v1, v2)                 ([v1 compare:v2 options:NSNumericSearch] == NSOrderedAscending)
+#define IU_VERSION_V1_LESS_THAN_OR_EQUAL_TO_V2(v1, v2)     ([v1 compare:v2 options:NSNumericSearch] != NSOrderedDescending)
+
+//binding option
+#define IUBindingDictNotRaisesApplicable @{NSRaisesForNotApplicableKeysBindingOption:@(NO)}
+#define IUBindingNegationAndNotRaise  @{NSRaisesForNotApplicableKeysBindingOption:@(NO),NSValueTransformerNameBindingOption:NSNegateBooleanTransformerName}
+#define IUBindingDictNotRaisesApplicableAndContinuousUpdate @{NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}
+#define IUBindingDictNumberAndNotRaisesApplicable @{NSContinuouslyUpdatesValueBindingOption:@(YES),NSRaisesForNotApplicableKeysBindingOption:@(NO),NSValueTransformerNameBindingOption:@"JDNilToZeroTransformer"}
+
+
+#define IUVideoResourceDidChange @"VideoResourceDidChange"
+#define IUImageResourceDidChange @"ImageResourceDidChange"
+
+#pragma mark -
+#pragma mark Notifications
+
+
+#define IUNotificationSelectionWillChange @"IUNotificationSelectionWillChange" //called when selection is changed
+#define IUNotificationSelectionDidChange @"IUNotificationSelectionDidChange" //called when selection is changed
+
+
+#define IUNotificationStructureDidChange @"IUNotificationStructureDidChange" //called when IUstructure changed, usually occured by addSheet, removeSheet, addIU, removeIU or changeIUIndex, renaming
+
+// followings are IUNotificationStructureDidChange notification userInfo
+#define IUNotificationStructureChangeType @"ChangeType"  
+#define IUNotificationStructureAdding @"Add"
+#define IUNotificationStructureChangeRemoving @"Remove"
+#define IUNotificationStructureChangeReindexing @"Reindex"
+#define IUNotificationStructureChangeTypeRenaming @"Rename"
+
+
+#define IUNotificationStructureChangedIU @"ChangedIU"
+
+
+
+#define IUNotificationDoubleClickCanvas @"IUNotificationDoubleClickCanvas"
+
+//called when media query is changed, usually occured by addsize, removesize, selectsize
+#define IUNotificationMQAdded @"MQAdded"
+#define IUNotificationMQRemoved @"MQRemoved"
+#define IUNotificationMQSelected @"MQSelected"
+#define IUNotificationMQSelectedWithInfo @"MQSelectedWithInfo"
+#define IUNotificationMQMaxChanged @"MQMaxChanged"
+#define IUNotificationMQSize @"MQSize"
+#define IUNotificationMQOldSize @"MQOldSize"
+#define IUNotificationMQMaxSize @"MQMaxSize"
+#define IUNotificationMQLargerSize @"MQLargerSize"
+#define IUNotificationMQOldMaxSize @"MQOldMaxSize"
+
+
+//notification when console log is arrived
+#define IUNotificationConsoleLog @"ConsoleLog"
+#define IUNotificationConsoleStart @"ConsoleStart"
+#define IUNotificationConsoleEnd @"ConsoleEnd"
+#define IUNotificationConsoleLogText @"Log"
+
+
+//for text modification 2.0version
+#define CURRENT_TEXT_VERSION 1
+#define TEXT_SELECTION_VERSION 2
+
+
+
+#define CalledByNoti void
+
+#define IUEmail @"mailto:iu@jdlab.org?subject=[IUEditor]&body="
+
+#define CGFLOAT_INVALID CGFLOAT_MIN
+
+//keycode
+#define IUKeyCodeEnter 36
+#define IUKeyCodeESC 53
+#define IUKeyCodeOne 18
+#define IUKeyCodeTwo 19
+#define IUKeyCodeThree 20
+#define IUKeyCodeC 8
+#define IUKeyCodeV 9
+#define IUKeyCodeArrowLeft 123
+#define IUKeyCodeArrowRight 124
+#define IUKeyCodeArrowDown 125
+#define IUKeyCodeArrowUp 126
+
+
+#endif

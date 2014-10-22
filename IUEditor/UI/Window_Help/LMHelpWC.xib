@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6154.17"/>
+        <plugIn identifier="com.apple.pdfkit.ibplugin" version="6154.17"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LMHelpWC">
+            <connections>
+                <outlet property="pdfListDictController" destination="6aF-p6-sih" id="e8g-w1-RVH"/>
+                <outlet property="pdfListTableView" destination="45x-OV-mfS" id="Hgl-s9-pBw"/>
+                <outlet property="pdfThumbnailV" destination="aTd-iN-f8b" id="cgq-DW-o8b"/>
+                <outlet property="pdfV" destination="s0Z-s0-9lR" id="SEL-GL-Xxb"/>
+                <outlet property="tabView" destination="H0A-ER-q24" id="apv-Ca-HkB"/>
+                <outlet property="webV" destination="R4r-WR-VRA" id="8cl-jT-TcM"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Help" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" frameAutosaveName="Help" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <rect key="contentRect" x="196" y="240" width="1200" height="600"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="1200" height="600"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PKo-OO-DcZ" userLabel="pdfSplitView">
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="600"/>
+                        <subviews>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="hGY-ga-9bp" userLabel="manualListView">
+                                <rect key="frame" x="0.0" y="0.0" width="182" height="600"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <clipView key="contentView" id="hat-za-HKA">
+                                    <rect key="frame" x="0.0" y="17" width="200" height="801"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="HUS-La-ytG" id="45x-OV-mfS">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn editable="NO" width="200" minWidth="200" maxWidth="500" id="24R-BV-NU5">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Manual List">
+                                                        <font key="font" metaFont="smallSystemBold"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" drawsBackground="YES" id="cFs-bm-xJq">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="6aF-p6-sih" name="value" keyPath="arrangedObjects.value.title" id="JEG-Ed-yNP">
+                                                            <dictionary key="options">
+                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="delegate" destination="-2" id="SEO-sV-MKX"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </clipView>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="w77-I3-VPq"/>
+                                </constraints>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="d1E-wQ-O49">
+                                    <rect key="frame" x="0.0" y="818" width="200" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="I4u-gq-Ce5">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <tableHeaderView key="headerView" id="HUS-La-ytG">
+                                    <rect key="frame" x="0.0" y="0.0" width="203" height="17"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableHeaderView>
+                            </scrollView>
+                            <tabView fixedFrame="YES" type="noTabsNoBorder" id="H0A-ER-q24">
+                                <rect key="frame" x="183" y="0.0" width="1017" height="600"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <tabViewItems>
+                                    <tabViewItem label="Tab" identifier="1" id="Tjp-Er-voy" userLabel="Pdf">
+                                        <view key="view" id="ZvO-qI-A6i">
+                                            <rect key="frame" x="0.0" y="0.0" width="1017" height="600"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <pdfView autoresizesSubviews="NO" wantsLayer="YES" displaysPageBreaks="NO" autoScales="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s0Z-s0-9lR" userLabel="PDFView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="1017" height="600"/>
+                                                </pdfView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="s0Z-s0-9lR" secondAttribute="bottom" id="A4D-bI-z2w"/>
+                                                <constraint firstItem="s0Z-s0-9lR" firstAttribute="leading" secondItem="ZvO-qI-A6i" secondAttribute="leading" id="BSP-3p-DBt"/>
+                                                <constraint firstItem="s0Z-s0-9lR" firstAttribute="top" secondItem="ZvO-qI-A6i" secondAttribute="top" id="oD9-4H-7fO"/>
+                                                <constraint firstAttribute="trailing" secondItem="s0Z-s0-9lR" secondAttribute="trailing" id="rXq-IQ-ga5"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                    <tabViewItem label="View" identifier="2" id="hPv-p0-bQx" userLabel="WebView">
+                                        <view key="view" id="NCr-O1-lBK">
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <webView translatesAutoresizingMaskIntoConstraints="NO" id="R4r-WR-VRA">
+                                                    <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                                        <nil key="identifier"/>
+                                                    </webPreferences>
+                                                </webView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="R4r-WR-VRA" firstAttribute="leading" secondItem="NCr-O1-lBK" secondAttribute="leading" id="M7c-Hn-54e"/>
+                                                <constraint firstAttribute="bottom" secondItem="R4r-WR-VRA" secondAttribute="bottom" id="cJI-ch-Oyh"/>
+                                                <constraint firstItem="R4r-WR-VRA" firstAttribute="top" secondItem="NCr-O1-lBK" secondAttribute="top" id="cc5-ll-KrE"/>
+                                                <constraint firstAttribute="trailing" secondItem="R4r-WR-VRA" secondAttribute="trailing" id="su9-Bn-L5j"/>
+                                            </constraints>
+                                        </view>
+                                    </tabViewItem>
+                                </tabViewItems>
+                            </tabView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PKo-OO-DcZ" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="2m3-Y9-ePM"/>
+                    <constraint firstItem="PKo-OO-DcZ" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="EQz-eo-zal"/>
+                    <constraint firstAttribute="trailing" secondItem="PKo-OO-DcZ" secondAttribute="trailing" id="iI2-2l-ssW"/>
+                    <constraint firstAttribute="bottom" secondItem="PKo-OO-DcZ" secondAttribute="bottom" id="qp4-SD-Cuf"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="484" y="145.5"/>
+        </window>
+        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="6aF-p6-sih" userLabel="pdfListDictionaryController"/>
+        <pdfThumbnailView translatesAutoresizingMaskIntoConstraints="NO" id="aTd-iN-f8b">
+            <rect key="frame" x="216" y="-89" width="150" height="830"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="830" id="pif-UF-kvd"/>
+                <constraint firstAttribute="width" constant="150" id="wC7-Pk-xaV"/>
+            </constraints>
+            <size key="thumbnailSize" width="64" height="64"/>
+            <connections>
+                <outlet property="pdfView" destination="s0Z-s0-9lR" id="U80-hR-xJ5"/>
+            </connections>
+        </pdfThumbnailView>
+    </objects>
+</document>

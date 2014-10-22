@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LMPropertyIUCollectionViewVC">
+            <connections>
+                <outlet property="collectionPopupButton" destination="Nuj-A7-93y" id="rQ6-vq-ros"/>
+                <outlet property="view" destination="FBh-Yg-oX1" id="Q8u-IM-Zbu"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <customView id="FBh-Yg-oX1" userLabel="IUCollectionView" customClass="JDOutlineCellView">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="57"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qee-mp-fMO" userLabel="content">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="27"/>
+                    <view key="contentView">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="27"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nuj-A7-93y">
+                                <rect key="frame" x="89" y="5" width="190" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="BUZ-iR-DPl"/>
+                                    <constraint firstAttribute="width" constant="184" id="IIG-8J-EEm"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="eOf-yB-OHU">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <menu key="menu" title="OtherViews" id="HEJ-sF-0I8">
+                                        <items>
+                                            <menuItem title="Item 1" id="GQz-pa-JBi"/>
+                                            <menuItem title="Item 2" id="g8L-5I-cEX"/>
+                                            <menuItem title="Item 3" id="Ovc-PH-My6"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="performCollectionChange:" target="-2" id="wah-bC-csp"/>
+                                </connections>
+                            </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qjF-YQ-c2F">
+                                <rect key="frame" x="16" y="8" width="70" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="R1y-4A-dFa"/>
+                                    <constraint firstAttribute="height" constant="17" id="U51-EK-iUQ"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Collection" id="4eR-dr-IRz">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstItem="Nuj-A7-93y" firstAttribute="top" secondItem="qee-mp-fMO" secondAttribute="top" constant="1" id="4FP-vq-OvX"/>
+                        <constraint firstItem="qjF-YQ-c2F" firstAttribute="top" secondItem="qee-mp-fMO" secondAttribute="top" constant="2" id="VCJ-Tp-Pyz"/>
+                        <constraint firstItem="Nuj-A7-93y" firstAttribute="leading" secondItem="qjF-YQ-c2F" secondAttribute="trailing" constant="8" id="hzJ-b9-4m7"/>
+                        <constraint firstItem="qjF-YQ-c2F" firstAttribute="leading" secondItem="qee-mp-fMO" secondAttribute="leading" constant="18" id="y76-o6-Ocp"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="JXl-tD-Qii" userLabel="title">
+                    <rect key="frame" x="0.0" y="27" width="300" height="30"/>
+                    <view key="contentView">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UjL-3y-BIz">
+                                <rect key="frame" x="14" y="8" width="101" height="14"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="IUCollectionView" id="ewd-1o-nKT">
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="5fa-QD-tnM"/>
+                    </constraints>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="qee-mp-fMO" firstAttribute="leading" secondItem="FBh-Yg-oX1" secondAttribute="leading" id="EPR-Wf-9Ys"/>
+                <constraint firstItem="JXl-tD-Qii" firstAttribute="leading" secondItem="FBh-Yg-oX1" secondAttribute="leading" id="MAH-5n-V1f"/>
+                <constraint firstItem="JXl-tD-Qii" firstAttribute="top" secondItem="FBh-Yg-oX1" secondAttribute="top" id="SfJ-Iz-5oH"/>
+                <constraint firstAttribute="bottom" secondItem="qee-mp-fMO" secondAttribute="bottom" id="YwU-yo-ad4"/>
+                <constraint firstAttribute="trailing" secondItem="JXl-tD-Qii" secondAttribute="trailing" id="h7G-q5-FYb"/>
+                <constraint firstAttribute="trailing" secondItem="qee-mp-fMO" secondAttribute="trailing" id="kTL-D5-8qr"/>
+                <constraint firstItem="qee-mp-fMO" firstAttribute="top" secondItem="JXl-tD-Qii" secondAttribute="bottom" id="nk7-5o-roQ"/>
+            </constraints>
+            <connections>
+                <outlet property="contentV" destination="qee-mp-fMO" id="oMM-vL-dhj"/>
+                <outlet property="titleV" destination="JXl-tD-Qii" id="HK1-nP-dwx"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="385.5"/>
+        </customView>
+    </objects>
+</document>

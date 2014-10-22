@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LMDebugSourceWC">
+            <connections>
+                <outlet property="codeTextView" destination="5Rt-8d-oeL" id="Nf5-yX-QyX"/>
+                <outlet property="searchField" destination="pvc-ez-pHp" id="1Md-pK-C50"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="931" height="790"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="931" height="790"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHP-a8-vt4">
+                        <rect key="frame" x="0.0" y="30" width="931" height="760"/>
+                        <clipView key="contentView" id="52i-Ss-XLK">
+                            <rect key="frame" x="1" y="1" width="238" height="133"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textView importsGraphics="NO" richText="NO" selectionGranularity="word" findStyle="panel" incrementalSearchingEnabled="YES" allowsUndo="YES" fieldEditor="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="5Rt-8d-oeL">
+                                    <rect key="frame" x="0.0" y="0.0" width="238" height="758"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="929" height="758"/>
+                                    <size key="maxSize" width="931" height="10000000"/>
+                                    <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <size key="minSize" width="929" height="758"/>
+                                    <size key="maxSize" width="931" height="10000000"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Dq0-5b-hfx">
+                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="D7J-7f-b3P">
+                            <rect key="frame" x="223" y="1" width="16" height="133"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lb5-Ge-dJ5">
+                        <rect key="frame" x="14" y="-2" width="170" height="32"/>
+                        <buttonCell key="cell" type="push" title="apply current source" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sby-fC-66p">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="applyCurrentSource:" target="-2" id="46M-S5-Bob"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YFi-cJ-xad">
+                        <rect key="frame" x="288" y="-2" width="178" height="32"/>
+                        <buttonCell key="cell" type="push" title="reload original source" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rUq-4l-mZd">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="reloadOriginalSource:" target="-2" id="CZ6-66-mxm"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sHP-a8-vt4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="9lV-Sj-zAx"/>
+                    <constraint firstAttribute="trailing" secondItem="sHP-a8-vt4" secondAttribute="trailing" id="Cls-V8-g78"/>
+                    <constraint firstItem="sHP-a8-vt4" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="I6B-Te-4Yj"/>
+                    <constraint firstItem="Lb5-Ge-dJ5" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" id="PMI-Ca-xhJ"/>
+                    <constraint firstAttribute="bottom" secondItem="sHP-a8-vt4" secondAttribute="bottom" constant="30" id="wej-bO-DA3"/>
+                    <constraint firstItem="YFi-cJ-xad" firstAttribute="top" secondItem="sHP-a8-vt4" secondAttribute="bottom" constant="4" id="yGO-vV-adT"/>
+                    <constraint firstItem="YFi-cJ-xad" firstAttribute="leading" secondItem="Lb5-Ge-dJ5" secondAttribute="trailing" constant="116" id="ya7-cb-ETD"/>
+                    <constraint firstItem="Lb5-Ge-dJ5" firstAttribute="top" secondItem="sHP-a8-vt4" secondAttribute="bottom" constant="4" id="zjM-Vi-z1R"/>
+                </constraints>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="42BD7EC6-F1A3-41D5-9A84-6638FFE745FC" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="zdq-e9-l2f">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="RGq-lf-Odz"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="ec3-3s-1QK"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="Tyx-eZ-HbW"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="5cy-st-Hw0"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="nKZ-9T-G0z"/>
+                    <toolbarItem implicitItemIdentifier="8DC6D773-F0E6-4219-9044-D98E3B10CD14" label="Search" paletteLabel="Search" id="QCm-Ja-bkr">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="96" height="22"/>
+                        <size key="maxSize" width="621" height="22"/>
+                        <searchField key="view" verticalHuggingPriority="750" id="pvc-ez-pHp">
+                            <rect key="frame" x="0.0" y="14" width="621" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" sendsWholeSearchString="YES" id="pas-fQ-W8b">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <action selector="searchField:" target="-2" id="FFb-zj-HFk"/>
+                            </connections>
+                        </searchField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="1F117DFD-5C64-4224-B21B-C1F818C76880" label="Next" paletteLabel="Next" id="q02-gr-bX9">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="30" height="32"/>
+                        <size key="maxSize" width="92" height="54"/>
+                        <button key="view" verticalHuggingPriority="750" id="c2d-hO-RD0">
+                            <rect key="frame" x="1" y="15" width="58" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title=">" bezelStyle="rounded" imagePosition="overlaps" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A7F-X2-vND">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="nextSearch:" target="-2" id="eAm-H0-bla"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C2FE031D-F68B-4A1C-BDD8-7674372662FC" label="Previous" paletteLabel="Previous" id="fqd-eI-ImM">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="48" height="31"/>
+                        <size key="maxSize" width="82" height="38"/>
+                        <button key="view" verticalHuggingPriority="750" id="cvJ-kx-f0v">
+                            <rect key="frame" x="2" y="15" width="58" height="38"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" imagePosition="overlaps" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2nx-KO-aC6">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="previousSearch:" target="-2" id="OEi-gZ-pty"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="0ACA0C26-9116-4B6B-9404-5EB76CDF99BD" label="open" paletteLabel="open" id="Sbn-vV-gR8">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="82" height="32"/>
+                        <size key="maxSize" width="136" height="43"/>
+                        <button key="view" verticalHuggingPriority="750" id="KSk-4Y-0Pg">
+                            <rect key="frame" x="0.0" y="14" width="136" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="open as a file" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZZc-jd-ud4">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="openAsAFile:" target="-2" id="nzh-ow-uUy"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="QCm-Ja-bkr"/>
+                    <toolbarItem reference="fqd-eI-ImM"/>
+                    <toolbarItem reference="q02-gr-bX9"/>
+                    <toolbarItem reference="5cy-st-Hw0"/>
+                    <toolbarItem reference="Sbn-vV-gR8"/>
+                    <toolbarItem reference="nKZ-9T-G0z"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="-206.5" y="490"/>
+        </window>
+    </objects>
+</document>

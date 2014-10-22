@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>404.php</key>
+	<dict>
+		<key>description</key>
+		<string>While you work hard to make sure that every link actually goes to a specific web page on your site, there is always a chance that a link clicked will slam dunk and become a famous 404 ERROR PAGE NOT FOUND.
+All is not lost. If your visitors encounter an error, why not be a helpful WordPress site administrator and present them with a message more useful than &quot;NOT FOUND&quot;.</string>
+	</dict>
+	<key>home.php</key>
+	<dict>
+		<key>description</key>
+		<string>If a visitor goes to your home page at http://example.com/blog/, the following happens:
+
+WordPress first determines whether it has a static front page. If a static front page has been set, then WordPress loads that page according to the page template hierarchy.
+If a static front page has not been set, then WordPress looks for a template file called home.php and uses it to generate the requested page.
+If home.php is missing, WordPress looks for a file called index.php in the active theme&apos;s directory, and uses that template to generate the page.</string>
+	</dict>
+	<key>index.php</key>
+	<dict>
+		<key>description</key>
+		<string>The main template. If your Theme provides its own templates, index.php must be present. Display a list of posts in excerpt or full-length form. Choose one or the other as appropriate.</string>
+	</dict>
+	<key>page.php</key>
+	<dict>
+		<key>description</key>
+		<string>In WordPress, you can write either posts or Pages. When you&apos;re writing a regular blog entry, you write a post. Posts, in a default setup, appear in reverse chronological order on your blog&apos;s home page. Pages are for content such as &quot;About,&quot; &quot;Contact,&quot; etc. Pages live outside of the normal blog chronology, and are often used to present timeless information about yourself or your site -- information that is always applicable. You can use Pages to organize and manage any content.</string>
+	</dict>
+	<key>category.php</key>
+	<dict>
+		<key>description</key>
+		<string>When a viewer clicks on a link to one of the Categories on your site, he or she is taken to a page listing the Posts in that particular Category in chronological order, from newest Posts at the top to oldest at the bottom. There are many display choices, including whether to display the complete post or post excerpts, and what additional information to display (title, author, publish date, last modified time, etc.). Each theme makes different choices, and you might want to change them.</string>
+	</dict>
+</dict>
+</plist>

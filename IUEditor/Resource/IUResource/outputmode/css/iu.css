@@ -1,0 +1,203 @@
+.IUBox{
+    position:absolute;
+    display:block;
+    overflow:hidden;
+    background-repeat: no-repeat;
+    border-style: solid;
+    border-width: 0px;
+}
+
+input {
+    border-width: 1px;
+    border-color: gray;
+}
+
+a{
+    text-decoration:none;
+    /*requirement for width, height */
+    display:block;
+}
+
+.IUPage{
+    width:100%;
+    min-height:100%;
+    display:initial;
+}
+
+.IUHeader{
+    width:100%;
+    overflow:visible;
+    z-index:10;
+}
+.IUFooter{
+	z-index:5;
+}
+
+.IUPageContent{
+    min-height:100px;
+}
+
+.IUItem{
+    width: 100%;
+    height: 100%;
+}
+
+.IUCollection > div{
+    float:left !important;
+    position:relative !important;
+}
+
+.PGTextField {
+    padding-left: 8px;
+}
+
+.PGTextView {
+    padding-left: 8px;
+    padding-top : 4px;
+    overflow : auto;
+}
+
+.PGPageLinkSet > div > ul > a > li{
+    display:block;
+    float:left;
+    color: white;
+    text-align:center;
+}
+
+/* carousel */
+
+.IUCarousel > .wrapper{
+    position:absolute;
+}
+
+.IUCarousel > .wrapper > div{
+    float:left;
+    position:relative;
+    height:100%;
+}
+
+.IUCarousel > .Prev {
+    position:absolute;
+    cursor:pointer;
+}
+.IUCarousel > .Next{
+    position:absolute;
+    cursor:pointer;
+}
+.IUCarousel > .Pager {
+    position:absolute;
+    width:100%;
+    height:10px;
+    bottom:30px;
+}
+.IUCarousel > .Pager > li{
+    display:inline;
+    font-size:0;
+    padding:6px;
+    margin:6px;
+    cursor:pointer;
+}
+
+/* menuItem */
+.IUMenuItem{
+    position:relative;
+    width:initial;
+    height:initial;
+    overflow:visible;
+    display:block;
+    z-index:10;
+}
+
+.IUMenuItem > a{
+    display:block;
+}
+
+.IUMenuItem > ul{
+    display:none;
+}
+.IUMenuItem > ul.open{
+    display:block;
+}
+
+/* menu bar*/
+.IUMenuBar{
+    overflow:visible;
+}
+
+.IUMenuBar .mobile-button{
+    display:none;
+}
+
+/* menuItem : depth - 1*/
+.IUMenuBar > ul > li{
+    float:left;
+}
+
+.IUMenuBar >ul > li > div.closure{
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    right: 20px;
+}
+
+/* menuItem : depth - 2*/
+.IUMenuBar > ul > li > ul > li{
+    width:100%;
+}
+
+.IUMenuBar > ul > li > ul > li > div.closure{
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    top: 17px;
+    right: 20px;
+}
+
+/* menuItem : depth -3 */
+.IUMenuBar ul ul > li > ul{
+    position:absolute;
+    left: 100%;
+    top: 0;
+    opacity: 1;
+    width:100%;
+}
+.IUMenuBar.align-right ul ul > li > ul{
+    left: initial;
+    right: 100%;
+}
+.IUMenuBar > ul > li > ul > li > ul > li{
+    width:100%;
+}
+
+/* wp css */
+
+.WPMenu > div {
+    height: 100%;
+}
+
+.WPMenu > div > ul {
+    height: 100%;
+}
+
+.WPMenu > div > ul > li{
+    height: 100%;
+    list-style-type: none;
+}
+
+.WPWidget {
+    position: relative;
+}
+
+.WPWidgetBody {
+    display: block;
+}
+
+.WPPageLinks > a{
+    display: inline;
+}
+.WPPageLinks > ul{
+    height: 100%;
+}
+

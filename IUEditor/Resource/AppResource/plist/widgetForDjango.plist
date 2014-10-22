@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>isWidget</key>
+		<true/>
+		<key>className</key>
+		<string>IUCollection</string>
+		<key>classImage</key>
+		<string>tool_collection</string>
+		<key>navImage</key>
+		<string>stack_collection</string>
+		<key>shortDesc</key>
+		<string>[Only for Django] for-loop for array object</string>
+		<key>longDesc</key>
+		<string></string>
+		<key>widgetClass</key>
+		<integer>1</integer>
+	</dict>
+    <dict>
+        <key>isWidget</key>
+        <true/>
+        <key>className</key>
+        <string>IUCollectionView</string>
+        <key>classImage</key>
+        <string>tool_collection</string>
+        <key>navImage</key>
+        <string>stack_collection</string>
+        <key>shortDesc</key>
+        <string>[Only for Django] for-loop for array object</string>
+        <key>longDesc</key>
+        <string></string>
+        <key>widgetClass</key>
+        <integer>1</integer>
+    </dict>
+    <dict>
+        <key>isWidget</key>
+        <true/>
+        <key>className</key>
+        <string>PGPageLinkSet</string>
+        <key>classImage</key>
+        <string>tool_page_nav</string>
+        <key>navImage</key>
+        <string>stack_page_nav</string>
+        <key>shortDesc</key>
+        <string>Box Object</string>
+        <key>longDesc</key>
+        <string></string>
+        <key>widgetClass</key>
+        <integer>2</integer>
+    </dict>
+</array>
+</plist>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>tutorial</key>
+    <dict>
+        <key>type</key>
+        <string>web</string>
+        <key>title</key>
+        <string>Tutorial : Start IUEditor</string>
+        <key>web</key>
+        <string>http://guide.iueditor.org</string>
+    </dict>
+	<key>positionProperty</key>
+	<dict>
+        <key>type</key>
+        <string>pdf</string>
+		<key>title</key>
+		<string>Position Property</string>
+		<key>pdf</key>
+		<string>positionProperty.pdf</string>
+	</dict>
+	<key>InstallingWordpress</key>
+	<dict>
+        <key>type</key>
+        <string>pdf</string>
+		<key>title</key>
+		<string>Installing Wordpress</string>
+		<key>pdf</key>
+		<string>InstallingWordpress.pdf</string>
+	</dict>
+</dict>
+</plist>

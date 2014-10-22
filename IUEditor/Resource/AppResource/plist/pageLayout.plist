@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>id</key>
+		<integer>0</integer>
+		<key>desc</key>
+		<string>Empty Page</string>
+		<key>title</key>
+		<string>Layout1</string>
+		<key>thumbnail</key>
+		<string>Google_Play_3.png</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<integer>1</integer>
+		<key>desc</key>
+		<string>Header, Footer</string>
+		<key>title</key>
+		<string>Layout2</string>
+		<key>thumbnail</key>
+		<string>Google_Play_3.png</string>
+	</dict>
+    <dict>
+        <key>id</key>
+        <integer>2</integer>
+        <key>desc</key>
+        <string>Sidebar</string>
+        <key>title</key>
+        <string>Layout3</string>
+        <key>thumbnail</key>
+        <string>Google_Play_3.png</string>
+    </dict>
+	<dict>
+		<key>id</key>
+		<integer>3</integer>
+		<key>desc</key>
+		<string>Header, Footer, Sidebar</string>
+		<key>title</key>
+		<string>Layout3</string>
+		<key>thumbnail</key>
+		<string>Google_Play_3.png</string>
+	</dict>
+	<dict>
+		<key>id</key>
+		<integer>4</integer>
+		<key>desc</key>
+		<string>Header, Footer, Sidebar</string>
+		<key>title</key>
+		<string>Layout3</string>
+		<key>thumbnail</key>
+		<string>Google_Play_3.png</string>
+	</dict>
+</array>
+</plist>

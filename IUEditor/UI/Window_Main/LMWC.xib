@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LMWC">
+            <connections>
+                <outlet property="appearanceV" destination="209-eo-kDy" id="Vjs-mp-RBg"/>
+                <outlet property="bottomToolbarV" destination="YTs-oo-nxs" id="krT-4z-IUv"/>
+                <outlet property="buildToolbarBox" destination="3cV-9o-ZJ9" id="zBx-op-WS5"/>
+                <outlet property="centerSplitV" destination="BqL-ro-r2J" id="VjN-GT-Bwc"/>
+                <outlet property="centerV" destination="LCo-BM-DQN" id="a81-Fm-UQ1"/>
+                <outlet property="clickWidgetTabMatrix" destination="vUX-uW-fTu" id="ZFU-Ng-NiY"/>
+                <outlet property="clipartV" destination="OBJ-vE-U5d" id="7VC-in-Aye"/>
+                <outlet property="consoleV" destination="3fG-md-Skx" id="o7V-MH-chT"/>
+                <outlet property="eventV" destination="cND-E8-FNH" id="L2T-JZ-w7f"/>
+                <outlet property="leftBottomV" destination="4Tl-hR-JBi" id="Hgo-4P-SU6"/>
+                <outlet property="leftTopV" destination="efd-DN-4Bq" id="c6b-do-zjc"/>
+                <outlet property="leftV" destination="6xJ-ed-1uG" id="1ox-b2-z6R"/>
+                <outlet property="leftVConstraint" destination="xZF-qx-AO8" id="zgq-OP-Oxg"/>
+                <outlet property="progressToolbarIndicator" destination="AxF-Rj-ZVo" id="2cw-Wn-aio"/>
+                <outlet property="propertyMatrix" destination="zhv-IX-K54" id="5PN-LA-8xg"/>
+                <outlet property="propertyTabV" destination="VEQ-BG-SDd" id="pKx-vM-P1p"/>
+                <outlet property="propertyV" destination="Ucu-5b-khM" id="mOL-zc-gXE"/>
+                <outlet property="resourceV" destination="yuK-jm-moa" id="vww-Rv-ZVx"/>
+                <outlet property="rightV" destination="Ci0-yr-ElZ" id="l8s-Lp-bUW"/>
+                <outlet property="rightVConstraint" destination="cR7-qD-bfW" id="fxY-5D-ZvE"/>
+                <outlet property="selectionToolbarImageView" destination="Hvr-pA-pnZ" id="MNC-DE-6dW"/>
+                <outlet property="selectionToolbarTF" destination="ugR-jR-WPz" id="TuT-U2-XgK"/>
+                <outlet property="serverView" destination="2Gw-Nv-6C2" id="47b-Fl-W03"/>
+                <outlet property="topToolbarV" destination="4es-7h-bcl" id="SBG-S6-dhA"/>
+                <outlet property="widgetTabV" destination="Rvr-f8-CYQ" id="rJr-Fz-ouO"/>
+                <outlet property="widgetV" destination="CwY-UY-xV5" id="Jrf-Fl-b8L"/>
+                <outlet property="window" destination="1" id="3"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" animationBehavior="default" id="1" customClass="LMWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="1420" height="887"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="2">
+                <rect key="frame" x="0.0" y="0.0" width="1420" height="887"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <splitView dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="6xJ-ed-1uG" userLabel="left">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="887"/>
+                        <subviews>
+                            <customView fixedFrame="YES" id="efd-DN-4Bq" userLabel="leftTopV">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="417"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                            <customView fixedFrame="YES" id="4Tl-hR-JBi" userLabel="leftBottomV">
+                                <rect key="frame" x="0.0" y="418" width="220" height="469"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="220" id="Eot-6R-esO"/>
+                        </constraints>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                    <splitView dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="Ci0-yr-ElZ" userLabel="RightV">
+                        <rect key="frame" x="1120" y="0.0" width="300" height="887"/>
+                        <subviews>
+                            <customView id="aaF-Ys-G65" userLabel="propertyV">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="477"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <matrix verticalHuggingPriority="750" drawsBackground="YES" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhv-IX-K54" userLabel="Matrix (Appearance, Property, Event)">
+                                        <rect key="frame" x="0.0" y="447" width="300" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="H1b-tu-OSk"/>
+                                        </constraints>
+                                        <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                                        <size key="cellSize" width="100" height="30"/>
+                                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="7TJ-Bj-3EO">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <cells>
+                                            <column>
+                                                <buttonCell type="square" title="Appearance" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_01" state="on" toolTip="Appearance" tag="1" inset="2" id="KYs-cJ-7K5">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                            <column>
+                                                <buttonCell type="square" title="Property" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_02" toolTip="Property" inset="2" id="Bck-qq-gPw">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                            <column>
+                                                <buttonCell type="square" title="Event" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_03" toolTip="Event" inset="2" id="b4e-Nq-kFe">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                        </cells>
+                                        <connections>
+                                            <action selector="clickPropertyMatrix:" target="-2" id="e8p-ad-XCy"/>
+                                        </connections>
+                                    </matrix>
+                                    <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="VEQ-BG-SDd" userLabel="Tab View (Appearance, Property, Event)">
+                                        <rect key="frame" x="0.0" y="-1" width="301" height="449"/>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="Appearance" identifier="1" id="Rtk-aD-9fK">
+                                                <view key="view" id="209-eo-kDy" userLabel="appearanceV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="301" height="449"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Property" identifier="2" id="cSz-rn-ESN">
+                                                <view key="view" id="Ucu-5b-khM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="447"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Event" identifier="" id="FWx-cE-GEy">
+                                                <view key="view" id="cND-E8-FNH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="447"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="VEQ-BG-SDd" firstAttribute="top" secondItem="aaF-Ys-G65" secondAttribute="top" constant="29" id="APY-gg-9bO"/>
+                                    <constraint firstAttribute="trailing" secondItem="VEQ-BG-SDd" secondAttribute="trailing" constant="-1" id="UjU-Yg-WIh"/>
+                                    <constraint firstAttribute="bottom" secondItem="VEQ-BG-SDd" secondAttribute="bottom" constant="-1" id="dvf-fI-O2r"/>
+                                    <constraint firstItem="VEQ-BG-SDd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aaF-Ys-G65" secondAttribute="top" constant="29" id="fxp-QQ-K0B"/>
+                                    <constraint firstItem="zhv-IX-K54" firstAttribute="top" secondItem="aaF-Ys-G65" secondAttribute="top" id="kEC-wm-IPb"/>
+                                    <constraint firstItem="VEQ-BG-SDd" firstAttribute="leading" secondItem="aaF-Ys-G65" secondAttribute="leading" id="sJG-gh-59B"/>
+                                    <constraint firstAttribute="trailing" secondItem="zhv-IX-K54" secondAttribute="trailing" id="xwZ-vI-yJk"/>
+                                </constraints>
+                            </customView>
+                            <customView id="iad-v4-Qjv" userLabel="widgetV">
+                                <rect key="frame" x="0.0" y="478" width="300" height="409"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <matrix verticalHuggingPriority="750" drawsBackground="YES" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUX-uW-fTu" userLabel="Matrix (Tools, Library, Clipart)">
+                                        <rect key="frame" x="0.0" y="379" width="300" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="yj6-bI-vWX"/>
+                                        </constraints>
+                                        <color key="backgroundColor" red="0.50196081399917603" green="0.0" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
+                                        <size key="cellSize" width="100" height="30"/>
+                                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="1zw-6w-UDe">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <cells>
+                                            <column>
+                                                <buttonCell type="square" title="Widget" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_01" state="on" toolTip="Widget" tag="1" inset="2" id="srz-8T-lQj">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                            <column>
+                                                <buttonCell type="square" title="Resource" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_02" toolTip="Library" inset="2" id="EXV-Pb-E2Z">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                            <column>
+                                                <buttonCell type="square" title="Clip Art" bezelStyle="shadowlessSquare" image="tab_off" imagePosition="overlaps" alignment="center" alternateImage="tab_on_03" inset="2" id="RQi-Qt-Nbb">
+                                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="smallSystemBold"/>
+                                                </buttonCell>
+                                            </column>
+                                        </cells>
+                                        <connections>
+                                            <action selector="clickWidgetMatrix:" target="-2" id="1dA-Xi-zQt"/>
+                                        </connections>
+                                    </matrix>
+                                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1oh-1N-1pP">
+                                        <rect key="frame" x="0.0" y="379" width="302" height="31"/>
+                                        <view key="contentView">
+                                            <rect key="frame" x="1" y="1" width="300" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="DTa-Fu-CZk"/>
+                                            <constraint firstAttribute="width" constant="302" id="x2e-mD-thQ"/>
+                                        </constraints>
+                                        <color key="borderColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </box>
+                                    <tabView type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="Rvr-f8-CYQ" userLabel="Tab View (Tools, Library, Clipart)">
+                                        <rect key="frame" x="0.0" y="-1" width="300" height="380"/>
+                                        <font key="font" metaFont="system"/>
+                                        <tabViewItems>
+                                            <tabViewItem label="Appearance" identifier="1" id="U4R-eF-goh" userLabel="Tab View Item - Widget">
+                                                <view key="view" id="CwY-UY-xV5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="380"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Property" identifier="2" id="FqU-eL-q4P" userLabel="Tab View Item - Resource">
+                                                <view key="view" id="yuK-jm-moa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="380"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="Event" identifier="" id="hur-61-tBS" userLabel="Tab View Item - Clipart">
+                                                <view key="view" id="OBJ-vE-U5d">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="380"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Obh-gd-WoD">
+                                                            <rect key="frame" x="88" y="107" width="125" height="166"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="166" id="rVE-3D-g5C"/>
+                                                                <constraint firstAttribute="width" constant="125" id="ws1-Vd-hqm"/>
+                                                            </constraints>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="shoveling" id="dK8-DN-o6m"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="centerY" secondItem="Obh-gd-WoD" secondAttribute="centerY" id="U06-lC-rv8"/>
+                                                        <constraint firstAttribute="centerX" secondItem="Obh-gd-WoD" secondAttribute="centerX" id="wrx-n3-E3t"/>
+                                                    </constraints>
+                                                </view>
+                                            </tabViewItem>
+                                        </tabViewItems>
+                                    </tabView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="1oh-1N-1pP" secondAttribute="trailing" constant="-2" id="7lN-7f-HZe"/>
+                                    <constraint firstItem="1oh-1N-1pP" firstAttribute="leading" secondItem="iad-v4-Qjv" secondAttribute="leading" id="8U2-UM-0eK"/>
+                                    <constraint firstItem="vUX-uW-fTu" firstAttribute="top" secondItem="iad-v4-Qjv" secondAttribute="top" id="De1-ct-iAa"/>
+                                    <constraint firstItem="Rvr-f8-CYQ" firstAttribute="leading" secondItem="iad-v4-Qjv" secondAttribute="leading" id="HgX-JL-p1v"/>
+                                    <constraint firstItem="1oh-1N-1pP" firstAttribute="top" secondItem="iad-v4-Qjv" secondAttribute="top" constant="-1" id="PgV-ru-4UU"/>
+                                    <constraint firstItem="Rvr-f8-CYQ" firstAttribute="top" secondItem="vUX-uW-fTu" secondAttribute="bottom" id="QF5-ov-iN6"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rvr-f8-CYQ" secondAttribute="bottom" constant="-1" id="c1C-zy-p0r"/>
+                                    <constraint firstItem="vUX-uW-fTu" firstAttribute="leading" secondItem="iad-v4-Qjv" secondAttribute="leading" id="oBP-vp-fKx"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rvr-f8-CYQ" secondAttribute="trailing" id="xal-RJ-odn"/>
+                                    <constraint firstAttribute="trailing" secondItem="vUX-uW-fTu" secondAttribute="trailing" id="xyk-Xp-Uyb"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="300" id="5Oq-Z5-2wr"/>
+                        </constraints>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="4es-7h-bcl" userLabel="topToolbar">
+                        <rect key="frame" x="219" y="857" width="902" height="31"/>
+                        <subviews>
+                            <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gw-Nv-6C2" userLabel="serverView">
+                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                    <nil key="identifier"/>
+                                </webPreferences>
+                            </webView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="fKA-iL-Bai"/>
+                        </constraints>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="YTs-oo-nxs" userLabel="bottomToolbar">
+                        <rect key="frame" x="220" y="0.0" width="900" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Nfh-yS-t1z"/>
+                        </constraints>
+                    </customView>
+                    <splitView dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="BqL-ro-r2J" userLabel="CenterSplitV">
+                        <rect key="frame" x="220" y="29" width="900" height="828"/>
+                        <subviews>
+                            <customView id="LCo-BM-DQN" userLabel="centerV">
+                                <rect key="frame" x="0.0" y="0.0" width="900" height="776"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="670" id="HAH-ax-kRL"/>
+                                </constraints>
+                            </customView>
+                            <customView fixedFrame="YES" id="3fG-md-Skx" userLabel="consoleV">
+                                <rect key="frame" x="0.0" y="777" width="900" height="51"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="670" id="7XJ-EZ-uR1"/>
+                        </constraints>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ci0-yr-ElZ" firstAttribute="top" secondItem="2" secondAttribute="top" id="1iW-qd-WjN"/>
+                    <constraint firstItem="BqL-ro-r2J" firstAttribute="top" secondItem="4es-7h-bcl" secondAttribute="bottom" id="47n-7Z-Wwl"/>
+                    <constraint firstItem="BqL-ro-r2J" firstAttribute="leading" secondItem="6xJ-ed-1uG" secondAttribute="trailing" id="4kj-2a-8wN"/>
+                    <constraint firstAttribute="bottom" secondItem="6xJ-ed-1uG" secondAttribute="bottom" id="7Ud-JD-cV2"/>
+                    <constraint firstItem="YTs-oo-nxs" firstAttribute="leading" secondItem="6xJ-ed-1uG" secondAttribute="trailing" id="7ao-5H-osd"/>
+                    <constraint firstItem="4es-7h-bcl" firstAttribute="leading" secondItem="6xJ-ed-1uG" secondAttribute="trailing" constant="-1" id="EpC-3u-0yj"/>
+                    <constraint firstItem="Ci0-yr-ElZ" firstAttribute="leading" secondItem="4es-7h-bcl" secondAttribute="trailing" constant="-1" id="Fih-Px-6MG"/>
+                    <constraint firstItem="4es-7h-bcl" firstAttribute="top" secondItem="2" secondAttribute="top" constant="-1" id="U8O-Sv-A1u"/>
+                    <constraint firstAttribute="trailing" secondItem="Ci0-yr-ElZ" secondAttribute="trailing" id="cR7-qD-bfW"/>
+                    <constraint firstItem="Ci0-yr-ElZ" firstAttribute="leading" secondItem="YTs-oo-nxs" secondAttribute="trailing" id="e04-Kj-u8P"/>
+                    <constraint firstItem="Ci0-yr-ElZ" firstAttribute="leading" secondItem="BqL-ro-r2J" secondAttribute="trailing" id="h2q-zP-yOm"/>
+                    <constraint firstItem="6xJ-ed-1uG" firstAttribute="top" secondItem="2" secondAttribute="top" id="mBI-fX-DJb"/>
+                    <constraint firstAttribute="bottom" secondItem="Ci0-yr-ElZ" secondAttribute="bottom" id="rmn-By-mP6"/>
+                    <constraint firstItem="YTs-oo-nxs" firstAttribute="top" secondItem="BqL-ro-r2J" secondAttribute="bottom" constant="-1" id="vJI-s5-JvV"/>
+                    <constraint firstAttribute="bottom" secondItem="YTs-oo-nxs" secondAttribute="bottom" id="vM1-Fg-HPG"/>
+                    <constraint firstItem="6xJ-ed-1uG" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="xZF-qx-AO8"/>
+                </constraints>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="018B36C5-2B8D-4E4A-AE78-F1067ED1DA23" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="Pu1-Pr-Bdl">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="O76-fK-Hoh"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="rlk-P1-2MX"/>
+                    <toolbarItem implicitItemIdentifier="870A9C92-0A50-44D2-8425-F6969F68E6DB" label="" paletteLabel="" tag="-1" id="UhE-nB-agp" userLabel="Toolbar Item-Build">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="171" height="32"/>
+                        <size key="maxSize" width="400" height="32"/>
+                        <box key="view" autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="3cV-9o-ZJ9">
+                            <rect key="frame" x="0.0" y="14" width="400" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="0.0" y="0.0" width="400" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </box>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="FD138103-3790-49A7-BF4D-4A0E75872BB2" label="" paletteLabel="" tag="-1" id="zJ8-vt-eZO" userLabel="Toolbar Item-Server">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="171" height="32"/>
+                        <size key="maxSize" width="411" height="32"/>
+                        <box key="view" autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="bK7-5s-Km2">
+                            <rect key="frame" x="0.0" y="14" width="399" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="0.0" y="0.0" width="399" height="32"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mLY-TX-1Mg">
+                                        <rect key="frame" x="166" y="4" width="103" height="24"/>
+                                        <buttonCell key="cell" type="square" title=" Upload to Server" bezelStyle="shadowlessSquare" image="upload" imagePosition="left" alignment="left" state="on" inset="2" id="TJf-e7-Sza">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="miniSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showServerWC:" target="-1" id="jSJ-yO-7vD"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zoC-zb-imB">
+                                        <rect key="frame" x="281" y="4" width="104" height="24"/>
+                                        <buttonCell key="cell" type="smallSquare" title="Sync with Heroku" bezelStyle="smallSquare" image="heroku" imagePosition="left" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Dov-St-pBT">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="miniSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showHerokuWC:" target="-1" id="x1O-hz-txM"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0v-Zg-4Ia">
+                                        <rect key="frame" x="49" y="2" width="101" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="L6C-Sq-8DM"/>
+                                            <constraint firstAttribute="width" constant="101" id="l4K-49-4pO"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" title=" Project Property" bezelStyle="rounded" image="setting" imagePosition="left" alignment="center" imageScaling="proportionallyDown" inset="2" id="S1H-V4-Ian">
+                                            <behavior key="behavior" lightByContents="YES"/>
+                                            <font key="font" metaFont="miniSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="openProjectPropertyWindow:" target="-2" id="zr1-8v-pro"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="zoC-zb-imB" secondAttribute="trailing" constant="14" id="EPV-v7-e73"/>
+                                <constraint firstAttribute="centerY" secondItem="mLY-TX-1Mg" secondAttribute="centerY" id="XD8-nU-qzx"/>
+                                <constraint firstItem="zoC-zb-imB" firstAttribute="leading" secondItem="mLY-TX-1Mg" secondAttribute="trailing" constant="12" id="bbI-I4-05V"/>
+                                <constraint firstItem="h0v-Zg-4Ia" firstAttribute="top" secondItem="bK7-5s-Km2" secondAttribute="top" constant="5" id="eL4-x0-kC2"/>
+                                <constraint firstItem="mLY-TX-1Mg" firstAttribute="leading" secondItem="h0v-Zg-4Ia" secondAttribute="trailing" constant="16" id="ffy-mO-dKR"/>
+                                <constraint firstAttribute="centerY" secondItem="zoC-zb-imB" secondAttribute="centerY" id="ymi-3a-2l5"/>
+                            </constraints>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </box>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="DC5475DE-B11E-4182-866C-81585E6D872C" label="" paletteLabel="" tag="-1" id="2EI-gL-BuQ" userLabel="Toolbar Item-Status">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="394" height="24"/>
+                        <size key="maxSize" width="400" height="30"/>
+                        <box key="view" autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="ytQ-RO-fCm">
+                            <rect key="frame" x="0.0" y="14" width="400" height="24"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="1" y="1" width="398" height="22"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hvr-pA-pnZ">
+                                        <rect key="frame" x="130" y="6" width="14" height="10"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="stack_view" id="7KG-gj-cJc"/>
+                                    </imageView>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugR-jR-WPz">
+                                        <rect key="frame" x="150" y="4" width="98" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="IUBox  |  Bergerg" id="g0T-UX-3mv">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <progressIndicator maxValue="100" displayedWhenStopped="NO" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="AxF-Rj-ZVo">
+                                        <rect key="frame" x="-1" y="-2" width="400" height="26"/>
+                                    </progressIndicator>
+                                </subviews>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="AxF-Rj-ZVo" secondAttribute="bottom" id="Cvm-7A-e5H"/>
+                                <constraint firstItem="AxF-Rj-ZVo" firstAttribute="top" secondItem="ytQ-RO-fCm" secondAttribute="top" id="TdF-NT-tBF"/>
+                                <constraint firstAttribute="trailing" secondItem="AxF-Rj-ZVo" secondAttribute="trailing" id="Uip-df-5rz"/>
+                                <constraint firstAttribute="centerX" secondItem="ugR-jR-WPz" secondAttribute="centerX" id="V1B-uV-NWo"/>
+                                <constraint firstItem="ugR-jR-WPz" firstAttribute="leading" secondItem="Hvr-pA-pnZ" secondAttribute="trailing" constant="8" id="YSk-3F-odS"/>
+                                <constraint firstAttribute="centerY" secondItem="ugR-jR-WPz" secondAttribute="centerY" id="acP-Ct-dMB"/>
+                                <constraint firstItem="AxF-Rj-ZVo" firstAttribute="leading" secondItem="ytQ-RO-fCm" secondAttribute="leading" id="cQD-8s-DGk"/>
+                                <constraint firstAttribute="centerY" secondItem="Hvr-pA-pnZ" secondAttribute="centerY" id="d3U-vk-ot6"/>
+                            </constraints>
+                            <color key="borderColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="fillColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        </box>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="UhE-nB-agp"/>
+                    <toolbarItem reference="rlk-P1-2MX"/>
+                    <toolbarItem reference="2EI-gL-BuQ"/>
+                    <toolbarItem reference="rlk-P1-2MX"/>
+                    <toolbarItem reference="zJ8-vt-eZO"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="4"/>
+            </connections>
+            <point key="canvasLocation" x="127" y="50.5"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="heroku" width="24" height="24"/>
+        <image name="setting" width="24" height="24"/>
+        <image name="shoveling" width="380" height="340"/>
+        <image name="stack_view" width="14" height="10"/>
+        <image name="tab_off" width="100" height="30"/>
+        <image name="tab_on_01" width="100" height="30"/>
+        <image name="tab_on_02" width="100" height="30"/>
+        <image name="tab_on_03" width="100" height="30"/>
+        <image name="upload" width="24" height="24"/>
+    </resources>
+</document>

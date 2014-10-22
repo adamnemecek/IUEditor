@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LMWordpressCreateFileWC">
+            <connections>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="580" height="560"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="580" height="560"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="N3c-w8-aDk">
+                        <rect key="frame" x="0.0" y="0.0" width="580" height="560"/>
+                        <view key="contentView">
+                            <rect key="frame" x="0.0" y="0.0" width="580" height="560"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-zs-yIa">
+                                    <rect key="frame" x="82" y="386" width="417" height="19"/>
+                                    <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="KxD-U4-v1z">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <segments>
+                                            <segment label="index.php"/>
+                                            <segment label="page.php" selected="YES" tag="1"/>
+                                            <segment label="404.php"/>
+                                            <segment label="home.php"/>
+                                            <segment label="category.php"/>
+                                            <segment label="custom"/>
+                                        </segments>
+                                    </segmentedCell>
+                                    <connections>
+                                        <binding destination="-2" name="selectedLabel" keyPath="self.selectedFileName" id="egh-9U-WRx"/>
+                                    </connections>
+                                </segmentedControl>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DOf-54-b1d">
+                                    <rect key="frame" x="218" y="29" width="145" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="18" id="XaI-nd-SQF"/>
+                                        <constraint firstAttribute="width" constant="145" id="jOZ-Jf-ggX"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="roundRect" title="Create" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e8Q-As-sOT">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystemBold"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="create:" target="-2" id="VgG-Tb-UJ8"/>
+                                        <binding destination="-2" name="enabled" keyPath="canCreateFile" id="b52-I0-dhj"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wd5-oN-nOp">
+                                    <rect key="frame" x="121" y="100" width="171" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="161" id="6IL-sP-As2"/>
+                                        <constraint firstAttribute="height" constant="18" id="xLo-Ek-SOG"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="push" title="More about hierachy" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="njT-dn-UJs">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="openHierachy:" target="-2" id="3M5-71-yIN"/>
+                                        <binding destination="-2" name="hidden" keyPath="self.showPHPInfo" id="sM7-Wb-AwC">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Db7-AC-dIs">
+                                    <rect key="frame" x="60" y="150" width="460" height="170"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="170" id="aCw-YW-DhA"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="90b-Eb-Vbu">
+                                        <font key="font" metaFont="cellTitle"/>
+                                        <string key="title">In WordPress, you can write either posts or Pages. When you're writing a regular blog entry, you write a post. Posts, in a default setup, appear in reverse chronological order on your blog's home page. Pages are for content such as "About," "Contact," etc. Pages live outside of the normal blog chronology, and are often used to present timeless information about yourself or your site -- information that is always applicable. You can use Pages to organize and manage any content.
+
+</string>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="-2" name="value" keyPath="self.fileDescription" id="cg7-tg-9Lf"/>
+                                        <binding destination="-2" name="hidden" keyPath="self.showPHPInfo" id="EBC-ZM-UAH">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sfq-hK-E2t">
+                                    <rect key="frame" x="290" y="100" width="171" height="28"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="161" id="zzr-lC-JyH"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="push" title="More about page.php" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Jgd-HG-5mk">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="openFileInfo:" target="-2" id="lXP-K1-bNW"/>
+                                        <binding destination="-2" name="title" keyPath="pageInfoButtonTitle" id="H3v-9B-pdg"/>
+                                        <binding destination="-2" name="hidden" keyPath="self.showPHPInfo" id="kCw-vb-Ban">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iNb-79-FO5">
+                                    <rect key="frame" x="170" y="330" width="240" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="236" id="dLg-j2-82P"/>
+                                        <constraint firstAttribute="height" constant="24" id="pUd-Rs-nmZ"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="page.php" id="rao-pE-AHU">
+                                        <font key="font" metaFont="system" size="16"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="-2" name="value" keyPath="self.selectedFileName" id="CqQ-WT-dIn"/>
+                                        <binding destination="-2" name="hidden" keyPath="self.showPHPInfo" id="sgD-go-Wgl">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cbe-dm-der">
+                                    <rect key="frame" x="178" y="430" width="225" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="221" id="uJl-AB-7Gt"/>
+                                        <constraint firstAttribute="height" constant="20" id="y07-hw-gqd"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Wordpress File Creation" id="Hz9-Ol-H0u">
+                                        <font key="font" metaFont="system" size="16"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Fk-oZ-aez">
+                                    <rect key="frame" x="265" y="460" width="50" height="50"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="wp-logo" id="ZJz-1E-uR4"/>
+                                </imageView>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qt0-ja-LKT">
+                                    <rect key="frame" x="0.0" y="530" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="32" id="siB-Kg-fTv"/>
+                                        <constraint firstAttribute="width" constant="32" id="xTp-LL-UqL"/>
+                                    </constraints>
+                                    <buttonCell key="cell" type="bevel" bezelStyle="circular" image="tab_close" imagePosition="only" alignment="center" controlSize="small" imageScaling="proportionallyDown" inset="2" id="LPh-8W-BCD">
+                                        <behavior key="behavior" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="cancel:" target="-2" id="cXB-GP-kx7"/>
+                                    </connections>
+                                </button>
+                                <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vtq-sf-arB">
+                                    <rect key="frame" x="0.0" y="67" width="580" height="5"/>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <font key="titleFont" metaFont="system"/>
+                                </box>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="43E-Vv-RXx">
+                                    <rect key="frame" x="145" y="64" width="290" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="290" id="Hjd-38-84Y"/>
+                                        <constraint firstAttribute="height" constant="17" id="bD1-3z-YZp"/>
+                                    </constraints>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="You cannot create file. You already have one." drawsBackground="YES" id="wwP-rM-GdO">
+                                        <font key="font" metaFont="cellTitle"/>
+                                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="0.92941182851791382" green="0.92941182851791382" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="-2" name="hidden" keyPath="self.canCreateFile" id="uWd-OY-Wnj"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="iNb-79-FO5" secondAttribute="centerX" id="1e9-ae-03q"/>
+                            <constraint firstItem="DOf-54-b1d" firstAttribute="top" secondItem="43E-Vv-RXx" secondAttribute="bottom" constant="16" id="27E-tc-0SA"/>
+                            <constraint firstAttribute="height" constant="560" id="3PC-KG-WeW"/>
+                            <constraint firstItem="Cbe-dm-der" firstAttribute="top" secondItem="N3c-w8-aDk" secondAttribute="top" constant="110" id="740-Qs-weC"/>
+                            <constraint firstAttribute="centerX" secondItem="Db7-AC-dIs" secondAttribute="centerX" id="8Ii-na-Rdp"/>
+                            <constraint firstItem="Sfq-hK-E2t" firstAttribute="leading" secondItem="wd5-oN-nOp" secondAttribute="trailing" constant="8" symbolic="YES" id="9kR-2x-T4u"/>
+                            <constraint firstAttribute="centerX" secondItem="43E-Vv-RXx" secondAttribute="centerX" id="B0f-qA-ZQX"/>
+                            <constraint firstItem="Qt0-ja-LKT" firstAttribute="leading" secondItem="N3c-w8-aDk" secondAttribute="leading" id="EEz-Bq-SvG"/>
+                            <constraint firstAttribute="trailing" secondItem="Sfq-hK-E2t" secondAttribute="trailing" constant="124" id="Ers-HT-as9"/>
+                            <constraint firstItem="Db7-AC-dIs" firstAttribute="top" secondItem="iNb-79-FO5" secondAttribute="bottom" constant="10" id="NRa-52-IhW"/>
+                            <constraint firstAttribute="centerX" secondItem="vtq-sf-arB" secondAttribute="centerX" id="PVN-OY-fHp"/>
+                            <constraint firstAttribute="centerX" secondItem="DOf-54-b1d" secondAttribute="centerX" id="TWZ-M0-x9R"/>
+                            <constraint firstItem="Sfq-hK-E2t" firstAttribute="baseline" secondItem="wd5-oN-nOp" secondAttribute="baseline" id="TvU-AJ-kRy"/>
+                            <constraint firstAttribute="width" constant="580" id="WSs-TI-dC3"/>
+                            <constraint firstAttribute="centerX" secondItem="iwd-zs-yIa" secondAttribute="centerX" id="Yo9-fX-7Ps"/>
+                            <constraint firstItem="DOf-54-b1d" firstAttribute="top" secondItem="vtq-sf-arB" secondAttribute="bottom" constant="21" id="Z3l-dc-557"/>
+                            <constraint firstAttribute="centerX" secondItem="Cbe-dm-der" secondAttribute="centerX" id="cEB-cv-6Hh"/>
+                            <constraint firstItem="Sfq-hK-E2t" firstAttribute="top" secondItem="Db7-AC-dIs" secondAttribute="bottom" constant="26" id="cmU-o2-fwF"/>
+                            <constraint firstAttribute="bottom" secondItem="vtq-sf-arB" secondAttribute="bottom" constant="69" id="dpE-hj-nPo"/>
+                            <constraint firstItem="Cbe-dm-der" firstAttribute="top" secondItem="0Fk-oZ-aez" secondAttribute="bottom" constant="10" id="kPN-l5-HTh"/>
+                            <constraint firstItem="vtq-sf-arB" firstAttribute="top" secondItem="Sfq-hK-E2t" secondAttribute="bottom" constant="36" id="nzK-Rh-s8t"/>
+                            <constraint firstItem="iwd-zs-yIa" firstAttribute="top" secondItem="Cbe-dm-der" secondAttribute="bottom" constant="25" id="pj4-qD-PYz"/>
+                            <constraint firstAttribute="centerX" secondItem="0Fk-oZ-aez" secondAttribute="centerX" id="tnG-b7-ub8"/>
+                            <constraint firstItem="vtq-sf-arB" firstAttribute="leading" secondItem="Qt0-ja-LKT" secondAttribute="leading" id="uzx-St-0sh"/>
+                            <constraint firstItem="Qt0-ja-LKT" firstAttribute="top" secondItem="N3c-w8-aDk" secondAttribute="top" constant="-2" id="wrr-7D-Dv1"/>
+                        </constraints>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" red="0.92941182851791382" green="0.92941182851791382" blue="0.92941182851791382" alpha="1" colorSpace="deviceRGB"/>
+                    </box>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="N3c-w8-aDk" secondAttribute="bottom" id="c5j-dC-4L0"/>
+                    <constraint firstItem="N3c-w8-aDk" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="h0L-GH-dYn"/>
+                    <constraint firstItem="N3c-w8-aDk" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="q69-Xc-QrZ"/>
+                    <constraint firstAttribute="trailing" secondItem="N3c-w8-aDk" secondAttribute="trailing" id="xmq-08-1hW"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+        </window>
+        <collectionViewItem id="CPC-Ct-rwd">
+            <connections>
+                <outlet property="view" destination="Pgx-X4-8lF" id="grF-tp-QJN"/>
+            </connections>
+        </collectionViewItem>
+        <view id="Pgx-X4-8lF">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+        </view>
+        <userDefaultsController representsSharedInstance="YES" id="2WV-mB-FfT"/>
+    </objects>
+    <resources>
+        <image name="tab_close" width="10" height="10"/>
+        <image name="wp-logo" width="50" height="50"/>
+    </resources>
+</document>
