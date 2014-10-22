@@ -703,7 +703,6 @@
 		3D2EFA7C19F7869E00BBBAE5 /* view_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF9B319F7869E00BBBAE5 /* view_list.png */; };
 		3D2EFA7D19F7869E00BBBAE5 /* view_list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF9B419F7869E00BBBAE5 /* view_list@2x.png */; };
 		3D2EFA8019F786B400BBBAE5 /* documentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFA7E19F786B400BBBAE5 /* documentIcon.icns */; };
-		3D2EFA8119F786B400BBBAE5 /* iueditor.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFA7F19F786B400BBBAE5 /* iueditor.icns */; };
 		3D2EFB2119F786C700BBBAE5 /* amazon_app_store_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFA8219F786C700BBBAE5 /* amazon_app_store_2.png */; };
 		3D2EFB2219F786C700BBBAE5 /* appstore1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFA8319F786C700BBBAE5 /* appstore1.png */; };
 		3D2EFB2319F786C700BBBAE5 /* appstore2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFA8419F786C700BBBAE5 /* appstore2.png */; };
@@ -1880,7 +1879,6 @@
 		3D2EF9B319F7869E00BBBAE5 /* view_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = view_list.png; path = IUEditor/Resource/AppResource/image/ui/button/view_list.png; sourceTree = "<group>"; };
 		3D2EF9B419F7869E00BBBAE5 /* view_list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "view_list@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/button/view_list@2x.png"; sourceTree = "<group>"; };
 		3D2EFA7E19F786B400BBBAE5 /* documentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = documentIcon.icns; path = IUEditor/Resource/AppResource/image/ui/icon/documentIcon.icns; sourceTree = "<group>"; };
-		3D2EFA7F19F786B400BBBAE5 /* iueditor.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = iueditor.icns; path = IUEditor/Resource/AppResource/image/ui/icon/iueditor.icns; sourceTree = "<group>"; };
 		3D2EFA8219F786C700BBBAE5 /* amazon_app_store_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = amazon_app_store_2.png; path = IUEditor/Resource/AppResource/image/clipart/amazon_app_store_2.png; sourceTree = "<group>"; };
 		3D2EFA8319F786C700BBBAE5 /* appstore1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore1.png; path = IUEditor/Resource/AppResource/image/clipart/appstore1.png; sourceTree = "<group>"; };
 		3D2EFA8419F786C700BBBAE5 /* appstore2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appstore2.png; path = IUEditor/Resource/AppResource/image/clipart/appstore2.png; sourceTree = "<group>"; };
@@ -3471,7 +3469,6 @@
 				3D2EFCD919F794C100BBBAE5 /* new_wp.png */,
 				3D2EFCDA19F794C100BBBAE5 /* new_wp@2x.png */,
 				3D2EFA7E19F786B400BBBAE5 /* documentIcon.icns */,
-				3D2EFA7F19F786B400BBBAE5 /* iueditor.icns */,
 			);
 			name = icon;
 			sourceTree = "<group>";
@@ -4527,7 +4524,6 @@
 				3D2EFA5519F7869E00BBBAE5 /* tab_primary@2x.png in Resources */,
 				3D2EF88619F7867700BBBAE5 /* stack_mail.png in Resources */,
 				3D2EF8D819F7867700BBBAE5 /* tool_twitter.png in Resources */,
-				3D2EFA8119F786B400BBBAE5 /* iueditor.icns in Resources */,
 				3D2EF86019F7867700BBBAE5 /* ic_comp.png in Resources */,
 				3D2EF7B419F785D400BBBAE5 /* Tutorial04_kr.png in Resources */,
 				3D2EF88719F7867700BBBAE5 /* stack_mail@2x.png in Resources */,
