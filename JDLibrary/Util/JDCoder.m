@@ -26,7 +26,6 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [super init];
     NSMutableArray *tempArr = [NSMutableArray array];
     NSUInteger count = [aDecoder decodeIntegerForKey:@"count"];
     for (NSUInteger i=0; i<count; i++) {
@@ -47,7 +46,6 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [super init];
     NSMutableDictionary *temp = [NSMutableDictionary dictionary];
     for (id key in [aDecoder keysOfCurrentDecodingObject]) {
         if ([key isEqualTo:@"JDClassName_"] == NO ) {
@@ -93,6 +91,8 @@
     [aCoder encodeDouble:[convertedColor alphaComponent] forKey:@"A"];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     NSColor *color = [NSColor colorWithDeviceRed:[aDecoder decodeDoubleForKey:@"R"]
                                            green:[aDecoder decodeDoubleForKey:@"G"]
@@ -100,6 +100,8 @@
                                            alpha:[aDecoder decodeDoubleForKey:@"A"]];
     return color;
 }
+#pragma clang diagnostic pop
+
 
 @end
 

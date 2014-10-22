@@ -68,7 +68,7 @@ static JDFileUtil *sharedJDFileUtill;
 
     // Display the dialog.  If the OK button was pressed,
     // process the files.
-    if ( [panel runModal] == NSOKButton ){
+    if ( [panel runModal] == NSModalResponseOK ){
         return [[panel URLs] objectAtIndex:0];
     }
     
@@ -89,7 +89,7 @@ static JDFileUtil *sharedJDFileUtill;
 
     // Display the dialog.  If the OK button was pressed,
     // process the files.
-    if ( [panel runModal] == NSOKButton ){
+    if ( [panel runModal] == NSModalResponseOK ){
         return [[panel URLs] objectAtIndex:0];
     }
         
@@ -112,7 +112,7 @@ static JDFileUtil *sharedJDFileUtill;
     // process the files.
     //openDlg.directoryURL = nil;
     //openDlg.nameFieldStringValue = @"";
-    if ( [openDlg runModal] == NSOKButton ){
+    if ( [openDlg runModal] == NSModalResponseOK ){
         return [[openDlg URLs] objectAtIndex:0];
     }
     return nil;
@@ -134,7 +134,7 @@ static JDFileUtil *sharedJDFileUtill;
         [savePanel setTitle:title];
     }
     
-    if([savePanel runModal] == NSOKButton){
+    if([savePanel runModal] == NSModalResponseOK){
         return [savePanel URL];
     }
     return nil;

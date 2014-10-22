@@ -182,7 +182,9 @@ static NSCountedSet *enableLogSection;
     }
 
     dispatch_async(dispatch_get_main_queue(), ^(void){
-        NSAlert *alert = [NSAlert alertWithMessageText:title defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:alertMsg,nil];
+        NSAlert *alert = [NSAlert init];
+        [alert setMessageText:title];
+        [alert addButtonWithTitle:@"OK"];
         [alert runModal];
     });
 }

@@ -28,11 +28,11 @@
 	if (date==nil) {
 		date=[NSDate date];
 	}
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the date
 	NSDate* now = (date==nil) ? [NSDate date]: date;
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowWeek = [cal components:NSWeekdayCalendarUnit fromDate:now];
+	NSDateComponents* nowWeek = [cal components:NSCalendarUnitWeekday fromDate:now];
 	return (JDDateDay)[nowWeek weekday];
 }
 
@@ -90,51 +90,51 @@
 	[comps setMonth:month];
 	[comps setDay:day];
 	NSCalendar *gregorian = [[NSCalendar alloc]
-							 initWithCalendarIdentifier:NSGregorianCalendar];
+							 initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	NSDate *date = [gregorian dateFromComponents:comps]  ;
 	return date ;
 }
 
 +(NSInteger)hour:(NSDate*) date{
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowHour = [cal components:NSHourCalendarUnit fromDate:date];
+	NSDateComponents* nowHour = [cal components:NSCalendarUnitHour fromDate:date];
 	return nowHour.hour;
 }
 
 +(NSInteger)hour{
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the date
 	NSDate* now = [NSDate date];
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowHour = [cal components:NSHourCalendarUnit fromDate:now];
+	NSDateComponents* nowHour = [cal components:NSCalendarUnitHour fromDate:now];
 	return nowHour.hour;
 }
 
 +(NSInteger)month : (NSDate*) date{
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the date
 	NSDate* now = (date==nil) ? [NSDate date]: date;
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowMonth = [cal components:NSMonthCalendarUnit fromDate:now];
+	NSDateComponents* nowMonth = [cal components:NSCalendarUnitMonth fromDate:now];
 	return nowMonth.month;
 }
 
 +(NSInteger)day: (NSDate*) date{
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the date
 	NSDate* now = (date==nil) ? [NSDate date]: date;
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowDay = [cal components:NSDayCalendarUnit fromDate:now];
+	NSDateComponents* nowDay = [cal components:NSCalendarUnitDay fromDate:now];
 	return nowDay.day;
 }
 
 +(NSInteger)year: (NSDate*) date{
-	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+	NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 	// Get the date
 	NSDate* now = (date==nil) ? [NSDate date]: date;
 	// Get the hours, minutes, seconds
-	NSDateComponents* nowYear = [cal components:NSYearCalendarUnit fromDate:now];
+	NSDateComponents* nowYear = [cal components:NSCalendarUnitYear fromDate:now];
 	return nowYear.year;
 }
 
@@ -150,8 +150,8 @@
 
 +(NSInteger) dayDiffFrom:(NSDate*)from  to:(NSDate*) to{
 	NSCalendar *gregorian = [[NSCalendar alloc]
-							 initWithCalendarIdentifier:NSGregorianCalendar];
-	NSDateComponents *comps2 = [gregorian components:NSDayCalendarUnit fromDate:from  toDate:to  options:0];
+							 initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+	NSDateComponents *comps2 = [gregorian components:NSCalendarUnitDay fromDate:from  toDate:to  options:0];
 	return [comps2 day]; // 날짜 차이
 	
 }

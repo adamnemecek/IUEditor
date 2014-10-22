@@ -17,7 +17,6 @@
 		3D2EF38919F7528500BBBAE5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		3D2EF38B19F7529D00BBBAE5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38A19F7529D00BBBAE5 /* CoreMedia.framework */; };
 		3D2EF38D19F752C100BBBAE5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38C19F752C100BBBAE5 /* AVFoundation.framework */; };
-		3D2EF3B119F77C9E00BBBAE5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF3A919F77C9E00BBBAE5 /* Info.plist */; };
 		3D2EF3B319F77C9E00BBBAE5 /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF3AD19F77C9E00BBBAE5 /* LMAppDelegate.m */; };
 		3D2EF3B419F77C9E00BBBAE5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF3AE19F77C9E00BBBAE5 /* main.m */; };
 		3D2EF3B519F77C9E00BBBAE5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF3AF19F77C9E00BBBAE5 /* Images.xcassets */; };
@@ -4665,7 +4664,6 @@
 				3D2EF9F319F7869E00BBBAE5 /* clear_color.png in Resources */,
 				3D2EF8B219F7867700BBBAE5 /* stack_wpsitetitle.png in Resources */,
 				3D2EF8DD19F7867700BBBAE5 /* tool_webmovie@2x.png in Resources */,
-				3D2EF3B119F77C9E00BBBAE5 /* Info.plist in Resources */,
 				3D2EF9F119F7869E00BBBAE5 /* clear_color_border.png in Resources */,
 				3D2EFA5119F7869E00BBBAE5 /* tab_primary_off@2x.png in Resources */,
 				3D2EFA2119F7869E00BBBAE5 /* radius_icon_02@2x.png in Resources */,
