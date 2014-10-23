@@ -232,12 +232,12 @@
     }
     
     [self enableUpdateJS:self];
-    [self updateJS];
     
     NSString *htmlSource =  [(DOMHTMLElement *)[[[[self webView] mainFrame] DOMDocument] documentElement] outerHTML];
     JDTraceLog(@"%@", htmlSource);
 
-    
+    [self updateWebViewWidth];
+    [self updateJS];
 }
 
 - (void)updateSheetHeight{
@@ -263,6 +263,15 @@
     [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
         
     [self updateSheetHeight];
+}
+
+- (void)updateWebViewWidth{
+    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", _selectedFrameWidth];
+    [self IUClassIdentifier:@"#sheet_outer" CSSUpdated:outerCSS];
+}
+
+- (void)setSelectedFrameWidth:(NSInteger)selectedFrameWidth{
+    _selectedFrameWidth = selectedFrameWidth;
 }
 
 - (void)reloadSheet{

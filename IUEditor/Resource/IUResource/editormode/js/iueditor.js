@@ -96,11 +96,20 @@ $.fn.iuPercentFrame = function(){
 		left = (parseFloat($(iu).iuPosition().left) / pWidth)*100;
 		width = (parseFloat($(iu).iuPosition().width) / pWidth)*100;
 	}
-    
+	
+	
 	return { top: top, left: left, width: width, height: height};
     
 }
 
+function clipSection(){
+	$('.IUSection').each(function(){
+		var height = $(this).height();
+		var windowWidth = $(window).width();
+		$(this).css('clip', 'rect(0px, 0px, '+height+'px, '+windowWidth+'+px)');
+	})
+	
+}
 
 function getDictionaryKeys(dictionary){
 	var keyArray = Object.keys(dictionary);
@@ -173,6 +182,7 @@ function getIUUpdatedFrameThread(){
 	//새로운 인풋이 들어왔을때 변해야 하면 이곳에서 호출
 	//editor mode 에서
 	console.log('iu update thread');
+	clipSection();
 	$('.IUBox').updatePixel();
     
 	if (Object.keys(document.sharedFrameDict).length > 0

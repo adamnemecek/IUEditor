@@ -219,19 +219,19 @@
         //view가 중간에 들어갈때
         //size 큰것보다 하나 위로 들어감
         NSView *preView = boxManageView.subviews[index-1];
-        [boxManageView addSubviewLeftInFrameWithFrame:newBox positioned:NSWindowAbove relativeTo:preView];
+        [boxManageView addSubviewMiddleInFrameWithFrame:newBox positioned:NSWindowAbove relativeTo:preView];
     }
     else if(boxManageView.subviews.count == 0){
         //make first
         isMaxChanged = YES;
-        [boxManageView addSubviewLeftInFrameWithFrame:newBox];
+        [boxManageView addSubviewMiddleInFrameWithFrame:newBox];
         [newBox select];
     }
     else{
         //maximumsize임
         isMaxChanged = YES;
         NSView *frontView = boxManageView.subviews[0];
-        [boxManageView addSubviewLeftInFrameWithFrame:newBox positioned:NSWindowBelow relativeTo:frontView];
+        [boxManageView addSubviewMiddleInFrameWithFrame:newBox positioned:NSWindowBelow relativeTo:frontView];
     }
     
     [self setMaxWidthWithChange:isMaxChanged];

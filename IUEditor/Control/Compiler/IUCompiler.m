@@ -574,7 +574,10 @@
 
     
     //change html
-    JDCode *htmlCode = [self htmlCode:document target:IUTargetEditor];
+    JDCode *htmlCode = [[JDCode alloc] init];
+    [htmlCode addString:@"<div id=\"sheet_outer\" horizontalcenter=\"1\">"];
+    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor]];
+    [htmlCode addString:@"<div>"];
     [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
     
 

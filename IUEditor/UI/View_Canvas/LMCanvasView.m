@@ -70,6 +70,26 @@
 -(void)boundsDidChange:(NSNotification *)notification{
     NSRect contentBounds = [self.mainScrollView contentView].bounds;
     [self.sizeView moveSizeView:contentBounds.origin withWidth:contentBounds.size.width];
+    
+    //윈도우 사이즈가 늘어났을 때
+    if(self.mainScrollView.frame.size.width > self.mainView.frame.size.width){
+        [self.mainView setWidth:self.mainScrollView.frame.size.width];
+    }
+    else{
+        //윈도우 사이즈가 줄어들었으나, 아직도 맥스 사이즈보다는 클때.
+        if(self.mainScrollView.frame.size.width >= [self.delegate maxFrameWidth]){
+            [self.mainView setWidth:self.mainScrollView.frame.size.width];
+        }
+        //윈도우 사이즈가 줄어들고, 맥스사이즈보다도 작을때
+        else{
+            [self.mainView setWidth:[self.delegate maxFrameWidth]];
+
+        }
+    }
+    
+    [self.delegate reloadSheet];
+    [[self webView] updateFrameDict];
+    
 }
 #pragma mark -
 #pragma mark sizeView
@@ -87,11 +107,14 @@
         [self.delegate saveCurrentTextEditorForWidth:oldSelectedSize];
     }
 
+    /** TODO: test webview smchoi
     if([[self.mainView subviews] containsObject:self.webView]){
         [self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
     }
+     */
 
     [self.delegate setSelectedFrameWidth:selectedSize];
+    [self.delegate setMaxFrameWidth:maxSize];
     [self.delegate reloadSheet];
     
     
@@ -104,7 +127,9 @@
     //extend to scroll size
     [self.mainView setWidth:maxSize];
     if([[self.mainView subviews] containsObject:self.webView]){
-        [self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
+        //[self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
+        //[self.mainView setFrameSize:NSMakeSize(defaultFrameWidth, self.mainScrollView.frame.size.height)];
+
     }
     
     [self.delegate setMaxFrameWidth:maxSize];
