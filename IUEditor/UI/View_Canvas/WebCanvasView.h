@@ -8,13 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "IUCanvasController.h"
 
-@class LMCanvasVC;
 
 @interface WebCanvasView : WebView {
 }
 
-@property LMCanvasVC* VC;
+@property (nonatomic) id<IUCanvasController>  controller;
 
 //call javascript
 - (void)runJSAfterRefreshCSS;
@@ -29,7 +29,7 @@
 #pragma mark -
 
 - (NSSize)parentBlockElementSize:(NSString *)identifier;
-- (NSString *)IUAtPoint:(NSPoint)point;
+- (IUBox *)IUAtPoint:(NSPoint)point;
 - (DOMElement *)DOMElementAtPoint:(NSPoint)point;
 - (BOOL)isTextEditorAtPoint:(NSPoint)point;
 

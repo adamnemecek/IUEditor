@@ -121,7 +121,7 @@
     startPoint = convertedPoint;
     middlePoint = convertedPoint;
     
-    [((LMCanvasVC *)(self.delegate)) startFrameMoveWithUndoManager:self];
+    [self.controller startFrameMoveWithUndoManager:self];
 
 }
 
@@ -148,8 +148,8 @@
                 totalFrame.size.height = CGFLOAT_INVALID;
             }
             
-            [((LMCanvasVC *)(self.delegate)) extendIUToTotalDiffSize:totalFrame.size];
-            [((LMCanvasVC *)(self.delegate)) moveIUToDiffPoint:newframe.origin totalDiffPoint:totalFrame.origin];
+            [self.controller extendIUToTotalDiffSize:totalFrame.size];
+            [self.controller moveIUToDiffPoint:newframe.origin totalDiffPoint:totalFrame.origin];
         }
         
         //reset cursor
@@ -166,7 +166,7 @@
     }
     if(isDragged){
         isDragged = NO;
-        [((LMCanvasVC *)(self.delegate)) endFrameMoveWithUndoManager:self];
+        [self.controller endFrameMoveWithUndoManager:self];
     }
 }
 
@@ -186,10 +186,10 @@
 
 #pragma mark -
 #pragma mark selectIU
-- (NSString *)IUAtPoint:(NSPoint)point{
+- (IUBox *)IUAtPoint:(NSPoint)point{
     for(BorderLayer *bLayer in borderManagerLayer.sublayers){
         if(NSPointInRect(point, bLayer.frame)){
-            return bLayer.iuID;
+            return bLayer.iu;
         }
     }
     return nil;
@@ -200,7 +200,7 @@
     
     //pointLayer
     for(PointLayer *pLayer in pointManagerLayer.sublayers){
-        NSValue *value = [frameDict objectForKey:pLayer.iuID];
+        NSValue *value = [frameDict objectForKey:pLayer.iu.htmlID];
         if(value){
             NSRect currentRect = [value rectValue];
             [pLayer updateFrame:currentRect];
@@ -210,7 +210,7 @@
     
     //textLayer update
     for(PointTextLayer *tLayer in textManageLayer.sublayers){
-        NSValue *value = [frameDict objectForKey:tLayer.iuID];
+        NSValue *value = [frameDict objectForKey:tLayer.iu.htmlID];
         if(value){
             NSRect currentRect = [value rectValue];
             [tLayer updateFrame:currentRect];
@@ -219,7 +219,7 @@
     
     //selection border layer
     for(SelectionBorderLayer *sLayer in selectLineManagerLayer.sublayers){
-        NSValue *value = [frameDict objectForKey:sLayer.iuID];
+        NSValue *value = [frameDict objectForKey:sLayer.iu.htmlID];
         if(value){
             NSRect currentRect =[value rectValue];
             [sLayer setFrame:currentRect];
@@ -230,7 +230,7 @@
     //updated bound layer if already have
     NSMutableDictionary *borderDict = [frameDict mutableCopy];
     for(BorderLayer *bLayer in borderManagerLayer.sublayers){
-        NSString *iuID = bLayer.iuID;
+        NSString *iuID = bLayer.iu.htmlID;
         NSValue *value = [borderDict objectForKey:iuID];
         if(value){
             NSRect currentRect =[value rectValue];
@@ -242,7 +242,8 @@
     NSArray *remainingBorderKeys = [borderDict allKeys];
     for(NSString *key in remainingBorderKeys){
         NSRect currentRect =[[borderDict objectForKey:key] rectValue];
-        BorderLayer *newBLayer = [[BorderLayer alloc] initWithIUID:key withFrame:currentRect];
+        IUBox *iu = [self.controller tryIUBoxByIdentifier:key];
+        BorderLayer *newBLayer = [[BorderLayer alloc] initWithIU:iu withFrame:currentRect];
         [borderManagerLayer addSublayer:newBLayer];
     }
     
@@ -277,13 +278,13 @@
     }
 }
 
-- (void)removeLayerWithIUIdentifier:(NSString *)identifier{
+- (void)removeLayerForIU:(IUBox *)iu{
     
     CALayer *removeLayer;
     BOOL found = false;;
     //pointLayer
     for(PointLayer *pLayer in pointManagerLayer.sublayers){
-        if([pLayer.iuID isEqualToString:identifier]){
+        if([pLayer.iu isEqualTo:iu]){
             removeLayer = pLayer;
             found = true;
             break;
@@ -296,7 +297,7 @@
     
     //selectionBorerLayer
     for(SelectionBorderLayer *sLayer in selectLineManagerLayer.sublayers){
-        if([sLayer.iuID isEqualToString:identifier]){
+        if([sLayer.iu isEqualTo:iu]){
             removeLayer = sLayer;
             found = true;
             break;
@@ -309,7 +310,7 @@
     
     //textLayer
     for(PointTextLayer *tLayer in textManageLayer.sublayers){
-        if([tLayer.iuID isEqualToString:identifier]){
+        if([tLayer.iu isEqualTo:iu]){
             removeLayer = tLayer;
             found = true;
             break;
@@ -323,7 +324,7 @@
     
     //-----------------bound layer---------------------------
     for(BorderLayer *bLayer in borderManagerLayer.sublayers){
-        if([bLayer.iuID isEqualToString:identifier]){
+        if([bLayer.iu isEqualTo:iu]){
             removeLayer = bLayer;
             found = true;
             break;
@@ -337,11 +338,11 @@
 
 #pragma mark red Point layer
 
-- (void)addSelectionLayerWithIdentifier:(NSString *)iuID withFrame:(NSRect)frame{
-    PointLayer *pointLayer = [[PointLayer alloc] initWithIUID:iuID withFrame:frame];
+- (void)addSelectionLayerWithIU:(IUBox *)iu withFrame:(NSRect)frame{
+    PointLayer *pointLayer = [[PointLayer alloc] initWithIU:iu withFrame:frame];
     [pointManagerLayer addSubLayerFullFrame:pointLayer];
     
-    SelectionBorderLayer *sLayer = [[SelectionBorderLayer alloc] initWithIUID:iuID withFrame:frame];
+    SelectionBorderLayer *sLayer = [[SelectionBorderLayer alloc] initWithIU:iu withFrame:frame];
     [selectLineManagerLayer addSublayer:sLayer];
     
     //reset cursor
@@ -377,17 +378,18 @@
     //add new selected layer
     for(NSString *iuID in keys){
         NSRect frame = [[selectedIUDict objectForKey:iuID] rectValue];
-        [self addSelectionLayerWithIdentifier:iuID withFrame:frame];
+        IUBox *iu = [self.controller tryIUBoxByIdentifier:iuID];
+        [self addSelectionLayerWithIU:iu withFrame:frame];
     }
     
 }
 
 #pragma mark text layer
 
-- (void)addTextPointLayer:(NSString *)iuID withFrame:(NSRect)frame{
-    PointTextLayer *textOriginLayer = [[PointTextLayer alloc] initWithIUID:iuID withFrame:frame type:PointTextTypeOrigin];
+- (void)addTextPointLayerWithIU:(IUBox *)iu withFrame:(NSRect)frame{
+    PointTextLayer *textOriginLayer = [[PointTextLayer alloc] initWithIU:iu withFrame:frame type:PointTextTypeOrigin];
     textOriginLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
-    PointTextLayer *textSizeLayer = [[PointTextLayer alloc] initWithIUID:iuID withFrame:frame type:PointTextTypeSize];
+    PointTextLayer *textSizeLayer = [[PointTextLayer alloc] initWithIU:iu withFrame:frame type:PointTextTypeSize];
     textSizeLayer.contentsScale = [[NSScreen mainScreen] backingScaleFactor];
     
     [textManageLayer addSublayer:textOriginLayer];

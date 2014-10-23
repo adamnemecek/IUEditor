@@ -51,92 +51,6 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark Event
-
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent{
-    BOOL result = [self webCanvasPerformKeyEquivalent:theEvent];
-    if (result == NO) {
-        result = [super performKeyEquivalent:theEvent];
-    }
-    return result;
-}
-/*
- * NOTE :
- * deletekey는 performKeyequvalent로 들어오지않음
- * window sendevent를 받아서 lmcanvasview에서 처리
- */
-- (BOOL)webCanvasPerformKeyEquivalent:(NSEvent *)theEvent{
-    NSResponder *currentResponder = [[self window] firstResponder];
-    LMCanvasView *view = (LMCanvasView*) self.VC.view;
-    NSView *mainView = view.mainView;
-    
-    if([currentResponder isKindOfClass:[NSView class]]
-       && [mainView hasSubview:(NSView *)currentResponder]){
-    
-        if(theEvent.type == NSKeyDown){
-            unsigned short keyCode = theEvent.keyCode;//keyCode is hardware-independent
-            
-            if([theEvent modifierFlags] & NSCommandKeyMask){
-                if([self.VC isEnableTextEditor] == NO){
-                    // 'C'
-                    if (keyCode == IUKeyCodeC) {
-                        [self.VC copy:self];
-                        return YES;
-                    }
-                    // 'V'
-                    if (keyCode == IUKeyCodeV) {
-                        [self.VC paste:self];
-                        return YES;
-                    }
-                }
-            }
-            else{
-
-                if([self.VC isEnableTextEditor]){
-                    //ESC key
-                    if(keyCode == IUKeyCodeESC){
-                        [self setEditable:NO];
-                        return YES;
-                    }
-                }
-                else{
-                    //arrow key
-                    if(keyCode <= IUKeyCodeArrowUp && keyCode >= IUKeyCodeArrowLeft){
-                        [self moveIUByKeyEvent:keyCode];
-                        return YES;
-                    }
-                }
-            }
-        }
-    }
-    return NO;
-}
-
-- (void)moveIUByKeyEvent:(unsigned short)keyCode{
-    NSPoint diffPoint;
-    switch (keyCode) {
-        case IUKeyCodeArrowUp: //up
-            diffPoint = NSMakePoint(0, -1.0);
-            break;
-        case IUKeyCodeArrowLeft: // left
-            diffPoint = NSMakePoint(-1.0, 0);
-            break;
-        case IUKeyCodeArrowRight: // right
-            diffPoint = NSMakePoint(1.0, 0);
-            break;
-        case IUKeyCodeArrowDown: // down;
-            diffPoint = NSMakePoint(0, 1.0);
-            break;
-        default:
-            diffPoint = NSZeroPoint;
-            break;
-    }
-    
-    [self.VC startFrameMoveWithUndoManager:self];
-    [self.VC moveIUToDiffPoint:diffPoint totalDiffPoint:diffPoint];
-    [self.VC endFrameMoveWithUndoManager:self];
-}
 
 #pragma mark - load
 
@@ -172,7 +86,7 @@
     }
     //FIXME: 동시에 두개 켜지면서 하나가 로딩이 덜된것이 신호가 같이 가는 것 같음. 
     isStartVC = YES;
-    [self.VC didFinishLoadFrame];
+    [self.controller webViewdidFinishLoadFrame];
     LMWC *wc = (LMWC *)[[self window] windowController];
     [wc stopProgressBar:self];
     [progressTimer invalidate];
@@ -204,9 +118,10 @@
         IUBox *newIU = lmWC.pastedNewIU;
         if(newIU){
             NSString *parentIUID = [self parentNewIUAtPoint:convertedPoint];
-            if(parentIUID){
+            IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIUID];
+            if(parentIU){
                 NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
-                if ([self.VC makeNewIUByDragAndDrop:newIU atPoint:rountPoint atIU:parentIUID]){
+                if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
                     JDTraceLog( @"[IU:%@], dragPoint(%.1f, %.1f)", newIU.htmlID, dragPoint.x, dragPoint.y);
                     [self.window makeFirstResponder:self];
                     return YES;
@@ -221,9 +136,9 @@
     //type2) resourceImage
     NSString *imageName = [pBoard stringForType:(id)kUTTypeIUImageResource];
     if(imageName){
-        NSString *currentIUID = [self IUAtPoint:convertedPoint];
-        if(currentIUID){
-            [self.VC insertImage:imageName atIU:currentIUID];
+        IUBox *iu = [self IUAtPoint:convertedPoint];
+        if(iu){
+            [iu setImageName:imageName];
             [self.window makeFirstResponder:self];
             return YES;
         }
@@ -274,7 +189,7 @@
 
 - (void)resizePageContentHeightFinished:(NSNumber *)scriptObj minHeight:(NSNumber *)minHeight{
 //    JDInfoLog(@"document size change to : %f" , [scriptObj floatValue]);
-    [self.VC changeIUPageHeight:[scriptObj floatValue] minHeight:[minHeight floatValue]];
+    [self.controller changeIUPageHeight:[scriptObj floatValue] minHeight:[minHeight floatValue]];
 }
 
 /* Here is our Objective-C implementation for the JavaScript console.log() method.
@@ -358,7 +273,7 @@
     }
     
     
-    [self.VC updateGridFrameDictionary:gridFrameDict];
+    [self.controller updateGridFrameDictionary:gridFrameDict];
     JDTraceLog( @"reportSharedFrameDict");
 }
 
@@ -391,7 +306,7 @@
 }
 
 - (void)resizePageContent{
-    CGFloat height = [((LMCanvasView *)[self.VC view]).mainScrollView frame].size.height;
+    CGFloat height = [self.controller heightOfCanvas];
     NSString *js = [NSString stringWithFormat:@"resizePageContentHeightEditor(%f)", height];
     [self stringByEvaluatingJavaScriptFromString:js];
 }
@@ -437,12 +352,12 @@
     return NO;
 }
 
-- (NSString *)IUAtPoint:(NSPoint)point{
+- (IUBox *)IUAtPoint:(NSPoint)point{
     
     DOMElement *domNode =[self DOMElementAtPoint:point];
     if(domNode){
         DOMHTMLElement *htmlElement =[self IUNodeAtCurrentNode:domNode];
-        return htmlElement.idName;
+        return [self.controller tryIUBoxByIdentifier:htmlElement.idName];
     }
     
     return nil;
@@ -550,7 +465,7 @@
        affinity:(NSSelectionAffinity)selectionAffinity
  stillSelecting:(BOOL)flag
 {
-    if([self.VC isEnableTextEditor]){
+    if([self.controller isEnableTextEditor]){
         return YES;
     }
     else{

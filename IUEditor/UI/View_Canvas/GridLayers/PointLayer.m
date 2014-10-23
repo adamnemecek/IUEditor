@@ -48,10 +48,10 @@
 
 @implementation PointLayer
 
-- (id)initWithIUID:(NSString *)aIUID withFrame:(NSRect)frame{
+- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame{
     self = [super init];
     if(self){
-        IUID = aIUID;
+        iu = aIU;
         iuFrame = frame;
         for(int i=0; i<IUInnerPointLayerCount; i++){
             NSRect innerFrame = [self makeInnerFrameWithType:i];
@@ -109,8 +109,8 @@
     
 }
 
-- (NSString *)iuID{
-    return IUID;
+- (IUBox *)iu{
+    return iu;
 }
 
 - (NSRect)makeInnerFrameWithType:(IUPointLayerPosition)type{

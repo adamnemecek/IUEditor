@@ -139,7 +139,7 @@ DQ
                 <constraint firstItem="7bm-eT-a4W" firstAttribute="top" secondItem="rQA-9M-gyW" secondAttribute="top" constant="-1" id="hIl-rW-sSK"/>
             </constraints>
             <connections>
-                <outlet property="delegate" destination="-2" id="Xjo-Il-xWw"/>
+                <outlet property="controller" destination="-2" id="cCx-VV-jaC"/>
                 <outlet property="mainScrollView" destination="Ej4-Uz-enV" id="XNR-uZ-O5w"/>
                 <outlet property="sizeView" destination="7bm-eT-a4W" id="k42-Yz-QxU"/>
             </connections>

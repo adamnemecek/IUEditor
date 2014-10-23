@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "IUBox.h"
 
 #define IUInnerPointLayerCount 8
 #define IUPointSize 6
@@ -33,14 +34,15 @@ typedef enum{
 @end
 
 @interface PointLayer : CALayer{
-    NSString *IUID;
+    IUBox *iu;
     NSRect iuFrame;
     
 }
 
-- (id)initWithIUID:(NSString *)aIUID withFrame:(NSRect)frame;
+- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame;
+- (IUBox *)iu;
+
 - (NSRect)diffPointAndSizeWithType:(IUPointLayerPosition)type withDiffPoint:(NSPoint)diffPoint;
 - (void)updateFrame:(NSRect)frame;
-- (NSString *)iuID;
 - (NSMutableArray *)cursorArray;
 @end

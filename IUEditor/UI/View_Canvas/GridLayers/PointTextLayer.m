@@ -12,10 +12,10 @@
 
 @implementation PointTextLayer
 
-- (id)initWithIUID:(NSString *)aIUID withFrame:(NSRect)frame type:(PointTextType)aType{
+- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame type:(PointTextType)aType{
     self = [super init];
     if (self) {
-        IUID = aIUID;
+        iu = aIU;
         iuFrame = frame;
         type = aType;
         
@@ -70,8 +70,8 @@
     [self setFrame:textRect];
 
 }
-- (NSString *)iuID{
-    return IUID;
+- (IUBox *)iu{
+    return iu;
 }
 
 

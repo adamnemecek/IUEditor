@@ -23,11 +23,13 @@
     self.webView = [[WebCanvasView alloc] init];
     self.gridView = [[GridView alloc] init];
     
-    self.webView.VC = self.delegate;
-    self.gridView.delegate= self.delegate;
-    self.sizeView.delegate = self.delegate;
+    self.webView.controller = self.controller;
+    self.gridView.controller = self.controller;
+    self.sizeView.controller = self.controller;
     
     [self.mainScrollView setDocumentView:self.mainView];
+    
+    
     [self.mainView addSubviewFullFrame:self.webView];
     [self.mainView addSubviewFullFrame:self.gridView];
     
@@ -40,33 +42,19 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:[self.mainScrollView contentView]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[self sizeView]];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[self sizeView]];
-
 
 }
-
--(void)prepareDealloc{
-    self.webView.VC = nil;
-    self.gridView.delegate= nil;
-    self.sizeView.delegate = nil;
-    self.delegate = nil;
-}
-
 -(void) dealloc{
     [self.mainView removeObserver:self forKeyPath:@"frame"];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewBoundsDidChangeNotification object:[self.mainScrollView contentView]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:[self sizeView]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQMaxChanged object:[self sizeView]];
-
     
 }
 - (BOOL)isFlipped{
     return YES;
 }
 
+#pragma mark - frame
 -(void)boundsDidChange:(NSNotification *)notification{
     NSRect contentBounds = [self.mainScrollView contentView].bounds;
     [self.sizeView moveSizeView:contentBounds.origin withWidth:contentBounds.size.width];
@@ -77,68 +65,17 @@
     }
     else{
         //윈도우 사이즈가 줄어들었으나, 아직도 맥스 사이즈보다는 클때.
-        if(self.mainScrollView.frame.size.width >= [self.delegate maxFrameWidth]){
+        if(self.mainScrollView.frame.size.width >= [self.controller maxFrameWidth]){
             [self.mainView setWidth:self.mainScrollView.frame.size.width];
         }
         //윈도우 사이즈가 줄어들고, 맥스사이즈보다도 작을때
         else{
-            [self.mainView setWidth:[self.delegate maxFrameWidth]];
+            [self.mainView setWidth:[self.controller maxFrameWidth]];
 
         }
     }
-    
-    [self.delegate reloadSheet];
-    [[self webView] updateFrameDict];
-    
-}
-#pragma mark -
-#pragma mark sizeView
-
-- (void)changeMQSelect:(NSNotification *)notification{
-    
-    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    
-    NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
-    if(oldSelectedSize == maxSize){
-        [self.delegate saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
-    }
-    else{
-        [self.delegate saveCurrentTextEditorForWidth:oldSelectedSize];
-    }
-
-    /** TODO: test webview smchoi
-    if([[self.mainView subviews] containsObject:self.webView]){
-        [self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
-    }
-     */
-
-    [self.delegate setSelectedFrameWidth:selectedSize];
-    [self.delegate setMaxFrameWidth:maxSize];
-    [self.delegate reloadSheet];
-    
-    
-    [[self webView] updateFrameDict];
 }
 
-- (void)changeMQMaxSize:(NSNotification *)notification{
-    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    //extend to scroll size
-    [self.mainView setWidth:maxSize];
-    if([[self.mainView subviews] containsObject:self.webView]){
-        //[self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
-        //[self.mainView setFrameSize:NSMakeSize(defaultFrameWidth, self.mainScrollView.frame.size.height)];
-
-    }
-    
-    [self.delegate setMaxFrameWidth:maxSize];
-    [self.delegate setSelectedFrameWidth:selectedSize];
-    
-    
-    [[self webView] updateFrameDict];
-    
-}
 
 - (void)setHeightOfMainView:(CGFloat)height{
     if (abs(height -self.mainView.frame.size.height) < 1) {
@@ -149,7 +86,6 @@
     }
     [self.mainView setHeight:height];
     [self.webView resizePageContent];
-    [[self webView] updateFrameDict];
 }
 
 /**
@@ -161,17 +97,6 @@
 
 #pragma mark -
 #pragma mark mouseEvent
-
-
-- (BOOL)isDifferentIU:(NSString *)IUID{
-
-    if(IUID != nil){
-        if( [((LMCanvasVC *)self.delegate) containsIU:IUID] == NO ){
-            return YES;
-        }
-    }
-    return NO;
-}
 
 //exclude top-botoom view
 -  (BOOL)pointInScrollView:(NSPoint)point{
@@ -193,6 +118,91 @@
 
 #pragma mark event
 
+#pragma mark -
+#pragma mark Event
+
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent{
+    BOOL result = [self canvasPerformKeyEquivalent:theEvent];
+    if (result == NO) {
+        result = [super performKeyEquivalent:theEvent];
+    }
+    return result;
+}
+/*
+ * NOTE :
+ * deletekey는 performKeyequvalent로 들어오지않음
+ * window sendevent를 받아서 lmcanvasview에서 처리
+ */
+- (BOOL)canvasPerformKeyEquivalent:(NSEvent *)theEvent{
+    NSResponder *currentResponder = [[self window] firstResponder];
+    
+    if([currentResponder isKindOfClass:[NSView class]]
+       && [self.mainView hasSubview:(NSView *)currentResponder]){
+        
+        if(theEvent.type == NSKeyDown){
+            unsigned short keyCode = theEvent.keyCode;//keyCode is hardware-independent
+            
+            if([theEvent modifierFlags] & NSCommandKeyMask){
+                if([self.controller isEnableTextEditor] == NO){
+                    // 'C'
+                    if (keyCode == IUKeyCodeC) {
+                        [self.controller copy:self];
+                        return YES;
+                    }
+                    // 'V'
+                    if (keyCode == IUKeyCodeV) {
+                        [self.controller paste:self];
+                        return YES;
+                    }
+                }
+            }
+            else{
+                
+                if([self.controller isEnableTextEditor]){
+                    //ESC key
+                    if(keyCode == IUKeyCodeESC){
+                        [self.webView setEditable:NO];
+                        return YES;
+                    }
+                }
+                else{
+                    //arrow key
+                    if(keyCode <= IUKeyCodeArrowUp && keyCode >= IUKeyCodeArrowLeft){
+                        [self moveIUByKeyEvent:keyCode];
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return NO;
+}
+
+- (void)moveIUByKeyEvent:(unsigned short)keyCode{
+    NSPoint diffPoint;
+    switch (keyCode) {
+        case IUKeyCodeArrowUp: //up
+            diffPoint = NSMakePoint(0, -1.0);
+            break;
+        case IUKeyCodeArrowLeft: // left
+            diffPoint = NSMakePoint(-1.0, 0);
+            break;
+        case IUKeyCodeArrowRight: // right
+            diffPoint = NSMakePoint(1.0, 0);
+            break;
+        case IUKeyCodeArrowDown: // down;
+            diffPoint = NSMakePoint(0, 1.0);
+            break;
+        default:
+            diffPoint = NSZeroPoint;
+            break;
+    }
+    
+    [self.controller startFrameMoveWithUndoManager:self];
+    [self.controller moveIUToDiffPoint:diffPoint totalDiffPoint:diffPoint];
+    [self.controller endFrameMoveWithUndoManager:self];
+}
+
 //no를 리턴하면 sendevent 슈퍼를 호출하지 않음.
 -(BOOL)receiveKeyEvent:(NSEvent *)theEvent{
     NSResponder *currentResponder = [[self window] firstResponder];
@@ -205,16 +215,28 @@
             unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
             
             
-            if([self.delegate isEnableTextEditor]== NO){
+            if([self.controller isEnableTextEditor]== NO){
                 //delete key
                 if(key == NSDeleteCharacter){
-                    [((LMCanvasVC *)self.delegate) removeSelectedIUs];
+                    [self.controller removeSelectedIUs];
                     return YES;
                 }
             }
         }
     }
     return YES;
+}
+
+
+
+- (BOOL)isDifferentIU:(IUBox *)iu{
+    
+    if(iu != nil){
+        if( [self.controller containsIU:iu] == NO ){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 
@@ -231,12 +253,12 @@
                 JDTraceLog( @"mouse down");
                 
                 isMouseDownForMoveIU = YES;
-                NSString *currentIUID = [self.webView IUAtPoint:convertedPoint];
+                IUBox *clickedIU = [self.webView IUAtPoint:convertedPoint];
                 
                 //webview에서 발견 못하면 gridView에서 한번더 체크
                 //media query 에서 보이지 않는 iu를 위해서 체크함.
-                if(currentIUID == nil){
-                    currentIUID = [self.gridView IUAtPoint:convertedPoint];
+                if(clickedIU == nil){
+                    clickedIU = [self.gridView IUAtPoint:convertedPoint];
                 }
                 
                 if (theEvent.clickCount == 1){
@@ -245,32 +267,32 @@
                         //[[self webView] setEditable:NO];
                         
                         //이미 select되어 있으면 deselect
-                        if( [((LMCanvasVC *)self.delegate) containsIU:currentIUID] ){
-                            [((LMCanvasVC *)self.delegate) removeSelectedIU:currentIUID];
+                        if( [self.controller containsIU:clickedIU] ){
+                            [self.controller deselectedIU:clickedIU];
                         }
                         else{
-                            [((LMCanvasVC *)self.delegate) addSelectedIU:currentIUID];
+                            [self.controller addSelectedIU:clickedIU];
                         }
                     }
                     else{
                         //다른 iu를 선택하는 순간 editing mode out
-                        if([self isDifferentIU:currentIUID]){
-                            [self.delegate disableTextEditor];
+                        if([self isDifferentIU:clickedIU]){
+                            [self.controller disableTextEditor];
                             
                         }
                         
-                        if([((LMCanvasVC *)self.delegate) containsIU:currentIUID] == NO || [(LMCanvasVC *)self.delegate countOfSelectedIUs] == 1){
-                            [((LMCanvasVC *)self.delegate) setSelectedIU:currentIUID];
+                        if([self.controller containsIU:clickedIU] == NO || [self.controller countOfSelectedIUs] == 1){
+                            [self.controller setSelectedIU:clickedIU];
                         }
                     }
                     
-                    if(currentIUID){
+                    if(clickedIU){
                         isSelected = YES;
                     }
-                    [((LMCanvasVC *)(self.delegate)) startFrameMoveWithUndoManager:self];
+                    [self.controller startFrameMoveWithUndoManager:self];
                     
                     //if mouse down on text, it assumes for text selection
-                    if([self.delegate isEnableTextEditor]){
+                    if([self.controller isEnableTextEditor]){
                         isMouseDownForMoveIU = NO;
                     }
                     
@@ -280,17 +302,8 @@
                 //change editable mode
                 if(theEvent.clickCount ==2){
                     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationDoubleClickCanvas object:self.window];
-                    [self.delegate enableTextEditorForSelectedIU];
+                    [self.controller enableTextEditorForSelectedIU];
                 }
-            }
-            else if (theEvent.type == NSRightMouseDown){
-                /**
-                 To be removed : 2014.09.30
-                 : manual로 사용하고 있었는데 현재 필요가 없음.
-                 currently, right mouse button down is disable
-                NSString *currentIUID = [self.webView IUAtPoint:convertedPoint];
-                [((LMCanvasVC *)self.delegate) performRightClick:currentIUID withEvent:theEvent];
-                 */
             }
         }
         /* mouse dragged */
@@ -338,14 +351,14 @@
     
     if([theEvent modifierFlags] & NSShiftKeyMask){
         if(abs(diffPoint.x) > abs(diffPoint.y)){
-            [((LMCanvasVC *)self.delegate) moveIUToDiffPoint:NSMakePoint(diffPoint.x, 0) totalDiffPoint:NSMakePoint(totalPoint.x, 0)];
+            [self.controller moveIUToDiffPoint:NSMakePoint(diffPoint.x, 0) totalDiffPoint:NSMakePoint(totalPoint.x, 0)];
         }
         else{
-            [((LMCanvasVC *)self.delegate) moveIUToDiffPoint:NSMakePoint(0, diffPoint.y) totalDiffPoint:NSMakePoint(0, totalPoint.y)];
+            [self.controller moveIUToDiffPoint:NSMakePoint(0, diffPoint.y) totalDiffPoint:NSMakePoint(0, totalPoint.y)];
         }
     }
     else{
-        [((LMCanvasVC *)self.delegate) moveIUToDiffPoint:diffPoint totalDiffPoint:totalPoint];
+        [self.controller moveIUToDiffPoint:diffPoint totalDiffPoint:totalPoint];
     }
     
 }
@@ -358,7 +371,7 @@
     NSRect selectFrame = NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height);
     
     [self.gridView drawSelectionLayer:selectFrame];
-    [((LMCanvasVC *)self.delegate) selectIUInRect:selectFrame];
+    [self.controller selectIUInRect:selectFrame];
 }
 
 - (void)clearMouseMovement{
@@ -369,7 +382,7 @@
     }
     if(isDragged){
         isDragged = NO;
-        [((LMCanvasVC *)(self.delegate)) endFrameMoveWithUndoManager:self];
+        [self.controller endFrameMoveWithUndoManager:self];
     }
     if(isSelectDragged){
         isSelectDragged = NO;

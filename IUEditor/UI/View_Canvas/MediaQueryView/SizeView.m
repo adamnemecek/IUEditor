@@ -156,7 +156,7 @@
         [self setColorBox:sizeBox];
         
     }
-    [self.delegate disableUpdateCSS:self];
+    [self.controller disableUpdateCSS:self];
     
 
     //notification
@@ -168,7 +168,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxSize)}];
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelectedWithInfo object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxSize), IUNotificationMQLargerSize:@(largeSize), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
     
-    [self.delegate enableUpdateCSS:self];
+    [self.controller enableUpdateCSS:self];
         
 }
 

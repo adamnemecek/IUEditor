@@ -68,6 +68,12 @@
 
 -(void)awakeFromNib{
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[self sizeView]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[self sizeView]];
+    
+    
+    
     [self addObserver:self forKeyPath:@"view.sizeView.sizeArray" options:NSKeyValueObservingOptionInitial context:@"mqCount"];
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                          @"sheet.ghostX",
@@ -93,11 +99,14 @@
 #if DEBUG
     _debugWC.canvasVC = nil;
 #endif
-    [((LMCanvasView *)self.view) prepareDealloc];
 
 }
 
 -(void) dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:[self sizeView]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQMaxChanged object:[self sizeView]];
+    
     [self removeObserver:self forKeyPath:@"view.sizeView.sizeArray" context:@"mqCount"];
     [self removeObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                             @"sheet.ghostX",
@@ -108,6 +117,7 @@
 
 -(void)setController:(IUController *)controller{
     _controller = controller;
+    
     [_controller addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionPrior context:nil];
 }
 
@@ -129,8 +139,54 @@
     }
 }
 
+- (CGFloat)heightOfCanvas{
+    return [[((LMCanvasView *)[self view]) mainScrollView] frame].size.height;
+}
+
 - (void)addFrame:(NSInteger)frameSize{
     [[self sizeView] addFrame:frameSize];
+}
+
+
+- (void)changeMQSelect:(NSNotification *)notification{
+    
+    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
+    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+    
+    NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
+    if(oldSelectedSize == maxSize){
+        [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
+    }
+    else{
+        [self saveCurrentTextEditorForWidth:oldSelectedSize];
+    }
+    
+    /** TODO: test webview smchoi
+     if([[self.mainView subviews] containsObject:self.webView]){
+     [self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
+     }
+     */
+    
+    [self setSelectedFrameWidth:selectedSize];
+    [self setMaxFrameWidth:maxSize];
+    [self reloadSheet];
+    
+    
+    [[self webView] updateFrameDict];
+}
+
+- (void)changeMQMaxSize:(NSNotification *)notification{
+    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
+    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+    //extend to scroll size
+    [((LMCanvasView *)self.view).mainView setWidth:maxSize];
+    
+    [self setMaxFrameWidth:maxSize];
+    [self setSelectedFrameWidth:selectedSize];
+    
+    
+    [[self webView] updateFrameDict];
+    
 }
 
 
@@ -158,12 +214,11 @@
 
 #pragma mark - Drag & drop
 
-- (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atIU:(NSString *)parentIUID{
-    IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIUID];
+- (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
     
     //postion을 먼저 정한 후에 add 함
-    
-    NSPoint position = [self distanceFromIU:parentIUID toPointFromWebView:point];
+    //FIXME: parentIU import id
+    NSPoint position = [self distanceFromIU:parentIU.htmlID toPointFromWebView:point];
     if ([newIU canChangeXByUserInput]) {
         [newIU setX:position.x];
     }
@@ -172,7 +227,9 @@
     }
     
     [parentIU addIU:newIU error:nil];
+    [self.controller setSelectedObject:newIU];
     
+    /*
     if ([parentIUID containsString:kIUImportEditorPrefix]) {
         NSString *parentIdentifier = [[parentIUID componentsSeparatedByString:@"_" ] objectAtIndex:1];
         NSString *finalString = [NSString stringWithFormat:@"%@%@_%@", kIUImportEditorPrefix, parentIdentifier, newIU.htmlID];
@@ -181,10 +238,11 @@
     else {
         [self.controller setSelectedObjectsByIdentifiers:@[newIU.htmlID]];
     }
+    */
     
     [newIU confirmIdentifier];
     
-    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIUID);
+    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);
     return YES;
 }
 
@@ -214,15 +272,10 @@
     
 }
 
--(void)insertImage:(NSString *)name atIU:(NSString *)identifier{
-    IUBox *currentIU = [self.controller tryIUBoxByIdentifier:identifier];
-    [currentIU setImageName:name];
-}
-
 #pragma mark -
 #pragma mark call by Document
 
-- (void)didFinishLoadFrame{
+- (void)webViewdidFinishLoadFrame{
     
     [self disableUpdateJS:self];
     
@@ -266,13 +319,10 @@
 }
 
 - (void)updateWebViewWidth{
-    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", _selectedFrameWidth];
+    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
     [self IUClassIdentifier:@"#sheet_outer" CSSUpdated:outerCSS];
 }
 
-- (void)setSelectedFrameWidth:(NSInteger)selectedFrameWidth{
-    _selectedFrameWidth = selectedFrameWidth;
-}
 
 - (void)reloadSheet{
     if(_sheet){
@@ -296,12 +346,16 @@
 
 #pragma mark -
 #pragma mark manage IUs
+- (IUBox *)tryIUBoxByIdentifier:(NSString *)identifier{
+    return [self.controller tryIUBoxByIdentifier:identifier];
+}
+
 -(NSUInteger)countOfSelectedIUs{
     return [self.controller.selectedObjects count];
 }
 
-- (BOOL)containsIU:(NSString *)IUID{
-    if ([self.controller.selectedIdentifiersWithImportIdentifier containsObject:IUID]){
+- (BOOL)containsIU:(IUBox *)iu{
+    if ([self.controller.selectedObjects containsObject:iu]){
         return YES;
     }
     else {
@@ -346,11 +400,11 @@
 
 - (void)disableTextEditor{
     
-    if(_selectedFrameWidth == _maxFrameWidth){
+    if(self.selectedFrameWidth == self.maxFrameWidth){
         [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
     }
     else{
-        [self saveCurrentTextEditorForWidth:_selectedFrameWidth];
+        [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
     }
     
     //remove current editor
@@ -431,11 +485,12 @@
     [[self gridView] removeAllSelectionLayers];
     [[self gridView] removeAllTextPointLayer];
     
-    for(NSString *IUID in self.controller.selectedIdentifiersWithImportIdentifier){
-        if([frameDict.dict objectForKey:IUID]){
-            NSRect frame = [[frameDict.dict objectForKey:IUID] rectValue];
-            [[self gridView] addSelectionLayerWithIdentifier:IUID withFrame:frame];
-            [[self gridView] addTextPointLayer:IUID withFrame:frame];
+    for(NSString *identifier in self.controller.selectedIdentifiersWithImportIdentifier){
+        if([frameDict.dict objectForKey:identifier]){
+            NSRect frame = [[frameDict.dict objectForKey:identifier] rectValue];
+            IUBox *box = [self.controller tryIUBoxByIdentifier:identifier];
+            [[self gridView] addSelectionLayerWithIU:box withFrame:frame];
+            [[self gridView] addTextPointLayerWithIU:box withFrame:frame];
         }
     }
     
@@ -447,51 +502,39 @@
     if(IU == nil){
         return;
     }
+    
     if([self.controller.selectedIdentifiers containsObject:IU]){
         return;
     }
-    NSArray *array = [self.controller.selectedIdentifiersWithImportIdentifier arrayByAddingObject:IU];
-    [self.controller trySetSelectedObjectsByIdentifiers:array];
+    NSArray *array = [self.controller.selectedObjects arrayByAddingObject:IU];
+    [self.controller _setSelectedObjects:array];
 }
 
-- (void)removeSelectedIU:(NSString *)IU{
-    if(IU == nil){
+- (void)deselectedIU:(IUBox *)iu{
+    if(iu == nil){
         return;
     }
-    if([self.controller.selectedIdentifiers containsObject:IU] == NO){
-        return;
-    }
-    
-    NSMutableArray *selectArray = [self.controller.selectedIdentifiers mutableCopy];
-    [selectArray removeObject:IU];
-    [self.controller trySetSelectedObjectsByIdentifiers:selectArray];
+    [self.controller removeObject:iu];
 }
 
-- (void)setSelectedIU:(NSString *)identifier{
-    if(identifier == nil){
-        return;
-    }
+- (void)setSelectedIU:(IUBox *)iu{
+    IUBox *selectIU = iu;
     
-    NSString *selectedID = identifier;
-    
-    IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
     if([iu isKindOfClass:[IUItem class]]){
         if( [((IUItem *)iu) shouldSelectParentFirst]){
             IUBox *parentIU = iu.parent;
-            if([self.controller.selectedIdentifiers containsString:parentIU.htmlID] == NO &&
-               [self.controller.selectedIdentifiers containsString:identifier] == NO){
-                selectedID = parentIU.htmlID;
+            if([self.controller.selectedObjects containsObject:parentIU] == NO &&
+               [self.controller.selectedObjects containsObject:iu] == NO){
+                selectIU = parentIU;
             }
         }
     }
-    
-    NSArray *addArray = [NSArray arrayWithObject:selectedID];
     
     /*
      Even it is selected object, still select it again.
      (IUClass is not shown selected until it is selected again)
      */
-    [self.controller trySetSelectedObjectsByIdentifiers:addArray];
+    [self.controller setSelectedObject:selectIU];
 
 }
 
@@ -503,7 +546,8 @@
     for(NSString *key in keys){
         NSRect iuframe = [[frameDict.dict objectForKey:key] rectValue];
         if( NSIntersectsRect(iuframe, frame) ){
-            [self addSelectedIU:key];
+            IUBox *iu = [self.controller tryIUBoxByIdentifier:key];
+            [self addSelectedIU:iu];
         }
     }
 }
@@ -941,19 +985,6 @@
     }
 }
 
-- (BOOL)checkExtendSelectedIU:(NSSize)size{
-    //drag pointlayer
-    for(IUBox *obj in self.controller.selectedObjects){
-        
-        NSString *IUID = obj.htmlID;
-        NSRect currentFrame = [[frameDict.dict objectForKey:IUID] rectValue];
-        NSSize expectedSize = NSMakeSize(currentFrame.size.width+size.width, currentFrame.size.height+size.height);
-        if(expectedSize.width < 0 || expectedSize.height < 0){
-            return NO;
-        }
-    }
-    return YES;
-}
 
 - (BOOL)isParentMove:(IUBox *)obj{
     if([obj respondsToSelector:@selector(shouldMoveParent)]){
@@ -1060,12 +1091,12 @@
     if(iu){
         //remove layer
         if([iu isKindOfClass:[IUImport class]]){
-            [[self gridView] removeLayerWithIUIdentifier:identifier];
+            [[self gridView] removeLayerForIU:iu];
             [frameDict.dict removeObjectForKey:identifier];
             
             for(IUBox *box in iu.allChildren){
                 NSString *currentID =  [(IUImport *)iu modifieldHtmlIDOfChild:box];
-                [[self gridView] removeLayerWithIUIdentifier:currentID];
+                [[self gridView] removeLayerForIU:box];
                 [frameDict.dict removeObjectForKey:currentID];
             }
         }
@@ -1077,7 +1108,7 @@
                 
                 for(IUBox *box in allIU){
                     NSString *currentID =  [(IUImport *)import modifieldHtmlIDOfChild:box];
-                    [[self gridView] removeLayerWithIUIdentifier:currentID];
+                    [[self gridView] removeLayerForIU:box];
                     [frameDict.dict removeObjectForKey:currentID];
                 }
                 
@@ -1085,14 +1116,13 @@
             
         }
         else{
-            
             NSMutableArray *allIU = [iu.allChildren mutableCopy];
             [allIU addObject:iu];
             
             
             for(IUBox *box in allIU){
                 
-                [[self gridView] removeLayerWithIUIdentifier:box.htmlID];
+                [[self gridView] removeLayerForIU:box];
                 [frameDict.dict removeObjectForKey:box.htmlID];
                 
                 //remove sheet css
@@ -1103,25 +1133,8 @@
                     }
                 }
             }
-
         }
     }
-    else{
-        [[self gridView] removeLayerWithIUIdentifier:identifier];
-        [frameDict.dict removeObjectForKey:identifier];
-
-    }
-    
-    
-}
-
-
-
-#pragma mark HTMLSource
-
--(NSString *)currentHTML{
-    NSString *htmlSource =  [(DOMHTMLElement *)[[[[self webView] mainFrame] DOMDocument] documentElement] outerHTML];
-    return htmlSource;
 }
 
 #if DEBUG
@@ -1150,45 +1163,5 @@
     [self.controller pasteToSelectedIU:self];
 }
 
-- (void)performRightClick:(NSString*)IUID withEvent:(NSEvent*)event{
-    
-    /*
-     TO Be removed:20140930
-    //make help menu
-    NSMenu *menu = [[NSMenu alloc] init];
-    NSMenuItem *helpItem = [[NSMenuItem alloc] init];
-    helpItem.title = @"Help";
-    NSMenu *helpMenu = [[NSMenu alloc] initWithTitle:@"Help"];
-    [menu addItem:helpItem];
-    [menu setSubmenu:helpMenu forItem:helpItem];
-    
-    
-
-    //get className
-    IUBox *selectedIU = [self.controller IUBoxByIdentifier:IUID];
-    NSString *className = [selectedIU className];
-    
-    //pdf list
-    NSString *pdfFilePath = [[NSBundle mainBundle] pathForResource:@"helpPdf" ofType:@"plist"];
-    NSDictionary *pdfDict = [NSDictionary dictionaryWithContentsOfFile:pdfFilePath];
-    
-    //widget manual list
-    NSString *widgetFilePath = [[NSBundle mainBundle] pathForResource:@"widgetForDefault" ofType:@"plist"];
-    NSArray *availableWidgetProperties = [NSArray arrayWithContentsOfFile:widgetFilePath];
-    NSDictionary *widget = [availableWidgetProperties objectWithKey:@"className" value:className];
-    NSArray *helpArray = [widget objectForKey:@"manual"];
-    for (NSString *pdfKey in helpArray) {
-        NSMenuItem *item = [[NSMenuItem alloc] init];
-        item.representedObject = pdfKey;
-        item.title = [pdfDict objectForKey:pdfKey][@"title"];
-        [helpMenu addItem:item];
-        item.target = self;
-        [item setAction:@selector(performHelp:)];
-    }
-    
-    //get
-    [NSMenu popUpContextMenu:menu withEvent:event forView:self.view];
-     */
-}
 
 @end

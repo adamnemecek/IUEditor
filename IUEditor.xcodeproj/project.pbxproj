@@ -2213,6 +2213,7 @@
 		3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUDataStorageTest.m; sourceTree = "<group>"; };
 		3DE45F6C19F7C04000A75567 /* JDCoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDCoderTest.m; sourceTree = "<group>"; };
 		3DE4625C19F8A63A00A75567 /* tinymce */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tinymce; path = IUEditor/Resource/IUResource/editormode/js/tinymce; sourceTree = "<group>"; };
+		3DE4625E19F8E23D00A75567 /* IUCanvasController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IUCanvasController.h; path = UI/View_Canvas/IUCanvasController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2811,13 +2812,14 @@
 		3D2EF5F619F7839500BBBAE5 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
-				3D2EF61E19F7845500BBBAE5 /* GridView.h */,
-				3D2EF61F19F7845500BBBAE5 /* GridView.m */,
+				3DE4625E19F8E23D00A75567 /* IUCanvasController.h */,
 				3D2EF62019F7845500BBBAE5 /* LMCanvasVC.h */,
 				3D2EF62119F7845500BBBAE5 /* LMCanvasVC.m */,
 				3D2EF62219F7845500BBBAE5 /* LMCanvasVC.xib */,
 				3D2EF62319F7845500BBBAE5 /* LMCanvasView.h */,
 				3D2EF62419F7845500BBBAE5 /* LMCanvasView.m */,
+				3D2EF61E19F7845500BBBAE5 /* GridView.h */,
+				3D2EF61F19F7845500BBBAE5 /* GridView.m */,
 				3D2EF62519F7845500BBBAE5 /* WebCanvasView.h */,
 				3D2EF62619F7845500BBBAE5 /* WebCanvasView.m */,
 				3D2EF5FF19F7841200BBBAE5 /* Media Query View */,

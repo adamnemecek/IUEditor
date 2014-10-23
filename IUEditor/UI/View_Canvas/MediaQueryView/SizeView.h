@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "InnerSizeBox.h"
+#import "IUCanvasController.h"
 
 @interface SizeImageView : NSImageView
 
@@ -18,7 +19,7 @@
 
 @interface SizeView : NSView
 
-@property (weak) id delegate;
+@property (nonatomic) id<IUCanvasController>  controller;
 
 //addFrameSize
 @property (weak) IBOutlet NSButton *addBtn;

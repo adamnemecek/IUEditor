@@ -14,7 +14,7 @@
 
 @interface LMCanvasView : NSView
 
-@property (weak) id delegate;
+@property (nonatomic) IBOutlet id<IUCanvasController>  controller;
 
 @property (weak) IBOutlet NSScrollView *mainScrollView;
 @property  NSFlippedView *mainView;
@@ -32,5 +32,4 @@
 
 - (void)startDraggingFromGridView;
 
-- (void)prepareDealloc;
 @end
