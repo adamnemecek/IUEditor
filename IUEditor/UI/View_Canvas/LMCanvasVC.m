@@ -115,24 +115,39 @@
     [JDLogUtil log:IULogDealloc string:@"CanvasVC"];
 }
 
+
 -(void)setController:(IUController *)controller{
     _controller = controller;
-    
     [_controller addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionPrior context:nil];
 }
 
+#pragma mark - views
 
--(LMCanvasView*)view{
-    return (LMCanvasView*)[super view];
+- (LMCanvasView *)canvasView{
+    return (LMCanvasView *)[self view];
 }
+- (GridView *)gridView{
+    return [[self canvasView] gridView];
+}
+- (SizeView *)sizeView{
+    return [[self canvasView] sizeView];
+}
+- (WebCanvasView *)webView{
+    return [[self canvasView] webView];
+}
+- (DOMDocument *)webDocument{
+    return [[[self webView] mainFrame] DOMDocument];
+}
+
+
+#pragma mark - canvas frame
 
 - (void)windowDidResize:(NSNotification *)notification{
     [[self webView] resizePageContent];
 }
 
-
 -(void)changeIUPageHeight:(CGFloat)pageHeight minHeight:(CGFloat)minHeight{
-    [(LMCanvasView*)self.view setHeightOfMainView:pageHeight];
+    [[self canvasView] setHeightOfMainView:pageHeight];
     if([self.sheet isKindOfClass:[IUPage class]]){
         IUPage *page = (IUPage *)self.sheet;
         [page.pageContent.css setValueWithoutUpdateCSS:@(minHeight) forTag:IUCSSTagMinHeight];
@@ -140,14 +155,23 @@
 }
 
 - (CGFloat)heightOfCanvas{
-    return [[((LMCanvasView *)[self view]) mainScrollView] frame].size.height;
+    return [[[self canvasView] mainScrollView] frame].size.height;
 }
 
 - (void)addFrame:(NSInteger)frameSize{
     [[self sizeView] addFrame:frameSize];
 }
 
+- (void)updateSheetHeight{
+    //not page class
+    //page will be set report from javscript
+    if([_sheet isKindOfClass:[IUClass class]]){
+        [(LMCanvasView*)self.view extendMainViewToFullSize];
+    }
+}
 
+
+#pragma mark - MQ
 - (void)changeMQSelect:(NSNotification *)notification{
     
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
@@ -161,16 +185,10 @@
         [self saveCurrentTextEditorForWidth:oldSelectedSize];
     }
     
-    /** TODO: test webview smchoi
-     if([[self.mainView subviews] containsObject:self.webView]){
-     [self.mainView subview:self.webView changeConstraintTrailing:(maxSize -selectedSize)];
-     }
-     */
     
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
     [self reloadSheet];
-    
     
     [[self webView] updateFrameDict];
 }
@@ -189,89 +207,6 @@
     
 }
 
-
-#pragma mark -
-#pragma mark call by sizeView
-
-
-- (SizeView *)sizeView{
-    return ((LMCanvasView *)(self.view)).sizeView;
-    
-}
-
-#pragma mark -
-#pragma mark call by webView
-
-- (WebCanvasView *)webView{
-    return ((LMCanvasView *)self.view).webView;
-}
-
-- (DOMDocument *)DOMDoc{
-    return [[[self webView] mainFrame] DOMDocument];
-}
-
-
-
-#pragma mark - Drag & drop
-
-- (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
-    
-    //postion을 먼저 정한 후에 add 함
-    //FIXME: parentIU import id
-    NSPoint position = [self distanceFromIU:parentIU.htmlID toPointFromWebView:point];
-    if ([newIU canChangeXByUserInput]) {
-        [newIU setX:position.x];
-    }
-    if([newIU canChangeYByUserInput]){
-        [newIU setY:position.y];
-    }
-    
-    [parentIU addIU:newIU error:nil];
-    [self.controller setSelectedObject:newIU];
-    
-    /*
-    if ([parentIUID containsString:kIUImportEditorPrefix]) {
-        NSString *parentIdentifier = [[parentIUID componentsSeparatedByString:@"_" ] objectAtIndex:1];
-        NSString *finalString = [NSString stringWithFormat:@"%@%@_%@", kIUImportEditorPrefix, parentIdentifier, newIU.htmlID];
-        [self.controller trySetSelectedObjectsByIdentifiers:@[finalString]];
-    }
-    else {
-        [self.controller setSelectedObjectsByIdentifiers:@[newIU.htmlID]];
-    }
-    */
-    
-    [newIU confirmIdentifier];
-    
-    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);
-    return YES;
-}
-
-- (void)removeSelectedIUs{
-    NSMutableArray *alternatedSelection = [NSMutableArray array];
-    
-    for(IUBox *box in [self.controller selectedObjects]){
-        //selected objects can contain removed object
-        if([alternatedSelection containsObject:box.htmlID]){
-            [alternatedSelection removeObject:box.htmlID];
-        }
-        
-        //add parent or not to be removed objects add to alternated selection
-        if([box canRemoveIUByUserInput]){
-            [box.parent removeIU:box];
-            [alternatedSelection addObject:box.parent.htmlID];
-        }
-        else{
-            [alternatedSelection addObject:box.htmlID];
-        }
-    }
-    
-    
-    
-    [self.controller setSelectedObjectsByIdentifiers:alternatedSelection];
-    [self.controller rearrangeObjects];
-    
-}
-
 #pragma mark -
 #pragma mark call by Document
 
@@ -286,20 +221,13 @@
     
     [self enableUpdateJS:self];
     
-    NSString *htmlSource =  [(DOMHTMLElement *)[[[[self webView] mainFrame] DOMDocument] documentElement] outerHTML];
+    NSString *htmlSource =  [(DOMHTMLElement *)[[self webDocument] documentElement] outerHTML];
     JDTraceLog(@"%@", htmlSource);
 
     [self updateWebViewWidth];
     [self updateJS];
 }
 
-- (void)updateSheetHeight{
-    //not page class
-    //page will be set report from javscript
-    if([_sheet isKindOfClass:[IUClass class]]){
-        [(LMCanvasView*)self.view extendMainViewToFullSize];
-    }
-}
 
 - (void)setSheet:(IUSheet *)sheet{
     NSAssert(self.documentBasePath != nil, @"resourcePath is nil");
@@ -330,6 +258,8 @@
     }
 }
 
+#pragma mark - notification from other VCs
+
 - (void)ghostImageContextDidChange:(NSDictionary *)change{
     
     NSString *ghostImageName = _sheet.ghostImageName;
@@ -339,13 +269,57 @@
     
     NSPoint ghostPosition = NSMakePoint(_sheet.ghostX, _sheet.ghostY);
     [[self gridView] setGhostPosition:ghostPosition];
-    
     [[self gridView] setGhostOpacity:_sheet.ghostOpacity];
 }
 
+#pragma mark - Manage IUs
 
-#pragma mark -
-#pragma mark manage IUs
+- (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
+    
+    //postion을 먼저 정한 후에 add 함
+    //FIXME: parentIU import id
+    //Distance
+    NSPoint position = [self distanceFromIU:parentIU.htmlID toPointFromWebView:point];
+    if ([newIU canChangeXByUserInput]) {
+        [newIU setX:position.x];
+    }
+    if([newIU canChangeYByUserInput]){
+        [newIU setY:position.y];
+    }
+    
+    [parentIU addIU:newIU error:nil];
+    [newIU confirmIdentifier];
+    
+    [self.controller setSelectedObject:newIU];
+    
+    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);
+    return YES;
+}
+
+- (void)removeSelectedIUs{
+    NSMutableArray *alternatedSelection = [NSMutableArray array];
+    
+    for(IUBox *box in [self.controller selectedObjects]){
+        //selected objects can contain removed object
+        if([alternatedSelection containsObject:box.htmlID]){
+            [alternatedSelection removeObject:box.htmlID];
+        }
+        
+        //add parent or not to be removed objects add to alternated selection
+        if([box canRemoveIUByUserInput]){
+            [box.parent removeIU:box];
+            [alternatedSelection addObject:box.parent.htmlID];
+        }
+        else{
+            [alternatedSelection addObject:box.htmlID];
+        }
+    }
+    
+    [self.controller setSelectedObjectsByIdentifiers:alternatedSelection];
+    [self.controller rearrangeObjects];
+    
+}
+
 - (IUBox *)tryIUBoxByIdentifier:(NSString *)identifier{
     return [self.controller tryIUBoxByIdentifier:identifier];
 }
@@ -363,121 +337,6 @@
     }
 }
 
-
-- (void)saveCurrentTextEditorForWidth:(NSInteger)width{
-    DOMNodeList *list = [self.DOMDoc.documentElement getElementsByClassName:@"addible"];
-    for (int i=0; i<list.length; i++) {
-        //find editor
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
-        
-        //save current text
-        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
-        if(iu){
-            iu.text = node.innerText;
-        }
-        
-        
-    }
-    
-    list = [self.DOMDoc.documentElement getElementsByClassName:@"editable"];
-    for (int i=0; i<list.length; i++) {
-        //find editor
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
-        
-        //save current text
-        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
-        if(iu){
-            [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
-        }
-        [iu updateCSS];
-        
-    }
-}
-
-- (void)disableTextEditor{
-    
-    if(self.selectedFrameWidth == self.maxFrameWidth){
-        [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
-    }
-    else{
-        [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
-    }
-    
-    //remove current editor
-    DOMNodeList *list = [self.DOMDoc.documentElement getElementsByClassName:@"addible"];
-    for (int i=0; i<list.length; i++) {
-        //find editor
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
-        NSString *identifier = node.idName;
-        
-        //remove current editor
-        NSString *removeMCE = [NSString stringWithFormat:@"tinyMCE.execCommand('mceRemoveEditor', true, '%@');", identifier];
-        [self evaluateWebScript:removeMCE];
-
-    }
-    
-    list = [self.DOMDoc.documentElement getElementsByClassName:@"editable"];
-    for (int i=0; i<list.length; i++) {
-        //find editor
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"editable" withString:@""]];
-        NSString *identifier = node.idName;
-        
-        //remove editor
-        NSString *removeMCE = [NSString stringWithFormat:@"tinyMCE.execCommand('mceRemoveEditor', true, '%@');", identifier];
-        [self evaluateWebScript:removeMCE];
-        
-    }
-    
-    isEnableText = NO;
-
-}
-- (BOOL)isEnableTextEditor{
-    return isEnableText;
-}
-
-- (void)enableTextEditorForSelectedIU{
-    if(self.controller.selectedObjects.count != 1 || isEnableText){
-        return;
-    }
-    
-    IUBox *iu = [self.controller.selectedObjects firstObject];
- 
-    
-    IUTextInputType inputType = [iu textInputType];
-    NSString *className, *fnName;
-    if (inputType == IUTextInputTypeNone || inputType == IUTextInputTypeTextField) {
-        return;
-    }
-    else if(inputType == IUTextInputTypeAddible){
-        className = @"addible";
-        fnName = @"iuAddEditorAddible";
-        NSString *alertString = [NSString stringWithFormat:@"Text Typing Mode : %@", iu.name];
-        [JDUIUtil hudAlert:alertString second:2];
-    }
-    else if(inputType == IUTextInputTypeEditable){
-        className = @"editable";
-        fnName = @"iuAddEditorEditable";
-        NSString *alertString = [NSString stringWithFormat:@"Text Editor Mode : %@", iu.name];
-        [JDUIUtil hudAlert:alertString second:2];
-    }
-    NSString *classidentifer = [self.controller.selectedIdentifiers firstObject];
-    [self IUClassIdentifier:classidentifer addClass:className];
-    
-    NSString *identifer = [self.controller.selectedIdentifiersWithImportIdentifier firstObject];
-    NSString *reloadMCE =[NSString stringWithFormat:@"tinyMCE.execCommand('%@', true, '%@');",fnName, identifer];
-    [self evaluateWebScript:reloadMCE];
-    isEnableText = YES;
-
-    
-}
 
 -(void)selectedObjectsDidChange:(NSDictionary*)change{
     [JDLogUtil log:IULogAction key:@"CanvasVC:observed" string:[self.controller.selectedIdentifiers description]];
@@ -535,7 +394,7 @@
      (IUClass is not shown selected until it is selected again)
      */
     [self.controller setSelectedObject:selectIU];
-
+    
 }
 
 - (void)selectIUInRect:(NSRect)frame{
@@ -552,6 +411,124 @@
     }
 }
 
+
+
+#pragma mark - Text Editor
+
+- (void)saveCurrentTextEditorForWidth:(NSInteger)width{
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:@"addible"];
+    for (int i=0; i<list.length; i++) {
+        //find editor
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        
+        //save current text
+        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
+        if(iu){
+            iu.text = node.innerText;
+        }
+        
+        
+    }
+    
+    list = [self.webDocument.documentElement getElementsByClassName:@"editable"];
+    for (int i=0; i<list.length; i++) {
+        //find editor
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        
+        //save current text
+        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
+        if(iu){
+            [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
+        }
+        [iu updateCSS];
+        
+    }
+}
+
+- (void)disableTextEditor{
+    
+    if(self.selectedFrameWidth == self.maxFrameWidth){
+        [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
+    }
+    else{
+        [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
+    }
+    
+    //remove current editor
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:@"addible"];
+    for (int i=0; i<list.length; i++) {
+        //find editor
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        NSString *identifier = node.idName;
+        
+        //remove current editor
+        NSString *removeMCE = [NSString stringWithFormat:@"tinyMCE.execCommand('mceRemoveEditor', true, '%@');", identifier];
+        [self evaluateWebScript:removeMCE];
+
+    }
+    
+    list = [self.webDocument.documentElement getElementsByClassName:@"editable"];
+    for (int i=0; i<list.length; i++) {
+        //find editor
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"editable" withString:@""]];
+        NSString *identifier = node.idName;
+        
+        //remove editor
+        NSString *removeMCE = [NSString stringWithFormat:@"tinyMCE.execCommand('mceRemoveEditor', true, '%@');", identifier];
+        [self evaluateWebScript:removeMCE];
+        
+    }
+    
+    isEnableText = NO;
+
+}
+- (BOOL)isEnableTextEditor{
+    return isEnableText;
+}
+
+- (void)enableTextEditorForSelectedIU{
+    if(self.controller.selectedObjects.count != 1 || isEnableText){
+        return;
+    }
+    
+    IUBox *iu = [self.controller.selectedObjects firstObject];
+ 
+    
+    IUTextInputType inputType = [iu textInputType];
+    NSString *className, *fnName;
+    if (inputType == IUTextInputTypeNone || inputType == IUTextInputTypeTextField) {
+        return;
+    }
+    else if(inputType == IUTextInputTypeAddible){
+        className = @"addible";
+        fnName = @"iuAddEditorAddible";
+        NSString *alertString = [NSString stringWithFormat:@"Text Typing Mode : %@", iu.name];
+        [JDUIUtil hudAlert:alertString second:2];
+    }
+    else if(inputType == IUTextInputTypeEditable){
+        className = @"editable";
+        fnName = @"iuAddEditorEditable";
+        NSString *alertString = [NSString stringWithFormat:@"Text Editor Mode : %@", iu.name];
+        [JDUIUtil hudAlert:alertString second:2];
+    }
+    NSString *classidentifer = [self.controller.selectedIdentifiers firstObject];
+    [self IUClassIdentifier:classidentifer addClass:className];
+    
+    NSString *identifer = [self.controller.selectedIdentifiersWithImportIdentifier firstObject];
+    NSString *reloadMCE =[NSString stringWithFormat:@"tinyMCE.execCommand('%@', true, '%@');",fnName, identifer];
+    [self evaluateWebScript:reloadMCE];
+    isEnableText = YES;
+
+    
+}
 
 #pragma mark - JS
 
@@ -587,35 +564,12 @@
     return distance;
 }
 
-#pragma mark - class
-/**
- 현재 text 수정중인 IU에만 class를 추가할수있도록 사용할예정.
- */
--(void)IUClassIdentifier:(NSString *)classIdentifier addClass:(NSString *)className{
-    DOMNodeList *list = [self.DOMDoc.documentElement getElementsByClassName:classIdentifier];
-    for (int i=0; i<list.length; i++) {
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        if([currentClass containsString:className] == NO){
-            [node setAttribute:@"class" value:[currentClass stringByAppendingFormat:@" %@", className]];
-        }
-    }
-}
 
--(void)IUClassIdentifier:(NSString *)classIdentifier removeClass:(NSString *)className{
-    DOMNodeList *list = [self.DOMDoc.documentElement getElementsByClassName:classIdentifier];
-    for (int i=0; i<list.length; i++) {
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:className withString:@""]];
-    }
-}
-
-#pragma mark -
-#pragma mark HTML
+#pragma mark - Manage DOMNode
+#pragma mark - HTML
 
 - (DOMHTMLElement *)getHTMLElementbyID:(NSString *)HTMLID{
-    DOMHTMLElement *selectNode = (DOMHTMLElement *)[self.DOMDoc getElementById:HTMLID];
+    DOMHTMLElement *selectNode = (DOMHTMLElement *)[self.webDocument getElementById:HTMLID];
     return selectNode;
     
 }
@@ -654,7 +608,7 @@
         if (selectHTMLElement == nil) {
             return;
         }
-        DOMHTMLElement *newElement = (DOMHTMLElement *)[self.DOMDoc createElement:[self tagWithHTML:html]];
+        DOMHTMLElement *newElement = (DOMHTMLElement *)[self.webDocument createElement:[self tagWithHTML:html]];
         [selectHTMLElement appendChild:newElement];
         
         [newElement setOuterHTML:html];
@@ -663,9 +617,31 @@
     
 }
 
+#pragma mark - class
+/**
+ 현재 text 수정중인 IU에만 class를 추가할수있도록 사용할예정.
+ */
+-(void)IUClassIdentifier:(NSString *)classIdentifier addClass:(NSString *)className{
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:classIdentifier];
+    for (int i=0; i<list.length; i++) {
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        if([currentClass containsString:className] == NO){
+            [node setAttribute:@"class" value:[currentClass stringByAppendingFormat:@" %@", className]];
+        }
+    }
+}
 
-#pragma mark -
-#pragma mark CSS
+-(void)IUClassIdentifier:(NSString *)classIdentifier removeClass:(NSString *)className{
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:classIdentifier];
+    for (int i=0; i<list.length; i++) {
+        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
+        NSString *currentClass = [node getAttribute:@"class"];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:className withString:@""]];
+    }
+}
+
+#pragma mark - CSS
 
 - (BOOL)isSheetHeightChanged:(NSString *)identifier{
     if([identifier isEqualToString:[_sheet cssIdentifier]]
@@ -680,7 +656,7 @@
  @brief get element line count by only selected iu
  */
 -(NSInteger)countOfLineWithIdentifier:(NSString *)identifier{
-    DOMNodeList *list = [self.DOMDoc getElementsByClassName:identifier];
+    DOMNodeList *list = [self.webDocument getElementsByClassName:identifier];
     if(list.length > 0){
         DOMHTMLElement *element = (DOMHTMLElement *)[list item:0];
         DOMNodeList *brList  = [element getElementsByTagName:@"br"];
@@ -695,7 +671,7 @@
 }
 
 -(void)updateCSS:(NSString *)css selector:(NSString *)selector{
-    DOMNodeList *list = [self.DOMDoc querySelectorAll:selector];
+    DOMNodeList *list = [self.webDocument querySelectorAll:selector];
     int length= list.length;
     for(int i=0; i<length; i++){
         DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
@@ -721,6 +697,97 @@
     }
    
 }
+
+
+
+#pragma mark - style sheet update
+/**
+ @brief style sheet에서만 동작하는 것들
+ */
+
+-(void)updateHoverCSS:(NSString *)css identifier:(NSString *)identifier{
+    [JDLogUtil log:IULogSource key:@"css source" string:css];
+    
+    if(css.length == 0){
+        //nothing to do
+        [self removeCSSTextInDefaultSheetWithIdentifier:identifier];
+    }else{
+        NSString *cssText = [NSString stringWithFormat:@"%@{%@}", identifier, css];
+        //default setting
+        [self setIUStyle:cssText withID:identifier];
+    }
+}
+
+- (void)setIUStyle:(NSString *)cssText withID:(NSString *)iuID{
+    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
+    NSString *newCSSText = [self innerCSSText:sheetElement.innerHTML byAddingCSSText:cssText withID:iuID];
+    [sheetElement setInnerHTML:newCSSText];
+    
+}
+
+-(NSString *)cssIDInCSSRule:(NSString *)cssrule{
+    
+    NSString *css = [cssrule stringByTrim];
+    NSArray *cssItems = [css componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
+    
+    return [cssItems[0] stringByTrim];
+}
+
+- (NSString *)innerCSSText:(NSString *)innerCSSText byAddingCSSText:(NSString *)cssText withID:(NSString *)identifier
+{
+    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
+    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
+    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
+    
+    //    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByCharactersInSet:
+    //                          [NSCharacterSet characterSetWithCharactersInString:@"."]];
+    
+    for(NSString *rule in cssRuleList){
+        if(rule.length == 0){
+            continue;
+        }
+        NSString *ruleID = [self cssIDInCSSRule:rule];
+        NSString *modifyidentifier = [identifier stringByTrim];
+        if([ruleID isEqualToString:modifyidentifier] == NO){
+            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
+        }
+    }
+    
+    [innerCSSHTML appendString:cssText];
+    [innerCSSHTML appendString:@"\n"];
+    
+    return innerCSSHTML;
+}
+
+
+- (void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier{
+    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
+    NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withID:identifier];
+    [sheetElement setInnerHTML:newCSSText];
+}
+
+- (NSString *)removeCSSText:(NSString *)innerCSSText withID:(NSString *)identifier
+{
+    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
+    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
+    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
+    
+    for(NSString *rule in cssRuleList){
+        if(rule.length == 0){
+            continue;
+        }
+        NSString *ruleID = [self cssIDInCSSRule:rule];
+        NSString *modifiedIdentifier = [identifier stringByTrim];
+        if([ruleID isEqualToString:modifiedIdentifier] == NO){
+            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
+        }
+    }
+    
+    return innerCSSHTML;
+}
+
+
+#pragma mark - JS
 
 - (void)updateJS{
     if( [self isUpdateJSEnabled]==YES){
@@ -803,112 +870,12 @@
     }
 }
 
-
-#pragma mark - style sheet update
-/**
- @brief style sheet에서만 동작하는 것들
-*/
-
--(void)updateHoverCSS:(NSString *)css identifier:(NSString *)identifier{
-    [JDLogUtil log:IULogSource key:@"css source" string:css];
-    
-    if(css.length == 0){
-        //nothing to do
-        [self removeCSSTextInDefaultSheetWithIdentifier:identifier];
-    }else{
-        NSString *cssText = [NSString stringWithFormat:@"%@{%@}", identifier, css];
-        //default setting
-        [self setIUStyle:cssText withID:identifier];
-    }
-}
-
-- (void)setIUStyle:(NSString *)cssText withID:(NSString *)iuID{
-    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDoc] getElementById:@"default"];
-    NSString *newCSSText = [self innerCSSText:sheetElement.innerHTML byAddingCSSText:cssText withID:iuID];
-    [sheetElement setInnerHTML:newCSSText];
-  
-}
-
--(NSString *)cssIDInCSSRule:(NSString *)cssrule{
-    
-    NSString *css = [cssrule stringByTrim];
-    NSArray *cssItems = [css componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
-    
-    return [cssItems[0] stringByTrim];
-}
-
-- (NSString *)innerCSSText:(NSString *)innerCSSText byAddingCSSText:(NSString *)cssText withID:(NSString *)identifier
-{
-    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
-    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
-    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
-    
-    //    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByCharactersInSet:
-    //                          [NSCharacterSet characterSetWithCharactersInString:@"."]];
-    
-    for(NSString *rule in cssRuleList){
-        if(rule.length == 0){
-            continue;
-        }
-        NSString *ruleID = [self cssIDInCSSRule:rule];
-        NSString *modifyidentifier = [identifier stringByTrim];
-        if([ruleID isEqualToString:modifyidentifier] == NO){
-            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
-        }
-    }
-    
-    [innerCSSHTML appendString:cssText];
-    [innerCSSHTML appendString:@"\n"];
-    
-    return innerCSSHTML;
-}
-
-
-- (void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier{
-    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDoc] getElementById:@"default"];
-    NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withID:identifier];
-    [sheetElement setInnerHTML:newCSSText];
-}
-
-- (NSString *)removeCSSText:(NSString *)innerCSSText withID:(NSString *)identifier
-{
-    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
-    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
-    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
-    
-    for(NSString *rule in cssRuleList){
-        if(rule.length == 0){
-            continue;
-        }
-        NSString *ruleID = [self cssIDInCSSRule:rule];
-        NSString *modifiedIdentifier = [identifier stringByTrim];
-        if([ruleID isEqualToString:modifiedIdentifier] == NO){
-            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
-        }
-    }
-    
-    return innerCSSHTML;
-}
-
-
-
-#pragma mark -
-#pragma mark GridView
-- (GridView *)gridView{
-    return ((LMCanvasView *)self.view).gridView;
-}
-
-
 /*
  ******************************************************************************************
  SET IU : View call IU
  ******************************************************************************************
  */
-#pragma mark -
-#pragma mark setIU
-
-#pragma mark frameDict
-
+#pragma mark - setIU
 
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict{
     
