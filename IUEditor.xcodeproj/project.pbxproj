@@ -976,6 +976,7 @@
 		3DE45F6119F7BFB200A75567 /* IUEditor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */; };
 		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
 		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
+		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2211,6 +2212,7 @@
 		3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUEditor_Tests.m; sourceTree = "<group>"; };
 		3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUDataStorageTest.m; sourceTree = "<group>"; };
 		3DE45F6C19F7C04000A75567 /* JDCoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDCoderTest.m; sourceTree = "<group>"; };
+		3DE4625C19F8A63A00A75567 /* tinymce */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tinymce; path = IUEditor/Resource/IUResource/editormode/js/tinymce; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3924,6 +3926,7 @@
 		3D2EFBC819F7874000BBBAE5 /* js */ = {
 			isa = PBXGroup;
 			children = (
+				3DE4625C19F8A63A00A75567 /* tinymce */,
 				3D2EFBD919F787D000BBBAE5 /* iueditor.js */,
 				3D2EFBDA19F787D000BBBAE5 /* iugooglemap_theme.js */,
 				3D2EFBDB19F787D000BBBAE5 /* jquery-1.10.2.js */,
@@ -4880,6 +4883,7 @@
 				3D2EFBD819F787B600BBBAE5 /* iueditor.css in Resources */,
 				3D2EFB8F19F786C700BBBAE5 /* MapMarker_PushPin_Right_Azure.png in Resources */,
 				3D2EFA5819F7869E00BBBAE5 /* tab_property_on.png in Resources */,
+				3DE4625D19F8A63A00A75567 /* tinymce in Resources */,
 				3D2EFC0B19F7883700BBBAE5 /* jquery.event.swipe.js in Resources */,
 				3D2EF8DE19F7867700BBBAE5 /* wp_article.png in Resources */,
 				3D2EF8B819F7867700BBBAE5 /* tool_collection.png in Resources */,
