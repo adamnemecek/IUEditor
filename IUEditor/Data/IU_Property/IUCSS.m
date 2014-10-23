@@ -228,7 +228,7 @@
     }
 }
 
--(void)setEditWidth:(NSInteger)editViewPort{
+-(void)setEditViewPort:(NSInteger)editViewPort{
     _editViewPort = editViewPort;
     [self updateEffectiveTagDictionary];
 }
