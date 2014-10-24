@@ -33,8 +33,6 @@
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict;
 
 //callby canvasview
-
-
 - (NSInteger)selectedFrameWidth;
 - (NSInteger)maxFrameWidth;
 

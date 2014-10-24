@@ -121,6 +121,31 @@
     [_controller addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionPrior context:nil];
 }
 
+- (void)setSheet:(IUSheet *)sheet{
+    NSAssert(self.documentBasePath != nil, @"resourcePath is nil");
+    if (self.documentBasePath == nil) {
+        return;
+    }
+    JDSectionInfoLog( IULogSource, @"resourcePath  : %@", self.documentBasePath);
+    [[self gridView] clearAllLayer];
+    [_sheet setDelegate:nil];
+    _sheet = sheet;
+    [_sheet setDelegate:self];
+    
+    NSString *editorSrc = [sheet.editorSource copy];
+    [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
+    
+    [self updateSheetHeight];
+}
+
+
+- (void)reloadSheet{
+    if(_sheet){
+        [self setSheet:_sheet];
+    }
+}
+
+
 #pragma mark - views
 
 - (LMCanvasView *)canvasView{
@@ -170,6 +195,11 @@
     }
 }
 
+- (void)updateWebViewWidth{
+    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
+    [self IUClassIdentifier:@"#"IUSheetOuterIdentifier CSSUpdated:outerCSS];
+}
+
 
 #pragma mark - MQ
 - (void)changeMQSelect:(NSNotification *)notification{
@@ -207,8 +237,7 @@
     
 }
 
-#pragma mark -
-#pragma mark call by Document
+#pragma mark - IUCanvasController Protocol
 
 - (void)webViewdidFinishLoadFrame{
     
@@ -229,33 +258,7 @@
 }
 
 
-- (void)setSheet:(IUSheet *)sheet{
-    NSAssert(self.documentBasePath != nil, @"resourcePath is nil");
-    if (self.documentBasePath == nil) {
-        return;
-    }
-    JDSectionInfoLog( IULogSource, @"resourcePath  : %@", self.documentBasePath);
-    [[self gridView] clearAllLayer];
-    [_sheet setDelegate:nil];
-    _sheet = sheet;
-    [_sheet setDelegate:self];
-    
-    NSString *editorSrc = [sheet.editorSource copy];
-    [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
-        
-    [self updateSheetHeight];
-}
 
-- (void)reloadSheet{
-    if(_sheet){
-        [self setSheet:_sheet];
-    }
-}
-
-- (void)updateWebViewWidth{
-    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
-    [self IUClassIdentifier:@"#sheet_outer" CSSUpdated:outerCSS];
-}
 
 
 
@@ -558,11 +561,6 @@
     NSPoint distance = NSMakePoint(iuFrame.origin.x-parentFrame.origin.x,
                                    iuFrame.origin.y - parentFrame.origin.y);
     return distance;
-}
-
-- (NSSize)frameSize:(NSString *)identifier{
-    NSRect iuFrame = [[frameDict.dict objectForKey:identifier] rectValue];
-    return iuFrame.size;
 }
 
 - (NSPoint)distanceFromIU:(NSString*)parentName toPointFromWebView:(NSPoint)point{

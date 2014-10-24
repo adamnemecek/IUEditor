@@ -13,51 +13,8 @@
 #import "IUMQData.h"
 #import "IUIdentifierManager.h"
 #import "IUDataStorage.h"
+#import "IUSourceDelegate.h"
 
-@protocol IUSourceDelegate <NSObject>
-@required
-
-//enable, disable update
-- (void)enableUpdateAll:(id)sender;
-- (void)disableUpdateAll:(id)sender;
-- (void)enableUpdateCSS:(id)sender;
-- (void)disableUpdateCSS:(id)sender;
-- (BOOL)isUpdateCSSEnabled;
-- (void)enableUpdateJS:(id)sender;
-- (void)disableUpdateJS:(id)sender;
-- (BOOL)isUpdateJSEnabled;
-- (void)enableUpdateHTML:(id)sender;
-- (void)disableUpdateHTML:(id)sender;
-- (BOOL)isUpdateHTMLEnabled;
-
-//css update
--(void)IUClassIdentifier:(NSString *)identifier CSSUpdated:(NSString*)css;
-//style-sheet css
--(void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier;
-
-//js update (frame)
-- (void)updateJS;
-
-//html update
--(void)IUHTMLIdentifier:(NSString *)identifier HTML:(NSString *)html withParentID:(NSString *)parentID;
-
--(void)IUClassIdentifier:(NSString *)classIdentifier addClass:(NSString *)className;
--(void)IUClassIdentifier:(NSString *)classIdentifier removeClass:(NSString *)className;
-
--(void)IURemoved:(NSString*)identifier withParentID:(NSString *)parentID;
-
-- (NSPoint)distanceFromIU:(NSString *)iuName to:(NSString *)parentName;
-- (NSSize)frameSize:(NSString *)identifier;
-- (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
-/**
- @brief call javascript function
- @param args javascirpt function argument, argument에 들어가는 것중에 dict, array는 string으로 보내서javascript내부에서 새로 var를 만들어서 사용
-*/
-- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
-- (id)evaluateWebScript:(NSString *)script;
-
-
-@end
 
 typedef enum _IUPositionType{
     IUPositionTypeAbsolute,

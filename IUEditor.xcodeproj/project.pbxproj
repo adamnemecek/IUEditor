@@ -2214,6 +2214,7 @@
 		3DE45F6C19F7C04000A75567 /* JDCoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDCoderTest.m; sourceTree = "<group>"; };
 		3DE4625C19F8A63A00A75567 /* tinymce */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tinymce; path = IUEditor/Resource/IUResource/editormode/js/tinymce; sourceTree = "<group>"; };
 		3DE4625E19F8E23D00A75567 /* IUCanvasController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IUCanvasController.h; path = UI/View_Canvas/IUCanvasController.h; sourceTree = "<group>"; };
+		3DE4625F19F9ED8300A75567 /* IUSourceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSourceDelegate.h; path = UI/View_Canvas/IUSourceDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2813,6 +2814,7 @@
 			isa = PBXGroup;
 			children = (
 				3DE4625E19F8E23D00A75567 /* IUCanvasController.h */,
+				3DE4625F19F9ED8300A75567 /* IUSourceDelegate.h */,
 				3D2EF62019F7845500BBBAE5 /* LMCanvasVC.h */,
 				3D2EF62119F7845500BBBAE5 /* LMCanvasVC.m */,
 				3D2EF62219F7845500BBBAE5 /* LMCanvasVC.xib */,

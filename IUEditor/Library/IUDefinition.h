@@ -23,9 +23,10 @@ static NSString * kUTTypeIUType  =  @"kUTTypeIUType";
 static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 
 
-
 #define definedPrefixIdentifiers @[@"IU",@"mce",@"mceu"]
 #define definedIdentifers  @[@"id",@"ifdef",@"default"]
 
+
+#define IUSheetOuterIdentifier @"sheet_outer"
 
 #endif
