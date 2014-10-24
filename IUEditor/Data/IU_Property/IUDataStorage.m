@@ -14,6 +14,7 @@
 - (IUDataStorageManager *)manager;
 
 @property NSMutableDictionary *storage;
+@property BOOL enableUpdate;
 @end
 
 @interface IUDataStorageManager()
@@ -35,6 +36,7 @@
 - (id)init{
     self = [super init];
     _storage = [NSMutableDictionary dictionary];
+    _enableUpdate = YES;
     return self;
 }
 
@@ -46,6 +48,7 @@
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     manager = [aDecoder decodeByRefObjectForKey:@"manager"];
+    _enableUpdate = YES;
 }
 
 - (IUDataStorageManager *)manager{
@@ -63,7 +66,9 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
     [self willChangeValueForKey:key];
     [_storage setValue:value forKey:key];
-    [manager storage:self updated:key];
+    if (_enableUpdate){
+        [manager storage:self updated:key];
+    }
     [self didChangeValueForKey:key];
 }
 
@@ -162,15 +167,15 @@
  Manage new value of liveStorage = currentStroage
  */
 - (void)storage:(IUDataStorage*)storage updated:(NSString*)key{
-    if (self.currentStorage.storage[key] == self.liveStorage.storage[key]) {
-        return;
-    }
-    
     if (storage == self.currentStorage) {
+        [self.liveStorage setEnableUpdate:NO];
         [self.liveStorage setValue:self.currentStorage.storage[key] forKey:key];
+        [self.liveStorage setEnableUpdate:YES];
     }
     else if (storage == self.liveStorage) {
+        [self.currentStorage setEnableUpdate:NO];
         [self.currentStorage setValue:self.currentStorage.storage[key] forKey:key];
+        [self.currentStorage setEnableUpdate:NO];
     }
     else {
         NSAssert(0, @"Cannot come to here");
