@@ -10,7 +10,6 @@
 #import "IUSheetController.h"
 #import "IUSheetGroup.h"
 #import "WebCanvasView.h"
-#import "IUFrameDictionary.h"
 #import "IUController.h"
 #import "LMFileNaviVC.h"
 

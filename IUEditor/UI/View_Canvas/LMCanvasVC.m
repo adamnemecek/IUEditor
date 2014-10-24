@@ -259,11 +259,7 @@
 
 
 
-
-
-
-
-#pragma mark - notification from other VCs
+#pragma mark - notification from other Controllers
 
 - (void)ghostImageContextDidChange:(NSDictionary *)change{
     
@@ -275,6 +271,23 @@
     NSPoint ghostPosition = NSMakePoint(_sheet.ghostX, _sheet.ghostY);
     [[self gridView] setGhostPosition:ghostPosition];
     [[self gridView] setGhostOpacity:_sheet.ghostOpacity];
+}
+
+
+-(void)selectedObjectsDidChange:(NSDictionary*)change{
+    [JDLogUtil log:IULogAction key:@"CanvasVC:observed" string:[self.controller.selectedIdentifiers description]];
+    
+    [[self gridView] removeAllSelectionLayers];
+    [[self gridView] removeAllTextPointLayer];
+    
+    for(IUBox *iu in self.controller.selectedObjects){
+        if([frameDict.dict objectForKey:iu]){
+            NSRect frame = [[frameDict.dict objectForKey:iu] rectValue];
+            [[self gridView] addSelectionLayerWithIU:iu withFrame:frame];
+            [[self gridView] addTextPointLayerWithIU:iu withFrame:frame];
+        }
+    }
+    
 }
 
 #pragma mark - Manage IUs
@@ -350,23 +363,6 @@
     }
 }
 
-
--(void)selectedObjectsDidChange:(NSDictionary*)change{
-    [JDLogUtil log:IULogAction key:@"CanvasVC:observed" string:[self.controller.selectedIdentifiers description]];
-    
-    [[self gridView] removeAllSelectionLayers];
-    [[self gridView] removeAllTextPointLayer];
-    
-    for(NSString *identifier in self.controller.selectedIdentifiersWithImportIdentifier){
-        if([frameDict.dict objectForKey:identifier]){
-            NSRect frame = [[frameDict.dict objectForKey:identifier] rectValue];
-            IUBox *box = [self.controller tryIUBoxByIdentifier:identifier];
-            [[self gridView] addSelectionLayerWithIU:box withFrame:frame];
-            [[self gridView] addTextPointLayerWithIU:box withFrame:frame];
-        }
-    }
-    
-}
 - (void)deselectedAllIUs{
     [self.controller setSelectionIndexPath:nil];
 }
@@ -429,12 +425,12 @@
 #pragma mark - Text Editor
 
 - (void)saveCurrentTextEditorForWidth:(NSInteger)width{
-    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:@"addible"];
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:IUTextAddibleClass];
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextAddibleClass withString:@""]];
         
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
@@ -445,12 +441,12 @@
         
     }
     
-    list = [self.webDocument.documentElement getElementsByClassName:@"editable"];
+    list = [self.webDocument.documentElement getElementsByClassName:IUTextEditableClass];
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextEditableClass withString:@""]];
         
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
@@ -472,12 +468,12 @@
     }
     
     //remove current editor
-    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:@"addible"];
+    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:IUTextAddibleClass];
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"addible" withString:@""]];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextAddibleClass withString:@""]];
         NSString *identifier = node.idName;
         
         //remove current editor
@@ -486,12 +482,12 @@
 
     }
     
-    list = [self.webDocument.documentElement getElementsByClassName:@"editable"];
+    list = [self.webDocument.documentElement getElementsByClassName:IUTextEditableClass];
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:@"editable" withString:@""]];
+        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextEditableClass withString:@""]];
         NSString *identifier = node.idName;
         
         //remove editor
@@ -521,13 +517,13 @@
         return;
     }
     else if(inputType == IUTextInputTypeAddible){
-        className = @"addible";
+        className = IUTextAddibleClass;
         fnName = @"iuAddEditorAddible";
         NSString *alertString = [NSString stringWithFormat:@"Text Typing Mode : %@", iu.name];
         [JDUIUtil hudAlert:alertString second:2];
     }
     else if(inputType == IUTextInputTypeEditable){
-        className = @"editable";
+        className = IUTextEditableClass;
         fnName = @"iuAddEditorEditable";
         NSString *alertString = [NSString stringWithFormat:@"Text Editor Mode : %@", iu.name];
         [JDUIUtil hudAlert:alertString second:2];
@@ -554,21 +550,21 @@
 
 #pragma mark - frame
 
-- (NSPoint)distanceFromIU:(NSString *)parentName to:(NSString *)iuName{
-    NSRect iuFrame = [[frameDict.dict objectForKey:iuName] rectValue];
-    NSRect parentFrame = [[frameDict.dict objectForKey:parentName] rectValue];
+- (NSPoint)distanceFromIU:(IUBox *)fromIU to:(IUBox *)toIU{
+    NSRect iuFrame = [[frameDict.dict objectForKey:toIU] rectValue];
+    NSRect parentFrame = [[frameDict.dict objectForKey:fromIU] rectValue];
     
     NSPoint distance = NSMakePoint(iuFrame.origin.x-parentFrame.origin.x,
                                    iuFrame.origin.y - parentFrame.origin.y);
     return distance;
 }
 
-- (NSPoint)distanceFromIU:(NSString*)parentName toPointFromWebView:(NSPoint)point{
+- (NSPoint)distanceFromIU:(IUBox *)iu toPointFromWebView:(NSPoint)point{
     
-    NSRect parentFrame = [[frameDict.dict objectForKey:parentName] rectValue];
+    NSRect iuframe = [[frameDict.dict objectForKey:iu] rectValue];
     
-    NSPoint distance = NSMakePoint(point.x-parentFrame.origin.x,
-                                   point.y - parentFrame.origin.y);
+    NSPoint distance = NSMakePoint(point.x-iuframe.origin.x,
+                                   point.y - iuframe.origin.y);
     return distance;
 }
 
@@ -581,25 +577,9 @@
     return selectNode;
     
 }
-- (NSString *)tagWithHTML:(NSString *)html{
-    NSString *subHTML = [html substringFromIndex:[html rangeOfString:@"<"].location];
-    NSArray *separatedHTML = [subHTML componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([separatedHTML count]) {
-        NSString *incompleteTag = separatedHTML[0];
-        NSArray *tags = [incompleteTag componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-        if ([tags count] > 1) {
-            NSString *tag = tags[1];
-            if (tag.length != 0) {
-                return tag;
-            }
-        }
-    }
-    [JDUIUtil hudAlert:@"You Found error. Please contact to us" second:2];
- //   NSAssert(0, @"Error!!!");
-    return nil;
-}
 
--(void)IUHTMLIdentifier:(NSString*)identifier HTML:(NSString *)html withParentID:(NSString *)parentID{
+
+-(void)IUHTMLIdentifier:(NSString*)identifier HTML:(NSString *)html{
     
     //element를 바꾸기 전에 현재 text editor를 disable시켜야지 text editor가 제대로 동작함.
     //editor remove가 제대로 돌아가야 함.
@@ -610,19 +590,6 @@
         //change html text
         [currentElement setOuterHTML:html];
     }
-    else{
-        //insert html
-        DOMHTMLElement *selectHTMLElement = [self getHTMLElementbyID:parentID];
-        if (selectHTMLElement == nil) {
-            return;
-        }
-        DOMHTMLElement *newElement = (DOMHTMLElement *)[self.webDocument createElement:[self tagWithHTML:html]];
-        [selectHTMLElement appendChild:newElement];
-        
-        [newElement setOuterHTML:html];
-
-    }
-    
 }
 
 #pragma mark - class
@@ -1008,10 +975,10 @@
 }
 
 
--(void)IURemoved:(NSString*)identifier withParentID:(NSString *)parentID{
+-(void)IURemoved:(NSString*)identifier{
     
     [self deselectedAllIUs];
-    IUBox *iu = [_controller IUBoxByIdentifier:identifier];
+    IUBox *iu = [_controller tryIUBoxByIdentifier:identifier];
     
     //remove sheet css
     NSArray *cssIds = [iu cssIdentifierArray];

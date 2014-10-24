@@ -630,7 +630,7 @@
         [self.delegate disableUpdateJS:self];
         NSString *editorHTML = [self.project.compiler htmlCode:self target:IUTargetEditor].string;
         
-        [self.delegate IUHTMLIdentifier:self.htmlID HTML:editorHTML withParentID:self.parent.htmlID];
+        [self.delegate IUHTMLIdentifier:self.htmlID HTML:editorHTML];
 
         if([self.sheet isKindOfClass:[IUClass class]]){
             for(IUBox *box in ((IUClass *)self.sheet).references){
@@ -860,7 +860,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.delegate IURemoved:iu.htmlID withParentID:iu.parent.htmlID];
+        [self.delegate IURemoved:iu.htmlID];
         [_m_children removeObject:iu];
         
         if (self.isConnectedWithEditor) {
@@ -881,7 +881,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.delegate IURemoved:iu.htmlID withParentID:iu.parent.htmlID];
+        [self.delegate IURemoved:iu.htmlID];
         [_m_children removeObject:iu];
     }
     

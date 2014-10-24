@@ -79,10 +79,10 @@
         //remove layers
         for(IUBox *box in _prototypeClass.allChildren){
             NSString *currentID = [self modifieldHtmlIDOfChild:box];
-            [self.delegate IURemoved:currentID withParentID:self.htmlID];
+            [self.delegate IURemoved:currentID];
         }
         
-        [self.delegate IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass] withParentID:self.htmlID];
+        [self.delegate IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
 
     }
     

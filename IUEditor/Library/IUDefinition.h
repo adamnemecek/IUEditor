@@ -29,4 +29,10 @@ static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 
 #define IUSheetOuterIdentifier @"sheet_outer"
 
+//text editor mode
+//editable class can change attributes
+//addible class only can add or remove text
+#define IUTextEditableClass @"editable"
+#define IUTextAddibleClass @"addible"
+
 #endif

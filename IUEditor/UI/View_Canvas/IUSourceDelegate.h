@@ -38,8 +38,8 @@
 
 
 #pragma mark - HTML
--(void)IUHTMLIdentifier:(NSString *)identifier HTML:(NSString *)html withParentID:(NSString *)parentID;
--(void)IURemoved:(NSString*)identifier withParentID:(NSString *)parentID;
+-(void)IUHTMLIdentifier:(NSString *)identifier HTML:(NSString *)html;
+-(void)IURemoved:(NSString*)identifier;
 
 - (void)enableUpdateHTML:(id)sender;
 - (void)disableUpdateHTML:(id)sender;
