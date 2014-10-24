@@ -36,6 +36,14 @@
 - (BOOL)isUpdateJSEnabled;
 
 
+/**
+ @brief call javascript function
+ @param args javascirpt function argument, argument에 들어가는 것중에 dict, array는 string으로 보내서javascript내부에서 새로 var를 만들어서 사용
+ */
+- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
+- (id)evaluateWebScript:(NSString *)script;
+
+
 
 #pragma mark - HTML
 -(void)IUHTMLIdentifier:(NSString *)identifier HTML:(NSString *)html;
@@ -48,14 +56,6 @@
 
 - (NSRect)absoluteIUFrame:(NSString *)identifier;
 - (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
-
-
-/**
- @brief call javascript function
- @param args javascirpt function argument, argument에 들어가는 것중에 dict, array는 string으로 보내서javascript내부에서 새로 var를 만들어서 사용
- */
-- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
-- (id)evaluateWebScript:(NSString *)script;
 
 
 @end

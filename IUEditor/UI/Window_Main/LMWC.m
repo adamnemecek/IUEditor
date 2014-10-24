@@ -20,6 +20,7 @@
 #import "IUIdentifierManager.h"
 #import "IUResourceUtil.h"
 
+#import "LMJSManager.h"
 
 
 //connect VC
@@ -125,8 +126,11 @@
     LMServerWC *serverWC;
     LMHerokuWC *herokuWC;
     
-    //log
+    //view connecter
+    //propertyVC -(get js result)- jsManager - canvasVC
+    LMJSManager *jsManager;
     
+    //log
     int consoleLogReferenceCount;
 }
 
@@ -159,6 +163,14 @@
         [iuInspectorVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
         [eventVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
         [topToolbarVC bind:@"sheetController" toObject:fileNaviVC withKeyPath:@"documentController" options:nil];
+        
+        //allocation JSManger
+        jsManager = [[LMJSManager alloc] init];
+        [jsManager setDelegate:canvasVC];
+        
+        //allocated jsmanager to VC (run js)
+        [appearanceVC setJsManager:jsManager];
+        
         
         //project binding
         [canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];

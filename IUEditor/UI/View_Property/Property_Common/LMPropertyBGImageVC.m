@@ -199,11 +199,9 @@
     // when file is empty, image fit doesn't make any difference.
     if([filename isHTTPURL]){
         //setting size to IU
-        NSArray *selectedObjects = self.controller.selectedObjects;
-        for (IUBox *box in selectedObjects) {
-            width =  [[box.delegate callWebScriptMethod:@"getImageWidth" withArguments:@[filename]] integerValue];
-            height =  [[box.delegate callWebScriptMethod:@"getImageHeight" withArguments:@[filename]] integerValue];
-        }
+            width =  [[self.jsManager callWebScriptMethod:@"getImageWidth" withArguments:@[filename]] integerValue];
+            height =  [[self.jsManager callWebScriptMethod:@"getImageHeight" withArguments:@[filename]] integerValue];
+        
     }
     else if(filename != nil){
     //getting path
@@ -236,6 +234,8 @@
     
     for (IUBox *box in selectedObjects) {
         [box startFrameMoveWithUndoManager];
+        [box.css setValue:@(NO) forTag:IUCSSTagWidthUnitIsPercent];
+        [box.css setValue:@(NO) forTag:IUCSSTagHeightUnitIsPercent];
         [box.css setValue:@(width) forTag:IUCSSTagPixelWidth];
         [box.css setValue:@(height) forTag:IUCSSTagPixelHeight];
         [box endFrameMoveWithUndoManager];

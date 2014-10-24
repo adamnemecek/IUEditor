@@ -265,6 +265,30 @@ function getImageWidth(imageSrc){
 	return imageWidth;
 }
 
+function getCurrentFrameValue(identifier, frameType){
+	var frameDict;
+	if(frameType.indexOf("percent") >=0 ){
+		frameDict =  $('#'+'identifier').iuPercentFrame();
+	}
+	else{
+		frameDict = $('#'+'identifier').iuPosition();
+	}
+	
+	if(frameType.indexOf("left") >=0 ){
+		return frameDict.left;
+	}
+	else if(frameType.indexOf("top") >=0 ){
+		return frameDict.left;
+	}
+	else if(frameType.indexOf("width") >=0 ){
+		return frameDict.left;
+	}
+	else if(frameType.indexOf("height") >=0 ){
+		return frameDict.left;
+	}
+	
+}
+
 
 $(window).resize(function(){
 	//iuframe.js

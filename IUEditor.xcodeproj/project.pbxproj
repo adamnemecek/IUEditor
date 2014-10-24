@@ -1036,6 +1036,7 @@
 		3DE462F719FA4A2600A75567 /* wpblog_pc_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE462AF19FA4A2600A75567 /* wpblog_pc_02.png */; };
 		3DE462F819FA4A2600A75567 /* wpblog_tablet_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE462B019FA4A2600A75567 /* wpblog_tablet_01.png */; };
 		3DE462F919FA4A2600A75567 /* wpblog_tablet_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE462B119FA4A2600A75567 /* wpblog_tablet_02.png */; };
+		3DE462FF19FA4B8100A75567 /* LMJSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE462FE19FA4B8100A75567 /* LMJSManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2330,6 +2331,8 @@
 		3DE462AF19FA4A2600A75567 /* wpblog_pc_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wpblog_pc_02.png; sourceTree = "<group>"; };
 		3DE462B019FA4A2600A75567 /* wpblog_tablet_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wpblog_tablet_01.png; sourceTree = "<group>"; };
 		3DE462B119FA4A2600A75567 /* wpblog_tablet_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wpblog_tablet_02.png; sourceTree = "<group>"; };
+		3DE462FD19FA4B8100A75567 /* LMJSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMJSManager.h; path = UI/View_Canvas/Library/LMJSManager.h; sourceTree = "<group>"; };
+		3DE462FE19FA4B8100A75567 /* LMJSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMJSManager.m; path = UI/View_Canvas/Library/LMJSManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3013,6 +3016,8 @@
 		3D2EF5FD19F7840500BBBAE5 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3DE462FD19FA4B8100A75567 /* LMJSManager.h */,
+				3DE462FE19FA4B8100A75567 /* LMJSManager.m */,
 				3D2EF61819F7844B00BBBAE5 /* CursorRect.h */,
 				3D2EF61919F7844B00BBBAE5 /* CursorRect.m */,
 				3D2EF61A19F7844B00BBBAE5 /* IUFrameDictionary.h */,
@@ -5332,6 +5337,7 @@
 				3D2EF40919F780EA00BBBAE5 /* ClipArt.m in Sources */,
 				3D2EF5B019F7830100BBBAE5 /* LMHelpTextPopoverVC.m in Sources */,
 				3D2EF42919F7815B00BBBAE5 /* IUResourceFile.m in Sources */,
+				3DE462FF19FA4B8100A75567 /* LMJSManager.m in Sources */,
 				3D2EFC5819F788BA00BBBAE5 /* JDSyncUtil.m in Sources */,
 				3D2EF59119F782C700BBBAE5 /* LMStartWC.m in Sources */,
 				3D2EF42B19F7815B00BBBAE5 /* IUSheetGroup.m in Sources */,
