@@ -103,9 +103,6 @@ static NSString *IUClassGroupName = @"class";
 - (NSArray *)defaultEditorJSArray;
 - (NSArray *)defaultOutputJSArray;
 
-//save project
-- (BOOL)save;
-
 //project properties
 - (NSArray*)mqSizes;
 

@@ -725,12 +725,6 @@
 }
 
 
-
--(BOOL)save{
-    return [NSKeyedArchiver archiveRootObject:self toFile:_path];
-}
-
-
 - (void)addImageResource:(NSImage*)image{
     NSAssert(0, @"write fail");
 }
