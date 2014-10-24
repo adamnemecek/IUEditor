@@ -7,14 +7,13 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "IUBox.h"
 
 @interface SelectionBorderLayer : CAShapeLayer{
-    IUBox *iu;
+    NSString *identifier;
 }
 
-- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame;
-- (IUBox *)iu;
+- (id)initWithIdentifier:(NSString *)anIdentifier withFrame:(NSRect)frame;
+- (NSString *)identifier;
 
 
 @end

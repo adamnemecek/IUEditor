@@ -1076,10 +1076,6 @@ e.g. 만약 css로 옮긴다면)
     [_css setValueWithoutUpdateCSS:@(frame.size.width) forTag:IUCSSTagPixelWidth];
 }
 
--(BOOL)percentUnitAtCSSTag:(IUCSSTag)tag{
-    BOOL unit = [_css.effectiveTagDictionary[tag] boolValue];
-    return unit;
-}
 
 #pragma mark move by drag & drop
 
@@ -1100,8 +1096,11 @@ e.g. 만약 css로 옮긴다면)
     }
     else if(self.positionType == IUPositionTypeRelative || self.positionType == IUPositionTypeFloatRight ||
             self.positionType == IUPositionTypeFloatLeft){
-        NSPoint distancePoint = [self.delegate distanceFromIU:self.htmlID to:self.parent.htmlID];
-        currentY = distancePoint.y;
+        
+        NSRect currentFrame = [self.delegate absoluteIUFrame:self.htmlID];
+        NSRect parentframe = [self.delegate absoluteIUFrame:self.parent.htmlID];
+        currentY = parentframe.origin.y - currentFrame.origin.y;
+        
     }
     return NSMakePoint(currentX, currentY);
 }
@@ -1170,7 +1169,7 @@ e.g. 만약 css로 옮긴다면)
 - (void)endFrameMoveWithUndoManager{
     [[self undoManager] beginUndoGrouping];
     [[self.undoManager prepareWithInvocationTarget:self] undoFrameWithDictionary:undoFrameDict];
-    [[self undoManager] endUndoGrouping];
+    [[self undoManager] endUndoGrouping];    
 }
 
 - (void)undoFrameWithDictionary:(NSMutableDictionary *)dictionary{
@@ -1216,116 +1215,68 @@ e.g. 만약 css로 옮긴다면)
     [_css setValueWithoutUpdateCSS:dictionary[IUCSSTagPercentHeight] forTag:IUCSSTagPercentHeight];
 
     
+    
     [self updateCSS];
 }
 
-- (void)movePosition:(NSPoint)point withParentSize:(NSSize)parentSize{
-    //Set Pixel
-    if([self canChangeXByUserInput]){
-        NSInteger currentX = originalPoint.x + point.x;
-        
-        [_css setValueWithoutUpdateCSS:@(currentX) forTag:IUCSSTagPixelX];
+- (NSPoint)originalPoint{
+    return originalPoint;
+}
+- (NSSize)originalSize{
+    return originalSize;
+}
 
-        //set Percent if enablePercent
-        BOOL enablePercentX = [self percentUnitAtCSSTag:IUCSSTagXUnitIsPercent];
-        if(enablePercentX){
-            CGFloat percentX = 0;
-            if(parentSize.width!=0){
-                percentX = (currentX / parentSize.width) * 100;
-            }
-            [_css setValueWithoutUpdateCSS:@(percentX) forTag:IUCSSTagPercentX];
-        }
-    }
+- (BOOL)canChangeWidthByDraggable{
     
-    if([self canChangeYByUserInput]){
-        
-        NSInteger currentY = originalPoint.y + point.y;
-        [_css setValueWithoutUpdateCSS:@(currentY) forTag:IUCSSTagPixelY];
-
-        
-        BOOL enablePercentY = [self percentUnitAtCSSTag:IUCSSTagYUnitIsPercent];
-        if(enablePercentY){
-            CGFloat percentY = 0;
-            if(parentSize.height!=0){
-                percentY = (currentY / parentSize.height) * 100;
-            }
-            [_css setValueWithoutUpdateCSS:@(percentY) forTag:IUCSSTagPercentY];
+    if([self canChangeWidthByUserInput]){
+        //userinput을 통해 바꿀 수 있어도 tag가 nil일 경우에는 drag를 통해서 넣지 않는다.
+        id pixelValue = [_css effectiveValueForTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
+        id percentValue = [_css effectiveValueForTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+        if(pixelValue == nil && percentValue == nil){
+            return NO;
+        }
+        else{
+            return YES;
         }
     }
+    return NO;
+   
+}
+- (BOOL)canChangeHeightByDraggable{
+    
+    if([self canChangeHeightByUserInput]){
+        //userinput을 통해 바꿀 수 있어도 tag가 nil일 경우에는 drag를 통해서 넣지 않는다.
+        id pixelValue = [_css effectiveValueForTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+        id percentValue = [_css effectiveValueForTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
+        if(pixelValue == nil && percentValue == nil){
+            return NO;
+        }
+        else{
+            return YES;
+        }
+    }
+    return NO;
     
 }
 
-- (void)increaseSize:(NSSize)size withParentSize:(NSSize)parentSize{
-    if([self canChangeWidthByUserInput] && size.width != CGFLOAT_INVALID){
-        NSInteger currentWidth = originalSize.width;
-        currentWidth += size.width;
-        if(currentWidth < 0){
-            currentWidth = 0;
-        }
-        [_css setValueWithoutUpdateCSS:@(currentWidth) forTag:IUCSSTagPixelWidth];
-
-        CGFloat percentWidth = originalPercentSize.width;
-        if(parentSize.width!=0){
-            percentWidth += (size.width / parentSize.width) *100;
-        }
-        if(percentWidth < 0){
-            percentWidth =0;
-        }
-        [_css setValueWithoutUpdateCSS:@(percentWidth) forTag:IUCSSTagPercentWidth];
-     
-    }
-    if([self canChangeHeightByUserInput]  && size.height != CGFLOAT_INVALID){
-        NSInteger currentHeight = originalSize.height;
-        currentHeight += size.height;
-        if(currentHeight < 0){
-            currentHeight =0;
-        }
-        [_css setValueWithoutUpdateCSS:@(currentHeight) forTag:IUCSSTagPixelHeight];
-        
-        CGFloat percentHeight = originalPercentSize.height;
-        if(parentSize.height!=0){
-            percentHeight += (size.height / parentSize.height) *100;
-        }
-        if(percentHeight < 0){
-            percentHeight = 0;
-        }
-        [_css setValueWithoutUpdateCSS:@(percentHeight) forTag:IUCSSTagPercentHeight];        
-    }
+- (void)setPixelX:(CGFloat)pixelX percentX:(CGFloat)percentX{
+    [_css setValueWithoutUpdateCSS:@(pixelX) forTag:IUCSSTagPixelX];
+    [_css setValueWithoutUpdateCSS:@(percentX) forTag:IUCSSTagPercentX];
 }
-
-
-- (NSSize)currentApproximatePixelSize{
-
-    NSSize pixelSize;
-    NSInteger currentWidth;
-    if(_css.editViewPort == IUCSSDefaultViewPort){
-        currentWidth = _css.maxViewPort;
-    }
-    else{
-        currentWidth = _css.editViewPort;
-    }
-    
-    if([self percentUnitAtCSSTag:IUCSSTagWidthUnitIsPercent]){
-        CGFloat pWidth = [self currentPercentSize].width;
-        pixelSize.width = (pWidth/100) * currentWidth;
-    }
-    else{
-        pixelSize.width = [self currentSize].width;
-    }
-    if( [self percentUnitAtCSSTag:IUCSSTagHeightUnitIsPercent]){
-        CGFloat pHeight = [self currentPercentSize].height;
-        pixelSize.height =(pHeight/100) * currentWidth;
-    }
-    else{
-        pixelSize.height = [self currentSize].height;
-    }
-    return pixelSize;
+- (void)setPixelY:(CGFloat)pixelY percentY:(CGFloat)percentY{
+    [_css setValueWithoutUpdateCSS:@(pixelY) forTag:IUCSSTagPixelY];
+    [_css setValueWithoutUpdateCSS:@(percentY) forTag:IUCSSTagPercentY];
 }
-
+- (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
+    [_css setValueWithoutUpdateCSS:@(pixelWidth) forTag:IUCSSTagPixelWidth];
+    [_css setValueWithoutUpdateCSS:@(percentWidth) forTag:IUCSSTagPercentWidth];
+}
+- (void)setPixelHeight:(CGFloat)pixelHeight percentHeight:(CGFloat)percentHeight{
+    [_css setValueWithoutUpdateCSS:@(pixelHeight) forTag:IUCSSTagPixelHeight];
+    [_css setValueWithoutUpdateCSS:@(percentHeight) forTag:IUCSSTagPercentHeight];
+}
 
 #pragma mark - position
-
-#pragma mark - shouldXXX
 - (BOOL)canChangePositionType{
     return YES;
 }
@@ -1378,7 +1329,6 @@ e.g. 만약 css로 옮긴다면)
     return YES;
 }
 
-#pragma mark - setting position
 
 - (void)setPositionType:(IUPositionType)positionType{
     

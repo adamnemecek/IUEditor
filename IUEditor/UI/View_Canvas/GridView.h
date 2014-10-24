@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "PointLayer.h"
 #import "GuideLineLayer.h"
-#import "IUBox.h"
 #import "IUCanvasController.h"
 
 @interface GridView : NSView{
@@ -30,17 +29,17 @@
 
 @property (nonatomic) id<IUCanvasController>  controller;
 
-- (void)addSelectionLayerWithIU:(IUBox *)iu withFrame:(NSRect)frame;
+- (void)addSelectionLayerWithIdentifier:(NSString *)identifier withFrame:(NSRect)frame;
 - (void)removeAllSelectionLayers;
 
-- (void)addTextPointLayerWithIU:(IUBox *)iu withFrame:(NSRect)frame;
+- (void)addTextPointLayerWithIdentifier:(NSString *)identifier withFrame:(NSRect)frame;
 - (void)removeAllTextPointLayer;
 
 - (void)drawSelectionLayer:(NSRect)frame;
 - (void)resetSelectionLayer;
 
 - (void)updateLayerRect:(NSMutableDictionary *)frameDict;
-- (void)removeLayerForIU:(IUBox *)iu;
+- (void)removeLayerForIdentifier:(NSString *)identifier;
 - (void)clearAllLayer;
 
 - (void)setBorder:(BOOL)border;
@@ -53,5 +52,6 @@
 - (void)clearGuideLine;
 
 
-- (IUBox *)IUAtPoint:(NSPoint)point;
+- (NSString *)identifierAtPoint:(NSPoint)point;
+
 @end

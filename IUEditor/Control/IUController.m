@@ -328,6 +328,16 @@
     }
 }
 
+-(id)IUBoxByIdentifier:(NSString *)identifier inParentIU:(IUBox *)parentIU{
+    NSSet *findIUs = [self IUBoxesByIdentifiers:[NSArray arrayWithObject:identifier] inParentIU:parentIU];
+    if(findIUs.count == 0){
+        JDInfoLog(@"there is no IUID");
+        return nil;
+    }
+    return [findIUs anyObject];
+
+}
+
 -(id)IUBoxByIdentifier:(NSString *)identifier{
     NSSet *findIUs = [self IUBoxesByIdentifiers:[NSArray arrayWithObject:identifier]];
     if(findIUs.count == 0){
@@ -343,11 +353,29 @@
         return findIUs;
     }
     else if(findIUs == nil && [identifier containsString:kIUImportEditorPrefix]) {
-        NSString *realID = [[identifier componentsSeparatedByString:@"_"] objectAtIndex:2];
-        id currentIU = [self IUBoxByIdentifier:realID];
-        return currentIU;
+        NSString *importIdentifer = [[identifier componentsSeparatedByString:@"_"] objectAtIndex:1];
+        NSString *childIdentifier = [[identifier componentsSeparatedByString:@"_"] objectAtIndex:2];
+        id importIU = [self IUBoxByIdentifier:importIdentifer];
+        if(importIU){
+            id currentIU = [self IUBoxByIdentifier:childIdentifier inParentIU:importIU];
+            return currentIU;
+        }
     }
     return nil;
+}
+
+-(NSSet *)IUBoxesByIdentifiers:(NSArray *)identifiers inParentIU:(IUBox *)parentIU{
+    NSArray *allChildren = [[parentIU allChildren] arrayByAddingObject:parentIU];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(IUBox *iu, NSDictionary *bindings) {
+        if ([identifiers containsString:iu.htmlID]) {
+            return YES;
+        }
+        return NO;
+    }];
+    
+    NSArray *filteredChildren = [allChildren filteredArrayUsingPredicate:predicate];
+    return [NSSet setWithArray:filteredChildren];
 }
 
 -(NSSet *)IUBoxesByIdentifiers:(NSArray *)identifiers{

@@ -111,14 +111,13 @@
     NSPoint convertedPoint = [self convertPoint:dragPoint fromView:nil];
     
     //type1) newIU
-
     NSData *iuData = [pBoard dataForType:(id)kUTTypeIUType];
     if(iuData){
         LMWC *lmWC = [NSApp mainWindow].windowController;
         IUBox *newIU = lmWC.pastedNewIU;
         if(newIU){
-            NSString *parentIUID = [self parentNewIUAtPoint:convertedPoint];
-            IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIUID];
+            NSString *parentIdentifier = [self parentIdentifierOfNewIUAtPoint:convertedPoint];
+            IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIdentifier];
             if(parentIU){
                 NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
                 if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
@@ -136,11 +135,14 @@
     //type2) resourceImage
     NSString *imageName = [pBoard stringForType:(id)kUTTypeIUImageResource];
     if(imageName){
-        IUBox *iu = [self IUAtPoint:convertedPoint];
-        if(iu){
-            [iu setImageName:imageName];
-            [self.window makeFirstResponder:self];
-            return YES;
+        NSString *identifier = [self IdentifierAtPoint:convertedPoint];
+        if(identifier){
+            IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
+            if(iu){
+                [iu setImageName:imageName];
+                [self.window makeFirstResponder:self];
+                return YES;
+            }
         }
     }
     
@@ -282,15 +284,12 @@
     [self stringByEvaluatingJavaScriptFromString:@"getIUUpdatedFrameThread()"];
 }
 
-- (void)reframeCenter{
-    [self stringByEvaluatingJavaScriptFromString:@"reframeCenter()"];
-}
-
 
 - (void)runJSAfterRefreshCSS{
     JDTraceLog(@"runJSAfterRefreshCSS");
-    [self reframeCenter];
+    [self stringByEvaluatingJavaScriptFromString:@"reframeCenter()"];
     [self evaluateWebScript:@"resizeSideBar()"];
+
     [self updateFrameDict];
     [self resizePageContent];
 }
@@ -352,13 +351,13 @@
     return NO;
 }
 
-- (IUBox *)IUAtPoint:(NSPoint)point{
+- (NSString *)IdentifierAtPoint:(NSPoint)point{
     
     DOMElement *domNode =[self DOMElementAtPoint:point];
     if(domNode){
         DOMHTMLElement *htmlElement =[self IUNodeAtCurrentNode:domNode];
         if(htmlElement){
-            return [self.controller tryIUBoxByIdentifier:htmlElement.idName];
+            return htmlElement.idName;
         }
         else{
             return nil;
@@ -368,7 +367,7 @@
     return nil;
 }
 
-- (NSString *)parentNewIUAtPoint:(NSPoint)point{
+- (NSString *)parentIdentifierOfNewIUAtPoint:(NSPoint)point{
     DOMElement *domNode =[self DOMElementAtPoint:point];
     if(domNode){
         DOMHTMLElement *htmlElement =[self parentIUNodeAtCurrentNode:domNode];

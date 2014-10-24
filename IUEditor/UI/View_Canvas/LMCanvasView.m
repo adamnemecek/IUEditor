@@ -11,7 +11,7 @@
 
 @implementation LMCanvasView{
     /* current state of mouse + current state of iu (extend or move)*/
-    BOOL isSelected, isDragged, isSelectDragged, isMouseDownForMoveIU;
+    BOOL isMouseDragForIU, isDragForMultipleSelection, isMouseDownForMoveIU;
     NSPoint startDragPoint, middleDragPoint, endDragPoint;
     NSUInteger keyModifierFlags;
 }
@@ -55,6 +55,7 @@
 }
 
 #pragma mark - frame
+
 -(void)boundsDidChange:(NSNotification *)notification{
     NSRect contentBounds = [self.mainScrollView contentView].bounds;
     [self.sizeView moveSizeView:contentBounds.origin withWidth:contentBounds.size.width];
@@ -199,7 +200,7 @@
     }
     
     [self.controller startFrameMoveWithUndoManager:self];
-    [self.controller moveIUToDiffPoint:diffPoint totalDiffPoint:diffPoint];
+    [self.controller moveIUToTotalDiffPoint:diffPoint];
     [self.controller endFrameMoveWithUndoManager:self];
 }
 
@@ -227,12 +228,10 @@
     return YES;
 }
 
-
-
-- (BOOL)isDifferentIU:(IUBox *)iu{
+- (BOOL)isDifferentIdentifier:(NSString *)identifier{
     
-    if(iu != nil){
-        if( [self.controller containsIU:iu] == NO ){
+    if(identifier != nil){
+        if( [self.controller containsIdentifier:identifier] == NO ){
             return YES;
         }
     }
@@ -253,15 +252,15 @@
                 JDTraceLog( @"mouse down");
                 
                 isMouseDownForMoveIU = YES;
-                IUBox *clickedIU = [self.webView IUAtPoint:convertedPoint];
+                NSString *clickedIdentifier = [self.webView IdentifierAtPoint:convertedPoint];
                 
                 //webview에서 발견 못하면 gridView에서 한번더 체크
                 //media query 에서 보이지 않는 iu를 위해서 체크함.
-                if(clickedIU == nil){
-                    clickedIU = [self.gridView IUAtPoint:convertedPoint];
+                if(clickedIdentifier == nil){
+                    clickedIdentifier = [self.gridView identifierAtPoint:convertedPoint];
                 }
                 
-                if(clickedIU == nil){
+                if(clickedIdentifier == nil){
                     return;
                 }
                 
@@ -271,33 +270,32 @@
                         //[[self webView] setEditable:NO];
                         
                         //이미 select되어 있으면 deselect
-                        if( [self.controller containsIU:clickedIU] ){
-                            [self.controller deselectedIU:clickedIU];
+                        if( [self.controller containsIdentifier:clickedIdentifier] ){
+                            [self.controller deselectedIdentifier:clickedIdentifier];
                         }
                         else{
-                            [self.controller addSelectedIU:clickedIU];
+                            [self.controller addSelectedIdentifier:clickedIdentifier];
                         }
                     }
                     else{
                         //다른 iu를 선택하는 순간 editing mode out
-                        if([self isDifferentIU:clickedIU]){
+                        if([self isDifferentIdentifier:clickedIdentifier]){
                             [self.controller disableTextEditor];
                             
                         }
                         
-                        if([self.controller containsIU:clickedIU] == NO || [self.controller countOfSelectedIUs] == 1){
-                            [self.controller setSelectedIU:clickedIU];
+                        if([self.controller containsIdentifier:clickedIdentifier] == NO || [self.controller countOfSelectedIUs] == 1){
+                            [self.controller setSelectedIdentifier:clickedIdentifier];
                         }
                     }
                     
-                    if(clickedIU){
-                        isSelected = YES;
-                    }
-                    [self.controller startFrameMoveWithUndoManager:self];
                     
                     //if mouse down on text, it assumes for text selection
-                    if([self.controller isEnableTextEditor]){
+                    if(clickedIdentifier && [self.controller isEnableTextEditor]){
                         isMouseDownForMoveIU = NO;
+                    }
+                    else{
+                        [self.controller startFrameMoveWithUndoManager:self];
                     }
                     
                     startDragPoint = convertedPoint;
@@ -311,14 +309,15 @@
             }
         }
         /* mouse dragged */
-        if (theEvent.type == NSLeftMouseDragged && isMouseDownForMoveIU){
+        if (theEvent.type == NSLeftMouseDragged){
             JDTraceLog( @"mouse dragged");
             endDragPoint = convertedPoint;
             
             if([theEvent modifierFlags] & NSCommandKeyMask ){
                 [self selectWithDrawRect];
+                isMouseDownForMoveIU = NO;
             }
-            if(isSelected){
+            if(isMouseDownForMoveIU){
                 [self moveIUByDragging:theEvent];
             }
             
@@ -327,13 +326,12 @@
         /* mouse up */
         else if ( theEvent.type == NSLeftMouseUp ){
             JDTraceLog( @"NSLeftMouseUp");
-            isMouseDownForMoveIU = NO;
             [self clearMouseMovement];
             
         }
     }
     
-    if(isSelectDragged){
+    if(isDragForMultipleSelection){
         [[NSCursor crosshairCursor] push];
     }
 }
@@ -345,51 +343,49 @@
 - (void)startDraggingFromGridView{
     //turn off canvas view dragging.
     isMouseDownForMoveIU = NO;
-    isSelected = NO;
 }
 
 - (void)moveIUByDragging:(NSEvent *)theEvent{
-    isDragged = YES;
+    isMouseDragForIU = YES;
     NSPoint totalPoint = NSMakePoint(endDragPoint.x-startDragPoint.x, endDragPoint.y-startDragPoint.y);
-    NSPoint diffPoint = NSMakePoint(endDragPoint.x - middleDragPoint.x, endDragPoint.y - middleDragPoint.y);
+    NSPoint diffPoint = NSMakePoint(endDragPoint.x-middleDragPoint.x, endDragPoint.y-middleDragPoint.y);
     
     if([theEvent modifierFlags] & NSShiftKeyMask){
         if(abs(diffPoint.x) > abs(diffPoint.y)){
-            [self.controller moveIUToDiffPoint:NSMakePoint(diffPoint.x, 0) totalDiffPoint:NSMakePoint(totalPoint.x, 0)];
+            [self.controller moveIUToTotalDiffPoint:NSMakePoint(totalPoint.x, 0)];
         }
         else{
-            [self.controller moveIUToDiffPoint:NSMakePoint(0, diffPoint.y) totalDiffPoint:NSMakePoint(0, totalPoint.y)];
+            [self.controller moveIUToTotalDiffPoint:NSMakePoint(0, totalPoint.y)];
         }
     }
     else{
-        [self.controller moveIUToDiffPoint:diffPoint totalDiffPoint:totalPoint];
+        [self.controller moveIUToTotalDiffPoint:totalPoint];
     }
     
 }
 
 - (void)selectWithDrawRect{
-    isSelectDragged = YES;
-    isSelected = NO;
+    isDragForMultipleSelection = YES;
     
     NSSize size = NSMakeSize(endDragPoint.x-startDragPoint.x, endDragPoint.y-startDragPoint.y);
     NSRect selectFrame = NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height);
     
     [self.gridView drawSelectionLayer:selectFrame];
-    [self.controller selectIUInRect:selectFrame];
+    [self.controller setSelectIUsInRect:selectFrame];
 }
 
 - (void)clearMouseMovement{
     [self.gridView clearGuideLine];
     
-    if(isSelected){
-        isSelected = NO;
+    if(isMouseDownForMoveIU){
+        isMouseDownForMoveIU = NO;
     }
-    if(isDragged){
-        isDragged = NO;
+    if(isMouseDragForIU){
+        isMouseDragForIU = NO;
         [self.controller endFrameMoveWithUndoManager:self];
     }
-    if(isSelectDragged){
-        isSelectDragged = NO;
+    if(isDragForMultipleSelection){
+        isDragForMultipleSelection = NO;
         [NSCursor pop];
         [self.gridView resetSelectionLayer];
     }

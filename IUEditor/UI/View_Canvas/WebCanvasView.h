@@ -19,7 +19,6 @@
 //call javascript
 - (void)runJSAfterRefreshCSS;
 - (void)updateFrameDict;
-- (void)reframeCenter;
 - (void)resizePageContent;
 
 //call any javascript
@@ -29,8 +28,7 @@
 #pragma mark -
 
 - (NSSize)parentBlockElementSize:(NSString *)identifier;
-- (IUBox *)IUAtPoint:(NSPoint)point;
-- (DOMElement *)DOMElementAtPoint:(NSPoint)point;
+- (NSString *)IdentifierAtPoint:(NSPoint)point;
 - (BOOL)isTextEditorAtPoint:(NSPoint)point;
 
 @end

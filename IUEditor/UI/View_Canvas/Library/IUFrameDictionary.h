@@ -36,10 +36,6 @@ typedef enum {
 @property NSMutableDictionary *dict;
 
 - (NSArray *)lineToDrawSamePositionWithIU:(NSString *)IU;
-- (BOOL)isGuidePoint:(NSPoint)point;
-- (BOOL)isGuideSize:(NSSize)size;
-- (NSPoint)guidePointOfCurrentFrame:(NSRect)frame IU:(NSString *)IU;
-- (NSSize)guideSizeOfCurrentFrame:(NSRect)frame IU:(NSString *)IU;
 - (NSRect)frameOfIU:(NSString *)IU;
 
 @end

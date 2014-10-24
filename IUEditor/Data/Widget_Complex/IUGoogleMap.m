@@ -145,8 +145,47 @@
 
 
 #pragma mark - size
-- (void)increaseSize:(NSSize)size withParentSize:(NSSize)parentSize{
-    [super increaseSize:size withParentSize:parentSize];
+
+-(BOOL)percentUnitAtCSSTag:(IUCSSTag)tag{
+    BOOL unit = [self.css.effectiveTagDictionary[tag] boolValue];
+    return unit;
+}
+
+- (NSSize)currentApproximatePixelSize{
+    
+    NSSize pixelSize;
+    NSInteger currentWidth;
+    if(self.css.editViewPort == IUCSSDefaultViewPort){
+        currentWidth = self.css.maxViewPort;
+    }
+    else{
+        currentWidth = self.css.editViewPort;
+    }
+    
+    if([self percentUnitAtCSSTag:IUCSSTagWidthUnitIsPercent]){
+        CGFloat pWidth = [self currentPercentSize].width;
+        pixelSize.width = (pWidth/100) * currentWidth;
+    }
+    else{
+        pixelSize.width = [self currentSize].width;
+    }
+    if( [self percentUnitAtCSSTag:IUCSSTagHeightUnitIsPercent]){
+        CGFloat pHeight = [self currentPercentSize].height;
+        pixelSize.height =(pHeight/100) * currentWidth;
+    }
+    else{
+        pixelSize.height = [self currentSize].height;
+    }
+    return pixelSize;
+}
+
+- (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
+    [super setPixelWidth:pixelWidth percentWidth:percentWidth];
+    [self updateHTML];
+}
+
+- (void)setPixelHeight:(CGFloat)pixelHeight percentHeight:(CGFloat)percentHeight{
+    [super setPixelHeight:pixelHeight percentHeight:percentHeight];
     [self updateHTML];
 }
 

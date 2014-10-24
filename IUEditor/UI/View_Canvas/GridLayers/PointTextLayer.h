@@ -7,7 +7,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "IUBox.h"
 
 typedef enum{
     PointTextTypeOrigin,
@@ -16,13 +15,13 @@ typedef enum{
 
 @interface PointTextLayer : CATextLayer{
     PointTextType type;
-    IUBox *iu;
+    NSString *identifier;
     NSRect iuFrame;
 }
 
-- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame type:(PointTextType)aType;
+- (id)initWithIdentifier:(NSString *)anIdentifier withFrame:(NSRect)frame type:(PointTextType)aType;
 - (void)updateFrame:(NSRect)frame;
-- (IUBox *)iu;
+- (NSString *)identifier;
 
 
 @end

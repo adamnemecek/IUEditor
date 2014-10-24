@@ -10,10 +10,10 @@
 #import "JDUIUtil.h"
 @implementation BorderLayer
 
-- (id)initWithIU:(IUBox *)aIU withFrame:(NSRect)frame{
+- (id)initWithIdentifier:(NSString *)anIdentifier withFrame:(NSRect)frame{
     self = [super init];
     if(self){
-        iu = aIU;
+        identifier = anIdentifier;
 
         [self setFrame:frame];
         
@@ -25,8 +25,8 @@
     return self;
 }
 
-- (IUBox *)iu{
-    return iu;
+- (NSString *)identifier{
+    return identifier;
 }
 
 @end

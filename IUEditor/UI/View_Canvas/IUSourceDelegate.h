@@ -46,7 +46,7 @@
 - (BOOL)isUpdateHTMLEnabled;
 
 
-- (NSPoint)distanceFromIU:(NSString *)iuName to:(NSString *)parentName;
+- (NSRect)absoluteIUFrame:(NSString *)identifier;
 - (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
 
 

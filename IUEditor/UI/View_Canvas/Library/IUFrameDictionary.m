@@ -115,6 +115,7 @@
 
 #pragma mark -
 #pragma mark check within 5pixel
+#if 0
 - (BOOL)isGuidePoint:(NSPoint)point{
     return NO;
     if(point.x > IUGuidePixel || point.y > IUGuidePixel){
@@ -175,7 +176,7 @@
     return guideSize;
 }
 
-
+#endif
 #pragma mark -
 #pragma mark find guide location
 

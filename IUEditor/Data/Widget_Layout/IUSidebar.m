@@ -27,10 +27,10 @@
     return self;
 }
 
-- (void)increaseSize:(NSSize)size withParentSize:(NSSize)parentSize{
-    [super increaseSize:size withParentSize:parentSize];
-    CGFloat width = [self.css.effectiveTagDictionary[IUCSSTagPercentWidth] floatValue];
-    CGFloat pageContentWidth = 100-width;
+
+- (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
+    [super setPixelWidth:pixelWidth percentWidth:percentWidth];
+    CGFloat pageContentWidth = 100 - percentWidth;
     
     for(IUBox *box in self.parent.children){
         if([box isKindOfClass:[IUPageContent class]]){
@@ -38,7 +38,7 @@
             [box updateCSS];
         }
     }
-    
+
 }
 
 -(BOOL)canRemoveIUByUserInput{

@@ -19,11 +19,11 @@
 
 //General Function
 //change iu frame
-- (void)moveIUToDiffPoint:(NSPoint)point totalDiffPoint:(NSPoint)totalPoint;
+- (void)moveIUToTotalDiffPoint:(NSPoint)totalPoint;
 - (void)extendIUToTotalDiffSize:(NSSize)totalSize;
 - (void)startFrameMoveWithUndoManager:(id)sender;
 - (void)endFrameMoveWithUndoManager:(id)sender;
-- (void)selectIUInRect:(NSRect)frame;
+- (void)setSelectIUsInRect:(NSRect)frame;
 
 //call by webView
 - (void)webViewdidFinishLoadFrame;
@@ -44,11 +44,11 @@
 - (void)paste:(id)sender;
 
 
-- (BOOL)containsIU:(IUBox *)iu;
-- (void)deselectedIU:(IUBox *)iu;
+- (BOOL)containsIdentifier:(NSString *)identifier;
+- (void)deselectedIdentifier:(NSString *)identifier;
 - (void)removeSelectedIUs;
-- (void)addSelectedIU:(IUBox *)IU;
-- (void)setSelectedIU:(IUBox *)iu;
+- (void)addSelectedIdentifier:(NSString *)identifier;
+- (void)setSelectedIdentifier:(NSString *)identifier;
 
 -(NSUInteger)countOfSelectedIUs;
 

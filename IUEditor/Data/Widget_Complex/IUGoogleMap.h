@@ -29,5 +29,6 @@ typedef enum{
 
 - (NSString *)currentThemeStyle;
 - (NSString *)innerCurrentThemeStyle;
+- (NSSize)currentApproximatePixelSize;
 
 @end

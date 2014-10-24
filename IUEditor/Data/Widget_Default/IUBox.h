@@ -181,14 +181,21 @@ typedef enum{
 - (BOOL)shouldCompileFontInfo;
 - (BOOL)shouldCompileImagePositionInfo;
 
-- (void)setX:(float)x;
-- (void)setY:(float)y;
+- (NSPoint)originalPoint;
+- (NSSize)originalSize;
+- (NSSize)currentSize;
+- (NSSize)currentPercentSize;
+
+- (BOOL)canChangeWidthByDraggable;
+- (BOOL)canChangeHeightByDraggable;
+
+- (void)setPixelX:(CGFloat)pixelX percentX:(CGFloat)percentX;
+- (void)setPixelY:(CGFloat)pixelY percentY:(CGFloat)percentY;
+- (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth;
+- (void)setPixelHeight:(CGFloat)pixelHeight percentHeight:(CGFloat)percentHeight;
 
 - (void)startFrameMoveWithUndoManager;
 - (void)endFrameMoveWithUndoManager;
-- (void)movePosition:(NSPoint)point withParentSize:(NSSize)parentSize;
-- (void)increaseSize:(NSSize)size withParentSize:(NSSize)parentSize;
-- (NSSize)currentApproximatePixelSize;
 
 
 //Position

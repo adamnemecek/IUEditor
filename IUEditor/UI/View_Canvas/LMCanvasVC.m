@@ -280,14 +280,13 @@
     [[self gridView] removeAllSelectionLayers];
     [[self gridView] removeAllTextPointLayer];
     
-    for(IUBox *iu in self.controller.selectedObjects){
-        if([frameDict.dict objectForKey:iu]){
-            NSRect frame = [[frameDict.dict objectForKey:iu] rectValue];
-            [[self gridView] addSelectionLayerWithIU:iu withFrame:frame];
-            [[self gridView] addTextPointLayerWithIU:iu withFrame:frame];
+    for(NSString *identifier in self.controller.selectedIdentifiersWithImportIdentifier){
+        if([frameDict.dict objectForKey:identifier]){
+            NSRect frame = [[frameDict.dict objectForKey:identifier] rectValue];
+            [[self gridView] addSelectionLayerWithIdentifier:identifier withFrame:frame];
+            [[self gridView] addTextPointLayerWithIdentifier:identifier withFrame:frame];
         }
     }
-    
 }
 
 #pragma mark - Manage IUs
@@ -304,13 +303,13 @@
     }
     
     //postion을 먼저 정한 후에 add 함
-    NSPoint position = [self distanceFromIU:currentIdentifier toPointFromWebView:point];
+    NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
     
     if ([newIU canChangeXByUserInput]) {
-        [newIU setX:position.x];
+        [newIU setPixelX:position.x percentX:0];
     }
     if([newIU canChangeYByUserInput]){
-        [newIU setY:position.y];
+        [newIU setPixelY:position.y percentY:0];
     }
     
     [parentIU addIU:newIU error:nil];
@@ -354,8 +353,8 @@
     return [self.controller.selectedObjects count];
 }
 
-- (BOOL)containsIU:(IUBox *)iu{
-    if ([self.controller.selectedObjects containsObject:iu]){
+- (BOOL)containsIdentifier:(NSString *)identifier{
+    if ([self.controller.selectedIdentifiersWithImportIdentifier containsObject:identifier]){
         return YES;
     }
     else {
@@ -366,47 +365,51 @@
 - (void)deselectedAllIUs{
     [self.controller setSelectionIndexPath:nil];
 }
-- (void)addSelectedIU:(NSString *)IU{
-    if(IU == nil){
+
+- (void)deselectedIdentifier:(NSString *)identifier{
+    if(identifier == nil){
         return;
     }
-    
-    if([self.controller.selectedIdentifiers containsObject:IU]){
-        return;
-    }
-    NSArray *array = [self.controller.selectedObjects arrayByAddingObject:IU];
-    [self.controller _setSelectedObjects:array];
+    NSMutableArray *selectedObject  =  [[self.controller selectedIdentifiersWithImportIdentifier] mutableCopy];
+    [selectedObject removeObject:identifier];
+    [self.controller trySetSelectedObjectsByIdentifiers:selectedObject];
 }
 
-- (void)deselectedIU:(IUBox *)iu{
-    if(iu == nil){
-        return;
-    }
-    [self.controller removeObject:iu];
-}
-
-- (void)setSelectedIU:(IUBox *)iu{
-    IUBox *selectIU = iu;
+- (void)setSelectedIdentifier:(NSString *)identifier{
+    NSString *selectedIdentifier = identifier;
+    IUBox *selectIU = [self.controller tryIUBoxByIdentifier:identifier];
     
-    if([iu isKindOfClass:[IUItem class]]){
-        if( [((IUItem *)iu) shouldSelectParentFirst]){
-            IUBox *parentIU = iu.parent;
-            if([self.controller.selectedObjects containsObject:parentIU] == NO &&
-               [self.controller.selectedObjects containsObject:iu] == NO){
-                selectIU = parentIU;
+    if(selectIU){
+        if([selectIU isKindOfClass:[IUItem class]]){
+            if( [((IUItem *)selectIU) shouldSelectParentFirst]){
+                IUBox *parentIU = selectIU.parent;
+                if([self.controller.selectedObjects containsObject:parentIU] == NO &&
+                   [self.controller.selectedObjects containsObject:selectIU] == NO){
+                    selectedIdentifier = parentIU.htmlID;
+                }
             }
         }
+        /*
+         Even it is selected object, still select it again.
+         (IUClass is not shown selected until it is selected again)
+         */
+        [self.controller trySetSelectedObjectsByIdentifiers:@[selectedIdentifier]];
     }
     
-    /*
-     Even it is selected object, still select it again.
-     (IUClass is not shown selected until it is selected again)
-     */
-    [self.controller setSelectedObject:selectIU];
+}
+- (void)addSelectedIdentifier:(NSString *)identifier{
+    if(identifier == nil){
+        return;
+    }
     
+    if([self.controller.selectedIdentifiersWithImportIdentifier containsObject:identifier]){
+        return;
+    }
+    NSArray *array = [self.controller.selectedIdentifiersWithImportIdentifier arrayByAddingObject:identifier];
+    [self.controller trySetSelectedObjectsByIdentifiers:array];
 }
 
-- (void)selectIUInRect:(NSRect)frame{
+- (void)setSelectIUsInRect:(NSRect)frame{
     NSArray *keys = [frameDict.dict allKeys];
     
     [self deselectedAllIUs];
@@ -414,8 +417,193 @@
     for(NSString *key in keys){
         NSRect iuframe = [[frameDict.dict objectForKey:key] rectValue];
         if( NSIntersectsRect(iuframe, frame) ){
-            IUBox *iu = [self.controller tryIUBoxByIdentifier:key];
-            [self addSelectedIU:iu];
+            [self addSelectedIdentifier:key];
+        }
+    }
+}
+
+
+#pragma mark - IUFrame
+
+- (void)startFrameMoveWithUndoManager:(id)sender{
+    if([sender isKindOfClass:[GridView class]]){
+        [((LMCanvasView *)[self view]) startDraggingFromGridView];
+    }
+    for(IUBox *obj in self.controller.selectedObjects){
+        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
+            [obj.parent startFrameMoveWithUndoManager];
+        }
+        [obj startFrameMoveWithUndoManager];
+        
+    }
+}
+
+- (void)endFrameMoveWithUndoManager:(id)sender{
+    for(IUBox *obj in self.controller.selectedObjects){
+        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
+            [obj.parent endFrameMoveWithUndoManager];
+        }
+        
+        [obj endFrameMoveWithUndoManager];
+        
+    }
+}
+//check parent IU before move
+- (BOOL)shouldMoveParent:(IUBox *)obj{
+    if([obj respondsToSelector:@selector(shouldMoveParent)]){
+        return [[obj performSelector:@selector(shouldMoveParent)] boolValue];
+    }
+    
+    return  NO;
+}
+//check parent IU before extend
+- (BOOL)shouldExtendParent:(IUBox *)iu{
+    if([iu respondsToSelector:@selector(shouldExtendParent)]){
+        return [[iu performSelector:@selector(shouldExtendParent)] boolValue];
+    }
+    return NO;
+}
+
+//drag & drop after select IU
+- (void)moveIUToTotalDiffPoint:(NSPoint)totalPoint{
+    
+    for(IUBox *obj in self.controller.selectedObjects){
+        
+        IUBox *moveObj= obj;
+        
+        if([self shouldMoveParent:obj]){
+            moveObj = obj.parent;
+        }
+        
+        NSSize parentSize;
+        if (self.controller.importIUInSelectionChain){
+            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
+            parentSize = [[self webView] parentBlockElementSize:currentID];
+        }
+        else {
+            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
+        }
+        
+        NSPoint origianlLocation = [moveObj originalPoint];
+        
+        if([moveObj canChangeXByUserInput]){
+            CGFloat currentX = origianlLocation.x + totalPoint.x;
+            CGFloat currentPercentX = (currentX/parentSize.width)*100;
+            [moveObj setPixelX:currentX percentX:currentPercentX];
+        }
+        
+        if([moveObj canChangeYByUserInput]){
+            CGFloat currentY = origianlLocation.y + totalPoint.y;
+            CGFloat currentPercentY = (currentY/parentSize.height)*100;
+            [moveObj setPixelY:currentY percentY:currentPercentY];
+            
+        }
+
+        [moveObj updateCSS];
+        
+    }
+}
+
+- (void)extendIUToTotalDiffSize:(NSSize)totalSize{
+    //drag pointlayer
+    for(IUBox *obj in self.controller.selectedObjects){
+        IUBox *moveObj= obj;
+        
+        if([self shouldExtendParent:obj]){
+            moveObj = obj.parent;
+        }
+        
+        NSSize parentSize;
+        if (self.controller.importIUInSelectionChain){
+            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
+            parentSize = [[self webView] parentBlockElementSize:currentID];
+        }
+        else {
+            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
+        }
+        
+        NSSize originalSize = [moveObj originalSize];
+        
+        if([moveObj canChangeWidthByDraggable]){
+            CGFloat currentW = originalSize.width + totalSize.width;
+            CGFloat currentPercentW = (currentW/parentSize.width)*100;
+            [moveObj setPixelWidth:currentW percentWidth:currentPercentW];
+        }
+        
+        if([moveObj canChangeHeightByDraggable]){
+            CGFloat currentH = originalSize.height + totalSize.height;
+            CGFloat currentPercentH = (currentH/parentSize.height)*100;
+            [moveObj setPixelHeight:currentH percentHeight:currentPercentH];
+            
+        }
+        
+        [moveObj updateCSS];
+        
+        
+    }
+    
+}
+
+
+-(void)IURemoved:(NSString*)identifier{
+    
+    [self deselectedAllIUs];
+    IUBox *iu = [_controller tryIUBoxByIdentifier:identifier];
+    
+    //remove sheet css
+    NSArray *cssIds = [iu cssIdentifierArray];
+    for (NSString *identifier in cssIds){
+        if([identifier containsString:@"hover"]){
+            [self removeCSSTextInDefaultSheetWithIdentifier:identifier];
+        }
+    }
+    
+    
+    if(iu){
+        //remove layer
+        if([iu isKindOfClass:[IUImport class]]){
+            [[self gridView] removeLayerForIdentifier:identifier];
+            [frameDict.dict removeObjectForKey:identifier];
+            
+            for(IUBox *box in iu.allChildren){
+                NSString *currentIdentifier =  [(IUImport *)iu modifieldHtmlIDOfChild:box];
+                [[self gridView] removeLayerForIdentifier:currentIdentifier];
+                [frameDict.dict removeObjectForKey:currentIdentifier];
+            }
+        }
+        else if([iu.sheet isKindOfClass:[IUClass class]]){
+            for (IUBox *import in [(IUClass*)iu.sheet references]) {
+                
+                NSMutableArray *allIU = [iu.allChildren mutableCopy];
+                [allIU addObject:iu];
+                
+                for(IUBox *box in allIU){
+                    NSString *currentIdentifier =  [(IUImport *)import modifieldHtmlIDOfChild:box];
+                    [[self gridView] removeLayerForIdentifier:currentIdentifier];
+                    [frameDict.dict removeObjectForKey:currentIdentifier];
+                }
+                
+            }
+            
+        }
+        else{
+            NSMutableArray *allIU = [iu.allChildren mutableCopy];
+            [allIU addObject:iu];
+            
+            
+            for(IUBox *box in allIU){
+                
+                [[self gridView] removeLayerForIdentifier:box.htmlID];
+                [frameDict.dict removeObjectForKey:box.htmlID];
+                
+                //remove sheet css
+                NSArray *childIds= [box cssIdentifierArray];
+                for (NSString *childIdentifier in childIds){
+                    if([identifier containsString:@"hover"]){
+                        [self removeCSSTextInDefaultSheetWithIdentifier:childIdentifier];
+                    }
+                }
+            }
         }
     }
 }
@@ -539,60 +727,6 @@
     
 }
 
-#pragma mark - JS
-
-- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
-    return [[self webView] callWebScriptMethod:function withArguments:args];
-}
-- (id)evaluateWebScript:(NSString *)script{
-    return [[self webView] evaluateWebScript:script];
-}
-
-#pragma mark - frame
-
-- (NSPoint)distanceFromIU:(IUBox *)fromIU to:(IUBox *)toIU{
-    NSRect iuFrame = [[frameDict.dict objectForKey:toIU] rectValue];
-    NSRect parentFrame = [[frameDict.dict objectForKey:fromIU] rectValue];
-    
-    NSPoint distance = NSMakePoint(iuFrame.origin.x-parentFrame.origin.x,
-                                   iuFrame.origin.y - parentFrame.origin.y);
-    return distance;
-}
-
-- (NSPoint)distanceFromIU:(IUBox *)iu toPointFromWebView:(NSPoint)point{
-    
-    NSRect iuframe = [[frameDict.dict objectForKey:iu] rectValue];
-    
-    NSPoint distance = NSMakePoint(point.x-iuframe.origin.x,
-                                   point.y - iuframe.origin.y);
-    return distance;
-}
-
-
-#pragma mark - Manage DOMNode
-#pragma mark - HTML
-
-- (DOMHTMLElement *)getHTMLElementbyID:(NSString *)HTMLID{
-    DOMHTMLElement *selectNode = (DOMHTMLElement *)[self.webDocument getElementById:HTMLID];
-    return selectNode;
-    
-}
-
-
--(void)IUHTMLIdentifier:(NSString*)identifier HTML:(NSString *)html{
-    
-    //element를 바꾸기 전에 현재 text editor를 disable시켜야지 text editor가 제대로 동작함.
-    //editor remove가 제대로 돌아가야 함.
-    [self disableTextEditor];
-    
-    DOMHTMLElement *currentElement = [self getHTMLElementbyID:identifier];
-    if(currentElement){
-        //change html text
-        [currentElement setOuterHTML:html];
-    }
-}
-
-#pragma mark - class
 /**
  현재 text 수정중인 IU에만 class를 추가할수있도록 사용할예정.
  */
@@ -607,25 +741,82 @@
     }
 }
 
--(void)IUClassIdentifier:(NSString *)classIdentifier removeClass:(NSString *)className{
-    DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:classIdentifier];
-    for (int i=0; i<list.length; i++) {
-        DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:className withString:@""]];
+
+#pragma mark - JS
+
+- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
+    return [[self webView] callWebScriptMethod:function withArguments:args];
+}
+- (id)evaluateWebScript:(NSString *)script{
+    return [[self webView] evaluateWebScript:script];
+}
+- (void)updateJS{
+    if( [self isUpdateJSEnabled]==YES){
+        [[self webView] runJSAfterRefreshCSS];
     }
 }
 
-#pragma mark - CSS
+#pragma mark - frame
 
-- (BOOL)isSheetHeightChanged:(NSString *)identifier{
-    if([identifier isEqualToString:[_sheet cssIdentifier]]
-       && [_sheet isKindOfClass:[IUClass class]]){
-        return YES;
-    }    
-    return NO;
+- (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict{
+    
+    [[self gridView] updateLayerRect:gridFrameDict];
+    
+    NSArray *keys = [gridFrameDict allKeys];
+    for(NSString *key in keys){
+        if([frameDict.dict objectForKey:key]){
+            [frameDict.dict removeObjectForKey:key];
+        }
+        [frameDict.dict setObject:[gridFrameDict objectForKey:key] forKey:key];
+    }
+    //draw guide line
+    for (IUBox *iu in self.controller.selectedObjects){
+        if (self.controller.importIUInSelectionChain){
+            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:iu];
+            [[self gridView] drawGuideLine:[frameDict lineToDrawSamePositionWithIU:currentID]];
+            
+        }
+        else{
+            [[self gridView] drawGuideLine:[frameDict lineToDrawSamePositionWithIU:iu.htmlID]];
+        }
+    }
+    
 }
 
+- (NSRect)absoluteIUFrame:(NSString *)identifier{
+    NSRect iuframe = [[frameDict.dict objectForKey:identifier] rectValue];
+    return iuframe;
+}
+
+- (NSPoint)distanceFromIUIdentifier:(NSString *)identifier toPointFromWebView:(NSPoint)point{
+
+    
+    NSRect iuframe = [self absoluteIUFrame:identifier];
+    NSPoint distance = NSMakePoint(point.x-iuframe.origin.x,
+                                   point.y - iuframe.origin.y);
+    return distance;
+}
+
+
+
+#pragma mark - Manage DOMNode
+#pragma mark - HTML
+
+-(void)IUHTMLIdentifier:(NSString*)identifier HTML:(NSString *)html{
+    
+    //element를 바꾸기 전에 현재 text editor를 disable시켜야지 text editor가 제대로 동작함.
+    //editor remove가 제대로 돌아가야 함.
+    [self disableTextEditor];
+    
+    DOMHTMLElement *currentElement = (DOMHTMLElement *)[self.webDocument getElementById:identifier];
+    if(currentElement){
+        //change html text
+        [currentElement setOuterHTML:html];
+    }
+}
+
+
+#pragma mark - CSS
 
 /**
  @brief get element line count by only selected iu
@@ -645,15 +836,6 @@
     return 0;
 }
 
--(void)updateCSS:(NSString *)css selector:(NSString *)selector{
-    DOMNodeList *list = [self.webDocument querySelectorAll:selector];
-    int length= list.length;
-    for(int i=0; i<length; i++){
-        DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
-        DOMCSSStyleDeclaration *style = element.style;
-        style.cssText = css;
-    }
-}
 
 -(void)IUClassIdentifier:(NSString*)identifier CSSUpdated:(NSString*)css{
     
@@ -673,11 +855,28 @@
    
 }
 
+- (BOOL)isSheetHeightChanged:(NSString *)identifier{
+    if([identifier isEqualToString:[_sheet cssIdentifier]]
+       && [_sheet isKindOfClass:[IUClass class]]){
+        return YES;
+    }
+    return NO;
+}
 
-
-#pragma mark - style sheet update
 /**
- @brief style sheet에서만 동작하는 것들
+ @brief update css - inline attribute : style
+ */
+-(void)updateCSS:(NSString *)css selector:(NSString *)selector{
+    DOMNodeList *list = [self.webDocument querySelectorAll:selector];
+    int length= list.length;
+    for(int i=0; i<length; i++){
+        DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
+        DOMCSSStyleDeclaration *style = element.style;
+        style.cssText = css;
+    }
+}
+/**
+ @brief update css - style sheet
  */
 
 -(void)updateHoverCSS:(NSString *)css identifier:(NSString *)identifier{
@@ -713,9 +912,6 @@
     NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
     NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
     NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
-    
-    //    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByCharactersInSet:
-    //                          [NSCharacterSet characterSetWithCharactersInString:@"."]];
     
     for(NSString *rule in cssRuleList){
         if(rule.length == 0){
@@ -761,14 +957,6 @@
     return innerCSSHTML;
 }
 
-
-#pragma mark - JS
-
-- (void)updateJS{
-    if( [self isUpdateJSEnabled]==YES){
-        [[self webView] runJSAfterRefreshCSS];
-    }
-}
 
 #pragma mark - enable, disable
 
@@ -845,199 +1033,19 @@
     }
 }
 
-/*
- ******************************************************************************************
- SET IU : View call IU
- ******************************************************************************************
- */
-#pragma mark - setIU
+#pragma mark - copy&paste
 
-- (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict{
-    
-    [[self gridView] updateLayerRect:gridFrameDict];
-    
-    NSArray *keys = [gridFrameDict allKeys];
-    for(NSString *key in keys){
-        if([frameDict.dict objectForKey:key]){
-            [frameDict.dict removeObjectForKey:key];
-        }
-        [frameDict.dict setObject:[gridFrameDict objectForKey:key] forKey:key];
-    }
-    //draw guide line
-    for (IUBox *iu in self.controller.selectedObjects){
-        if (self.controller.importIUInSelectionChain){
-            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:iu];
-            [[self gridView] drawGuideLine:[frameDict lineToDrawSamePositionWithIU:currentID]];
+- (void)copy:(id)sender{
+    [self.controller copySelectedIUToPasteboard:self];
+}
 
-        }
-        else{
-            [[self gridView] drawGuideLine:[frameDict lineToDrawSamePositionWithIU:iu.htmlID]];
-        }
-    }
-    
+- (void)paste:(id)sender{
+    [self.controller pasteToSelectedIU:self];
 }
 
 
-#pragma mark moveIU
-//drag & drop after select IU
-- (void)moveIUToDiffPoint:(NSPoint)point totalDiffPoint:(NSPoint)totalPoint{
-    if (point.x == 0 && point.y == 0) {
-        return;
-    }
-    
-    
-    for(IUBox *obj in self.controller.selectedObjects){
-        
-        IUBox *moveObj= obj;
-        
-        if([self shouldMoveParent:obj]){
-            moveObj = obj.parent;
-        }
-        
-        NSSize parentSize;
-        if (self.controller.importIUInSelectionChain){
-            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
-            parentSize = [[self webView] parentBlockElementSize:currentID];
-        }
-        else {
-            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
-        }
 
-        [moveObj movePosition:NSMakePoint(totalPoint.x, totalPoint.y) withParentSize:parentSize];
-        [moveObj updateCSS];
-        
-    }
-}
-
-
-- (BOOL)shouldMoveParent:(IUBox *)obj{
-    if([obj respondsToSelector:@selector(shouldMoveParent)]){
-        return [[obj performSelector:@selector(shouldMoveParent)] boolValue];
-    }
-
-    return  NO;
-}
-
-- (void)startFrameMoveWithUndoManager:(id)sender{
-    if([sender isKindOfClass:[GridView class]]){
-        [((LMCanvasView *)[self view]) startDraggingFromGridView];
-    }
-    for(IUBox *obj in self.controller.selectedObjects){
-        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
-            [obj.parent startFrameMoveWithUndoManager];
-        }
-        [obj startFrameMoveWithUndoManager];
-        
-    }
-}
-
-- (void)endFrameMoveWithUndoManager:(id)sender{
-    for(IUBox *obj in self.controller.selectedObjects){
-        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
-            [obj.parent endFrameMoveWithUndoManager];
-        }
-        
-        [obj endFrameMoveWithUndoManager];
-        
-    }
-}
-
-- (BOOL)shouldExtendParent:(IUBox *)iu{
-    if([iu respondsToSelector:@selector(shouldExtendParent)]){
-        return [[iu performSelector:@selector(shouldExtendParent)] boolValue];
-    }
-    return NO;
-}
-
-- (void)extendIUToTotalDiffSize:(NSSize)totalSize{
-    //drag pointlayer
-    for(IUBox *obj in self.controller.selectedObjects){
-        IUBox *moveObj= obj;
-        
-        if([self shouldExtendParent:obj]){
-            moveObj = obj.parent;
-        }
-        
-        NSSize parentSize;
-        if (self.controller.importIUInSelectionChain){
-            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
-            parentSize = [[self webView] parentBlockElementSize:currentID];
-        }
-        else {
-            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
-        }
-        [moveObj increaseSize:NSMakeSize(totalSize.width, totalSize.height) withParentSize:parentSize];
-        [moveObj updateCSS];
-       
-        
-    }
-    
-}
-
-
--(void)IURemoved:(NSString*)identifier{
-    
-    [self deselectedAllIUs];
-    IUBox *iu = [_controller tryIUBoxByIdentifier:identifier];
-    
-    //remove sheet css
-    NSArray *cssIds = [iu cssIdentifierArray];
-    for (NSString *identifier in cssIds){
-        if([identifier containsString:@"hover"]){
-            [self removeCSSTextInDefaultSheetWithIdentifier:identifier];
-        }
-    }
-    
-    
-    if(iu){
-        //remove layer
-        if([iu isKindOfClass:[IUImport class]]){
-            [[self gridView] removeLayerForIU:iu];
-            [frameDict.dict removeObjectForKey:identifier];
-            
-            for(IUBox *box in iu.allChildren){
-                NSString *currentID =  [(IUImport *)iu modifieldHtmlIDOfChild:box];
-                [[self gridView] removeLayerForIU:box];
-                [frameDict.dict removeObjectForKey:currentID];
-            }
-        }
-        else if([iu.sheet isKindOfClass:[IUClass class]]){
-            for (IUBox *import in [(IUClass*)iu.sheet references]) {
-                
-                NSMutableArray *allIU = [iu.allChildren mutableCopy];
-                [allIU addObject:iu];
-                
-                for(IUBox *box in allIU){
-                    NSString *currentID =  [(IUImport *)import modifieldHtmlIDOfChild:box];
-                    [[self gridView] removeLayerForIU:box];
-                    [frameDict.dict removeObjectForKey:currentID];
-                }
-                
-            }
-            
-        }
-        else{
-            NSMutableArray *allIU = [iu.allChildren mutableCopy];
-            [allIU addObject:iu];
-            
-            
-            for(IUBox *box in allIU){
-                
-                [[self gridView] removeLayerForIU:box];
-                [frameDict.dict removeObjectForKey:box.htmlID];
-                
-                //remove sheet css
-                NSArray *childIds= [box cssIdentifierArray];
-                for (NSString *childIdentifier in childIds){
-                    if([identifier containsString:@"hover"]){
-                        [self removeCSSTextInDefaultSheetWithIdentifier:childIdentifier];
-                    }
-                }
-            }
-        }
-    }
-}
-
+#pragma mark - debug
 #if DEBUG
 
 - (void)applyHtmlString:(NSString *)html{
@@ -1056,13 +1064,6 @@
 
 #endif
 
-- (void)copy:(id)sender{
-    [self.controller copySelectedIUToPasteboard:self];
-}
-
-- (void)paste:(id)sender{
-    [self.controller pasteToSelectedIU:self];
-}
 
 
 @end
