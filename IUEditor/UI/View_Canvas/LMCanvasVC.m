@@ -246,17 +246,19 @@
     [self updateSheetHeight];
 }
 
+- (void)reloadSheet{
+    if(_sheet){
+        [self setSheet:_sheet];
+    }
+}
+
 - (void)updateWebViewWidth{
     NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
     [self IUClassIdentifier:@"#sheet_outer" CSSUpdated:outerCSS];
 }
 
 
-- (void)reloadSheet{
-    if(_sheet){
-        [self setSheet:_sheet];
-    }
-}
+
 
 #pragma mark - notification from other VCs
 
@@ -276,10 +278,18 @@
 
 - (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
     
-    //postion을 먼저 정한 후에 add 함
-    //FIXME: parentIU import id
     //Distance
-    NSPoint position = [self distanceFromIU:parentIU.htmlID toPointFromWebView:point];
+    NSString *currentIdentifier;
+    if (self.controller.importIUInSelectionChain){
+        currentIdentifier =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:parentIU];
+    }
+    else{
+        currentIdentifier = parentIU.htmlID;
+    }
+    
+    //postion을 먼저 정한 후에 add 함
+    NSPoint position = [self distanceFromIU:currentIdentifier toPointFromWebView:point];
+    
     if ([newIU canChangeXByUserInput]) {
         [newIU setX:position.x];
     }
@@ -915,7 +925,7 @@
         
         IUBox *moveObj= obj;
         
-        if([self isParentMove:obj]){
+        if([self shouldMoveParent:obj]){
             moveObj = obj.parent;
         }
         
@@ -928,24 +938,6 @@
             parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
         }
 
-        /*
-        if([frameDict isGuidePoint:totalPoint]){
-            
-            NSString *IUID = obj.htmlID;
-            NSRect currentFrame = [[frameDict.dict objectForKey:IUID] rectValue];
-            NSRect moveFrame = currentFrame;
-            
-            moveFrame.origin = NSMakePoint(currentFrame.origin.x+point.x, currentFrame.origin.y+point.y);
-            NSPoint guidePoint = [frameDict guidePointOfCurrentFrame:moveFrame IU:IUID];
-            guidePoint= NSMakePoint(guidePoint.x - currentFrame.origin.x, guidePoint.y - currentFrame.origin.y);
-            
-            
-            [obj movePosition:NSMakePoint(guidePoint.x, guidePoint.y) withParentSize:parentSize];
-            JDInfoLog(@"Point:(%.1f %.1f)", moveFrame.origin.x, moveFrame.origin.y);
-            [obj updateCSS];
-        }
-        else{
-         */
         [moveObj movePosition:NSMakePoint(totalPoint.x, totalPoint.y) withParentSize:parentSize];
         [moveObj updateCSS];
         
@@ -953,7 +945,7 @@
 }
 
 
-- (BOOL)isParentMove:(IUBox *)obj{
+- (BOOL)shouldMoveParent:(IUBox *)obj{
     if([obj respondsToSelector:@selector(shouldMoveParent)]){
         return [[obj performSelector:@selector(shouldMoveParent)] boolValue];
     }
@@ -966,7 +958,7 @@
         [((LMCanvasView *)[self view]) startDraggingFromGridView];
     }
     for(IUBox *obj in self.controller.selectedObjects){
-        if([self isParentMove:obj] || [self isParentExtend:obj]){
+        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
             [obj.parent startFrameMoveWithUndoManager];
         }
         [obj startFrameMoveWithUndoManager];
@@ -976,7 +968,7 @@
 
 - (void)endFrameMoveWithUndoManager:(id)sender{
     for(IUBox *obj in self.controller.selectedObjects){
-        if([self isParentMove:obj] || [self isParentExtend:obj]){
+        if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
             [obj.parent endFrameMoveWithUndoManager];
         }
         
@@ -985,7 +977,7 @@
     }
 }
 
-- (BOOL)isParentExtend:(IUBox *)iu{
+- (BOOL)shouldExtendParent:(IUBox *)iu{
     if([iu respondsToSelector:@selector(shouldExtendParent)]){
         return [[iu performSelector:@selector(shouldExtendParent)] boolValue];
     }
@@ -997,7 +989,7 @@
     for(IUBox *obj in self.controller.selectedObjects){
         IUBox *moveObj= obj;
         
-        if([self isParentExtend:obj]){
+        if([self shouldExtendParent:obj]){
             moveObj = obj.parent;
         }
         
@@ -1009,32 +1001,9 @@
         else {
             parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
         }
-        
-        /*
-        if([frameDict isGuideSize:totalSize]){
-
-            NSString *IUID = obj.htmlID;
-            NSRect currentFrame = [[frameDict.dict objectForKey:IUID] rectValue];
-            //NSSize expectedSize = NSMakeSize(currentFrame.size.width+size.width, currentFrame.size.height+size.height);
-            NSRect moveFrame = currentFrame;
-            
-            moveFrame.size = NSMakeSize(currentFrame.size.width+size.width, currentFrame.size.height+size.height);
-            NSSize guideSize = [frameDict guideSizeOfCurrentFrame:moveFrame IU:IUID];
-            guideSize = NSMakeSize(guideSize.width- currentFrame.size.width, guideSize.height - currentFrame.size.height);
-            
-            [obj increaseSize:NSMakeSize(guideSize.width, guideSize.height) withParentSize:parentSize];
-            [obj updateCSS];
-        }
-        else{
-         */
         [moveObj increaseSize:NSMakeSize(totalSize.width, totalSize.height) withParentSize:parentSize];
         [moveObj updateCSS];
-        
-        
-        /*
-        JDTraceLog( @"[IU:%@]\n origin: (%.1f, %.1f) \n size: (%.1f, %.1f)",
-                   IUID, guideFrame.origin.x, guideFrame.origin.y, guideFrame.size.width, guideFrame.size.height);
-         */
+       
         
     }
     

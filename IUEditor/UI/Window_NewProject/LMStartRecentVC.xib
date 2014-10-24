@@ -158,9 +158,6 @@
             </constraints>
             <color key="borderColor" name="scrollBarColor" catalog="System" colorSpace="catalog"/>
             <color key="fillColor" red="1" green="0.97727272727272729" blue="0.97727272727272729" alpha="1" colorSpace="calibratedRGB"/>
-            <connections>
-                <outlet property="delegate" destination="-2" id="aXp-mZ-jRZ"/>
-            </connections>
             <point key="canvasLocation" x="-929" y="325"/>
         </box>
         <collectionViewItem id="bMn-1f-MGA">

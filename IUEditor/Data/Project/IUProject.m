@@ -842,20 +842,6 @@
     [_resourceGroup addResourceGroup:videoGroup];
     
     
-    
-    //images resource copy
-    NSString *sampleImgPath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"jpg"];
-    [imageGroup addResourceFileWithContentOfPath:sampleImgPath];
-    
-    NSString *carouselImagePath = [[NSBundle mainBundle] pathForResource:@"arrow_left" ofType:@"png"];
-    [imageGroup addResourceFileWithContentOfPath:carouselImagePath];
-    
-    NSString *carouselImagePath2 = [[NSBundle mainBundle] pathForResource:@"arrow_right" ofType:@"png"];
-    [imageGroup addResourceFileWithContentOfPath:carouselImagePath2];
-    
-    NSString *sampleVideoPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"mp4"];
-    [videoGroup addResourceFileWithContentOfPath:sampleVideoPath];
-    
     //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
     //[self initializeCSSJSResource];
 }

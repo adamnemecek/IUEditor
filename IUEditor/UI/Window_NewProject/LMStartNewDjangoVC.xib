@@ -207,9 +207,6 @@
                 <constraint firstItem="a3P-9i-p5m" firstAttribute="leading" secondItem="WFi-IS-cyr" secondAttribute="leading" id="wHS-dD-uID"/>
                 <constraint firstItem="a3P-9i-p5m" firstAttribute="top" secondItem="WFi-IS-cyr" secondAttribute="top" constant="-1" id="xkn-MF-X2K"/>
             </constraints>
-            <connections>
-                <outlet property="viewController" destination="-2" id="rff-vi-gUC"/>
-            </connections>
         </customView>
         <userDefaultsController representsSharedInstance="YES" id="d71-KB-H5b"/>
     </objects>
