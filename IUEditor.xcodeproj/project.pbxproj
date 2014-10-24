@@ -122,14 +122,10 @@
 		3D2EF57F19F782C700BBBAE5 /* LMStartNewDefaultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF55E19F782C700BBBAE5 /* LMStartNewDefaultVC.xib */; };
 		3D2EF58119F782C700BBBAE5 /* LMStartNewDjangoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF56219F782C700BBBAE5 /* LMStartNewDjangoVC.m */; };
 		3D2EF58219F782C700BBBAE5 /* LMStartNewDjangoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF56319F782C700BBBAE5 /* LMStartNewDjangoVC.xib */; };
-		3D2EF58319F782C700BBBAE5 /* LMStartNewPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF56519F782C700BBBAE5 /* LMStartNewPresentation.m */; };
-		3D2EF58419F782C700BBBAE5 /* LMStartNewPresentationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF56719F782C700BBBAE5 /* LMStartNewPresentationVC.m */; };
-		3D2EF58519F782C700BBBAE5 /* LMStartNewPresentationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF56819F782C700BBBAE5 /* LMStartNewPresentationVC.xib */; };
 		3D2EF58619F782C700BBBAE5 /* LMStartNewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF56A19F782C700BBBAE5 /* LMStartNewVC.m */; };
 		3D2EF58719F782C700BBBAE5 /* LMStartNewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF56B19F782C700BBBAE5 /* LMStartNewVC.xib */; };
 		3D2EF58819F782C700BBBAE5 /* LMStartNewWPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF56D19F782C700BBBAE5 /* LMStartNewWPVC.m */; };
 		3D2EF58919F782C700BBBAE5 /* LMStartNewWPVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF56E19F782C700BBBAE5 /* LMStartNewWPVC.xib */; };
-		3D2EF58A19F782C700BBBAE5 /* LMStartPresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF57019F782C700BBBAE5 /* LMStartPresentation.m */; };
 		3D2EF58B19F782C700BBBAE5 /* LMStartPreviewWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF57219F782C700BBBAE5 /* LMStartPreviewWC.m */; };
 		3D2EF58C19F782C700BBBAE5 /* LMStartPreviewWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF57319F782C700BBBAE5 /* LMStartPreviewWC.xib */; };
 		3D2EF58D19F782C700BBBAE5 /* LMStartRecentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF57519F782C700BBBAE5 /* LMStartRecentVC.m */; };
@@ -1268,19 +1264,12 @@
 		3D2EF56119F782C700BBBAE5 /* LMStartNewDjangoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartNewDjangoVC.h; path = IUEditor/UI/Window_NewProject/LMStartNewDjangoVC.h; sourceTree = "<group>"; };
 		3D2EF56219F782C700BBBAE5 /* LMStartNewDjangoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartNewDjangoVC.m; path = IUEditor/UI/Window_NewProject/LMStartNewDjangoVC.m; sourceTree = "<group>"; };
 		3D2EF56319F782C700BBBAE5 /* LMStartNewDjangoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMStartNewDjangoVC.xib; path = IUEditor/UI/Window_NewProject/LMStartNewDjangoVC.xib; sourceTree = "<group>"; };
-		3D2EF56419F782C700BBBAE5 /* LMStartNewPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartNewPresentation.h; path = IUEditor/UI/Window_NewProject/LMStartNewPresentation.h; sourceTree = "<group>"; };
-		3D2EF56519F782C700BBBAE5 /* LMStartNewPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartNewPresentation.m; path = IUEditor/UI/Window_NewProject/LMStartNewPresentation.m; sourceTree = "<group>"; };
-		3D2EF56619F782C700BBBAE5 /* LMStartNewPresentationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartNewPresentationVC.h; path = IUEditor/UI/Window_NewProject/LMStartNewPresentationVC.h; sourceTree = "<group>"; };
-		3D2EF56719F782C700BBBAE5 /* LMStartNewPresentationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartNewPresentationVC.m; path = IUEditor/UI/Window_NewProject/LMStartNewPresentationVC.m; sourceTree = "<group>"; };
-		3D2EF56819F782C700BBBAE5 /* LMStartNewPresentationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMStartNewPresentationVC.xib; path = IUEditor/UI/Window_NewProject/LMStartNewPresentationVC.xib; sourceTree = "<group>"; };
 		3D2EF56919F782C700BBBAE5 /* LMStartNewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartNewVC.h; path = IUEditor/UI/Window_NewProject/LMStartNewVC.h; sourceTree = "<group>"; };
 		3D2EF56A19F782C700BBBAE5 /* LMStartNewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartNewVC.m; path = IUEditor/UI/Window_NewProject/LMStartNewVC.m; sourceTree = "<group>"; };
 		3D2EF56B19F782C700BBBAE5 /* LMStartNewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMStartNewVC.xib; path = IUEditor/UI/Window_NewProject/LMStartNewVC.xib; sourceTree = "<group>"; };
 		3D2EF56C19F782C700BBBAE5 /* LMStartNewWPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartNewWPVC.h; path = IUEditor/UI/Window_NewProject/LMStartNewWPVC.h; sourceTree = "<group>"; };
 		3D2EF56D19F782C700BBBAE5 /* LMStartNewWPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartNewWPVC.m; path = IUEditor/UI/Window_NewProject/LMStartNewWPVC.m; sourceTree = "<group>"; };
 		3D2EF56E19F782C700BBBAE5 /* LMStartNewWPVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMStartNewWPVC.xib; path = IUEditor/UI/Window_NewProject/LMStartNewWPVC.xib; sourceTree = "<group>"; };
-		3D2EF56F19F782C700BBBAE5 /* LMStartPresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartPresentation.h; path = IUEditor/UI/Window_NewProject/LMStartPresentation.h; sourceTree = "<group>"; };
-		3D2EF57019F782C700BBBAE5 /* LMStartPresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartPresentation.m; path = IUEditor/UI/Window_NewProject/LMStartPresentation.m; sourceTree = "<group>"; };
 		3D2EF57119F782C700BBBAE5 /* LMStartPreviewWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMStartPreviewWC.h; path = IUEditor/UI/Window_NewProject/LMStartPreviewWC.h; sourceTree = "<group>"; };
 		3D2EF57219F782C700BBBAE5 /* LMStartPreviewWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMStartPreviewWC.m; path = IUEditor/UI/Window_NewProject/LMStartPreviewWC.m; sourceTree = "<group>"; };
 		3D2EF57319F782C700BBBAE5 /* LMStartPreviewWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMStartPreviewWC.xib; path = IUEditor/UI/Window_NewProject/LMStartPreviewWC.xib; sourceTree = "<group>"; };
@@ -2806,19 +2795,12 @@
 				3D2EF56119F782C700BBBAE5 /* LMStartNewDjangoVC.h */,
 				3D2EF56219F782C700BBBAE5 /* LMStartNewDjangoVC.m */,
 				3D2EF56319F782C700BBBAE5 /* LMStartNewDjangoVC.xib */,
-				3D2EF56419F782C700BBBAE5 /* LMStartNewPresentation.h */,
-				3D2EF56519F782C700BBBAE5 /* LMStartNewPresentation.m */,
-				3D2EF56619F782C700BBBAE5 /* LMStartNewPresentationVC.h */,
-				3D2EF56719F782C700BBBAE5 /* LMStartNewPresentationVC.m */,
-				3D2EF56819F782C700BBBAE5 /* LMStartNewPresentationVC.xib */,
 				3D2EF56919F782C700BBBAE5 /* LMStartNewVC.h */,
 				3D2EF56A19F782C700BBBAE5 /* LMStartNewVC.m */,
 				3D2EF56B19F782C700BBBAE5 /* LMStartNewVC.xib */,
 				3D2EF56C19F782C700BBBAE5 /* LMStartNewWPVC.h */,
 				3D2EF56D19F782C700BBBAE5 /* LMStartNewWPVC.m */,
 				3D2EF56E19F782C700BBBAE5 /* LMStartNewWPVC.xib */,
-				3D2EF56F19F782C700BBBAE5 /* LMStartPresentation.h */,
-				3D2EF57019F782C700BBBAE5 /* LMStartPresentation.m */,
 				3D2EF57119F782C700BBBAE5 /* LMStartPreviewWC.h */,
 				3D2EF57219F782C700BBBAE5 /* LMStartPreviewWC.m */,
 				3D2EF57319F782C700BBBAE5 /* LMStartPreviewWC.xib */,
@@ -4573,7 +4555,6 @@
 				3DE462BA19FA4A2600A75567 /* agency_thumbnail@2x.png in Resources */,
 				3D2EFA7819F7869E00BBBAE5 /* view_border.png in Resources */,
 				3D2EF9C419F7869E00BBBAE5 /* align_left@2x.png in Resources */,
-				3D2EF58519F782C700BBBAE5 /* LMStartNewPresentationVC.xib in Resources */,
 				3D2EF89C19F7867700BBBAE5 /* stack_textview.png in Resources */,
 				3D2EF89219F7867700BBBAE5 /* stack_section.png in Resources */,
 				3D2EF86419F7867700BBBAE5 /* ic_css.png in Resources */,
@@ -5295,7 +5276,6 @@
 				3D2EF48B19F781B700BBBAE5 /* IUPageContent.m in Sources */,
 				3D2EF51B19F781FB00BBBAE5 /* WPMenuItem.m in Sources */,
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,
-				3D2EF58319F782C700BBBAE5 /* LMStartNewPresentation.m in Sources */,
 				3D2EF6FC19F784B500BBBAE5 /* LMEventVC.m in Sources */,
 				3D2EF52319F781FB00BBBAE5 /* WPWidgetTitle.m in Sources */,
 				3D2EF51719F781FB00BBBAE5 /* WPCommentFormSubmitBtn.m in Sources */,
@@ -5308,7 +5288,6 @@
 				3D2EFC5319F788BA00BBBAE5 /* JDLogUtil.m in Sources */,
 				3D2EF70019F784C100BBBAE5 /* LMDefaultPropertyVC.m in Sources */,
 				3D2EF51619F781FB00BBBAE5 /* WPCommentFormLabel.m in Sources */,
-				3D2EF58A19F782C700BBBAE5 /* LMStartPresentation.m in Sources */,
 				3D2EFCA619F788D100BBBAE5 /* NSView+JDExtension.m in Sources */,
 				3D2EF6F219F784B500BBBAE5 /* LMEventMouseOnVC.m in Sources */,
 				3D2EF58819F782C700BBBAE5 /* LMStartNewWPVC.m in Sources */,
@@ -5429,7 +5408,6 @@
 				3D2EF67619F7848F00BBBAE5 /* LMPropertyShadowVC.m in Sources */,
 				3D2EF4D019F781E400BBBAE5 /* PGForm.m in Sources */,
 				3D2EFC8519F788C600BBBAE5 /* LMCollectionItemView.m in Sources */,
-				3D2EF58419F782C700BBBAE5 /* LMStartNewPresentationVC.m in Sources */,
 				3D2EF61C19F7844B00BBBAE5 /* CursorRect.m in Sources */,
 				3D2EFCAD19F78C7D00BBBAE5 /* LMPropertyIUHTMLVC.m in Sources */,
 				3D2EF52119F781FB00BBBAE5 /* WPWidget.m in Sources */,

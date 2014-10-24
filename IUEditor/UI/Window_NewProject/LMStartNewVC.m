@@ -11,7 +11,6 @@
 #import "LMStartWC.h"
 #import "LMStartNewDefaultVC.h"
 #import "LMStartNewDjangoVC.h"
-#import "LMStartNewPresentationVC.h"
 #import "LMStartNewWPVC.h"
 
 @interface LMStartNewVC ()
@@ -29,7 +28,6 @@
 @implementation LMStartNewVC{
     LMStartNewDefaultVC         *defaultVC;
     LMStartNewDjangoVC          *djangoVC;
-    LMStartNewPresentationVC    *presentationVC;
     LMStartNewWPVC              *wpVC;
     int selectedIndex;
     BOOL isFirstView;
@@ -41,12 +39,10 @@
     if (self) {
         defaultVC = [[LMStartNewDefaultVC alloc] initWithNibName:@"LMStartNewDefaultVC" bundle:nil];
         djangoVC = [[LMStartNewDjangoVC alloc] initWithNibName:@"LMStartNewDjangoVC" bundle:nil];
-        presentationVC = [[LMStartNewPresentationVC alloc] initWithNibName:@"LMStartNewPresentationVC" bundle:nil];
         wpVC = [[LMStartNewWPVC alloc] initWithNibName:@"LMStartNewWPVC" bundle:nil];
         
         defaultVC.parentVC = self;
         djangoVC.parentVC = self;
-        presentationVC.parentVC = self;
         wpVC.parentVC = self;
         
         selectedIndex = 0;
@@ -59,12 +55,10 @@
 - (void)awakeFromNib{
     defaultVC.prevB = _prevB;
     djangoVC.prevB = _prevB;
-    presentationVC.prevB = _prevB;
     wpVC.prevB = _prevB;
     
     defaultVC.nextB = _nextB;
     djangoVC.nextB = _nextB;
-    presentationVC.nextB = _nextB;
     wpVC.nextB = _nextB;
     
     [self show];
@@ -77,7 +71,6 @@
     
     [defaultVC.view removeFromSuperview];
     [djangoVC.view removeFromSuperview];
-    [presentationVC.view removeFromSuperview];
     [wpVC.view removeFromSuperview];
     
     [_nextB setTarget:self];
