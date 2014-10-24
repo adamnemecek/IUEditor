@@ -357,7 +357,12 @@
     DOMElement *domNode =[self DOMElementAtPoint:point];
     if(domNode){
         DOMHTMLElement *htmlElement =[self IUNodeAtCurrentNode:domNode];
-        return [self.controller tryIUBoxByIdentifier:htmlElement.idName];
+        if(htmlElement){
+            return [self.controller tryIUBoxByIdentifier:htmlElement.idName];
+        }
+        else{
+            return nil;
+        }
     }
     
     return nil;

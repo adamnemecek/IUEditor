@@ -261,6 +261,10 @@
                     clickedIU = [self.gridView IUAtPoint:convertedPoint];
                 }
                 
+                if(clickedIU == nil){
+                    return;
+                }
+                
                 if (theEvent.clickCount == 1){
                     if( [theEvent modifierFlags] & NSCommandKeyMask ){
                         //여러개 select 하는 순간 editing mode out

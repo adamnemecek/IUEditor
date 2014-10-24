@@ -230,21 +230,23 @@
     //updated bound layer if already have
     NSMutableDictionary *borderDict = [frameDict mutableCopy];
     for(BorderLayer *bLayer in borderManagerLayer.sublayers){
-        NSString *iuID = bLayer.iu.htmlID;
-        NSValue *value = [borderDict objectForKey:iuID];
+        NSString *identifier = bLayer.iu.htmlID;
+        NSValue *value = [borderDict objectForKey:identifier];
         if(value){
             NSRect currentRect =[value rectValue];
             [bLayer setFrame:currentRect];
         }
-        [borderDict removeObjectForKey:iuID];
+        [borderDict removeObjectForKey:identifier];
     }
     //make new bound layer if doesn't have
     NSArray *remainingBorderKeys = [borderDict allKeys];
     for(NSString *key in remainingBorderKeys){
         NSRect currentRect =[[borderDict objectForKey:key] rectValue];
         IUBox *iu = [self.controller tryIUBoxByIdentifier:key];
-        BorderLayer *newBLayer = [[BorderLayer alloc] initWithIU:iu withFrame:currentRect];
-        [borderManagerLayer addSublayer:newBLayer];
+        if (iu) {
+            BorderLayer *newBLayer = [[BorderLayer alloc] initWithIU:iu withFrame:currentRect];
+            [borderManagerLayer addSublayer:newBLayer];
+        }
     }
     
     //reset cursor
