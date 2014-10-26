@@ -11,30 +11,50 @@
 
 @interface JDCoder()
 - (NSArray*)keysOfCurrentDecodingObject;
-- (void)encodeString:(NSString*)string forKey:(NSString*)key;
 - (NSString*)decodeStringForKey:(NSString*)key;
+- (void)setObject:(id)object forKey:(id<NSCopying>)aKey;
+- (void)encodeObjectInArray:(id)object;
+- (id)decodeObjectInArrayAtIndex:(NSUInteger)index;
+- (NSMutableDictionary*)dataDict;
+@end
+
+@implementation NSString(JDCoding)
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [aCoder setObject:self forKey:@"content__"];
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    NSString *value = [aDecoder decodeStringForKey:@"content__"];
+    self = [self initWithString:value];
+    return self;
+}
+
 @end
 
 @implementation NSArray(JDCoding)
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    for (NSUInteger i=0; i<self.count; i++) {
-        NSObject <JDCoding> *obj = [self objectAtIndex:i];
-        [aCoder encodeObject:obj forKey:[NSString stringWithFormat:@"%ld", i]];
+    for (int i=0; i<self.count; i++) {
+        [aCoder encodeObjectInArray:[self objectAtIndex:i]];
     }
-    [aCoder encodeInteger:self.count forKey:@"count"];
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    NSMutableArray *tempArr = [NSMutableArray array];
-    NSUInteger count = [aDecoder decodeIntegerForKey:@"count"];
-    for (NSUInteger i=0; i<count; i++) {
-        NSObject <JDCoding> *obj = [aDecoder decodeObjectForKey:[NSString stringWithFormat:@"%ld", i]];
-        [tempArr addObject:obj];
+    NSMutableArray *content = [[NSMutableArray alloc] init];
+    for (int i=0; ; i++) {
+        id obj = [aDecoder decodeObjectInArrayAtIndex:i];
+        if (obj) {
+            [content addObject:obj];
+        }
+        else {
+            break;
+        }
     }
-    self = [self initWithArray:tempArr];
+    self = [self initWithArray:content];
     return self;
 }
+
 
 @end
 
@@ -48,7 +68,7 @@
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     NSMutableDictionary *temp = [NSMutableDictionary dictionary];
     for (id key in [aDecoder keysOfCurrentDecodingObject]) {
-        if ([key isEqualTo:@"JDClassName_"] == NO ) {
+        if ([key isEqualTo:@"class__"] == NO ) {
             temp[key] = [aDecoder decodeObjectForKey:key];
         }
     }
@@ -56,25 +76,13 @@
 }
 @end
 
-@implementation NSString (JDCoding)
-- (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [aCoder encodeString:self forKey:@"value"];
-}
-
-- (id)initWithJDCoder:(JDCoder *)aDecoder{
-    NSString *str = [aDecoder decodeStringForKey:@"value"];
-    self = [self initWithString:str];
-    return self;
-}
-@end
-
 @implementation NSNumber (JDCoding)
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [aCoder encodeDouble:[self doubleValue] forKey:@"value"];
+    [aCoder encodeDouble:[self doubleValue] forKey:@"content__"];
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self initWithDouble:[aDecoder decodeDoubleForKey:@"value"]];
+    self = [self initWithDouble:[aDecoder decodeDoubleForKey:@"content__"]];
     return self;
 }
 @end
@@ -109,6 +117,7 @@
 @implementation JDCoder {
     NSMutableArray *initSelectors;
     NSMutableDictionary *dataDict;
+    NSMutableDictionary *workingDict;
     NSMutableDictionary *decodedObjects;
 }
 
@@ -119,7 +128,8 @@
 - (instancetype)init{
     self = [super init];
     initSelectors = [NSMutableArray arrayWithObjects:@"awakeAfterUsingJDCoder:", nil];
-    dataDict = [NSMutableDictionary dictionary];
+    workingDict = [NSMutableDictionary dictionary];
+    dataDict = workingDict;
     decodedObjects = [NSMutableDictionary dictionary];
     return self;
 }
@@ -127,6 +137,10 @@
 - (void)appendSelectorInInitProcess:(SEL)selector{
     NSString *selectorStr = NSStringFromSelector(selector);
     [initSelectors addObject:selectorStr];
+}
+
+- (NSMutableDictionary*)dataDict{
+    return dataDict;
 }
 
 
@@ -138,25 +152,25 @@
     if (object == nil) {
         NSAssert(0, @"object should not be nil");
     }
-    dataDict[@"JDClassName_"] = object.className;
-    dataDict[@"JDMemory_"] = object.memoryAddress;
+    workingDict[@"class__"] = object.className;
+    workingDict[@"memory__"] = object.memoryAddress;
     [object encodeWithJDCoder:self];
 }
 
 - (id)decodedAndInitializeObject{
-    NSString *className = dataDict[@"JDClassName_"];
+    NSString *className = workingDict[@"class__"];
     NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
-    [decodedObjects setObject:@{@"Object":newObj, @"Dict":dataDict} forKey:dataDict[@"JDMemory_"]];
+    [decodedObjects setObject:@{@"object__":newObj, @"dict__":workingDict} forKey:workingDict[@"memory__"]];
 
     for (NSString *selectorString in initSelectors) {
         SEL sel = NSSelectorFromString(selectorString);
         [decodedObjects enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary* dict, BOOL *stop) {
-            id obj = dict[@"Object"];
+            id obj = dict[@"object__"];
             
             if ([obj respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                dataDict = dict[@"Dict"];
+                workingDict = dict[@"dict__"];
                 [obj performSelector:sel withObject:self];
 #pragma clang diagnostic pop
             }
@@ -165,42 +179,67 @@
     return newObj;
 }
 
+
 - (void)encodeInteger:(NSInteger)value forKey:(NSString*)key{
-    [dataDict setValue:@(value) forKey:key];
+    [workingDict setValue:@(value) forKey:key];
 }
 
 - (void)encodeBool:(BOOL)value forKey:(NSString*)key{
-    [dataDict setValue:@(value) forKey:key];
+    [workingDict setValue:@(value) forKey:key];
 }
 
 - (void)encodeFloat:(float)value forKey:(NSString*)key{
-    [dataDict setValue:@(value) forKey:key];
+    [workingDict setValue:@(value) forKey:key];
 }
 
 - (void)encodeDouble:(double)value forKey:(NSString*)key{
-    [dataDict setValue:@(value) forKey:key];
+    [workingDict setValue:@(value) forKey:key];
 }
 
-- (void)encodeString:(NSString*)value forKey:(NSString*)key{
-    [dataDict setValue:value forKey:key];
+- (void)setObject:(id)object forKey:(NSString*)key{
+    [workingDict setObject:object forKey:key];
 }
+
+- (void)encodeObjectInArray:(id)object{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [workingDict[@"content__"] addObject:dict];
+    
+}
+
+- (id)decodeObjectInArrayAtIndex:(NSUInteger)index{
+    NSMutableDictionary* originalDict = workingDict;
+    if ([workingDict[@"content__"] count] <= index) {
+        return nil;
+    }
+
+    workingDict = [workingDict[@"content__"] objectAtIndex:index];
+    NSString *className = workingDict[@"class__"];
+    NSObject <JDCoding> *newObj;
+    newObj= [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
+    [decodedObjects setObject:@{@"object__":newObj, @"dict__":workingDict} forKey:workingDict[@"memory__"]];
+
+    workingDict = originalDict;
+    return newObj;
+
+}
+
 
 - (void)encodeByRefObject:(NSObject <NSCoding> *)obj forKey:(NSString*)key{
     if (obj == nil){
         return;
     }
-    dataDict[key] = [NSMutableDictionary dictionary];
-    dataDict[key][@"JDClassName_"] = NSStringFromClass([obj classForKeyedArchiver]);
-    dataDict[key][@"JDMemory_"] = [NSString stringWithFormat:@"%p", obj];
+    workingDict[key] = [NSMutableDictionary dictionary];
+    workingDict[key][@"class__"] = NSStringFromClass([obj classForKeyedArchiver]);
+    workingDict[key][@"memory__"] = [NSString stringWithFormat:@"%p", obj];
 }
 
 - (id)decodeByRefObjectForKey:(NSString *)key{
-    if (dataDict[key]) {
-        NSString *memoryAddress = dataDict[key][@"JDMemory_"];
+    if (workingDict[key]) {
+        NSString *memoryAddress = workingDict[key][@"memory__"];
         if (decodedObjects[memoryAddress] == nil) {
             [NSException raise:@"JDDecodeError" format:@"Object Not decoded before decodeByRefObjectForKey:%@ is called", key];
         }
-        return decodedObjects[memoryAddress][@"Object"];
+        return decodedObjects[memoryAddress][@"object__"];
     }
     else {
         return nil;
@@ -212,22 +251,48 @@
     if (obj == nil) {
         return;
     }
-    if ([[obj className] isEqualToString:@"__NSCFNumber"]) {
-        [self encodeDouble:[(NSNumber*)obj doubleValue] forKey:key];
-    }
-    else if ([[obj className] isEqualToString:@"__NSCFConstantString"]){
-        [self encodeString:(NSString*)obj forKey:key];
+    if ([obj isKindOfClass:[NSArray class]]){
+        /* because of memory sharing ( weak object ), array should be saved as dictionary, to encode memory address */
+
+        NSArray *objArray = (NSArray*)obj;
+        NSMutableDictionary* savedworkingDict = workingDict;
+        
+        workingDict[key] = [NSMutableDictionary dictionary];
+        workingDict[key][@"class__"] = NSStringFromClass([obj classForKeyedArchiver]);
+        workingDict[key][@"memory__"] = obj.memoryAddress;
+        
+        NSMutableArray *content = [NSMutableArray array];
+        workingDict[key][@"content__"] = content;
+        
+        for (int i=0; i< [objArray count]; i++) {
+            NSObject <JDCoding> *item = [objArray objectAtIndex:i];
+            
+            NSMutableDictionary *itemworkingDict = [NSMutableDictionary dictionary];
+            itemworkingDict[@"class__"] = NSStringFromClass([item classForKeyedArchiver]);
+            itemworkingDict[@"memory__"] = item.memoryAddress;
+            
+            workingDict = itemworkingDict;
+            [content addObject:workingDict];
+            [item encodeWithJDCoder:self];
+        }
+        
+        workingDict = savedworkingDict;
     }
     else {
-        NSMutableDictionary* current = dataDict;
-        dataDict = [NSMutableDictionary dictionary];
-        current[key] = dataDict;
-        current[key][@"JDClassName_"] = NSStringFromClass([obj classForKeyedArchiver]);
-        current[key][@"JDMemory_"] = obj.memoryAddress;
+        /* because of memory sharing ( weak object ), string or number should be saved as dictionary, to encode memory address */
+        
+        
+        NSMutableDictionary *newworkingDict = [NSMutableDictionary dictionary];
+        newworkingDict[@"class__"] = NSStringFromClass([obj classForKeyedArchiver]);
+        newworkingDict[@"memory__"] = obj.memoryAddress;
+        
         if (obj != nil) {
+            NSMutableDictionary* originalworkingDict = workingDict;
+            workingDict = newworkingDict;
             [obj encodeWithJDCoder:self];
+            workingDict = originalworkingDict;
+            workingDict[key] = newworkingDict;
         }
-        dataDict = current;
     }
 }
 
@@ -269,45 +334,31 @@
 
 
 - (NSInteger)decodeIntegerForKey:(NSString*)key{
-    return [dataDict[key] integerValue];
+    return [workingDict[key] integerValue];
 }
 
 - (id)decodeObjectForKey:(NSString*)key{
-    id value = dataDict[key];
-    if ([value isMemberOfClass:[NSNumber class]] || [value isMemberOfClass:[NSString class]]) {
-        return value;
-    }
-    else if ([[value className] isEqualToString:@"__NSCFConstantString"] || [value isKindOfClass:[NSString class]] || [[value className] isEqualToString:@"__NSCFNumber"] || [value isKindOfClass:[NSNumber class]]){
-        return value;
-    }
-    else {
-        NSMutableDictionary* current = dataDict;
-        dataDict = current[key];
-        NSString *className = dataDict[@"JDClassName_"];
+        NSMutableDictionary* current = workingDict;
+        workingDict = current[key];
+        NSString *className = workingDict[@"class__"];
         NSObject <JDCoding> *newObj;
-        if ([className isEqualToString:@"__NSDictionaryM"]) {
-            newObj = [[NSMutableDictionary alloc] initWithJDCoder:self];
-        }
-        else {
-            newObj= [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
-        }
-        [decodedObjects setObject:@{@"Object":newObj, @"Dict":dataDict} forKey:dataDict[@"JDMemory_"]];
-        dataDict = current;
+        newObj= [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
+        [decodedObjects setObject:@{@"object__":newObj, @"dict__":workingDict} forKey:workingDict[@"memory__"]];
+        workingDict = current;
         
         return newObj;
-    }
 }
 
 - (float)decodeFloatForKey:(NSString*)key{
-    return [dataDict[key] floatValue];
+    return [workingDict[key] floatValue];
 }
 
 - (double)decodeDoubleForKey:(NSString*)key{
-    return [dataDict[key] doubleValue];
+    return [workingDict[key] doubleValue];
 }
 
 - (NSString*)decodeStringForKey:(NSString*)key{
-    return dataDict[key];
+    return workingDict[key];
 }
 
 -(void) decodeToObject:(id)obj withProperties:(NSArray*)properties{
@@ -350,17 +401,25 @@
 
 - (BOOL)saveToURL:(NSURL *)url error:(NSError **)error{
     NSError *err;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDict options:0 error:&err];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:&err];
     return [data writeToURL:url atomically:YES];
 }
 
 - (void)loadFromURL:(NSURL *)url error:(NSError **)error{
     NSData *data = [NSData dataWithContentsOfURL:url];
-    dataDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
+    workingDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
 }
 
 - (NSArray*)keysOfCurrentDecodingObject{
-    return [dataDict allKeys];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[workingDict allKeys]];
+    [arr removeObject:@"memory__"];
+    [arr removeObject:@"class__"];
+    return [arr copy];
 }
+
+- (NSData*)jsonData{
+    return [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:nil];
+}
+
 
 @end

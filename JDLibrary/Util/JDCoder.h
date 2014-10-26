@@ -87,4 +87,5 @@
  */
 - (BOOL)saveToURL:(NSURL *)url error:(NSError **)error;
 - (void)loadFromURL:(NSURL *)url error:(NSError **)error;
+- (NSData*)jsonData;
 @end

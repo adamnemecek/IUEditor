@@ -47,6 +47,48 @@
     [super tearDown];
 }
 
+- (void)test0_JDCoder{
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeObject:@"ABCDE" forKey:@"text1"];
+    XCTAssertEqual([coder decodeObjectForKey:@"text1"], @"ABCDE");
+    
+    [coder encodeDouble:12345 forKey:@"12345"];
+    XCTAssertEqual([coder decodeDoubleForKey:@"12345"], 12345);
+    
+    NSMutableString *testString = [[NSMutableString alloc] initWithString:@"mutable"];
+    [coder encodeObject:testString forKey:@"mutable"];
+    XCTAssertTrue([[coder decodeObjectForKey:@"mutable"] isEqualToString:@"mutable"]);
+    
+    NSNumber *number = [NSNumber numberWithFloat:1.5];
+    [coder encodeObject:number forKey:@"number"];
+    XCTAssertEqual([[coder decodeObjectForKey:@"number"] floatValue], 1.5);
+    
+    NSArray *testArray = [NSArray arrayWithObjects:@"123", @"456", nil];
+    [coder encodeObject:testArray forKey:@"array"];
+    NSArray *arr = [coder decodeObjectForKey:@"array"];
+    XCTAssertEqual([[arr objectAtIndex:1] integerValue], 456);
+    
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithObjects:@"asdf", nil];
+    [coder encodeObject:mutableArray forKey:@"mutableArray"];
+    NSMutableArray * mutableArrayDecoded = [coder decodeObjectForKey:@"mutableArray"];
+    XCTAssertTrue([mutableArrayDecoded isKindOfClass:[NSMutableArray class]]);
+    XCTAssertEqual([mutableArrayDecoded objectAtIndex:0], @"asdf");
+}
+
+- (void)test01_JDCoderDict{
+    JDCoder *coder = [[JDCoder alloc] init];
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    mutableDict[@"test"] = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"object", @"key", nil];
+    [coder encodeObject:mutableDict forKey:@"mutableDict"];
+
+    NSDictionary *dict = [coder decodeObjectForKey:@"mutableDict"];
+    NSDictionary *innerDict = [dict objectForKey:@"test"];
+    NSString *decoded = [innerDict objectForKey:@"key"];
+    XCTAssertEqual(decoded, @"object");
+    XCTAssertTrue([dict isKindOfClass:[NSMutableDictionary class]]);
+    XCTAssertTrue([innerDict isKindOfClass:[NSMutableDictionary class]]);
+}
+
 - (void)test1_IUBoxEncoding1{
     // This is an example of a functional test case.
     IUBox *oneBox = [[IUBox alloc] initWithProject:nil options:nil];
@@ -58,7 +100,7 @@
 
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
-
+/*
 - (void)test2_IUBoxCSS{
     // This is an example of a functional test case.
     JDCoder *coder = [[JDCoder alloc] init];
@@ -69,6 +111,7 @@
     NSInteger result = [[resultBox.css effectiveValueForTag:@"IUCSSTagForTestNum" forViewport:IUCSSDefaultViewPort] integerValue];
     XCTAssert(result == 10, @"Pass");
 }
+ */
 
 - (void)test3_CoderSaveLoad{
     JDCoder *coder = [[JDCoder alloc] init];
@@ -111,13 +154,12 @@
     XCTAssert(resultChildBox2.link == resultChildBox1, @"Pass");
 }
 
-/*
+
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
 }
- */
 
 @end
