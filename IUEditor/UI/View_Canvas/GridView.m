@@ -96,6 +96,11 @@
     [super viewDidChangeBackingProperties];
     [[self layer] setContentsScale:[[self window] backingScaleFactor]];
 }
+#pragma mark - zoom
+- (void)setLayerZoom:(CGFloat)zoom{
+    self.layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
+}
+
 
 
 #pragma mark -

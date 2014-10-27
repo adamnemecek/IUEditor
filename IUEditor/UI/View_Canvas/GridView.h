@@ -33,6 +33,8 @@
 
 @property (nonatomic) id<IUCanvasController>  controller;
 
+- (void)setLayerZoom:(CGFloat)zoom;
+
 - (void)addSelectionLayerWithIdentifier:(NSString *)identifier withFrame:(NSRect)frame;
 - (void)removeAllSelectionLayers;
 
