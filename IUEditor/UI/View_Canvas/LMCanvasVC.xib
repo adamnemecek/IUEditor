@@ -117,7 +117,7 @@ DQ
                             <constraint firstItem="X7N-l5-iSJ" firstAttribute="leading" secondItem="UH1-2M-61Q" secondAttribute="leading" id="MaP-EE-cWH"/>
                             <constraint firstAttribute="trailing" secondItem="X7N-l5-iSJ" secondAttribute="trailing" id="spc-14-naw"/>
                         </constraints>
-                        <color key="backgroundColor" red="0.59999999999999998" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="VLc-fs-1IH">
                         <rect key="frame" x="0.0" y="763" width="835" height="16"/>
