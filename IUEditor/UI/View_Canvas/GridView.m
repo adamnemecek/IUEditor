@@ -51,6 +51,7 @@
         
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"showBorder" options:NSKeyValueObservingOptionInitial context:nil];
         
+        
         //initialize ghost Layer
         ghostLayer = [CALayer layer];
         [ghostLayer setBackgroundColor:[[NSColor clearColor] CGColor]];
@@ -59,6 +60,11 @@
         [self.layer insertSublayer:ghostLayer below:borderManagerLayer];
         
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"showGhost" options:NSKeyValueObservingOptionInitial context:nil];
+        
+        //initialize mqshadow layer
+        shadowLayer = [MQShadowLayer layer];
+        [self.layer insertSubLayerFullFrame:shadowLayer below:ghostLayer];
+        
         
         
         //initialize selection Layer
@@ -183,6 +189,10 @@
         [self addCursorRect:aCursor.frame cursor:aCursor.cursor];
     }
     
+}
+
+- (void)setSelectedFrameWidth:(NSInteger)width{
+    [shadowLayer setSelectedFrameWidth:width];
 }
 
 #pragma mark -

@@ -8,9 +8,6 @@
 }
 
 /* support media query */
-body{
-    background-color:gray;
-}
 #sheet_outer{
     position:absolute;
     display:block;

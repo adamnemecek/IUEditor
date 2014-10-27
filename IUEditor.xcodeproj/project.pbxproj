@@ -1049,6 +1049,7 @@
 		3DE462F819FA4A2600A75567 /* wpblog_tablet_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE462B019FA4A2600A75567 /* wpblog_tablet_01.png */; };
 		3DE462F919FA4A2600A75567 /* wpblog_tablet_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE462B119FA4A2600A75567 /* wpblog_tablet_02.png */; };
 		3DE462FF19FA4B8100A75567 /* LMJSManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE462FE19FA4B8100A75567 /* LMJSManager.m */; };
+		3DE4630219FDFC0700A75567 /* MQShadowLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4630119FDFC0700A75567 /* MQShadowLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2357,6 +2358,8 @@
 		3DE462B119FA4A2600A75567 /* wpblog_tablet_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wpblog_tablet_02.png; sourceTree = "<group>"; };
 		3DE462FD19FA4B8100A75567 /* LMJSManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMJSManager.h; path = UI/View_Canvas/Library/LMJSManager.h; sourceTree = "<group>"; };
 		3DE462FE19FA4B8100A75567 /* LMJSManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMJSManager.m; path = UI/View_Canvas/Library/LMJSManager.m; sourceTree = "<group>"; };
+		3DE4630019FDFC0700A75567 /* MQShadowLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MQShadowLayer.h; path = UI/View_Canvas/GridLayers/MQShadowLayer.h; sourceTree = "<group>"; };
+		3DE4630119FDFC0700A75567 /* MQShadowLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MQShadowLayer.m; path = UI/View_Canvas/GridLayers/MQShadowLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3063,6 +3066,8 @@
 				3D2EF61019F7843800BBBAE5 /* PointTextLayer.m */,
 				3D2EF61119F7843800BBBAE5 /* SelectionBorderLayer.h */,
 				3D2EF61219F7843800BBBAE5 /* SelectionBorderLayer.m */,
+				3DE4630019FDFC0700A75567 /* MQShadowLayer.h */,
+				3DE4630119FDFC0700A75567 /* MQShadowLayer.m */,
 			);
 			name = "Gird Layers";
 			sourceTree = "<group>";
@@ -5509,6 +5514,7 @@
 				3D2EFC5119F788BA00BBBAE5 /* JDGitUtil.m in Sources */,
 				3D2EF50F19F781FB00BBBAE5 /* WPArticleTitle.m in Sources */,
 				3D2EF50B19F781FB00BBBAE5 /* WPArticleBody.m in Sources */,
+				3DE4630219FDFC0700A75567 /* MQShadowLayer.m in Sources */,
 				3D2EF48C19F781B700BBBAE5 /* IUResponsiveSection.m in Sources */,
 				3D2EFC4D19F788BA00BBBAE5 /* JDDateTimeUtil.m in Sources */,
 				3D2EF50A19F781FB00BBBAE5 /* WPArticle.m in Sources */,

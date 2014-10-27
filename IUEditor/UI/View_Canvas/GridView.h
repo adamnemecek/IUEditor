@@ -10,13 +10,17 @@
 #import "PointLayer.h"
 #import "GuideLineLayer.h"
 #import "IUCanvasController.h"
+#import "MQShadowLayer.h"
+
 
 @interface GridView : NSView{
     CALayer *selectionLayer, *ghostLayer;
     CALayer *borderManagerLayer;
     CALayer *textManageLayer, *pointManagerLayer;
     CALayer *selectLineManagerLayer;
+    MQShadowLayer *shadowLayer;
     GuideLineLayer *guideLayer;
+    
     
     //for dragging - change width, height ofIU
     BOOL isClicked, isDragged;
@@ -53,5 +57,6 @@
 
 
 - (NSString *)identifierAtPoint:(NSPoint)point;
+- (void)setSelectedFrameWidth:(NSInteger)width;
 
 @end

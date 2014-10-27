@@ -28,7 +28,8 @@
 @property (nonatomic) _binding_ NSString    *documentBasePath;
 @property (nonatomic, weak) IUResourceManager  *resourceManager;
 @property (nonatomic) IUController  *controller;
-@property NSInteger selectedFrameWidth, maxFrameWidth;
+@property (nonatomic) NSInteger selectedFrameWidth;
+@property NSInteger maxFrameWidth;
 
 
 //call by wc

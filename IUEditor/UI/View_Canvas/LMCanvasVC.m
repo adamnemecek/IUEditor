@@ -226,6 +226,11 @@
     [[self webView] updateFrameDict];
 }
 
+- (void)setSelectedFrameWidth:(NSInteger)selectedFrameWidth{
+    [[self gridView] setSelectedFrameWidth:selectedFrameWidth];
+    _selectedFrameWidth = selectedFrameWidth;
+}
+
 - (void)changeMQMaxSize:(NSNotification *)notification{
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];

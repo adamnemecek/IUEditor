@@ -100,9 +100,6 @@
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="clickUnitBtn:" target="-2" id="KYr-Lu-hk0"/>
-                                </connections>
                             </button>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uhs-VT-XpO" userLabel="StepperX">
                                 <rect key="frame" x="143" y="104" width="13" height="15"/>
@@ -150,9 +147,6 @@
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="clickUnitBtn:" target="-2" id="vvG-DZ-0U1"/>
-                                </connections>
                             </button>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRI-fw-Uqs" userLabel="StepperY">
                                 <rect key="frame" x="248" y="104" width="13" height="15"/>
@@ -200,9 +194,6 @@
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="clickUnitBtn:" target="-2" id="orU-t9-uyt"/>
-                                </connections>
                             </button>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1AX-8F-rIh" userLabel="StepperW">
                                 <rect key="frame" x="143" y="77" width="13" height="15"/>
@@ -250,9 +241,6 @@
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="clickUnitBtn:" target="-2" id="28n-au-biv"/>
-                                </connections>
                             </button>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mtu-cf-B1n" userLabel="StepperH">
                                 <rect key="frame" x="248" y="77" width="13" height="15"/>
