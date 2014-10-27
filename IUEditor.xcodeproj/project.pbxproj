@@ -19,6 +19,8 @@
 		2637F5CB19FE1566009A09AC /* layout_04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5C319FE1566009A09AC /* layout_04@2x.png */; };
 		2637F5CC19FE1566009A09AC /* layout_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5C419FE1566009A09AC /* layout_05.png */; };
 		2637F5CD19FE1566009A09AC /* layout_05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5C519FE1566009A09AC /* layout_05@2x.png */; };
+		2666986619FE2608009F98AE /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986419FE2608009F98AE /* arrow_left.png */; };
+		2666986719FE2608009F98AE /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986519FE2608009F98AE /* arrow_right.png */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -1075,6 +1077,8 @@
 		2637F5C319FE1566009A09AC /* layout_04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "layout_04@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/layout_04@2x.png"; sourceTree = "<group>"; };
 		2637F5C419FE1566009A09AC /* layout_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = layout_05.png; path = IUEditor/Resource/AppResource/image/ui/icon/layout_05.png; sourceTree = "<group>"; };
 		2637F5C519FE1566009A09AC /* layout_05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "layout_05@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/layout_05@2x.png"; sourceTree = "<group>"; };
+		2666986419FE2608009F98AE /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_left.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_left.png; sourceTree = "<group>"; };
+		2666986519FE2608009F98AE /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_right.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_right.png; sourceTree = "<group>"; };
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -3429,6 +3433,8 @@
 		3D2EF7CE19F7862400BBBAE5 /* clipart */ = {
 			isa = PBXGroup;
 			children = (
+				2666986419FE2608009F98AE /* arrow_left.png */,
+				2666986519FE2608009F98AE /* arrow_right.png */,
 				3D2EFA8219F786C700BBBAE5 /* amazon_app_store_2.png */,
 				3D2EFA8319F786C700BBBAE5 /* appstore1.png */,
 				3D2EFA8419F786C700BBBAE5 /* appstore2.png */,
@@ -4813,6 +4819,7 @@
 				3D2EF8CF19F7867700BBBAE5 /* tool_submit@2x.png in Resources */,
 				3D2EF76219F7856E00BBBAE5 /* config.ru in Resources */,
 				3D2EF9BE19F7869E00BBBAE5 /* add_section@2x.png in Resources */,
+				2666986619FE2608009F98AE /* arrow_left.png in Resources */,
 				3D2EF75E19F7856E00BBBAE5 /* heroku_push.sh in Resources */,
 				3D2EF8C819F7867700BBBAE5 /* tool_navi.png in Resources */,
 				3D2EFA0019F7869E00BBBAE5 /* heroku.png in Resources */,
@@ -5290,6 +5297,7 @@
 				3D2EFBE019F787D000BBBAE5 /* jquery-1.10.2.js in Resources */,
 				3D2EF89B19F7867700BBBAE5 /* stack_textfield@2x.png in Resources */,
 				3D2EF6F319F784B500BBBAE5 /* LMEventMouseOnVC.xib in Resources */,
+				2666986719FE2608009F98AE /* arrow_right.png in Resources */,
 				3D2EFA5719F7869E00BBBAE5 /* tab_property_off@2x.png in Resources */,
 				3D2EFA0A19F7869E00BBBAE5 /* panel_bottom_off.png in Resources */,
 				3D2EF7AD19F785D400BBBAE5 /* Tutorial01_en.png in Resources */,
