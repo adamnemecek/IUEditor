@@ -8,11 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
-#import "LMJSManager.h"
 
 @interface LMAppearanceFrameVC : LMDefaultPropertyVC <NSControlTextEditingDelegate, NSTextFieldDelegate>
-
-@property (weak) LMJSManager *jsManager;
-
 
 @end

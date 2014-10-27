@@ -50,8 +50,6 @@
         //init VC
         appearanceFrameVC = [[LMAppearanceFrameVC alloc] initWithNibName:@"LMAppearanceFrameVC" bundle:nil];
         [appearanceFrameVC bind:@"controller" toObject:self withKeyPath:@"controller" options:nil];
-        [appearanceFrameVC bind:@"jsManager" toObject:self withKeyPath:@"jsManager" options:nil];
-
         
         propertyBGImageVC = [[LMPropertyBGImageVC alloc] initWithNibName:@"LMPropertyBGImageVC" bundle:nil];
         [propertyBGImageVC bind:@"controller" toObject:self withKeyPath:@"controller" options:nil];

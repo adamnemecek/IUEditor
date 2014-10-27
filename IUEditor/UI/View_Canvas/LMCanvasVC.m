@@ -475,26 +475,28 @@
             moveObj = obj.parent;
         }
         
-        NSSize parentSize;
+        NSString *currentIdentifier;
         if (self.controller.importIUInSelectionChain){
-            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
-            parentSize = [[self webView] parentBlockElementSize:currentID];
+            currentIdentifier =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
         }
         else {
-            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
+            currentIdentifier = moveObj.htmlID;
         }
+        NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
+        id currentValue = [self.webView evaluateWebScript:frameJS];
+
         
         NSPoint origianlLocation = [moveObj originalPoint];
         
         if([moveObj canChangeXByUserInput]){
             CGFloat currentX = origianlLocation.x + totalPoint.x;
-            CGFloat currentPercentX = (currentX/parentSize.width)*100;
+            CGFloat currentPercentX = [[currentValue valueForKey:@"left"] floatValue];
             [moveObj setPixelX:currentX percentX:currentPercentX];
         }
         
         if([moveObj canChangeYByUserInput]){
             CGFloat currentY = origianlLocation.y + totalPoint.y;
-            CGFloat currentPercentY = (currentY/parentSize.height)*100;
+            CGFloat currentPercentY = [[currentValue valueForKey:@"left"] floatValue];
             [moveObj setPixelY:currentY percentY:currentPercentY];
             
         }
@@ -513,26 +515,28 @@
             moveObj = obj.parent;
         }
         
-        NSSize parentSize;
+        NSString *currentIdentifier;
         if (self.controller.importIUInSelectionChain){
-            NSString *currentID =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
-            parentSize = [[self webView] parentBlockElementSize:currentID];
+            currentIdentifier =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:moveObj];
         }
         else {
-            parentSize = [[self webView] parentBlockElementSize:moveObj.htmlID];
+            currentIdentifier = moveObj.htmlID;
         }
+        NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
+        id currentValue = [self.webView evaluateWebScript:frameJS];
+        
         
         NSSize originalSize = [moveObj originalSize];
         
         if([moveObj canChangeWidthByDraggable]){
             CGFloat currentW = originalSize.width + totalSize.width;
-            CGFloat currentPercentW = (currentW/parentSize.width)*100;
+            CGFloat currentPercentW = [[currentValue valueForKey:@"width"] floatValue];
             [moveObj setPixelWidth:currentW percentWidth:currentPercentW];
         }
         
         if([moveObj canChangeHeightByDraggable]){
             CGFloat currentH = originalSize.height + totalSize.height;
-            CGFloat currentPercentH = (currentH/parentSize.height)*100;
+            CGFloat currentPercentH = [[currentValue valueForKey:@"height"] floatValue];
             [moveObj setPixelHeight:currentH percentHeight:currentPercentH];
             
         }

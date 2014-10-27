@@ -26,8 +26,6 @@
 - (id)evaluateWebScript:(NSString *)script;
 
 #pragma mark -
-
-- (NSSize)parentBlockElementSize:(NSString *)identifier;
 - (NSString *)IdentifierAtPoint:(NSPoint)point;
 - (BOOL)isTextEditorAtPoint:(NSPoint)point;
 
