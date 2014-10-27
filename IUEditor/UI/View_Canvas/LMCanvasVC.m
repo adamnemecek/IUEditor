@@ -135,7 +135,7 @@
     NSString *editorSrc = [sheet.editorSource copy];
     [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
     
-    [self updateSheetHeight];
+    [self updateClassHeight];
 }
 
 
@@ -166,16 +166,30 @@
 
 
 #pragma mark - canvas frame
+/** change webview width by media query size
+ */
+- (void)updateWebViewWidth{
+    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
+    [self IUClassIdentifier:@"#"IUSheetOuterIdentifier CSSUpdated:outerCSS];
+    [self updateJS];
+}
 
 - (void)windowDidResize:(NSNotification *)notification{
     [[self webView] resizePageContent];
+    [[self canvasView] windowDidResize:notification];
+    [self updateWebViewWidth];
 }
 
--(void)changeIUPageHeight:(CGFloat)pageHeight minHeight:(CGFloat)minHeight{
+-(void)changeIUPageHeight:(CGFloat)pageHeight{
     [[self canvasView] setHeightOfMainView:pageHeight];
-    if([self.sheet isKindOfClass:[IUPage class]]){
-        IUPage *page = (IUPage *)self.sheet;
-        [page.pageContent.css setValueWithoutUpdateCSS:@(minHeight) forTag:IUCSSTagMinHeight];
+}
+
+
+- (void)updateClassHeight{
+    //not page class
+    //page will be set reported values from javscript
+    if([_sheet isKindOfClass:[IUClass class]]){
+        [(LMCanvasView*)self.view extendMainViewToFullSize];
     }
 }
 
@@ -183,25 +197,14 @@
     return [[[self canvasView] mainScrollView] frame].size.height;
 }
 
+
+
+#pragma mark - MQ
+
 - (void)addFrame:(NSInteger)frameSize{
     [[self sizeView] addFrame:frameSize];
 }
 
-- (void)updateSheetHeight{
-    //not page class
-    //page will be set report from javscript
-    if([_sheet isKindOfClass:[IUClass class]]){
-        [(LMCanvasView*)self.view extendMainViewToFullSize];
-    }
-}
-
-- (void)updateWebViewWidth{
-    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
-    [self IUClassIdentifier:@"#"IUSheetOuterIdentifier CSSUpdated:outerCSS];
-}
-
-
-#pragma mark - MQ
 - (void)changeMQSelect:(NSNotification *)notification{
     
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
@@ -853,7 +856,7 @@
         
         if([self isSheetHeightChanged:identifier]){
             //CLASS에서 WEBCANVASVIEW의 높이 변화를 위해서
-            [self updateSheetHeight];
+            [self updateClassHeight];
         }
     }
    

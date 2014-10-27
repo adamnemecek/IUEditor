@@ -107,7 +107,7 @@ DQ
                         <rect key="frame" x="0.0" y="0.0" width="835" height="779"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view translatesAutoresizingMaskIntoConstraints="NO" id="X7N-l5-iSJ" customClass="NSFlippedView">
+                            <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X7N-l5-iSJ" customClass="NSFlippedView">
                                 <rect key="frame" x="0.0" y="0.0" width="835" height="779"/>
                             </view>
                         </subviews>

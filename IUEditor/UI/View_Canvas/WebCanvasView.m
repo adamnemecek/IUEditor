@@ -171,7 +171,7 @@
     else if(selector == @selector(reportFrameDict:)){
         return @"reportFrameDict";
     }
-    else if(selector == @selector(resizePageContentHeightFinished:minHeight:)){
+    else if(selector == @selector(resizePageContentHeightFinished:)){
         return @"resizePageContentHeightFinished";
     }
     else{
@@ -182,16 +182,16 @@
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
     if (selector == @selector(reportFrameDict:)
         || selector == @selector(doOutputToLog:)
-        || selector == @selector(resizePageContentHeightFinished:minHeight:)
+        || selector == @selector(resizePageContentHeightFinished:)
         ){
         return NO;
     }
     return YES;
 }
 
-- (void)resizePageContentHeightFinished:(NSNumber *)scriptObj minHeight:(NSNumber *)minHeight{
+- (void)resizePageContentHeightFinished:(NSNumber *)scriptObj{
 //    JDInfoLog(@"document size change to : %f" , [scriptObj floatValue]);
-    [self.controller changeIUPageHeight:[scriptObj floatValue] minHeight:[minHeight floatValue]];
+    [self.controller changeIUPageHeight:[scriptObj floatValue]];
 }
 
 /* Here is our Objective-C implementation for the JavaScript console.log() method.

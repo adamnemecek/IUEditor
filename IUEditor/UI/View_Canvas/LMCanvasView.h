@@ -27,6 +27,7 @@
 - (BOOL)receiveKeyEvent:(NSEvent *)theEvent;
 - (void)receiveMouseEvent:(NSEvent *)theEvent;
 
+- (void)windowDidResize:(NSNotification *)notification;
 - (void)setHeightOfMainView:(CGFloat)height;
 - (void)extendMainViewToFullSize;
 

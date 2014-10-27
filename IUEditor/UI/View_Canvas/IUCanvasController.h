@@ -28,7 +28,7 @@
 //call by webView
 - (void)webViewdidFinishLoadFrame;
 - (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU;
--(void)changeIUPageHeight:(CGFloat)pageHeight minHeight:(CGFloat)minHeight;
+-(void)changeIUPageHeight:(CGFloat)pageHeight;
 - (CGFloat)heightOfCanvas;
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict;
 

@@ -168,7 +168,7 @@ function resizePageContentHeightEditor(windowHeight){
 		
         
 		if (typeof console.resizePageContentHeightFinished != 'undefined'){
-			console.resizePageContentHeightFinished(pageHeight, minHeight);
+			console.resizePageContentHeightFinished(pageHeight);
 		}
 	}
 	else {

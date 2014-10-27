@@ -59,7 +59,10 @@
 -(void)boundsDidChange:(NSNotification *)notification{
     NSRect contentBounds = [self.mainScrollView contentView].bounds;
     [self.sizeView moveSizeView:contentBounds.origin withWidth:contentBounds.size.width];
-    
+   
+}
+
+- (void)windowDidResize:(NSNotification *)notification{
     //윈도우 사이즈가 늘어났을 때
     if(self.mainScrollView.frame.size.width > self.mainView.frame.size.width){
         [self.mainView setWidth:self.mainScrollView.frame.size.width];
@@ -72,7 +75,7 @@
         //윈도우 사이즈가 줄어들고, 맥스사이즈보다도 작을때
         else{
             [self.mainView setWidth:[self.controller maxFrameWidth]];
-
+            
         }
     }
 }
@@ -86,7 +89,6 @@
         height = 50000;
     }
     [self.mainView setHeight:height];
-    [self.webView resizePageContent];
 }
 
 /**

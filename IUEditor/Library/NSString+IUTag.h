@@ -45,8 +45,6 @@ static NSString * IUEventTagFrameHeight   = @"eqFrameHeight";
 #define IUCSSTag NSString*
 
 //frame
-static NSString * IUCSSTagMinHeight = @"min-height";
-
 static NSString * IUCSSTagXUnitIsPercent   = @"xUnit";
 static NSString * IUCSSTagYUnitIsPercent   = @"yUnit";
 static NSString * IUCSSTagWidthUnitIsPercent   = @"wUnit";

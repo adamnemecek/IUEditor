@@ -1036,29 +1036,6 @@
     
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUPageContent:(IUPageContent*)pageContent{
-    NSArray *editWidths = [pageContent.css allViewports];
-    [code setInsertingIdentifier:pageContent.cssIdentifier];
-    
-    for (NSNumber *viewportNumber in editWidths) {
-        int viewport = [viewportNumber intValue];
-        [code setInsertingViewPort:viewport];
-        NSDictionary *cssTagDict = [pageContent.css tagDictionaryForViewport:viewport];
-        
-        if(cssTagDict[IUCSSTagMinHeight]){
-            
-            if(pageContent.hasMinHeight){
-                [code setInsertingTarget:IUTargetBoth];
-            }
-            else{
-                [code setInsertingTarget:IUTargetEditor];
-            }
-            [code insertTag:@"min-height" floatFromNumber:cssTagDict[IUCSSTagMinHeight] unit:IUUnitPixel];
-        }
-    }
-
-    
-}
 
 
 - (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet{
