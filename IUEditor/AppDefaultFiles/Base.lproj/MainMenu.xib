@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -138,6 +138,17 @@
                             <menuItem title="Delete" id="202">
                                 <connections>
                                     <action selector="delete:" target="-1" id="235"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="5Jq-BO-7mS"/>
+                            <menuItem title="Zoom Out" keyEquivalent="]" id="4cv-no-YXy" userLabel="Zoom Out">
+                                <connections>
+                                    <action selector="zoomOut:" target="-1" id="AlB-MN-OCH"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom In" keyEquivalent="[" id="65J-21-FHv" userLabel="Zoom In">
+                                <connections>
+                                    <action selector="zoomIn:" target="-1" id="xJc-os-crd"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="aRO-qn-Jcx"/>

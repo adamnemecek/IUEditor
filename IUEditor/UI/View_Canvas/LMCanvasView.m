@@ -14,11 +14,25 @@
     BOOL isMouseDragForIU, isDragForMultipleSelection, isMouseDownForMoveIU;
     NSPoint startDragPoint, middleDragPoint, endDragPoint;
     NSUInteger keyModifierFlags;
+    CGFloat zoomFactor;
+}
+
++ (void)initialize{
+
+    NSArray  *upArray = [NSArray arrayWithObjects:[NSNumber numberWithDouble:10.0], nil];
+    NSArray *downArray = [NSArray arrayWithObjects:[NSNumber numberWithDouble:0.5],
+                 [NSNumber numberWithDouble:0.5], nil];
+    [NSRulerView registerUnitWithName:@"Pixel"
+                         abbreviation:@"px"
+         unitToPointsConversionFactor:1
+                          stepUpCycle:upArray stepDownCycle:downArray];
+
 }
 
 
 - (void)awakeFromNib{
     
+    //setting for inner views
     self.mainView = [[NSFlippedView alloc] init];
     self.webView = [[WebCanvasView alloc] init];
     self.gridView = [[GridView alloc] init];
@@ -42,8 +56,23 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:[self.mainScrollView contentView]];
     
+    
+    //setting for ruler
+    [self.mainScrollView setHasHorizontalRuler:YES];
+    [self.mainScrollView setHasVerticalRuler:YES];
+    
+    [self setRulerOffsets];
+    [self updateRulers];
+    [self.mainScrollView setRulersVisible:YES];
+    
+    //setting for zoom
+    zoomFactor = 1.0;
+    
+
+
 
 }
+
 -(void) dealloc{
     [self.mainView removeObserver:self forKeyPath:@"frame"];
     
@@ -53,6 +82,105 @@
 - (BOOL)isFlipped{
     return YES;
 }
+#pragma mark - ruler
+- (void)setRulerOffsets
+{
+    NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
+    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
+    [horizRuler setMeasurementUnits:@"Pixel"];
+    [vertRuler setMeasurementUnits:@"Pixel"];
+    
+    CGFloat left = (self.mainView.frame.size.width - self.controller.selectedFrameWidth)/2;
+    [horizRuler setOriginOffset:left];
+    [vertRuler setOriginOffset:0];
+    
+    return;
+}
+- (void)updateRulers{
+    
+    [self updateHorizontalRuler];
+    [self updateVerticalRuler];
+}
+
+- (void)updateHorizontalRuler{
+    NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
+    [horizRuler setClientView:self];
+}
+- (void)updateVerticalRuler{
+    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
+    [vertRuler setClientView:self];
+}
+
+#pragma mark - rulerview client methods
+- (void)rulerView:(NSRulerView *)ruler handleMouseDown:(NSEvent *)event{
+    if(event.type == NSLeftMouseDown){
+        NSRulerMarker *newMarker;
+        
+        NSImage *image = [NSImage imageNamed:@"width_mobile"];
+        if ([ruler orientation] == NSHorizontalRuler) {
+            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
+                                                  markerLocation:0.0 image:image imageOrigin:NSZeroPoint];
+        } else {
+            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
+                                                  markerLocation:0.0 image:image imageOrigin:NSMakePoint(8.0, 8.0)];
+        }
+        [newMarker setRemovable:YES];
+        [ruler trackMarker:newMarker withMouseEvent:event];
+    }
+    
+
+    return;
+}
+
+
+- (CGFloat)rulerView:(NSRulerView *)aRulerView willMoveMarker:(NSRulerMarker *)aMarker toLocation:(CGFloat)location
+{
+    return round(location);
+}
+#pragma mark - zoom
+
+#define ZOOMINFACTOR   (1.2)
+#define ZOOMOUTFACTOR  (1.0 / ZOOMINFACTOR)
+#define ZOOMUNITSIZE 0.2
+
+- (IBAction)zoomIn:(id)sender
+{
+    NSRect tempRect;
+    NSRect oldBounds;
+    
+    oldBounds = [self.mainView bounds];
+    
+    tempRect = [self.mainView frame];
+    zoomFactor += ZOOMINFACTOR;
+
+    
+    [self.mainView scaleUnitSquareToSize:NSMakeSize(ZOOMINFACTOR, ZOOMINFACTOR)];
+    [self.gridView setLayerZoom:ZOOMINFACTOR];
+    
+    [self.mainScrollView setNeedsDisplay:YES];
+    
+    return;
+}
+
+
+- (IBAction)zoomOut:(id)sender
+{
+    NSRect tempRect;
+    NSRect oldBounds;
+    
+    oldBounds = [self.mainView bounds];
+    
+    tempRect = [self.mainView frame];
+    zoomFactor -= ZOOMUNITSIZE;
+
+    [self.mainView scaleUnitSquareToSize:NSMakeSize(ZOOMOUTFACTOR, ZOOMOUTFACTOR)];
+    [self.gridView setLayerZoom:ZOOMOUTFACTOR];
+    
+    [self.mainScrollView setNeedsDisplay:YES];
+    
+    return;
+}
+
 
 #pragma mark - frame
 
@@ -78,6 +206,7 @@
             
         }
     }
+    [self setRulerOffsets];
 }
 
 

@@ -223,19 +223,19 @@
     [self setMaxFrameWidth:maxSize];
     [self reloadSheet];
     
+    [[self canvasView] setRulerOffsets];
+    [[self gridView] setSelectedFrameWidth:_selectedFrameWidth];
+
+    
     [[self webView] updateFrameDict];
 }
 
-- (void)setSelectedFrameWidth:(NSInteger)selectedFrameWidth{
-    [[self gridView] setSelectedFrameWidth:selectedFrameWidth];
-    _selectedFrameWidth = selectedFrameWidth;
-}
 
 - (void)changeMQMaxSize:(NSNotification *)notification{
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     //extend to scroll size
-    [((LMCanvasView *)self.view).mainView setWidth:maxSize];
+    [self.canvasView.mainView setWidth:maxSize];
     
     [self setMaxFrameWidth:maxSize];
     [self setSelectedFrameWidth:selectedSize];

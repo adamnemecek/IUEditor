@@ -30,6 +30,10 @@
 - (void)windowDidResize:(NSNotification *)notification;
 - (void)setHeightOfMainView:(CGFloat)height;
 - (void)extendMainViewToFullSize;
+- (void)setRulerOffsets;
+- (IBAction)zoomIn:(id)sender;
+- (IBAction)zoomOut:(id)sender;
+
 
 - (void)startDraggingFromGridView;
 
