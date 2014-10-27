@@ -28,6 +28,10 @@
 
 @end
 
+@interface JDStringToImageTransformer : NSValueTransformer
+
+@end
+
 @interface JDNameTransformer : NSValueTransformer
 
 @end

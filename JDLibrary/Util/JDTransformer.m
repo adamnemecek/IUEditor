@@ -91,6 +91,26 @@
 
 @end
 
+@implementation JDStringToImageTransformer
+
++ (Class)transformedValueClass
+{
+    return [NSString self];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return NO;
+}
+
+- (id)transformedValue:(id)beforeObject
+{
+    if (beforeObject == nil) return nil;
+    NSImage *image = [NSImage imageNamed:beforeObject];
+    return image;
+}
+@end
+
 
 @implementation JDNilToEmptyStringTransformer
 

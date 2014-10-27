@@ -10,7 +10,7 @@
 		<key>title</key>
 		<string>Layout1</string>
 		<key>thumbnail</key>
-		<string>Google_Play_3.png</string>
+		<string>layout_01</string>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -20,27 +20,27 @@
 		<key>title</key>
 		<string>Layout2</string>
 		<key>thumbnail</key>
-		<string>Google_Play_3.png</string>
+		<string>layout_02</string>
 	</dict>
-    <dict>
-        <key>id</key>
-        <integer>2</integer>
-        <key>desc</key>
-        <string>Sidebar</string>
-        <key>title</key>
-        <string>Layout3</string>
-        <key>thumbnail</key>
-        <string>Google_Play_3.png</string>
-    </dict>
+	<dict>
+		<key>id</key>
+		<integer>2</integer>
+		<key>desc</key>
+		<string>Sidebar</string>
+		<key>title</key>
+		<string>Layout3</string>
+		<key>thumbnail</key>
+		<string>layout_03</string>
+	</dict>
 	<dict>
 		<key>id</key>
 		<integer>3</integer>
 		<key>desc</key>
 		<string>Header, Footer, Sidebar</string>
 		<key>title</key>
-		<string>Layout3</string>
+		<string>Layout4</string>
 		<key>thumbnail</key>
-		<string>Google_Play_3.png</string>
+		<string>layout_04</string>
 	</dict>
 	<dict>
 		<key>id</key>
@@ -48,9 +48,9 @@
 		<key>desc</key>
 		<string>Header, Footer, Sidebar</string>
 		<key>title</key>
-		<string>Layout3</string>
+		<string>Layout5</string>
 		<key>thumbnail</key>
-		<string>Google_Play_3.png</string>
+		<string>layout_05</string>
 	</dict>
 </array>
 </plist>

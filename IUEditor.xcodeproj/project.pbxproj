@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2637F59E19FDE2E0009A09AC /* vcenter_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F59A19FDE2E0009A09AC /* vcenter_off.png */; };
+		2637F59F19FDE2E0009A09AC /* vcenter_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F59B19FDE2E0009A09AC /* vcenter_off@2x.png */; };
+		2637F5A019FDE2E0009A09AC /* vcenter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F59C19FDE2E0009A09AC /* vcenter_on.png */; };
+		2637F5A119FDE2E0009A09AC /* vcenter_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F59D19FDE2E0009A09AC /* vcenter_on@2x.png */; };
+		2637F5AE19FDE9FB009A09AC /* layout_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A419FDE9FB009A09AC /* layout_02.png */; };
+		2637F5AF19FDE9FB009A09AC /* layout_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A519FDE9FB009A09AC /* layout_02@2x.png */; };
+		2637F5B019FDE9FB009A09AC /* layout_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A619FDE9FB009A09AC /* layout_03.png */; };
+		2637F5B119FDE9FB009A09AC /* layout_03@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A719FDE9FB009A09AC /* layout_03@2x.png */; };
+		2637F5B219FDE9FB009A09AC /* layout_04.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A819FDE9FB009A09AC /* layout_04.png */; };
+		2637F5B319FDE9FB009A09AC /* layout_04@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5A919FDE9FB009A09AC /* layout_04@2x.png */; };
+		2637F5B419FDE9FB009A09AC /* layout_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5AA19FDE9FB009A09AC /* layout_05.png */; };
+		2637F5B519FDE9FB009A09AC /* layout_05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5AB19FDE9FB009A09AC /* layout_05@2x.png */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -1050,6 +1062,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2637F59A19FDE2E0009A09AC /* vcenter_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vcenter_off.png; sourceTree = "<group>"; };
+		2637F59B19FDE2E0009A09AC /* vcenter_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vcenter_off@2x.png"; sourceTree = "<group>"; };
+		2637F59C19FDE2E0009A09AC /* vcenter_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vcenter_on.png; sourceTree = "<group>"; };
+		2637F59D19FDE2E0009A09AC /* vcenter_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vcenter_on@2x.png"; sourceTree = "<group>"; };
+		2637F5A419FDE9FB009A09AC /* layout_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layout_02.png; sourceTree = "<group>"; };
+		2637F5A519FDE9FB009A09AC /* layout_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layout_02@2x.png"; sourceTree = "<group>"; };
+		2637F5A619FDE9FB009A09AC /* layout_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layout_03.png; sourceTree = "<group>"; };
+		2637F5A719FDE9FB009A09AC /* layout_03@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layout_03@2x.png"; sourceTree = "<group>"; };
+		2637F5A819FDE9FB009A09AC /* layout_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layout_04.png; sourceTree = "<group>"; };
+		2637F5A919FDE9FB009A09AC /* layout_04@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layout_04@2x.png"; sourceTree = "<group>"; };
+		2637F5AA19FDE9FB009A09AC /* layout_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = layout_05.png; sourceTree = "<group>"; };
+		2637F5AB19FDE9FB009A09AC /* layout_05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "layout_05@2x.png"; sourceTree = "<group>"; };
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -3566,6 +3590,14 @@
 		3D2EF7CF19F7862900BBBAE5 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				2637F5A419FDE9FB009A09AC /* layout_02.png */,
+				2637F5A519FDE9FB009A09AC /* layout_02@2x.png */,
+				2637F5A619FDE9FB009A09AC /* layout_03.png */,
+				2637F5A719FDE9FB009A09AC /* layout_03@2x.png */,
+				2637F5A819FDE9FB009A09AC /* layout_04.png */,
+				2637F5A919FDE9FB009A09AC /* layout_04@2x.png */,
+				2637F5AA19FDE9FB009A09AC /* layout_05.png */,
+				2637F5AB19FDE9FB009A09AC /* layout_05@2x.png */,
 				3D2EFCD319F794C100BBBAE5 /* new_default.png */,
 				3D2EFCD419F794C100BBBAE5 /* new_default@2x.png */,
 				3D2EFCD519F794C100BBBAE5 /* new_django.png */,
@@ -3801,6 +3833,10 @@
 				3D2EF92519F7869E00BBBAE5 /* center_off@2x.png */,
 				3D2EF92619F7869E00BBBAE5 /* center_on.png */,
 				3D2EF92719F7869E00BBBAE5 /* center_on@2x.png */,
+				2637F59A19FDE2E0009A09AC /* vcenter_off.png */,
+				2637F59B19FDE2E0009A09AC /* vcenter_off@2x.png */,
+				2637F59C19FDE2E0009A09AC /* vcenter_on.png */,
+				2637F59D19FDE2E0009A09AC /* vcenter_on@2x.png */,
 				3D2EF92819F7869E00BBBAE5 /* clear_color_border.png */,
 				3D2EF92919F7869E00BBBAE5 /* clear_color_border@2x.png */,
 				3D2EF92A19F7869E00BBBAE5 /* clear_color.png */,
@@ -4502,6 +4538,7 @@
 				3D2EF86A19F7867700BBBAE5 /* ic_image@2x.png in Resources */,
 				3D2EFB7319F786C700BBBAE5 /* lens.png in Resources */,
 				3DE462D319FA4A2600A75567 /* gallery_thumb@2x.png in Resources */,
+				2637F5B019FDE9FB009A09AC /* layout_03.png in Resources */,
 				3D2EF9CA19F7869E00BBBAE5 /* autoheight_off@2x.png in Resources */,
 				3D2EF8AC19F7867700BBBAE5 /* stack_wpmenu.png in Resources */,
 				3D2EFB7119F786C700BBBAE5 /* internt_web_technology-08-128.png in Resources */,
@@ -4546,6 +4583,7 @@
 				3D2EFB7C19F786C700BBBAE5 /* map_location_pin_map-marker-128.png in Resources */,
 				3D2EFA6A19F7869E00BBBAE5 /* tab2_on_01.png in Resources */,
 				3DE462E419FA4A2600A75567 /* portfolio.zip in Resources */,
+				2637F5A119FDE2E0009A09AC /* vcenter_on@2x.png in Resources */,
 				3DE462EC19FA4A2600A75567 /* ws_preview_mobile.png in Resources */,
 				3D2EF9E219F7869E00BBBAE5 /* bg_v_top@2x.png in Resources */,
 				3D2EFCE719F795C000BBBAE5 /* setting.png in Resources */,
@@ -4604,6 +4642,7 @@
 				3D2EFB6919F786C700BBBAE5 /* icon-ios7-refresh-outline-128.png in Resources */,
 				3D2EF8E119F7867700BBBAE5 /* wp_menu@2x.png in Resources */,
 				3D2EFA1519F7869E00BBBAE5 /* panel_right_off@2x.png in Resources */,
+				2637F59F19FDE2E0009A09AC /* vcenter_off@2x.png in Resources */,
 				3D2EF77F19F7857E00BBBAE5 /* wpPageInformation.plist in Resources */,
 				3DE462F619FA4A2600A75567 /* wpblog_pc_01.png in Resources */,
 				3D2EF9C019F7869E00BBBAE5 /* align_center@2x.png in Resources */,
@@ -4733,6 +4772,7 @@
 				3D2EFB5D19F786C700BBBAE5 /* forward-128.png in Resources */,
 				3D2EF9B619F7869E00BBBAE5 /* add_ghost_off@2x.png in Resources */,
 				3D2EF8E619F7867700BBBAE5 /* wp_sitetitle.png in Resources */,
+				2637F5AF19FDE9FB009A09AC /* layout_02@2x.png in Resources */,
 				3D2EF58719F782C700BBBAE5 /* LMStartNewVC.xib in Resources */,
 				3D2EF72619F784F600BBBAE5 /* LMFileTabItemVC.xib in Resources */,
 				3D2EF8E019F7867700BBBAE5 /* wp_menu.png in Resources */,
@@ -4777,6 +4817,7 @@
 				3D2EFBE119F787D000BBBAE5 /* jquery-ui-1.9.2.js in Resources */,
 				3D2EF6BC19F784A400BBBAE5 /* LMPropertyIUMenuItemVC.xib in Resources */,
 				3D2EF6F919F784B500BBBAE5 /* LMEventVariableReceiverVC.xib in Resources */,
+				2637F59E19FDE2E0009A09AC /* vcenter_off.png in Resources */,
 				3D2EFA2C19F7869E00BBBAE5 /* select_directory.png in Resources */,
 				3D2EFB2619F786C700BBBAE5 /* arrow_full_lowerright-128.png in Resources */,
 				3DE462E519FA4A2600A75567 /* Resume.zip in Resources */,
@@ -4880,6 +4921,7 @@
 				3D2EF87119F7867700BBBAE5 /* ic_template.png in Resources */,
 				3D2EFB2119F786C700BBBAE5 /* amazon_app_store_2.png in Resources */,
 				3D2EFCC719F78D5A00BBBAE5 /* LMPropertyIUCollectionViewVC.xib in Resources */,
+				2637F5B519FDE9FB009A09AC /* layout_05@2x.png in Resources */,
 				3D2EFA5419F7869E00BBBAE5 /* tab_primary.png in Resources */,
 				3D2EF7B619F785D400BBBAE5 /* Tutorial05_kr.png in Resources */,
 				3D2EF6DD19F784A400BBBAE5 /* LMPropertyWPPageLinksVC.xib in Resources */,
@@ -5073,6 +5115,7 @@
 				3D2EFA6519F7869E00BBBAE5 /* tab_wp_off@2x.png in Resources */,
 				3D2EFA4019F7869E00BBBAE5 /* tab_library_on.png in Resources */,
 				3D2EF8D619F7867700BBBAE5 /* tool_transition.png in Resources */,
+				2637F5AE19FDE9FB009A09AC /* layout_02.png in Resources */,
 				3D2EF6D519F784A400BBBAE5 /* LMPropertyWebProgrammingVC.xib in Resources */,
 				3D2EFB7E19F786C700BBBAE5 /* map-marker-128.png in Resources */,
 				3D2EFA1D19F7869E00BBBAE5 /* preview@2x.png in Resources */,
@@ -5086,6 +5129,7 @@
 				3D2EF9F419F7869E00BBBAE5 /* clear_color@2x.png in Resources */,
 				3D2EFA3F19F7869E00BBBAE5 /* tab_library_off@2x.png in Resources */,
 				3D2EF9BD19F7869E00BBBAE5 /* add_section.png in Resources */,
+				2637F5A019FDE2E0009A09AC /* vcenter_on.png in Resources */,
 				3D2EF8EB19F7868B00BBBAE5 /* ResizeNW-SE.tiff in Resources */,
 				3D2EFB6719F786C700BBBAE5 /* icon-ios7-arrow-forward-128.png in Resources */,
 				3DE462F719FA4A2600A75567 /* wpblog_pc_02.png in Resources */,
@@ -5123,6 +5167,7 @@
 				3D2EFA1319F7869E00BBBAE5 /* panel_left@2x.png in Resources */,
 				3D2EFCE019F794C100BBBAE5 /* new_pt@2x.png in Resources */,
 				3D2EF9D319F7869E00BBBAE5 /* bg_fullsize.png in Resources */,
+				2637F5B319FDE9FB009A09AC /* layout_04@2x.png in Resources */,
 				3D2EFBA019F786C700BBBAE5 /* question_yellow.png in Resources */,
 				3D2EF76419F7856E00BBBAE5 /* wordpress.zip in Resources */,
 				3D2EFC0D19F7883700BBBAE5 /* jquery.scrollto.js in Resources */,
@@ -5185,6 +5230,7 @@
 				3D2EFA0D19F7869E00BBBAE5 /* panel_bottom_on@2x.png in Resources */,
 				3D2EFBEF19F787DE00BBBAE5 /* map_zoom.png in Resources */,
 				3D2EF6FB19F784B500BBBAE5 /* LMEventVariableTrigger.xib in Resources */,
+				2637F5B219FDE9FB009A09AC /* layout_04.png in Resources */,
 				3D2EFA6319F7869E00BBBAE5 /* tab_tools_on@2x.png in Resources */,
 				3D2EFA7119F7869E00BBBAE5 /* trash_on@2x.png in Resources */,
 				3DE462B619FA4A2600A75567 /* agency_preview_mobile01.png in Resources */,
@@ -5194,6 +5240,7 @@
 				3D2EF6D219F784A400BBBAE5 /* LMPropertyPGFormVC.xib in Resources */,
 				3D2EFA1019F7869E00BBBAE5 /* panel_left_on.png in Resources */,
 				3D2EFBBD19F786C700BBBAE5 /* youtube18-128.png in Resources */,
+				2637F5B419FDE9FB009A09AC /* layout_05.png in Resources */,
 				3D2EFB2319F786C700BBBAE5 /* appstore2.png in Resources */,
 				3D2EF8BC19F7867700BBBAE5 /* tool_form.png in Resources */,
 				3D2EF87C19F7867700BBBAE5 /* stack_footer.png in Resources */,
@@ -5231,6 +5278,7 @@
 				3D2EF9EB19F7869E00BBBAE5 /* border_icon_04.png in Resources */,
 				3D2EF70D19F784D600BBBAE5 /* LMResourceVC.xib in Resources */,
 				3D2EFA6E19F7869E00BBBAE5 /* trash_off.png in Resources */,
+				2637F5B119FDE9FB009A09AC /* layout_03@2x.png in Resources */,
 				3D2EF6FD19F784B500BBBAE5 /* LMEventVC.xib in Resources */,
 				3D2EF5E119F7836500BBBAE5 /* LMPreferenceDjangoVC.xib in Resources */,
 				3D2EFA7519F7869E00BBBAE5 /* view_border_off@2x.png in Resources */,
