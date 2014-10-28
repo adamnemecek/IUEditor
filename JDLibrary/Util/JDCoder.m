@@ -341,6 +341,7 @@
 }
 
 - (id)decodeObjectForKey:(NSString*)key{
+    if (workingDict[key]) {
         NSMutableDictionary* current = workingDict;
         workingDict = current[key];
         NSString *className = workingDict[@"class__"];
@@ -350,6 +351,8 @@
         workingDict = current;
         
         return newObj;
+    }
+    return nil;
 }
 
 - (float)decodeFloatForKey:(NSString*)key{
@@ -360,30 +363,22 @@
     return [workingDict[key] doubleValue];
 }
 
+- (BOOL)decodeBoolForKey:(NSString*)key{
+    return [workingDict[key] boolValue];
+}
+
 - (NSString*)decodeStringForKey:(NSString*)key{
     return workingDict[key];
 }
 
-- (void)decodeWeakPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties{
-    for (JDProperty *property in properties) {
-        if ([property isReadonly]) {
-            continue;
-        }
-        if ([property isWeak] == NO) {
-            continue;
-        }
-        id obj = [self decodeByRefObjectForKey:property.name];
-        [obj setValue:obj forKey:property.name];
-    }
-}
-
--(void) decodeStrongPropertyToObject:(id)obj withProperties:(NSArray*)properties{
+-(void) decodeToObject:(id)obj withProperties:(NSArray*)properties{
     for (JDProperty *property in properties) {
         if ([property isReadonly]) {
             continue;
         }
         if ([property isWeak]) {
-            continue;
+            id obj = [self decodeByRefObjectForKey:property.name];
+            [obj setValue:obj forKey:property.name];
         }
         else if ([property isInteger]){
             [obj setValue:@([self decodeIntegerForKey:property.name]) forKey:property.name];

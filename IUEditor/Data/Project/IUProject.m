@@ -58,7 +58,8 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    return nil;
+    self = [self initWithCoder:(NSCoder*)aDecoder];
+    return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -116,11 +117,7 @@
 
         [_resourceManager setResourceGroup:_resourceGroup];
         
-        _serverInfo = [aDecoder decodeObjectForKey:@"serverInfo"];
-        if (_serverInfo == nil) {
-            //version control
-            _serverInfo = [[IUServerInfo alloc] init];
-        }
+        _serverInfo = [[IUServerInfo alloc] init];
         
         [self.undoManager enableUndoRegistration];
 
