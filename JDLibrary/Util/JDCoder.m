@@ -224,7 +224,7 @@
 }
 
 
-- (void)encodeByRefObject:(NSObject <NSCoding> *)obj forKey:(NSString*)key{
+- (void)encodeByRefObject:(NSObject <JDCoding> *)obj forKey:(NSString*)key{
     if (obj == nil){
         return;
     }
@@ -301,6 +301,9 @@
         if ([property isReadonly]) {
             continue;
         }
+        else if ([property isWeak]){
+            [self encodeByRefObject:[obj valueForKey:property.name] forKey:property.name];
+        }
         else if ([property isInteger]){
             [self encodeInteger:[[obj valueForKey:property.name] integerValue] forKey:property.name];
         }
@@ -361,9 +364,25 @@
     return workingDict[key];
 }
 
--(void) decodeToObject:(id)obj withProperties:(NSArray*)properties{
+- (void)decodeWeakPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties{
     for (JDProperty *property in properties) {
         if ([property isReadonly]) {
+            continue;
+        }
+        if ([property isWeak] == NO) {
+            continue;
+        }
+        id obj = [self decodeByRefObjectForKey:property.name];
+        [obj setValue:obj forKey:property.name];
+    }
+}
+
+-(void) decodeStrongPropertyToObject:(id)obj withProperties:(NSArray*)properties{
+    for (JDProperty *property in properties) {
+        if ([property isReadonly]) {
+            continue;
+        }
+        if ([property isWeak]) {
             continue;
         }
         else if ([property isInteger]){

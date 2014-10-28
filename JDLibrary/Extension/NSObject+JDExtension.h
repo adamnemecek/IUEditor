@@ -27,6 +27,7 @@ static NSString * kJDContext = @"JDContext";
 -(BOOL)isSize;
 -(BOOL)isRect;
 -(BOOL)isID;
+-(BOOL)isWeak;
 @end
 
 

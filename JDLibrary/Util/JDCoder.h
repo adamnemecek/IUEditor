@@ -73,13 +73,15 @@
 - (id)decodeObjectForKey:(NSString*)key;
 - (float)decodeFloatForKey:(NSString*)key;
 - (double)decodeDoubleForKey:(NSString*)key;
-- (void)decodeToObject:(NSObject *)obj withProperties:(NSArray *)properties;
+
+- (void)decodeStrongPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties;
+- (void)decodeWeakPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties;
 
 /*
  This encoding/decoding by ref functions maintain weak reference of object.
  Obj should decoded before decodeByObjectForKey: is called. Otherwise, it raises exception
  */
-- (void)encodeByRefObject:(NSObject <NSCoding> *)obj forKey:(NSString*)key;
+- (void)encodeByRefObject:(id <JDCoding>)obj forKey:(NSString*)key;
 - (id)decodeByRefObjectForKey:(NSString *)key;
 
 /*

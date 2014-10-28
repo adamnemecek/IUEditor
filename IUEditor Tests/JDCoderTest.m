@@ -15,31 +15,10 @@
 @end
 
 @implementation JDCoderTest {
-    IUBox *parentBox;
-    IUBox *childBox1;
-    IUBox *childBox2;
 }
 
 - (void)setUp {
     [super setUp];
-    NSLog(@"test");
-    parentBox = [[IUBox alloc] initWithProject:nil options:nil];
-    parentBox.htmlID = @"parentBox";
-    [parentBox.css setValue:@"VALUETEST" forTag:@"IUCSSTagForTest"];
-    [parentBox.css setValue:@(10) forTag:@"IUCSSTagForTestNum"];
-    
-    childBox1 = [[IUBox alloc] initWithProject:nil options:nil];
-    childBox1.htmlID = @"ChildBox1";
-
-    childBox2 = [[IUBox alloc] initWithProject:nil options:nil];
-    childBox2.htmlID = @"ChildBox2";
-    
-    [parentBox addIU:childBox1 error:nil];
-    [parentBox addIU:childBox2 error:nil];
-
-    childBox1.link = childBox2;
-    childBox2.link = childBox1;
-    
 }
 
 - (void)tearDown {
@@ -111,7 +90,7 @@
     NSInteger result = [[resultBox.css effectiveValueForTag:@"IUCSSTagForTestNum" forViewport:IUCSSDefaultViewPort] integerValue];
     XCTAssert(result == 10, @"Pass");
 }
- */
+
 
 - (void)test3_CoderSaveLoad{
     JDCoder *coder = [[JDCoder alloc] init];
@@ -161,5 +140,28 @@
         // Put the code you want to measure the time of here.
     }];
 }
+- (void)test02_CoderSaveLoad{
+    JDCoder *coder = [[JDCoder alloc] init];
+    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
+    mutableDict[@"test"] = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"object", @"key", nil];
+    [coder encodeRootObject:mutableDict];
+    
+    NSString *tempDir = NSTemporaryDirectory();
+    NSURL *fileURL = [NSURL fileURLWithPath:[tempDir stringByAppendingPathComponent:@"coder"]];
+    NSError *err;
+
+    BOOL saveResult = [coder saveToURL:fileURL error:&err];
+    XCTAssertTrue(saveResult, @"Pass");
+
+    JDCoder *loadCoder = [[JDCoder alloc] init];
+    [loadCoder loadFromURL:fileURL error:&err];
+    NSMutableDictionary *decodedDict = [loadCoder decodedAndInitializeObject];
+    NSDictionary *innerDict = [decodedDict objectForKey:@"test"];
+    NSString *decoded = [innerDict objectForKey:@"key"];
+    XCTAssertEqualObjects(decoded, @"object");
+    XCTAssertTrue([decodedDict isKindOfClass:[NSMutableDictionary class]]);
+    XCTAssertTrue([innerDict isKindOfClass:[NSMutableDictionary class]]);
+}
+ */
 
 @end

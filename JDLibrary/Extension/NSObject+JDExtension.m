@@ -20,6 +20,7 @@
     BOOL    isSize;
     BOOL    isRect;
     BOOL    isID;
+    BOOL    isWeak;
     NSString    *name;
 }
 
@@ -32,7 +33,10 @@
         if (readonly) {
             isReadonly = YES;
         }
-
+        char *weak = property_copyAttributeValue(property, "W");
+        if (weak) {
+            isWeak = YES;
+        }
         char *type = property_copyAttributeValue(property, "T");
         if (type[0] == 'c') {
             isChar = YES;
@@ -107,6 +111,9 @@
     return isRect;
 }
 
+-(BOOL)isWeak{
+    return isWeak;
+}
 
 
 -(BOOL)isID{
@@ -290,6 +297,7 @@
     
     return rv;
 }
+
 
 +(NSArray*)propertiesWithOutProperties:(NSArray*)array{
     unsigned count;

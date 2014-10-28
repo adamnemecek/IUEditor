@@ -21,6 +21,8 @@
 		2637F5CD19FE1566009A09AC /* layout_05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5C519FE1566009A09AC /* layout_05@2x.png */; };
 		2666986619FE2608009F98AE /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986419FE2608009F98AE /* arrow_left.png */; };
 		2666986719FE2608009F98AE /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986519FE2608009F98AE /* arrow_right.png */; };
+		097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */; };
+		097F710319FDDC5A00C01ECA /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 097F710219FDDC5A00C01ECA /* JDCoder+IUProject_Test.m */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -974,7 +976,6 @@
 		3D2EFCEE19F7964400BBBAE5 /* wpWebTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */; };
 		3D2EFCF019F796D600BBBAE5 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEF19F796D600BBBAE5 /* sample.jpg */; };
 		3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCF119F7976B00BBBAE5 /* image_default.png */; };
-		3DE45F6119F7BFB200A75567 /* IUEditor_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */; };
 		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
 		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
@@ -1086,6 +1087,8 @@
 		2637F5C519FE1566009A09AC /* layout_05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "layout_05@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/layout_05@2x.png"; sourceTree = "<group>"; };
 		2666986419FE2608009F98AE /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_left.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_left.png; sourceTree = "<group>"; };
 		2666986519FE2608009F98AE /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_right.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_right.png; sourceTree = "<group>"; };
+		097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUEditor_Test.m"; sourceTree = "<group>"; };
+		097F710219FDDC5A00C01ECA /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "JDCoder+IUProject_Test.m"; path = "../JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -2289,7 +2292,6 @@
 		3D2EFCF119F7976B00BBBAE5 /* image_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_default.png; path = IUEditor/Resource/IUResource/editormode/image/image_default.png; sourceTree = "<group>"; };
 		3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE45F5F19F7BFB200A75567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUEditor_Tests.m; sourceTree = "<group>"; };
 		3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUDataStorageTest.m; sourceTree = "<group>"; };
 		3DE45F6C19F7C04000A75567 /* JDCoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDCoderTest.m; sourceTree = "<group>"; };
 		3DE4625C19F8A63A00A75567 /* tinymce */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tinymce; path = IUEditor/Resource/IUResource/editormode/js/tinymce; sourceTree = "<group>"; };
@@ -4318,7 +4320,8 @@
 			children = (
 				3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */,
 				3DE45F6C19F7C04000A75567 /* JDCoderTest.m */,
-				3DE45F6019F7BFB200A75567 /* IUEditor_Tests.m */,
+				097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */,
+				097F710219FDDC5A00C01ECA /* JDCoder+IUProject_Test.m */,
 				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
 			);
 			path = "IUEditor Tests";
@@ -5620,8 +5623,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
+				097F710319FDDC5A00C01ECA /* JDCoder+IUProject_Test.m in Sources */,
 				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
-				3DE45F6119F7BFB200A75567 /* IUEditor_Tests.m in Sources */,
 				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
