@@ -59,7 +59,7 @@
     
     //setting for ruler
     [self.mainScrollView setHasHorizontalRuler:YES];
-    [self.mainScrollView setHasVerticalRuler:YES];
+    [self.mainScrollView setHasVerticalRuler:NO];
     
     [self initailizeRulers];
     [self setRulerOffsets];
