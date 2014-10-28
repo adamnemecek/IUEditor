@@ -56,7 +56,7 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <IUFile, IUResourcePathProtocol, NSCoding, NSFileManagerDelegate>{
+@interface IUProject : NSObject <IUFile, IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUResourceGroup *_resourceGroup;
@@ -161,4 +161,6 @@ static NSString *IUClassGroupName = @"class";
 
 //undo manager
 - (NSUndoManager *)undoManager;
+
+- (NSData *)jsonData;
 @end

@@ -10,15 +10,6 @@
 
 @implementation IUServerInfo
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeFromObject:self withProperties:[IUServerInfo propertiesWithOutProperties:@[@"localPath", @"syncItem"]]];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super init];
-    [aDecoder decodeToObject:self withProperties:[IUServerInfo properties]];
-    return self;
-}
 
 - (id)init{
     self = [super init];

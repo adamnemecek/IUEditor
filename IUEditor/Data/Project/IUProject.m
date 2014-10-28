@@ -44,11 +44,21 @@
     [encoder encodeObject:_name forKey:@"_name"];
     [encoder encodeObject:_favicon forKey:@"_favicon"];
     [encoder encodeObject:_author forKey:@"_author"];
-    [encoder encodeObject:_serverInfo forKey:@"serverInfo"];
+
+    //Do not encode server info. instead, save at NSUserDefault
+    //[encoder encodeObject:_serverInfo forKey:@"serverInfo"];
     [encoder encodeBool:_enableMinWidth forKey:@"_enableMinWidth"];
     
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [encoder encodeObject:version forKey:@"IUProjectVersion"];
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [self encodeWithCoder:(NSCoder*)aCoder];
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    return nil;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -118,6 +128,7 @@
     }
     return self;
 }
+
 
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [self.undoManager disableUndoRegistration];
@@ -947,6 +958,12 @@
 - (void)resetBuildPath{
     self.buildPath = @"$IUFileDirectory/$AppName_build";
     self.buildResourcePath = @"$IUBuildPath/resource";
+}
+
+- (NSData *)jsonData{
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:self];
+    return [coder jsonData];
 }
 
 @end

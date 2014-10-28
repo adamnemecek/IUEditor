@@ -223,7 +223,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     }
     
     if(_project){
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_project];
+        NSData *data = [_project jsonData];
         NSFileWrapper *iuDataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:data];
         [iuDataWrapper setPreferredFilename:iuDataName];
         [[self documentFileWrapper] addFileWrapper:iuDataWrapper];

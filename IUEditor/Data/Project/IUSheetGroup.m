@@ -36,9 +36,14 @@
     [self.undoManager disableUndoRegistration];
     
     [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
+    //TODO: load project
     
     [self.undoManager enableUndoRegistration];
     return self;
+}
+
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    return [self initWithCoder:(NSCoder*)aDecoder];
 }
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
@@ -56,6 +61,9 @@
     [aCoder encodeObject:_children forKey:@"_children"];
 }
 
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [self encodeWithCoder:(NSCoder*)aCoder];
+}
 
 #pragma mark - Undo Manager
 - (NSUndoManager *)undoManager{

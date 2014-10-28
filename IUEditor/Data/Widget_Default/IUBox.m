@@ -87,7 +87,7 @@
     [[self undoManager] disableUndoRegistration];
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
-    _css = [aDecoder decodeObjectForKey:@"css"];
+//    _css = [aDecoder decodeObjectForKey:@"css"];
     _mqData = [aDecoder decodeObjectForKey:@"mqData"];
     _m_children = [aDecoder decodeObjectForKey:@"children"];
     
@@ -102,7 +102,7 @@
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:self.htmlID forKey:@"htmlID"];
-    [aCoder encodeObject:self.css forKey:@"css"];
+//    [aCoder encodeObject:self.css forKey:@"css"];
     [aCoder encodeObject:self.mqData forKey:@"mqData"];
     [aCoder encodeObject:self.children forKey:@"children"];
     [aCoder encodeByRefObject:self.link forKey:@"link"];
@@ -289,6 +289,8 @@
     }
     
     [[self undoManager] enableUndoRegistration];
+    _cssManager = [[IUCSSStorageManager alloc] init];
+
     
 }
 - (void)disconnectWithEditor{

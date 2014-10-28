@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IUServerInfo : NSObject <NSCoding>
+@interface IUServerInfo : NSObject
 
 @property NSString *host;
 

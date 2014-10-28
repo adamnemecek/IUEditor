@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
 #import "NSString+IUTag.h"
-@interface IUDataStorage : NSObject <JDCoding>
+@interface IUDataStorage : NSObject <JDCoding, NSCopying>
 
 /**
  @note value and key should support JSON rule.

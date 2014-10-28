@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "IUFileProtocol.h"
+#import "JDCoder.h"
 
 @class IUProject;
 @class IUSheet;
 
-@interface IUSheetGroup : NSObject < NSCoding, NSCopying>
+@interface IUSheetGroup : NSObject < NSCoding, NSCopying, JDCoding>
 
 @property (weak) IUProject *project;
 @property NSString *name;

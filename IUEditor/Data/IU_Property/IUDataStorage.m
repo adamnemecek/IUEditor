@@ -46,6 +46,13 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    IUDataStorage *returnObject = [[[self class] allocWithZone:zone] init];
+    returnObject.manager = self.manager;
+    returnObject.storage = [self.storage mutableCopy];
+    return returnObject;
+}
+
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     manager = [aDecoder decodeByRefObjectForKey:@"manager"];
     _enableUpdate = YES;
@@ -80,16 +87,12 @@
     return [_storage copy];
 }
 
-- (IUDataStorage*)storageByOverwritingDataStorage:(IUDataStorage*)aStorage{
-    IUDataStorage *returnValue = [[IUDataStorage alloc] init];
-    returnValue.storage = [_storage mutableCopy];
-    
+- (void)overwritingDataStorage:(IUDataStorage*)aStorage{
     for (NSString *key in aStorage.storage) {
-        returnValue.storage[key] = aStorage.storage[key];
+        self.storage[key] = aStorage.storage[key];
     }
-    
-    return returnValue;
 }
+
 
 @end
 
@@ -151,7 +154,9 @@
     }
     
     self.currentStorage = _storages[@(_currentViewPort)];
-    self.liveStorage = [self.defaultStorage storageByOverwritingDataStorage:self.currentStorage];
+    IUDataStorage *liveStorage = [self.defaultStorage copy];
+    [liveStorage overwritingDataStorage:self.currentStorage];
+    self.liveStorage = liveStorage;
 }
 
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort{
@@ -188,6 +193,11 @@
     BOOL changing;
 }
 
+- (id)init{
+    self = [super init];
+    self.x = [NSNumber numberWithInteger:3];
+    return self;
+}
 - (void)setBorderColor:(id)borderColor{
     if (changing == NO) {
         changing = YES;
@@ -239,6 +249,14 @@
     }
     return NO;
 }
+
+- (void)overwritingDataStorage:(IUCSSStorage*)aStorage{
+    [super overwritingDataStorage:aStorage];
+    if (aStorage.x) {
+        self.x = aStorage.x;
+    }
+}
+
 
 
 @end

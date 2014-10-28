@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUFileProtocol.h"
+#import "JDCoder.h"
 
-@protocol IUResourcePathProtocol <NSObject>
+@protocol IUResourcePathProtocol <NSObject, JDCoding>
 @optional
 - (NSString*)relativePath;
 - (NSString*)absolutePath;
@@ -17,7 +18,7 @@
 
 @class IUResourceFile;
 
-@interface IUResourceGroup : NSObject <IUFile, IUResourcePathProtocol, NSCoding, NSCopying>
+@interface IUResourceGroup : NSObject <IUFile, IUResourcePathProtocol, NSCoding, NSCopying, JDCoding>
 @property NSString *name;
 @property (weak) id <IUResourcePathProtocol> parent;
 

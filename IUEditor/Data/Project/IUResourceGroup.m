@@ -47,6 +47,39 @@
     [aCoder encodeObject:_parent forKey:@"_parent"];
 }
 
+
+- (void)encodeWithJDCoder:(JDCoder*)aCoder{
+    [aCoder encodeObject:array forKey:@"array"];
+    [aCoder encodeObject:_name forKey:@"_name"];
+    [aCoder encodeByRefObject:_parent forKey:@"_parent"];
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super init];
+    
+    [self.undoManager disableUndoRegistration];
+    
+    array = [[aDecoder decodeObjectForKey:@"array"] mutableCopy];
+    
+    NSMutableArray *removedGroup = [NSMutableArray array];
+    for(IUResourceGroup *group in array){
+        if([group.name isEqualToString:IUJSResourceGroupName]
+           || [group.name isEqualToString:IUCSSResourceGroupName]){
+            [removedGroup addObject:group];
+        }
+    }
+    
+    [array removeObjectsInArray:removedGroup];
+    _name = [aDecoder decodeObjectForKey:@"_name"];
+    
+    [self.undoManager enableUndoRegistration];
+    return self;
+}
+
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    _parent = [aDecoder decodeByRefObjectForKey:@"_parent"];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     
