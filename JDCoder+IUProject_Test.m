@@ -16,11 +16,12 @@
 
 @implementation JDCoder_IUProject_Test{
     IUProject *project;
+    NSString *filePath;
 }
 
 - (void)setUp {
     [super setUp];
-    NSString *filePath = [NSString stringWithFormat:@"%@/sampleProject.iuml", NSTemporaryDirectory()];
+    filePath = [NSString stringWithFormat:@"%@/sampleProject.iuml", NSTemporaryDirectory()];
     project = [[IUProject alloc] initWithCreation:@{IUProjectKeyAppName:@"sampleProject", IUProjectKeyIUFilePath:filePath}  error:nil];
 }
 
@@ -36,8 +37,11 @@
     
     IUProject *decodedProject = [encoder decodedAndInitializeObject];
     XCTAssertEqualObjects(decodedProject.name, @"sampleProject");
+    
+    
     XCTAssert(YES, @"Pass");
 }
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

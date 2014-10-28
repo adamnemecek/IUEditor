@@ -58,7 +58,8 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    return nil;
+    self = [self initWithCoder:(NSCoder*)aDecoder];
+    return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{

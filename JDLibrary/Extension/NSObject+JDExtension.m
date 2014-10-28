@@ -298,6 +298,49 @@
     return rv;
 }
 
++(NSArray*)strongProperties{
+    unsigned count;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    
+    NSMutableArray *rv = [NSMutableArray array];
+    
+    unsigned i;
+    for (i = 0; i < count; i++)
+    {
+        objc_property_t property = properties[i];
+        JDProperty *jdProperty = [[JDProperty alloc] initWithProperty:property];
+        if (jdProperty.isWeak == NO) {
+            [rv addObject:jdProperty];
+        }
+    }
+    
+    free(properties);
+    
+    return rv;
+}
+
++(NSArray*)weakProperties{
+    unsigned count;
+    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    
+    NSMutableArray *rv = [NSMutableArray array];
+    
+    unsigned i;
+    for (i = 0; i < count; i++)
+    {
+        objc_property_t property = properties[i];
+        JDProperty *jdProperty = [[JDProperty alloc] initWithProperty:property];
+        if (jdProperty.isWeak) {
+            [rv addObject:jdProperty];
+        }
+    }
+    
+    free(properties);
+    
+    return rv;
+}
+
+
 
 +(NSArray*)propertiesWithOutProperties:(NSArray*)array{
     unsigned count;

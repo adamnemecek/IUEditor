@@ -43,7 +43,14 @@
 }
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
-    return [self initWithCoder:(NSCoder*)aDecoder];
+    self = [self init];
+    [self.undoManager disableUndoRegistration];
+    
+    [aDecoder decodeToObject:self withProperties:[IUSheetGroup strongProperties]];
+    //TODO: load project
+    
+    [self.undoManager enableUndoRegistration];
+    return self;
 }
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
@@ -53,6 +60,10 @@
     
     [self.undoManager enableUndoRegistration];
     return self;
+}
+
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    self.project = [aDecoder decodeByRefObjectForKey:@"project"];
 }
 
 

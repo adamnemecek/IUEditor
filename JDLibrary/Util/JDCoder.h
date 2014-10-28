@@ -73,9 +73,9 @@
 - (id)decodeObjectForKey:(NSString*)key;
 - (float)decodeFloatForKey:(NSString*)key;
 - (double)decodeDoubleForKey:(NSString*)key;
+- (BOOL)decodeBoolForKey:(NSString*)key;
 
-- (void)decodeStrongPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties;
-- (void)decodeWeakPropertyToObject:(NSObject *)obj withProperties:(NSArray *)properties;
+-(void) decodeToObject:(id)obj withProperties:(NSArray*)properties;
 
 /*
  This encoding/decoding by ref functions maintain weak reference of object.
