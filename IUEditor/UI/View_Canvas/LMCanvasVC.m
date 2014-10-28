@@ -629,8 +629,6 @@
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextAddibleClass withString:@""]];
         
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
@@ -645,9 +643,6 @@
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        NSString *currentClass = [node getAttribute:@"class"];
-        [node setAttribute:@"class" value:[currentClass stringByReplacingOccurrencesOfString:IUTextEditableClass withString:@""]];
-        
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
         if(iu){
