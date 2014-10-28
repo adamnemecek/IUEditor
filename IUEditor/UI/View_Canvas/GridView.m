@@ -15,6 +15,32 @@
 #import "PointTextLayer.h"
 #import "LMCanvasVC.h"
 #import "SelectionBorderLayer.h"
+#import "RulerLineLayer.h"
+
+@interface GridView(){
+    CALayer *selectionLayer, *ghostLayer;
+    CALayer *borderManagerLayer;
+    CALayer *textManageLayer, *pointManagerLayer;
+    CALayer *selectLineManagerLayer;
+    CALayer *rulerLineManagerLayer;
+    MQShadowLayer *shadowLayer;
+    GuideLineLayer *guideLayer;
+    
+    
+    //for dragging - change width, height ofIU
+    BOOL isClicked, isDragged;
+    NSPoint startPoint, middlePoint;
+    IUPointLayerPosition selectedPointType;
+    
+    //for managing cursor
+    NSMutableDictionary *cursorDict;
+    
+    //for ruler
+    NSMutableArray *markerIdentifiers;
+}
+
+@end
+
 
 @implementation GridView
 
@@ -78,6 +104,13 @@
         //initialize guideline layer;
         guideLayer = [[GuideLineLayer alloc] init];
         [self.layer insertSubLayerFullFrame:guideLayer below:pointManagerLayer];
+        
+        //initialize ruler
+        markerIdentifiers = [NSMutableArray array];
+        rulerLineManagerLayer = [CALayer layer];
+        [rulerLineManagerLayer setBackgroundColor:[[NSColor clearColor] CGColor]];
+        [rulerLineManagerLayer disableAction];
+        [self.layer insertSubLayerFullFrame:rulerLineManagerLayer below:pointManagerLayer];
         
     }
     return self;
@@ -477,4 +510,96 @@
 - (void)clearGuideLine{
     [guideLayer clearPath];
 }
+
+
+
+#pragma mark - rulerview client methods
+
+- (NSString *)newMarkerName{
+    for(NSInteger number=0; ;number++){
+        NSString *identifier = [NSString stringWithFormat:@"marker_%ld", number];
+        if([markerIdentifiers containsString:identifier] == NO){
+            [markerIdentifiers addObject:identifier];
+            return identifier;
+        }
+        if(number > 100){
+            [JDUIUtil hudAlert:@"There are too many markers." second:2];
+            return nil;
+        }
+    }
+    return nil;
+}
+
+- (void)rulerView:(NSRulerView *)ruler handleMouseDown:(NSEvent *)event{
+    if(event.type == NSLeftMouseDown){
+        NSRulerMarker *newMarker;
+        
+        NSImage *image = [NSImage imageNamed:@"width_mobile"];
+        if ([ruler orientation] == NSHorizontalRuler) {
+            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
+                                                  markerLocation:0.0 image:image imageOrigin:NSZeroPoint];
+        } else {
+            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
+                                                  markerLocation:0.0 image:image imageOrigin:NSMakePoint(8.0, 8.0)];
+        }
+        if(newMarker){
+            NSString *identifier = [self newMarkerName];
+            if(identifier){
+                [newMarker setRepresentedObject:identifier];
+                [newMarker setRemovable:YES];
+                [ruler trackMarker:newMarker withMouseEvent:event];
+            }
+        }
+    }
+    return;
+}
+
+
+- (CGFloat)rulerView:(NSRulerView *)aRulerView willMoveMarker:(NSRulerMarker *)aMarker toLocation:(CGFloat)location
+{
+    return round(location);
+}
+
+
+//gridview-rulerview연결
+- (void)rulerView:(NSRulerView *)ruler didMoveMarker:(NSRulerMarker *)marker{
+    RulerLineLayer *movedLayer;
+    NSString *movedIdentifier = (NSString *)marker.representedObject;
+
+    for (RulerLineLayer *lineLayer in rulerLineManagerLayer.sublayers) {
+        if([lineLayer.markerIdentifer isEqualToString:movedIdentifier]){
+            movedLayer = lineLayer;
+            break;
+        }
+    }
+    if(movedLayer){
+        [movedLayer setLocation:marker.markerLocation];
+    }
+}
+
+- (void)rulerView:(NSRulerView *)ruler didAddMarker:(NSRulerMarker *)marker{
+    //alloc new ruler line layer
+    RulerLineLayer *lineLayer = [[RulerLineLayer alloc] initWithOrientation:[ruler orientation]];
+    [lineLayer setMarkerIdentifer:(NSString *)marker.representedObject];
+    [lineLayer setLocation:marker.markerLocation];
+    [rulerLineManagerLayer addSubLayerFullFrame:lineLayer];
+    [lineLayer setNeedsDisplay];
+}
+
+- (void)rulerView:(NSRulerView *)ruler didRemoveMarker:(NSRulerMarker *)marker{
+    NSString *removedIdentifier = (NSString *)marker.representedObject;
+    RulerLineLayer *removedLayer;
+    
+    for (RulerLineLayer *lineLayer in rulerLineManagerLayer.sublayers) {
+        if([lineLayer.markerIdentifer isEqualToString:removedIdentifier]){
+            removedLayer = lineLayer;
+            break;
+        }
+    }
+    if(removedLayer){
+        [removedLayer removeFromSuperlayer];
+        [markerIdentifiers removeObject:removedLayer.markerIdentifer];
+    }
+}
+
 @end

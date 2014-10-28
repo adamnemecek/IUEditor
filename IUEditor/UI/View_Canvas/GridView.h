@@ -13,23 +13,7 @@
 #import "MQShadowLayer.h"
 
 
-@interface GridView : NSView{
-    CALayer *selectionLayer, *ghostLayer;
-    CALayer *borderManagerLayer;
-    CALayer *textManageLayer, *pointManagerLayer;
-    CALayer *selectLineManagerLayer;
-    MQShadowLayer *shadowLayer;
-    GuideLineLayer *guideLayer;
-    
-    
-    //for dragging - change width, height ofIU
-    BOOL isClicked, isDragged;
-    NSPoint startPoint, middlePoint;
-    IUPointLayerPosition selectedPointType;
-    
-    //for managing cursor
-    NSMutableDictionary *cursorDict;
-}
+@interface GridView : NSView
 
 @property (nonatomic) id<IUCanvasController>  controller;
 
