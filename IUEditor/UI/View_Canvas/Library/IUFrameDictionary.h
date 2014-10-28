@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define IUGuidePixel 5
-
 typedef enum {
     IUFrameLineTop,
     IUFrameLineHorizontalCenter,
@@ -17,8 +15,6 @@ typedef enum {
     IUFrameLineLeft,
     IUFrameLineVerticalCenter,
     IUFrameLineRight,
-//    IUFrameLineWidth,
-//    IUFrameLineHeight,
 }IUFrameLine;
 
 

@@ -61,13 +61,12 @@
     [self.mainScrollView setHasHorizontalRuler:YES];
     [self.mainScrollView setHasVerticalRuler:YES];
     
+    [self initailizeRulers];
     [self setRulerOffsets];
-    [self updateRulers];
     [self.mainScrollView setRulersVisible:YES];
     
     //setting for zoom
     zoomFactor = 1.0;
-    
 
 
 
@@ -96,53 +95,23 @@
     
     return;
 }
-- (void)updateRulers{
-    
-    [self updateHorizontalRuler];
-    [self updateVerticalRuler];
-}
-
-- (void)updateHorizontalRuler{
+- (void)initailizeRulers{
     NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
-    [horizRuler setClientView:self];
-}
-- (void)updateVerticalRuler{
+    [horizRuler setClientView:self.gridView];
     NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
-    [vertRuler setClientView:self];
-}
+    [vertRuler setClientView:self.gridView];
 
-#pragma mark - rulerview client methods
-- (void)rulerView:(NSRulerView *)ruler handleMouseDown:(NSEvent *)event{
-    if(event.type == NSLeftMouseDown){
-        NSRulerMarker *newMarker;
-        
-        NSImage *image = [NSImage imageNamed:@"width_mobile"];
-        if ([ruler orientation] == NSHorizontalRuler) {
-            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
-                                                  markerLocation:0.0 image:image imageOrigin:NSZeroPoint];
-        } else {
-            newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
-                                                  markerLocation:0.0 image:image imageOrigin:NSMakePoint(8.0, 8.0)];
-        }
-        [newMarker setRemovable:YES];
-        [ruler trackMarker:newMarker withMouseEvent:event];
-    }
-    
 
-    return;
 }
 
 
-- (CGFloat)rulerView:(NSRulerView *)aRulerView willMoveMarker:(NSRulerMarker *)aMarker toLocation:(CGFloat)location
-{
-    return round(location);
-}
 #pragma mark - zoom
 
 #define ZOOMINFACTOR   (1.2)
 #define ZOOMOUTFACTOR  (1.0 / ZOOMINFACTOR)
 #define ZOOMUNITSIZE 0.2
 
+#if 0
 - (IBAction)zoomIn:(id)sender
 {
     NSRect tempRect;
@@ -181,6 +150,7 @@
     return;
 }
 
+#endif
 
 #pragma mark - frame
 

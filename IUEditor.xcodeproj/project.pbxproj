@@ -1056,6 +1056,7 @@
 		3DE4630C19FE231E00A75567 /* width_pc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4630619FE231E00A75567 /* width_pc@2x.png */; };
 		3DE4630D19FE231E00A75567 /* width_tablet.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4630719FE231E00A75567 /* width_tablet.png */; };
 		3DE4630E19FE231E00A75567 /* width_tablet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4630819FE231E00A75567 /* width_tablet@2x.png */; };
+		3DE4631119FF3AC200A75567 /* RulerLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4631019FF3AC200A75567 /* RulerLineLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2372,6 +2373,8 @@
 		3DE4630619FE231E00A75567 /* width_pc@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "width_pc@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/width_pc@2x.png"; sourceTree = "<group>"; };
 		3DE4630719FE231E00A75567 /* width_tablet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = width_tablet.png; path = IUEditor/Resource/AppResource/image/ui/icon/width_tablet.png; sourceTree = "<group>"; };
 		3DE4630819FE231E00A75567 /* width_tablet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "width_tablet@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/width_tablet@2x.png"; sourceTree = "<group>"; };
+		3DE4630F19FF3AC200A75567 /* RulerLineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RulerLineLayer.h; path = UI/View_Canvas/GridLayers/RulerLineLayer.h; sourceTree = "<group>"; };
+		3DE4631019FF3AC200A75567 /* RulerLineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RulerLineLayer.m; path = UI/View_Canvas/GridLayers/RulerLineLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3080,6 +3083,8 @@
 				3D2EF61219F7843800BBBAE5 /* SelectionBorderLayer.m */,
 				3DE4630019FDFC0700A75567 /* MQShadowLayer.h */,
 				3DE4630119FDFC0700A75567 /* MQShadowLayer.m */,
+				3DE4630F19FF3AC200A75567 /* RulerLineLayer.h */,
+				3DE4631019FF3AC200A75567 /* RulerLineLayer.m */,
 			);
 			name = "Gird Layers";
 			sourceTree = "<group>";
@@ -5387,6 +5392,7 @@
 				3D2EF49C19F781C400BBBAE5 /* IUHTML.m in Sources */,
 				3D2EFCA419F788D100BBBAE5 /* NSString+JDExtension.m in Sources */,
 				3D2EF4BA19F781D300BBBAE5 /* IUCarouselItem.m in Sources */,
+				3DE4631119FF3AC200A75567 /* RulerLineLayer.m in Sources */,
 				3D2EF66A19F7848F00BBBAE5 /* LMPropertyBGImageVC.m in Sources */,
 				3D2EFC8219F788C600BBBAE5 /* JDTextField.m in Sources */,
 				3D2EF55819F782B800BBBAE5 /* LMNotiMessageWC.m in Sources */,
