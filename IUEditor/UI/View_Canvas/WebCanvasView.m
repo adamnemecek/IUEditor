@@ -117,17 +117,19 @@
         IUBox *newIU = lmWC.pastedNewIU;
         if(newIU){
             NSString *parentIdentifier = [self parentIdentifierOfNewIUAtPoint:convertedPoint];
-            IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIdentifier];
-            if(parentIU){
-                NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
-                if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
-                    JDTraceLog( @"[IU:%@], dragPoint(%.1f, %.1f)", newIU.htmlID, dragPoint.x, dragPoint.y);
-                    [self.window makeFirstResponder:self];
-                    return YES;
+            if(parentIdentifier){//check nil identifier (not html rect)
+                IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIdentifier];
+                if(parentIU){
+                    NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
+                    if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
+                        JDTraceLog( @"[IU:%@], dragPoint(%.1f, %.1f)", newIU.htmlID, dragPoint.x, dragPoint.y);
+                        [self.window makeFirstResponder:self];
+                        return YES;
+                    }
                 }
-            }
-            else {
-                [JDUIUtil hudAlert:@"No parent" second:2];
+                else {
+                    [JDUIUtil hudAlert:@"No parent" second:2];
+                }
             }
         }
         return NO;
