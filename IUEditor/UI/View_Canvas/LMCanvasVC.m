@@ -11,7 +11,6 @@
 #import "LMWC.h"
 #import "LMWindow.h"
 #import "JDLogUtil.h"
-#import "SizeView.h"
 #import "IUFrameDictionary.h"
 #import "IUBox.h"
 #import "IUCarousel.h"
@@ -68,13 +67,12 @@
 
 -(void)awakeFromNib{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[self sizeView]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[[self.view window] windowController]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[self sizeView]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
     
     
     
-    [self addObserver:self forKeyPath:@"view.sizeView.sizeArray" options:NSKeyValueObservingOptionInitial context:@"mqCount"];
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                          @"sheet.ghostX",
                                          @"sheet.ghostY",
@@ -104,10 +102,9 @@
 
 -(void) dealloc{
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:[self sizeView]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQMaxChanged object:[self sizeView]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:[[self.view window] windowController]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
     
-    [self removeObserver:self forKeyPath:@"view.sizeView.sizeArray" context:@"mqCount"];
     [self removeObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                             @"sheet.ghostX",
                                             @"sheet.ghostY",
@@ -154,9 +151,6 @@
 - (GridView *)gridView{
     return [[self canvasView] gridView];
 }
-- (SizeView *)sizeView{
-    return [[self canvasView] sizeView];
-}
 - (WebCanvasView *)webView{
     return [[self canvasView] webView];
 }
@@ -200,11 +194,6 @@
 
 
 #pragma mark - MQ
-
-- (void)addFrame:(NSInteger)frameSize{
-    [[self sizeView] addFrame:frameSize];
-}
-
 - (void)changeMQSelect:(NSNotification *)notification{
     
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];

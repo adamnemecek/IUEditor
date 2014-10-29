@@ -34,7 +34,6 @@
 
 //call by wc
 - (void)windowDidResize:(NSNotification *)notification;
-- (void)addFrame:(NSInteger)frameSize;
 - (void)setSheet:(IUSheet *)sheet;
 - (void)reloadSheet;
 

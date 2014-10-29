@@ -120,10 +120,10 @@
     if (color == nil) {
         color = [NSColor blackColor];
     }
-    if (color.colorSpace != [NSColorSpace deviceRGBColorSpace]) {
-        color = [color colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
-    }
-    
+    //make it as RGB base.
+    //Checking by -colorSpace raises an exception if the receiver is not based on a color space represented by an NSColorSpace object; see NSColor document
+    color = [color colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+
     NSString *colorString = [NSString stringWithFormat:@"%@; /* fallback */ %@: %@",[color rgbString], tag, [color rgbaString]];
     [self insertTag:tag string:colorString];
 

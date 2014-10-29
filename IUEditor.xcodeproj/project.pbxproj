@@ -1060,6 +1060,8 @@
 		3DE4630D19FE231E00A75567 /* width_tablet.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4630719FE231E00A75567 /* width_tablet.png */; };
 		3DE4630E19FE231E00A75567 /* width_tablet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4630819FE231E00A75567 /* width_tablet@2x.png */; };
 		3DE4631119FF3AC200A75567 /* RulerLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4631019FF3AC200A75567 /* RulerLineLayer.m */; };
+		3DE463151A0085C900A75567 /* LMMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE463131A0085C900A75567 /* LMMediaQueryVC.m */; };
+		3DE463161A0085C900A75567 /* LMMediaQueryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2381,6 +2383,9 @@
 		3DE4630819FE231E00A75567 /* width_tablet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "width_tablet@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/width_tablet@2x.png"; sourceTree = "<group>"; };
 		3DE4630F19FF3AC200A75567 /* RulerLineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RulerLineLayer.h; path = UI/View_Canvas/GridLayers/RulerLineLayer.h; sourceTree = "<group>"; };
 		3DE4631019FF3AC200A75567 /* RulerLineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RulerLineLayer.m; path = UI/View_Canvas/GridLayers/RulerLineLayer.m; sourceTree = "<group>"; };
+		3DE463121A0085C900A75567 /* LMMediaQueryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMMediaQueryVC.h; path = UI/View_Status/LMMediaQueryVC.h; sourceTree = "<group>"; };
+		3DE463131A0085C900A75567 /* LMMediaQueryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMMediaQueryVC.m; path = UI/View_Status/LMMediaQueryVC.m; sourceTree = "<group>"; };
+		3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMMediaQueryVC.xib; path = UI/View_Status/LMMediaQueryVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3020,6 +3025,9 @@
 		3D2EF5F919F783D700BBBAE5 /* Status */ = {
 			isa = PBXGroup;
 			children = (
+				3DE463121A0085C900A75567 /* LMMediaQueryVC.h */,
+				3DE463131A0085C900A75567 /* LMMediaQueryVC.m */,
+				3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */,
 				3D2EF71019F784E300BBBAE5 /* LMBottomToolbarVC.h */,
 				3D2EF71119F784E300BBBAE5 /* LMBottomToolbarVC.m */,
 				3D2EF71219F784E300BBBAE5 /* LMBottomToolbarVC.xib */,
@@ -4774,6 +4782,7 @@
 				3D2EF58E19F782C700BBBAE5 /* LMStartRecentVC.xib in Resources */,
 				3D2EFA3019F7869E00BBBAE5 /* tab_appearance_off.png in Resources */,
 				3D2EFB2A19F786C700BBBAE5 /* arrow-down.png in Resources */,
+				3DE463161A0085C900A75567 /* LMMediaQueryVC.xib in Resources */,
 				3D2EF66119F7848F00BBBAE5 /* LMAppearanceVC.xib in Resources */,
 				3D2EF9DA19F7869E00BBBAE5 /* bg_h_right@2x.png in Resources */,
 				3D2EFBA519F786C700BBBAE5 /* Redo-128.png in Resources */,
@@ -5526,6 +5535,7 @@
 				3D2EF52019F781FB00BBBAE5 /* WPSiteTitle.m in Sources */,
 				3D2EF6CD19F784A400BBBAE5 /* LMPropertyIUTweetButtonVC.m in Sources */,
 				3D2EF42819F7815B00BBBAE5 /* IUProject.m in Sources */,
+				3DE463151A0085C900A75567 /* LMMediaQueryVC.m in Sources */,
 				3D2EF72719F784F600BBBAE5 /* LMTopToolbarVC.m in Sources */,
 				3D2EFC4A19F788BA00BBBAE5 /* JDCode.m in Sources */,
 				3D2EF40A19F780EA00BBBAE5 /* IUController.m in Sources */,

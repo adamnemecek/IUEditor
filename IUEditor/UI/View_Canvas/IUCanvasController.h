@@ -15,6 +15,10 @@
 @protocol IUCanvasController <NSObject>
 @required
 
+@property (nonatomic) NSInteger selectedFrameWidth;
+@property NSInteger maxFrameWidth;
+
+
 - (IUBox *)tryIUBoxByIdentifier:(NSString *)identifier;
 
 //General Function
@@ -52,11 +56,13 @@
 
 -(NSUInteger)countOfSelectedIUs;
 
-//call  by sizeview
+//call by mqvc
 - (void)disableUpdateCSS:(id)sender;
 - (void)enableUpdateCSS:(id)sender;
 - (BOOL)isUpdateCSSEnabled;
-
+- (void)enableUpdateJS:(id)sender;
+- (void)disableUpdateJS:(id)sender;
+- (BOOL)isUpdateJSEnabled;
 
 @end
 

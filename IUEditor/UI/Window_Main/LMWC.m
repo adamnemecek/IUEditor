@@ -37,6 +37,7 @@
 #import "LMTopToolbarVC.h"
 #import "LMBottomToolbarVC.h"
 #import "LMIUPropertyVC.h"
+#import "LMMediaQueryVC.h"
 
 #import "IUDjangoProject.h"
 
@@ -55,6 +56,8 @@
 @property (weak) IBOutlet NSImageView *selectionToolbarImageView;
 @property (weak) IBOutlet NSTextField *selectionToolbarTF;
 @property (weak) IBOutlet NSProgressIndicator *progressToolbarIndicator;
+@property (weak) IBOutlet NSButton *debugBtn;
+@property (weak) IBOutlet NSBox *mqBox;
 
 //toolbar
 @property (weak) IBOutlet NSView *topToolbarV;
@@ -98,6 +101,9 @@
     IUProject   *_project;
 
     //VC for view
+    //toolbar
+    LMMediaQueryVC *mqVC;
+    
     //left
     LMFileNaviVC    *fileNaviVC;
     LMStackVC       *stackVC;
@@ -151,6 +157,9 @@
         appearanceVC = [[LMAppearanceVC alloc] initWithNibName:@"LMAppearanceVC" bundle:nil];
         iuInspectorVC = [[LMIUPropertyVC alloc] initWithNibName:[LMIUPropertyVC class].className bundle:nil];
         eventVC = [[LMEventVC alloc] initWithNibName:@"LMEventVC" bundle:nil];
+        mqVC = [[LMMediaQueryVC alloc] initWithNibName:[LMMediaQueryVC class].className bundle:nil];
+        mqVC.controller = canvasVC;
+
         
         //bind
         [self bind:@"IUController" toObject:stackVC withKeyPath:@"IUController" options:nil];
@@ -171,9 +180,6 @@
         //allocated jsmanager to VC (run js)
         [appearanceVC setJsManager:jsManager];
         
-        
-        //project binding
-        [canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
     }
     return self;
 }
@@ -187,6 +193,8 @@
 
     //window - toolbar
     [_buildToolbarBox addSubviewFullFrame:commandVC.view];
+    [_mqBox addSubviewFullFrame:mqVC.view];
+    
     //left-view
     [_leftTopV addSubviewFullFrame:stackVC.view];
     [_leftBottomV addSubviewFullFrame:fileNaviVC.view];
@@ -248,6 +256,11 @@
     
     [stackVC setNotificationSender:_project];
     [stackVC connectWithEditor];
+    
+    //load mq
+    [mqVC loadWithMQWidths:_project.mqSizes];
+    
+    
 }
 
 
@@ -277,7 +290,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationDoubleClickCanvas object:self.window];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleStart object:self.window];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleEnd object:self.window];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:nil];
 
 }
 
@@ -310,6 +322,10 @@
             return;
         }
         
+        //project binding
+        [canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
+
+        
         //undo manager
         _IUController.undoManager = [document undoManager];
         
@@ -329,19 +345,7 @@
         
         [_project connectWithEditor];
         [_project setIsConnectedWithEditor];
-        
-        [canvasVC disableUpdateCSS:self];
-        [canvasVC disableUpdateJS:self];
-        //load sizeView
-        for(NSNumber *number in _project.mqSizes){
-            NSInteger frameSize = [number integerValue];
-            [canvasVC addFrame:frameSize];
-        }
-        
-        [canvasVC enableUpdateJS:self];
-        [canvasVC enableUpdateCSS:self];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCurrentDocument:) name:IUNotificationMQSelected object:self];
-        
+    
         
     }
 }
@@ -616,4 +620,11 @@
 - (IBAction)build:(id)sender{
     [commandVC build:sender];
 }
+
+
+#pragma mark - debug
+- (IBAction)clickDebugBtn:(id)sender {
+    
+}
+
 @end

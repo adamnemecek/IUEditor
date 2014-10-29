@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+@brief Deprecated 141029
+ */
+__attribute__((deprecated))
 @interface InnerSizeBox : NSBox
 
 @property id boxDelegate;

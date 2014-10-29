@@ -39,7 +39,6 @@
     
     self.webView.controller = self.controller;
     self.gridView.controller = self.controller;
-    self.sizeView.controller = self.controller;
     
     [self.mainScrollView setDocumentView:self.mainView];
     
@@ -54,12 +53,10 @@
     
     [[self.mainScrollView contentView] setPostsBoundsChangedNotifications:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:[self.mainScrollView contentView]];
-    
     
     //setting for ruler
     [self.mainScrollView setHasHorizontalRuler:YES];
-    [self.mainScrollView setHasVerticalRuler:NO];
+    [self.mainScrollView setHasVerticalRuler:YES];
     
     [self initailizeRulers];
     [self setRulerOffsets];
@@ -74,9 +71,6 @@
 
 -(void) dealloc{
     [self.mainView removeObserver:self forKeyPath:@"frame"];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSViewBoundsDidChangeNotification object:[self.mainScrollView contentView]];
-    
 }
 - (BOOL)isFlipped{
     return YES;
@@ -89,7 +83,7 @@
     [horizRuler setMeasurementUnits:@"Pixel"];
     [vertRuler setMeasurementUnits:@"Pixel"];
     
-    CGFloat left = (self.mainView.frame.size.width - self.controller.selectedFrameWidth)/2;
+    CGFloat left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
     [horizRuler setOriginOffset:left];
     [vertRuler setOriginOffset:0];
     
@@ -154,11 +148,6 @@
 
 #pragma mark - frame
 
--(void)boundsDidChange:(NSNotification *)notification{
-    NSRect contentBounds = [self.mainScrollView contentView].bounds;
-    [self.sizeView moveSizeView:contentBounds.origin withWidth:contentBounds.size.width];
-   
-}
 
 - (void)windowDidResize:(NSNotification *)notification{
     //윈도우 사이즈가 늘어났을 때

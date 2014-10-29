@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
     </dependencies>
@@ -16,11 +15,13 @@
                 <outlet property="clickWidgetTabMatrix" destination="vUX-uW-fTu" id="ZFU-Ng-NiY"/>
                 <outlet property="clipartV" destination="OBJ-vE-U5d" id="7VC-in-Aye"/>
                 <outlet property="consoleV" destination="3fG-md-Skx" id="o7V-MH-chT"/>
+                <outlet property="debugBtn" destination="CCS-jG-DaL" id="ajy-hX-j8U"/>
                 <outlet property="eventV" destination="cND-E8-FNH" id="L2T-JZ-w7f"/>
                 <outlet property="leftBottomV" destination="4Tl-hR-JBi" id="Hgo-4P-SU6"/>
                 <outlet property="leftTopV" destination="efd-DN-4Bq" id="c6b-do-zjc"/>
                 <outlet property="leftV" destination="6xJ-ed-1uG" id="1ox-b2-z6R"/>
                 <outlet property="leftVConstraint" destination="xZF-qx-AO8" id="zgq-OP-Oxg"/>
+                <outlet property="mqBox" destination="drd-5r-Y2h" id="Eqs-sW-yTo"/>
                 <outlet property="progressToolbarIndicator" destination="AxF-Rj-ZVo" id="2cw-Wn-aio"/>
                 <outlet property="propertyMatrix" destination="zhv-IX-K54" id="5PN-LA-8xg"/>
                 <outlet property="propertyTabV" destination="VEQ-BG-SDd" id="pKx-vM-P1p"/>
@@ -440,9 +441,41 @@
                             <color key="fillColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                         </box>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="46B42903-90C4-4B8F-9D58-16CF4E5A95F8" label="" paletteLabel="" id="n5b-ad-lKb">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="82" height="32"/>
+                        <size key="maxSize" width="82" height="32"/>
+                        <button key="view" verticalHuggingPriority="750" id="CCS-jG-DaL">
+                            <rect key="frame" x="25" y="-2" width="82" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" title="debug" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ww4-17-4IJ">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="clickDebugBtn:" target="-2" id="koL-EI-V4j"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="46D7893B-99BF-41C2-9F89-BEAD70ED32A8" label="" paletteLabel="" tag="-1" id="FFu-wS-kgf">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="177" height="50"/>
+                        <size key="maxSize" width="177" height="114"/>
+                        <box key="view" autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="drd-5r-Y2h">
+                            <rect key="frame" x="0.0" y="14" width="177" height="52"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView">
+                                <rect key="frame" x="1" y="1" width="175" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </box>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="UhE-nB-agp"/>
+                    <toolbarItem reference="n5b-ad-lKb"/>
+                    <toolbarItem reference="FFu-wS-kgf"/>
                     <toolbarItem reference="rlk-P1-2MX"/>
                     <toolbarItem reference="2EI-gL-BuQ"/>
                     <toolbarItem reference="rlk-P1-2MX"/>

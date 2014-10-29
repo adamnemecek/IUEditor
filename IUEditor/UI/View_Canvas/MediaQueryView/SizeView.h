@@ -10,13 +10,27 @@
 #import "InnerSizeBox.h"
 #import "IUCanvasController.h"
 
+/**
+ @brief Deprecated 141029
+ */
+__attribute__((deprecated))
 @interface SizeImageView : NSImageView
 
 @end
+
+
+/**
+ @brief Deprecated 141029
+ */
+__attribute__((deprecated))
 @interface SizeTextField : NSTextField
 
 @end
 
+/**
+ @brief Deprecated 141029
+ */
+__attribute__((deprecated))
 @interface SizeView : NSView
 
 @property (nonatomic) id<IUCanvasController>  controller;
