@@ -984,6 +984,10 @@ e.g. 만약 css로 옮긴다면)
 
 - (IUTextInputType)textInputType{
     
+    if(self.children.count > 0){
+        return IUTextInputTypeNone;
+    }
+    
     if([self isMemberOfClass:[IUBox class]]){
         if(self.pgContentVariable && self.pgContentVariable.length > 0){
             return IUTextInputTypeAddible;
