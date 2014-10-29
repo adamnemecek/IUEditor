@@ -1151,15 +1151,15 @@
         }
     }
     if ([iu.mqData dictionaryForTag:IUMQDataTagInnerHTML].count == 1){
-        [code increaseIndentLevelForEdit];
-        [code addCodeLine:[iu.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort]];
-        [code decreaseIndentLevelForEdit];
-        
+        NSString *innerHTML = [iu.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
+        if(innerHTML && innerHTML.length > 0){
+            [code increaseIndentLevelForEdit];
+            [code addCodeLine:innerHTML];
+            [code decreaseIndentLevelForEdit];
+        }
     }
     else if(target == IUTargetEditor){
-
         NSString *innerHTML = [iu.mqData effectiveValueForTag:IUMQDataTagInnerHTML forViewport:iu.mqData.editViewPort];
-        
         if(innerHTML && innerHTML.length > 0){
             [code increaseIndentLevelForEdit];
             [code addCodeLine:innerHTML];
