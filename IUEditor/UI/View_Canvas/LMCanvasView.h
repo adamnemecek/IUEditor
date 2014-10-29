@@ -22,8 +22,6 @@
 @property WebCanvasView *webView;
 @property GridView *gridView;
 
-@property (weak) IBOutlet SizeView *sizeView;
-
 - (BOOL)receiveKeyEvent:(NSEvent *)theEvent;
 - (void)receiveMouseEvent:(NSEvent *)theEvent;
 

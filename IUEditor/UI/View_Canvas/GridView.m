@@ -16,6 +16,7 @@
 #import "LMCanvasVC.h"
 #import "SelectionBorderLayer.h"
 #import "RulerLineLayer.h"
+#import "GridMainLayer.h"
 
 @interface GridView(){
     CALayer *selectionLayer, *ghostLayer;
@@ -89,7 +90,7 @@
         
         //initialize mqshadow layer
         shadowLayer = [MQShadowLayer layer];
-        [self.layer insertSubLayerFullFrame:shadowLayer below:ghostLayer];
+//        [self.layer insertSubLayerFullFrame:shadowLayer below:ghostLayer];
         
         
         
@@ -125,13 +126,14 @@
     return YES;
 }
 
-- (void)viewDidChangeBackingProperties{
-    [super viewDidChangeBackingProperties];
-    [[self layer] setContentsScale:[[self window] backingScaleFactor]];
-}
+
 #pragma mark - zoom
 - (void)setLayerZoom:(CGFloat)zoom{
-    self.layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
+    for(CALayer *layer in self.layer.sublayers){
+        layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
+        [layer setNeedsLayout];
+        [layer setNeedsDisplay];
+    }
 }
 
 

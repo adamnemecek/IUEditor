@@ -103,22 +103,14 @@
 
 #define ZOOMINFACTOR   (1.2)
 #define ZOOMOUTFACTOR  (1.0 / ZOOMINFACTOR)
-#define ZOOMUNITSIZE 0.2
 
-#if 0
 - (IBAction)zoomIn:(id)sender
 {
-    NSRect tempRect;
-    NSRect oldBounds;
     
-    oldBounds = [self.mainView bounds];
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(ZOOMINFACTOR, ZOOMINFACTOR)];
     
-    tempRect = [self.mainView frame];
-    zoomFactor += ZOOMINFACTOR;
-
-    
-    [self.mainView scaleUnitSquareToSize:NSMakeSize(ZOOMINFACTOR, ZOOMINFACTOR)];
-    [self.gridView setLayerZoom:ZOOMINFACTOR];
+    zoomFactor *= ZOOMINFACTOR;
+    [self.gridView setLayerZoom:zoomFactor];
     
     [self.mainScrollView setNeedsDisplay:YES];
     
@@ -128,23 +120,16 @@
 
 - (IBAction)zoomOut:(id)sender
 {
-    NSRect tempRect;
-    NSRect oldBounds;
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(ZOOMOUTFACTOR, ZOOMOUTFACTOR)];
     
-    oldBounds = [self.mainView bounds];
-    
-    tempRect = [self.mainView frame];
-    zoomFactor -= ZOOMUNITSIZE;
-
-    [self.mainView scaleUnitSquareToSize:NSMakeSize(ZOOMOUTFACTOR, ZOOMOUTFACTOR)];
-    [self.gridView setLayerZoom:ZOOMOUTFACTOR];
+    zoomFactor *= ZOOMOUTFACTOR;
+    [self.gridView setLayerZoom:zoomFactor];
     
     [self.mainScrollView setNeedsDisplay:YES];
     
     return;
 }
 
-#endif
 
 #pragma mark - frame
 
