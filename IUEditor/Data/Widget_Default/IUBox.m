@@ -66,6 +66,8 @@
         _css = [aDecoder decodeObjectForKey:@"css"];
         _css.delegate = self;
         
+        //move css to cssStorage
+        
         _mqData = [aDecoder decodeObjectForKey:@"mqData"];
         _mqData.delegate = self;
         
@@ -79,6 +81,8 @@
         [[self undoManager] enableUndoRegistration];
 
 
+        //create storage
+        self.cssManager = [_css convertToStorageManager];
     }
     return self;
 }

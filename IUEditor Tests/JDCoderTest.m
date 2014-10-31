@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "IUBox.h"
+#import "JDMutableArrayDict.h"
 
 @interface JDCoderTest : XCTestCase
 
@@ -54,6 +55,21 @@
     XCTAssertEqual([mutableArrayDecoded objectAtIndex:0], @"asdf");
 }
 
+- (void)test01_MutableArrayDict {
+    JDMutableArrayDict *arrayDict = [[JDMutableArrayDict alloc] init];
+    [arrayDict insertObject:@"object1" forKey:@"key1" atIndex:0];
+    [arrayDict insertObject:@"object2" forKey:@"key2" atIndex:1];
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:arrayDict];
+    
+    JDMutableArrayDict *decodedArrayDict = [coder decodeRootObject];
+    XCTAssertEqualObjects(@"object1" ,[decodedArrayDict objectAtIndex:0]);
+    XCTAssertEqualObjects(@"object2" ,[decodedArrayDict objectAtIndex:1]);
+    XCTAssertEqualObjects(@"object1" ,[decodedArrayDict objectForKey:@"key1"]);
+    XCTAssertEqualObjects(@"object2" ,[decodedArrayDict objectForKey:@"key2"]);
+}
+
 - (void)test01_JDCoderDict{
     JDCoder *coder = [[JDCoder alloc] init];
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
@@ -75,7 +91,7 @@
     
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:oneBox];
-    IUBox *resultBox = [coder decodedAndInitializeObject];
+    IUBox *resultBox = [coder decodeRootObject];
 
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }

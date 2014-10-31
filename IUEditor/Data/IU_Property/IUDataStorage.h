@@ -23,8 +23,10 @@
 - (NSDictionary*)dictionary;
 @end
 
-@protocol IUDataStorageManagerDelegate
+@protocol IUDataStorageManagerDelegate <JDCoding>
 @required
+- (void)beginTransaction:(id)storage;
+- (void)commitTransactoin:(id)storage;
 - (void)setNeedsToUpdateData:(IUDataStorage*)storage;
 @end
 
@@ -44,7 +46,7 @@
 
 @interface IUDataStorageManager : NSObject <JDCoding>
 
-@property id <IUDataStorageManagerDelegate> box;
+@property (weak) id  <IUDataStorageManagerDelegate> box;
 @property NSUndoManager *undoManager;
 
 @property NSInteger currentViewPort;
@@ -52,6 +54,9 @@
 @property (readonly) NSArray* allViewPorts;
 
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort;
+- (NSInteger)viewPortOfStorage:(IUDataStorage*)storage;
+- (IUDataStorage *)storageOfSmallerViewPortOfStorage:(IUDataStorage*)storage;
+- (IUDataStorage *)storageOfBiggerViewPortOfStorage:(IUDataStorage*)storage;
 
 @property (readonly) IUDataStorage *currentStorage;
 @property (readonly) IUDataStorage *defaultStorage;
@@ -62,26 +67,139 @@
 @end
 
 
+typedef enum{
+    IUImageTypeAuto,
+    IUImageTypeCover,
+    IUImageTypeContain,
+    IUImageTypeStretch,
+    IUImageTypeFull,
+} IUImageSizeType;
+
+/*
+typedef enum{
+    IUCSSBGVPostionTop,
+    IUCSSBGVPostionCenter,
+    IUCSSBGVPostionBottom,
+}IUCSSBGVPostion;
+
+typedef enum{
+    IUCSSBGHPostionLeft,
+    IUCSSBGHPostionCenter,
+    IUCSSBGHPostionRight,
+}IUCSSBGHPostion;
+*/
+
 /* IUCSSStorage controls marker or proxy key.
  For example, it will manage 'IUCSSTagBorderWidth' as proxy of 'IUCSSTagBorderLeftWidth', 'IUCSSTagBorderRightWidth', 'IUCSSTagBorderTopWidth', 'IUCSSTagBorderBottomWidth'.
  */
+
 @interface IUCSSStorage : IUDataStorage
 
-/* following tags can have marker */
-@property (nonatomic) id borderWidth;
-@property (nonatomic) id borderColor;
-@property (nonatomic) id borderRadius;
+/* display tags */
+@property (nonatomic) NSNumber* hidden;
+@property (nonatomic) NSNumber* editorHidden;
+@property (nonatomic) NSNumber* opacity;
 
-@property id minHeight;
-@property id minWidth;
 
-@property (nonatomic) id isXPercent;
-@property (nonatomic) id x;
-@property (nonatomic) id isYPercent;
-@property (nonatomic) id y;
+/* frame tags */
+typedef enum IUFrameUnit{
+    IUFrameUnitPixel,
+    IUFrameUnitPercent,
+}IUFrameUnit;
 
+/* unit tags uses as value*/
+
+@property (nonatomic) NSNumber* xUnit;
+@property (nonatomic) NSNumber* yUnit;
+@property (nonatomic) NSNumber* widthUnit;
+@property (nonatomic) NSNumber* heightUnit;
+
+/* frame tags use nsnumber, not enum */
+@property (nonatomic) NSNumber* x;
+@property (nonatomic) NSNumber* y;
+@property (nonatomic) NSNumber* width;
+@property (nonatomic) NSNumber* height;
+@property (nonatomic) NSNumber* minHeight;
+@property (nonatomic) NSNumber* minWidth;
+
+/* image tag */
+@property (nonatomic) NSString* imageName;
+@property (nonatomic) NSNumber* imageRepeat;
+/*
+ IUCSSBGVPostionTop, = 1
+ IUCSSBGVPostionCenter, = 2
+ IUCSSBGVPostionBottom, = 3
+
+ IUCSSBGHPostionLeft, = 1
+ IUCSSBGHPostionCenter, = 2
+ IUCSSBGHPostionRight, = 3
+ */
+@property (nonatomic) NSNumber* imageHPosition; // if imageHPosition is not nil, imageX should be nil
+@property (nonatomic) NSNumber* imageVPosition; // if imageVPosition is not nil, imageY should be nil
+@property (nonatomic) NSNumber* imageX; //if imageX is not nil, imageHPosition should be nil;
+@property (nonatomic) NSNumber* imageY; //if imageY is not nil, imageVPosition should be nil
+
+/* imageSizeTypes:
+IUBGSizeTypeAuto = 1,
+IUBGSizeTypeCover = 2,
+IUBGSizeTypeContain = 3,
+IUBGSizeTypeStretch = 4,
+IUBGSizeTypeFull ,
+ */
+@property (nonatomic) NSNumber* imageSizeType;
+
+/* background tag */
+@property (nonatomic) NSColor* bgColor;
+@property (nonatomic) NSColor* bgGradientColor;
+
+/* border tag */
+/* following three tag can have NSMultipleValueMarker */
+@property (nonatomic) NSString  *borderWidth;
+@property (nonatomic) NSColor   *borderColor;
+@property (nonatomic) NSString  *borderRadius;
+
+/* followings are border/radius tags */
+@property (nonatomic) NSNumber* topBorderWidth;
+@property (nonatomic) NSColor* topBorderColor;
+@property (nonatomic) NSNumber* leftBorderWidth;
+@property (nonatomic) NSColor* leftBorderColor;
+@property (nonatomic) NSNumber* rightBorderWidth;
+@property (nonatomic) NSColor* rightBorderColor;
+@property (nonatomic) NSNumber* bottomBorderWidth;
+@property (nonatomic) NSColor* bottomBorderColor;
+
+@property (nonatomic) NSNumber* topLeftBorderRadius;
+@property (nonatomic) NSNumber* topRightBorderRadius;
+@property (nonatomic) NSNumber* bottomRightBorderRadius;
+@property (nonatomic) NSNumber* bottomLeftborderRadius;
+
+/* font tag */
+@property (nonatomic) NSString* fontName;
+@property (nonatomic) NSNumber* fontSize;
+@property (nonatomic) NSColor*  fontColor;
+@property (nonatomic) NSNumber* fontWeight;
+@property (nonatomic) NSNumber* fontItalic;
+@property (nonatomic) NSNumber* fontDeco;
+@property (nonatomic) NSNumber* fontAlign;
+@property (nonatomic) NSNumber* fontLineHeight;
+@property (nonatomic) NSNumber* fontLetterSpacing;
+@property (nonatomic) NSNumber* fontEllipsis;
+
+/* shadow tag */
+@property (nonatomic) NSColor* shadowColor;
+@property (nonatomic) NSNumber* shadowColorVertical;
+@property (nonatomic) NSNumber* shadowColorHorizontal;
+@property (nonatomic) NSNumber* shadowColorSpread;
+@property (nonatomic) NSNumber* shadowColorBlur;
+
+
+/*
+ Move it to IUCarousel.
+ static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
+ */
 
 @end
+
 
 typedef enum _IUCSSSelector{
     IUCSSSelectorDefault,
@@ -91,7 +209,7 @@ typedef enum _IUCSSSelector{
 
 @interface IUCSSStorageManager : IUDataStorageManager
 
-- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort;
+- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort selector:(IUCSSSelector)selector;
 
 @property (nonatomic) IUCSSSelector selector;
 
@@ -102,127 +220,4 @@ typedef enum _IUCSSSelector{
 
 @end
 
-
-/*
- 
- static NSString * IUCSSTagXUnitIsPercent   = @"xUnit";
- static NSString * IUCSSTagYUnitIsPercent   = @"yUnit";
- static NSString * IUCSSTagWidthUnitIsPercent   = @"wUnit";
- static NSString * IUCSSTagHeightUnitIsPercent   = @"hUnit";
- 
- static NSString * IUCSSTagPixelX = @"left";
- static NSString * IUCSSTagPixelY = @"top";
- static NSString * IUCSSTagPixelWidth = @"width";
- static NSString * IUCSSTagPixelHeight = @"height";
- 
- static NSString * IUCSSTagPercentX        = @"percentLeft";
- static NSString * IUCSSTagPercentY        = @"percentTop";
- static NSString * IUCSSTagPercentWidth    = @"percentWidth";
- static NSString * IUCSSTagPercentHeight   = @"percentHeight";
- 
- static NSString * IUCSSTagMinPixelWidth = @"minPixelWidth";
- static NSString * IUCSSTagMinPixelHeight = @"minPixelHeight";
- 
- //background-image css
- static NSString * IUCSSTagImage = @"background-image";
- static NSString * IUCSSTagBGSize = @"background-size";
- typedef enum{
- IUBGSizeTypeAuto,
- IUBGSizeTypeCover,
- IUBGSizeTypeContain,
- IUBGSizeTypeStretch,
- IUBGSizeTypeFull,
- }IUBGSizeType;
- 
- static NSString * IUCSSTagBGColor = @"background-color";
- static NSString * IUCSSTagBGGradient = @"bg-gradient";
- static NSString * IUCSSTagBGGradientStartColor = @"bg-gradient-start";
- static NSString * IUCSSTagBGGradientEndColor = @"bg-gradient-end";
- static NSString * IUCSSTagBGRepeat    = @"bacground-repeat";
- static NSString * IUCSSTagBGVPosition = @"bgV-position";
- static NSString * IUCSSTagBGHPosition = @"bgH-position";
- 
- typedef enum{
- IUCSSBGVPostionTop,
- IUCSSBGVPostionCenter,
- IUCSSBGVPostionBottom,
- }IUCSSBGVPostion;
- typedef enum{
- IUCSSBGHPostionLeft,
- IUCSSBGHPostionCenter,
- IUCSSBGHPostionRight,
- }IUCSSBGHPostion;
- 
- static NSString * IUCSSTagEnableBGCustomPosition = @"enableDigitPosition";
- static NSString * IUCSSTagBGXPosition = @"bgX";
- static NSString * IUCSSTagBGYPosition = @"bgY";
- 
- 
- static NSString * IUCSSTagBorderWidth = @"borderWeight";
- static NSString * IUCSSTagBorderColor = @"borderColor";
- 
- static NSString * IUCSSTagBorderTopWidth = @"borderTWeight";
- static NSString * IUCSSTagBorderTopColor = @"borderTColor";
- static NSString * IUCSSTagBorderRightWidth = @"borderRWeight";
- static NSString * IUCSSTagBorderRightColor = @"borderRColor";
- static NSString * IUCSSTagBorderLeftWidth = @"borderLWeight";
- static NSString * IUCSSTagBorderLeftColor = @"borderLColor";
- static NSString * IUCSSTagBorderBottomWidth = @"borderBWeight";
- static NSString * IUCSSTagBorderBottomColor = @"borderBColor";
- 
- static NSString * IUCSSTagBorderRadius = @"borderRadius";
- static NSString * IUCSSTagBorderRadiusTopLeft = @"borderTLRadius";
- static NSString * IUCSSTagBorderRadiusTopRight = @"borderTRRadius";
- static NSString * IUCSSTagBorderRadiusBottomLeft = @"borderBLRadius";
- static NSString * IUCSSTagBorderRadiusBottomRight = @"borderBRRadius";
- 
- static NSString * IUCSSTagFontName = @"fontName";
- static NSString * IUCSSTagFontSize = @"fontSize";
- static NSString * IUCSSTagFontColor = @"fontColor";
- 
- static NSString * IUCSSTagFontWeight = @"fontWeight";
- static NSString * IUCSSTagFontItalic = @"fontItalic";
- static NSString * IUCSSTagFontDecoration = @"fontDeco";
- 
- static NSString * IUCSSTagTextLink = @"textLink";
- static NSString * IUCSSTagTextAlign = @"textAlign";
- typedef enum{
- IUAlignLeft,
- IUAlignCenter,
- IUAlignRight,
- IUAlignJustify,
- }IUAlign;
- 
- static NSString * IUCSSTagLineHeight = @"lineHeight";
- static NSString * IUCSSTagTextLetterSpacing = @"letterSpacing";
- static NSString * IUCSSTagEllipsis = @"ellipsis";
- 
- 
- static NSString * IUCSSTagShadowColor = @"shadowColor";
- static NSString * IUCSSTagShadowVertical = @"shadowVertical";
- static NSString * IUCSSTagShadowHorizontal = @"shadowHorizontal";
- static NSString * IUCSSTagShadowSpread = @"shadowSpread";
- static NSString * IUCSSTagShadowBlur = @"shadowBlur";
- 
- static NSString * IUCSSTagDisplayIsHidden = @"displayHidden";
- static NSString * IUCSSTagOpacity = @"opacity";
- 
- //it should be used IN Editor Mode!!!
- //Usage : Transition, carousel hidden
- static NSString * IUCSSTagEditorDisplay = @"editorDisplay";
- 
- //hover CSS
- static NSString * IUCSSTagHoverBGImagePositionEnable = @"HoverBGImagePositionEnable";
- static NSString * IUCSSTagHoverBGImageX = @"hoverBGImageX";
- static NSString * IUCSSTagHoverBGImageY = @"hoverBGImageY";
- static NSString * IUCSSTagHoverBGColorEnable  = @"hoverBGColorEnable";
- static NSString * IUCSSTagHoverBGColor  = @"hoverBGColor";
- static NSString * IUCSSTagHoverBGColorDuration  = @"hoverBGColorDuration";
- static NSString * IUCSSTagHoverTextColorEnable  = @"hoverTextColorEnable";
- static NSString * IUCSSTagHoverTextColor  = @"hoverTextColor";
- 
- 
- //iubox unique tag
- static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
-*/
 

@@ -106,6 +106,39 @@
     
 }
 
+- (void)test7_ViewPort{
+    IUDataStorage *storage_default = storageManager.currentStorage;
+    [storageManager setCurrentViewPort:500];
+    IUDataStorage *storage_500 = storageManager.currentStorage;
+    
+    XCTAssertEqual([storageManager storageOfBiggerViewPortOfStorage:storage_500], storage_default);
+    XCTAssertEqual([storageManager storageOfSmallerViewPortOfStorage:storage_default], storage_500);
+    XCTAssertNil([storageManager storageOfSmallerViewPortOfStorage:storage_500]);
+    XCTAssertNil([storageManager storageOfBiggerViewPortOfStorage:storage_default]);
+}
+
+- (void)test8_encoding{
+    [storageManager.currentStorage setValue:@"testValue" forKey:@"Key"];
+    [storageManager.currentStorage setValue:@"testValue2" forKey:@"Key2"];
+
+    [storageManager setCurrentViewPort:500];
+    [storageManager.currentStorage setValue:@"testValue3" forKey:@"Key3"];
+
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:storageManager];
+    
+    IUCSSStorageManager *decodedStorageManager = [coder decodeRootObject];
+    XCTAssertEqual(decodedStorageManager.currentViewPort,9999);
+    
+    IUCSSStorage *decodedStorageDefault = decodedStorageManager.currentStorage;
+    XCTAssertNotNil(decodedStorageDefault);
+    
+    XCTAssertEqualObjects([decodedStorageDefault valueForKey:@"Key"], @"testValue");
+    XCTAssertEqualObjects([decodedStorageDefault valueForKey:@"Key2"], @"testValue2");
+
+    [decodedStorageManager setCurrentViewPort:500];
+    XCTAssertEqualObjects([decodedStorageManager.currentStorage valueForKey:@"Key3"], @"testValue3");
+}
 - (void)testPerformanceExample {
     /* This is an example of a performance test case.
     [self measureBlock:^{

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
+#import "IUDataStorage.h"
 
 @class IUProject;
 
@@ -55,4 +56,6 @@
 
 //observable.
 @property (readonly) NSDictionary *effectiveTagDictionary;
+
+- (IUCSSStorageManager *)convertToStorageManager;
 @end

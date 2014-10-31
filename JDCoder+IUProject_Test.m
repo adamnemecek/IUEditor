@@ -34,12 +34,18 @@
     // This is an example of a functional test case.
     JDCoder *encoder = [[JDCoder alloc] init];
     [encoder encodeRootObject:project];
-    
-    IUProject *decodedProject = [encoder decodedAndInitializeObject];
-    XCTAssertEqualObjects(decodedProject.name, @"sampleProject");
-    
-    
     XCTAssert(YES, @"Pass");
+}
+
+- (void)test2_saveLoad{
+    JDCoder *encoder = [[JDCoder alloc] init];
+    [encoder encodeRootObject:project];
+    NSLog(@"file save path: %@", filePath, nil);
+    [encoder writeToFile:filePath error:nil];
+
+    JDCoder *decoder = [[JDCoder alloc] init];
+    IUProject *proj = [decoder decodeContentOfFile:filePath error:nil];
+    XCTAssertEqualObjects(proj.name, @"sampleProject");
 }
 
 

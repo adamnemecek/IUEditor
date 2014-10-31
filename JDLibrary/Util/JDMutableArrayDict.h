@@ -8,8 +8,18 @@
 
 
 #import <Foundation/Foundation.h>
+#import "JDCoder.h"
 
-@interface JDMutableArrayDict : NSObject <NSCoding>{
+/**
+ JDMutableArrayDict
+ Associative array for Objective-C
+ 
+ @note: Each item can be inserted at only once.
+    Duplicated key for one item is not allowed.
+ 
+ */
+
+@interface JDMutableArrayDict : NSObject <NSCoding, JDCoding>{
 	NSMutableDictionary* dict;
 	NSMutableArray* array;
 }
@@ -21,6 +31,8 @@
 
 - (id)objectAtIndex:(NSUInteger)index;
 - (id)objectForKey:(id)aKey;
+- (id)firstKeyForObject:(id)object;
+
 - (void)setObject:(id)obj forKey:(id)key;
 - (void)insertObject:(id)anObject forKey:(id)key atIndex:(NSUInteger)index;
 
@@ -31,5 +43,8 @@
 - (NSUInteger)count;
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
+
+- (void)sortArrayWithDictKey;
+- (void)reverseSortArrayWithDictKey;
 
 @end

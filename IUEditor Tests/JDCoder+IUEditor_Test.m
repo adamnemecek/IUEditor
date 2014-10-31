@@ -55,7 +55,7 @@
     
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:oneBox];
-    IUBox *resultBox = [coder decodedAndInitializeObject];
+    IUBox *resultBox = [coder decodeRootObject];
     
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
@@ -77,7 +77,7 @@
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:parentBox];
     
-    IUBox *resultBox = [coder decodedAndInitializeObject];
+    IUBox *resultBox = [coder decodeRootObject];
     IUBox *resultChildBox1 = [[resultBox children] objectAtIndex:0];
     
     XCTAssert([resultChildBox1.htmlID isEqualToString:@"ChildBox1"], @"Pass");
@@ -88,7 +88,7 @@
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:parentBox];
     
-    IUBox *resultBox = [coder decodedAndInitializeObject];
+    IUBox *resultBox = [coder decodeRootObject];
     IUBox *resultChildBox1 = [[resultBox children] objectAtIndex:0];
     IUBox *resultChildBox2 = [[resultBox children] objectAtIndex:1];
     

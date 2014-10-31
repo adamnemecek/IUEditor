@@ -42,6 +42,36 @@
 
 @end
 
+@interface IUCSSCode(Generator)
+
+- (void)setInsertingTarget:(IUTarget)target;
+- (void)setInsertingViewPort:(int)viewport;
+- (int)insertingViewPort;
+- (void)setInsertingIdentifier:(NSString *)identifier;
+- (void)setInsertingIdentifiers:(NSArray *)identifiers;
+- (void)renameIdentifier:(NSString*)fromIdentifier to:(NSString*)toIdentifier;
+
+- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(int)viewport target:(IUTarget)target;
+- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier viewport:(int)viewport target:(IUTarget)target;
+
+/**
+ insert css tag to receiver
+ */
+
+- (void)insertTag:(NSString*)tag color:(NSColor*)colorValue;
+- (void)insertTag:(NSString*)tag string:(NSString*)stringValue;
+- (void)insertTag:(NSString*)tag string:(NSString*)stringValue target:(IUTarget)target;
+- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber;
+- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber unit:(IUUnit)unit;
+- (void)insertTag:(NSString*)tag floatValue:(CGFloat)value unit:(IUUnit)unit;
+- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber;
+- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber unit:(IUUnit)unit;
+- (void)insertTag:(NSString*)tag integer:(int)number unit:(IUUnit)unit;
+- (void)removeTag:(NSString*)tag identifier:(NSString*)identifier;
+
+@end
+
+
 @implementation IUCSSCode
 
 - (id)init{
@@ -434,7 +464,6 @@
             }];
         }];
     }
-
 }
 
 
@@ -444,6 +473,7 @@
 @implementation IUCSSCompiler {
     __weak IUResourceManager *_resourceManager;
 }
+
 
 
 
@@ -459,41 +489,43 @@
 
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
     for (NSString *className in classPedigree) {
-        NSString *str = [NSString stringWithFormat:@"updateCSSCode:as%@:", className];
+        NSString *str = [NSString stringWithFormat:@"updateCSSCode:as%@:storage:", className];
         SEL selector = NSSelectorFromString(str);
         if ([self respondsToSelector:selector]) {
             IMP imp = [self methodForSelector:selector];
-            void (*func)(id, SEL, id, id) = (void *)imp;
-            func(self, selector, code, iu);
+            void (*func)(id, SEL, id, id, BOOL) = (void *)imp;
+            func(self, selector, code, iu, NO);
         }
     }
     
-    [self updateLinkCSSCode:code asIUBox:iu];
+    [self updateLinkCSSCode:code asIUBox:iu storage:NO];
 
 
     return code;
 }
 
 
-- (void)updateLinkCSSCode:(IUCSSCode *)code asIUBox:(IUBox *)iu{
-    
+- (void)updateLinkCSSCode:(IUCSSCode *)code asIUBox:(IUBox *)iu storage:(BOOL)storage{
     //REVIEW: a tag는 밑으로 들어감. 상위에 있을 경우에 %사이즈를 먹어버림.
     //밑에 child 혹은 p tag 가 없을 경우에는 a tag의 사이즈가 0이 되기 때문에 size를 만들어줌
-
-    if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
-        if(iu.text == nil || iu.text.length ==0){
-            [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
-            [code setInsertingTarget:IUTargetBoth];
-            
-            [code insertTag:@"display" string:@"block"];
-            [code insertTag:@"width" string:@"100%"];
-            [code insertTag:@"height" string:@"100%"];
+    if (storage) {
+        assert(0);
+    }
+    else {
+        if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
+            if(iu.text == nil || iu.text.length ==0){
+                [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
+                [code setInsertingTarget:IUTargetBoth];
+                
+                [code insertTag:@"display" string:@"block"];
+                [code insertTag:@"width" string:@"100%"];
+                [code insertTag:@"height" string:@"100%"];
+            }
         }
     }
-    
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu {
+- (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu storage:(BOOL)storage{
     NSArray *editWidths = [_iu.css allViewports];
 
     for (NSNumber *viewportNumber in editWidths) {
@@ -507,20 +539,19 @@
         [code setInsertingViewPort:viewport];
 
         /* update CSSCode */
-        [self updateCSSPositionCode:code asIUBox:_iu viewport:viewport];
-        [self updateCSSApperanceCode:code asIUBox:_iu viewport:viewport ];
+        [self updateCSSPositionCode:code asIUBox:_iu viewport:viewport storage:storage];
+        [self updateCSSApperanceCode:code asIUBox:_iu viewport:viewport storage:storage];
 
         if ([_iu shouldCompileFontInfo]) {
-            [self updateCSSFontCode:code asIUBox:_iu viewport:viewport];
+            [self updateCSSFontCode:code asIUBox:_iu viewport:viewport storage:storage];
         }
         
-        [self updateCSSRadiousAndBorderCode:code asIUBox:_iu viewport:viewport];
-        [self updateCSSHoverCode:code asIUBox:_iu viewport:viewport];
-     
+        [self updateCSSRadiousAndBorderCode:code asIUBox:_iu viewport:viewport storage:storage];
+        [self updateCSSHoverCode:code asIUBox:_iu viewport:viewport storage:storage];
     }
 }
 
-- (void)updateCSSHoverCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
+- (void)updateCSSHoverCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
 
     if([_iu.link isKindOfClass:[IUBox class]]){
@@ -566,7 +597,7 @@
 }
 
 
-- (void)updateCSSFontCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
+- (void)updateCSSFontCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
     
     [code setInsertingTarget:IUTargetBoth];
@@ -631,7 +662,7 @@
     
 }
 
-- (void)updateCSSRadiousAndBorderCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
+- (void)updateCSSRadiousAndBorderCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     //REVIEW: border는 바깥으로 생김. child drop할때 position 계산 때문
     //IUMENUItem 은 예외 (width고정)
     NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
@@ -706,7 +737,7 @@
     }
 }
 
-- (void)updateCSSApperanceCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
+- (void)updateCSSApperanceCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
     
@@ -867,117 +898,137 @@
 
 
 
-- (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
+- (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
-    NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
-   
-    
-    /*  X, Y, Width, Height */
-    IUUnit xUnit = [[_iu.css effectiveValueForTag:IUCSSTagXUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-    IUUnit yUnit = [[_iu.css effectiveValueForTag:IUCSSTagYUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-    
-    NSNumber *xValue = (xUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentX] : cssTagDict[IUCSSTagPixelX];
-    NSNumber *yValue = (yUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentY] : cssTagDict[IUCSSTagPixelY];
-    
-    NSString *topTag;
-    NSString *leftTag;
-    bool enablebottom=NO;
-    /* insert position */
-    /* Note */
-    /* Cannot use'top' tag for relative position here.
-     If parent is relative postion and do not have height,
-     parent's height will be children's margintop + height.
-     */
-     
-    switch (_iu.positionType) {
-        case IUPositionTypeAbsoluteBottom:{
-            enablebottom = YES;
-            if(_iu.enableHCenter == NO){
-                leftTag = @"left";
+    if (storage) {
+        IUCSSStorage *storage = [_iu.cssManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
+        if (storage) {
+            if (storage.x) {
+                /*
+                if ([storage.xUnit integerValue] == IUFrameUnitPercent){
+                    [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPercent];
+                }
+                else if ([storage.xUnit integerValue] == IUFrameUnitPixel){
+                    [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPixel];
+                }
+                else {
+                    NSAssert(0, @"storage xUnit should have value");
+                }
+                 */
             }
-            break;
-        }
-        case IUPositionTypeAbsolute:{
-            if(_iu.enableVCenter == NO){
-                topTag = @"top";
-            }
-            if(_iu.enableHCenter == NO){
-                leftTag = @"left";
-            }
-            break;
-        }
-        case IUPositionTypeRelative:{
-            [code insertTag:@"position" string:@"relative"];
-            topTag = @"margin-top";
-            if(_iu.enableHCenter == NO){
-                leftTag = @"left";
-            }
-            break;
-        }
-        case IUPositionTypeFloatLeft:{
-            [code insertTag:@"position" string:@"relative"];
-            [code insertTag:@"float" string:@"left"];
-            topTag = @"margin-top"; leftTag = @"margin-left"; break;
-            break;
-        }
-        case IUPositionTypeFloatRight:{
-            [code insertTag:@"position" string:@"relative"];
-            [code insertTag:@"float" string:@"right"];
-            topTag = @"margin-top";
-            leftTag = @"margin-right";
-            float xValueFloat = [xValue floatValue] * (-1);
-            xValue = @(xValueFloat);
-            break;
-        }
-        case IUPositionTypeFixedBottom:{
-            enablebottom = YES;
-            [code insertTag:@"position" string:@"fixed"];
-            [code insertTag:@"z-index" string:@"11"];
-            leftTag = @"left"; break;
-        }
-        case IUPositionTypeFixed:{
-            [code insertTag:@"position" string:@"fixed"];
-            [code insertTag:@"z-index" string:@"11"];
-            if(_iu.enableVCenter == NO){
-                topTag = @"top"; 
-            }
-            leftTag = @"left"; break;
-        }
-        default:
-            break;
-    }
-    if (_iu.shouldCompileY && topTag) {
-        [code insertTag:topTag floatFromNumber:yValue unit:yUnit];
-    }
-    if (_iu.shouldCompileX && leftTag) {
-        [code insertTag:leftTag floatFromNumber:xValue unit:xUnit];
-    }
-    if (enablebottom){
-        [code insertTag:@"bottom" integer:0 unit:IUCSSUnitPixel];
-    }
-    if (_iu.shouldCompileWidth) {
-
-        IUUnit wUnit = [[_iu.css effectiveValueForTag:IUCSSTagWidthUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-        NSNumber *wValue = (wUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentWidth] : cssTagDict[IUCSSTagPixelWidth];
-        [code insertTag:@"width" floatFromNumber:wValue unit:wUnit];
-        if(wUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelWidth]){
-            [code insertTag:@"min-width" intFromNumber:cssTagDict[IUCSSTagMinPixelWidth] unit:IUUnitPixel];
         }
     }
-    
-    if (_iu.shouldCompileHeight) {
+    else {
+        NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
         
-        IUUnit hUnit = [[_iu.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-        NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
-        [code insertTag:@"height" floatFromNumber:hValue unit:hUnit];
         
-        if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
-            [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+        /*  X, Y, Width, Height */
+        IUUnit xUnit = [[_iu.css effectiveValueForTag:IUCSSTagXUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+        IUUnit yUnit = [[_iu.css effectiveValueForTag:IUCSSTagYUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+        
+        NSNumber *xValue = (xUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentX] : cssTagDict[IUCSSTagPixelX];
+        NSNumber *yValue = (yUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentY] : cssTagDict[IUCSSTagPixelY];
+        
+        NSString *topTag;
+        NSString *leftTag;
+        bool enablebottom=NO;
+        /* insert position */
+        /* Note */
+        /* Cannot use'top' tag for relative position here.
+         If parent is relative postion and do not have height,
+         parent's height will be children's margintop + height.
+         */
+        
+        switch (_iu.positionType) {
+            case IUPositionTypeAbsoluteBottom:{
+                enablebottom = YES;
+                if(_iu.enableHCenter == NO){
+                    leftTag = @"left";
+                }
+                break;
+            }
+            case IUPositionTypeAbsolute:{
+                if(_iu.enableVCenter == NO){
+                    topTag = @"top";
+                }
+                if(_iu.enableHCenter == NO){
+                    leftTag = @"left";
+                }
+                break;
+            }
+            case IUPositionTypeRelative:{
+                [code insertTag:@"position" string:@"relative"];
+                topTag = @"margin-top";
+                if(_iu.enableHCenter == NO){
+                    leftTag = @"left";
+                }
+                break;
+            }
+            case IUPositionTypeFloatLeft:{
+                [code insertTag:@"position" string:@"relative"];
+                [code insertTag:@"float" string:@"left"];
+                topTag = @"margin-top"; leftTag = @"margin-left"; break;
+                break;
+            }
+            case IUPositionTypeFloatRight:{
+                [code insertTag:@"position" string:@"relative"];
+                [code insertTag:@"float" string:@"right"];
+                topTag = @"margin-top";
+                leftTag = @"margin-right";
+                float xValueFloat = [xValue floatValue] * (-1);
+                xValue = @(xValueFloat);
+                break;
+            }
+            case IUPositionTypeFixedBottom:{
+                enablebottom = YES;
+                [code insertTag:@"position" string:@"fixed"];
+                [code insertTag:@"z-index" string:@"11"];
+                leftTag = @"left"; break;
+            }
+            case IUPositionTypeFixed:{
+                [code insertTag:@"position" string:@"fixed"];
+                [code insertTag:@"z-index" string:@"11"];
+                if(_iu.enableVCenter == NO){
+                    topTag = @"top";
+                }
+                leftTag = @"left"; break;
+            }
+            default:
+                break;
         }
-
+        if (_iu.shouldCompileY && topTag) {
+            [code insertTag:topTag floatFromNumber:yValue unit:yUnit];
+        }
+        if (_iu.shouldCompileX && leftTag) {
+            [code insertTag:leftTag floatFromNumber:xValue unit:xUnit];
+        }
+        if (enablebottom){
+            [code insertTag:@"bottom" integer:0 unit:IUCSSUnitPixel];
+        }
+        if (_iu.shouldCompileWidth) {
+            
+            IUUnit wUnit = [[_iu.css effectiveValueForTag:IUCSSTagWidthUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+            NSNumber *wValue = (wUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentWidth] : cssTagDict[IUCSSTagPixelWidth];
+            [code insertTag:@"width" floatFromNumber:wValue unit:wUnit];
+            if(wUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelWidth]){
+                [code insertTag:@"min-width" intFromNumber:cssTagDict[IUCSSTagMinPixelWidth] unit:IUUnitPixel];
+            }
+        }
+        
+        if (_iu.shouldCompileHeight) {
+            
+            IUUnit hUnit = [[_iu.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+            NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
+            [code insertTag:@"height" floatFromNumber:hValue unit:hUnit];
+            
+            if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
+                [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+            }
+        }
     }
 }
-- (void)updateCSSCode:(IUCSSCode*)code asIUSection:(IUSection*)section{
+
+- (void)updateCSSCode:(IUCSSCode*)code asIUSection:(IUSection*)section storage:(BOOL)storage{
     if(section.enableFullSize){
         [code setInsertingTarget:IUTargetEditor];
         [code setInsertingIdentifier:section.cssIdentifier];
@@ -985,7 +1036,7 @@
     }
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUHeader:(IUHeader*)header{
+- (void)updateCSSCode:(IUCSSCode*)code asIUHeader:(IUHeader*)header storage:(BOOL)storage{
     if(header.prototypeClass){
         NSArray *editWidths = [header.css allViewports];
         [code setInsertingIdentifier:header.cssIdentifier];
@@ -1009,7 +1060,7 @@
     }
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUFooter:(IUFooter*)footer{
+- (void)updateCSSCode:(IUCSSCode*)code asIUFooter:(IUFooter*)footer storage:(BOOL)storage{
     if(footer.prototypeClass){
         NSArray *editWidths = [footer.css allViewports];
         [code setInsertingIdentifier:footer.cssIdentifier];
@@ -1038,7 +1089,7 @@
 
 
 
-- (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet{
+- (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     
@@ -1078,7 +1129,7 @@
     
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUMenuBar:(IUMenuBar*)menuBar{
+- (void)updateCSSCode:(IUCSSCode*)code asIUMenuBar:(IUMenuBar*)menuBar storage:(BOOL)storage{
     
     NSArray *editWidths = [menuBar.css allViewports];
 
@@ -1129,7 +1180,7 @@
     
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUMenuItem:(IUMenuItem*)menuItem{
+- (void)updateCSSCode:(IUCSSCode*)code asIUMenuItem:(IUMenuItem*)menuItem storage:(BOOL)storage{
 
     NSMutableArray *editWidths = [menuItem.project.mqSizes mutableCopy];
     [editWidths replaceObjectAtIndex:0 withObject:@(IUCSSDefaultViewPort)];
@@ -1306,7 +1357,7 @@
 
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUCarousel:(IUCarousel*)carousel{
+- (void)updateCSSCode:(IUCSSCode*)code asIUCarousel:(IUCarousel*)carousel storage:(BOOL)storage{
     
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     if(carousel.deselectColor){
@@ -1436,7 +1487,7 @@
 
 #pragma mark - WP Widgets
 
-- (void)updateCSSCode:(IUCSSCode*)code asWPMenu:(WPMenu*)wpmenu{
+- (void)updateCSSCode:(IUCSSCode*)code asWPMenu:(WPMenu*)wpmenu storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     
@@ -1483,7 +1534,7 @@
     }
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asWPPageLinks:(WPPageLinks*)wpPageLinks{
+- (void)updateCSSCode:(IUCSSCode*)code asWPPageLinks:(WPPageLinks*)wpPageLinks storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     
@@ -1508,7 +1559,7 @@
 
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asWPPageLink:(WPPageLink *)_iu{
+- (void)updateCSSCode:(IUCSSCode*)code asWPPageLink:(WPPageLink *)_iu storage:(BOOL)storage{
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     [code setInsertingTarget:IUTargetBoth];
 
@@ -1552,6 +1603,24 @@
     
 }
 
+- (IUCSSCode*)cssCodeForIU_Storage:(IUBox *)iu{
+    IUCSSCode *code = [[IUCSSCode alloc] init];
+    
+    NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
+    for (NSString *className in classPedigree) {
+        NSString *str = [NSString stringWithFormat:@"updateCSSCode_storage:as%@:storage:", className];
+        SEL selector = NSSelectorFromString(str);
+        if ([self respondsToSelector:selector]) {
+            IMP imp = [self methodForSelector:selector];
+            void (*func)(id, SEL, id, id, BOOL) = (void *)imp;
+            func(self, selector, code, iu, YES);
+        }
+    }
+    
+    [self updateLinkCSSCode:code asIUBox:iu storage:NO];
+    return code;
+
+}
 
 /*
 

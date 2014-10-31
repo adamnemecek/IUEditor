@@ -957,10 +957,4 @@
     self.buildResourcePath = @"$IUBuildPath/resource";
 }
 
-- (NSData *)jsonData{
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:self];
-    return [coder jsonData];
-}
-
 @end

@@ -53,11 +53,6 @@
  */
 - (void)appendSelectorInInitProcess:(SEL)selector;
 
-/**
- encode / decode top object
- */
-- (void)encodeRootObject:(id<JDCoding>)object;
-- (id)decodedAndInitializeObject;
 
 /*
  Following are encode/decode functions. Messages are same with NSCoder functions
@@ -87,7 +82,10 @@
 /*
  Followings are save/load functions
  */
-- (BOOL)saveToURL:(NSURL *)url error:(NSError **)error;
-- (void)loadFromURL:(NSURL *)url error:(NSError **)error;
-- (NSData*)jsonData;
+- (void)encodeRootObject:(id<JDCoding>)object;
+- (id)decodeRootObject;
+
+- (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error;
+- (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error;
+
 @end

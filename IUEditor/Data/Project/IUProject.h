@@ -162,5 +162,4 @@ static NSString *IUClassGroupName = @"class";
 //undo manager
 - (NSUndoManager *)undoManager;
 
-- (NSData *)jsonData;
 @end

@@ -157,29 +157,6 @@
     [object encodeWithJDCoder:self];
 }
 
-- (id)decodedAndInitializeObject{
-    NSString *className = workingDict[@"class__"];
-    NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
-    [decodedObjects setObject:@{@"object__":newObj, @"dict__":workingDict} forKey:workingDict[@"memory__"]];
-
-    for (NSString *selectorString in initSelectors) {
-        SEL sel = NSSelectorFromString(selectorString);
-        [decodedObjects enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary* dict, BOOL *stop) {
-            id obj = dict[@"object__"];
-            
-            if ([obj respondsToSelector:sel]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                workingDict = dict[@"dict__"];
-                [obj performSelector:sel withObject:self];
-#pragma clang diagnostic pop
-            }
-        }];
-    }
-    return newObj;
-}
-
-
 - (void)encodeInteger:(NSInteger)value forKey:(NSString*)key{
     [workingDict setValue:@(value) forKey:key];
 }
@@ -413,15 +390,43 @@
     }
 }
 
-- (BOOL)saveToURL:(NSURL *)url error:(NSError **)error{
-    NSError *err;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:&err];
-    return [data writeToURL:url atomically:YES];
+- (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:error];
+    
+    return [data writeToFile:filePath options:0 error:error];
 }
 
-- (void)loadFromURL:(NSURL *)url error:(NSError **)error{
-    NSData *data = [NSData dataWithContentsOfURL:url];
+- (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error{
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
     workingDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
+    return [self decodeRootObject];
+}
+
+- (id)decodeRootObject {
+    NSString *className = workingDict[@"class__"];
+    NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
+    [decodedObjects setObject:@{@"object__":newObj, @"dict__":workingDict} forKey:workingDict[@"memory__"]];
+    
+    for (NSString *selectorString in initSelectors) {
+        SEL sel = NSSelectorFromString(selectorString);
+        [decodedObjects enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary* dict, BOOL *stop) {
+            id obj = dict[@"object__"];
+            
+            if ([obj respondsToSelector:sel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                workingDict = dict[@"dict__"];
+                [obj performSelector:sel withObject:self];
+#pragma clang diagnostic pop
+            }
+        }];
+    }
+    return newObj;
+}
+
+
+
+- (void)loadFromURL:(NSURL *)url error:(NSError **)error{
 }
 
 - (NSArray*)keysOfCurrentDecodingObject{
