@@ -191,6 +191,13 @@
     return [[[self canvasView] mainScrollView] frame].size.height;
 }
 
+- (void)zoomIn{
+    [[self canvasView] zoomIn];
+}
+- (void)zoomOut{
+    [[self canvasView] zoomOut];
+}
+
 
 
 #pragma mark - MQ

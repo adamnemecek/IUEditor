@@ -37,6 +37,9 @@
 - (void)setSheet:(IUSheet *)sheet;
 - (void)reloadSheet;
 
+- (void)zoomIn;
+- (void)zoomOut;
+
 
 #if DEBUG
 - (void)applyHtmlString:(NSString *)html;

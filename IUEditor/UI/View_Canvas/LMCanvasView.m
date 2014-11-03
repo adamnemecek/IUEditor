@@ -103,14 +103,14 @@
 #define ZOOMINFACTOR   (1.2)
 #define ZOOMOUTFACTOR  (1.0 / ZOOMINFACTOR)
 
-- (IBAction)zoomIn:(id)sender
+- (void)zoomIn
 {
     [self setZoom:ZOOMINFACTOR];
     return;
 }
 
 
-- (IBAction)zoomOut:(id)sender
+- (void)zoomOut
 {
     [self setZoom:ZOOMOUTFACTOR];
     return;

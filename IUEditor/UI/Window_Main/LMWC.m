@@ -620,4 +620,17 @@
     [commandVC build:sender];
 }
 
+
+- (IBAction)zoomIn:(id)sender
+{
+    [canvasVC zoomIn];
+}
+
+
+- (IBAction)zoomOut:(id)sender
+{
+    [canvasVC zoomOut];
+    return;
+}
+
 @end
