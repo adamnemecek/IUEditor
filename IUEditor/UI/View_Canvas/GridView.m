@@ -115,6 +115,8 @@
         [rulerLineManagerLayer disableAction];
         [self.layer insertSubLayerFullFrame:rulerLineManagerLayer below:pointManagerLayer];
         
+
+        
     }
     return self;
 }
@@ -147,6 +149,7 @@
         [layer setNeedsDisplay];
     }
 }
+
 
 
 

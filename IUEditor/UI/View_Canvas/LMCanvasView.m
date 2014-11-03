@@ -63,6 +63,9 @@
     
     //setting for zoom
     zoomFactor = 1.0;
+    //zoom observer
+    [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"zoom" options:NSKeyValueObservingOptionInitial context:nil];
+    
 
 
 
@@ -70,6 +73,8 @@
 
 -(void) dealloc{
     [self.mainView removeObserver:self forKeyPath:@"frame"];
+    
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"zoom"];
 }
 - (BOOL)isFlipped{
     return YES;
@@ -122,10 +127,29 @@
 
     [self.gridView setLayerZoom:zoomFactor];
     [self.mainScrollView setNeedsDisplay:YES];
-    
+
     NSInteger zoomNumber = zoomFactor*100;
     [[NSUserDefaults standardUserDefaults] setInteger:zoomNumber forKey:@"zoom"];
 
+}
+
+/**
+ @brief called from
+ */
+
+- (void)zoomDidChange:(NSDictionary *)change{
+    
+    CGFloat percentZoom = [[[NSUserDefaults standardUserDefaults] valueForKey:@"zoom"] floatValue];
+    CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
+
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    zoomFactor *= zoom;
+    
+    [self.gridView setLayerZoom:zoomFactor];
+    [self.mainScrollView setNeedsDisplay:YES];
+    
+
+    
 }
 
 #pragma mark - frame

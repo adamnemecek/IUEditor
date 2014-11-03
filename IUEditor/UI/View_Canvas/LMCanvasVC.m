@@ -72,13 +72,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
     
     
-    
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                          @"sheet.ghostX",
                                          @"sheet.ghostY",
                                          @"sheet.ghostOpacity"]
               options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"ghostImage"];
-    
+        
     
 #if DEBUG
     
@@ -197,7 +196,6 @@
 - (void)zoomOut{
     [[self canvasView] zoomOut];
 }
-
 
 
 #pragma mark - MQ

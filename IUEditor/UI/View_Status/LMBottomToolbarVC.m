@@ -83,6 +83,9 @@
     BOOL showRightInspector = [[NSUserDefaults standardUserDefaults] boolForKey:@"showRightInspector"];
     [_rightInspectorBtn setState:showRightInspector];
     
+#pragma mark zoom
+    [_zoomComboBox bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"zoom" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+    
 }
 
 -(void) dealloc{
