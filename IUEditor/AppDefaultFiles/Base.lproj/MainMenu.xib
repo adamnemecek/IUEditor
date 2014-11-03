@@ -141,12 +141,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="5Jq-BO-7mS"/>
-                            <menuItem title="Zoom Out" keyEquivalent="]" id="4cv-no-YXy" userLabel="Zoom Out">
+                            <menuItem title="Zoom Out" keyEquivalent="-" id="4cv-no-YXy" userLabel="Zoom Out">
                                 <connections>
                                     <action selector="zoomOut:" target="-1" id="AlB-MN-OCH"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Zoom In" keyEquivalent="[" id="65J-21-FHv" userLabel="Zoom In">
+                            <menuItem title="Zoom In" keyEquivalent="=" id="65J-21-FHv" userLabel="Zoom In">
                                 <connections>
                                     <action selector="zoomIn:" target="-1" id="xJc-os-crd"/>
                                 </connections>

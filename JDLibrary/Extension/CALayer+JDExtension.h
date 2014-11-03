@@ -20,7 +20,9 @@
 - (void)sendSublayerToBack:(CALayer *)layer;
 
 -(id)addSubLayerFullFrame:(CALayer *)sublayer;
+
 -(id)insertSubLayerFullFrame:(CALayer *)sublayer below:(CALayer *)belowLayer;
+-(id)insertSubLayerCenterFrame:(CALayer *)sublayer below:(CALayer *)belowLayer;
 
 -(id)addSubLayerBottomFrame:(CALayer *)sublayer;
 

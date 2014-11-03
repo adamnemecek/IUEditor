@@ -15,7 +15,6 @@
                 <outlet property="clickWidgetTabMatrix" destination="vUX-uW-fTu" id="ZFU-Ng-NiY"/>
                 <outlet property="clipartV" destination="OBJ-vE-U5d" id="7VC-in-Aye"/>
                 <outlet property="consoleV" destination="3fG-md-Skx" id="o7V-MH-chT"/>
-                <outlet property="debugBtn" destination="CCS-jG-DaL" id="ajy-hX-j8U"/>
                 <outlet property="eventV" destination="cND-E8-FNH" id="L2T-JZ-w7f"/>
                 <outlet property="leftBottomV" destination="4Tl-hR-JBi" id="Hgo-4P-SU6"/>
                 <outlet property="leftTopV" destination="efd-DN-4Bq" id="c6b-do-zjc"/>
@@ -453,7 +452,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="clickDebugBtn:" target="-2" id="koL-EI-V4j"/>
+                                <action selector="showCurrentSource:" target="-1" id="6Kk-Xm-cNh"/>
                             </connections>
                         </button>
                     </toolbarItem>

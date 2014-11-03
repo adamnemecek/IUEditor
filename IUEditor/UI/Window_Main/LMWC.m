@@ -56,7 +56,6 @@
 @property (weak) IBOutlet NSImageView *selectionToolbarImageView;
 @property (weak) IBOutlet NSTextField *selectionToolbarTF;
 @property (weak) IBOutlet NSProgressIndicator *progressToolbarIndicator;
-@property (weak) IBOutlet NSButton *debugBtn;
 @property (weak) IBOutlet NSBox *mqBox;
 
 //toolbar
@@ -619,12 +618,6 @@
 
 - (IBAction)build:(id)sender{
     [commandVC build:sender];
-}
-
-
-#pragma mark - debug
-- (IBAction)clickDebugBtn:(id)sender {
-    
 }
 
 @end

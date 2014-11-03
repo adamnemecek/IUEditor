@@ -45,4 +45,6 @@
 - (NSString *)identifierAtPoint:(NSPoint)point;
 - (void)setSelectedFrameWidth:(NSInteger)width;
 
+- (void)windowDidResize:(NSNotification *)notification;
+
 @end

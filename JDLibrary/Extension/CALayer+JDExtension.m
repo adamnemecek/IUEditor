@@ -50,6 +50,12 @@
     [self setConstraints:[NSArray arrayWithObjects:minX, maxX,minY, width, nil]];
 }
 
+- (void)setCenterFrameContstraint{
+    CAConstraint *midX = [CAConstraint constraintWithAttribute:kCAConstraintMidX relativeTo:@"superlayer" attribute:kCAConstraintMinX];
+    
+    [self setConstraints:[NSArray arrayWithObjects:midX, nil]];
+}
+
 
 -(id)addSubLayerFullFrame:(CALayer *)sublayer{
     self.layoutManager = [CAConstraintLayoutManager layoutManager];
@@ -57,6 +63,7 @@
     [self addSublayer:sublayer];
     return sublayer;
 }
+
 
 -(id)addSubLayerBottomFrame:(CALayer *)sublayer{
     self.layoutManager = [CAConstraintLayoutManager layoutManager];
@@ -73,6 +80,14 @@
     
 }
 
+-(id)insertSubLayerCenterFrame:(CALayer *)sublayer below:(CALayer *)belowLayer{
+    self.layoutManager = [CAConstraintLayoutManager layoutManager];
+    [sublayer setCenterFrameContstraint];
+    [self insertSublayer:sublayer below:belowLayer];
+    return sublayer;
+}
+
+
 - (void)disableAction{
     /*disable animation*/
     /*sublayer disable animation*/
@@ -81,6 +96,7 @@
                                        [NSNull null], @"bounds",
                                        [NSNull null], @"sublayers",
                                        [NSNull null], @"contents",
+                                       [NSNull null], @"transform",
                                        nil];
     self.actions = newActions;
 }

@@ -84,14 +84,16 @@
         [ghostLayer setBackgroundColor:[[NSColor clearColor] CGColor]];
         [ghostLayer setOpacity:0.3];
         [ghostLayer disableAction];
-        [self.layer insertSublayer:ghostLayer below:borderManagerLayer];
+        [self.layer insertSubLayerFullFrame:ghostLayer below:borderManagerLayer];
         
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"showGhost" options:NSKeyValueObservingOptionInitial context:nil];
         
+        /*
+         delete : 2014.11.30 initialize, zoom에서 mqselect 할때 사이즈가 맞지않음.
         //initialize mqshadow layer
-        shadowLayer = [MQShadowLayer layer];
-//        [self.layer insertSubLayerFullFrame:shadowLayer below:ghostLayer];
-        
+        //shadowLayer = [MQShadowLayer layer];
+        //[self.layer insertSubLayerFullFrame:shadowLayer below:borderManagerLayer];
+        */
         
         
         //initialize selection Layer
@@ -117,6 +119,7 @@
     return self;
 }
 
+
 - (void)dealloc{
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"showBorder"];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"showGhost"];
@@ -126,9 +129,18 @@
     return YES;
 }
 
+- (void)windowDidResize:(NSNotification *)notification{
+    [shadowLayer updateMQLayer];
+}
+
+- (void)setSelectedFrameWidth:(NSInteger)width{
+    [shadowLayer setSelectedFrameWidth:width];
+}
+
 
 #pragma mark - zoom
 - (void)setLayerZoom:(CGFloat)zoom{
+    
     for(CALayer *layer in self.layer.sublayers){
         layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
         [layer setNeedsLayout];
@@ -229,10 +241,6 @@
         [self addCursorRect:aCursor.frame cursor:aCursor.cursor];
     }
     
-}
-
-- (void)setSelectedFrameWidth:(NSInteger)width{
-    [shadowLayer setSelectedFrameWidth:width];
 }
 
 #pragma mark -
@@ -470,8 +478,7 @@
 }
 
 
-#pragma mark -
-#pragma mark ghostImage, border
+#pragma mark - border
 
 - (void)showBorderDidChange:(NSDictionary *)change{
     BOOL border = [[NSUserDefaults  standardUserDefaults] boolForKey:@"showBorder"];
@@ -482,20 +489,35 @@
     [borderManagerLayer setHidden:!border];
 }
 
+#pragma mark - ghost
+
 - (void)showGhostDidChange:(NSDictionary *)change{
     BOOL ghost = [[NSUserDefaults  standardUserDefaults] boolForKey:@"showGhost"];
     [self setGhost:ghost];
 }
 - (void)setGhost:(BOOL)ghost{
+    
     [ghostLayer setHidden:!ghost];
 }
 - (void)setGhostImage:(NSImage *)image{
-    [ghostLayer setContents:image];
-    [ghostLayer setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
+    NSMutableArray *imageLayers = [ghostLayer.sublayers mutableCopy];
+    for(CALayer *layer in imageLayers){
+        [layer removeFromSuperlayer];
+    }
+    if(image){
+        CALayer *imageLayer = [CALayer layer];
+        [imageLayer setContents:image];
+        [imageLayer setFrame:NSMakeRect(0, 0, image.size.width, image.size.height)];
+        [ghostLayer addSublayer:imageLayer];
+    }
 }
 - (void)setGhostPosition:(NSPoint)position{
-    NSImage *ghostImage = [ghostLayer contents];
-    [ghostLayer setFrame:NSMakeRect(position.x, position.y, ghostImage.size.width, ghostImage.size.height)];
+    CALayer *imageLayer = [[ghostLayer sublayers] firstObject];
+    NSImage *ghostImage = [imageLayer contents];
+
+    if(ghostImage && imageLayer){
+        [imageLayer setFrame:NSMakeRect(position.x, position.y, ghostImage.size.width, ghostImage.size.height)];
+    }
 }
 
 - (void)setGhostOpacity:(CGFloat)opacity{

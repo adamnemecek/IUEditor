@@ -28,6 +28,7 @@
 @property (weak) IBOutlet NSButton *borderBtn;
 @property (weak) IBOutlet NSButton *mailBtn;
 
+@property (weak) IBOutlet NSComboBox *zoomComboBox;
 
 @end
 
@@ -81,8 +82,6 @@
     
     BOOL showRightInspector = [[NSUserDefaults standardUserDefaults] boolForKey:@"showRightInspector"];
     [_rightInspectorBtn setState:showRightInspector];
-    
-
     
 }
 

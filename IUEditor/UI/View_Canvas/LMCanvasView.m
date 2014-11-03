@@ -42,7 +42,6 @@
     
     [self.mainScrollView setDocumentView:self.mainView];
     
-    
     [self.mainView addSubviewFullFrame:self.webView];
     [self.mainView addSubviewFullFrame:self.gridView];
     
@@ -83,7 +82,7 @@
     [horizRuler setMeasurementUnits:@"Pixel"];
     [vertRuler setMeasurementUnits:@"Pixel"];
     
-    CGFloat left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
+    CGFloat left = (self.mainView.frame.size.width - self.controller.selectedFrameWidth)/2;
     [horizRuler setOriginOffset:left];
     [vertRuler setOriginOffset:0];
     
@@ -106,30 +105,28 @@
 
 - (IBAction)zoomIn:(id)sender
 {
-    
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(ZOOMINFACTOR, ZOOMINFACTOR)];
-    
-    zoomFactor *= ZOOMINFACTOR;
-    [self.gridView setLayerZoom:zoomFactor];
-    
-    [self.mainScrollView setNeedsDisplay:YES];
-    
+    [self setZoom:ZOOMINFACTOR];
     return;
 }
 
 
 - (IBAction)zoomOut:(id)sender
 {
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(ZOOMOUTFACTOR, ZOOMOUTFACTOR)];
-    
-    zoomFactor *= ZOOMOUTFACTOR;
-    [self.gridView setLayerZoom:zoomFactor];
-    
-    [self.mainScrollView setNeedsDisplay:YES];
-    
+    [self setZoom:ZOOMOUTFACTOR];
     return;
 }
 
+- (void)setZoom:(CGFloat)zoom{
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    zoomFactor *= zoom;
+
+    [self.gridView setLayerZoom:zoomFactor];
+    [self.mainScrollView setNeedsDisplay:YES];
+    
+    NSInteger zoomNumber = zoomFactor*100;
+    [[NSUserDefaults standardUserDefaults] setInteger:zoomNumber forKey:@"zoom"];
+
+}
 
 #pragma mark - frame
 
@@ -151,6 +148,8 @@
         }
     }
     [self setRulerOffsets];
+    [self.gridView windowDidResize:notification];
+    
 }
 
 

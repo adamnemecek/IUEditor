@@ -41,6 +41,7 @@
 #if DEBUG
 - (void)applyHtmlString:(NSString *)html;
 - (void)reloadOriginalDocument;
+- (IBAction)showCurrentSource:(id)sender;
 #endif
 
 @end

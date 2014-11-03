@@ -13,10 +13,11 @@
 - (id)init{
     self = [super init];
     if(self){
-        self.selectedFrameWidth = defaultFrameWidth;
+        _selectedFrameWidth = defaultFrameWidth;
         
         self.fillRule = kCAFillRuleEvenOdd;
         self.fillColor = [[NSColor controlShadowColor] CGColor];
+        self.backgroundColor = [[NSColor clearColor] CGColor];
         self.opacity = 0.3;
         self.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
         self.needsDisplayOnBoundsChange = YES;
@@ -40,11 +41,6 @@
 - (void)setSelectedFrameWidth:(NSInteger)selectedFrameWidth{
     _selectedFrameWidth = selectedFrameWidth;
     [self updateMQLayer];
-}
-
-- (void)drawInContext:(CGContextRef)ctx{
-    [self updateMQLayer];
-    [super drawInContext:ctx];
 }
 
 @end
