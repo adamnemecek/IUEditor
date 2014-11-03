@@ -474,6 +474,7 @@
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
+                    <toolbarItem reference="UhE-nB-agp"/>
                     <toolbarItem reference="n5b-ad-lKb"/>
                     <toolbarItem reference="FFu-wS-kgf"/>
                     <toolbarItem reference="rlk-P1-2MX"/>
