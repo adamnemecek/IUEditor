@@ -11,7 +11,9 @@
 
 #import "JDMutableArrayDict.h"
 
-@implementation JDMutableArrayDict
+@implementation JDMutableArrayDict {
+    NSArray *allKey_cache; // cache of allKeys
+}
 
 @synthesize dict;
 @synthesize array;
@@ -88,6 +90,7 @@
 	[dict setObject:obj forKey:key];
 //    [[self mutableArrayValueForKey:@"array"] addObject:obj];
 	[array addObject:obj];
+    allKey_cache = nil;
     [self didChangeValueForKey:@"dict"];
     [self didChangeValueForKey:@"array"];
 }
@@ -96,12 +99,23 @@
     [self willChangeValueForKey:@"dict"];
     [self willChangeValueForKey:@"array"];
 	[dict setObject:anObject forKey:key];
-    //[[self mutableArrayValueForKey:@"array"] insertObject:anObject atIndex:index];
 	[array insertObject:anObject atIndex:index];
+    allKey_cache = nil;
     [self didChangeValueForKey:@"dict"];
     [self didChangeValueForKey:@"array"];
+}
 
-    
+- (NSArray*)allKeys {
+    if (allKey_cache) {
+        return allKey_cache;
+    }
+    NSMutableArray *retArr = [NSMutableArray array];
+    for (id item in self.array) {
+        id key = [[self.dict allKeysForObject:item] firstObject];
+        [retArr addObject:key];
+    }
+    allKey_cache = [retArr copy];
+    return allKey_cache;
 }
 
 

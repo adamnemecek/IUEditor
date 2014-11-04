@@ -47,4 +47,8 @@
 - (void)sortArrayWithDictKey;
 - (void)reverseSortArrayWithDictKey;
 
+/**
+ return sorted key in dictionary 
+ */
+- (NSArray*)allKeys;
 @end

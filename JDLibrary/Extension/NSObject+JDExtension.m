@@ -167,7 +167,7 @@
     NSString *contextStr;
     
     NSMutableDictionary *mchange = [[NSDictionary dictionaryWithDictionary:change] mutableCopy];
-    [mchange setObject:_keyPath forKey:kJDKeyPath];
+    [mchange setObject:_keyPath forKey:kJDKey];
     
     id contextID = (__bridge id)context;
     if ([contextID isKindOfClass:[NSString class]]) {

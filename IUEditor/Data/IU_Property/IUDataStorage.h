@@ -51,8 +51,7 @@
 
 @property NSInteger currentViewPort;
 
-@property (readonly) NSArray* allViewPorts;
-
+- (NSArray*)allViewPorts;
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort;
 - (NSInteger)viewPortOfStorage:(IUDataStorage*)storage;
 - (IUDataStorage *)storageOfSmallerViewPortOfStorage:(IUDataStorage*)storage;

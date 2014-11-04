@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "objc/runtime.h"
 
-static NSString * kJDKeyPath = @"JDKeyPath";
+static NSString * kJDKey = @"JDKey";
 static NSString * kJDContext = @"JDContext";
 
 

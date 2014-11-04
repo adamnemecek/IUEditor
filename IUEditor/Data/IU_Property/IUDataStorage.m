@@ -22,7 +22,6 @@
 
 @property JDMutableArrayDict *workingStorages; //key == viewPort(NSNumber) value=IUDataStorage.
 
-@property NSArray * allViewPorts;
 @property IUDataStorage *currentStorage;
 @property IUDataStorage *defaultStorage;
 @property IUDataStorage *liveStorage;
@@ -129,7 +128,6 @@
 - (id)init{
     self = [super init];
 
-    _allViewPorts = [NSArray arrayWithObject:@(IUDefaultViewPort)];
     self.workingStorages = [[JDMutableArrayDict alloc] init];
     IUDataStorage *defaultStorage = [self newStorage];
     defaultStorage.manager = self;
@@ -142,6 +140,10 @@
     [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
     self.currentViewPort = IUCSSDefaultViewPort;
     return self;
+}
+
+- (void)dealloc{
+    [self removeObserver:self forKeyPath:@"currentViewPort"];
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
@@ -162,9 +164,7 @@
         IUDataStorage *newStorage = [self newStorage];
         newStorage.manager = self;
         [self.workingStorages setObject:newStorage forKey:@(_currentViewPort)];
-        [self willChangeValueForKey:@"allViewPorts"];
         [self.workingStorages reverseSortArrayWithDictKey];
-        [self didChangeValueForKey:@"allViewPorts"];
     }
     self.currentStorage = [self.workingStorages objectForKey:@(_currentViewPort)];
     self.liveStorage = [self createLiveStorage];
@@ -198,6 +198,10 @@
     [_workingStorages removeObjectForKey:@(viewPort)];
 }
 
+- (NSArray*)allViewPorts{
+    return [self.workingStorages allKeys];
+}
+
 - (id)storageWithBiggerViewPortOf:(IUDataStorage*)storage{
     NSInteger viewPort = [self viewPortOfStorage:storage];
     for (NSNumber *number in [self.allViewPorts reversedArray]) {
@@ -223,12 +227,12 @@
 
     if (storage == self.currentStorage) {
         [self.liveStorage setEnableUpdate:NO];
-        [self.liveStorage setValue:self.currentStorage.storage[key] forKey:key];
+        [self.liveStorage setValue:change[@"newValue"] forKey:key];
         [self.liveStorage setEnableUpdate:YES];
     }
     else if (storage == self.liveStorage) {
         [self.currentStorage setEnableUpdate:NO];
-        [self.currentStorage setValue:self.currentStorage.storage[key] forKey:key];
+        [self.currentStorage setValue:change[@"newValue"] forKey:key];
         [self.currentStorage setEnableUpdate:NO];
     }
     else {
@@ -275,15 +279,41 @@
     BOOL changing;
 }
 
+/* using cache for multiple calling [IUCSSStorage properties] */
+static NSArray *cssProperties_cache;
+
 - (id)init{
     self = [super init];
+    if (cssProperties_cache == nil) {
+        NSArray *properties = [IUCSSStorage properties];
+        cssProperties_cache = [properties valueForKey:@"name"];
+    }
+    [self addObserver:self forKeyPaths:cssProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"cssProperty"];
     return self;
+}
+
+- (void)dealloc{
+    [self removeObserver:self forKeyPaths:cssProperties_cache];
 }
 
 - (void)setX:(id)x{
     _x = x;
 }
 
+- (void)cssPropertyContextDidChange:(NSDictionary*)change{
+    
+    if (self.enableUpdate) {
+        NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
+        if (change[NSKeyValueChangeOldKey] != [NSNull null]) {
+            [changeDict setValue:change[NSKeyValueChangeOldKey] forKey:@"oldValue"];
+        }
+        if (change[NSKeyValueChangeNewKey] != [NSNull null]) {
+            [changeDict setValue:change[NSKeyValueChangeNewKey] forKey:@"newValue"];
+        }
+        [changeDict setValue:change[kJDKey] forKey:@"key"];
+        [self.manager storage:self change:changeDict];
+    }
+}
 
 
 - (void)setBorderColor:(id)borderColor{
@@ -428,33 +458,24 @@
 }
 
 
-- (void)storage:(IUCSSStorage*)storage change:(NSDictionary *)change{
-    /*
+- (void)storage:(IUCSSStorage*)storage change:(NSDictionary *)change {
+    //sync current storage and live storage
+    [super storage:storage change:change];
+
     NSString *key = change[@"key"];
     id newValue = change[@"newValue"];
-    id oldValue = change[@"oldValue"];
-    */
+    // id oldValue = change[@"oldValue"]; // use this value if needed
     
-    // X set to non-nil from nil value
-    // set XUnit too
+    // X set from non-nil -> nil value
+    // set XUnit as nil
+    // X set from nil -> non-nil value
+    // set XUnit as live value
 
-#if 0
-    if ([key isEqualToString:@"x"] && newValue != nil && oldValue == nil) {
-        //get unit from upper view port.
-        //if view port is default (IUDefaultViewPort), make it as pixel
-        storage.enableUpdate = NO;
-        
-        /* to check IUCSSDefaultViewPort, don't use storage == self.defaultStorage.
-         Working storages can be hover or active */
-        
-        storage.enableUpdate = YES;
+    if ([key isEqualToString:@"x"] && newValue != nil ) {
+        if (self.liveStorage.xUnit == nil) {
+            self.liveStorage.xUnit = @(IUFrameUnitPixel);
+        }
     }
-    else if ([key isEqualToString:@"x"] && newValue == nil){
-        //remove xUnit if x is nil
-        [storage setXUnit:nil];
-    }
-#endif
-    [super storage:storage change:change];
 }
 
 
