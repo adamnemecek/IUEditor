@@ -239,6 +239,7 @@
                                 </comboBoxCell>
                                 <connections>
                                     <action selector="clickZoom:" target="-1" id="hhr-OH-ahT"/>
+                                    <outlet property="formatter" destination="fzo-Ty-xKC" id="O19-M4-Hy4"/>
                                 </connections>
                             </comboBox>
                         </subviews>
@@ -279,6 +280,10 @@
                 <constraint firstAttribute="bottom" secondItem="GO3-gA-Qc1" secondAttribute="bottom" constant="-1" id="lqU-2M-EH2"/>
             </constraints>
         </customView>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# '%'" allowsFloats="NO" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" percentSymbol="%" id="fzo-Ty-xKC">
+            <real key="minimum" value="20"/>
+            <real key="maximum" value="200"/>
+        </numberFormatter>
     </objects>
     <resources>
         <image name="add_ghost_off" width="12" height="12"/>

@@ -128,12 +128,27 @@
 
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor{
-    NSString *fileName = [control stringValue];
-    self.sheet.ghostImageName = fileName;
+    if([control isEqualTo:_ghostImageComboBox]){
+        NSString *fileName = [control stringValue];
+        self.sheet.ghostImageName = fileName;
+        return YES;
+    }
+    
     return YES;
 }
 
 
+- (BOOL)control:(NSControl *)control didFailToFormatString:(NSString *)string errorDescription:(NSString *)error{
+    
+    if([control isEqualTo:_zoomComboBox]){
+        NSString *digit = [string stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
+        if(digit){
+            [control setStringValue:digit];
+        }
+    }
+    
+    return YES;
+}
 
 - (void)setResourceManager:(IUResourceManager *)resourceManager{
     _resourceManager = resourceManager;

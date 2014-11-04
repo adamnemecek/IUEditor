@@ -63,6 +63,7 @@
     
     //setting for zoom
     zoomFactor = 1.0;
+    [self setZoom:1.0];
     //zoom observer
     [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"zoom" options:NSKeyValueObservingOptionInitial context:nil];
     
@@ -107,9 +108,17 @@
 
 #define ZOOMINFACTOR   (1.2)
 #define ZOOMOUTFACTOR  (1.0 / ZOOMINFACTOR)
-
+#define ZOOMINMAX   (2.0)
+#define ZOOMOUTMIN  (0.2)
+/**
+ @brief called from key equivalent
+ command + (+/-)
+ */
 - (void)zoomIn
 {
+    if(zoomFactor >= ZOOMINMAX){
+        return;
+    }
     [self setZoom:ZOOMINFACTOR];
     return;
 }
@@ -117,6 +126,9 @@
 
 - (void)zoomOut
 {
+    if(zoomFactor <= ZOOMOUTMIN){
+        return;
+    }
     [self setZoom:ZOOMOUTFACTOR];
     return;
 }
@@ -127,21 +139,25 @@
 
     [self.gridView setLayerZoom:zoomFactor];
     [self.mainScrollView setNeedsDisplay:YES];
+    
 
     NSInteger zoomNumber = zoomFactor*100;
     [[NSUserDefaults standardUserDefaults] setInteger:zoomNumber forKey:@"zoom"];
-
 }
 
 /**
- @brief called from
+ @brief called from toolbar vc
  */
 
 - (void)zoomDidChange:(NSDictionary *)change{
     
     CGFloat percentZoom = [[[NSUserDefaults standardUserDefaults] valueForKey:@"zoom"] floatValue];
-    CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
+    if(percentZoom <= ZOOMOUTMIN*100 || percentZoom >= ZOOMINMAX*100){
+        return;
+    }
 
+    CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
+   
     [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
     zoomFactor *= zoom;
     
