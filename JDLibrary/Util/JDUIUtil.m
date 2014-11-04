@@ -358,6 +358,54 @@ BOOL isSameColor(NSColor *color1, NSColor *color2){
     return subview;
 }
 
+-(id)addSubviewFullHeight:(NSView*)subview{
+    if (subview == nil) {
+        return nil;
+    }
+    [self addSubview:subview];
+    
+    [subview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self addConstraint:[self viewConstraint:subview toSuperview:self top:0]];
+    [self addConstraint:[self viewConstraint:subview toSuperview:self bottom:0]];
+    
+    return subview;
+}
+
+-(id)addSubviewFullFrame:(NSView*)subview withIdentifier:(NSString *)identfier{
+    if (subview == nil) {
+        return nil;
+    }
+    [self addSubview:subview];
+    
+    [subview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    NSLayoutConstraint *topConstraint = [self viewConstraint:subview toSuperview:self top:0];
+    topConstraint.identifier = [NSString stringWithFormat:@"top_%@", identfier];
+    
+    NSLayoutConstraint *leadingConstraint = [self viewConstraint:subview toSuperview:self leading:0];
+    leadingConstraint.identifier = [NSString stringWithFormat:@"leading_%@", identfier];
+    
+    NSLayoutConstraint *bottomConstraint = [self viewConstraint:subview toSuperview:self bottom:0];
+    bottomConstraint.identifier = [NSString stringWithFormat:@"bottom_%@", identfier];
+    
+    NSLayoutConstraint *trailingConstraint = [self viewConstraint:subview toSuperview:self trailing:0];
+    topConstraint.identifier = [NSString stringWithFormat:@"trailing_%@", identfier];
+    
+    [self addConstraints:@[topConstraint, leadingConstraint, bottomConstraint, trailingConstraint]];
+    
+    return subview;
+}
+
+- (NSLayoutConstraint *)constraintForIdentifier:(NSString *)identifier{
+    for(NSLayoutConstraint *constraint in [self constraints]){
+        if([constraint.identifier isEqualToString:identifier]){
+            return constraint;
+        }
+    }
+    return nil;
+}
+
 - (id)subview:(NSView *)subview changeConstraintTrailing:(CGFloat)trailing{
     NSLayoutConstraint *removedConstraint;
     
@@ -578,7 +626,6 @@ BOOL isSameColor(NSColor *color1, NSColor *color2){
     constraint.priority = NSLayoutPriorityRequired;
     return constraint;
 }
-
 
 
 -(NSLayoutConstraint *)viewConstraint:(NSView *)view toSuperview:(NSView *)superview leading:(CGFloat)leading{

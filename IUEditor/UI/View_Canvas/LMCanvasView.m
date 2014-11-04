@@ -42,7 +42,7 @@
     
     [self.mainScrollView setDocumentView:self.mainView];
     
-    [self.mainView addSubviewFullFrame:self.webView];
+    [self.mainView addSubviewFullFrame:self.webView withIdentifier:@"webview"];
     [self.mainView addSubviewFullFrame:self.gridView];
     
     [self.mainView setFrameOrigin:NSZeroPoint];
@@ -80,7 +80,22 @@
 - (BOOL)isFlipped{
     return YES;
 }
+
+- (void)updateMediaQuerySize{
+    [self setRulerOffsets];
+    
+    //adjsut to constraint of webview,gridview;
+    NSLayoutConstraint *webviewConstraint = [self.mainView constraintForIdentifier:@"leading_webview"];
+    //NSLayoutConstraint *gridviewConstraint = [self.mainView constraintForIdentifier:@"leading_gridview"];
+    [self.mainView removeConstraints:@[webviewConstraint]];
+    
+    NSInteger left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
+    NSLayoutConstraint *adjustWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView leading:left];
+    adjustWebViewConstraint.identifier = @"leading_webview";
+    [self.mainView addConstraints:@[adjustWebViewConstraint]];    
+}
 #pragma mark - ruler
+
 - (void)setRulerOffsets
 {
     NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
@@ -362,23 +377,26 @@
 
 -(void)receiveMouseEvent:(NSEvent *)theEvent{
     NSPoint originalPoint = [theEvent locationInWindow];
-    NSPoint convertedPoint = [self.mainView convertPoint:originalPoint fromView:nil];
+    NSPoint filpConvertedPoint = [self.mainView convertPoint:originalPoint fromView:nil];
+    CGFloat zoom = self.gridView.layer.affineTransform.a;
+    NSPoint centerConvertedPoint = NSMakePoint((filpConvertedPoint.x - [self.gridView.layer affineTransform].tx)*zoom, (filpConvertedPoint.y)*zoom);
+
     NSPoint convertedScrollPoint = [self.mainScrollView convertPoint:originalPoint fromView:nil];
-    NSView *hitView = [self.gridView hitTest:convertedPoint];
+    NSView *hitView = [self.gridView hitTest:filpConvertedPoint];
     
     if([hitView isKindOfClass:[GridView class]] == NO){
         if( [self pointInScrollView:convertedScrollPoint]){
             if ( theEvent.type == NSLeftMouseDown
-                && ([self.webView isTextEditorAtPoint:convertedPoint] == NO)){
+                && ([self.webView isTextEditorAtPoint:centerConvertedPoint] == NO)){
                 JDTraceLog( @"mouse down");
                 
                 isMouseDownForMoveIU = YES;
-                NSString *clickedIdentifier = [self.webView IdentifierAtPoint:convertedPoint];
+                NSString *clickedIdentifier = [self.webView IdentifierAtPoint:centerConvertedPoint];
                 
                 //webview에서 발견 못하면 gridView에서 한번더 체크
                 //media query 에서 보이지 않는 iu를 위해서 체크함.
                 if(clickedIdentifier == nil){
-                    clickedIdentifier = [self.gridView identifierAtPoint:convertedPoint];
+                    clickedIdentifier = [self.gridView identifierAtPoint:centerConvertedPoint];
                 }
                 
                 if(clickedIdentifier == nil){
@@ -419,7 +437,7 @@
                         [self.controller startFrameMoveWithUndoManager:self];
                     }
                     
-                    startDragPoint = convertedPoint;
+                    startDragPoint = centerConvertedPoint;
                     middleDragPoint = startDragPoint;
                 }
                 //change editable mode
@@ -432,7 +450,7 @@
         /* mouse dragged */
         if (theEvent.type == NSLeftMouseDragged){
             JDTraceLog( @"mouse dragged");
-            endDragPoint = convertedPoint;
+            endDragPoint = centerConvertedPoint;
             
             if([theEvent modifierFlags] & NSCommandKeyMask ){
                 [self selectWithDrawRect];

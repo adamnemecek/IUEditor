@@ -82,6 +82,7 @@ BOOL   isNSRectContainsRect(NSRect rect, NSRect subrect);
 
 @interface NSView(JDExtenstion)
 -(id)addSubviewFullFrame:(NSView*)subview;
+-(id)addSubviewFullFrame:(NSView*)subview withIdentifier:(NSString *)identfier;
 -(id)addSubviewFullFrame:(NSView*)subview atPosition:(NSWindowOrderingMode)place;
 
 -(void)addSubviewFullFrame:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
@@ -96,6 +97,8 @@ BOOL   isNSRectContainsRect(NSRect rect, NSRect subrect);
 - (void)addSubviewFullFrame:(NSView *)aView height:(CGFloat)height toBottomView:(NSView *)bottomView;
 - (void)addSubviewFullFrameAtTop:(NSView *)aView height:(CGFloat)height toBottomView:(NSView *)bottomView;
 
+-(id)addSubviewFullHeight:(NSView*)subview;
+
 -(id)addSubviewDirectionLeftToRight:(NSView *)subview width:(CGFloat)width;
 -(void)removeFromSuperviewWithDirectionLeftToRight;
 -(void)removeFromSuperviewWithFirstLeftTab;
@@ -109,6 +112,8 @@ BOOL   isNSRectContainsRect(NSRect rect, NSRect subrect);
 -(void)removeAllSubview;
 
 -(NSLayoutConstraint *)viewConstraint:(NSView *)view equalToWidth:(CGFloat)width;
+-(NSLayoutConstraint *)viewConstraint:(NSView *)view toSuperview:(NSView *)superview leading:(CGFloat)leading;
+-(NSLayoutConstraint *)constraintForIdentifier:(NSString *)identifier;
 
 @end
 

@@ -979,7 +979,6 @@
 		3D2EFCEE19F7964400BBBAE5 /* wpWebTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */; };
 		3D2EFCF019F796D600BBBAE5 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEF19F796D600BBBAE5 /* sample.jpg */; };
 		3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCF119F7976B00BBBAE5 /* image_default.png */; };
-		3D5250611A00FBD3001712E4 /* GridMainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5250601A00FBD3001712E4 /* GridMainLayer.m */; };
 		3D5250651A087AE4001712E4 /* rulermarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5250641A087AE4001712E4 /* rulermarker.png */; };
 		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
 		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
@@ -2300,8 +2299,6 @@
 		3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = wpWebTemplate.html; path = IUEditor/Resource/IUResource/default/wpWebTemplate.html; sourceTree = "<group>"; };
 		3D2EFCEF19F796D600BBBAE5 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sample.jpg; path = IUEditor/Resource/IUResource/editormode/image/sample.jpg; sourceTree = "<group>"; };
 		3D2EFCF119F7976B00BBBAE5 /* image_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_default.png; path = IUEditor/Resource/IUResource/editormode/image/image_default.png; sourceTree = "<group>"; };
-		3D52505F1A00FBD3001712E4 /* GridMainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridMainLayer.h; path = UI/View_Canvas/GridLayers/GridMainLayer.h; sourceTree = "<group>"; };
-		3D5250601A00FBD3001712E4 /* GridMainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridMainLayer.m; path = UI/View_Canvas/GridLayers/GridMainLayer.m; sourceTree = "<group>"; };
 		3D5250641A087AE4001712E4 /* rulermarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rulermarker.png; path = IUEditor/Resource/AppResource/image/ui/icon/rulermarker.png; sourceTree = "<group>"; };
 		3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE45F5F19F7BFB200A75567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3110,8 +3107,6 @@
 				3DE4630119FDFC0700A75567 /* MQShadowLayer.m */,
 				3DE4630F19FF3AC200A75567 /* RulerLineLayer.h */,
 				3DE4631019FF3AC200A75567 /* RulerLineLayer.m */,
-				3D52505F1A00FBD3001712E4 /* GridMainLayer.h */,
-				3D5250601A00FBD3001712E4 /* GridMainLayer.m */,
 			);
 			name = "Gird Layers";
 			sourceTree = "<group>";
@@ -5425,7 +5420,6 @@
 				3D2EFC8419F788C600BBBAE5 /* LMCenterClipView.m in Sources */,
 				3D2EF4C319F781D300BBBAE5 /* IUTransition.m in Sources */,
 				3D2EF6C919F784A400BBBAE5 /* LMPropertyIUTextViewVC.m in Sources */,
-				3D5250611A00FBD3001712E4 /* GridMainLayer.m in Sources */,
 				3D2EFC7D19F788C600BBBAE5 /* JDOutlineCellView.m in Sources */,
 				3D2EF52F19F7822700BBBAE5 /* IUMQData.m in Sources */,
 				3D2EF49C19F781C400BBBAE5 /* IUHTML.m in Sources */,

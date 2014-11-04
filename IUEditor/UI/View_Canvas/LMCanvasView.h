@@ -28,7 +28,7 @@
 - (void)windowDidResize:(NSNotification *)notification;
 - (void)setHeightOfMainView:(CGFloat)height;
 - (void)extendMainViewToFullSize;
-- (void)setRulerOffsets;
+- (void)updateMediaQuerySize;
 
 
 - (void)startDraggingFromGridView;

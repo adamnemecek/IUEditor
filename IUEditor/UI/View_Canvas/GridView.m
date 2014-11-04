@@ -16,7 +16,6 @@
 #import "LMCanvasVC.h"
 #import "SelectionBorderLayer.h"
 #import "RulerLineLayer.h"
-#import "GridMainLayer.h"
 
 @interface GridView(){
     CALayer *selectionLayer, *ghostLayer;
@@ -143,11 +142,15 @@
 #pragma mark - zoom
 - (void)setLayerZoom:(CGFloat)zoom{
     
-    for(CALayer *layer in self.layer.sublayers){
+    NSInteger left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
+
+    self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
+/*    for(CALayer *layer in self.layer.sublayers){
         layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
         [layer setNeedsLayout];
         [layer setNeedsDisplay];
     }
+ */
 }
 
 
@@ -157,12 +160,19 @@
 #pragma mark mouse operation
 
 - (NSView *)hitTest:(NSPoint)aPoint{
-    NSPoint convertedPoint = [self convertPoint:aPoint fromView:self.superview];
+    NSPoint convertedPoint = [self convertedPoint:aPoint];
     CALayer *hitLayer = [self hitTestInnerPointLayer:convertedPoint];
     if( hitLayer ){
         return self;
     }
     return nil;
+}
+
+- (NSPoint)convertedPoint:(NSPoint)aPoint{
+    CGFloat zoom = self.layer.affineTransform.a;
+    CGFloat tx = self.layer.affineTransform.tx*(1/zoom);
+    NSPoint convertedPoint = NSMakePoint((aPoint.x - tx), (aPoint.y));
+    return convertedPoint;
 }
 
 - (InnerPointLayer *)hitTestInnerPointLayer:(NSPoint)aPoint{
@@ -175,7 +185,8 @@
 
 - (void)mouseDown:(NSEvent *)theEvent{
     isClicked = YES;
-    NSPoint convertedPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint flipConvertedPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint convertedPoint = [self convertedPoint:flipConvertedPoint];
     InnerPointLayer *hitPointLayer = [self hitTestInnerPointLayer:convertedPoint];
     selectedPointType = [hitPointLayer type];
 
@@ -189,7 +200,9 @@
 - (void)mouseDragged:(NSEvent *)theEvent{
     if(isClicked){
         isDragged = YES;
-        NSPoint convertedPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+        NSPoint flipConvertedPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+        NSPoint convertedPoint = [self convertedPoint:flipConvertedPoint];
+
         NSPoint diffPoint = NSMakePoint(convertedPoint.x-middlePoint.x, convertedPoint.y-middlePoint.y);
         NSPoint totalPoint = NSMakePoint(convertedPoint.x-startPoint.x, convertedPoint.y-startPoint.y);
         
