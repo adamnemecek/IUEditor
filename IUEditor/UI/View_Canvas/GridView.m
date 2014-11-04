@@ -561,7 +561,7 @@
     if(event.type == NSLeftMouseDown){
         NSRulerMarker *newMarker;
         
-        NSImage *image = [NSImage imageNamed:@"width_mobile"];
+        NSImage *image = [NSImage imageNamed:@"rulermarker"];
         if ([ruler orientation] == NSHorizontalRuler) {
             newMarker = [[NSRulerMarker alloc] initWithRulerView:ruler
                                                   markerLocation:0.0 image:image imageOrigin:NSZeroPoint];

@@ -85,11 +85,18 @@
 {
     NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
     NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
+    
+    horizRuler.reservedThicknessForMarkers = 4;
     [horizRuler setMeasurementUnits:@"Pixel"];
     [vertRuler setMeasurementUnits:@"Pixel"];
     
     CGFloat left = (self.mainView.frame.size.width - self.controller.selectedFrameWidth)/2;
-    [horizRuler setOriginOffset:left];
+    if(left > 0){
+        [horizRuler setOriginOffset:left];
+    }
+    else{
+        [horizRuler setOriginOffset:0];
+    }
     [vertRuler setOriginOffset:0];
     
     return;
