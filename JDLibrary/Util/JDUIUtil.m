@@ -825,12 +825,25 @@ static NSWindowController *hudWC;
     return NO;
 }
 
+-(NSColor *)convertedColorUsingRGBColorSpace{
+    NSColor *convertedColor=[self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    if(convertedColor == nil){
+        if([self.catalogNameComponent isEqualToString:@"System"]){
+            return [[NSColor whiteColor] colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+        }
+        return nil;
+    }
+    else{
+        return convertedColor;
+    }
+}
+
 -(NSString*) rgbString{
     CGFloat redFloatValue, greenFloatValue, blueFloatValue, alphaFloatValue;
     int redIntValue, greenIntValue, blueIntValue;
         
     //Convert the NSColor to the RGB color space before we can access its components
-    NSColor *convertedColor=[self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    NSColor *convertedColor=[self convertedColorUsingRGBColorSpace];
     
     if(convertedColor)
     {
@@ -857,7 +870,7 @@ static NSWindowController *hudWC;
     int redIntValue, greenIntValue, blueIntValue;
     
     //Convert the NSColor to the RGB color space before we can access its components
-    NSColor *convertedColor=[self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    NSColor *convertedColor=[self convertedColorUsingRGBColorSpace];
     
     if(convertedColor)
     {
@@ -880,7 +893,7 @@ static NSWindowController *hudWC;
     int redIntValue, greenIntValue, blueIntValue, alphaIntValue;
     
     //Convert the NSColor to the RGB color space before we can access its components
-    NSColor *convertedColor=[self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    NSColor *convertedColor=[self convertedColorUsingRGBColorSpace];
     
     if(convertedColor)
     {
@@ -905,7 +918,7 @@ static NSWindowController *hudWC;
     int redIntValue, greenIntValue, blueIntValue;
     
     //Convert the NSColor to the RGB color space before we can access its components
-    NSColor *convertedColor=[self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    NSColor *convertedColor=[self convertedColorUsingRGBColorSpace];
     
     if(convertedColor)
     {

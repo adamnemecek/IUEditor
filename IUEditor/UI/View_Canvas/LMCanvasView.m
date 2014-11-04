@@ -141,14 +141,8 @@
 }
 
 - (void)setZoom:(CGFloat)zoom{
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
-    zoomFactor *= zoom;
 
-    [self.gridView setLayerZoom:zoomFactor];
-    [self.mainScrollView setNeedsDisplay:YES];
-    
-
-    NSInteger zoomNumber = zoomFactor*100;
+    NSInteger zoomNumber = zoomFactor * zoom * 100;
     [[NSUserDefaults standardUserDefaults] setInteger:zoomNumber forKey:@"zoom"];
 }
 
@@ -164,15 +158,21 @@
     }
 
     CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
-   
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
     zoomFactor *= zoom;
     
+
+    [[[[self.webView mainFrame] frameView] documentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    [[[[self.webView mainFrame] frameView] documentView] setNeedsDisplay:YES];
+    
+    
     [self.gridView setLayerZoom:zoomFactor];
+    
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
     [self.mainScrollView setNeedsDisplay:YES];
     
-
-    
+}
+- (void)loadDefaultZoom{
+    [[NSUserDefaults standardUserDefaults] setInteger:100 forKey:@"zoom"];
 }
 
 #pragma mark - frame

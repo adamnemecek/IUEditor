@@ -35,5 +35,6 @@
 
 - (void)zoomIn;
 - (void)zoomOut;
+- (void)loadDefaultZoom;
 
 @end
