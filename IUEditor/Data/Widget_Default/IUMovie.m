@@ -11,7 +11,6 @@
 
 #import "IUImageUtil.h"
 #import "IUSheet.h"
-#import "IUCompiler.h"
 
 
 @implementation IUMovie
@@ -37,7 +36,7 @@
 -(id)copyWithZone:(NSZone *)zone{
     IUMovie *movie = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
     
     movie.videoPath = [_videoPath copy];
@@ -49,7 +48,7 @@
     movie.enableLoop = _enableLoop;
     movie.enableMute = _enableMute;
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return movie;
 }

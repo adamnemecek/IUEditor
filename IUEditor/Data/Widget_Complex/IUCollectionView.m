@@ -30,12 +30,12 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUCollectionView *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
     
     
     iu.collection = _collection;
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

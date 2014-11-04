@@ -35,12 +35,12 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUImport *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
     
     iu.prototypeClass = _prototypeClass;
 
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }
@@ -79,23 +79,23 @@
         //remove layers
         for(IUBox *box in _prototypeClass.allChildren){
             NSString *currentID = [self modifieldHtmlIDOfChild:box];
-            [self.delegate IURemoved:currentID];
+            [_canvasVC IURemoved:currentID];
         }
         
-        [self.delegate IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
+        [_canvasVC IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
 
     }
     
     _prototypeClass = prototypeClass;
     
     if(_prototypeClass){
-        _prototypeClass.delegate = self.delegate;
+        [_prototypeClass setCanvasVC:  _canvasVC];
         [_prototypeClass addReference:self];
     }
     
     [self updateHTML];
     
-    if (self.delegate && _prototypeClass) {
+    if (_canvasVC && _prototypeClass) {
         for (IUBox *iu in [prototypeClass.allChildren arrayByAddingObject:prototypeClass]) {
             [iu updateCSS];
         }
@@ -116,9 +116,9 @@
     return nil;
 }
 
-- (void)setDelegate:(id<IUSourceDelegate>)delegate{
-    [super setDelegate:delegate];
-    _prototypeClass.delegate = delegate;
+- (void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
+    [super setCanvasVC:canvasVC];
+    [_prototypeClass setCanvasVC:canvasVC];
 }
 
 - (NSArray*)children{

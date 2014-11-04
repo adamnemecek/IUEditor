@@ -40,11 +40,11 @@
 - (id)copyWithZone:(NSZone *)zone{
     PGSubmitButton *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
     
     iu.label = [_label copy];
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

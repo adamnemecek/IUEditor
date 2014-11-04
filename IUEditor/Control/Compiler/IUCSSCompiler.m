@@ -526,7 +526,13 @@
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu storage:(BOOL)storage{
-    NSArray *editWidths = [_iu.css allViewports];
+    NSArray *editWidths;
+    if (storage) {
+        editWidths = [_iu.cssManager allViewPorts];
+    }
+    else {
+        editWidths = [_iu.css allViewports];;
+    }
 
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];
@@ -904,17 +910,15 @@
         IUCSSStorage *storage = [_iu.cssManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
         if (storage) {
             if (storage.x) {
-                /*
                 if ([storage.xUnit integerValue] == IUFrameUnitPercent){
                     [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPercent];
                 }
-                else if ([storage.xUnit integerValue] == IUFrameUnitPixel){
+                else if ([storage.xUnit integerValue] == IUFrameUnitPixel) {
                     [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPixel];
                 }
                 else {
-                    NSAssert(0, @"storage xUnit should have value");
+                    NSAssert (0, @"no x unit");
                 }
-                 */
             }
         }
     }
@@ -1603,12 +1607,12 @@
     
 }
 
-- (IUCSSCode*)cssCodeForIU_Storage:(IUBox *)iu{
+- (IUCSSCode*)cssCodeForIU_storage:(IUBox *)iu{
     IUCSSCode *code = [[IUCSSCode alloc] init];
     
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
     for (NSString *className in classPedigree) {
-        NSString *str = [NSString stringWithFormat:@"updateCSSCode_storage:as%@:storage:", className];
+        NSString *str = [NSString stringWithFormat:@"updateCSSCode:as%@:storage:", className];
         SEL selector = NSSelectorFromString(str);
         if ([self respondsToSelector:selector]) {
             IMP imp = [self methodForSelector:selector];

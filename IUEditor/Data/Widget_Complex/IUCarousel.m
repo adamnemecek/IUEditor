@@ -79,7 +79,7 @@
     IUCarousel *carousel = [super copyWithZone:zone];
     
     [[self undoManager] disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
 
     //auto
@@ -99,7 +99,7 @@
     carousel.deselectColor = [_deselectColor copy];
     carousel.pagerPosition = _pagerPosition;
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
 
     
@@ -166,8 +166,8 @@
         return;
     }
     
-    if(self.delegate){
-        [self.delegate disableUpdateCSS:self];
+    if(_canvasVC){
+        [_canvasVC disableUpdateCSS:self];
     }
     
     IUBox *selectedChild = [set anyObject];
@@ -182,8 +182,8 @@
         }
     }
     
-    if(self.delegate){
-        [self.delegate enableUpdateCSS:self];
+    if(_canvasVC){
+        [_canvasVC enableUpdateCSS:self];
     }
     
     [self updateHTML];

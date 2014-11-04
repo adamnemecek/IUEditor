@@ -13,7 +13,6 @@
 #import "NSCoder+JDExtension.h"
 
 #import "IUCompiler.h"
-#import "IUCSSCompiler.h"
 
 #import "IUSheet.h"
 #import "IUBox.h"
@@ -38,6 +37,7 @@
     
     __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
+    
 }
 
 
@@ -201,6 +201,8 @@
         _m_children = [NSMutableArray array];
         
         changedCSSWidths = [NSMutableSet set];
+        _cssManager = [[IUCSSStorageManager alloc] init];
+        _cssManager.box = self;
     }
     return self;
 }
@@ -347,7 +349,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     
     [[self undoManager] disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
     IUBox *box = [[[self class] allocWithZone: zone] init];
     if(box){
@@ -373,7 +375,7 @@
         
         box.event = newEvent;
         
-        box.delegate = self.delegate;
+        [box setCanvasVC:_canvasVC];
         [box setTempProject:self.project];
         
         for (IUBox *iu in children) {
@@ -393,7 +395,7 @@
         [[self undoManager] enableUndoRegistration];
     }
 
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     return box;
 }
 - (void)copyCSSFromIU:(IUBox *)box{
@@ -415,10 +417,10 @@
 
 #pragma mark - setXXX
 
--(void)setDelegate:(id<IUSourceDelegate>)delegate{
-    _delegate = delegate;
+-(void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
+    _canvasVC = canvasVC;
     for (IUBox *obj in _m_children) {
-        obj.delegate = delegate;
+        [obj setCanvasVC:canvasVC];
     }
 }
 
@@ -631,12 +633,12 @@
 
 
 - (void)updateHTML{
-    if (self.delegate && [self.delegate isUpdateHTMLEnabled]) {
+    if (_canvasVC && [_canvasVC isUpdateHTMLEnabled]) {
         
-        [self.delegate disableUpdateJS:self];
+        [_canvasVC disableUpdateJS:self];
         NSString *editorHTML = [self.project.compiler htmlCode:self target:IUTargetEditor].string;
         
-        [self.delegate IUHTMLIdentifier:self.htmlID HTML:editorHTML];
+        [_canvasVC IUHTMLIdentifier:self.htmlID HTML:editorHTML];
 
         if([self.sheet isKindOfClass:[IUClass class]]){
             for(IUBox *box in ((IUClass *)self.sheet).references){
@@ -648,7 +650,7 @@
             [box updateCSS];
         }
         
-        [self.delegate enableUpdateJS:self];
+        [_canvasVC enableUpdateJS:self];
         [self updateCSS];
         
     }
@@ -676,7 +678,7 @@
     if(_lineHeightAuto && self.shouldCompileFontInfo){
         if(_css.effectiveTagDictionary[IUCSSTagPixelHeight]){
             
-            NSInteger brCount = [self.delegate countOfLineWithIdentifier:self.htmlID];
+            NSInteger brCount = [_canvasVC countOfLineWithIdentifier:self.htmlID];
             CGFloat height = [_css.effectiveTagDictionary[IUCSSTagPixelHeight] floatValue];
             CGFloat fontSize = [_css.effectiveTagDictionary[IUCSSTagFontSize] floatValue];
             CGFloat lineheight;
@@ -711,14 +713,14 @@ e.g. 만약 css로 옮긴다면)
 ->iu property를 delegate쪽으로 빼야함.(이것도 struture error)
  */
 - (void)updateCSS{
-    if (self.delegate) {
+    if (_canvasVC) {
         
         [self updateCSSValuesBeforeUpdateEditor];
         
         IUCSSCode *cssCode = [self.project.compiler cssCodeForIU:self];
         NSDictionary *dictionaryWithIdentifier = [cssCode stringTagDictionaryWithIdentifier:(int)_css.editViewPort];
         for (NSString *identifier in dictionaryWithIdentifier) {
-            [self.delegate IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
+            [_canvasVC IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
         }
         
         
@@ -728,23 +730,23 @@ e.g. 만약 css로 옮긴다면)
         
         for(NSString *identifier in removedIdentifier){
             if([identifier containsString:@"hover"]){
-                [self.delegate removeCSSTextInDefaultSheetWithIdentifier:identifier];
+                [_canvasVC removeCSSTextInDefaultSheetWithIdentifier:identifier];
             }
         }
         
         
-        [self.delegate updateJS];
+        [_canvasVC updateJS];
         
     }
 }
 
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
-    if (self.delegate) {
+    if (_canvasVC) {
         IUCSSCode *cssCode = [self.project.compiler cssCodeForIU:self];
         NSDictionary *dictionaryWithIdentifier = [cssCode stringTagDictionaryWithIdentifier:(int)_css.editViewPort];
         
         for (NSString *identifier in identifiers) {
-            [self.delegate IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
+            [_canvasVC IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
         }
     }
 }
@@ -823,10 +825,8 @@ e.g. 만약 css로 옮긴다면)
     [_m_children insertObject:iu atIndex:index];
     
     //iu 의 delegate와 children
-    if (iu.delegate == nil) {
-        iu.delegate = self.delegate;
-    }
-    
+    [iu setCanvasVC:_canvasVC];
+
     iu.parent = self;
     if (self.isConnectedWithEditor) {
         [iu connectWithEditor];
@@ -852,8 +852,8 @@ e.g. 만약 css로 옮긴다면)
 
 -(BOOL)addIUReference:(IUBox *)iu error:(NSError**)error{
     [_m_children addObject:iu];
-    if (self.delegate) {
-        iu.delegate = self.delegate;
+    if (_canvasVC) {
+        [iu setCanvasVC:_canvasVC];
     }
     return YES;
 }
@@ -866,7 +866,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.delegate IURemoved:iu.htmlID];
+        [_canvasVC IURemoved:iu.htmlID];
         [_m_children removeObject:iu];
         
         if (self.isConnectedWithEditor) {
@@ -887,7 +887,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.delegate IURemoved:iu.htmlID];
+        [_canvasVC IURemoved:iu.htmlID];
         [_m_children removeObject:iu];
     }
     
@@ -1107,8 +1107,8 @@ e.g. 만약 css로 옮긴다면)
     else if(self.positionType == IUPositionTypeRelative || self.positionType == IUPositionTypeFloatRight ||
             self.positionType == IUPositionTypeFloatLeft){
         
-        NSRect currentFrame = [self.delegate absoluteIUFrame:self.htmlID];
-        NSRect parentframe = [self.delegate absoluteIUFrame:self.parent.htmlID];
+        NSRect currentFrame = [_canvasVC absoluteIUFrame:self.htmlID];
+        NSRect parentframe = [_canvasVC absoluteIUFrame:self.parent.htmlID];
         currentY = parentframe.origin.y - currentFrame.origin.y;
         
     }

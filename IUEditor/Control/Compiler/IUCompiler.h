@@ -11,6 +11,7 @@
 #import "IUCarousel.h"
 #import "JDCode.h"
 #import "IUResourceManager.h"
+#import "IUCSSCompiler.h"
 
 typedef enum _IUTarget{
     IUTargetEditor = 1,

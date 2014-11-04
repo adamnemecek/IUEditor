@@ -28,12 +28,12 @@
 - (id)copyWithZone:(NSZone *)zone{
     PGForm *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
     
     iu.target = [_target copy];
 
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

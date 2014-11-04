@@ -51,7 +51,7 @@
     IUCollection *iu = [super copyWithZone:zone];
     if(iu){
         [self.undoManager disableUndoRegistration];
-        [self.delegate disableUpdateAll:self];
+        [_canvasVC disableUpdateAll:self];
         
         iu.collectionVariable = [_collectionVariable copy];
         iu.responsiveSupport = _responsiveSupport;
@@ -59,7 +59,7 @@
         iu.defaultItemCount = _defaultItemCount;
         
         
-        [self.delegate enableUpdateAll:self];
+        [_canvasVC enableUpdateAll:self];
         [self.undoManager enableUndoRegistration];
     }
     return iu;
@@ -68,8 +68,8 @@
 
 - (void)updateHTML{
     [super updateHTML];
-    if(self.delegate){
-        [self.delegate callWebScriptMethod:@"remakeCollection" withArguments:nil];
+    if(_canvasVC){
+        [_canvasVC callWebScriptMethod:@"remakeCollection" withArguments:nil];
     }
 }
 

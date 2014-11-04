@@ -49,7 +49,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     PGPageLinkSet *iu = [super copyWithZone:zone];
     [[self undoManager] disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
 
     iu.pageCountVariable = [_pageCountVariable copy];
@@ -58,7 +58,7 @@
     iu.defaultButtonBGColor = [_defaultButtonBGColor copy];
     iu.buttonMargin = _buttonMargin;
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
 
     return iu;
@@ -125,14 +125,14 @@
 
 - (void)updateCSS{
     [super updateCSS];
-    if(self.delegate){
-        [self.delegate callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
+    if(_canvasVC){
+        [_canvasVC callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
     }
 }
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
     [super updateCSSWithIdentifiers:identifiers];
-    if(self.delegate){
-        [self.delegate callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
+    if(_canvasVC){
+        [_canvasVC callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
     }
 }
 - (NSArray *)cssIdentifierArray{

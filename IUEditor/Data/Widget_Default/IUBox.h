@@ -52,7 +52,7 @@ typedef enum{
 
 @interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUMQDataDelegate>{
     NSMutableArray *_m_children;
-    
+    __weak id <IUSourceDelegate> _canvasVC;
 }
 
 /* default box */
@@ -91,7 +91,7 @@ typedef enum{
 @property (copy) NSString *htmlID;
 - (void)confirmIdentifier;
 
-@property (nonatomic, weak) id<IUSourceDelegate> delegate;
+- (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC;
 @property (weak) IUBox    *parent;
 
 #if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION

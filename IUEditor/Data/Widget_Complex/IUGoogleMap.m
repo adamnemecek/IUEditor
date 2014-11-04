@@ -53,7 +53,7 @@
 
 -(id)copyWithZone:(NSZone *)zone{
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
     
     IUGoogleMap *map = [super copyWithZone:zone];
     
@@ -67,7 +67,7 @@
     map.markerTitle =[_markerTitle copy];
     
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return map;
 }
@@ -225,7 +225,7 @@
 - (NSString *)innerCurrentThemeStyle{
     
     if(_themeType != 0){
-        NSString *staticStyle = [self.delegate callWebScriptMethod:@"getGoogleMapStaticStyle" withArguments:@[@(_themeType-1)]];
+        NSString *staticStyle = [_canvasVC callWebScriptMethod:@"getGoogleMapStaticStyle" withArguments:@[@(_themeType-1)]];
         
         if(staticStyle){
             return [@"&" stringByAppendingString:staticStyle];

@@ -77,7 +77,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUTransition *iu = [super copyWithZone:zone];
     [[self undoManager] disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
 
     
 
@@ -91,7 +91,7 @@
         iu.secondItem = iu.children[1];
     }
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
 
     return iu;
@@ -117,8 +117,8 @@
         return;
     }
     
-    if(self.delegate){
-        [self.delegate disableUpdateCSS:self];
+    if(_canvasVC){
+        [_canvasVC disableUpdateCSS:self];
     }
     
     
@@ -130,8 +130,8 @@
         [self setCurrentEdit:1];
     }
     
-    if(self.delegate){
-        [self.delegate enableUpdateCSS:self];
+    if(_canvasVC){
+        [_canvasVC enableUpdateCSS:self];
     }
     
     [self updateHTML];

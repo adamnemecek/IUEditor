@@ -124,9 +124,9 @@
     }
     JDSectionInfoLog( IULogSource, @"resourcePath  : %@", self.documentBasePath);
     [[self gridView] clearAllLayer];
-    [_sheet setDelegate:nil];
+    [_sheet setCanvasVC:nil];
     _sheet = sheet;
-    [_sheet setDelegate:self];
+    [_sheet setCanvasVC:self];
     
     NSString *editorSrc = [sheet.editorSource copy];
     [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];

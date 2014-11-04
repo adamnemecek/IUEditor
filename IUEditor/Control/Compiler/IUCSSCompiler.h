@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "IUBox.h"
-#import "IUCompiler.h"
 
+@class IUCompiler;
+@class IUResourceManager;
 
 @interface IUCSSCode : NSObject
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
@@ -22,7 +23,7 @@
 @interface IUCSSCompiler : NSObject
 - (id)initWithResourceManager:(IUResourceManager*)resourceManager;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
-- (IUCSSCode*)cssCodeForIU_Storage:(IUBox*)iu;
+- (IUCSSCode*)cssCodeForIU_storage:(IUBox*)iu;
 @property IUCompiler *compiler;
 
 @end

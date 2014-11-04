@@ -57,7 +57,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUTweetButton *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
     
 
     iu.tweetText = [_tweetText copy];
@@ -65,7 +65,7 @@
     iu.countType = _countType;
     iu.sizeType = _sizeType;
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

@@ -183,7 +183,7 @@
     [[self undoManager] disableUndoRegistration];
 
     IUPage *page = [super copyWithZone:zone];
-    [self.delegate disableUpdateAll:self];
+    [_canvasVC disableUpdateAll:self];
     
     page.title = [_title copy];
     page.keywords = [_keywords copy];
@@ -192,7 +192,7 @@
     page.extraCode = [_extraCode copy];
     page.googleCode = [_googleCode copy];
     
-    [self.delegate enableUpdateAll:self];
+    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
     return page;
 }
@@ -243,12 +243,9 @@
     return _pageContent;
 }
 
-
-- (void)setDelegate:(id<IUSourceDelegate>)delegate{
-    [super setDelegate:delegate];
-    if(_pageContent){
-        _pageContent.delegate = delegate;
-    }
+- (void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
+    [super setCanvasVC:canvasVC];
+    [_pageContent setCanvasVC:canvasVC];
 }
 
 #pragma mark - property
