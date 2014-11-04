@@ -26,6 +26,14 @@
     
     self = [super init];
     if(self){
+        
+        /**
+         http://stackoverflow.com/questions/8511147/drawing-a-subview-on-top-of-a-google-map-displayed-in-a-webview-on-osx
+         
+         For performance reasons, Cocoa does not enforce clipping among sibling views or guarantee correct invalidation and drawing behavior when sibling views overlap. If you want a view to be drawn in front of another view, you should make the front view a subview (or descendant) of the rear view.
+         */
+        [self setWantsLayer:YES];
+        
         //connect delegate
         [self setUIDelegate:self];
         [self setResourceLoadDelegate:self];
