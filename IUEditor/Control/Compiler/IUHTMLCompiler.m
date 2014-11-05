@@ -529,6 +529,9 @@
         
     }
     else if(target == IUTargetEditor){
+        
+        [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
+
         NSString *thumbnailPath;
         if(movie.videoPath && movie.posterPath){
             thumbnailPath = [NSString stringWithString:movie.posterPath];
