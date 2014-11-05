@@ -11,29 +11,51 @@
 
 #import "IUDataStorage.h"
 
-@interface IUCSSStorage_Test : XCTestCase
+@interface IUCSSStorage_Test : XCTestCase  <IUDataStorageManagerDelegate>
 
 @end
 
 @implementation IUCSSStorage_Test {
     IUCSSStorageManager *storageManager;
+    BOOL updateCalled;
 }
 
 - (void)setUp {
     [super setUp];
     storageManager = [[IUCSSStorageManager alloc] init];
+    storageManager.box = self;
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
+
+- (void)beginTransaction:(id)storage{
+    
+}
+
+- (void)commitTransactoin:(id)storage{
+    
+}
+
+- (void)setNeedsToUpdateStorage:(IUDataStorage*)storage{
+    updateCalled = YES;
+}
+
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
-- (void)testX {
+- (void)test1_XUnit {
     storageManager.liveStorage.x = @(100);
     XCTAssertEqualObjects(storageManager.liveStorage.xUnit, @(IUFrameUnitPixel));
 }
+
+- (void)test2_delegate {
+    storageManager.liveStorage.x = @(100);
+    XCTAssertEqualObjects(storageManager.liveStorage.xUnit, @(IUFrameUnitPixel));
+}
+
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

@@ -7,6 +7,7 @@
 //
 
 #import "IUCompiler.h"
+#import "IUCSSCompiler.h"
 #import "IUProtocols.h"
 #import "IUCSSCompiler.h"
 #import "IUCSSWPCompiler.h"
@@ -598,6 +599,12 @@
 
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu{
+    return [cssCompiler cssCodeForIU:iu];
+}
+
+- (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport{
+    //TODO: optimize this function
+    //currently, csscompiler makes whole css code
     return [cssCompiler cssCodeForIU:iu];
 }
 

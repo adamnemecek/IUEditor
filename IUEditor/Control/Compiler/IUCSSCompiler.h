@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IUBox.h"
+#import "IUCompiler.h"
 
 @class IUCompiler;
 @class IUResourceManager;
@@ -15,8 +15,20 @@
 @interface IUCSSCode : NSObject
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport;
+- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport;
+
+
 - (NSArray*)allViewports;
 - (NSArray*)allIdentifiers;
+
+- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort;
+
+@end
+
+@interface IUCSSStorageCode : NSObject
+- (IUTarget)target;
+- (NSInteger)viewPort;
+- (NSArray *)allIdentifiers;
 @end
 
 

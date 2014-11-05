@@ -426,9 +426,6 @@
 
 
 
-- (void)loadFromURL:(NSURL *)url error:(NSError **)error{
-}
-
 - (NSArray*)keysOfCurrentDecodingObject{
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[workingDict allKeys]];
     [arr removeObject:@"memory__"];

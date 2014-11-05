@@ -23,11 +23,11 @@
 - (NSDictionary*)dictionary;
 @end
 
-@protocol IUDataStorageManagerDelegate <JDCoding>
+@protocol IUDataStorageManagerDelegate
 @required
 - (void)beginTransaction:(id)storage;
 - (void)commitTransactoin:(id)storage;
-- (void)setNeedsToUpdateData:(IUDataStorage*)storage;
+- (void)setNeedsToUpdateStorage:(IUDataStorage*)storage;
 @end
 
 
@@ -46,7 +46,7 @@
 
 @interface IUDataStorageManager : NSObject <JDCoding>
 
-@property (weak) id  <IUDataStorageManagerDelegate> box;
+@property (weak) id  <IUDataStorageManagerDelegate, JDCoding> box;
 @property NSUndoManager *undoManager;
 
 @property NSInteger currentViewPort;

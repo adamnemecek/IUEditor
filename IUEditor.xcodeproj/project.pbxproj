@@ -12,6 +12,8 @@
 		0991288D1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */; };
 		099128911A0763FA0041DEAC /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
 		099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
+		09E8E43B1A08BA1E0017419B /* IUSourceGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceGenerator.m */; };
+		09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43C1A08DE700017419B /* IUBox_Test.m */; };
 		2637F5BA19FE154F009A09AC /* vcenter_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B619FE154F009A09AC /* vcenter_off.png */; };
 		2637F5BB19FE154F009A09AC /* vcenter_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B719FE154F009A09AC /* vcenter_off@2x.png */; };
 		2637F5BC19FE154F009A09AC /* vcenter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B819FE154F009A09AC /* vcenter_on.png */; };
@@ -1084,6 +1086,9 @@
 		0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSToCSSStorageConversion_Test.m; sourceTree = "<group>"; };
 		099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSCompiler_Test.m; sourceTree = "<group>"; };
 		099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
+		09E8E4391A08BA1E0017419B /* IUSourceGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSourceGenerator.h; path = Control/IUSourceGenerator.h; sourceTree = "<group>"; };
+		09E8E43A1A08BA1E0017419B /* IUSourceGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSourceGenerator.m; path = Control/IUSourceGenerator.m; sourceTree = "<group>"; };
+		09E8E43C1A08DE700017419B /* IUBox_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUBox_Test.m; sourceTree = "<group>"; };
 		2637F5B619FE154F009A09AC /* vcenter_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vcenter_off.png; path = IUEditor/Resource/AppResource/image/ui/button/vcenter_off.png; sourceTree = "<group>"; };
 		2637F5B719FE154F009A09AC /* vcenter_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vcenter_off@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/button/vcenter_off@2x.png"; sourceTree = "<group>"; };
 		2637F5B819FE154F009A09AC /* vcenter_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vcenter_on.png; path = IUEditor/Resource/AppResource/image/ui/button/vcenter_on.png; sourceTree = "<group>"; };
@@ -2548,6 +2553,8 @@
 				3D2EF40619F780EA00BBBAE5 /* LMFontController.m */,
 				3D2EF40719F780EA00BBBAE5 /* LMGeneralObject.h */,
 				3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */,
+				09E8E4391A08BA1E0017419B /* IUSourceGenerator.h */,
+				09E8E43A1A08BA1E0017419B /* IUSourceGenerator.m */,
 			);
 			name = Control;
 			sourceTree = "<group>";
@@ -4342,6 +4349,7 @@
 				099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */,
 				0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */,
 				099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */,
+				09E8E43C1A08DE700017419B /* IUBox_Test.m */,
 				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
 			);
 			path = "IUEditor Tests";
@@ -5602,6 +5610,7 @@
 				3D2EF3B319F77C9E00BBBAE5 /* LMAppDelegate.m in Sources */,
 				3D2EF50E19F781FB00BBBAE5 /* WPArticleList.m in Sources */,
 				3D2EF40F19F780EA00BBBAE5 /* IUSheetController.m in Sources */,
+				09E8E43B1A08BA1E0017419B /* IUSourceGenerator.m in Sources */,
 				3D2EF58D19F782C700BBBAE5 /* LMStartRecentVC.m in Sources */,
 				3D2EFC7C19F788C600BBBAE5 /* JDKeyDelegatedTableView.m in Sources */,
 				3D2EF6D619F784A400BBBAE5 /* LMPropertyWPArticleVC.m in Sources */,
@@ -5651,6 +5660,7 @@
 				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
 				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
 				0991288D1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m in Sources */,
+				09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */,
 				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
 				0942FF121A07E17200436265 /* IUCSSStorage_Test.m in Sources */,
 			);

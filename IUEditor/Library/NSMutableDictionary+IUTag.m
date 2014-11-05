@@ -8,6 +8,7 @@
 
 #import "NSMutableDictionary+IUTag.h"
 #import "JDUIUtil.h"
+#import "NSString+JDExtension.h"
 
 @implementation NSMutableDictionary (IUTag)
 
@@ -91,7 +92,7 @@
     for (NSString *key in self) {
         [code appendFormat:@"%@:%@; ", key, self[key]];
     }
-    return code;
+    return [code stringByTrim];
 }
 
 -(NSString*)hoverCSSCode{

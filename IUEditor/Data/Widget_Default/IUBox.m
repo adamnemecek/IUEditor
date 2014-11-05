@@ -11,6 +11,7 @@
 #import "IUBox.h"
 #import "NSObject+JDExtension.h"
 #import "NSCoder+JDExtension.h"
+#import "IUCSSCompiler.h"
 
 #import "IUCompiler.h"
 

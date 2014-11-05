@@ -83,6 +83,7 @@
     return self;
 }
 
+
 - (void)setInsertingTarget:(IUTarget)target{
     _currentTarget = target;
 }
@@ -205,8 +206,13 @@
 }
 
 - (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber unit:(IUUnit)unit{
-    if(floatNumber){
-        [self insertTag:tag floatValue:[floatNumber floatValue] unit:unit];
+    if (floatNumber) {
+        if ([floatNumber intValue] == [floatNumber floatValue]) {
+            [self insertTag:tag integer:[floatNumber intValue] unit:unit];
+        }
+        else {
+            [self insertTag:tag floatValue:[floatNumber floatValue] unit:unit];
+        }
     }
 }
 
@@ -302,6 +308,26 @@
     return allViewports;
 }
 
+- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort{
+    if (target == IUTargetEditor) {
+        /* make live storage by inheritance */
+        NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
+        
+        for ( NSNumber *currentViewPort in allViewports ){
+            if ([currentViewPort intValue] < viewPort) {
+                break;
+            }
+            NSDictionary *sourceDict = _editorCSSDictWithViewPort[@(viewPort)];
+            [sourceDict enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary* obj, BOOL *stop) {
+                /* make source */
+                returnDict[key] = [obj CSSCode];
+            }];
+        }
+        return returnDict;
+    }
+    return nil;
+}
+
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport{
     NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
     NSDictionary *sourceDictWithViewPort = _editorCSSDictWithViewPort;
@@ -339,17 +365,22 @@
         
         if([identifier containsString:@"hover"]){
             NSString *cssCode = [[tagDictForReturn hoverCSSCode] stringByReplacingOccurrencesOfString:@".00px" withString:@"px"];
-            [returnDict setObject:cssCode forKey:identifier];
+            [returnDict setObject:[cssCode stringByTrim] forKey:identifier];
         }
         else{
             NSString *cssCode = [[tagDictForReturn CSSCode] stringByReplacingOccurrencesOfString:@".00px" withString:@"px"];
-            [returnDict setObject:cssCode forKey:identifier];
+            [returnDict setObject:[cssCode stringByTrim] forKey:identifier];
         }
     }
     
     
     
     return returnDict;
+}
+
+- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport{
+    NSAssert(0, @"not yet coded");
+    return nil;
 }
 
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport{
@@ -771,7 +802,9 @@
         [code insertTag:@"display" string:@"none"];
     }
     else{
-        [code insertTag:@"display" string:@"inherit"];
+        if (storage == NO) {
+            [code insertTag:@"display" string:@"inherit"];
+        }
     }
 
     value = [_iu.css effectiveValueForTag:IUCSSTagEditorDisplay forViewport:viewport];
@@ -896,10 +929,11 @@
             [code insertTag:@"background-repeat" string:@"repeat"];
         }
         else{
-            [code insertTag:@"background-repeat" string:@"no-repeat"];
+            if (storage == NO) {
+                [code insertTag:@"background-repeat" string:@"no-repeat"];
+            }
         }
     }
-    
 }
 
 
@@ -914,7 +948,7 @@
                     [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPercent];
                 }
                 else if ([storage.xUnit integerValue] == IUFrameUnitPixel) {
-                    [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPixel];
+                    [code insertTag:@"left" floatFromNumber:storage.x unit:IUUnitPixel];
                 }
                 else {
                     NSAssert (0, @"no x unit");

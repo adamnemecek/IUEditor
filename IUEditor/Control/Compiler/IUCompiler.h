@@ -11,7 +11,6 @@
 #import "IUCarousel.h"
 #import "JDCode.h"
 #import "IUResourceManager.h"
-#import "IUCSSCompiler.h"
 
 typedef enum _IUTarget{
     IUTargetEditor = 1,
@@ -54,6 +53,7 @@ typedef enum _IUCompileRule{
 //css code
 - (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
+- (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport;
 
 
 //meta source

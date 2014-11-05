@@ -50,7 +50,7 @@ typedef enum{
 @class IUSheet;
 @class IUProject;
 
-@interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUMQDataDelegate>{
+@interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUMQDataDelegate, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC;
 }

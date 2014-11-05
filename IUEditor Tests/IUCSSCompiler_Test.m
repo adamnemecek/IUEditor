@@ -16,12 +16,14 @@
 
 @implementation IUCSSCompiler_Test {
     IUCSSCompiler *compiler;
+    IUBox *box;
 }
 
 - (void)setUp {
     [super setUp];
     compiler = [[IUCSSCompiler alloc] init];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    box = [[IUBox alloc] init];
+    box.htmlID = @"BOX";
 }
 
 - (void)tearDown {
@@ -30,13 +32,18 @@
 }
 
 - (void)test1_XUnit {
-    IUBox *box = [[IUBox alloc] init];
-    box.htmlID = @"BOX";
-    box.cssManager.liveStorage.xUnit = @(IUFrameUnitPixel);
+    box.cssManager.liveStorage.x = @(30);
+    XCTAssertEqualObjects(box.cssManager.currentStorage.x, @(30));
     XCTAssertEqualObjects(box.cssManager.currentStorage.xUnit, @(IUFrameUnitPixel));
 }
 
-
+- (void)test2_frameCode {
+    box.cssManager.liveStorage.x = @(30);
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
+    XCTAssertEqualObjects(dict[@".BOX"], @"left:30px;" );
+}
 
 
 @end
