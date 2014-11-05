@@ -96,6 +96,10 @@
         [JDUIUtil hudAlert:@"It's wrong size, input the positive number" second:2];
         return ;
     }
+    if([_mqSelectPopUpButton indexOfItemWithRepresentedObject:@(newWidth)] >= 0){
+        [JDUIUtil hudAlert:@"Already Same Width, Here" second:2];
+        return ;
+    }
     
     [self addMQWidth:newWidth];
     
@@ -105,12 +109,6 @@
 
 
 - (void)addMQWidth:(NSInteger)newWidth{
-    NSNumber *widthNumber = [NSNumber numberWithInteger:newWidth];
-    if([_mqSelectPopUpButton indexOfItemWithRepresentedObject:widthNumber] >= 0){
-        [JDUIUtil hudAlert:@"Already Same Width, Here" second:2];
-        return ;
-    }
-    
     [_mqArrayController addObject:@(newWidth)];
     [self.addFramePopover close];
     
@@ -132,6 +130,10 @@
     
     if(currentIndex != 0){
         largerSize = [[_mqSelectPopUpButton itemAtIndex:currentIndex-1] representedObject];
+    }
+    else{
+        largerSize = [[_mqSelectPopUpButton itemAtIndex:0] representedObject];
+
     }
     
     if(isChangeMaxWidth){
