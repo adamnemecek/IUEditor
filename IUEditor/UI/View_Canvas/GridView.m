@@ -175,6 +175,7 @@
     return convertedPoint;
 }
 
+
 - (InnerPointLayer *)hitTestInnerPointLayer:(NSPoint)aPoint{
     CALayer *hitLayer = [pointManagerLayer hitTest:aPoint];
     if([hitLayer isKindOfClass:[InnerPointLayer class]]){
@@ -245,6 +246,18 @@
     }
 }
 
+- (CGRect)convertedRect:(NSRect)aRect{
+    CGFloat zoom = self.layer.affineTransform.a;
+    CGFloat tx = self.layer.affineTransform.tx *(1/zoom);
+    
+    CGRect convertedRect = NSMakeRect(aRect.origin.x + tx,
+                                      aRect.origin.y,
+                                      aRect.size.width,
+                                      aRect.size.height);
+    return convertedRect;
+}
+
+
 - (void)resetCursorRects{
     [self discardCursorRects];
     NSMutableArray *cursorArray = [NSMutableArray array];
@@ -254,7 +267,8 @@
     }
     
     for(CursorRect *aCursor in cursorArray){
-        [self addCursorRect:aCursor.frame cursor:aCursor.cursor];
+        CGRect convertedFrame = [self convertedRect:aCursor.frame];
+        [self addCursorRect:convertedFrame cursor:aCursor.cursor];
     }
     
 }
