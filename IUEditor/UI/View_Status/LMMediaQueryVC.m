@@ -38,6 +38,7 @@
     NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
     [_mqArrayController setSortDescriptors:@[sort]];
 }
+
 - (NSWindowController *)currentWC{
     return [[self.view window] windowController];
 }

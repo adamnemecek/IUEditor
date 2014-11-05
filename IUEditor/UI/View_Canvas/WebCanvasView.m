@@ -13,6 +13,7 @@
 #import "IUBox.h"
 #import "LMWC.h"
 #import "LMCanvasVC.h"
+#import "JDLogUtil.h"
 
 @implementation WebCanvasView{
     
@@ -20,6 +21,11 @@
     NSTimer *progressTimer;
     BOOL isStartVC;
     int startVCIndicator;
+    
+    //tracking resource
+    int resourceCount;
+    int resourceFailedCount;
+    int resourceCompletedCount;
 }
 
 - (id)init{
@@ -59,16 +65,60 @@
     return YES;
 }
 
+#pragma mark - status
+#if DEBUG
+- (void)updateResourceStatus{
+    
+    JDInfoLog(@"=========web resource status=============================");
+    JDInfoLog(@"resourceFailedCount : %d", resourceFailedCount);
+    JDInfoLog(@"resourceCompletedCount : %d", resourceCompletedCount);
+    JDInfoLog(@"resourceCount : %d", resourceCount );
+    JDInfoLog(@"=========================================================");
+}
+
+- (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource{
+    
+    resourceCount++;
+    //Update the status message
+    [self updateResourceStatus];
+
+    return dataSource;
+}
+
+
+- (void)webView:(WebView *)sender resource:(id)identifier didFailLoadingWithError:(NSError *)error fromDataSource:(WebDataSource *)dataSource
+{
+    resourceFailedCount++;
+    //Update the status message
+    [self updateResourceStatus];
+    
+    JDErrorLog(@"failed load resource : %@", identifier);
+}
+
+-(void)webView:(WebView *)sender resource:(id)identifier didFinishLoadingFromDataSource:(WebDataSource *)dataSource
+{
+    resourceCompletedCount++;
+    //Update the status message
+    [self updateResourceStatus];
+
+}
+#endif
 
 #pragma mark - load
 
 - (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame{
+    
+    //status
+    resourceFailedCount=0;
+    resourceCompletedCount=0;
+    resourceCount =0;
+    
+    //indicator
     isStartVC = NO;
     startVCIndicator = 0;
     progressTimer = [NSTimer timerWithTimeInterval:0.01667 target:self selector:@selector(setProgressIndicator) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:progressTimer forMode:NSDefaultRunLoopMode];
     
-
 }
 
 - (void)setProgressIndicator{
@@ -184,6 +234,12 @@
     else if(selector == @selector(resizePageContentHeightFinished:)){
         return @"resizePageContentHeightFinished";
     }
+    else if(selector == @selector(jsTimeStartWithName:)){
+        return @"timeStart";
+    }
+    else if(selector == @selector(jsTimeEndWithName:)){
+        return @"timeEnd";
+    }
     else{
         return nil;
     }
@@ -193,6 +249,8 @@
     if (selector == @selector(reportFrameDict:)
         || selector == @selector(doOutputToLog:)
         || selector == @selector(resizePageContentHeightFinished:)
+        || selector == @selector(jsTimeStartWithName:)
+        || selector == @selector(jsTimeEndWithName:)
         ){
         return NO;
     }
@@ -200,14 +258,22 @@
 }
 
 - (void)resizePageContentHeightFinished:(NSNumber *)scriptObj{
-//    JDInfoLog(@"document size change to : %f" , [scriptObj floatValue]);
+    JDInfoLog(@"document size change to : %f" , [scriptObj floatValue]);
     [self.controller changeIUPageHeight:[scriptObj floatValue]];
 }
 
 /* Here is our Objective-C implementation for the JavaScript console.log() method.
  */
 - (void)doOutputToLog:(NSString*)theMessage {
-    JDErrorLog(@"LOG: %@", theMessage);
+    JDTraceLog(@"LOG: %@", theMessage);
+}
+
+- (void)jsTimeStartWithName:(NSString *)name{
+    [JDLogUtil timeLogStart:name];
+}
+
+- (void)jsTimeEndWithName:(NSString *)name{
+    [JDLogUtil timeLogEnd:name];
 }
 
 

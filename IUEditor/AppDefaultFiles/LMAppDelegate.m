@@ -76,7 +76,7 @@
     
     
     [JDLogUtil showLogLevel:YES andFileName:YES andFunctionName:YES andLineNumber:YES];
-    [JDLogUtil setGlobalLevel:JDLog_Level_Error];
+    [JDLogUtil setGlobalLevel:JDLog_Level_Trace];
 #else
     if ([JDEnvUtil isFirstExecution:@"IUEditor"]) {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://server.iueditor.org/download.php"]];

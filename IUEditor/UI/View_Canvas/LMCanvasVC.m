@@ -96,14 +96,15 @@
 #if DEBUG
     _debugWC.canvasVC = nil;
 #endif
-
+    self.webView.controller = nil;
+    self.gridView.controller = nil;
+    self.canvasView.controller = nil;
 }
+
 
 -(void) dealloc{
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQSelected object:[[self.view window] windowController]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                             @"sheet.ghostX",
                                             @"sheet.ghostY",

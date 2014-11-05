@@ -144,6 +144,10 @@ function resizeSideBar(){
 
 
 function reframeCenterIU(iu){
+    
+    console.timeStart("reframeCenterIU");
+
+    
 	var ius = [];
 	if($(iu).attr('horizontalCenter')=='1'){
 		ius.push($(iu));
@@ -159,6 +163,8 @@ function reframeCenterIU(iu){
 	ius = $.merge(ius, $(iu).find('[verticalCenter="1"]').toArray());
 	
 	arrangeVCenter(ius);
+    
+    console.timeEnd("reframeCenterIU");
 }
 
 function arrangeHCenter(ius){
