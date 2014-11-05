@@ -53,7 +53,7 @@ typedef enum _IUCompileRule{
 //css code
 - (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
-- (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport;
+- (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport; //storage mode
 
 
 //meta source

@@ -6,11 +6,13 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import "IUSourceGenerator.h"
+#import "IUSourceManager.h"
+#import "IUCompiler.h"
+#import "IUBox.h"
 
-@implementation IUSourceGenerator
+@implementation IUSourceManager
 
-- (void)setCanvasVC:(id <IUSourceGeneratorDelegate>)canvasVC{
+- (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC{
     
 }
 
@@ -18,11 +20,11 @@
     return nil;
 }
 
-- (void)setNeedsDisplayHTML:(IUBox*)box{
+- (void)setNeedsUpdateHTML:(IUBox *)box{
     return;
 }
 
-- (void)setNeedsDisplayCSS:(IUBox*)box{
+- (void)setNeedsUpdateCSS:(IUBox*)box{
     
 }
 
@@ -30,6 +32,10 @@
     
 }
 - (void)commitTransaction:(id)sender{
+    
+}
+
+- (void)setCompiler:(IUCompiler *)compiler{
     
 }
 

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IUBox.h"
-#import "IUCompiler.h"
 #import <WebKit/WebKit.h>
 
 /**
@@ -20,24 +18,30 @@
  2) Manage view port
  
  */
+@class IUBox;
+@class IUCompiler;
 
-@protocol IUSourceGeneratorDelegate <NSObject> // = canvasVC
+@protocol IUSourceManagerDelegate <NSObject> // = canvasVC
 
 - (DOMHTMLStyleElement *)getElementbyId:(NSString*)idName;
 
 @end
 
-@interface IUSourceGenerator : NSObject
+@interface IUSourceManager : NSObject
 
+/* setting */
+- (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC;
+- (void)setCompiler:(IUCompiler *)compiler;
+
+/* managing view port */
 @property int viewPort;
-@property IUCompiler *compiler;
 
-- (void)setCanvasVC:(id <IUSourceGeneratorDelegate>)canvasVC;
+/* called by box */
+- (void)setNeedsUpdateHTML:(IUBox*)box;
+- (void)setNeedsUpdateCSS:(IUBox*)box;
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 
-- (void)setNeedsDisplayHTML:(IUBox*)box;
-- (void)setNeedsDisplayCSS:(IUBox*)box;
-
+/* working as transaction */
 - (void)beginTransaction:(id)sender;
 - (void)commitTransaction:(id)sender;
 
