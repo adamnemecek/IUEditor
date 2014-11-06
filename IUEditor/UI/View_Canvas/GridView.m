@@ -126,31 +126,35 @@
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"showGhost"];
 }
 
+
+#pragma mark - frame
+
 - (BOOL)isFlipped{
     return YES;
 }
 
 - (void)windowDidResize:(NSNotification *)notification{
     [shadowLayer updateMQLayer];
+    [self updateLayerOrigin];
 }
 
 - (void)setSelectedFrameWidth:(NSInteger)width{
     [shadowLayer setSelectedFrameWidth:width];
+    [self updateLayerOrigin];
+}
+
+- (void)updateLayerOrigin{
+    CGFloat zoom = self.layer.affineTransform.a;
+    [self setLayerOriginWithZoom:zoom];
 }
 
 
-#pragma mark - zoom
-- (void)setLayerZoom:(CGFloat)zoom{
-    
-    NSInteger left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
+- (void)setLayerOriginWithZoom:(CGFloat)zoom{
+    CGFloat mainViewFrameWidth =  MAX(self.superview.frame.size.width, self.controller.maxFrameWidth);
+    NSInteger left = (mainViewFrameWidth - self.controller.selectedFrameWidth)/2;
 
     self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
-/*    for(CALayer *layer in self.layer.sublayers){
-        layer.transform = CATransform3DMakeScale(zoom, zoom, 1);
-        [layer setNeedsLayout];
-        [layer setNeedsDisplay];
-    }
- */
+
 }
 
 

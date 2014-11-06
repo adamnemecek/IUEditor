@@ -68,8 +68,6 @@
     [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"zoom" options:NSKeyValueObservingOptionInitial context:nil];
     
 
-
-
 }
 
 -(void) dealloc{
@@ -81,20 +79,26 @@
     return YES;
 }
 
-- (void)updateMediaQuerySize{
+- (void)updateMainViewOrigin{
     [self setRulerOffsets];
     
-    //adjsut to constraint of webview,gridview;
+    //adjsut to constraint of webview;
     NSLayoutConstraint *webviewConstraint = [self.mainView constraintForIdentifier:@"leading_webview"];
-    //NSLayoutConstraint *gridviewConstraint = [self.mainView constraintForIdentifier:@"leading_gridview"];
     [self.mainView removeConstraints:@[webviewConstraint]];
     
-    NSInteger left = (self.controller.maxFrameWidth - self.controller.selectedFrameWidth)/2;
+    NSInteger left = (self.maxCurrentFrameWidth - self.controller.selectedFrameWidth)/2;
     NSLayoutConstraint *adjustWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView leading:left];
     adjustWebViewConstraint.identifier = @"leading_webview";
     [self.mainView addConstraints:@[adjustWebViewConstraint]];    
 }
 #pragma mark - ruler
+
+- (void)initailizeRulers{
+    NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
+    [horizRuler setClientView:self.gridView];
+    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
+    [vertRuler setClientView:self.gridView];
+}
 
 - (void)setRulerOffsets
 {
@@ -105,7 +109,7 @@
     [horizRuler setMeasurementUnits:@"Pixel"];
     [vertRuler setMeasurementUnits:@"Pixel"];
     
-    CGFloat left = (self.mainView.frame.size.width - self.controller.selectedFrameWidth)/2;
+    CGFloat left = (self.maxCurrentFrameWidth - self.controller.selectedFrameWidth)/2;
     if(left > 0){
         [horizRuler setOriginOffset:left];
     }
@@ -116,13 +120,9 @@
     
     return;
 }
-- (void)initailizeRulers{
-    NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
-    [horizRuler setClientView:self.gridView];
-    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
-    [vertRuler setClientView:self.gridView];
 
-
+- (CGFloat)maxCurrentFrameWidth{
+    return MAX(self.mainView.frame.size.width, self.controller.maxFrameWidth);
 }
 
 
@@ -175,14 +175,19 @@
     CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
     zoomFactor *= zoom;
     
+    NSSize zoomSize = NSMakeSize(zoom, zoom);
+    
 
-    [[[[self.webView mainFrame] frameView] documentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    [[[[self.webView mainFrame] frameView] documentView] scaleUnitSquareToSize:zoomSize];
     [[[[self.webView mainFrame] frameView] documentView] setNeedsDisplay:YES];
+//    [self.webView scaleUnitSquareToSize:zoomSize];
+//    [self.webView setNeedsDisplay:YES];
     
+    [self.gridView setLayerOriginWithZoom:zoomFactor];
     
-    [self.gridView setLayerZoom:zoomFactor];
-    
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:zoomSize];
+//    [self.mainView scaleUnitSquareToSize:zoomSize];
+
     [self.mainScrollView setNeedsDisplay:YES];
     
 }
@@ -209,7 +214,7 @@
             
         }
     }
-    [self setRulerOffsets];
+    [self updateMainViewOrigin];
     [self.gridView windowDidResize:notification];
     
 }

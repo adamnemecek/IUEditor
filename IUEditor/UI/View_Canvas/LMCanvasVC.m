@@ -220,7 +220,7 @@
     [self setMaxFrameWidth:maxSize];
     [self reloadSheet];
     
-    [[self canvasView] updateMediaQuerySize];
+    [[self canvasView] updateMainViewOrigin];
     [[self gridView] setSelectedFrameWidth:_selectedFrameWidth];
 
     
