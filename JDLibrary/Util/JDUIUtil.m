@@ -390,7 +390,7 @@ BOOL isSameColor(NSColor *color1, NSColor *color2){
     bottomConstraint.identifier = [NSString stringWithFormat:@"bottom_%@", identfier];
     
     NSLayoutConstraint *trailingConstraint = [self viewConstraint:subview toSuperview:self trailing:0];
-    topConstraint.identifier = [NSString stringWithFormat:@"trailing_%@", identfier];
+    trailingConstraint.identifier = [NSString stringWithFormat:@"trailing_%@", identfier];
     
     [self addConstraints:@[topConstraint, leadingConstraint, bottomConstraint, trailingConstraint]];
     

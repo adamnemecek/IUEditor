@@ -89,7 +89,9 @@
     NSInteger left = (self.maxCurrentFrameWidth - self.controller.selectedFrameWidth)/2;
     NSLayoutConstraint *adjustWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView leading:left];
     adjustWebViewConstraint.identifier = @"leading_webview";
-    [self.mainView addConstraints:@[adjustWebViewConstraint]];    
+    [self.mainView addConstraints:@[adjustWebViewConstraint]];
+    [self.mainView setNeedsLayout:YES];
+    [self.mainView setNeedsUpdateConstraints:YES];
 }
 #pragma mark - ruler
 
@@ -175,20 +177,20 @@
     CGFloat zoom = (percentZoom/100.0)*(1/zoomFactor);
     zoomFactor *= zoom;
     
-    NSSize zoomSize = NSMakeSize(zoom, zoom);
-    
-
-    [[[[self.webView mainFrame] frameView] documentView] scaleUnitSquareToSize:zoomSize];
+    //webview - scale
+    self.webView.layer.affineTransform = CGAffineTransformMake(zoomFactor,0,0,zoomFactor, 0, 0);
+    [self.webView.layer setNeedsDisplay];
     [[[[self.webView mainFrame] frameView] documentView] setNeedsDisplay:YES];
-//    [self.webView scaleUnitSquareToSize:zoomSize];
-//    [self.webView setNeedsDisplay:YES];
     
+    //gridview - scale
     [self.gridView setLayerOriginWithZoom:zoomFactor];
     
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:zoomSize];
-//    [self.mainView scaleUnitSquareToSize:zoomSize];
-
+    //ruler- scale
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
     [self.mainScrollView setNeedsDisplay:YES];
+    [self.mainScrollView setNeedsLayout:YES];
+
+    
     
 }
 - (void)loadDefaultZoom{
@@ -384,7 +386,8 @@
     NSPoint originalPoint = [theEvent locationInWindow];
     NSPoint filpConvertedPoint = [self.mainView convertPoint:originalPoint fromView:nil];
     CGFloat zoom = self.gridView.layer.affineTransform.a;
-    NSPoint centerConvertedPoint = NSMakePoint((filpConvertedPoint.x - [self.gridView.layer affineTransform].tx)*zoom, (filpConvertedPoint.y)*zoom);
+    CGFloat left = self.gridView.layer.affineTransform.tx*1/zoom;
+    NSPoint centerConvertedPoint = NSMakePoint(filpConvertedPoint.x - left, filpConvertedPoint.y);
 
     NSPoint convertedScrollPoint = [self.mainScrollView convertPoint:originalPoint fromView:nil];
     NSView *hitView = [self.gridView hitTest:filpConvertedPoint];

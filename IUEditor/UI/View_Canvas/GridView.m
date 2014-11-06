@@ -154,6 +154,8 @@
     NSInteger left = (mainViewFrameWidth - self.controller.selectedFrameWidth)/2;
 
     self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
+    
+    [self setNeedsDisplay:YES];
 
 }
 
