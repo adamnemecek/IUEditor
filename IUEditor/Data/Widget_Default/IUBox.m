@@ -225,7 +225,7 @@
         
         _event = [[IUEvent alloc] init];
         _m_children = [NSMutableArray array];
-        _lineHeightAuto = YES;
+        _lineHeightAuto = NO;
         
         _overflowType = IUOverflowTypeHidden;
         
