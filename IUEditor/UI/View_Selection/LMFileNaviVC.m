@@ -391,6 +391,13 @@
         [_project.identifierManager registerIUs:@[sheet]];
         sheet.name = modifiedName;
         
+        /* class의 경우 pagecontent부분이 없기 때문에 htmlid를 바꾸고 나면 class 
+          하나 밖에 없는 경우에 iu selection이 안됨.
+         */
+        if([sheet isKindOfClass:[IUClass class]]){
+            [((LMWC *)[[[self view] window] windowController]) reloadCurrentDocument:self];
+        }
+        
         return YES;
     }
     return NO;
