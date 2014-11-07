@@ -221,25 +221,15 @@
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" numberOfTickMarks="3" sliderType="linear" id="9Ca-8J-vnI"/>
                             </slider>
                             <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ww9-Nz-8Kd">
-                                <rect key="frame" x="606" y="0.0" width="99" height="26"/>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="zQb-M0-wM7">
-                                    <font key="font" metaFont="system"/>
+                                <rect key="frame" x="606" y="0.0" width="99" height="22"/>
+                                <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="zQb-M0-wM7">
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <objectValues>
-                                        <string>200</string>
-                                        <string>180</string>
-                                        <string>150</string>
-                                        <string>120</string>
-                                        <string>100</string>
-                                        <string>80</string>
-                                        <string>60</string>
-                                        <string>40</string>
-                                    </objectValues>
                                 </comboBoxCell>
                                 <connections>
                                     <action selector="clickZoom:" target="-1" id="hhr-OH-ahT"/>
-                                    <outlet property="formatter" destination="fzo-Ty-xKC" id="O19-M4-Hy4"/>
+                                    <outlet property="formatter" destination="fzo-Ty-xKC" id="o9N-NM-VG0"/>
                                 </connections>
                             </comboBox>
                         </subviews>

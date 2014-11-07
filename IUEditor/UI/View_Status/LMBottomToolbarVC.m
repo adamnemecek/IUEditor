@@ -84,6 +84,7 @@
     [_rightInspectorBtn setState:showRightInspector];
     
 #pragma mark zoom
+    [_zoomComboBox addItemsWithObjectValues:@[@(200), @(180), @(150), @(120), @(100), @(80), @(60), @(40)]];
     [_zoomComboBox bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"zoom" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     
 }

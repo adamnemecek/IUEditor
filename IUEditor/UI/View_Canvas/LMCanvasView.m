@@ -170,7 +170,7 @@
 - (void)zoomDidChange:(NSDictionary *)change{
     
     CGFloat percentZoom = [[[NSUserDefaults standardUserDefaults] valueForKey:@"zoom"] floatValue];
-    if(percentZoom <= ZOOMOUTMIN*100 || percentZoom >= ZOOMINMAX*100){
+    if(percentZoom <= ZOOMOUTMIN*100 || percentZoom > ZOOMINMAX*100){
         return;
     }
 
