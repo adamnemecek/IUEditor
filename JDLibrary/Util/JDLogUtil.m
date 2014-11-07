@@ -240,15 +240,22 @@ static NSCountedSet *enableLogSection;
 + (void)timeLogStart:(NSString *)name {
     uint64_t begin = mach_absolute_time();
     self.watches[name] = @(begin);
-    JDInfoLog(@"timeLog Start %@", name);
+    JDTraceLog(@"timeLog Start %@", name);
 
 }
 
 + (void)timeLogEnd:(NSString *)name {
     uint64_t end = mach_absolute_time();
     uint64_t begin = [self.watches[name] unsignedLongLongValue];
-    JDFatalLog(@"Time taken for %@ %g s",
-              name, [self secondsFromMachTime:(end - begin)]);
+    double elapse = [self secondsFromMachTime:(end - begin)];
+    if(elapse > 0.03){
+        JDFatalLog(@"Time taken for %@ %g s",
+              name, elapse);
+    }
+    else{
+        JDErrorLog(@"Time taken for %@ %g s",
+               name, elapse);
+    }
     [self.watches removeObjectForKey:name];
 }
 

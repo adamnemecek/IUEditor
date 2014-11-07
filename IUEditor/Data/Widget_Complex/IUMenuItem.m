@@ -113,17 +113,27 @@
     if(self.children.count > 0 && self.css.editViewPort > IUMobileSize){
         NSMutableSet *set = [NSMutableSet setWithArray:[self.allChildren arrayByAddingObject:self]];
         [set intersectSet:[NSSet setWithArray:[noti userInfo][@"selectedObjects"]]];
+        BOOL isChanged = NO;
         
         if ([set count] >= 1) {
+            if(_isOpened == NO){
+                isChanged = YES;
+            }
             _isOpened = YES;
+            
         }
         else{
+            if(_isOpened == YES){
+                isChanged = YES;
+            }
             _isOpened = NO;
         }
         
-        [self updateCSSWithIdentifiers:@[[self editorDisplayIdentifier]]];
-        for(IUMenuItem *child in self.children){
-            [child updateCSS];
+        if(isChanged){
+            [self updateCSSWithIdentifiers:@[[self editorDisplayIdentifier]]];
+            for(IUMenuItem *child in self.children){
+                [child updateCSS];
+            }
         }
 
     }

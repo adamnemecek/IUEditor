@@ -117,6 +117,10 @@ function getDictionaryKeys(dictionary){
 }
 
 function resizePageContentHeightEditor(windowHeight){
+    
+    console.timeStart("resizePage.js");
+
+    
 	//make page content height
 	if($('.IUPageContent').length == 0)
 	{
@@ -175,6 +179,9 @@ function resizePageContentHeightEditor(windowHeight){
 		console.log('failed!!!!!');
 		//background 가 없으면 page content 도 없는데...
 	}
+    
+    console.timeEnd("resizePage.js");
+
 }
 
 

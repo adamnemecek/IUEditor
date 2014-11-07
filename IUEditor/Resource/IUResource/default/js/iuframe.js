@@ -168,6 +168,9 @@ function reframeCenterIU(iu){
 }
 
 function arrangeHCenter(ius){
+    
+    console.timeStart("arrangeHCenter");
+
     //if flow layout, margin auto
     //if absolute layout, set left
 
@@ -195,9 +198,16 @@ function arrangeHCenter(ius){
             $(this).css('left', (windowWidth-myW)/2 + 'px');	
 		}
     });
+    
+    console.timeEnd("arrangeHCenter");
+
 }
 
 function arrangeVCenter(ius){
+    
+    console.timeStart("arrangeVCenter");
+
+    
 	$.each(ius, function(){
         $(this).css('margin-top', 'auto');
         $(this).css('margin-bottom', 'auto');
@@ -222,11 +232,19 @@ function arrangeVCenter(ius){
             $(this).css('top', (windowHeight-myH)/2 + 'px');	
 		}
     });
+    
+    console.timeEnd("arrangeVCenter");
+
 }
 
 function reframeCenter(){
+    console.timeStart("reframeCenter");
+
 	arrangeHCenter($('[horizontalCenter="1"]').toArray());
 	arrangeVCenter($('[verticalCenter="1"]').toArray());
+    
+    console.timeEnd("reframeCenter");
+
 }
 
 function resizePageLinkSet(){

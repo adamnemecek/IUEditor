@@ -69,11 +69,16 @@
 #if DEBUG
 - (void)updateResourceStatus{
     
-    JDInfoLog(@"=========web resource status=============================");
-    JDInfoLog(@"resourceFailedCount : %d", resourceFailedCount);
-    JDInfoLog(@"resourceCompletedCount : %d", resourceCompletedCount);
-    JDInfoLog(@"resourceCount : %d", resourceCount );
-    JDInfoLog(@"=========================================================");
+    JDTraceLog(@"=========web resource status=============================");
+    if(resourceFailedCount > 0){
+        JDFatalLog(@"resourceFailedCount : %d", resourceFailedCount);
+    }
+    else{
+        JDTraceLog(@"resourceFailedCount : %d", resourceFailedCount);
+    }
+    JDTraceLog(@"resourceCompletedCount : %d", resourceCompletedCount);
+    JDTraceLog(@"resourceCount : %d", resourceCount );
+    JDTraceLog(@"=========================================================");
 }
 
 - (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource{
@@ -258,8 +263,11 @@
 }
 
 - (void)resizePageContentHeightFinished:(NSNumber *)scriptObj{
+    [JDLogUtil timeLogStart:@"resizePageContent"];
     JDInfoLog(@"document size change to : %f" , [scriptObj floatValue]);
     [self.controller changeIUPageHeight:[scriptObj floatValue]];
+    [JDLogUtil timeLogEnd:@"resizePageContent"];
+
 }
 
 /* Here is our Objective-C implementation for the JavaScript console.log() method.
@@ -329,6 +337,9 @@
 
 
 - (void)reportFrameDict:(WebScriptObject *)scriptObj{
+    
+    [JDLogUtil timeLogStart:@"reportFrameDict"];
+    
     NSMutableDictionary *scriptDict = [self convertWebScriptObjectToNSDictionary:scriptObj];
     NSMutableDictionary *iuFrameDict = [NSMutableDictionary dictionary];
     NSMutableDictionary *gridFrameDict = [NSMutableDictionary dictionary];
@@ -352,6 +363,8 @@
     
     
     [self.controller updateGridFrameDictionary:gridFrameDict];
+    
+    [JDLogUtil timeLogEnd:@"reportFrameDict"];
     JDTraceLog( @"reportSharedFrameDict");
 }
 

@@ -472,6 +472,8 @@
 //drag & drop after select IU
 - (void)moveIUToTotalDiffPoint:(NSPoint)totalPoint{
     
+    [JDLogUtil timeLogStart:@"moveIU"];
+    
     for(IUBox *obj in self.controller.selectedObjects){
         
         IUBox *moveObj= obj;
@@ -487,8 +489,13 @@
         else {
             currentIdentifier = moveObj.htmlID;
         }
+        [JDLogUtil timeLogStart:@"getpercent"];
+
+        
         NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
         id currentValue = [self.webView evaluateWebScript:frameJS];
+
+        [JDLogUtil timeLogEnd:@"getpercent"];
 
         
         NSPoint origianlLocation = [moveObj originalPoint];
@@ -509,9 +516,13 @@
         [moveObj updateCSS];
         
     }
+    [JDLogUtil timeLogEnd:@"moveIU"];
 }
 
 - (void)extendIUToTotalDiffSize:(NSSize)totalSize{
+    
+    [JDLogUtil timeLogStart:@"extendIU"];
+    
     //drag pointlayer
     for(IUBox *obj in self.controller.selectedObjects){
         IUBox *moveObj= obj;
@@ -551,6 +562,8 @@
         
     }
     
+    [JDLogUtil timeLogEnd:@"extendIU"];
+
 }
 
 
@@ -764,6 +777,8 @@
 
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict{
     
+    [JDLogUtil timeLogStart:@"updateGridFrame"];
+
     [[self gridView] updateLayerRect:gridFrameDict];
     
     NSArray *keys = [gridFrameDict allKeys];
@@ -784,6 +799,9 @@
             [[self gridView] drawGuideLine:[frameDict lineToDrawSamePositionWithIU:iu.htmlID]];
         }
     }
+    
+    [JDLogUtil timeLogEnd:@"updateGridFrame"];
+
     
 }
 
