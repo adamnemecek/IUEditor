@@ -158,8 +158,10 @@
 
 #pragma mark - bottom tool
 
-
 - (IBAction)clickBorderBtn:(id)sender {
+    if([sender isKindOfClass:[NSMenuItem class]]){
+        [_borderBtn setState:![_borderBtn state]];
+    }
     BOOL showBorder = [[NSUserDefaults standardUserDefaults] boolForKey:@"showBorder"];
     [[NSUserDefaults standardUserDefaults] setBool:!showBorder forKey:@"showBorder"];
 }

@@ -17,4 +17,6 @@
 
 - (void)setConsoleViewEnable:(BOOL)enable;
 
+- (IBAction)clickBorderBtn:(id)sender;
+
 @end

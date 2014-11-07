@@ -630,7 +630,9 @@
 - (IBAction)zoomOut:(id)sender
 {
     [canvasVC zoomOut];
-    return;
 }
 
+- (IBAction)showOutline:(id)sender{
+    [bottomToolbarVC clickBorderBtn:sender];
+}
 @end

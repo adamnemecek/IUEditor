@@ -140,23 +140,7 @@
                                     <action selector="delete:" target="-1" id="235"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="5Jq-BO-7mS"/>
-                            <menuItem title="Zoom Out" keyEquivalent="-" id="4cv-no-YXy" userLabel="Zoom Out">
-                                <connections>
-                                    <action selector="zoomOut:" target="-1" id="AlB-MN-OCH"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Zoom In" keyEquivalent="=" id="65J-21-FHv" userLabel="Zoom In">
-                                <connections>
-                                    <action selector="zoomIn:" target="-1" id="xJc-os-crd"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="aRO-qn-Jcx"/>
-                            <menuItem title="Refresh Current Page" keyEquivalent="r" id="bEg-9Z-Ra9">
-                                <connections>
-                                    <action selector="reloadCurrentDocument:" target="-1" id="WXB-uV-xVQ"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="48k-QC-sCY"/>
                             <menuItem title="Undo" keyEquivalent="z" id="q1e-Pm-yyb">
                                 <connections>
@@ -204,6 +188,42 @@
                                 <connections>
                                     <action selector="convertProject:" target="-1" id="Dn8-O1-sDT"/>
                                 </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="View" id="PZp-ze-aGQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="View" id="UmD-G6-qpL">
+                        <items>
+                            <menuItem title="Zoom Out" keyEquivalent="-" id="4cv-no-YXy" userLabel="Zoom Out">
+                                <connections>
+                                    <action selector="zoomOut:" target="-1" id="AlB-MN-OCH"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom In" keyEquivalent="=" id="65J-21-FHv" userLabel="Zoom In">
+                                <connections>
+                                    <action selector="zoomIn:" target="-1" id="xJc-os-crd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="5Jq-BO-7mS"/>
+                            <menuItem title="Refresh Current Page" keyEquivalent="r" id="bEg-9Z-Ra9">
+                                <connections>
+                                    <action selector="reloadCurrentDocument:" target="-1" id="WXB-uV-xVQ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="zhz-yL-HeD"/>
+                            <menuItem title="Show" id="E1u-KU-Xfa">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Show" id="9le-f6-lNc">
+                                    <items>
+                                        <menuItem title="Outline" keyEquivalent="B" id="hxg-hi-Yhw">
+                                            <connections>
+                                                <action selector="showOutline:" target="-1" id="p9N-KB-AgN"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                         </items>
                     </menu>
