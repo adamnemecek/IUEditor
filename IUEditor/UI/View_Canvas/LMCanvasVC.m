@@ -186,7 +186,15 @@
     //not page class
     //page will be set reported values from javscript
     if([_sheet isKindOfClass:[IUClass class]]){
-        [(LMCanvasView*)self.view extendMainViewToFullSize];
+        NSNumber *classHeight = [_sheet.css effectiveTagDictionary][IUCSSTagPixelHeight];
+        
+        if(classHeight){
+            [[self canvasView] setHeightOfMainView:[classHeight floatValue]];
+        }
+        else{
+            [self.canvasView extendMainViewToFullSize];
+        }
+        
     }
 }
 
