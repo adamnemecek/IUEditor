@@ -158,12 +158,7 @@
     
     
     //target별 attribute
-    if(target == IUTargetEditor){
-        if(iu.canAddIUByUserInput){
-            [attributeDict setObject:[NSNull null] forKey:@"hasChildren"];
-        }
-    }
-    else if (target == IUTargetOutput){
+    if (target == IUTargetOutput){
         if (iu.opacityMove) {
             [attributeDict setObject:@(iu.opacityMove) forKey:@"opacityMove"];
         }

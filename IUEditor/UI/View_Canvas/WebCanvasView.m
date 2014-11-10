@@ -179,9 +179,19 @@
         LMWC *lmWC = [NSApp mainWindow].windowController;
         IUBox *newIU = lmWC.pastedNewIU;
         if(newIU){
-            NSString *parentIdentifier = [self parentIdentifierOfNewIUAtPoint:convertedPoint];
+            NSString *parentIdentifier = [self IdentifierAtPoint:convertedPoint];
             if(parentIdentifier){//check nil identifier (not html rect)
                 IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIdentifier];
+                while(1){
+                    if (parentIU == nil) {
+                        [JDUIUtil hudAlert:@"No parent" second:2];
+                        return NO;
+                    }
+                    if ([parentIU canAddIUByUserInput]) {
+                        break;
+                    }
+                    parentIU = parentIU.parent;
+                }
                 if(parentIU){
                     NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
                     if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
@@ -192,6 +202,7 @@
                 }
                 else {
                     [JDUIUtil hudAlert:@"No parent" second:2];
+                    return NO;
                 }
             }
         }
@@ -455,43 +466,6 @@
     
     return nil;
 }
-
-- (NSString *)parentIdentifierOfNewIUAtPoint:(NSPoint)point{
-    DOMElement *domNode =[self DOMElementAtPoint:point];
-    if(domNode){
-        DOMHTMLElement *htmlElement =[self parentIUNodeAtCurrentNode:domNode];
-        return htmlElement.idName;
-    }
-    
-    return nil;
-}
-
-- (DOMHTMLElement *)parentIUNodeAtCurrentNode:(DOMNode *)node{
-    NSString *iuClass = ((DOMElement *)node).className;
-    if([iuClass containsString:@"IUBox"]){
-        if([((DOMHTMLElement *)node) hasAttribute:@"hasChildren"]){
-            return (DOMHTMLElement *)node;
-        }
-        return [self parentIUNodeAtCurrentNode:node.parentNode];
-    }
-    else if ([node isKindOfClass:[DOMHTMLIFrameElement class]]){
-        JDTraceLog(@"");
-        return nil;
-    }
-    else if (node.parentNode == nil ){
-        //can't find div node
-        //- it can't be in IU model
-        //- IU model : text always have to be in Div class
-        //reach to html
-        JDTraceLog(@"can't find IU node, reach to HTMLElement");
-        return nil;
-    }
-    else {
-        return [self parentIUNodeAtCurrentNode:node.parentNode];
-    }
-}
-
-
 
 - (DOMHTMLElement *)IUNodeAtCurrentNode:(DOMNode *)node{
     NSString *iuClass = ((DOMElement *)node).className;

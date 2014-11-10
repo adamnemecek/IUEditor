@@ -787,6 +787,12 @@ e.g. 만약 css로 옮긴다면)
 #pragma mark should
 
 -(BOOL)canAddIUByUserInput{
+    if(self.pgContentVariable && self.pgContentVariable.length > 0){
+        return NO;
+    }
+    if( [self.mqData dictionaryForTag:IUMQDataTagInnerHTML].count > 0){
+        return NO;
+    }
     return YES;
 }
 
