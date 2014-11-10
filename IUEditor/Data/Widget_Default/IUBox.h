@@ -197,7 +197,6 @@ typedef enum{
 - (void)startFrameMoveWithUndoManager;
 - (void)endFrameMoveWithUndoManager;
 
-
 //Position
 @property (nonatomic) IUPositionType positionType;
 @property (nonatomic) BOOL enableHCenter, enableVCenter;

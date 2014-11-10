@@ -17,6 +17,10 @@
 - (void)updateCSS;
 - (NSUndoManager *)undoManager;
 - (IUProject *)project;
+- (BOOL)isEnabledFrameUndo;
+- (void)startFrameMoveWithUndoManager;
+- (void)endFrameMoveWithUndoManager;
+
 @end
 
 

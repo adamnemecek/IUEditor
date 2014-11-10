@@ -141,9 +141,19 @@
     id currentValue = [cssDict objectForKey:tag];
     if(currentValue == nil ||  [currentValue isNotEqualTo:value]){
         
+        
+        /* tag undoing */
         if([self isUndoTag:tag]){
             [[[self.delegate undoManager] prepareWithInvocationTarget:self] setValue:currentValue forTag:tag forViewport:width];
         }
+        /* start of frame tag undo */
+        BOOL isFrameUndo = NO;
+        if([tag isFrameTag] && [self.delegate isEnabledFrameUndo] == NO){
+            [self.delegate startFrameMoveWithUndoManager];
+            isFrameUndo = YES;
+        }
+        
+        /* set value for tag */
         
         if (cssDict == nil) {
             cssDict = [NSMutableDictionary dictionary];
@@ -164,6 +174,10 @@
             }
         }
         
+        /* end of frame tag undo*/
+        if(isFrameUndo){
+            [self.delegate endFrameMoveWithUndoManager];
+        }
     }
 }
 

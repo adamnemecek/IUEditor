@@ -96,29 +96,33 @@
                                             dictionaryWithObjects:@[[NSNumber numberWithBool:NO], NSNegateBooleanTransformerName]
                                             forKeys:@[NSRaisesForNotApplicableKeysBindingOption, NSValueTransformerNameBindingOption]];
    
-    
+    /**
+     readme : 
+     textfield에서는 NSContinuouslyUpdatesValueBindingOption을 사용하지 않는다.
+     undo에서 400을 입력할경우 4, 40, 400이 모두 동작하게 됨.
+     */
     //x value
-    [self outlet:_xTF bind:NSValueBinding cssTag:IUCSSTagPixelX];
+    [self outlet:_xTF bind:NSValueBinding cssTag:IUCSSTagPixelX options:IUBindingDictNotRaisesApplicable];
     [self outlet:_xStepper bind:NSValueBinding cssTag:IUCSSTagPixelX];
-    [self outlet:_pxTF bind:NSValueBinding cssTag:IUCSSTagPercentX];
+    [self outlet:_pxTF bind:NSValueBinding cssTag:IUCSSTagPercentX options:IUBindingDictNotRaisesApplicable];
     [self outlet:_pxStepper bind:NSValueBinding cssTag:IUCSSTagPercentX];
     
     //y value
-    [self outlet:_yTF bind:NSValueBinding cssTag:IUCSSTagPixelY];
+    [self outlet:_yTF bind:NSValueBinding cssTag:IUCSSTagPixelY options:IUBindingDictNotRaisesApplicable];
     [self outlet:_yStepper bind:NSValueBinding cssTag:IUCSSTagPixelY];
-    [self outlet:_pyTF bind:NSValueBinding cssTag:IUCSSTagPercentY];
+    [self outlet:_pyTF bind:NSValueBinding cssTag:IUCSSTagPercentY options:IUBindingDictNotRaisesApplicable];
     [self outlet:_pyStepper bind:NSValueBinding cssTag:IUCSSTagPercentY];
 
     //width value
-    [self outlet:_wTF bind:NSValueBinding cssTag:IUCSSTagPixelWidth];
+    [self outlet:_wTF bind:NSValueBinding cssTag:IUCSSTagPixelWidth options:IUBindingDictNotRaisesApplicable];
     [self outlet:_wStepper bind:NSValueBinding cssTag:IUCSSTagPixelWidth];
-    [self outlet:_pwTF bind:NSValueBinding cssTag:IUCSSTagPercentWidth];
+    [self outlet:_pwTF bind:NSValueBinding cssTag:IUCSSTagPercentWidth options:IUBindingDictNotRaisesApplicable];
     [self outlet:_pwStepper bind:NSValueBinding cssTag:IUCSSTagPercentWidth];
     
     //height value
-    [self outlet:_hTF bind:NSValueBinding cssTag:IUCSSTagPixelHeight];
+    [self outlet:_hTF bind:NSValueBinding cssTag:IUCSSTagPixelHeight options:IUBindingDictNotRaisesApplicable];
     [self outlet:_hStepper bind:NSValueBinding cssTag:IUCSSTagPixelHeight];
-    [self outlet:_phTF bind:NSValueBinding cssTag:IUCSSTagPercentHeight];
+    [self outlet:_phTF bind:NSValueBinding cssTag:IUCSSTagPercentHeight options:IUBindingDictNotRaisesApplicable];
     [self outlet:_phStepper bind:NSValueBinding cssTag:IUCSSTagPercentHeight];
     
     //min value

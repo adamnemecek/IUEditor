@@ -526,16 +526,18 @@
     
     if(isMouseDownForMoveIU){
         isMouseDownForMoveIU = NO;
+        [self.controller endFrameMoveWithUndoManager:self];
     }
     if(isMouseDragForIU){
         isMouseDragForIU = NO;
-        [self.controller endFrameMoveWithUndoManager:self];
     }
     if(isDragForMultipleSelection){
         isDragForMultipleSelection = NO;
         [NSCursor pop];
         [self.gridView resetSelectionLayer];
     }
+    
+
 
 }
 

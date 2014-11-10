@@ -38,6 +38,7 @@
     
     __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
+    BOOL _isEnabledFrameUndo;
     
 }
 
@@ -204,6 +205,7 @@
         changedCSSWidths = [NSMutableSet set];
         _cssManager = [[IUCSSStorageManager alloc] init];
         _cssManager.box = self;
+        
     }
     return self;
 }
@@ -295,7 +297,9 @@
         [box connectWithEditor];
     }
     
+    _isEnabledFrameUndo = NO;
     [[self undoManager] enableUndoRegistration];
+    
     _cssManager = [[IUCSSStorageManager alloc] init];
 
     
@@ -1147,6 +1151,8 @@ e.g. 만약 css로 옮긴다면)
 }
 - (void)startFrameMoveWithUndoManager{
     
+    _isEnabledFrameUndo = YES;
+    
     undoFrameDict = [NSMutableDictionary dictionary];
     
     if(_css.effectiveTagDictionary[IUCSSTagPixelX]){
@@ -1184,12 +1190,20 @@ e.g. 만약 css로 옮긴다면)
 }
 
 - (void)endFrameMoveWithUndoManager{
+    _isEnabledFrameUndo = NO;
+    
     [[self undoManager] beginUndoGrouping];
     [[self.undoManager prepareWithInvocationTarget:self] undoFrameWithDictionary:undoFrameDict];
     [[self undoManager] endUndoGrouping];    
 }
 
+- (BOOL)isEnabledFrameUndo{
+    return _isEnabledFrameUndo;
+}
+
 - (void)undoFrameWithDictionary:(NSMutableDictionary *)dictionary{
+    
+    _isEnabledFrameUndo = YES;
     NSMutableDictionary *currentFrameDict = [NSMutableDictionary dictionary];
     
     if(_css.effectiveTagDictionary[IUCSSTagPixelX]){
@@ -1232,8 +1246,9 @@ e.g. 만약 css로 옮긴다면)
     [_css setValueWithoutUpdateCSS:dictionary[IUCSSTagPercentHeight] forTag:IUCSSTagPercentHeight];
 
     
-    
     [self updateCSS];
+    
+    _isEnabledFrameUndo = NO;
 }
 
 - (NSPoint)originalPoint{
