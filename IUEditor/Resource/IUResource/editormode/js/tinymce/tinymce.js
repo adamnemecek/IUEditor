@@ -14247,8 +14247,11 @@ define("tinymce/dom/ControlSelection", [
 
 			// Update resize rect while typing in a table
 			editor.on('keydown keyup', function(e) {
-				//update iu frame (written by seungmi 10.17.2014)
-				getIUUpdatedFrameThread();
+                if(e.type == 'keyup'){
+                      //update iu frame (written by seungmi 10.17.2014)
+                      getIUUpdatedFrameThread();
+                      console.textChanged(e.currentTarget.id);
+                }
 				
 				if (selectedElm && selectedElm.nodeName == "TABLE") {
 					updateResizeRect(e);

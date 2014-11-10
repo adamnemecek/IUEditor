@@ -190,7 +190,6 @@ function getIUUpdatedFrameThread(){
     console.timeStart("iuframe");
 	//새로운 인풋이 들어왔을때 변해야 하면 이곳에서 호출
 	//editor mode 에서
-	console.log('iu update thread');
 	clipSection();
 	$('.IUBox').updatePixel();
     

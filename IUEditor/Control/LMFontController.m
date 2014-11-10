@@ -20,13 +20,39 @@ static LMFontController *gFontController = nil;
     }
     return gFontController;
 }
+- (id)init{
+    self = [super init];
+    if(self){
+        _currentFontName = @"Helvetica";
+        _currentFontSize = 12;
+    }
+    return self;
+}
+
+#pragma mark - current font
+
+- (void)copyCurrentFontToIUBox:(IUBox *)iu{
+    
+    NSString *fontName = [iu.css effectiveValueForTag:IUCSSTagFontName forViewport:iu.css.editViewPort];
+    if(fontName == nil){
+        [iu.css setValue:_currentFontName forTag:IUCSSTagFontName];
+    }
+    
+    NSString *fontSize = [iu.css effectiveValueForTag:IUCSSTagFontSize forViewport:iu.css.editViewPort];
+    if(fontSize == nil){
+        [iu.css setValue:@(_currentFontSize) forTag:IUCSSTagFontSize];
+    }    
+}
+
+
+
+#pragma mark - font list
 
 - (void)initializeFontList{
 
     NSString *fontListPath = [[NSBundle mainBundle] pathForResource:@"defaultFont" ofType:@"plist"];
     NSDictionary *defaultFontList = [NSDictionary dictionaryWithContentsOfFile:fontListPath];
     _fontDict = [defaultFontList mutableCopy];
-//    [self saveFontList];
 }
 
 - (void)loadFontList{

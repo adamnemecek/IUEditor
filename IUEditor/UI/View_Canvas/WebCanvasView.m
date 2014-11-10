@@ -256,6 +256,9 @@
     else if(selector == @selector(jsTimeEndWithName:)){
         return @"timeEnd";
     }
+    else if(selector ==@selector(reportTextChangedWithIdentifier:)){
+        return @"textChanged";
+    }
     else{
         return nil;
     }
@@ -267,6 +270,7 @@
         || selector == @selector(resizePageContentHeightFinished:)
         || selector == @selector(jsTimeStartWithName:)
         || selector == @selector(jsTimeEndWithName:)
+        || selector == @selector(reportTextChangedWithIdentifier:)
         ){
         return NO;
     }
@@ -341,6 +345,10 @@
     return dict;
 }
 
+- (void)reportTextChangedWithIdentifier:(NSString *)identifier{
+    JDTraceLog(@"textChanged : %@", identifier);
+    [self.controller saveCurrentTextEditor];
+}
 
 
 #pragma mark -

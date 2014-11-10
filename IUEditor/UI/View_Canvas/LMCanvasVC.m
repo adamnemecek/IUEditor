@@ -21,6 +21,7 @@
 #import "IUMenuItem.h"
 
 #import "LMHelpWC.h"
+#import "LMFontController.h"
 
 #pragma mark - debug
 #if DEBUG
@@ -208,6 +209,7 @@
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
     NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
+    //mq가 바뀌기전에 현재 text를 현재 size에 저장한다.
     if(oldSelectedSize == maxSize){
         [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
     }
@@ -643,6 +645,7 @@
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
         if(iu){
+            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
             iu.text = node.innerText;
         }
         
@@ -656,21 +659,24 @@
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
         if(iu){
+            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
             [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
         }
         [iu updateCSS];
         
     }
 }
-
-- (void)disableTextEditor{
-    
+- (void)saveCurrentTextEditor{
     if(self.selectedFrameWidth == self.maxFrameWidth){
         [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
     }
     else{
         [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
     }
+}
+
+- (void)disableTextEditor{
+    [self saveCurrentTextEditor];
     
     //remove current editor
     DOMNodeList *list = [self.webDocument.documentElement getElementsByClassName:IUTextAddibleClass];

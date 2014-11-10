@@ -35,6 +35,7 @@
 -(void)changeIUPageHeight:(CGFloat)pageHeight;
 - (CGFloat)heightOfCanvas;
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict;
+- (void)saveCurrentTextEditor;
 
 //callby canvasview
 - (NSInteger)selectedFrameWidth;

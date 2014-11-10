@@ -37,8 +37,6 @@
 @end
 
 @implementation LMPropertyFontVC{
-    NSString *currentFontName;
-    NSUInteger currentFontSize;
     NSArray *observingList;
     BOOL isUpdateDisabled;
 }
@@ -47,8 +45,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        currentFontName = @"Helvetica";
-        currentFontSize = 12;
         self.fontDefaultSizes = @[@(6), @(8), @(9), @(10), @(11), @(12),
                                   @(14), @(18), @(21), @(24), @(30), @(36), @(48), @(60), @(72)];
         self.fontDefaultLetterSpacing = @[@(0), @(-2.0), @(-1.0), @(0.5), @(1.0), @(2.0)];
@@ -161,16 +157,7 @@
 
         //set current value
         for(IUBox *box in self.controller.selectedObjects){
-            NSString *fontName = [box.css effectiveValueForTag:IUCSSTagFontName forViewport:box.css.editViewPort];
-            if(fontName == nil){
-                fontName = currentFontName;
-                [self setValue:currentFontName forCSSTag:IUCSSTagFontName];
-            }
-            
-            NSString *fontSize = [box.css effectiveValueForTag:IUCSSTagFontSize forViewport:box.css.editViewPort];
-            if(fontSize == nil){
-                [self setValue:@(currentFontSize) forCSSTag:IUCSSTagFontSize];
-            }
+            [_fontController copyCurrentFontToIUBox:box];
         }
         
         //set font name
@@ -304,7 +291,7 @@
 }
 
 - (IBAction)selectFontWeightMatrix:(id)sender {
-    [self checkFontWeight:currentFontName];
+    [self checkFontWeight:[_fontController currentFontName]];
     
     switch ([_fontWeightMatrix selectedColumn]) {
         case 0:
@@ -323,17 +310,17 @@
 }
 
 - (void)updateFontName:(NSString *)fontName{
-    currentFontName = fontName;
-    [self setValue:currentFontName forCSSTag:IUCSSTagFontName];
+    [_fontController setCurrentFontName:fontName];
+    [self setValue:fontName forCSSTag:IUCSSTagFontName];
     [self checkFontWeight:fontName];
 }
 - (void)checkFontWeight:(NSString *)fontName{
+    
     BOOL hasLightWeight = [_fontController hasLight:fontName];
     
     if(hasLightWeight == NO){
         [_lightWeightButtonCell setState:NSOffState];
 
-//        [[[_fontWeightMatrix cells] objectAtIndex:0] setEnabled:NO];
         if([[_fontWeightMatrix selectedCell] isEqualTo:_lightWeightButtonCell]){
             [_fontWeightMatrix selectCellAtRow:0 column:1];
             [self updateFontWeight:@"400"];
@@ -349,8 +336,8 @@
 }
 
 - (void)updateFontSize:(NSInteger)fontSize{
-    currentFontSize = fontSize;
-    [self setValue:@(currentFontSize) forCSSTag:IUCSSTagFontSize];
+    [_fontController setCurrentFontSize:fontSize];
+    [self setValue:@(fontSize) forCSSTag:IUCSSTagFontSize];
 }
 
 - (void)updateLetterSpacing:(CGFloat)sapcing{

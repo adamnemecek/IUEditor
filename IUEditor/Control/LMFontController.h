@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCode.h"
+#import "IUBox.h"
 
 static NSString *LMFontName = @"name";
 static NSString *LMFontCheckGoogleAPI = @"isGoogleFonts";
@@ -26,6 +27,13 @@ typedef enum{
 
 @interface LMFontController : NSObject
 
+#pragma mark - current font
+@property NSString *currentFontName;
+@property NSUInteger currentFontSize;
+
+- (void)copyCurrentFontToIUBox:(IUBox *)iu;
+
+#pragma mark - font list
 @property NSMutableDictionary *fontDict;
 
 + (LMFontController *)sharedFontController;
