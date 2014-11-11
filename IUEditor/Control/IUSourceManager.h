@@ -19,22 +19,36 @@
  
  */
 @class IUBox;
+@class IUSheet;
 @class IUCompiler;
 
 @protocol IUSourceManagerDelegate <NSObject> // = canvasVC
 
-- (DOMHTMLStyleElement *)getElementbyId:(NSString*)idName;
+/* get WebView. We Manage source of it */
+- (WebView *)webView;
+
+/* prepare update. for example, text editor enable/disable */
+- (void)beginUpdate;
+- (void)commitUpdate;
+
+/* call javascript */
+- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 
 @end
 
 @interface IUSourceManager : NSObject
 
-/* setting */
+/* setting
+ @Note : Never call these functions twice. */
 - (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC;
 - (void)setCompiler:(IUCompiler *)compiler;
+- (void)setDocumentBasePath:(NSString*)documentBasePath;
 
 /* managing view port */
 @property int viewPort;
+
+/* load a sheet */
+- (void)loadSheet:(IUSheet*)sheet;
 
 /* called by box */
 - (void)setNeedsUpdateHTML:(IUBox*)box;
@@ -44,5 +58,9 @@
 /* working as transaction */
 - (void)beginTransaction:(id)sender;
 - (void)commitTransaction:(id)sender;
+
+
+/*** DEBUG FUNCTIONS ***/
+- (NSString *)source;
 
 @end

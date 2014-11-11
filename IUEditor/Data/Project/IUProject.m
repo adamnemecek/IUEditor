@@ -197,15 +197,6 @@
     return self;
 }
 
-- (id)init{
-    self = [super init];
-    if(self){
-        _mqSizes = [NSMutableArray array];
-        _compiler = [[IUCompiler alloc] init];
-    }
-    return self;
-}
-
 /**
  @brief
  It's for convert project
@@ -268,6 +259,72 @@
     return self;
 }
 
+- (id)initAtTemporaryDirectory {
+    /* initialize at temp directory */
+    self = [super init];
+    _mqSizes = [NSMutableArray arrayWithArray:@[@(defaultFrameWidth), @320]];
+    _compiler = [[IUCompiler alloc] init];
+    _resourceManager = [[IUResourceManager alloc] init];
+    _compiler.resourceManager = _resourceManager;
+    _identifierManager = [[IUIdentifierManager alloc] init];
+
+    //    ReturnNilIfFalse([self save]);
+    _serverInfo = [[IUServerInfo alloc] init];
+    _enableMinWidth = YES;
+
+    
+    /* create app name */
+    /* rule : ProjectName_Number
+     example :  IUProject_3
+                IUDjangoProject_5
+     */
+    
+    self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.iu", self.className]];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.path]) {
+        int i = 2;
+        while (1) {
+            self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%d.iu", self.className, i]];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:self.path] == NO) {
+                break;
+            }
+        }
+    }
+    
+    self.name = [[[self.path lastPathComponent] lastPathComponent] stringByDeletingPathExtension];
+    self.buildPath = @"$IUFileDirectory/$AppName_build";
+    self.buildResourcePath = @"$IUBuildPath/resource";
+    
+    _pageGroup = [[IUSheetGroup alloc] init];
+    _pageGroup.name = IUPageGroupName;
+    _pageGroup.project = self;
+    
+    _classGroup = [[IUSheetGroup alloc] init];
+    _classGroup.name = IUClassGroupName;
+    _classGroup.project = self;
+    
+    [self makeDefaultClasses];
+    
+    IUPage *pg = [[IUPage alloc] initWithProject:self options:nil];
+    pg.name = @"index";
+    pg.htmlID = @"index";
+    [self addSheet:pg toSheetGroup:_pageGroup];
+    
+    IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
+    class.name = @"class";
+    class.htmlID = @"class";
+    [self addSheet:class toSheetGroup:_classGroup];
+    
+    [self initializeResource];
+    [_resourceManager setResourceGroup:_resourceGroup];
+    [_identifierManager registerIUs:self.allDocuments];
+    
+    
+    // create build directory
+    [[NSFileManager defaultManager] createDirectoryAtPath:self.absoluteBuildPath withIntermediateDirectories:YES attributes:nil error:nil];
+    
+    return self;
+}
 
 -(id)initWithCreation:(NSDictionary*)options error:(NSError**)error{
     self = [super init];
@@ -761,10 +818,6 @@
 
 /** default css array
  */
-
-- (NSArray *)defaultEditorCSSArray{
-    return @[@"reset.css", @"iueditor.css"];
-}
 
 - (NSArray *)defaultOutputCSSArray{
     return @[@"reset.css", @"iu.css"];

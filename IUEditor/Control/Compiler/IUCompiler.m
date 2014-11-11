@@ -65,7 +65,14 @@
 -(id)init{
     self = [super init];
     if (self) {
-        self.webTemplateFileName = @"webTemplate";
+        self.webTemplateFileName = @"webTemplate"; //should be removed after #storage
+        
+        htmlCompiler = [[IUHTMLCompiler alloc] init];
+        htmlCompiler.compiler = self;
+        _rule = IUCompileRuleDefault;
+        
+        cssCompiler = [[IUCSSCompiler alloc] init];
+        
     }
     return self;
 }
@@ -73,35 +80,12 @@
 
 - (void)setResourceManager:(IUResourceManager *)resourceManager{
     _resourceManager = resourceManager;
-    if (resourceManager) {
-        if (self.rule == IUCompileRuleWordpress) {
-            cssCompiler = [[IUCSSWPCompiler alloc] initWithResourceManager:self.resourceManager];
-        }
-        else {
-            cssCompiler = [[IUCSSCompiler alloc] initWithResourceManager:self.resourceManager];
-            cssCompiler.compiler = self;
-        }
-    }
+    [cssCompiler setResourceManager:resourceManager];
     
-    htmlCompiler = [[IUHTMLCompiler alloc] init];
-    htmlCompiler.compiler = self;
 }
 
 - (void)setRule:(IUCompileRule)rule{
     _rule = rule;
-    if (_resourceManager) {
-        if (self.rule == IUCompileRuleWordpress) {
-            cssCompiler = [[IUCSSWPCompiler alloc] initWithResourceManager:self.resourceManager];
-        }
-        else {
-            cssCompiler = [[IUCSSCompiler alloc] initWithResourceManager:self.resourceManager];
-            cssCompiler.compiler = self;
-        }
-    }
-    
-    htmlCompiler = [[IUHTMLCompiler alloc] init];
-    htmlCompiler.compiler = self;
-
 }
 
 
@@ -443,21 +427,19 @@
 }
 
 - (JDCode *)cssHeaderForSheet:(IUSheet *)sheet isEdit:(BOOL)isEdit{
-    IUProject *project = sheet.project;
     JDCode *code = [[JDCode alloc] init];
     if(isEdit){
-        for(NSString *filename in project.defaultEditorCSSArray){
-            NSString *cssPath = [[NSBundle mainBundle] pathForResource:[filename stringByDeletingPathExtension] ofType:[filename pathExtension]];
-            [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", cssPath];
-        }
-        
+        NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", resetCSSPath];
+        NSString *editorCSSPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"css"];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", editorCSSPath];
     }
     else{
-        for(NSString *filename in project.defaultOutputCSSArray){
-            [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/%@\">", filename];
-        }
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/%@.css\">", sheet.name];
-        
+        NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", resetCSSPath];
+        NSString *iuCSSPath = [[NSBundle mainBundle] pathForResource:@"iu" ofType:@"css"];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", iuCSSPath];
+
     }
     return code;
 }
@@ -599,6 +581,7 @@
 
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu{
+    NSAssert(cssCompiler, @"cssCompiler is nil");
     return [cssCompiler cssCodeForIU:iu];
 }
 
@@ -933,4 +916,128 @@
 - (void)dealloc{
     [JDLogUtil log:IULogDealloc string:@"IUCompiler"];
 }
+
+- (NSString *)webSource:(IUSheet *)sheet target:(IUTarget)target viewPort:(int)viewPort{
+    NSString *webTemplateFileName;
+    if (sheet.project.projectType == IUProjectTypeWordpress) {
+        webTemplateFileName = @"wpWebTemplate";
+    }
+    else {
+        webTemplateFileName = @"webTemplate";
+    }
+    
+    if (target == IUTargetEditor) {
+        NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:webTemplateFileName ofType:@"html"];
+        if (templateFilePath == nil) {
+            NSAssert(0, @"Template file name wrong");
+            return nil;
+        }
+        
+        NSMutableString *sourceString = [NSMutableString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil];
+        
+        JDCode *sourceCode = [[JDCode alloc] initWithCodeString:sourceString];
+        
+        
+        JDCode *webFontCode = [[LMFontController sharedFontController] headerCodeForAllFont];
+        [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+        
+        JDCode *jsCode = [self javascriptHeaderForSheet:sheet isEdit:YES];
+        [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
+        
+        
+        JDCode *iuCSS = [self cssHeaderForSheet:sheet isEdit:YES];
+        [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+        
+        //add for hover css
+        [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
+        
+        
+        //change html
+        JDCode *htmlCode = [[JDCode alloc] init];
+        //REVIEW : sheetouter의 width를 변경시키며 editor에서 media query가 서포트 되는것 처럼 보이게 함.
+        //webview의 사이즈를 바꾸지 않고 그대로 사용할 수 있다.
+        //장점
+        // - 페이지를 center로 보낼수있음
+        // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
+        // - text editor를 불러올 수 있음.
+        [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
+        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor]];
+        [htmlCode addString:@"<div>"];
+        [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
+        
+        
+        
+        JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
+        
+        return sourceCode.string;
+
+    }
+    else {
+        NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:webTemplateFileName ofType:@"html"];
+        JDCode *sourceCode = [[JDCode alloc] initWithCodeString: [NSString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil]];
+        
+        //replace metadata;
+        if([sheet isKindOfClass:[IUPage class]]){
+            JDCode *metaCode = [self metadataSource:(IUPage *)sheet];
+            [sourceCode replaceCodeString:@"<!--METADATA_Insert-->" toCode:metaCode];
+            
+            JDCode *webFontCode = [self webfontImportSourceForOutput:(IUPage *)sheet];
+            [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+            
+            JDCode *jsCode = [self javascriptHeaderForSheet:sheet isEdit:NO];
+            [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
+            
+            JDCode *iuCSS = [self cssHeaderForSheet:sheet isEdit:NO];
+            [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+            
+            if(_rule == IUCompileRuleWordpress){
+                NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.mqSizes];
+                [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:cssString];
+            }
+            else{
+                [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@""];
+                
+            }
+            
+            //change html
+            JDCode *htmlCode = [self htmlCode:sheet target:IUTargetOutput];
+            [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
+            
+            JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
+            
+            if (_rule == IUCompileRuleDjango) {
+                [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
+                [sourceCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
+                [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
+            }
+            if (_rule == IUCompileRuleWordpress) {
+                [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
+                [sourceCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
+                [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
+            }
+        }
+        
+        return sourceCode.string;    }
+
+
+}
+
+/* if IUTarget == IUTargetOutput, viewPort will be ignored
+ Currently, target & viewport are ignored : make them for every target and viewports 
+ */
+- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort {
+    // not coded yet
+    return [cssCompiler cssCodeForIU_storage:box];
+}
+
+/* if IUTarget == IUTargetOutput, viewPort will be ignored */
+- (NSString* )htmlSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort {
+    return nil;
+}
+
+- (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort{
+    return nil;
+}
+
+
 @end

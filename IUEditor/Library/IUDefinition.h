@@ -36,3 +36,19 @@ static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 #define IUTextAddibleClass @"addible"
 
 #endif
+
+
+typedef enum _IUTarget{
+    IUTargetEditor = 1,
+    IUTargetOutput = 2,
+    IUTargetBoth = 3,
+} IUTarget;
+
+
+typedef enum _IUUnit{
+    IUUnitNone,
+    IUUnitPixel,
+    IUUnitPercent,
+} IUUnit;
+
+

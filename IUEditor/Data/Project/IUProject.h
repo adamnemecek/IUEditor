@@ -12,6 +12,7 @@
 #import "IUSheetGroup.h"
 #import "IUFileProtocol.h"
 #import "IUServerInfo.h"
+#import "IUProjectProtocol.h"
 
 @class IUClass;
 
@@ -20,13 +21,6 @@ typedef enum _IUGitType{
     IUGitTypeSource = 1,
     IUGitTypeOutput = 2
 } IUGitType;
-
-typedef enum {
-    IUProjectTypeDefault,
-    IUProjectTypeDjango,
-    IUProjectTypeWordpress,
-    IUProjectTypePresentation,
-} IUProjectType;
 
 
 //setting
@@ -56,7 +50,7 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <IUFile, IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate>{
+@interface IUProject : NSObject <IUFile, IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUResourceGroup *_resourceGroup;
@@ -92,14 +86,17 @@ static NSString *IUClassGroupName = @"class";
  */
 -(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error;
 
+/**
+ @brief create project at temporary directory
+ */
+- (id)initAtTemporaryDirectory;
 
 - (void)initializeResource;
 
 /**
  css, js filename array
  */
-- (NSArray *)defaultEditorCSSArray;
-- (NSArray *)defaultOutputCSSArray;
+- (NSArray *)defaultOutputCSSArray __deprecated;
 - (NSArray *)defaultEditorJSArray;
 - (NSArray *)defaultOutputJSArray;
 

@@ -14,6 +14,7 @@
 #import "IUIdentifierManager.h"
 #import "IUDataStorage.h"
 #import "IUSourceDelegate.h"
+#import "IUProjectProtocol.h"
 
 
 typedef enum _IUPositionType{
@@ -56,7 +57,7 @@ typedef enum{
 }
 
 /* default box */
-+(IUBox *)copyrightBoxWithProject:(IUProject*)project;
++(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project;
 
 /*
  Following are options
@@ -69,7 +70,7 @@ typedef enum{
  @param options NSDictionary of options. \n
  IUFileName : define filename
  */
--(id)initWithProject:(IUProject*)project options:(NSDictionary*)options;
+-(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options;
 - (void)connectWithEditor;
 - (void)disconnectWithEditor;
 
@@ -83,7 +84,7 @@ typedef enum{
  @brief return project of box
  @note if iu is not confirmed, return project argument at initialize process
  */
--(IUProject *)project;
+-(id <IUProjectProtocol>)project;
 
 #pragma mark - IU Setting
 
@@ -246,5 +247,6 @@ typedef enum{
 
 
 @property IUCSSStorageManager *cssManager;
+@property BOOL removed; // iu is removed;
 
 @end

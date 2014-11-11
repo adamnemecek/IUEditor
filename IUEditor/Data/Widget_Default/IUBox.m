@@ -212,7 +212,7 @@
 
 
 
--(id)initWithProject:(IUProject*)project options:(NSDictionary*)options{
+-(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super init];
     if(self){
         
@@ -230,6 +230,10 @@
         _lineHeightAuto = NO;
         
         _overflowType = IUOverflowTypeHidden;
+        /*
+         set HTMLID for temporary : IUResourceManager and IdentifierManager can be nil for test
+         */
+        _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
         
         [_css setValue:@(0) forTag:IUCSSTagXUnitIsPercent forViewport:IUCSSDefaultViewPort];
         [_css setValue:@(0) forTag:IUCSSTagYUnitIsPercent forViewport:IUCSSDefaultViewPort];
@@ -324,7 +328,7 @@
  
  Some convenience methods to create iubox
  */
-+(IUBox *)copyrightBoxWithProject:(IUProject*)project{
++(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project{
     IUBox *copyright = [[IUBox alloc] initWithProject:project options:nil];
     [copyright.undoManager disableUndoRegistration];
     
@@ -439,7 +443,7 @@
     return nil;
 }
 
-- (IUProject *)project{
+- (id <IUProjectProtocol>)project{
     if (self.sheet.group.project) {
         return self.sheet.group.project;
     }

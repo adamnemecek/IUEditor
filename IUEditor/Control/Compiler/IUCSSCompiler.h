@@ -7,23 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IUCompiler.h"
+#import "IUBox.h"
+#import "IUCSSCode.h"
 
 @class IUCompiler;
 @class IUResourceManager;
-
-@interface IUCSSCode : NSObject
-- (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
-- (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport;
-- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport;
-
-
-- (NSArray*)allViewports;
-- (NSArray*)allIdentifiers;
-
-- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort;
-
-@end
 
 @interface IUCSSStorageCode : NSObject
 - (IUTarget)target;
@@ -33,7 +21,7 @@
 
 
 @interface IUCSSCompiler : NSObject
-- (id)initWithResourceManager:(IUResourceManager*)resourceManager;
+- (void)setResourceManager:(IUResourceManager*)resourceManager;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
 - (IUCSSCode*)cssCodeForIU_storage:(IUBox*)iu;
 @property IUCompiler *compiler;
@@ -44,11 +32,3 @@
 /**
  Generator category for subclassing
  */
-
-typedef enum _IUUnit{
-    IUUnitNone,
-    IUUnitPixel,
-    IUUnitPercent,
-} IUUnit;
-
-

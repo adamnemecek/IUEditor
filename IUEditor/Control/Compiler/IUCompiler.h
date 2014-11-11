@@ -11,12 +11,8 @@
 #import "IUCarousel.h"
 #import "JDCode.h"
 #import "IUResourceManager.h"
-
-typedef enum _IUTarget{
-    IUTargetEditor = 1,
-    IUTargetOutput = 2,
-    IUTargetBoth = 3,
-} IUTarget;
+#import "IUCSSCompiler.h"
+#import "IUDefinition.h"
 
 @class IUCSSCode;
 @class IUSheet;
@@ -38,6 +34,8 @@ typedef enum _IUCompileRule{
 @end
 
 
+
+
 @interface IUCompiler : NSObject <IUCompilerProtocol>
 
 @property (weak, nonatomic) IUResourceManager *resourceManager;
@@ -53,7 +51,6 @@ typedef enum _IUCompileRule{
 //css code
 - (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
-- (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport; //storage mode
 
 
 //meta source
@@ -68,5 +65,18 @@ typedef enum _IUCompileRule{
 
 //default function
 - (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target;
+
+/////////////////////////////////////////
+//
+//  storage mode
+//
+
+- (NSString *)webSource:(IUSheet *)document target:(IUTarget)target viewPort:(int)viewPort;
+
+/* if IUTarget == IUTargetOutput, viewPort will be ignored */
+- (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
+
+/* if IUTarget == IUTargetOutput, viewPort will be ignored */
+- (NSString* )htmlSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
 
 @end

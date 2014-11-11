@@ -24,9 +24,11 @@
 @end
 
 @protocol IUDataStorageManagerDelegate
-@required
+@optional
 - (void)beginTransaction:(id)storage;
 - (void)commitTransactoin:(id)storage;
+
+@required
 - (void)setNeedsToUpdateStorage:(IUDataStorage*)storage;
 @end
 

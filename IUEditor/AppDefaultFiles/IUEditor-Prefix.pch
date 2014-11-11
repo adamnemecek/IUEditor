@@ -145,4 +145,5 @@
 #define IUKeyCodeArrowUp 126
 
 
+#define XCA_SHORTHAND
 #endif

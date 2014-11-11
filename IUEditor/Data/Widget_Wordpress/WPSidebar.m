@@ -12,7 +12,7 @@
 
 @implementation WPSidebar
 
-- (id)initWithProject:(IUProject *)project options:(NSDictionary *)options{
+- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     [self.undoManager disableUndoRegistration];
     
