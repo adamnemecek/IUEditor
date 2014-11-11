@@ -11,7 +11,6 @@
 		097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		097FD7421A11A284008931A0 /* XCTestCase+AsyncTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 097FD7411A11A284008931A0 /* XCTestCase+AsyncTesting.m */; };
-		0991288D1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */; };
 		099128911A0763FA0041DEAC /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
 		099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
 		09D1807A1A0C5C40001B9D9B /* IUCSSCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D180791A0C5C40001B9D9B /* IUCSSCode.m */; };
@@ -32,6 +31,7 @@
 		2637F5CD19FE1566009A09AC /* layout_05@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5C519FE1566009A09AC /* layout_05@2x.png */; };
 		2666986619FE2608009F98AE /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986419FE2608009F98AE /* arrow_left.png */; };
 		2666986719FE2608009F98AE /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986519FE2608009F98AE /* arrow_right.png */; };
+		3D0499991A1216080084632B /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0499981A1216080084632B /* CSSToCSSStorageConversion_Test.m */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -1091,7 +1091,6 @@
 		097FD7101A105EA8008931A0 /* IUProjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUProjectProtocol.h; sourceTree = "<group>"; };
 		097FD7401A11A284008931A0 /* XCTestCase+AsyncTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+AsyncTesting.h"; sourceTree = "<group>"; };
 		097FD7411A11A284008931A0 /* XCTestCase+AsyncTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+AsyncTesting.m"; sourceTree = "<group>"; };
-		0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSToCSSStorageConversion_Test.m; sourceTree = "<group>"; };
 		099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSCompiler_Test.m; sourceTree = "<group>"; };
 		099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
 		09D180781A0C5C40001B9D9B /* IUCSSCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUCSSCode.h; path = Control/Compiler/IUCSSCode.h; sourceTree = "<group>"; };
@@ -1114,6 +1113,7 @@
 		2637F5C519FE1566009A09AC /* layout_05@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "layout_05@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/icon/layout_05@2x.png"; sourceTree = "<group>"; };
 		2666986419FE2608009F98AE /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_left.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_left.png; sourceTree = "<group>"; };
 		2666986519FE2608009F98AE /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_right.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_right.png; sourceTree = "<group>"; };
+		3D0499981A1216080084632B /* CSSToCSSStorageConversion_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSToCSSStorageConversion_Test.m; sourceTree = "<group>"; };
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -3337,7 +3337,6 @@
 		3D2EF73519F7852800BBBAE5 /* image */ = {
 			isa = PBXGroup;
 			children = (
-				0991288C1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m */,
 				3D2EF7D119F7864200BBBAE5 /* iu */,
 				3D2EF7D019F7863E00BBBAE5 /* ui */,
 				3D2EF7CE19F7862400BBBAE5 /* clipart */,
@@ -4368,6 +4367,7 @@
 		3DE45F5D19F7BFB200A75567 /* IUEditor Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D0499981A1216080084632B /* CSSToCSSStorageConversion_Test.m */,
 				097FD7401A11A284008931A0 /* XCTestCase+AsyncTesting.h */,
 				097FD7411A11A284008931A0 /* XCTestCase+AsyncTesting.m */,
 				3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */,
@@ -5691,9 +5691,9 @@
 				09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */,
 				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
 				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
-				0991288D1A075E860041DEAC /* CSSToCSSStorageConversion_Test.m in Sources */,
 				09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */,
 				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
+				3D0499991A1216080084632B /* CSSToCSSStorageConversion_Test.m in Sources */,
 				0942FF121A07E17200436265 /* IUCSSStorage_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

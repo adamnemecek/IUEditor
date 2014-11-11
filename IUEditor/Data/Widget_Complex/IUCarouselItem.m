@@ -10,13 +10,9 @@
 
 @implementation IUCarouselItem
 
-<<<<<<< HEAD
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-=======
 #pragma mark - Initialize
 
-- (id)initWithProject:(IUProject *)project options:(NSDictionary *)options{
->>>>>>> refactoring : iuclass 
+- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     if(self){
         [self.undoManager disableUndoRegistration];

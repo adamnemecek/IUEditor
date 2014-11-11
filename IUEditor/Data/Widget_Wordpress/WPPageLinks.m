@@ -11,9 +11,6 @@
 
 @implementation WPPageLinks
 
-<<<<<<< HEAD
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-=======
 #pragma mark - class attributes
 
 + (NSImage *)classImage{
@@ -31,8 +28,8 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(IUProject *)project options:(NSDictionary *)options{
->>>>>>> refactoring : iuclass 
+-(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+
     self = [super initWithProject:project options:options];
     [self.undoManager disableUndoRegistration];
     
