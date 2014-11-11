@@ -15,6 +15,21 @@
 
 @implementation IUTweetButton
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_twitter"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_twitter"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeSecondary;
+}
+
+#pragma mark - init
 
 -(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];

@@ -1,0 +1,59 @@
+/* 
+  description.strings
+  IUEditor
+
+  Created by seungmi on 2014. 11. 11..
+  Copyright (c) 2014년 JDLab. All rights reserved.
+*/
+
+
+/* iubox short description */
+//default widget
+"IUBox_short_description" = "Box Object : <div>, <h1> or <h2>";
+"IUCenterBox_short_description" = "Centered Box Object";
+"IUImage_short_description" = "Image Object <img>";
+"PGSubmitButton_short_description" = "Submit button <input type='submit'>";
+"PGForm_short_description" = "Insert input fields to here. <form>";
+"IUImport_short_description" = "Import IUClass object";
+"IUMovie_short_description" = "Video clip from library <video>";
+"IUHTML_short_description" = "Object for HTML code";
+"IUTweetButton_short_description" = "Object for Tweet Share Button";
+"IUGoogleMap_short_description" = "Object for Google Map";
+"IUWebMovie_short_description" = "Vimeo or Youtube";
+"IUFBLike_short_description" = "Object for Facebook Like widget";
+"IUTwitter_short_description" = "";
+"PGTextField_short_description" = "Input text <input type='text'>";
+"PGTextView_short_description" = "Input paragraph text <textarea>";
+"IUTransition_short_description" = "[Animated] Two IUs in one object";
+"IUMenuBar_short_description" = "";
+"IUMenuItem_short_description" = "";
+"IUCarousel_short_description" = "[Animated] Carousel";
+"IUSection_short_description" = "IU Responsive Section";
+"IUPage_short_description" = "";
+"IUBackground_short_description" = "";
+"IUClass_short_description" = "";
+"IUCarouselItem_short_description" = "";
+"IUItem_short_description" = "";
+"IUPageContent_short_description" = "";
+"IUHeader_short_description" = "";
+"IUFooter_short_description" = "";
+"IUSidebar_short_description" = "";
+//django widget
+"IUCollection_short_description" = "[Only for Django] for-loop for array object";
+"IUCollectionView_short_description" = "[Only for Django] for-loop for array object";
+"PGPageLinkSet_short_description" = "";
+//wordpress widget
+"WPArticle_short_description" = "";
+"WPArticleTitle_short_description" = "";
+"WPArticleDate_short_description" = "";
+"WPArticleBody_short_description" = "";
+"WPWidget_short_description" = "";
+"WPWidgetTitle_short_description" = "";
+"WPWidgetBody_short_description" = "";
+"WPPageLink_short_description" = "";
+"WPSiteTitle_short_description" = "Wordpress Site Name";
+"WPSiteDescription_short_description" = "Wordpress Site Description";
+"WPMenu_short_description" = "";
+"WPArticleList_short_description" = "Wordpress Content Collection";
+"WPPageLinks_short_description" = "";
+"WPSidebar_short_description" = "";

@@ -69,6 +69,8 @@ static NSString *IUClassGroupName = @"class";
  */
 @property  NSString *IUProjectVersion;
 
++ (NSArray *)widgetList;
+
 
 //create project
 + (id)projectWithContentsOfPath:(NSString*)path;

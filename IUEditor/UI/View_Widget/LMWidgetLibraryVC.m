@@ -7,11 +7,10 @@
 //
 
 #import "LMWidgetLibraryVC.h"
-#import "LMGeneralObject.h"
-#import "IUResourceUtil.h"
 #import "IUBox.h"
 #import "LMWC.h"
 #import "LMHelpPopover.h"
+#import "LMGeneralObject.h"
 
 @interface LMWidgetLibraryVC ()
 
@@ -58,39 +57,39 @@
 
 -(void)addWidgetProperties:(NSArray*)array{
     
-    for (NSDictionary *dict in array) {
+    for(NSString *className in array){
+        LMGeneralObject *object = [[LMGeneralObject alloc] init];
+        object.title = className;
         
-        BOOL isWidget = [dict[@"isWidget"] boolValue];
-        if (isWidget){
-            LMGeneralObject *obj = [[LMGeneralObject alloc] init];
-            obj.title = dict[@"className"];
-            NSString *imageName = dict[@"classImage"];
-            obj.image = [NSImage imageNamed:imageName];
-            obj.shortDesc = dict[@"shortDesc"];
-            obj.longDesc = dict[@"longDesc"];
-            int widgetClass = [dict[@"widgetClass"] intValue];
-            
-            
-            if(widgetClass == WidgetClassTypePrimary){
-                [_primaryWidgets addObject:obj];
-            }
-            else if(widgetClass == WidgetClassTypeSecondary){
-                [_secondaryWidgets addObject:obj];
-            }
-            else if(widgetClass == WidgetClassTypePG){
-                [_PGWidgets addObject:obj];
-            }
-            else if(widgetClass == WidgetClassTypeWP){
-                [_WPWidgets addObject:obj];
-            }
+        Class iuclass = NSClassFromString(className);
+        object.image = [iuclass classImage];
+        object.shortDesc = [iuclass shortDescription];
+        
+        switch ([iuclass widgetType]) {
+            case IUWidgetTypePrimary:
+                [_primaryWidgets addObject:object];
+                break;
+            case IUWidgetTypeSecondary:
+                [_secondaryWidgets addObject:object];
+                break;
+            case IUWidgetTypePG:
+                [_PGWidgets addObject:object];
+                break;
+            case IUWidgetTypeWP:
+                [_WPWidgets addObject:object];
+                break;
+                
+            default:
+                break;
         }
     }
+    
+    
 }
 
 - (void)setProject:(IUProject *)project{
     _project = project;
-    [self addWidgetProperties:[IUResourceUtil widgetListForProjectType:_project.projectType]];
-    
+    [self addWidgetProperties:[[project class] widgetList]];
 }
 
 - (void)awakeFromNib{
@@ -108,9 +107,8 @@
     [_project.identifierManager resetUnconfirmedIUs];
     NSUInteger index = [indexes firstIndex];
     LMGeneralObject *object = [[collectionView itemAtIndex:index] representedObject];
-    NSString *className = object.title;
     
-    IUBox *obj = [[NSClassFromString(className) alloc] initWithProject:_project options:nil];
+    IUBox *obj = [[NSClassFromString(object.title) alloc] initWithProject:_project options:nil];
     if (obj == nil) {
     //    NSAssert(0, @"");
         JDErrorLog(@"objISNil");
@@ -137,7 +135,7 @@
     NSUInteger index = [indexes firstIndex];
     LMGeneralObject *object = [[collectionView itemAtIndex:index] representedObject];
 
-    return object.image;
+    return [object image];
 }
 
 

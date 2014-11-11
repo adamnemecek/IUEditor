@@ -13,6 +13,22 @@
 
 @implementation IUCarousel{
 }
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_carousel"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_carousel"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeSecondary;
+}
+
+
+#pragma mark - Initialize
 
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];

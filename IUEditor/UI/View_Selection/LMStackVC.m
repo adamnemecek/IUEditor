@@ -18,8 +18,6 @@
 #import "IUHeader.h"
 #import "IUImport.h"
 
-#import "IUResourceUtil.h"
-
 @implementation LMStackOutlineView
 
 - (void)keyDown:(NSEvent *)theEvent{
@@ -151,7 +149,6 @@
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode*)item {
 
     id representObject = [item representedObject];
-    NSImage *classImage = [IUResourceUtil classNavImage:[representObject className] forProjectType:self.sheet.project.projectType];
     
     NSTableCellView *cell;
     if([representObject isKindOfClass:[IUPageContent class]]){
@@ -166,7 +163,7 @@
         cell= [outlineView makeViewWithIdentifier:@"node" owner:self];
     }
     [cell.textField setStringValue:((IUBox *)representObject).name];
-    [cell.imageView setImage:classImage];
+    [cell.imageView setImage:[[representObject class] navigationImage]];
     [cell.imageView setImageScaling:NSImageScaleProportionallyDown];
 
     return cell;

@@ -10,7 +10,23 @@
 
 @implementation PGTextView
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_textview"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_textview"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypePG;
+}
+
+#pragma mark - Initialize
+
+- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
 
     if(self){

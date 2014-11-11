@@ -11,7 +11,17 @@
 
 @implementation IUCenterBox
 
+#pragma mark - class attributes
 
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_centerbox"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_centerbox"];
+}
+
+#pragma mark - init
 
 -(id)initWithProject:(IUProject*)project options:(NSDictionary*)options{
     self = [super initWithProject:project options:options];

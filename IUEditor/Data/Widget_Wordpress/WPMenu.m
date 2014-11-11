@@ -8,6 +8,23 @@
 
 @implementation WPMenu
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"wp_menu"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_wpmenu"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeWP;
+}
+
+
+#pragma mark - initialize
+
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     [self.undoManager disableUndoRegistration];

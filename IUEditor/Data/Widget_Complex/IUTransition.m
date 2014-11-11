@@ -20,6 +20,23 @@
 @implementation IUTransition{
 }
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_transition"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_transition"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeSecondary;
+}
+
+
+#pragma mark - Initialize
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {

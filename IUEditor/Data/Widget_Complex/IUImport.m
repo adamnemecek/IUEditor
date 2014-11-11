@@ -12,6 +12,21 @@
 
 @implementation IUImport
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_render"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_render"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeSecondary;
+}
+
+#pragma mark - init
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self = [super awakeAfterUsingCoder:aDecoder];

@@ -10,6 +10,14 @@
 
 @implementation WPArticleBody
 
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_wpsitedesc"];
+}
+
+#pragma mark - initialize
+
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     [self.undoManager disableUndoRegistration];

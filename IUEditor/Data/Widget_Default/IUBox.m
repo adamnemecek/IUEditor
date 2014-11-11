@@ -40,8 +40,26 @@
     BOOL    _isConnectedWithEditor;
     BOOL _isEnabledFrameUndo;
     
+    
+}
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_view"];
 }
 
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_view"];
+}
+
++ (NSString *)shortDescription{
+    NSString *key = [NSString stringWithFormat:@"%@_short_description", [self className]];
+    return NSLocalizedStringFromTable(key, @"description", @"iubox short description");
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypePrimary;
+}
 
 /* Note
  IUText is not programmed.
@@ -50,6 +68,7 @@
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
+    
     self = [super init];
     if (self) {
         [[self undoManager] disableUndoRegistration];

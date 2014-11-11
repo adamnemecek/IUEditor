@@ -10,6 +10,14 @@
 
 @implementation WPWidgetTitle
 
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_wpsitetitle"];
+}
+
+#pragma mark - initialize
+
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     if(self){

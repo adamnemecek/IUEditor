@@ -11,6 +11,15 @@
 
 @implementation IUPageContent
 
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"ic_contents"];
+}
+
+#pragma mark - Initialize
+
+
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
 }

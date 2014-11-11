@@ -10,6 +10,18 @@
 
 @implementation IUSection
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_collection"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_section"];
+}
+
+#pragma mark - Initialize
+
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     if(self){

@@ -18,7 +18,6 @@
 
 #import "IUResourceManager.h"
 #import "IUIdentifierManager.h"
-#import "IUResourceUtil.h"
 
 #import "LMJSManager.h"
 
@@ -466,8 +465,7 @@
 
 
 -(void)selectedObjectsDidChange:(NSDictionary*)change{
-    NSString *currentClassName = [_IUController selectionClassName];
-    [_selectionToolbarImageView setImage:[IUResourceUtil classNavImage:currentClassName forProjectType:_project.projectType]];
+    [_selectionToolbarImageView setImage:[[[_IUController.selectedObjects firstObject] class] navigationImage]];
     
     NSString *currentIdentifier;
     if(_IUController.selectedObjects.count > 1){
@@ -481,7 +479,7 @@
 #endif
     }
     
-
+    NSString *currentClassName = [_IUController selectionClassName];
     NSString *status = [NSString stringWithFormat:@"%@ | %@", currentClassName, currentIdentifier];
     
     [_selectionToolbarTF setStringValue:status];

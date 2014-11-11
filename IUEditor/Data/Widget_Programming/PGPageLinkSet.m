@@ -10,6 +10,22 @@
 
 @implementation PGPageLinkSet
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_page_nav"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_page_nav"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypePG;
+}
+
+
+#pragma mark - initialize
 
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];

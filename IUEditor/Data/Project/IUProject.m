@@ -32,7 +32,18 @@
     BOOL _isConnectedWithEditor;
 }
 
+#pragma mark - class attributes
+
++ (NSArray *)widgetList{
+    return @[
+             @"IUBox", @"IUCenterBox", @"IUImage", @"PGSubmitButton", @"PGForm", @"IUImport",
+             @"IUMovie", @"IUHTML", @"IUTweetButton", @"IUGoogleMap", @"IUWebMovie", @"IUFBLike",
+             @"PGTextField", @"PGTextView", @"IUTransition", @"IUMenuBar", @"IUCarousel"
+             ];
+}
+
 #pragma mark - init
+
 - (void)encodeWithCoder:(NSCoder *)encoder{
     NSAssert(_resourceGroup, @"no resource");
     [encoder encodeObject:_mqSizes forKey:@"mqSizes"];

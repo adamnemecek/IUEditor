@@ -10,7 +10,23 @@
 
 @implementation IUHTML
 
+<<<<<<< HEAD
 -(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+=======
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_html"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_html"];
+}
+
+#pragma mark - init
+
+-(id)initWithProject:(IUProject *)project options:(NSDictionary *)options{
+>>>>>>> refactoring : iuclass 
     self = [super initWithProject:project options:options];
     [self.undoManager disableUndoRegistration];
     

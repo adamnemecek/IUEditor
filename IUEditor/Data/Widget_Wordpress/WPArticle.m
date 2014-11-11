@@ -19,13 +19,18 @@
 @implementation WPArticle{
 }
 
-- (BOOL)canChangeWidthByUserInput{
-    return NO;
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_wparticle"];
 }
 
-- (BOOL)canChangeXByUserInput{
-    return NO;
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeWP;
 }
+
+
+#pragma mark - initialize
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
@@ -74,6 +79,8 @@
     
     return self;
 }
+
+#pragma mark - set property
 
 - (void)setEnableTitle:(BOOL)enableTitle{
     _enableTitle = enableTitle;
@@ -182,6 +189,16 @@
     }
 
     
+}
+
+#pragma mark - should XXX
+
+- (BOOL)canChangeWidthByUserInput{
+    return NO;
+}
+
+- (BOOL)canChangeXByUserInput{
+    return NO;
 }
 
 - (BOOL)canMoveToOtherParent{

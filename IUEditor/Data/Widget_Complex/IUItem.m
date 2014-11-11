@@ -11,6 +11,16 @@
 #import "IUTransition.h"
 
 @implementation IUItem
+
+
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_carousel_item"];
+}
+
+#pragma mark - should XXX
+
 - (BOOL)shouldCompileX{
     return NO;
 }

@@ -10,6 +10,18 @@
 
 @implementation IUImage
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_image"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_image"];
+}
+
+#pragma mark - init
+
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     [self.undoManager disableUndoRegistration];

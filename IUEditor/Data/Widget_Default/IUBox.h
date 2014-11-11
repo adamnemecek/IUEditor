@@ -16,6 +16,13 @@
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
 
+typedef enum{
+    IUWidgetTypePrimary,
+    IUWidgetTypeSecondary,
+    IUWidgetTypePG,
+    IUWidgetTypeWP,
+}IUWidgetType;
+
 
 typedef enum _IUPositionType{
     IUPositionTypeAbsolute,
@@ -55,6 +62,11 @@ typedef enum{
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC;
 }
+
++ (NSImage *)classImage;
++ (NSImage *)navigationImage;
++ (NSString *)shortDescription;
++ (IUWidgetType)widgetType;
 
 /* default box */
 +(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project;

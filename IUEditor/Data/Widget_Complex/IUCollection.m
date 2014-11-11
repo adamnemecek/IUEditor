@@ -10,6 +10,22 @@
 
 @implementation IUCollection
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_collection"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_collection"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypeSecondary;
+}
+
+#pragma mark - initialize
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if(self){

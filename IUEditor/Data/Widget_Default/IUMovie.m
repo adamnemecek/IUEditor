@@ -15,7 +15,17 @@
 
 @implementation IUMovie
 
+#pragma mark - class attributes
 
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_movie"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_movie"];
+}
+
+#pragma mark - init
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];

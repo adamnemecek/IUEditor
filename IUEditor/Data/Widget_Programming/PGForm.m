@@ -10,6 +10,22 @@
 
 @implementation PGForm
 
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_form"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_form"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypePG;
+}
+
+#pragma mark - init
+
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];

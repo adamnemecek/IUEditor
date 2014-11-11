@@ -20,6 +20,19 @@
 
 @implementation IUWordpressProject
 
+#pragma mark - class attributes
+
++ (NSArray *)widgetList{
+    NSMutableArray *defaultList = [[super widgetList] mutableCopy];
+    [defaultList addObjectsFromArray:@[@"WPSiteTitle", @"WPSiteDescription", @"WPMenu",
+                                       @"WPArticleList", @"WPPageLinks", @"WPSidebar",
+                                       ]];
+    return defaultList;
+}
+
+#pragma mark - init
+
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     

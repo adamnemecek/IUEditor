@@ -16,6 +16,14 @@
     IUPageContent *_pageContent;
 }
 
+#pragma mark - class attributes
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"ic_background"];
+}
+
+#pragma mark - Initialize
+
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
     [aCoder encodeObject:_pageContent forKey:@"pageContent"];

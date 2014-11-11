@@ -14,6 +14,17 @@
 
 @implementation IUDjangoProject
 
+#pragma mark - class attributes
+
++ (NSArray *)widgetList{
+    NSMutableArray *defaultList = [[super widgetList] mutableCopy];
+    [defaultList addObjectsFromArray:@[@"IUCollection", @"IUCollectionView", @"PGPageLinkSet"]];
+    return defaultList;
+}
+
+#pragma mark - init
+
+
 - (id)init{
     self = [super init];
     return self;

@@ -10,7 +10,23 @@
 
 @implementation PGSubmitButton
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+#pragma mark - class attributes
+
++ (NSImage *)classImage{
+    return [NSImage imageNamed:@"tool_submit"];
+}
+
++ (NSImage *)navigationImage{
+    return [NSImage imageNamed:@"stack_submit"];
+}
+
++ (IUWidgetType)widgetType{
+    return IUWidgetTypePG;
+}
+
+#pragma mark - init
+
+- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     if (self) {
         [self.undoManager disableUndoRegistration];
