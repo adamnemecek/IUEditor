@@ -148,11 +148,15 @@
     [self setLayerOriginWithZoom:zoom];
 }
 
-
-- (void)setLayerOriginWithZoom:(CGFloat)zoom{
+- (CGFloat)currentLeft{
     CGFloat mainViewFrameWidth =  MAX(self.superview.frame.size.width, self.controller.maxFrameWidth);
     NSInteger left = (mainViewFrameWidth - self.controller.selectedFrameWidth)/2;
 
+    return left;
+}
+
+- (void)setLayerOriginWithZoom:(CGFloat)zoom{
+    NSInteger left = [self currentLeft];
     self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
     
     [self setNeedsDisplay:YES];
@@ -622,6 +626,22 @@
 
 
 //gridview-rulerview연결
+/*
+- (BOOL)rulerView:(NSRulerView *)ruler shouldMoveMarker:(NSRulerMarker *)marker{
+    if(marker.markerLocation < [self currentLeft]){
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)rulerView:(NSRulerView *)ruler shouldAddMarker:(NSRulerMarker *)marker{
+    if(marker.markerLocation < [self currentLeft]){
+        return NO;
+    }
+    return YES;
+}
+ */
+
 - (void)rulerView:(NSRulerView *)ruler didMoveMarker:(NSRulerMarker *)marker{
     RulerLineLayer *movedLayer;
     NSString *movedIdentifier = (NSString *)marker.representedObject;
@@ -633,15 +653,18 @@
         }
     }
     if(movedLayer){
-        [movedLayer setLocation:marker.markerLocation];
+        CGFloat lineLocation = marker.markerLocation - [self currentLeft];
+        [movedLayer setLocation:lineLocation];
     }
 }
+
 
 - (void)rulerView:(NSRulerView *)ruler didAddMarker:(NSRulerMarker *)marker{
     //alloc new ruler line layer
     RulerLineLayer *lineLayer = [[RulerLineLayer alloc] initWithOrientation:[ruler orientation]];
     [lineLayer setMarkerIdentifer:(NSString *)marker.representedObject];
-    [lineLayer setLocation:marker.markerLocation];
+    CGFloat lineLocation = marker.markerLocation - [self currentLeft];
+    [lineLayer setLocation:lineLocation];
     [rulerLineManagerLayer addSubLayerFullFrame:lineLayer];
     [lineLayer setNeedsDisplay];
 }

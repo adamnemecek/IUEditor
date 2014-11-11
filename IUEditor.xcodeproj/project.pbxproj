@@ -982,6 +982,7 @@
 		3D2EFCF019F796D600BBBAE5 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEF19F796D600BBBAE5 /* sample.jpg */; };
 		3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCF119F7976B00BBBAE5 /* image_default.png */; };
 		3D5250651A087AE4001712E4 /* rulermarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5250641A087AE4001712E4 /* rulermarker.png */; };
+		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
 		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
@@ -2305,6 +2306,8 @@
 		3D2EFCEF19F796D600BBBAE5 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sample.jpg; path = IUEditor/Resource/IUResource/editormode/image/sample.jpg; sourceTree = "<group>"; };
 		3D2EFCF119F7976B00BBBAE5 /* image_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_default.png; path = IUEditor/Resource/IUResource/editormode/image/image_default.png; sourceTree = "<group>"; };
 		3D5250641A087AE4001712E4 /* rulermarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rulermarker.png; path = IUEditor/Resource/AppResource/image/ui/icon/rulermarker.png; sourceTree = "<group>"; };
+		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
+		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
 		3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE45F5F19F7BFB200A75567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUDataStorageTest.m; sourceTree = "<group>"; };
@@ -4291,6 +4294,8 @@
 				3D2EFC7719F788C600BBBAE5 /* NSFlippedView.m */,
 				3D2EFC7819F788C600BBBAE5 /* NSTextField+DragAndDrop.h */,
 				3D2EFC7919F788C600BBBAE5 /* NSTextField+DragAndDrop.m */,
+				3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */,
+				3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */,
 			);
 			name = Subclass;
 			sourceTree = "<group>";
@@ -5504,6 +5509,7 @@
 				3D2EF73119F7850100BBBAE5 /* LMStackVC.m in Sources */,
 				3D2EF62B19F7845500BBBAE5 /* WebCanvasView.m in Sources */,
 				3D2EF6CF19F784A400BBBAE5 /* LMPropertyIUWebMovieVC.m in Sources */,
+				3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */,
 				3D2EFC7E19F788C600BBBAE5 /* JDOutlineView.m in Sources */,
 				3D2EF42719F7815B00BBBAE5 /* IUDjangoProject.m in Sources */,
 				3D2EFC5519F788BA00BBBAE5 /* JDNetworkUtil.m in Sources */,

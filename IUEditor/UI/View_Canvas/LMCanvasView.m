@@ -8,13 +8,15 @@
 
 #import "LMCanvasView.h"
 #import "LMCanvasVC.h"
+#import "NSRulerView+CustomColor.h"
 
 @implementation LMCanvasView{
     /* current state of mouse + current state of iu (extend or move)*/
     BOOL isMouseDragForIU, isDragForMultipleSelection, isMouseDownForMoveIU;
     NSPoint startDragPoint, middleDragPoint, endDragPoint;
     NSUInteger keyModifierFlags;
-    CGFloat zoomFactor;
+    CGFloat zoomFactor, oldLeft;
+    
 }
 
 + (void)initialize{
@@ -54,6 +56,7 @@
     
     
     //setting for ruler
+    [NSScrollView setRulerViewClass:[NSRulerView_CustomColor class]];
     [self.mainScrollView setHasHorizontalRuler:YES];
     [self.mainScrollView setHasVerticalRuler:YES];
     
@@ -104,20 +107,26 @@
 
 - (void)setRulerOffsets
 {
+    //horizontal Ruler
     NSRulerView *horizRuler = [self.mainScrollView horizontalRulerView];
-    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
     
     horizRuler.reservedThicknessForMarkers = 4;
     [horizRuler setMeasurementUnits:@"Pixel"];
-    [vertRuler setMeasurementUnits:@"Pixel"];
     
     CGFloat left = (self.maxCurrentFrameWidth - self.controller.selectedFrameWidth)/2;
-    if(left > 0){
-        [horizRuler setOriginOffset:left];
+    if(left < 0){
+        left = 0;
     }
-    else{
-        [horizRuler setOriginOffset:0];
+    [horizRuler setOriginOffset:left];
+    for(NSRulerMarker *marker in [horizRuler markers]){
+        marker.markerLocation = marker.markerLocation - oldLeft + left;
     }
+    
+    oldLeft = left;
+    
+    //vertical Ruler
+    NSRulerView *vertRuler = [self.mainScrollView verticalRulerView];
+    [vertRuler setMeasurementUnits:@"Pixel"];
     [vertRuler setOriginOffset:0];
     
     return;
