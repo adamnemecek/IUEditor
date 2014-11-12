@@ -51,12 +51,9 @@
     self =  [super initWithCoder:aDecoder];
 
     if(self){
-        [[self undoManager] disableUndoRegistration];
         
         [aDecoder decodeToObject:self withProperties:[[PGTextView class] properties]];
         
-        [[self undoManager] enableUndoRegistration];
-
     }
 
     return self;

@@ -48,9 +48,7 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
-        [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[[PGTextField class] properties]];
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

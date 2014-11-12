@@ -71,7 +71,6 @@
     
     self = [super init];
     if (self) {
-        [[self undoManager] disableUndoRegistration];
 
         [aDecoder decodeToObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"delegate", @"textType", @"linkCaller"]]];
         
@@ -99,7 +98,6 @@
         }
         NSAssert([self.htmlID length] != 0 , @"");
         
-        [[self undoManager] enableUndoRegistration];
 
 
         //create storage
@@ -109,14 +107,12 @@
 }
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
-    [[self undoManager] disableUndoRegistration];
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
 //    _css = [aDecoder decodeObjectForKey:@"css"];
     _mqData = [aDecoder decodeObjectForKey:@"mqData"];
     _m_children = [aDecoder decodeObjectForKey:@"children"];
     
-    [[self undoManager] enableUndoRegistration];
     return self;
 }
 
@@ -141,7 +137,6 @@
  */
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     
     _m_children = [aDecoder decodeObjectForKey:@"children"];
     
@@ -189,7 +184,6 @@
         }
         
     }
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

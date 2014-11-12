@@ -33,13 +33,11 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if(self){
-        [self.undoManager disableUndoRegistration];
         
         [aDecoder decodeToObject:self withProperties:[IUPage properties]];
         _pageContent = [aDecoder decodeObjectForKey:@"pageContent"];
         [_pageContent bind:@"delegate" toObject:self withKeyPath:@"delegate" options:nil];
         
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

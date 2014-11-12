@@ -24,14 +24,10 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
-
     if(self){
         [aDecoder decodeToObject:self withProperties:[[IUImage class] properties]];
     }
-    
-    [self.undoManager enableUndoRegistration];
-    return self;
+        return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];

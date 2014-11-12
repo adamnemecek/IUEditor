@@ -51,13 +51,10 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [[self undoManager] disableUndoRegistration];
 
     [aDecoder decodeToObject:self withProperties:[[self class] properties]];
     _buttonMargin = 2;
     
-    [[self undoManager] enableUndoRegistration];
-
     return self;
 }
 

@@ -25,7 +25,6 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self.undoManager disableUndoRegistration];
         
         _ghostX = [aDecoder decodeFloatForKey:@"ghostX"];
         _ghostY = [aDecoder decodeFloatForKey:@"ghostY"];
@@ -34,16 +33,7 @@
         _group = [aDecoder decodeObjectForKey:@"group"];
 
 
-        [self.undoManager enableUndoRegistration];
     }
-    return self;
-}
--(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [super awakeAfterUsingCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
-    
-
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

@@ -49,12 +49,9 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
-    
     if(self){
         [aDecoder decodeToObject:self withProperties:[[IUGoogleMap class] properties]];
     }
-    
     [self.undoManager enableUndoRegistration];
     return self;
 }

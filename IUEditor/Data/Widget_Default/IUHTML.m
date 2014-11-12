@@ -35,13 +35,11 @@
 }
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     
     if(self){
         [aDecoder decodeToObject:self withProperties:[[IUHTML class] properties]];
     }
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder{

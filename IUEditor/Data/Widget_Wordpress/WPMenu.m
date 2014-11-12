@@ -65,11 +65,9 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
 
     [aDecoder decodeToObject:self withProperties:[[WPMenu class] properties]];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

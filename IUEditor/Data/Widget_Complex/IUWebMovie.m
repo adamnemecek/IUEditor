@@ -56,11 +56,9 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
-        [self.undoManager disableUndoRegistration];
 
         [aDecoder decodeToObject:self withProperties:[[IUWebMovie class] properties]];
         
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

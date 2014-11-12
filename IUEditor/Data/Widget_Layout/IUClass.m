@@ -95,7 +95,6 @@
 }
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self =  [super awakeAfterUsingCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
 
     _referenceImports = [[aDecoder decodeObjectForKey:@"referenceImport"] mutableCopy];
     NSArray *copy = [_referenceImports copy];
@@ -107,7 +106,6 @@
         index--;
     }
 
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder{

@@ -26,11 +26,9 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     //REVIEW: old file conversion - absolute포함되어있음
     self.positionType = IUPositionTypeRelative;
 
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

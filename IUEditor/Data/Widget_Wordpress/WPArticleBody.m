@@ -72,10 +72,8 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
-        [aDecoder decodeToObject:self withProperties:[WPArticleBody properties]];
+    [aDecoder decodeToObject:self withProperties:[WPArticleBody properties]];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

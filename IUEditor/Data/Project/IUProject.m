@@ -77,8 +77,6 @@
     self = [super init];
     if (self) {
         
-        [self.undoManager disableUndoRegistration];
-        
         /* version control code */
         //REVIEW : sync with project version
         NSString *projectVersion = [aDecoder decodeObjectForKey:@"IUProjectVersion"];
@@ -130,8 +128,6 @@
         
         _serverInfo = [[IUServerInfo alloc] init];
         
-        [self.undoManager enableUndoRegistration];
-
       
     }
     return self;
