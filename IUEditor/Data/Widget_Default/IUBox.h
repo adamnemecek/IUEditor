@@ -107,10 +107,8 @@ typedef enum{
 - (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC;
 @property (weak) IUBox    *parent;
 
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
 @property (nonatomic) NSString *text;
 
-#endif
 - (IUTextInputType)textInputType;
 
 //undoManager

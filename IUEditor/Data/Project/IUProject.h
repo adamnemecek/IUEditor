@@ -10,7 +10,6 @@
 #import "IUResourceGroup.h"
 #import "IUCompiler.h"
 #import "IUSheetGroup.h"
-#import "IUFileProtocol.h"
 #import "IUServerInfo.h"
 #import "IUProjectProtocol.h"
 
@@ -50,7 +49,7 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <IUFile, IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol>{
+@interface IUProject : NSObject <IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUResourceGroup *_resourceGroup;

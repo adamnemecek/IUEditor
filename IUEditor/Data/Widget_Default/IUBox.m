@@ -380,9 +380,7 @@
         IUMQData *newMQData = [_mqData copy];
         IUEvent *newEvent = [_event copy];
         NSArray *children = [self.children deepCopy];
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
         box.text = [_text copy];
-#endif
         
         box.overflowType = _overflowType;
         box.positionType = _positionType;
@@ -1489,9 +1487,6 @@ e.g. 만약 css로 옮긴다면)
     [self updateHTML];
 }
 
-
-
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
 #pragma mark -text
 
 - (void)setText:(NSString *)text{
@@ -1525,8 +1520,6 @@ e.g. 만약 css로 옮긴다면)
         [self updateCSS];
     }
 }
-
-#endif
 
 - (NSString*)cssIdentifier{
     return [@"." stringByAppendingString:self.htmlID];

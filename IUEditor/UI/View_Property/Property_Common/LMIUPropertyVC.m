@@ -40,12 +40,7 @@
 #import "LMPropertyWPPageLinksVC.h"
 #import "LMPropertyWPCommentObjectVC.h"
 
-
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
-
 #import "LMPropertyTextVC.h"
-
-#endif
 
 #import "LMPropertyProgrammingType1VC.h"
 #import "LMPropertyProgrammingType2VC.h"
@@ -102,9 +97,7 @@
     LMPropertyWPPageLinksVC *propertyWPPageLinksVC;
     LMPropertyWPCommentObjectVC *pCommentObjectVC;
     
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
     LMPropertyTextVC *propertyTextVC;
-#endif
     
     LMPropertySampleTextVC *pSampleTextVC;
 
@@ -175,10 +168,7 @@
         
         propertyPGType1VC = [[LMPropertyProgrammingType1VC alloc] initWithNibName:[LMPropertyProgrammingType1VC class].className bundle:nil];
         propertyPGType2VC = [[LMPropertyProgrammingType2VC alloc] initWithNibName:[LMPropertyProgrammingType2VC class].className bundle:nil];
-        
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
         propertyTextVC = [[LMPropertyTextVC alloc] initWithNibName:[LMPropertyTextVC class].className bundle:nil];
-#endif
         propertyWebProgramming = [[LMPropertyWebProgrammingVC alloc] initWithNibName:[LMPropertyWebProgrammingVC class].className bundle:nil];
         
 
@@ -409,11 +399,6 @@
         self.propertyVArray = @[pCommentObjectVC.view];
     }
     
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
-#else
-    NSAssert(0, @"");
-#endif
-
     else if ([classString isEqualToString:@"IUHTML"]){
         self.propertyVArray = [NSMutableArray arrayWithArray:@[propertyIUHTMLVC.view]];
         doubleClickFocusVC = propertyIUHTMLVC;

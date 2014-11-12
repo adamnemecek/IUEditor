@@ -50,9 +50,6 @@
 #import "WPPageLink.h"
 #import "WPPageLinks.h"
 
-#if CURRENT_TEXT_VERSION >= TEXT_SELECTION_VERSION
-#import "IUText.h"
-#endif
 
 #import "LMFontController.h"
 #import "WPArticle.h"

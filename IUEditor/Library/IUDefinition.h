@@ -35,7 +35,6 @@ static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 #define IUTextEditableClass @"editable"
 #define IUTextAddibleClass @"addible"
 
-#endif
 
 
 typedef enum _IUTarget{
@@ -51,4 +50,4 @@ typedef enum _IUUnit{
     IUUnitPercent,
 } IUUnit;
 
-
+#endif

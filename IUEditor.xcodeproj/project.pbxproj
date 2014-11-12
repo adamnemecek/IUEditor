@@ -1142,7 +1142,6 @@
 		3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMGeneralObject.m; path = Control/LMGeneralObject.m; sourceTree = "<group>"; };
 		3D2EF41A19F7815B00BBBAE5 /* IUDjangoProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUDjangoProject.h; path = Data/Project/IUDjangoProject.h; sourceTree = "<group>"; };
 		3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUDjangoProject.m; path = Data/Project/IUDjangoProject.m; sourceTree = "<group>"; };
-		3D2EF41C19F7815B00BBBAE5 /* IUFileProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUFileProtocol.h; path = Data/Project/IUFileProtocol.h; sourceTree = "<group>"; };
 		3D2EF41D19F7815B00BBBAE5 /* IUProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUProject.h; path = Data/Project/IUProject.h; sourceTree = "<group>"; };
 		3D2EF41E19F7815B00BBBAE5 /* IUProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUProject.m; path = Data/Project/IUProject.m; sourceTree = "<group>"; };
 		3D2EF41F19F7815B00BBBAE5 /* IUResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUResourceFile.h; path = Data/Project/IUResourceFile.h; sourceTree = "<group>"; };
@@ -2560,7 +2559,6 @@
 			children = (
 				3D2EF41A19F7815B00BBBAE5 /* IUDjangoProject.h */,
 				3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */,
-				3D2EF41C19F7815B00BBBAE5 /* IUFileProtocol.h */,
 				3D2EF41D19F7815B00BBBAE5 /* IUProject.h */,
 				3D2EF41E19F7815B00BBBAE5 /* IUProject.m */,
 				3D2EF41F19F7815B00BBBAE5 /* IUResourceFile.h */,

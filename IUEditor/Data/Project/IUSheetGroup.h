@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IUFileProtocol.h"
 #import "JDCoder.h"
 
 @class IUProject;

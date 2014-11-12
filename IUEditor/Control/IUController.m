@@ -442,13 +442,20 @@
  if selected objects are differen class, return iubox
  */
 - (NSString *)selectionClassName{
+
     NSString *className = [[[self selectedObjects] firstObject] className];
-    for(IUBox *iu in [self selectedObjects]){
-        if([className isEqualToString:[iu className]] ==NO){
-            return [IUBox class].className;
-        }
+    if([self.selectedObjects count] == 1){
+        return className;
     }
-    return className;
+    else{
+        for(IUBox *iu in [self selectedObjects]){
+            if([className isEqualToString:[iu className]] ==NO){
+                return [IUBox class].className;
+            }
+        }
+        
+        return className;
+    }
 }
 
 

@@ -82,9 +82,7 @@
     [_fontListDC bind:NSContentDictionaryBinding toObject:_fontController withKeyPath:@"fontDict" options:nil];
     [_fontCB bind:NSContentBinding toObject:_fontListDC withKeyPath:@"arrangedObjects.key" options:IUBindingDictNotRaisesApplicable];
     
-#if CURRENT_TEXT_VERSION < TEXT_SELECTION_VERSION
     [self outlet:_fontColorWell bind:NSValueBinding cssTag:IUCSSTagFontColor];
-#endif 
     
     //combobox delegate
     _fontCB.delegate = self;
@@ -409,12 +407,6 @@
     
 }
 
-
-
-
-
-
-
 #pragma mark -
 #pragma mark combobox dataSource
 
@@ -440,76 +432,4 @@
 }
 
 
-#if CURRENT_TEXT_VERSION > TEXT_SELECTION_VERSION
-
-- (void)unbindTextSpecificProperty{
-    if([_fontB infoForBinding:NSValueBinding]){
-        [_fontB unbind:NSValueBinding];
-    }
-    if([_fontSizeComboBox infoForBinding:NSValueBinding]){
-        [_fontSizeComboBox unbind:NSValueBinding];
-    }
-    /*
-     if([_fontSizeB infoForBinding:NSValueBinding]){
-     [_fontSizeB unbind:NSValueBinding];
-     }
-     if([_fontSizeStepper infoForBinding:NSValueBinding]){
-     [_fontSizeStepper unbind:NSValueBinding];
-     }
-     */
-    if([_fontColorWell infoForBinding:NSValueBinding]){
-        [_fontColorWell unbind:NSValueBinding];
-    }
-}
-
-- (void)selectionContextDidChange:(NSDictionary *)change{
-    
-    [self unbindTextSpecificProperty];
-    
-    if([self isSelectedObjectText]){
-        [_fontStyleB setEnabled:YES];
-        
-        [_fontB bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.textController." stringByAppendingString:@"fontName"] options:IUBindingDictNotRaisesApplicable];
-        [_fontSizeComboBox bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.textController." stringByAppendingString:@"fontSize"] options:IUBindingDictNotRaisesApplicable];
-        [_fontColorWell bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.textController." stringByAppendingString:@"fontColor"] options:IUBindingDictNotRaisesApplicable];
-        
-        
-        if([[_controller selectedObjects] count] ==1 ){
-            BOOL weight = ((IUText *)_controller.selection).textController.bold;
-            [_fontStyleB setSelected:weight forSegment:0];
-            
-            BOOL italic = ((IUText *)_controller.selection).textController.italic;
-            [_fontStyleB setSelected:italic forSegment:1];
-            
-            BOOL underline = ((IUText *)_controller.selection).textController.underline;
-            [_fontStyleB setSelected:underline forSegment:2];
-        }
-        
-    }
-    else{
-        //not text - text field / text view
-        [_fontStyleB setEnabled:NO];
-        
-        [_fontB bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.css.effectiveTagDictionary." stringByAppendingString:IUCSSTagFontName] options:IUBindingDictNotRaisesApplicable];
-        [_fontSizeComboBox bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.css.effectiveTagDictionary." stringByAppendingString:IUCSSTagFontSize] options:IUBindingDictNotRaisesApplicable];
-        [_fontColorWell bind:NSValueBinding toObject:self withKeyPath:[@"self.selection.css.effectiveTagDictionary." stringByAppendingString:IUCSSTagFontColor] options:IUBindingDictNotRaisesApplicable];
-        
-    }
-    
-}
-
-- (IBAction)fontDecoBPressed:(id)sender {
-    
-    BOOL value;
-    value = [sender isSelectedForSegment:0];
-    [self setValue:@(value) forKeyPath:[@"self.selection.textController." stringByAppendingString:@"bold"]];
-    
-    value = [sender isSelectedForSegment:1];
-    [self setValue:@(value) forKeyPath:[@"self.selection.textController." stringByAppendingString:@"italic"]];
-    
-    value = [sender isSelectedForSegment:2];
-    [self setValue:@(value) forKeyPath:[@"self.selection.textController." stringByAppendingString:@"underline"]];
-    
-}
-#endif
 @end

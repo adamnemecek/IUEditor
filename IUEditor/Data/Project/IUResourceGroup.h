@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IUFileProtocol.h"
 #import "JDCoder.h"
 
 @protocol IUResourcePathProtocol <NSObject, JDCoding>
@@ -18,7 +17,7 @@
 
 @class IUResourceFile;
 
-@interface IUResourceGroup : NSObject <IUFile, IUResourcePathProtocol, NSCoding, NSCopying, JDCoding>
+@interface IUResourceGroup : NSObject <IUResourcePathProtocol, NSCoding, NSCopying, JDCoding>
 @property NSString *name;
 @property (weak) id <IUResourcePathProtocol> parent;
 
@@ -27,5 +26,7 @@
 - (BOOL)removeResourceFile:(IUResourceFile*)file;
 
 - (NSUndoManager *)undoManager;
+- (NSArray*)childrenFiles;
+
 
 @end
