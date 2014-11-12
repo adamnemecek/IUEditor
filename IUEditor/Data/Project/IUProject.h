@@ -91,7 +91,7 @@ static NSString *IUClassGroupName = @"class";
 /**
  @brief create project at temporary directory
  */
-- (id)initAtTemporaryDirectory;
+- (id)initAtTemporaryDirectory __deprecated;
 
 - (void)initializeResource;
 
