@@ -132,44 +132,37 @@ static NSCountedSet *enableLogSection;
 +(void)log:(NSString*)logSection key:(NSString*)key string:(NSString*)log{
     if ([enableLogSection containsObject:logSection]) {
         
-        NSLog(@"[%@] %@ : %@", logSection, key, log);
+        JDInfoLog(@"[%@] %@ : %@", logSection, key, log);
     }
 }
 
 +(void)log:(NSString *)logSection string:(NSString *)string{
     if ([enableLogSection containsObject:logSection]) {
-        NSLog(@"[Log] %@ %ld : %@", logSection, [enableLogSection countForObject:logSection], string);
+        JDInfoLog(@"[Log] %@ %ld : %@", logSection, [enableLogSection countForObject:logSection], string);
         [enableLogSection addObject:logSection];
     }
 }
 
 +(void)log:(NSString*)logSection key:(NSString*)key frame:(NSRect)frame{
     if ([enableLogSection containsObject:logSection]) {
-        NSLog(@"[%@] %@ : fr <%.2f,%.2f,%.2f,%.2f>", logSection, key, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+        JDInfoLog(@"[%@] %@ : fr <%.2f,%.2f,%.2f,%.2f>", logSection, key, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
     }
 }
 
 +(void)log:(NSString*)logSection key:(NSString*)key point:(NSPoint)point{
     if ([enableLogSection containsObject:logSection]) {
-        NSLog(@"[%@] %@ : pt: <%.1f, %.1f>", logSection, key, point.x, point.y);
+        JDInfoLog(@"[%@] %@ : pt: <%.1f, %.1f>", logSection, key, point.x, point.y);
     }
 }
 
 +(void)log:(NSString*)logSection key:(NSString*)key size:(NSSize)size{
     if ([enableLogSection containsObject:logSection]) {
-        NSLog(@"[%@] %@ : sz: <%.1f, %.1f>", logSection, key, size.width, size.height);
+        JDInfoLog(@"[%@] %@ : sz: <%.1f, %.1f>", logSection, key, size.width, size.height);
     }
 }
 
-/*
-+(void)log:(NSString*)logSection color:(NSColor*)color{
-    if ([enableLogSection containsObject:logSection]) {
-        NSLog(@"%@: rgba: <%.1f, %.1f, %.1f, %.1f>", logSection, color.redComponent, color.greenComponent, color.blueComponent, color.alphaComponent );
-    }
-}
-*/
 +(void)log:(NSString*)key err:(NSError*)err{
-        NSLog(@"%@: ERR %@",key, err.localizedFailureReason);
+        JDInfoLog(@"%@: ERR %@",key, err.localizedFailureReason);
 }
 
 +(void)alert:(NSString*)alertMsg{
@@ -258,31 +251,5 @@ static NSCountedSet *enableLogSection;
     }
     [self.watches removeObjectForKey:name];
 }
-
-
-/*
-
-static NSMutableDictionary *timeDict;
-
-+(void)timeLogStart:(NSString*)name{
-    if (timeDict == nil) {
-        timeDict = [NSMutableDictionary dictionary];
-    }
-    JDTraceLog(@"timeLog Start %@", name);
-    [timeDict setObject:[NSDate date] forKey:name];
-}
-
-+(void)timeLogEnd:(NSString*)name{
-    NSDate *startDate = [timeDict objectForKey:name];
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:startDate];
-    if (interval > 0.001) {
-        JDErrorLog(@"Time Log For %@: %.4f", name, interval);
-    }
-    else {
-        JDTraceLog(@"Time Log For %@: %.4f", name, interval);
-    }
-}
-
-*/
 
 @end

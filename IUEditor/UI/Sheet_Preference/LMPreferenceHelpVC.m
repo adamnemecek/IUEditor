@@ -24,8 +24,5 @@
     return self;
 }
 
-- (IBAction)performResetHelp:(id)sender {
-    [LMTutorialManager reset];
-}
 
 @end

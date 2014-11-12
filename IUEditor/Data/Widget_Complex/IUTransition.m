@@ -40,12 +40,10 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [[self undoManager] disableUndoRegistration];
         
         [aDecoder decodeToObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
      
         
-        [[self undoManager] enableUndoRegistration];
     }
     return self;
 }

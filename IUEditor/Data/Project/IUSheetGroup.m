@@ -33,32 +33,25 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [self init];
-    [self.undoManager disableUndoRegistration];
     
     [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
     //TODO: load project
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [self init];
-    [self.undoManager disableUndoRegistration];
     
     [aDecoder decodeToObject:self withProperties:[IUSheetGroup strongProperties]];
     //TODO: load project
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self = [super awakeAfterUsingCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
-    _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];
-    
-    [self.undoManager enableUndoRegistration];
+    _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];    
     return self;
 }
 

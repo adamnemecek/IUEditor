@@ -48,9 +48,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if(self) {
-        [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[IUEvent properties]];
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

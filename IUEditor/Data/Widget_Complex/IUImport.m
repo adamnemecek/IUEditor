@@ -30,13 +30,11 @@
 
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self = [super awakeAfterUsingCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     
     if(self){
         self.prototypeClass = [aDecoder decodeObjectForKey:@"_prototypeClass"];
     }
     
-    [self.undoManager enableUndoRegistration];
     return self;
 
 }
@@ -64,18 +62,9 @@
     
     NSAssert(self.project, @"");
     
-    
-    [[self undoManager] disableUndoRegistration];
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-    
-    
-    
-    [[self undoManager] enableUndoRegistration];
-    
 }
 
 - (void)setPrototypeClass:(IUClass *)prototypeClass{

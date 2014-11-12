@@ -53,6 +53,9 @@
     id document = [super makeUntitledDocumentOfType:typeName error:outError];
     
     if(document){
+        
+        [[document undoManager] disableUndoRegistration];
+        
         //option으로 url이 넘어옴.
         NSURL *url;
         if ([newDocumentOption objectForKey:IUProjectKeyIUFilePath]) {
@@ -67,6 +70,8 @@
             newDocumentOption = nil;
             [document saveToURL:url ofType:typeName forSaveOperation:NSSaveOperation delegate:self didSaveSelector:@selector(newDocument:didSave:contextInfo:) contextInfo:(__bridge void *)([NSNumber numberWithBool:YES])];
         }
+        
+        [[document undoManager] enableUndoRegistration];
     }
     
     return document;

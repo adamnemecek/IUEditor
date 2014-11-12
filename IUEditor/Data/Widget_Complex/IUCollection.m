@@ -29,14 +29,10 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if(self){
-        [self.undoManager disableUndoRegistration];
-        
         _collectionVariable = [aDecoder decodeObjectForKey:@"collectionVariable"];
         _responsiveSetting = [aDecoder decodeObjectForKey:@"responsiveSetting"];
         _responsiveSupport = [aDecoder decodeIntegerForKey:@"responsiveSupport"];
         _defaultItemCount = [aDecoder decodeIntegerForKey:@"defaultItemCount"];
-
-        [self.undoManager enableUndoRegistration];
     
     }
     return self;

@@ -7,7 +7,6 @@
 //
 
 #import "LMBottomToolbarVC.h"
-#import "LMTutorialManager.h"
 #import "LMHelpPopover.h"
 #import "LMWC.h"
 #import "LMHelpWC.h"

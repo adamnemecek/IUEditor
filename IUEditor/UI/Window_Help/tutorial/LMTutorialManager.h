@@ -8,12 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+
+/* 
+ @brief
+ old version의 튜토리얼을 삭제, 추후 추가되면 다시 사용할 수 있음.
+ deprecated @141112, smchoi
+ */
+__attribute__((deprecated))
 @interface LMTutorial : NSObject
 @property NSString *title;
 @property NSString *content;
 @property NSString *tutorialID;
 @end
 
+__attribute__((deprecated))
 @interface LMTutorialManager : NSObject
 
 /**

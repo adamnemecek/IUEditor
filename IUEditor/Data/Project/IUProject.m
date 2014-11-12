@@ -139,7 +139,6 @@
 
 
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [self.undoManager disableUndoRegistration];
     [super awakeAfterUsingCoder:aDecoder];
 
     
@@ -203,8 +202,6 @@
 
     }
     
-    
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

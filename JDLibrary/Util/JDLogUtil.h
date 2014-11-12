@@ -85,7 +85,8 @@ typedef enum {
 @interface JDLogUtil : NSObject
 
 //initialize
-/* Usage
+/** 
+ @brief
  1. set show log : loglevel, filename, functionane, linenumber;
  *  [JDLogUtil showLogLevel:YES andFileName:YES andFunctionName:YES andLineNumber:YES];
  2. set log level

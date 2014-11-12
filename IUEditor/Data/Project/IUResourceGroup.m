@@ -57,7 +57,6 @@
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
     
-    [self.undoManager disableUndoRegistration];
     
     array = [[aDecoder decodeObjectForKey:@"array"] mutableCopy];
     
@@ -72,7 +71,6 @@
     [array removeObjectsInArray:removedGroup];
     _name = [aDecoder decodeObjectForKey:@"_name"];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 
@@ -83,8 +81,6 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     
-    [self.undoManager disableUndoRegistration];
-
     array = [[aDecoder decodeObjectForKey:@"array"] mutableCopy];
     
     NSMutableArray *removedGroup = [NSMutableArray array];
@@ -100,7 +96,6 @@
     _name = [aDecoder decodeObjectForKey:@"_name"];
     _parent = [aDecoder decodeObjectForKey:@"_parent"];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

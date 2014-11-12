@@ -38,12 +38,10 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
-    [self.undoManager disableUndoRegistration];
     
     _name = [aDecoder decodeObjectForKey:@"_name"];
     _parent = [aDecoder decodeObjectForKey:@"_parent"];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

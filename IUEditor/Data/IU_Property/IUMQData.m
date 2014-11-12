@@ -36,7 +36,6 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
-    [[self.delegate undoManager] disableUndoRegistration];
     
     _mqDictWithViewPort = [aDecoder decodeObjectForKey:@"mqDictWithViewPort"];
     self.editViewPort = IUCSSDefaultViewPort;
@@ -44,21 +43,18 @@
     
     [self updateEffectiveTagDictionary];
     
-    [[self.delegate undoManager] enableUndoRegistration];
     return self;
 }
 
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
-    [[self.delegate undoManager] disableUndoRegistration];
     
     _mqDictWithViewPort = [aDecoder decodeObjectForKey:@"mqDictWithViewPort"];
     self.editViewPort = IUCSSDefaultViewPort;
     _effectiveTagDictionaryForEditWidth = [NSMutableDictionary dictionary];
     [self updateEffectiveTagDictionary];
     
-    [[self.delegate undoManager] enableUndoRegistration];
     return self;
 }
 

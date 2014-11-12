@@ -341,8 +341,12 @@
         bottomToolbarVC.resourceManager = _project.resourceManager;
         commandVC.docController = self.documentController;
         
+        [document.undoManager disableUndoRegistration];
+        
         [_project connectWithEditor];
         [_project setIsConnectedWithEditor];
+        
+        [document.undoManager enableUndoRegistration];
     
         
     }

@@ -33,17 +33,14 @@
 - (id)initWithCreation:(NSDictionary *)options error:(NSError *__autoreleasing *)error{
     self = [super initWithCreation:options error:error];
     if(self){
-        [self.undoManager disableUndoRegistration];
         _port = 8000;
         _managePyPath = @"$IUFileDirectory/manage.py";
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     
     _port = [aDecoder decodeIntForKey:@"_port"];
     _managePyPath = [aDecoder decodeObjectForKey:@"_managePyPath"];
@@ -66,7 +63,6 @@
         _managePyPath = @"$IUFileDirectory/manage.py";
     }
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

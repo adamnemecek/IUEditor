@@ -12,7 +12,6 @@
 
 #import "JDScreenRecorder.h"
 #import "JDDateTimeUtil.h"
-#import "LMTutorialManager.h"
 #import "LMHelpWC.h"
 #import "LMCommandVC.h"
 

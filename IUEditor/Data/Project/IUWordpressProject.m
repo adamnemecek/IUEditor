@@ -36,8 +36,6 @@
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     
-    [self.undoManager disableUndoRegistration];
-    
     _port = [aDecoder decodeIntForKey:@"_port"];
     _documentRoot = [aDecoder decodeObjectForKey:@"_documentRoot"];
     
@@ -49,7 +47,6 @@
     
     _compiler.webTemplateFileName = @"wpWebTemplate";
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

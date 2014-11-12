@@ -20,11 +20,9 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
-    [self.undoManager disableUndoRegistration];
     
     [self addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
     
-    [self.undoManager enableUndoRegistration];
     return self;
 }
 

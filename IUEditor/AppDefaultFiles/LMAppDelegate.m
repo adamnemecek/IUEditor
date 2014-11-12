@@ -22,7 +22,6 @@
 #import "IUProjectController.h"
 #import "LMNotiManager.h"
 #import "JDEnvUtil.h"
-#import "LMTutorialWC.h"
 #import "LMHelpWC.h"
 #import "LMAppWarningWC.h"
 
@@ -42,6 +41,10 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
+/**
+@brief check network connection
+@return YES is succefully connected.
+ */
 - (BOOL)isConnected
 {
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
@@ -62,11 +65,8 @@
         [warnWC.window makeKeyAndOrderFront:self];
     }
     
-    
 #if DEBUG
     /*
-     [JDLogUtil showLogLevel:YES andFileName:YES andFunctionName:YES andLineNumber:YES];
-     [JDLogUtil setGlobalLevel:JDLog_Level_Debug];
      [JDLogUtil enableLogSection:IULogSource];
      [JDLogUtil enableLogSection:IULogJS];
      [JDLogUtil enableLogSection:IULogAction];
@@ -109,6 +109,7 @@
 
     
  
+    //default menu에서 쓰지 않는 메뉴 삭제.
     NSMenu* edit = [[[[NSApplication sharedApplication] mainMenu] itemWithTitle: @"Edit"] submenu];
     if ([[edit itemAtIndex: [edit numberOfItems] - 1] action] == NSSelectorFromString(@"orderFrontCharacterPalette:")
         )

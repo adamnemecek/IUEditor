@@ -56,12 +56,9 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
-        [[self undoManager] disableUndoRegistration];
 
         [aDecoder decodeToObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
         
-        [[self undoManager] enableUndoRegistration];
-
     }
     return self;
 }
@@ -77,13 +74,10 @@
     [super awakeAfterUsingCoder:aDecoder];
     
     if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
-        [[self undoManager] disableUndoRegistration];
         
         BOOL disable = [[aDecoder decodeObjectForKey:@"disableArrowControl"] boolValue];
         [self.css setValue:@(disable) forTag:IUCSSTagCarouselArrowDisable forViewport:IUCSSDefaultViewPort];
-        
-        [[self undoManager] enableUndoRegistration];
-        
+                
     }
     
     return self;
