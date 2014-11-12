@@ -62,9 +62,6 @@
 
 }
 
-- (BOOL)runnable{
-    return YES;
-}
 
 - (id)initWithCreation:(NSDictionary *)options error:(NSError *__autoreleasing *)error{
     
@@ -138,6 +135,11 @@
     return self;
 }
 
+#pragma mark - build
+
+- (BOOL)runnable{
+    return YES;
+}
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet{
     NSString *extension = (self.compiler.rule == IUCompileRuleWordpress) ? @"php" : @"html";

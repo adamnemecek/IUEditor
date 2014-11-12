@@ -35,12 +35,6 @@
     return returnGroup;
 }
 
-- (BOOL)addResourceGroup:(IUResourceGroup*)group{
-    [array addObject:group];
-    group.parent = self;
-    return YES;
-}
-
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:array forKey:@"array"];
     [aCoder encodeObject:_name forKey:@"_name"];
@@ -99,9 +93,21 @@
     return self;
 }
 
+-(void)dealloc{
+    [JDLogUtil log:IULogDealloc string:@"IUResrouceGroup"];
+}
+
 #pragma mark - Undo Manager
 - (NSUndoManager *)undoManager{
     return [[[[NSApp mainWindow] windowController] document] undoManager];
+}
+
+#pragma mark - manage resource
+
+- (BOOL)addResourceGroup:(IUResourceGroup*)group{
+    [array addObject:group];
+    group.parent = self;
+    return YES;
 }
 
 - (BOOL)removeResourceFile:(IUResourceFile*)file{
@@ -113,9 +119,31 @@
     return YES;
 }
 
--(void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"IUResrouceGroup"];
+- (NSArray*)childrenFiles{
+    return array;
 }
+
+-(IUResourceFile*)addResourceFileWithContentOfPath:(NSString*)filePath{
+    IUResourceFile *file = [[IUResourceFile alloc] initWithName:filePath.lastPathComponent];
+    file.originalFilePath = filePath;
+    file.parent = self;
+    [array addObject:file];
+    
+    //    [[[NSApp mainWindow] windowController] saveDocument:self];
+    
+    return file;
+}
+
+/*
+ -(IUResourceFile*)addResourceFileWithData:(NSData*)data{
+ IUResourceFile *file = [[IUResourceFile alloc] init];
+ [array addObject:file];
+ file.parent = self;
+ NSAssert([[NSFileManager defaultManager] createFileAtPath:file.absolutePath contents:data attributes:nil]);
+ return file;
+ }
+ */
+
 
 -(NSString*)relativePath{
     if ([self.parent isKindOfClass:[IUProject class]]) {
@@ -131,30 +159,5 @@
     }
     return [[self.parent absolutePath] stringByAppendingPathComponent:self.name];
 }
-
-- (NSArray*)childrenFiles{
-    return array;
-}
-
--(IUResourceFile*)addResourceFileWithContentOfPath:(NSString*)filePath{
-    IUResourceFile *file = [[IUResourceFile alloc] initWithName:filePath.lastPathComponent];
-    file.originalFilePath = filePath;
-    file.parent = self;
-    [array addObject:file];
-    
-//    [[[NSApp mainWindow] windowController] saveDocument:self];
-
-    return file;
-}
-
-/*
--(IUResourceFile*)addResourceFileWithData:(NSData*)data{
-    IUResourceFile *file = [[IUResourceFile alloc] init];
-    [array addObject:file];
-    file.parent = self;
-    NSAssert([[NSFileManager defaultManager] createFileAtPath:file.absolutePath contents:data attributes:nil]);
-    return file;
-}
- */
 
 @end

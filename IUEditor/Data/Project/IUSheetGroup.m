@@ -70,10 +70,12 @@
 }
 
 #pragma mark - Undo Manager
+
 - (NSUndoManager *)undoManager{
     return [[[[NSApp mainWindow] windowController] document] undoManager];
 }
 
+#pragma mark - manage sheet
 
 - (void)setChildren:(NSArray*)children{
     _children = [children mutableCopy];

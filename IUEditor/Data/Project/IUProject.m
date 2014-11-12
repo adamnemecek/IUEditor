@@ -42,6 +42,36 @@
              ];
 }
 
++ (id)projectWithContentsOfPath:(NSString*)path {
+    IUProject *project = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    project.path = path;
+    return project;
+}
+
+
++ (NSString *)stringProjectType:(IUProjectType)type{
+    NSString *projectName ;
+    switch (type) {
+        case IUProjectTypeDefault:
+            projectName = @"IUProject";
+            break;
+        case IUProjectTypeDjango:
+            projectName = @"IUDjangoProject";
+            break;
+        case IUProjectTypePresentation:
+            projectName = @"IUPresentationProject";
+            break;
+        case IUProjectTypeWordpress:
+            projectName = @"IUWordpressProject";
+            break;
+        default:
+            assert(0);
+            break;
+    }
+    return projectName;
+}
+
+
 #pragma mark - init
 
 - (void)encodeWithCoder:(NSCoder *)encoder{
@@ -471,23 +501,27 @@
     return _isConnectedWithEditor;
 }
 
-#pragma mark - Undo Manager
-- (NSUndoManager *)undoManager{
-    return [[[[NSApp mainWindow] windowController] document] undoManager];
-}
-
-
-- (void)setPath:(NSString *)path{
-    _path = path;
-}
-
-
 -(void)dealloc{
     if([self isConnectedWithEditor]){
         [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQAdded object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQRemoved object:nil];
     }
     [JDLogUtil log:IULogDealloc string:@"IUProject"];
+}
+
+
+#pragma mark - Manager
+- (NSUndoManager *)undoManager{
+    return [[[[NSApp mainWindow] windowController] document] undoManager];
+}
+
+
+- (IUIdentifierManager*)identifierManager{
+    return _identifierManager;
+}
+
+- (IUResourceManager *)resourceManager{
+    return _resourceManager;
 }
 
 #pragma mark - mq
@@ -510,51 +544,20 @@
 }
 
 #pragma mark - compile
+
+- (IUCompiler*)compiler{
+    return _compiler;
+}
+
 - (IUCompileRule )compileRule{
     return _compiler.rule;
 }
-
-
 
 - (void)setCompileRule:(IUCompileRule)compileRule{
     _compiler.rule = compileRule;
     NSAssert(_compiler != nil, @"");
 }
 
-
-
-
-// return value : project path
-
-
-+ (id)projectWithContentsOfPath:(NSString*)path{
-    IUProject *project = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    project.path = path;
-    return project;
-}
-
-
-+ (NSString *)stringProjectType:(IUProjectType)type{
-    NSString *projectName ;
-    switch (type) {
-        case IUProjectTypeDefault:
-            projectName = @"IUProject";
-            break;
-        case IUProjectTypeDjango:
-            projectName = @"IUDjangoProject";
-            break;
-        case IUProjectTypePresentation:
-            projectName = @"IUPresentationProject";
-            break;
-        case IUProjectTypeWordpress:
-            projectName = @"IUWordpressProject";
-            break;
-        default:
-            assert(0);
-            break;
-    }
-    return projectName;
-}
 
 
 - (IUProjectType)projectType{
@@ -581,6 +584,12 @@
     return type;
 }
 
+#pragma mark - build
+
+- (void)resetBuildPath{
+    self.buildPath = @"$IUFileDirectory/$AppName_build";
+    self.buildResourcePath = @"$IUBuildPath/resource";
+}
 
 - (NSString*)absoluteBuildPath{
     NSMutableString *str = [self.buildPath mutableCopy];
@@ -612,13 +621,6 @@
         NSString *filePath = [[self.absoluteBuildPath stringByAppendingPathComponent:sheet.name ] stringByAppendingPathExtension:@"html"];
         return filePath;
     }
-}
-
-- (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error copyingItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath{
-    if ([error code] == NSFileWriteFileExistsError) //error code for: The operation couldn’t be completed. File exists
-        return YES;
-    else
-        return NO;
 }
 
 
@@ -798,30 +800,13 @@
 }
 
 
-- (void)addImageResource:(NSImage*)image{
-    NSAssert(0, @"write fail");
+- (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error copyingItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath{
+    if ([error code] == NSFileWriteFileExistsError) //error code for: The operation couldn’t be completed. File exists
+        return YES;
+    else
+        return NO;
 }
 
--(NSSet*)allIUs{
-    NSMutableSet  *set = [NSMutableSet set];
-    for (IUSheet *sheet in self.allDocuments) {
-        [set addObject:sheet];
-        [set addObjectsFromArray:sheet.allChildren];
-    }
-    return [set copy];
-}
-
-- (NSArray *)childrenFiles{
-    return @[_pageGroup, _classGroup, _resourceGroup];
-}
-
-- (IUResourceGroup*)resourceNode{
-    return [self.childrenFiles objectAtIndex:3];
-}
-
-- (IUCompiler*)compiler{
-    return _compiler;
-}
 
 
 /** default css array
@@ -848,7 +833,36 @@
 }
 
 
+- (BOOL)runnable{
+    return NO;
+}
 
+- (IUServerInfo*)serverInfo{
+    if (_serverInfo.localPath == nil) {
+        _serverInfo.localPath = [self buildPath];
+        _serverInfo.syncItem = [self.path lastPathComponent];
+    }
+    return _serverInfo;
+}
+
+#pragma mark - ius, resource
+
+-(NSSet*)allIUs{
+    NSMutableSet  *set = [NSMutableSet set];
+    for (IUSheet *sheet in self.allDocuments) {
+        [set addObject:sheet];
+        [set addObjectsFromArray:sheet.allChildren];
+    }
+    return [set copy];
+}
+
+- (NSArray *)childrenFiles{
+    return @[_pageGroup, _classGroup, _resourceGroup];
+}
+
+- (IUResourceGroup*)resourceNode{
+    return [self.childrenFiles objectAtIndex:3];
+}
 
 //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
 //현재는 불리지 않음.
@@ -928,17 +942,6 @@
     return [_classGroup sheetWithHtmlID:name];
 }
 
-- (BOOL)runnable{
-    return NO;
-}
-
-- (IUIdentifierManager*)identifierManager{
-    return _identifierManager;
-}
-
-- (IUResourceManager *)resourceManager{
-    return _resourceManager;
-}
 
 - (id)parent{
     return nil;
@@ -1005,17 +1008,6 @@
     }
 }
 
-- (IUServerInfo*)serverInfo{
-    if (_serverInfo.localPath == nil) {
-        _serverInfo.localPath = [self buildPath];
-        _serverInfo.syncItem = [self.path lastPathComponent];
-    }
-    return _serverInfo;
-}
 
-- (void)resetBuildPath{
-    self.buildPath = @"$IUFileDirectory/$AppName_build";
-    self.buildResourcePath = @"$IUBuildPath/resource";
-}
 
 @end

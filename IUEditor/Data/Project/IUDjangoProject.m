@@ -72,6 +72,8 @@
     [encoder encodeObject:_managePyPath forKey:@"_managePyPath"];
 }
 
+#pragma mark - build
+
 - (BOOL)runnable{
     return YES;
 }

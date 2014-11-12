@@ -55,6 +55,8 @@
     return [[[[NSApp mainWindow] windowController] document] undoManager];
 }
 
+#pragma mark - properties
+
 - (NSArray *)children{
     return nil;
 }

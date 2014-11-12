@@ -73,7 +73,7 @@ static NSString *IUClassGroupName = @"class";
 
 
 //create project
-+ (id)projectWithContentsOfPath:(NSString*)path;
++ (id)projectWithContentsOfPath:(NSString*)path __deprecated;
 + (NSString *)stringProjectType:(IUProjectType)type;
 
 /**
