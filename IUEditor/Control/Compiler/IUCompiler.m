@@ -330,7 +330,7 @@
             return @"\"<?php bloginfo('template_url'); ?>/resource/";
         }
         else{
-            return @"../resource";
+            return @"resource";
         }
     }
 }
