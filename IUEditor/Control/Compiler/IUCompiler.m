@@ -433,10 +433,10 @@
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", editorCSSPath];
     }
     else{
-        NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", resetCSSPath];
-        NSString *iuCSSPath = [[NSBundle mainBundle] pathForResource:@"iu" ofType:@"css"];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", iuCSSPath];
+        [code addCodeLine:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/reset.css\">"];
+        [code addCodeLine:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/iu.css\">"];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/%@.css\">", sheet.name];
+
 
     }
     return code;
