@@ -293,10 +293,6 @@
     return self;
 }
 
-/**
- FIXME :
- no one call this function @ 20141112
- */
 - (id)initAtTemporaryDirectory {
     /* initialize at temp directory */
     self = [super init];

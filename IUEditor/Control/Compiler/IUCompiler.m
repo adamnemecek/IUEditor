@@ -1033,7 +1033,7 @@
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
 - (NSString* )htmlSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort {
-    return nil;
+    return [[htmlCompiler wholeHTMLCode:box target:target withCSS:YES] string];
 }
 
 - (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort{

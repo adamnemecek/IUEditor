@@ -90,6 +90,22 @@
     }];
 }
 
+- (void)test2_loadPageAndCheckCSS {
+    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    
+    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    [page.cssManager.liveStorage setX:@(50)];
+    [manager loadSheet:page];
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
+        DOMElement *pageElement = [dom getElementById:page.htmlID];
+        XCTAssertTrue([pageElement.style.cssText containsString:@"left: 50px"]);
+    }];
+}
+
+
+
 
 /* prepare update. for example, text editor enable/disable */
 - (void)beginUpdate{

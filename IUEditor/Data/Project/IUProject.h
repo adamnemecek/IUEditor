@@ -88,9 +88,12 @@ static NSString *IUClassGroupName = @"class";
 -(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error;
 
 /**
+ Make Project at Temporary directory.
+ Used in Unit Test
+
  @brief create project at temporary directory
  */
-- (id)initAtTemporaryDirectory __deprecated;
+- (id)initAtTemporaryDirectory;
 
 - (void)initializeResource;
 

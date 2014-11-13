@@ -205,6 +205,14 @@
             }
             attributeValue = classValue;
         }
+        else if ([attributeName isEqualToString:@"style"]){
+            NSMutableString *classValue = [NSMutableString string];
+            NSDictionary *cssDict = value;
+            for(NSString *cssString in cssDict){
+                [classValue appendFormat:@"%@: %@; ", cssString, cssDict[cssString]];
+            }
+            attributeValue = classValue;
+        }
         //attribute w/o value
         else if([value isKindOfClass:[NSNull class]]){
             [attributeString appendFormat:@"%@ ", attributeName];

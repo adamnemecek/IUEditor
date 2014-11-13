@@ -14,6 +14,7 @@
 		099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
 		09D1807A1A0C5C40001B9D9B /* IUCSSCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D180791A0C5C40001B9D9B /* IUCSSCode.m */; };
 		09D4AD151A144A96001421C9 /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD141A144A96001421C9 /* CSSToCSSStorageConversion_Test.m */; };
+		09D4AD171A1451FD001421C9 /* IUCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */; };
 		09E8E43B1A08BA1E0017419B /* IUSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceManager.m */; };
 		09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43C1A08DE700017419B /* IUBox_Test.m */; };
 		09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */; };
@@ -1075,6 +1076,7 @@
 		09D180781A0C5C40001B9D9B /* IUCSSCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUCSSCode.h; path = Control/Compiler/IUCSSCode.h; sourceTree = "<group>"; };
 		09D180791A0C5C40001B9D9B /* IUCSSCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUCSSCode.m; path = Control/Compiler/IUCSSCode.m; sourceTree = "<group>"; };
 		09D4AD141A144A96001421C9 /* CSSToCSSStorageConversion_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSSToCSSStorageConversion_Test.m; sourceTree = "<group>"; };
+		09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCompiler_Test.m; sourceTree = "<group>"; };
 		09E8E4391A08BA1E0017419B /* IUSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSourceManager.h; path = Control/IUSourceManager.h; sourceTree = "<group>"; };
 		09E8E43A1A08BA1E0017419B /* IUSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSourceManager.m; path = Control/IUSourceManager.m; sourceTree = "<group>"; };
 		09E8E43C1A08DE700017419B /* IUBox_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUBox_Test.m; sourceTree = "<group>"; };
@@ -4316,6 +4318,7 @@
 				09E8E43C1A08DE700017419B /* IUBox_Test.m */,
 				09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */,
 				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
+				09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */,
 			);
 			path = "IUEditor Tests";
 			sourceTree = "<group>";
@@ -5608,6 +5611,7 @@
 				099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */,
 				09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */,
 				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
+				09D4AD171A1451FD001421C9 /* IUCompiler_Test.m in Sources */,
 				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
 				09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */,
 				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
