@@ -69,6 +69,7 @@
         _rule = IUCompileRuleDefault;
         
         cssCompiler = [[IUCSSCompiler alloc] init];
+        htmlCompiler.cssCompiler = cssCompiler;
         
     }
     return self;
@@ -521,9 +522,12 @@
 }
 
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target{
-    return [htmlCompiler wholeHTMLCode:iu target:target];
+    return [htmlCompiler wholeHTMLCode:iu target:target withCSS:NO];
 }
 
+- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS{
+    return [htmlCompiler wholeHTMLCode:iu target:target withCSS:withCSS];
+}
 
 #pragma mark - editor body source
 
@@ -914,7 +918,7 @@
     [JDLogUtil log:IULogDealloc string:@"IUCompiler"];
 }
 
-- (NSString *)webSource:(IUSheet *)sheet target:(IUTarget)target viewPort:(int)viewPort{
+- (NSString *)webSource:(IUSheet *)sheet target:(IUTarget)target{
     NSString *webTemplateFileName;
     if (sheet.project.projectType == IUProjectTypeWordpress) {
         webTemplateFileName = @"wpWebTemplate";
@@ -958,7 +962,7 @@
         // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
         // - text editor를 불러올 수 있음.
         [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor]];
+        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES]];
         [htmlCode addString:@"<div>"];
         [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
         

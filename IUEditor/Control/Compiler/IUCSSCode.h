@@ -14,6 +14,8 @@
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport;
 
+- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(int)viewport;
+
 
 - (NSArray*)allViewports;
 - (NSArray*)allIdentifiers;
@@ -25,6 +27,9 @@
 
 - (NSArray* )minusInlineTagSelector:(IUCSSCode *)code;
 - (NSArray *)minusNonInlineSelector:(IUCSSCode *)code;
+
+/* uses inline code for IUDefaultViewPort and defaultIdentifier */
+- (NSString *)mainIdentifier;
 @end
 
 
@@ -37,6 +42,7 @@
 - (void)setInsertingIdentifier:(NSString *)identifier;
 - (void)setInsertingIdentifiers:(NSArray *)identifiers;
 - (void)renameIdentifier:(NSString*)fromIdentifier to:(NSString*)toIdentifier;
+- (void)setMainIdentifier:(NSString *)identifier;
 
 - (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(int)viewport target:(IUTarget)target;
 - (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier viewport:(int)viewport target:(IUTarget)target;

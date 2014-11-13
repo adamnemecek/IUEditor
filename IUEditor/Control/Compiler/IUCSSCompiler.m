@@ -96,12 +96,13 @@
     else {
         editWidths = [_iu.css allViewports];;
     }
-
+    
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];
         
         /* insert to editor and output, with default css identifier. */
         [code setInsertingIdentifier:_iu.cssIdentifier];
+        [code setMainIdentifier:_iu.cssIdentifier];
         [code setInsertingTarget:IUTargetBoth];
 
         /* width can vary to data */
@@ -1190,6 +1191,11 @@
     [self updateLinkCSSCode:code asIUBox:iu storage:NO];
     return code;
 
+}
+
+- (IUCSSCode*)cssCodeForIU_storage:(IUBox*)iu target:(IUTarget)target viewPort:(int)viewPort{
+    //FIXME: Not Coded
+    return [self cssCodeForIU_storage:iu];
 }
 
 /*

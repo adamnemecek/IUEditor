@@ -24,9 +24,11 @@
 
 @protocol IUSourceManagerDelegate <NSObject> // = canvasVC
 
+@required
 /* get WebView. We Manage source of it */
 - (WebView *)webView;
 
+@optional
 /* prepare update. for example, text editor enable/disable */
 - (void)beginUpdate;
 - (void)commitUpdate;

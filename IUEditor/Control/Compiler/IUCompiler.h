@@ -71,7 +71,11 @@ typedef enum _IUCompileRule{
 //  storage mode
 //
 
-- (NSString *)webSource:(IUSheet *)document target:(IUTarget)target viewPort:(int)viewPort;
+/**
+ Return whole web source of sheet;
+ @note: this function does not accept viewPort: always return as IUDefaultViewPort
+ */
+- (NSString *)webSource:(IUSheet *)document target:(IUTarget)target;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
 - (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;

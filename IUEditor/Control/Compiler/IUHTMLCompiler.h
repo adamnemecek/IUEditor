@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "JDCode.h"
 #import "IUCompiler.h"
+#import "IUCSSCompiler.h"
 
 @class IUSheet;
 
 @interface IUHTMLCompiler : NSObject
 
 @property IUCompiler *compiler;
+@property IUCSSCompiler *cssCompiler;
 
-- (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target;
+- (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS;
 
 
 @end

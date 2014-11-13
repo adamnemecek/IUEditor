@@ -13,38 +13,47 @@
 #import "IUProject.h"
 #import "IUBox.h"
 #import "IUPage.h"
-#import "XCTestCase+AsyncTesting.h"
 
 @interface IUSourceManager_Test : XCTestCase <IUProjectProtocol, IUSourceManagerDelegate>
 
 @end
 
 @implementation IUSourceManager_Test {
+    /* delegation source */
     WebView *_webView;
-    IUCompiler *_compiler;
+
+    
     IUSourceManager *manager;
-    NSWindowController *wc;
     NSWindow *w;
+    XCTestExpectation *webViewLoadingExpectation;
 }
 
 - (void)setUp {
     [super setUp];
     
-//    });
     
+    NSRect windowFrame = NSMakeRect(0, 0, 500, 500);
+    w  = [[NSWindow alloc] initWithContentRect:windowFrame
+                                     styleMask:NSClosableWindowMask
+                                       backing:NSBackingStoreBuffered
+                                         defer:NO];
     _webView = [[WebView alloc] init];
-    [_webView setUIDelegate:self];
-    [_webView setResourceLoadDelegate:self];
+    [_webView setFrame:CGRectMake(0, 0, 500, 500)];
     [_webView setFrameLoadDelegate:self];
-    
-    wc = [[NSWindowController alloc] initWithWindow:[[NSWindow alloc] init]];
-    [[wc.window contentView] addSubviewFullFrame:_webView];
-    [wc.window makeKeyAndOrderFront:self];
+    [[w contentView] addSubview:_webView];
+    [w makeKeyAndOrderFront:nil];
+    CGFloat xPos = NSWidth([[w screen] frame])/2 - NSWidth([w frame])/2;
+    CGFloat yPos = NSHeight([[w screen] frame])/2 - NSHeight([w frame])/2;
 
-    _compiler = [[IUCompiler alloc] init];
+    [w setFrame:NSMakeRect(xPos, yPos, NSWidth([w frame]), NSHeight([w frame])) display:YES];
+    
     manager = [[IUSourceManager alloc] init];
     [manager setCanvasVC:self];
-    [manager setCompiler:_compiler];
+    [manager setCompiler:[[IUCompiler alloc] init]];
+}
+
+- (WebView *)webView{
+    return _webView;
 }
 
 - (void)tearDown {
@@ -52,109 +61,35 @@
     [super tearDown];
 }
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame{
-    NSLog(@"hahahah");
-    
-    DOMDocument *dom =  [frame DOMDocument];
-    DOMHTMLElement *element = (DOMHTMLElement*)[dom documentElement];
-    NSString *htmlSource = [element outerHTML];
-
-    NSLog(htmlSource, nil);
-
+    [webViewLoadingExpectation fulfill];
 }
-
+/*
 - (void)test0 {
-#if 0
-    // Create an expectation object.
-    // This test only has one, but it's possible to wait on multiple expectations.
-    
-    XCTestExpectation *documentOpenExpectation = [self expectationWithDescription:@"document open"];
+    webViewLoadingExpectation = [self expectationWithDescription:@"test0"];
 
-    // Insert code here to initialize your application
-    NSRect frame = NSMakeRect(0, 0, 500, 500);
-    
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    w  = [[NSWindow alloc] initWithContentRect:frame
-                                     styleMask:NSBorderlessWindowMask
-                                       backing:NSBackingStoreBuffered
-                                         defer:NO];
-    WebView *webView = [[WebView alloc] init];
-    [webView setFrame:CGRectMake(0, 0, 200, 200)];
-//    [[w contentView] addSubview:webView];
-    [[webView mainFrame] loadHTMLString:@"qwer" baseURL:nil];
-    [w makeKeyAndOrderFront:nil];
-    CGFloat xPos = NSWidth([[w screen] frame])/2 - NSWidth([w frame])/2;
-    CGFloat yPos = NSHeight([[w screen] frame])/2 - NSHeight([w frame])/2;
-    [w setFrame:NSMakeRect(xPos, yPos, NSWidth([w frame]), NSHeight([w frame])) display:YES];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [NSThread sleepForTimeInterval:10];
-        [documentOpenExpectation fulfill];
-    });
-    
-    // The test will pause here, running the run loop, until the timeout is hit
-    // or all expectations are fulfilled.
-    [self waitForExpectationsWithTimeout:15 handler:^(NSError *error) {
-        int i=0;
-    }];
+    //this test does not do anything: checking test enviroment
+    [[_webView mainFrame] loadHTMLString:@"Start Source Manager Test" baseURL:nil];
 
-#endif
-
+    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {}];
 }
-
+*/
 
 - (void)test1_loadPage {
+    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
-    
-    // Insert code here to initialize your application
-    NSRect frame = NSMakeRect(0, 0, 200, 200);
-    
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    w  = [[NSWindow alloc] initWithContentRect:frame
-                                     styleMask:NSBorderlessWindowMask
-                                       backing:NSBackingStoreBuffered
-                                         defer:NO];
-    WebView *webView = [[WebView alloc] init];
-    [webView setFrame:CGRectMake(0, 0, 500, 500)];
-    [[w contentView] addSubview:webView];
-    [[webView mainFrame] loadHTMLString:@"qwer" baseURL:nil];
-    [w makeKeyAndOrderFront:nil];
-    CGFloat xPos = NSWidth([[w screen] frame])/2 - NSWidth([w frame])/2;
-    CGFloat yPos = NSHeight([[w screen] frame])/2 - NSHeight([w frame])/2;
-    [w setFrame:NSMakeRect(xPos, yPos, NSWidth([w frame]), NSHeight([w frame])) display:YES];
-
-    [self waitForTimeout:10];
-
-    
-    [[_webView mainFrame] loadHTMLString:@"sdfgd" baseURL:nil];
-    
-    DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
-    DOMHTMLElement *element = (DOMHTMLElement*)[dom documentElement];
-    NSString *htmlSource = [element outerHTML];
-
-    NSLog(htmlSource, nil);
-    
-    
-    /*
-    // This is an example of a functional test case.
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    
-    //create project
     [manager loadSheet:page];
-
-    NSLog(manager.source);
     
-    XCTAssert(manager.source, @"Pass");
-     */
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
+        DOMHTMLElement *element = (DOMHTMLElement*)[dom documentElement];
+        XCTAssertNotNil(element);
+        
+        DOMElement *pageElement = [dom getElementById:page.htmlID];
+        XCTAssertNotNil(pageElement);
+    }];
 }
 
-- (void)test2{
-    while (1) {
-    }
-}
-/* get DOM */
-
-- (WebView *)webView{
-    return _webView;
-}
 
 /* prepare update. for example, text editor enable/disable */
 - (void)beginUpdate{
@@ -186,9 +121,6 @@
     return nil;
 }
 
-- (IUCompiler *)compiler __deprecated{
-    return nil;
-}
 - (BOOL)enableMinWidth __deprecated{
     return YES;
 }

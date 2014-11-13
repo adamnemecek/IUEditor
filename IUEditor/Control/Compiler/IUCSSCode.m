@@ -14,6 +14,7 @@
     NSMutableDictionary *_editorCSSDictWithViewPort; // data = key:width
     NSMutableDictionary *_outputCSSDictWithViewPort; // data = key:width
     NSArray *allViewports;
+    NSString *_mainIdentifier;
 }
 
 @end
@@ -41,6 +42,10 @@
 
 - (void)setInsertingIdentifier:(NSString *)identifier{
     _currentIdentifiers = @[[identifier copy]];
+}
+
+- (void)setMainIdentifier:(NSString *)identifier {
+    _mainIdentifier = [identifier copy];
 }
 
 - (void)setInsertingIdentifiers:(NSArray *)identifiers{
@@ -464,10 +469,27 @@
 
 
 - (NSDictionary *)inlineTagDictiony{ // css for inline insertion ( for example, main css )
+    NSAssert(0, nil);
     return nil;
 }
 - (NSDictionary *)nonInlineTagDictionary{ // css for non-inline insertion (for example, hover or active )
+    NSAssert(0, nil);
     return nil;
 }
+
+/* uses inline code for IUDefaultViewPort and defaultIdentifier */
+- (NSString *)mainIdentifier {
+    return _mainIdentifier;
+}
+
+- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(int)viewport{
+    if (target == IUTargetEditor) {
+        return _editorCSSDictWithViewPort[@(viewport)][self.mainIdentifier];
+    }
+    else {
+        return _outputCSSDictWithViewPort[@(viewport)][self.mainIdentifier];
+    }
+}
+
 
 @end

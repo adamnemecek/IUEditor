@@ -42,7 +42,7 @@
 
 - (void)loadSheet:(IUSheet*)sheet {
     NSAssert(_compiler, @"compiler is nil");
-    NSString *code = [_compiler webSource:sheet target:IUTargetEditor viewPort:0];
+    NSString *code = [_compiler webSource:sheet target:IUTargetEditor];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
@@ -50,8 +50,6 @@
     else {
         [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:NSHomeDirectory()]];
     }
-    NSString *codeString = [self source];
-    NSLog(codeString);
 }
 
 - (DOMDocument *)DOMDocument{

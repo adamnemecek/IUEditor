@@ -23,7 +23,11 @@
 @interface IUCSSCompiler : NSObject
 - (void)setResourceManager:(IUResourceManager*)resourceManager;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
+
+/* storage mode */
 - (IUCSSCode*)cssCodeForIU_storage:(IUBox*)iu;
+- (IUCSSCode*)cssCodeForIU_storage:(IUBox*)iu target:(IUTarget)target viewPort:(int)viewPort;
+
 @property IUCompiler *compiler;
 
 @end
