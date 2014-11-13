@@ -69,6 +69,8 @@
         _rule = IUCompileRuleDefault;
         
         cssCompiler = [[IUCSSCompiler alloc] init];
+        cssCompiler.compiler = self;
+        
         htmlCompiler.cssCompiler = cssCompiler;
         
     }
@@ -316,6 +318,23 @@
 
 #pragma mark default function 
 
+- (NSString *)resourcePathForTarget:(IUTarget)target{
+    if(target == IUTargetEditor){
+        return @"resource";
+    }
+    else{
+        if(_rule == IUCompileRuleDjango){
+            return @"/resource";
+        }
+        else if(_rule == IUCompileRuleWordpress){
+            return @"\"<?php bloginfo('template_url'); ?>/resource/";
+        }
+        else{
+            return @"../resource";
+        }
+    }
+}
+
 - (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
     NSString *imgSrc;
     
@@ -333,12 +352,7 @@
             imgSrc = [[NSBundle mainBundle] pathForImageResource:[imageName lastPathComponent]];
         }
         else{
-            if(_rule == IUCompileRuleDjango){
-                imgSrc = [@"/resource/" stringByAppendingString:imageName];
-            }
-            else{
-                imgSrc = [@"resource/" stringByAppendingString:imageName];
-            }
+            imgSrc = [[self resourcePathForTarget:target] stringByAppendingPathComponent:imageName];
         }
     }
     else {
@@ -398,17 +412,19 @@
      
     }
     else{
+        
+        NSString *currentResourcePath = [self resourcePathForTarget:IUTargetOutput];
         [code addCodeLine:@"<script src='http://code.jquery.com/jquery-1.10.2.js'></script>"];
         [code addCodeLine:@"<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>"];
         
         for(NSString *filename in sheet.project.defaultOutputJSArray){
-            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"resource/js/%@\"></script>", filename];
+            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@\"></script>", currentResourcePath, filename];
         }
         //each js for sheet
         if(sheet.hasEvent){
-            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"resource/js/%@-event.js\"></script>", sheet.name];
+            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-event.js\"></script>",currentResourcePath, sheet.name];
         }
-        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"resource/js/%@-init.js\"></script>", sheet.name];
+        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-init.js\"></script>",currentResourcePath, sheet.name];
 
         if([sheet containClass:[IUGoogleMap class]]){
             [code addCodeLine:@"<script src=\"http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true\"></script>"];
@@ -417,8 +433,15 @@
             [code addCodeLine:@"<script src=\"http://f.vimeocdn.com/js/froogaloop2.min.js\"></script>"];
         }
 #if DEBUG
-        [code addCodeLine:@"<script type=\"text/javascript\" src=\"resource/js/stressTest.js\"></script>"];
+        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/stressTest.js\"></script>", currentResourcePath];
 #endif
+        //support ie 8
+        [code addCodeLine:@"<!--[if lt IE 9]>"];
+        [code increaseIndentLevelForEdit];
+        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/ie/jquery.backgroundSize.js\"></script>", currentResourcePath];
+        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/ie/respond.min.js\"></script>", currentResourcePath];
+        [code decreaseIndentLevelForEdit];
+        [code addCodeLine:@"<![endif]-->"];
         
     }
     return code;
@@ -433,9 +456,10 @@
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", editorCSSPath];
     }
     else{
-        [code addCodeLine:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/reset.css\">"];
-        [code addCodeLine:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/iu.css\">"];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"resource/css/%@.css\">", sheet.name];
+        NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/reset.css\">", currentResourcePath];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/iu.css\">", currentResourcePath];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",currentResourcePath, sheet.name];
 
 
     }
@@ -448,23 +472,6 @@
 - (NSString *)outputCSSSource:(IUSheet*)sheet mqSizeArray:(NSArray *)mqSizeArray{
     //change css
     JDCode *cssCode = [self cssSource:sheet cssSizeArray:mqSizeArray];
-    
-    if(_rule == IUCompileRuleDefault || _rule == IUCompileRulePresentation){
-        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"../"];
-        [cssCode replaceCodeString:@"./resource/" toCodeString:@"../"];
-        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('../"];
-    }
-    else if (_rule == IUCompileRuleDjango) {
-        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
-        [cssCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
-        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
-    }
-    else if (_rule == IUCompileRuleWordpress) {
-        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
-        [cssCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
-        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
-    }
-    
     return cssCode.string;
 }
 
@@ -505,17 +512,7 @@
         [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
         
         JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
-        
-        if (_rule == IUCompileRuleDjango) {
-            [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
-            [sourceCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
-            [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
-        }
-        if (_rule == IUCompileRuleWordpress) {
-            [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
-            [sourceCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
-            [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
-        }
+
     }
     
     return sourceCode.string;
@@ -1005,20 +1002,10 @@
             [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
             
             JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
-            
-            if (_rule == IUCompileRuleDjango) {
-                [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
-                [sourceCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
-                [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
-            }
-            if (_rule == IUCompileRuleWordpress) {
-                [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
-                [sourceCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
-                [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
-            }
         }
         
-        return sourceCode.string;    }
+        return sourceCode.string;
+    }
 
 
 }
