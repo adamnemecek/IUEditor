@@ -127,7 +127,7 @@
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allDocuments];
+    [_identifierManager registerIUs:self.allSheets];
     
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];

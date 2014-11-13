@@ -129,7 +129,7 @@ static NSString *IUClassGroupName = @"class";
 - (IUIdentifierManager*)identifierManager;
 - (IUResourceManager *)resourceManager;
 
-- (NSArray*)allDocuments;
+- (NSArray*)allSheets;
 - (NSArray*)pageSheets;
 - (NSArray*)classSheets;
 - (IUClass *)classWithName:(NSString *)name;

@@ -13,8 +13,7 @@
 
 @interface IUSheetController : NSTreeController
 
--(id)initWithDocument:(IUSheet*)document;
--(NSString*)keyPathFromDocumentControllerToEventVariables;
+-(id)initWithSheet:(IUSheet*)document;
 
 /* conform KVO */
 -(IUSheet*)sheet;

@@ -168,7 +168,7 @@
     [super awakeAfterUsingCoder:aDecoder];
 
     
-    [_identifierManager registerIUs:self.allDocuments];
+    [_identifierManager registerIUs:self.allSheets];
 
     
     if( IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, _IUProjectVersion) ){
@@ -275,7 +275,7 @@
     _resourceGroup.parent = self;
     
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allDocuments];
+    [_identifierManager registerIUs:self.allSheets];
     
     _serverInfo = [[IUServerInfo alloc] init];
     _serverInfo.localPath = [self path];
@@ -351,7 +351,7 @@
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allDocuments];
+    [_identifierManager registerIUs:self.allSheets];
     
     
     // create build directory
@@ -409,7 +409,7 @@
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allDocuments];
+    [_identifierManager registerIUs:self.allSheets];
     
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
@@ -480,7 +480,7 @@
     
     [self setCompileRule:rule];
     
-    for (IUSheet *sheet in self.allDocuments) {
+    for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
     }
     
@@ -488,7 +488,7 @@
 
 - (void)setIsConnectedWithEditor{
     _isConnectedWithEditor = YES;
-    for (IUSheet *sheet in self.allDocuments) {
+    for (IUSheet *sheet in self.allSheets) {
         [sheet setIsConnectedWithEditor];
     }
 }
@@ -697,7 +697,7 @@
     NSMutableArray *clipArtArray = [NSMutableArray array];
     
     
-    for (IUSheet *sheet in self.allDocuments) {
+    for (IUSheet *sheet in self.allSheets) {
         
         NSError *myError;
 
@@ -845,7 +845,7 @@
 
 -(NSSet*)allIUs{
     NSMutableSet  *set = [NSMutableSet set];
-    for (IUSheet *sheet in self.allDocuments) {
+    for (IUSheet *sheet in self.allSheets) {
         [set addObject:sheet];
         [set addObjectsFromArray:sheet.allChildren];
     }
@@ -920,7 +920,7 @@
 }
 
 
-- (NSArray*)allDocuments{
+- (NSArray*)allSheets{
     NSMutableArray *array = [NSMutableArray array];
     [array addObjectsFromArray:self.pageSheets];
     [array addObjectsFromArray:self.classSheets];

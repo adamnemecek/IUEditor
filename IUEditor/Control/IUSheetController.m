@@ -10,13 +10,13 @@
 
 @implementation IUSheetController
 
--(id)initWithDocument:(IUSheet*)document{
-    NSAssert(document!=nil, @"document is nil");
+-(id)initWithSheet:(IUSheet*)sheet{
+    NSAssert(sheet!=nil, @"document is nil");
     self = [super init];
     if (self) {
         [self setChildrenKeyPath:@"children"];
         [self setObjectClass:[IUBox class]];
-        [self setContent:document];
+        [self setContent:sheet];
     }
     return self;
 }
@@ -30,9 +30,6 @@
     return [self.content firstObject];
 }
 
--(NSString*)keyPathFromDocumentControllerToEventVariables{
-    return @"documentController.project.eventVariable.eventVariableArray";
-}
 
 -(void)setContent:(id)content{
     [self willChangeValueForKey:@"sheet"];
@@ -44,7 +41,7 @@
 
 - (void)dealloc{
     [JDLogUtil log:IULogDealloc string:@"IUSheetController"];
-    for (IUSheet *sheet in self.project.allDocuments) {
+    for (IUSheet *sheet in self.project.allSheets) {
         [sheet disconnectWithEditor];
     }
 }

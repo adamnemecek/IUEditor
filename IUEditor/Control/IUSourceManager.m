@@ -84,7 +84,7 @@
     /* insert non-inline css : hover or css */
     NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionary];
 
-    [inlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
+    [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDocument]  getElementById:@"default"];
         NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withSelector:selector];
         [sheetElement setInnerHTML:newCSSText];
