@@ -649,17 +649,21 @@
     for (int i=0; i<list.length; i++) {
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
-        
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
         if(iu){
             [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
-            iu.text = node.innerText;
+            if(node.innerText && [node.innerText stringByTrim].length > 0){
+                iu.text = node.innerText;
+            }
+            else{
+                iu.text = nil;
+            }
+            
         }
-        
-        
-    }
     
+    }
+
     list = [self.webDocument.documentElement getElementsByClassName:IUTextEditableClass];
     for (int i=0; i<list.length; i++) {
         //find editor
@@ -667,8 +671,15 @@
         //save current text
         IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
         if(iu){
-            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
-            [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
+            if(node.innerText && [node.innerText stringByTrim].length > 0){
+                [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
+                [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
+            }
+            
+            else{
+                [iu.mqData setValue:nil forTag:IUMQDataTagInnerHTML forViewport:width];
+                
+            }
         }
         [iu updateCSS];
         
