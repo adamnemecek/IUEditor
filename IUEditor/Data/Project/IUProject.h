@@ -122,8 +122,8 @@ static NSString *IUClassGroupName = @"class";
 
 //build
 - (IUProjectType)projectType;
-- (IUCompiler *)compiler;
-- (BOOL)build:(NSError**)error;
+- (IUCompiler *)compiler __deprecated_enum_msg("Will be removed at storage mode");
+- (BOOL)build:(NSError**)error __deprecated;
 
 //manager
 - (IUIdentifierManager*)identifierManager;

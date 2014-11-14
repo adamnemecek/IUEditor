@@ -1,5 +1,5 @@
 //
-//  IUCompiler_Test.m
+//  IUProject_Test.m
 //  IUEditor
 //
 //  Created by Joodong Yang on 2014. 11. 13..
@@ -8,15 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "IUBox.h"
-#import "IUProject.h"
-#import "IUCompiler.h"
 
-@interface IUCompiler_Test : XCTestCase
+#import "IUProject.h"
+#import "IUSourceManager.h"
+
+
+@interface IUProject_Test : XCTestCase
 
 @end
 
-@implementation IUCompiler_Test
+@implementation IUProject_Test
 
 - (void)setUp {
     [super setUp];
@@ -28,14 +29,19 @@
     [super tearDown];
 }
 
-- (void)test1_BOX {
-    IUCompiler *compiler = [[IUCompiler alloc] init];
+- (void)test_build {
     IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
-    IUBox *box = [[IUBox alloc] initWithProject:project options:nil];
-    [box.cssManager.liveStorage setX:@(50)];
-    NSString *htmlCode = [compiler editorHTMLString:box viewPort:IUDefaultViewPort];
-    XCTAssertNotNil(htmlCode);
-    XCTAssertTrue([htmlCode containsString:@"left: 50px;"]);
+    IUSourceManager *sManager = [[IUSourceManager alloc] init];
+    [sManager setProject:project];
+    [sManager setCompiler:[[IUCompiler alloc] init]];
+    BOOL result = [sManager build:nil];
+    XCTAssertTrue(result);
+    
+    /* have every file? */
+    NSString *builtPath = [project absoluteBuildPath];
+    BOOL isDirectory;
+    XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:builtPath isDirectory:&isDirectory]);
+    XCTAssertTrue(isDirectory);
 }
 
 - (void)testPerformanceExample {

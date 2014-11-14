@@ -11,8 +11,8 @@
 
 @interface IUEventVariable : NSObject
 
-- (void)makeEventDictionary:(IUSheet *)document;
+- (void)makeEventDictionary:(IUSheet *)document __deprecated;
 - (BOOL)hasEvent;
-- (NSString *)outputEventJSSource;
+- (NSString *)outputEventJSSource __deprecated;
 
 @end

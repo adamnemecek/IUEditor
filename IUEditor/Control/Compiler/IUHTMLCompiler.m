@@ -256,12 +256,22 @@
     }
 }
 
+
+/* TOBE REMOVED */
 - (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS{
     
     [self checkBeforeBuildCode:iu target:target];
     
     JDCode *code = [[JDCode alloc] init];
-    [self htmlCode:iu target:target code:code withCSS:withCSS];
+    [self htmlCode:iu target:target code:code withCSS:withCSS viewPort:IUCSSDefaultViewPort];
+    return code;
+}
+
+- (JDCode *)unitBoxHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
+    [self checkBeforeBuildCode:iu target:target];
+    
+    JDCode *code = [[JDCode alloc] init];
+    [self htmlCode:iu target:target code:code withCSS:withCSS viewPort:viewPort];
     return code;
 }
 
@@ -274,20 +284,19 @@
 @param code code를 덧붙일때 사용함. 보통 child html콜할때 사용.
  
  */
-- (void)htmlCode:(IUBox *)iu target:(IUTarget)target code:(JDCode *)code withCSS:(BOOL)withCSS{
-    
+- (void)htmlCode:(IUBox *)iu target:(IUTarget)target code:(JDCode *)code withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]];
     for (NSString *className in classPedigree) {
-        NSString *str = [NSString stringWithFormat:@"htmlCodeAs%@:target:attributeDict:withCSS:", className];
+        NSString *str = [NSString stringWithFormat:@"htmlCodeAs%@:target:attributeDict:withCSS:viewPort:", className];
         SEL selector = NSSelectorFromString(str);
         if ([self respondsToSelector:selector]) {
             
             //call widget html
             IMP imp = [self methodForSelector:selector];
-            JDCode *(*func)(id, SEL, id, IUTarget, NSDictionary *, BOOL) = (void *)imp;
+            JDCode *(*func)(id, SEL, id, IUTarget, NSDictionary *, BOOL, NSInteger) = (void *)imp;
             NSMutableDictionary *attributeDict = [self htmlAttributeForIU:iu target:target withCSS:withCSS];
             
-            [code addCodeWithIndent:(JDCode *)func(self, selector, iu, target, attributeDict, withCSS)];
+            [code addCodeWithIndent:(JDCode *)func(self, selector, iu, target, attributeDict, withCSS, viewPort)];
             
             //add link
             if(target == IUTargetOutput){
@@ -310,27 +319,27 @@
 }
 
 #pragma mark - layout widget
-- (JDCode *)htmlCodeAsIUSidebar:(IUSidebar *)sidebar target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUSidebar:(IUSidebar *)sidebar target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     
     attributeDict[@"sidebarType"] = @(sidebar.type);
     
-    JDCode *code = [self htmlCodeAsIUImport:sidebar target:target attributeDict:attributeDict withCSS:withCSS];
+    JDCode *code = [self htmlCodeAsIUImport:sidebar target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUSection:(IUSection *)section target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUSection:(IUSection *)section target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     if(target == IUTargetOutput && section.enableFullSize){
         attributeDict[@"enableFullSize"] = @"1";
     }
-    JDCode *code = [self htmlCodeAsIUBox:section target:target attributeDict:attributeDict withCSS:withCSS];
+    JDCode *code = [self htmlCodeAsIUBox:section target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     
     return code;
 }
 
 #pragma mark - default widget
 
-- (JDCode *)htmlCodeAsIUTransition:(IUTransition *)transition target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUTransition:(IUTransition *)transition target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     if ([transition.eventType length]) {
         if ([transition.eventType isEqualToString:kIUTransitionEventClick]) {
             attributeDict[@"transitionEvent"] =  @"click";
@@ -354,13 +363,13 @@
     }
     
     
-    JDCode *code = [self htmlCodeAsIUBox:transition target:target attributeDict:attributeDict withCSS:withCSS];
+    JDCode *code = [self htmlCodeAsIUBox:transition target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
  
     return code;
 }
 
 
-- (JDCode *)htmlCodeAsIUMenuBar:(IUMenuBar *)menuBar target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUMenuBar:(IUMenuBar *)menuBar target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
     NSString *title = menuBar.mobileTitle;
@@ -375,7 +384,7 @@
         [code addCodeLine:@"<ul>"];
         
         for (IUBox *child in menuBar.children){
-            [self htmlCode:child target:target code:code withCSS:withCSS];
+            [self htmlCode:child target:target code:code withCSS:withCSS viewPort:viewPort];
         }
         [code addCodeLine:@"</ul>"];
         [code decreaseIndentLevelForEdit];
@@ -385,7 +394,7 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUMenuItem:(IUMenuItem *)menuItem target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUMenuItem:(IUMenuItem *)menuItem target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     [code addCodeLineWithFormat:@"<li %@>", [self attributeString:attributeDict]];
@@ -409,7 +418,7 @@
         //        [code addCodeLine:@"<div class='closure'></div>"];
         [code addCodeLine:@"<ul>"];
         for(IUBox *child in menuItem.children){
-            [self htmlCode:child target:target code:code withCSS:withCSS];
+            [self htmlCode:child target:target code:code withCSS:withCSS viewPort:viewPort];
         }
         [code addCodeLine:@"</ul>"];
     }
@@ -419,14 +428,14 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUCarousel:(IUCarousel *)carousel target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUCarousel:(IUCarousel *)carousel target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(target == IUTargetEditor){
         [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
         //carousel item
         for(IUCarouselItem *item in carousel.children){
-            [self htmlCode:item target:target code:code withCSS:withCSS];
+            [self htmlCode:item target:target code:code withCSS:withCSS viewPort:viewPort];
         }
     }
     else if(target == IUTargetOutput){
@@ -439,7 +448,7 @@
         //carousel item
         [code addCodeLineWithFormat:@"<div class='wrapper' id='wrapper_%@'>", carousel.htmlID];
         for(IUItem *item in carousel.children){
-            [self htmlCode:item target:target code:code withCSS:withCSS];
+            [self htmlCode:item target:target code:code withCSS:withCSS viewPort:viewPort];
         }
         [code addCodeLine:@"</div>"];
     }
@@ -464,7 +473,7 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUImage:(IUImage *)image target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUImage:(IUImage *)image target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if (image.pgContentVariable && image.pgContentVariable.length > 0 && _compiler.rule == IUCompileRuleDjango) {
@@ -499,7 +508,7 @@
 }
 
 
-- (JDCode *)htmlCodeAsIUMovie:(IUMovie *)movie target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUMovie:(IUMovie *)movie target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     if(target == IUTargetOutput){
         if (movie.enableControl) {
@@ -571,7 +580,7 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUWebMovie:(IUWebMovie *)webmovie target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUWebMovie:(IUWebMovie *)webmovie target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(webmovie.playType == IUWebMoviePlayTypeJSAutoplay){
@@ -663,7 +672,7 @@
     
     return code;
 }
-- (JDCode *)htmlCodeAsIUHTML:(IUHTML *)html target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUHTML:(IUHTML *)html target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
@@ -672,7 +681,7 @@
     }
     if (html.children.count) {
         for (IUBox *child in html.children) {
-            [self htmlCode:child target:target code:code withCSS:withCSS];
+            [self htmlCode:child target:target code:code withCSS:withCSS viewPort:viewPort];
         }
     }
     [code addCodeLineWithFormat:@"</div>"];
@@ -680,12 +689,12 @@
     
     return code;
 }
-- (JDCode *)htmlCodeAsIUFBLike:(IUFBLike *)fblike target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUFBLike:(IUFBLike *)fblike target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(target == IUTargetOutput){
         
-        code = [self htmlCodeAsIUHTML:fblike target:target attributeDict:attributeDict withCSS:withCSS];
+        code = [self htmlCodeAsIUHTML:fblike target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     }
     else if( target == IUTargetEditor ){
         [code addCodeLineWithFormat:@"<div %@ >", [self attributeString:attributeDict]];
@@ -701,7 +710,7 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsIUTweetButton:(IUTweetButton *)tweet target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUTweetButton:(IUTweetButton *)tweet target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     [code addCodeLineWithFormat:@"<div %@ >", [self attributeString:attributeDict]];
@@ -775,7 +784,7 @@
 }
 
 
-- (JDCode *)htmlCodeAsIUCollectionView:(IUCollectionView *)collectionView target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUCollectionView:(IUCollectionView *)collectionView target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(target == IUTargetOutput){
@@ -790,16 +799,16 @@
             [code addCodeLineWithFormat:@"</div>"];
         }
         else {
-            [code addCodeWithIndent:[self htmlCodeAsIUImport:collectionView target:target attributeDict:attributeDict withCSS:withCSS]];
+            [code addCodeWithIndent:[self htmlCodeAsIUImport:collectionView target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort ]];
         }
     }
     else if(target == IUTargetEditor){
-        [code addCodeWithIndent:[self htmlCodeAsIUImport:collectionView target:target attributeDict:attributeDict withCSS:withCSS]];
+        [code addCodeWithIndent:[self htmlCodeAsIUImport:collectionView target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort]];
     }
     
     return code;
 }
-- (JDCode *)htmlCodeAsIUImport:(IUImport *)import target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUImport:(IUImport *)import target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     [code addCodeLineWithFormat:@"<div %@ >", [self attributeString:attributeDict]];
@@ -807,14 +816,14 @@
     
     if(target == IUTargetOutput){
         for (IUBox *child in import.children) {
-            [self htmlCode:child target:target code:code withCSS:withCSS];
+            [self htmlCode:child target:target code:code withCSS:withCSS viewPort:viewPort];
         }
 
     }
     else if(target == IUTargetEditor){
         //add prefix, <ImportedBy_[IUName]_ to all id html (including chilren)
         JDCode *importCode = [[JDCode alloc] init];
-        [self htmlCode:import.prototypeClass target:target code:importCode withCSS:withCSS];
+        [self htmlCode:import.prototypeClass target:target code:importCode withCSS:withCSS viewPort:viewPort];
         NSString *idReplacementString = [NSString stringWithFormat:@" id=\"%@%@_",kIUImportEditorPrefix, import.htmlID];
         
         [importCode replaceCodeString:@" id=\"" toCodeString:idReplacementString];
@@ -827,10 +836,10 @@
 }
 
 
-- (JDCode *)htmlCodeAsIUGoogleMap:(IUGoogleMap *)map target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUGoogleMap:(IUGoogleMap *)map target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     if(target == IUTargetOutput){
-        code = [self htmlCodeAsIUBox:map target:target attributeDict:attributeDict withCSS:withCSS];
+        code = [self htmlCodeAsIUBox:map target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     }
     else if(target == IUTargetEditor){
         [code addCodeLineWithFormat:@"<div %@ >", [self attributeString:attributeDict]];
@@ -887,7 +896,7 @@
 
 #pragma mark - Django widget
 
-- (JDCode *)htmlCodeAsIUCollection:(IUCollection *)collection target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUCollection:(IUCollection *)collection target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(collection.responsiveSetting){
@@ -906,18 +915,18 @@
             [code addCodeLineWithFormat:@"</div>"];
         }
         else {
-            [code addCodeWithIndent:[self htmlCodeAsIUImport:collection target:target attributeDict:attributeDict withCSS:withCSS]];
+            [code addCodeWithIndent:[self htmlCodeAsIUImport:collection target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort]];
         }
         
     }
     else if(target == IUTargetEditor){
-        code = [self htmlCodeAsIUImport:collection target:target attributeDict:attributeDict withCSS:withCSS];
+        code = [self htmlCodeAsIUImport:collection target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     }
     
     return code;
 }
 
-- (JDCode *)htmlCodeAsPGPageLinkSet:(PGPageLinkSet *)pageLinkSet target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsPGPageLinkSet:(PGPageLinkSet *)pageLinkSet target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS  viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
     
@@ -961,7 +970,7 @@
     return code;
 }
 
-- (JDCode *)htmlCodeAsPGTextField:(PGTextField *)textfield target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsPGTextField:(PGTextField *)textfield target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     if(textfield.inputName){
@@ -988,7 +997,7 @@
 }
 
 
-- (JDCode *)htmlCodeAsPGTextView:(PGTextView *)textview target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsPGTextView:(PGTextView *)textview target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
 
     if(textview.placeholder){
         attributeDict[@"placeholder"] = textview.placeholder;
@@ -1005,7 +1014,7 @@
     
     return code;
 }
-- (JDCode *)htmlCodeAsPGForm:(PGForm *)form target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsPGForm:(PGForm *)form target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     if(form.target){
         NSString *targetStr;
         if([form.target isKindOfClass:[NSString class]]){
@@ -1021,12 +1030,12 @@
     attributeDict[@"method"] = @"post";
     
     JDCode *code = [[JDCode alloc] init];
-    code = [self htmlCodeAsIUBox:form target:target attributeDict:attributeDict withCSS:withCSS];
+    code = [self htmlCodeAsIUBox:form target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
     
     return code;
 }
 
-- (JDCode *)htmlCodeAsPGSubmitButton:(PGSubmitButton *)button target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsPGSubmitButton:(PGSubmitButton *)button target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     
     attributeDict[@"type"] = @"submit";
     attributeDict[@"value"] = button.label;
@@ -1060,7 +1069,7 @@
  
  */
 
-- (JDCode *)htmlCodeAsIUBox:(IUBox *)iu target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS {
+- (JDCode *)htmlCodeAsIUBox:(IUBox *)iu target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
     //TODO: WP
@@ -1072,7 +1081,7 @@
             [code addCodeLineWithFormat:@"<div %@ >%@</div>", [self attributeString:attributeDict], sampleInnerHTML];
             for (IUBox *child in iu.children) {
                 JDCode *childCode = [[JDCode alloc] init];
-                [self htmlCode:child target:target code:childCode withCSS:withCSS];
+                [self htmlCode:child target:target code:childCode withCSS:withCSS viewPort:viewPort];
                 if (childCode) {
                     [code addCodeWithIndent:childCode];
                 }
@@ -1183,7 +1192,7 @@
     if (target == IUTargetEditor || ( target == IUTargetOutput && [iu shouldCompileChildrenForOutput] )) {
         for (IUBox *child in iu.children) {
             JDCode *childCode = [[JDCode alloc] init];
-            [self htmlCode:child target:target code:childCode withCSS:withCSS];
+            [self htmlCode:child target:target code:childCode withCSS:withCSS viewPort:viewPort];
             if (childCode) {
                 [code addCodeWithIndent:childCode];
             }

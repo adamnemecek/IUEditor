@@ -25,18 +25,20 @@
 @property BOOL hasEvent;
 
 #pragma mark editor source
--(NSString*)editorSource;
+-(NSString*)editorSource __deprecated;
 
 #pragma mark output Source
-- (NSString*)outputHTMLSource;
-- (NSString*)outputCSSSource;
-- (JDCode *)outputInitJSCode;
-- (NSArray *)outputArrayClipArt;
+- (NSString*)outputHTMLSource __deprecated;
+- (NSString*)outputCSSSource __deprecated;
+- (JDCode *)outputInitJSCode __deprecated;
+- (NSArray *)outputArrayClipArt __deprecated;
 
 -(NSArray*)widthWithCSS;
--(IUBox *)selectableIUAtPoint:(CGPoint)point;
+// Not using : commented on JD. 14.11.13
+//-(IUBox *)selectableIUAtPoint:(CGPoint)point;
 
 - (BOOL)containClass:(Class)class;
+- (NSDictionary *)eventVariableDict;
 
 @property (weak) IUSheetGroup *group;
 

@@ -293,6 +293,9 @@
     return self;
 }
 
+/* 그냥 initWithCreation:nil] 하면
+    NSAssert에 걸리므로 임시로 이렇게 처리 */
+
 - (id)initForUnitTestAtTemporaryDirectory {
     /* initialize at temp directory */
     self = [super init];
@@ -301,19 +304,16 @@
     _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
     _identifierManager = [[IUIdentifierManager alloc] init];
-
+    
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
     _enableMinWidth = YES;
-    
-    self = [self initWithCreation:nil error:nil];
-
     
     
     /* create app name */
     /* rule : ProjectName_Number
      example :  IUProject_3
-                IUDjangoProject_5
+     IUDjangoProject_5
      */
     
     self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.iu", self.className]];
@@ -362,6 +362,7 @@
     
     return self;
 }
+
 
 -(id)initWithCreation:(NSDictionary*)options error:(NSError**)error{
     self = [super init];

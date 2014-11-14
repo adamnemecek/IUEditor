@@ -20,5 +20,7 @@
 
 - (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS;
 
+- (JDCode *)unitBoxHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort;
+
 
 @end

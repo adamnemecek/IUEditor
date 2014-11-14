@@ -11,7 +11,7 @@
 #import "IUProtocols.h"
 #import "IUCSSCompiler.h"
 #import "IUCSSWPCompiler.h"
-
+#import "IUJSCompiler.h"
 #import "IUHTMLCompiler.h"
 
 
@@ -57,6 +57,10 @@
 @implementation IUCompiler{
     IUCSSCompiler *cssCompiler;
     IUHTMLCompiler *htmlCompiler;
+    IUJSCompiler *jsCompiler;
+    NSString *_resourceURLPath;
+    NSString *_jsURLPath;
+    NSString *_cssURLPath;
 }
 
 -(id)init{
@@ -72,6 +76,8 @@
         cssCompiler.compiler = self;
         
         htmlCompiler.cssCompiler = cssCompiler;
+        
+        jsCompiler = [[IUJSCompiler alloc] init];
         
     }
     return self;
@@ -469,57 +475,13 @@
 
 
 #pragma mark - output body source
-- (NSString *)outputCSSSource:(IUSheet*)sheet mqSizeArray:(NSArray *)mqSizeArray{
-    //change css
-    JDCode *cssCode = [self cssSource:sheet cssSizeArray:mqSizeArray];
-    return cssCode.string;
-}
-
-
--(NSString*)outputHTMLSource:(IUSheet*)sheet{
-    if ([sheet isKindOfClass:[IUClass class]]) {
-        return [self htmlCode:sheet target:IUTargetOutput].string;
-    }
-    NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
-    
-    JDCode *sourceCode = [[JDCode alloc] initWithCodeString: [NSString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil]];
-
-    //replace metadata;
-    if([sheet isKindOfClass:[IUPage class]]){
-        JDCode *metaCode = [self metadataSource:(IUPage *)sheet];
-        [sourceCode replaceCodeString:@"<!--METADATA_Insert-->" toCode:metaCode];
-        
-        JDCode *webFontCode = [self webfontImportSourceForOutput:(IUPage *)sheet];
-        [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
-
-        JDCode *jsCode = [self javascriptHeaderForSheet:sheet isEdit:NO];
-        [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
-        
-        JDCode *iuCSS = [self cssHeaderForSheet:sheet isEdit:NO];
-        [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
-        
-        if(_rule == IUCompileRuleWordpress){
-            NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.mqSizes];
-            [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:cssString];
-        }
-        else{
-            [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@""];
-
-        }
-        
-        //change html
-        JDCode *htmlCode = [self htmlCode:sheet target:IUTargetOutput];
-        [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
-        
-        JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
-
-    }
-    
-    return sourceCode.string;
-}
-
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target{
-    return [htmlCompiler wholeHTMLCode:iu target:target withCSS:NO];
+    if (target == IUTargetEditor) {
+        return [htmlCompiler wholeHTMLCode:iu target:IUTargetEditor withCSS:YES];
+    }
+    else {
+        return [htmlCompiler wholeHTMLCode:iu target:IUTargetOutput withCSS:NO];
+    }
 }
 
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS{
@@ -589,8 +551,110 @@
     return [cssCompiler cssCodeForIU:iu];
 }
 
--(JDCode *)cssSource:(IUSheet *)sheet cssSizeArray:(NSArray *)cssSizeArray{
+- (NSString *)outputCSSSource_storage:(IUPage *)sheet{
+    if (sheet.project == nil){
+        NSAssert(0, @"cannot make output css source without project information");
+    }
     
+    NSMutableArray *mqSizeArray = [sheet.project.mqSizes mutableCopy];
+    
+    //remove default size
+    NSInteger largestWidth = [[mqSizeArray objectAtIndex:0] integerValue];
+    [mqSizeArray removeObjectAtIndex:0];
+    [mqSizeArray insertObject:@(IUCSSDefaultViewPort) atIndex:0];
+    
+    JDCode *code = [[JDCode alloc] init];
+    NSInteger minCount = mqSizeArray.count-1;
+    
+    for(int count=0; count<mqSizeArray.count; count++){
+        int size = [[mqSizeArray objectAtIndex:count] intValue];
+        
+        //REVIEW: word press rule은 header에 붙임, 나머지는 .css파일로 따로 뽑아냄.
+        if(_rule == IUCompileRuleWordpress){
+            
+            if(size == IUCSSDefaultViewPort){
+                [code addCodeLine:@"<style id=default>"];
+            }
+            else if(count < mqSizeArray.count-1){
+                [code addCodeWithFormat:@"<style type=\"text/css\" media ='screen and (min-width:%dpx) and (max-width:%dpx)' id='style%d'>" , size, largestWidth-1, size];
+                largestWidth = size;
+            }
+            else{
+                [code addCodeWithFormat:@"<style type=\"text/css\" media ='screen and (max-width:%dpx)' id='style%d'>" , largestWidth-1, size];
+                
+            }
+        }
+        else{
+            if(size != IUCSSDefaultViewPort){
+                //build는 css파일로 따로 뽑아줌
+                if(count < mqSizeArray.count-1){
+                    [code addCodeWithFormat:@"@media screen and (min-width:%dpx) and (max-width:%dpx){" , size, largestWidth-1];
+                    largestWidth = size;
+                }
+                else{
+                    [code addCodeWithFormat:@"@media screen and (max-width:%dpx){" , largestWidth-1];
+                }
+            }
+        }
+        //smallist size
+        if(count==minCount && sheet.project.enableMinWidth){
+            [code increaseIndentLevelForEdit];
+            NSInteger minWidth;
+            if(size == IUCSSDefaultViewPort){
+                minWidth = largestWidth;
+            }
+            else{
+                minWidth = size;
+            }
+            [code addCodeLineWithFormat:@"body{ min-width:%ldpx; }", minWidth];
+            [code decreaseIndentLevelForEdit];
+            
+        }
+        
+        if(size < IUMobileSize && sheet.allChildren ){
+            if([sheet containClass:[IUMenuBar class]]){
+                NSString *menubarMobileCSSPath = [[NSBundle mainBundle] pathForResource:@"menubarMobile" ofType:@"css"];
+                NSString *menubarMobileCSS = [NSString stringWithContentsOfFile:menubarMobileCSSPath encoding:NSUTF8StringEncoding error:nil];
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:menubarMobileCSS];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        
+        [code increaseIndentLevelForEdit];
+        
+        NSDictionary *cssDict =  [[cssCompiler cssCodeForIU:sheet] stringTagDictionaryWithIdentifierForOutputViewport:size];
+        for (NSString *identifier in cssDict) {
+            if ([[cssDict[identifier] stringByTrim]length]) {
+                [code addCodeLineWithFormat:@"%@ {%@}", identifier, cssDict[identifier]];
+            }
+        }
+        
+        NSSet *districtChildren = [NSSet setWithArray:sheet.allChildren];
+        
+        for (IUBox *obj in districtChildren) {
+            NSDictionary *cssDict = [[cssCompiler cssCodeForIU:obj] stringTagDictionaryWithIdentifierForOutputViewport:size];
+            for (NSString *identifier in cssDict) {
+                if ([[cssDict[identifier] stringByTrim]length]) {
+                    [code addCodeLineWithFormat:@"%@ {%@}", identifier, cssDict[identifier]];
+                }
+            }
+        }
+        [code decreaseIndentLevelForEdit];
+        
+        if(_rule == IUCompileRuleWordpress){
+            [code addCodeLine:@"</style>"];
+        }
+        else if(size != IUCSSDefaultViewPort){
+            [code addCodeLine:@"}"];
+        }
+        
+    }
+    return code.string;
+}
+
+//to be deleted
+-(JDCode *)cssSource:(IUSheet *)sheet cssSizeArray:(NSArray *)cssSizeArray{
     
     NSMutableArray *mqSizeArray = [cssSizeArray mutableCopy];
     //remove default size
@@ -654,7 +718,6 @@
                 [code addCodeLine:menubarMobileCSS];
                 [code decreaseIndentLevelForEdit];
             }
-            
         }
         
         [code increaseIndentLevelForEdit];
@@ -686,227 +749,6 @@
         }
         
     }
-    return code;
-}
-
-
-#pragma mark - manage JS source
-
--(JDCode *)outputJSInitializeSource:(IUSheet *)sheet{
-    
-    JDCode *jsCode = [[JDCode alloc] init];
-    
-    [jsCode addCode:[self defaultInitJSCode:sheet]];
-    
-    [jsCode addCodeLine:@"$(document).ready(function(){"];
-    
-    JDCode *objectJSSource = [self readyJSCode:sheet isEdit:NO];
-    [jsCode addCodeWithIndent:objectJSSource];
-    
-    JDCode *classJSSource = [self readyJSCodeFromInitForSheet:sheet];
-    [jsCode addCodeWithIndent:classJSSource];
-    [jsCode addNewLine];
-    
-    [jsCode addCodeLine:@"});"];
-    
-    //text media query
-    [jsCode addCodeLine:@"function reloadTextMediaQuery(){"];
-    [jsCode addCodeWithIndent:[self textMQJavascriptCode:sheet]];
-    [jsCode addCodeLine:@"}"];
-    
-    
-    //window load code
-    [jsCode addCode:[self windowLoadJSCodeFromInitForSheet:sheet]];
-    
-    return jsCode;
-}
-
--(JDCode *)readyJSCodeFromInitForSheet:(IUSheet *)sheet{
-    JDCode *jsCode = [[JDCode alloc] init];
-
-    NSString *iuinitFilePath = [[NSBundle mainBundle] pathForResource:@"iuinit" ofType:@"js"];
-    NSString *initJSStr = [NSString stringWithContentsOfFile:iuinitFilePath encoding:NSUTF8StringEncoding error:nil];
-    
-    if([sheet containClass:[IUTransition class]]){
-        [jsCode addJSBlockFromString:initJSStr WithIdentifier:@"IUTransition"];
-    }
-    if([sheet containClass:[IUMenuBar class]]){
-        [jsCode addJSBlockFromString:initJSStr WithIdentifier:@"IUMenuBar"];
-    }
-    
-    [jsCode addJSBlockFromString:initJSStr WithIdentifier:@"Default"];
-    return jsCode;
-}
-
--(JDCode *)windowLoadJSCodeFromInitForSheet:(IUSheet *)sheet{
-    JDCode *jsCode = [[JDCode alloc] init];
-    
-    NSString *iuinitFilePath = [[NSBundle mainBundle] pathForResource:@"iuinit" ofType:@"js"];
-    NSString *initJSStr = [NSString stringWithContentsOfFile:iuinitFilePath encoding:NSUTF8StringEncoding error:nil];
-    [jsCode addJSBlockFromString:initJSStr WithIdentifier:@"WINDOW_LOAD"];
-    return jsCode;
-}
-
--(JDCode *)defaultInitJSCode:(IUBox *)iu{
-    
-    JDCode *code = [[JDCode alloc] init];
-    
-    if([iu isKindOfClass:[IUGoogleMap class]]){
-        IUGoogleMap *map = (IUGoogleMap *)iu;
-        [code addCodeLineWithFormat:@"var map_%@;", map.htmlID];
-    }
-    else if ([iu isKindOfClass:[IUBox class]]) {
-        for (IUBox *child in iu.children) {
-            [code addCodeWithIndent:[self defaultInitJSCode:child]];
-        }
-        
-    }
-    return code;
-}
-
--(JDCode *)readyJSCode:(IUBox *)iu isEdit:(BOOL)isEdit{
-    JDCode *code = [[JDCode alloc] init];
-    if([iu isKindOfClass:[IUCarousel class]]){
-        [code addCodeLine:@"\n"];
-        [code addCodeLine:@"/* IUCarousel initialize */\n"];
-        [code addCodeLineWithFormat:@"initCarousel('%@')", iu.htmlID];
-        for (IUBox *child in iu.children) {
-            [code addCodeWithIndent:[self readyJSCode:child isEdit:isEdit]];
-        }
-    }
-    else if([iu isKindOfClass:[IUCollectionView class]]){
-        IUCollectionView *collectionView = (IUCollectionView *)iu;
-        if(collectionView){
-            [code addCodeLine:@"/* IUCollectionView initialize */\n"];
-
-            NSString *itemIdentifier = collectionView.collection.prototypeClass.htmlID;
-            [code addCodeLineWithFormat:@"$('.%@').click(function(){", itemIdentifier];
-            [code increaseIndentLevelForEdit];
-            [code addCodeLine:@"var index = $(this).index();"];
-            [code addCodeLineWithFormat:@"showCollectionView('%@', index);", collectionView.htmlID];
-            [code decreaseIndentLevelForEdit];
-            [code addCodeLine:@"})"];
-            [code addCodeLineWithFormat:@"showCollectionView('%@', 0);", collectionView.htmlID];
-            [code addCodeLineWithFormat:@"$('.%@').css('cursor', 'pointer')", itemIdentifier];
-
-        }
-    }
-    else if([iu isKindOfClass:[IUGoogleMap class]]){
-        IUGoogleMap *map = (IUGoogleMap *)iu;
-        [code addCodeLine:@"/* IUGoogleMap initialize */\n"];
-        
-        //style option
-        if(map.themeType != IUGoogleMapThemeTypeDefault){
-            [code addCodeLineWithFormat:@"var %@_styles = %@; ", map.htmlID, [map currentThemeStyle]];
-        }
-        
-        //option
-        [code addCodeLineWithFormat:@"var %@_options = {", map.htmlID];
-        [code increaseIndentLevelForEdit];
-        [code addCodeLineWithFormat:@"center : new google.maps.LatLng(%@, %@),", map.latitude, map.longitude];
-        [code addCodeLineWithFormat:@"zoom : %ld,", map.zoomLevel];
-        if(map.zoomControl){
-            [code addCodeLine:@"zoomControl: true,"];
-        }
-        else{
-            [code addCodeLine:@"zoomControl: false,"];
-
-        }
-        if(map.panControl){
-            [code addCodeLine:@"panControl: true,"];
-        }
-        else{
-            [code addCodeLine:@"panControl: false,"];
-
-        }
-        [code addCodeLine:@"mapTypeControl: false,"];
-        [code addCodeLine:@"streetViewControl: false,"];
-        if(map.themeType != IUGoogleMapThemeTypeDefault){
-            [code addCodeLineWithFormat:@"styles: %@_styles", map.htmlID];
-        }
-        
-        [code decreaseIndentLevelForEdit];
-        [code addCodeLine:@"};"];
-        
-        
-        
-        //map
-        [code addCodeLineWithFormat:@"map_%@ = new google.maps.Map(document.getElementById('%@'), %@_options);", map.htmlID, map.htmlID, map.htmlID];
-        
-        //marker
-        if(map.enableMarkerIcon){
-            [code addCodeLineWithFormat:@"var marker_%@ = new google.maps.Marker({", map.htmlID];
-            [code increaseIndentLevelForEdit];
-            [code addCodeLineWithFormat:@"map: map_%@,", map.htmlID];
-            [code addCodeLineWithFormat:@"position: map_%@.getCenter(),", map.htmlID];
-            if(map.markerIconName){
-                NSString *imgSrc = [self imagePathWithImageName:map.markerIconName target:IUTargetOutput];
-                [code addCodeLineWithFormat:@"icon: '%@'", imgSrc];
-            }
-            [code decreaseIndentLevelForEdit];
-            [code addCodeLine:@"});"];
-         }
-        //info window
-        if(map.markerTitle){
-            [code addCodeLineWithFormat:@"var infoWindow_%@ = new google.maps.InfoWindow();", map.htmlID];
-            [code addCodeLineWithFormat:@"infoWindow_%@.setContent('<p>%@</p>');", map.htmlID, map.markerTitle];
-            [code addCodeLineWithFormat:@"google.maps.event.addListener(marker_%@, 'click', function() { infoWindow_%@.open(map_%@, marker_%@); });", map.htmlID, map.htmlID, map.htmlID, map.htmlID];
-        }
-        
-        //resize
-        [code addCodeLine:@"google.maps.event.addDomListener(window, \"resize\", function() {"];
-        [code increaseIndentLevelForEdit];
-        [code addCodeLineWithFormat:@"var center = new google.maps.LatLng(%@, %@);", map.latitude, map.longitude];
-        [code addCodeLineWithFormat:@"google.maps.event.trigger(map_%@, \"resize\");", map.htmlID];
-        [code addCodeLineWithFormat:@"map_%@.setCenter(center);", map.htmlID];
-        [code decreaseIndentLevelForEdit];
-        [code addCodeLine:@"});"];
-        
-        
-    }
-    else if ([iu isKindOfClass:[IUBox class]]) {
-        for (IUBox *child in iu.children) {
-            [code addCodeWithIndent:[self readyJSCode:child isEdit:isEdit]];
-        }
-
-    }
-    return code;
-}
-- (JDCode *)mqCodeForTag:(IUMQDataTag)tag inIU:(IUBox *)iu{
-    JDCode *code = [[JDCode alloc] init];
-    NSDictionary *mqDict = [iu.mqData dictionaryForTag:tag];
-    if(mqDict.count > 0){
-        [code addCodeLine:@"{"];
-        [code increaseIndentLevelForEdit];
-        for(NSString *widthStr in [mqDict allKeys]){
-            [code addCodeLineWithFormat:@"%@:\"%@\",", widthStr, [mqDict[widthStr] JSEscape]];
-            
-        }
-        [code decreaseIndentLevelForEdit];
-        [code addCodeLine:@"}"];
-    }
-    return code;
-}
-
-- (JDCode *)textMQJavascriptCode:(IUBox *)iu{
-    JDCode *code = [[JDCode alloc] init];
-    if ([iu isKindOfClass:[IUBox class]]) {
-        NSDictionary *mqDict = [iu.mqData dictionaryForTag:IUMQDataTagInnerHTML];
-        if(mqDict.count > 1){
-            [code addCodeLineWithFormat:@"var %@_textMQDict = ", iu.htmlID];
-            [code addCode:[self mqCodeForTag:IUMQDataTagInnerHTML inIU:iu]];
-            [code addCodeLineWithFormat:@"var %@_currentText = getCurrentData(%@_textMQDict)", iu.htmlID, iu.htmlID];
-            [code addCodeLineWithFormat:@"$('.%@').html(%@_currentText)", iu.htmlID, iu.htmlID];
-            
-        }
-        else{
-            for (IUBox *child in iu.children) {
-                [code addCode:[self textMQJavascriptCode:child]];
-            }
-        }
-    }
-
-    
     return code;
 }
 
@@ -1018,14 +860,170 @@
     return [cssCompiler cssCodeForIU_storage:box];
 }
 
-/* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (NSString* )htmlSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort {
-    return [[htmlCompiler wholeHTMLCode:box target:target withCSS:YES] string];
-}
+
 
 - (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort{
     return nil;
 }
+
+- (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort{
+    return [htmlCompiler unitBoxHTMLCode:box target:IUTargetEditor withCSS:YES viewPort:viewPort].string;
+}
+
+
+
+- (NSString *)editorWebSource:(IUSheet *)document{
+    NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
+    if (templateFilePath == nil) {
+        NSAssert(0, @"Template file name wrong");
+        return nil;
+    }
+    
+    NSMutableString *sourceString = [NSMutableString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil];
+    
+    JDCode *sourceCode = [[JDCode alloc] initWithCodeString:sourceString];
+    
+    
+    JDCode *webFontCode = [[LMFontController sharedFontController] headerCodeForAllFont];
+    [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+    
+    JDCode *jsCode = [self javascriptHeaderForSheet:document isEdit:YES];
+    [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
+    
+    
+    JDCode *iuCSS = [self cssHeaderForSheet:document isEdit:YES];
+    [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+    
+    //add for hover css
+    [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
+    
+    
+    //change html
+    JDCode *htmlCode = [[JDCode alloc] init];
+    //REVIEW : sheetouter의 width를 변경시키며 editor에서 media query가 서포트 되는것 처럼 보이게 함.
+    //webview의 사이즈를 바꾸지 않고 그대로 사용할 수 있다.
+    //장점
+    // - 페이지를 center로 보낼수있음
+    // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
+    // - text editor를 불러올 수 있음.
+    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
+    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor]];
+    [htmlCode addString:@"<div>"];
+    [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
+    
+    
+    
+    JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
+    
+    return sourceCode.string;
+}
+
+-(NSString*)outputHTMLSource:(IUSheet*)sheet{
+    if ([sheet isKindOfClass:[IUClass class]]) {
+        return [self htmlCode:sheet target:IUTargetOutput].string;
+    }
+    NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
+    
+    JDCode *sourceCode = [[JDCode alloc] initWithCodeString: [NSString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil]];
+    
+    //replace metadata;
+    if([sheet isKindOfClass:[IUPage class]]){
+        JDCode *metaCode = [self metadataSource:(IUPage *)sheet];
+        [sourceCode replaceCodeString:@"<!--METADATA_Insert-->" toCode:metaCode];
+        
+        JDCode *webFontCode = [self webfontImportSourceForOutput:(IUPage *)sheet];
+        [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+        
+        JDCode *jsCode = [self javascriptHeaderForSheet:sheet isEdit:NO];
+        [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
+        
+        JDCode *iuCSS = [self cssHeaderForSheet:sheet isEdit:NO];
+        [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+        
+        if(_rule == IUCompileRuleWordpress){
+            NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.mqSizes];
+            [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:cssString];
+        }
+        else{
+            [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@""];
+            
+        }
+        
+        //change html
+        JDCode *htmlCode = [self htmlCode:sheet target:IUTargetOutput];
+        [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
+        
+        JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
+        
+        if (_rule == IUCompileRuleDjango) {
+            [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
+            [sourceCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
+            [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
+        }
+        if (_rule == IUCompileRuleWordpress) {
+            [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
+            [sourceCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
+            [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
+        }
+    }
+    
+    return sourceCode.string;
+}
+
+- (void)setJSBasePath:(NSString*)urlPath{
+    _jsURLPath = [urlPath copy];
+}
+
+- (void)setCSSBasePath:(NSString*)urlPath{
+    _cssURLPath = [urlPath copy];
+}
+
+- (void)setResourceBasePath:(NSString *)urlPath {
+    _resourceURLPath = [urlPath copy];
+}
+
+
+- (NSString *)outputCSSSource:(IUSheet*)sheet mqSizeArray:(NSArray *)mqSizeArray{
+    //change css
+    JDCode *cssCode = [self cssSource:sheet cssSizeArray:mqSizeArray];
+    
+    if(_rule == IUCompileRuleDefault || _rule == IUCompileRulePresentation){
+        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"../"];
+        [cssCode replaceCodeString:@"./resource/" toCodeString:@"../"];
+        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('../"];
+    }
+    else if (_rule == IUCompileRuleDjango) {
+        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
+        [cssCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
+        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
+    }
+    else if (_rule == IUCompileRuleWordpress) {
+        [cssCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
+        [cssCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
+        [cssCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];
+    }
+    
+    return cssCode.string;
+}
+
+
+- (NSString *)jsEventFileName:(IUPage *)document {
+    return [jsCompiler jsEventFileName:document];
+}
+
+
+- (NSString *)jsInitFileName:(IUPage *)document{
+    return [jsCompiler jsInitFileName:document];
+}
+
+- (NSString *)jsInitSource:(IUPage *)document{
+    return [jsCompiler jsInitSource:document];
+}
+
+- (NSString *)jsEventSource:(IUPage *)document{
+    return [jsCompiler jsEventSource:document];
+}
+
 
 
 @end

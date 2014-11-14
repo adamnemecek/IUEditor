@@ -16,6 +16,7 @@
 
 @class IUCSSCode;
 @class IUSheet;
+@class IUPage;
 @class IUResourceManager;
 @class IUWordpressProject;
 
@@ -45,7 +46,6 @@ typedef enum _IUCompileRule{
 
 //html source
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target;
-- (NSString *)outputHTMLSource:(IUSheet*)document;
 - (NSString *)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 
 //css code
@@ -73,14 +73,29 @@ typedef enum _IUCompileRule{
 
 /**
  Return whole web source of sheet;
- @note: this function does not accept viewPort: always return as IUDefaultViewPort
+ WebSource = HTML + CSS
  */
-- (NSString *)webSource:(IUSheet *)document target:(IUTarget)target;
+- (NSString *)editorWebSource:(IUSheet *)document;
+
+/* Will be saved as page file */
+- (NSString *)outputHTMLSource:(IUPage *)document;
+
+/* Will be saved as CSS file */
+- (NSString *)outputCSSSource_storage:(IUPage *)page;
+
+- (IUCSSCode *)editorCSSCode:(IUBox *)box viewPort:(int)viewPort;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
+- (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort;
 
-/* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (NSString* )htmlSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
+- (NSString *)jsEventFileName:(IUPage *)document;
+- (NSString *)jsEventSource:(IUPage*)document;
+
+- (NSString *)jsInitFileName:(IUPage *)document;
+- (NSString *)jsInitSource:(IUPage*)document;
+
+- (void)setJSBasePath:(NSString*)urlPath;
+- (void)setCSSBasePath:(NSString*)urlPath;
+- (void)setResourceBasePath:(NSString *)urlPath;
 
 @end

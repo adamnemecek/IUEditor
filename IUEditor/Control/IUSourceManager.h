@@ -21,6 +21,8 @@
 @class IUBox;
 @class IUSheet;
 @class IUCompiler;
+@class IUProject;
+
 
 @protocol IUSourceManagerDelegate <NSObject> // = canvasVC
 
@@ -44,7 +46,23 @@
  @Note : Never call these functions twice. */
 - (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC;
 - (void)setCompiler:(IUCompiler *)compiler;
+
+
+/**
+ Compiler rule is NSString: show that string directly in commandVC
+ */
+@property NSString *compilerRule;
+- (NSArray *)availableCompilerRule;
+
+/**
+ Document base path can be replaced by setting project
+ */
 - (void)setDocumentBasePath:(NSString*)documentBasePath;
+
+/**
+ @Note: setting project will replace document base path
+ */
+- (void)setProject:(IUProject*)project;
 
 /* managing view port */
 @property int viewPort;
@@ -64,5 +82,9 @@
 
 /*** DEBUG FUNCTIONS ***/
 - (NSString *)source;
+
+/* build */
+- (BOOL)build:(NSError **)error;
+- (BOOL)builtPath;
 
 @end
