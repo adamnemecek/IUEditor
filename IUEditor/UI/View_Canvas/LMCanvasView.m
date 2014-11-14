@@ -56,7 +56,6 @@
     
     
     //setting for ruler
-    [NSScrollView setRulerViewClass:[NSRulerView_CustomColor class]];
     [self.mainScrollView setHasHorizontalRuler:YES];
     [self.mainScrollView setHasVerticalRuler:YES];
     
@@ -168,8 +167,8 @@
 
 - (void)setZoom:(CGFloat)zoom{
 
-    NSInteger zoomNumber = zoomFactor * zoom * 100;
-    [[NSUserDefaults standardUserDefaults] setInteger:zoomNumber forKey:@"zoom"];
+    CGFloat zoomNumber = zoomFactor * zoom * 100;
+    [[NSUserDefaults standardUserDefaults] setFloat:zoomNumber forKey:@"zoom"];
 }
 
 /**
@@ -203,7 +202,7 @@
     
 }
 - (void)loadDefaultZoom{
-    [[NSUserDefaults standardUserDefaults] setInteger:100 forKey:@"zoom"];
+    [[NSUserDefaults standardUserDefaults] setFloat:100 forKey:@"zoom"];
 }
 
 #pragma mark - frame
