@@ -24,9 +24,7 @@
 - (void)setUp {
     [super setUp];
     storage = [[IUCSSStorage alloc] init];
-    [storage setValue:@"value" forKey:@"key"];
-    
-    storageManager = [[IUCSSStorageManager alloc] init];
+    storageManager = [[IUCSSStorageManager alloc] init];    
     
     arr = [NSMutableArray array];
 }
@@ -55,18 +53,11 @@
     XCTAssert([storage borderColor] == [NSColor blackColor], @"Pass");
 }
 
-- (void)test3_IUCSSObserving{
-    [storage addObserver:self forKeyPath:@"borderColor" options:0 context:nil];
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderTopColor];
-    XCTAssert([[arr firstObject] isEqualToString:@"borderColor"], @"Pass");
-    
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderLeftColor];
-    XCTAssert([arr count] == 1 , @"Pass");
-}
 
 - (void)test4_settingColor{
     storage.borderColor = [NSColor yellowColor];
-    XCTAssert([storage valueForKey:IUCSSTagBorderBottomColor] == [NSColor yellowColor] , @"Pass");
+    [storage setBorderColor:[NSColor redColor]];
+    XCTAssert(storage.bottomBorderColor== [NSColor redColor] , @"Pass");
 }
 
 
@@ -139,6 +130,67 @@
     [decodedStorageManager setCurrentViewPort:500];
     XCTAssertEqualObjects([decodedStorageManager.currentStorage valueForKey:@"Key3"], @"testValue3");
 }
+
+
+- (void)test9_transaction{
+    [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
+    [storageManager.currentStorage setValue:@"abc" forKey:@"fontName"];
+    XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 1 , @"Pass");
+    [storageManager.currentStorage setValue:@(2) forKey:@"fontSize"];
+    XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 2 , @"Pass");
+    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 0 , @"Pass");
+}
+
+- (void)test10_undo{
+    
+    NSUndoManager *undoManager = [[NSUndoManager alloc] init];
+    [undoManager setLevelsOfUndo:4];
+    storageManager.undoManager = undoManager;
+    
+    [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
+    storageManager.currentStorage.fontName = @"abc";
+    storageManager.currentStorage.fontColor = [NSColor blackColor];
+
+    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    
+    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"abc"], @"Pass");
+
+
+    [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
+    storageManager.currentStorage.fontName = @"def";
+    storageManager.currentStorage.fontColor = [NSColor redColor];
+    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    
+    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"def"], @"Pass");
+    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"def"], @"Pass");
+    XCTAssert([storageManager.currentStorage.fontColor isEqualTo:[NSColor redColor]], @"Pass");
+    XCTAssert([storageManager.liveStorage.fontColor isEqualTo:[NSColor redColor]], @"Pass");
+
+
+    if([storageManager.undoManager canUndo]){
+        [storageManager.undoManager undoNestedGroup];
+    }
+   
+    
+    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"abc"], @"Pass");
+    
+    XCTAssert([storageManager.currentStorage.fontColor isEqualTo:[NSColor blackColor]], @"Pass");
+    XCTAssert([storageManager.liveStorage.fontColor isEqualTo:[NSColor blackColor]], @"Pass");
+
+
+    if([storageManager.undoManager canUndo]){
+        [storageManager.undoManager undoNestedGroup];
+    }
+    
+
+    XCTAssert(storageManager.currentStorage.fontName == nil, @"Pass");
+    XCTAssert(storageManager.liveStorage.fontName == nil, @"Pass");
+
+}
+
 - (void)testPerformanceExample {
     /* This is an example of a performance test case.
     [self measureBlock:^{

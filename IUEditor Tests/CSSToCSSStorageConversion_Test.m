@@ -50,4 +50,21 @@
     XCTAssertEqualObjects(storageManager.currentStorage.xUnit, @(IUFrameUnitPercent));
 }
 
+
+- (void)testBorderColor{
+    IUCSS *css = [[IUCSS alloc] init];
+    [css setValue:[NSColor grayColor] forTag:IUCSSTagBorderColor];
+    IUCSSStorageManager *storageManager = [css convertToStorageManager];
+    XCTAssertEqual(storageManager.currentViewPort, IUDefaultViewPort);
+    XCTAssertEqualObjects(storageManager.currentStorage.borderColor, [NSColor grayColor]);
+    
+    [css setValue:[NSColor redColor] forTag:IUCSSTagBorderLeftColor];
+    storageManager = [css convertToStorageManager];
+    XCTAssertEqual(storageManager.currentViewPort, IUDefaultViewPort);
+    XCTAssertEqualObjects(storageManager.currentStorage.borderColor, NSMultipleValuesMarker);
+    XCTAssertEqualObjects(storageManager.currentStorage.leftBorderColor, [NSColor redColor]);
+
+
+
+}
 @end

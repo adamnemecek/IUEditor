@@ -53,10 +53,13 @@
             withMessage:[NSString stringWithFormat:(format), ##__VA_ARGS__]]
 
 
+#define JD_CURRENT_FUNCTION [NSString stringWithFormat:@"%s,line:%d,file:%@",__PRETTY_FUNCTION__,__LINE__,[@__FILE__ lastPathComponent]]
+
 #else
 
 #define JDLog(...)
 #define JDSectionLog(...)
+#define JD_CURRENT_FUNCTION @""
 
 #endif
 

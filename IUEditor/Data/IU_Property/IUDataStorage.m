@@ -15,7 +15,6 @@
 - (IUDataStorageManager *)manager;
 
 @property NSMutableDictionary *storage;
-@property BOOL enableUpdate;
 @end
 
 @interface IUDataStorageManager()
@@ -25,21 +24,72 @@
 @property IUDataStorage *currentStorage;
 @property IUDataStorage *defaultStorage;
 @property IUDataStorage *liveStorage;
-- (void)storage:(IUDataStorage*)storage change:(NSDictionary*)change;
+- (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes;
 @end
 
 
 
 @implementation IUDataStorage {
     IUDataStorageManager *manager;
+    int _transactionLevel;
+    int _syncLevel;
+    NSMutableArray *_changePropertyStack;
+}
+
+/* using cache for multiple calling [IUDataStorage properties] */
+static NSArray *storageProperties_cache;
+
++(NSArray *)observingList{
+    return nil;
 }
 
 - (id)init{
     self = [super init];
     _storage = [NSMutableDictionary dictionary];
-    _enableUpdate = YES;
+    _changePropertyStack = [NSMutableArray array];
+    _transactionLevel = 0;
+    _syncLevel = 0;
+    
+    if (storageProperties_cache == nil) {
+        NSArray *properties = [[self class] observingList];
+        storageProperties_cache = [properties valueForKey:@"name"];
+    }
+    if(storageProperties_cache){
+        [self addObserver:self forKeyPaths:storageProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
+    }
     return self;
+
 }
+
+
+- (void)dealloc{
+    if(storageProperties_cache){
+        [self removeObserver:self forKeyPaths:storageProperties_cache];
+    }
+}
+
+
+- (void)storagePropertyContextDidChange:(NSDictionary*)change{
+  
+    if([self isDoingSync] == NO){
+        NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
+        if (change[NSKeyValueChangeOldKey] != [NSNull null]) {
+            [changeDict setValue:change[NSKeyValueChangeOldKey] forKey:@"oldValue"];
+        }
+        if (change[NSKeyValueChangeNewKey] != [NSNull null]) {
+            [changeDict setValue:change[NSKeyValueChangeNewKey] forKey:@"newValue"];
+        }
+        [changeDict setValue:change[kJDKey] forKey:@"key"];
+        
+        [_changePropertyStack addObject:changeDict];
+        [self commitTransactoin:self];
+    }
+    else{
+        JDTraceLog(@"Sync : storage");
+    }
+    
+}
+
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
@@ -55,8 +105,9 @@
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [self beginTransaction:self];
     manager = [aDecoder decodeByRefObjectForKey:@"manager"];
-    _enableUpdate = YES;
+    [self commitTransactoin:self];
 }
 
 - (IUDataStorageManager *)manager{
@@ -80,16 +131,18 @@
     }
     [_storage setValue:value forKey:key];
     
-    if (_enableUpdate){
+    if ([self enableUpdate]){
         if (oldValue && value) {
-            [manager storage:self change:@{@"key":key, @"oldValue":oldValue, @"newValue":value}];
+            [_changePropertyStack addObject:@{@"key":key, @"oldValue":oldValue, @"newValue":value}];
         }
         else if (oldValue) {
-            [manager storage:self change:@{@"key":key, @"oldValue":oldValue,}];
+            [_changePropertyStack addObject:@{@"key":key, @"oldValue":oldValue,}];
         }
         else {
-            [manager storage:self change:@{@"key":key, @"newValue":value,}];
+            [_changePropertyStack addObject:@{@"key":key, @"newValue":value,}];
         }
+        
+        [self commitTransactoin:self];
     }
     [self didChangeValueForKey:key];
 }
@@ -109,8 +162,53 @@
         }
     }
 }
+- (void)beginTransaction:(id)sender{
+    _transactionLevel++;
+}
+- (void)endTransactoin:(id)sender{
+    _transactionLevel--;
+    [self commitTransactoin:sender];
+}
+
+- (void)commitTransactoin:(id)sender{
+    if([self enableUpdate]){
+        [self.manager.undoManager beginUndoGrouping];
+        for(NSDictionary *change in _changePropertyStack){
+            [[self.manager.undoManager prepareWithInvocationTarget:self] setValue:change[@"oldValue"] forKey:change[@"key"]];
+            
+        }
+        [self.manager.undoManager endUndoGrouping];
+        [self.manager storage:self changes:[_changePropertyStack copy]];
+        [_changePropertyStack removeAllObjects];
+    }
+}
+
+- (BOOL)enableUpdate{
+    if(_transactionLevel==0){
+        return YES;
+    }
+    
+    return NO;
+}
+#if DEBUG
+- (NSArray *)currentPropertyStackForTest{
+    return [_changePropertyStack copy];
+}
+#endif
 
 
+- (void)beginSync:(id)sender{
+    _syncLevel++;
+}
+- (void)endSync:(id)sender{
+    _syncLevel--;
+}
+- (BOOL)isDoingSync{
+    if (_syncLevel == 0) {
+        return NO;
+    }
+    return YES;
+}
 
 @end
 
@@ -173,7 +271,7 @@
 - (IUDataStorage*)createLiveStorage{
     /* does not send information to manager */
     IUDataStorage *liveStorage = [self.currentStorage copy];
-    [liveStorage setEnableUpdate:NO];
+    [liveStorage beginSync:JD_CURRENT_FUNCTION];
     /*
      get overwrite all data
      */
@@ -181,7 +279,7 @@
     while ( (currStorage = [self storageWithBiggerViewPortOf:currStorage]) ) {
         [liveStorage overwritingDataStorageForNilValue:currStorage];
     }
-    [liveStorage setEnableUpdate:YES];
+    [liveStorage endSync:JD_CURRENT_FUNCTION];
     return liveStorage;
 }
 
@@ -218,25 +316,27 @@
 /**
  Manage new value of liveStorage = currentStroage
  */
-- (void)storage:(IUDataStorage*)storage change:(NSDictionary *)change{
-    NSString *key = change[@"key"];
-
-//   there are "newValue" and "oldValue" in dictionary, but not using in here
-//    id newValue = change[@"newValue"];
-//    id oldValue = change[@"oldValue"];
-
-    if (storage == self.currentStorage) {
-        [self.liveStorage setEnableUpdate:NO];
-        [self.liveStorage setValue:change[@"newValue"] forKey:key];
-        [self.liveStorage setEnableUpdate:YES];
-    }
-    else if (storage == self.liveStorage) {
-        [self.currentStorage setEnableUpdate:NO];
-        [self.currentStorage setValue:change[@"newValue"] forKey:key];
-        [self.currentStorage setEnableUpdate:NO];
-    }
-    else {
-        NSAssert(0, @"Only current storage and live storage is updatable");
+- (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes{
+    for(NSDictionary *changeDict in changes){
+        NSString *key = changeDict[@"key"];
+        
+        //   there are "newValue" and "oldValue" in dictionary, but not using in here
+        //    id newValue = change[@"newValue"];
+        //    id oldValue = change[@"oldValue"];
+        
+        if (storage == self.currentStorage) {
+            [self.liveStorage beginSync:JD_CURRENT_FUNCTION];
+            [self.liveStorage setValue:changeDict[@"newValue"] forKey:key];
+            [self.liveStorage endSync:JD_CURRENT_FUNCTION];
+        }
+        else if (storage == self.liveStorage) {
+            [self.currentStorage beginSync:JD_CURRENT_FUNCTION];
+            [self.currentStorage setValue:changeDict[@"newValue"] forKey:key];
+            [self.currentStorage endSync:JD_CURRENT_FUNCTION];
+        }
+        else {
+            NSAssert(0, @"Only current storage and live storage is updatable");
+        }
     }
 }
 
@@ -276,97 +376,100 @@
 @end
 
 @implementation IUCSSStorage {
-    BOOL changing;
 }
 
-/* using cache for multiple calling [IUCSSStorage properties] */
-static NSArray *cssProperties_cache;
-
-- (id)init{
-    self = [super init];
-    if (cssProperties_cache == nil) {
-        NSArray *properties = [IUCSSStorage properties];
-        cssProperties_cache = [properties valueForKey:@"name"];
-    }
-    [self addObserver:self forKeyPaths:cssProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"cssProperty"];
-    return self;
++ (NSArray *)observingList{
+    return [IUCSSStorage properties];
 }
-
-- (void)dealloc{
-    [self removeObserver:self forKeyPaths:cssProperties_cache];
-}
-
-- (void)setX:(id)x{
-    _x = x;
-}
-
-- (void)cssPropertyContextDidChange:(NSDictionary*)change{
-    
-    if (self.enableUpdate) {
-        NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
-        if (change[NSKeyValueChangeOldKey] != [NSNull null]) {
-            [changeDict setValue:change[NSKeyValueChangeOldKey] forKey:@"oldValue"];
-        }
-        if (change[NSKeyValueChangeNewKey] != [NSNull null]) {
-            [changeDict setValue:change[NSKeyValueChangeNewKey] forKey:@"newValue"];
-        }
-        [changeDict setValue:change[kJDKey] forKey:@"key"];
-        [self.manager storage:self change:changeDict];
-    }
-}
-
 
 - (void)setBorderColor:(id)borderColor{
-    if (changing == NO) {
-        changing = YES;
-    }
-    else {
-        return;
-    }
-
-    _borderColor = borderColor;
-
-
-    [self setValue:borderColor forKey:IUCSSTagBorderTopColor];
-    [self setValue:borderColor forKey:IUCSSTagBorderLeftColor];
-    [self setValue:borderColor forKey:IUCSSTagBorderRightColor];
-    [self setValue:borderColor forKey:IUCSSTagBorderBottomColor];
+    [self beginTransaction:JD_CURRENT_FUNCTION];
     
-    changing = NO;
-}
-
-
-- (void)setValue:(id)value forKey:(IUCSSTag)key{
-    [super setValue:value forKey:key];
-
-    if (changing == NO && [key isBorderColorComponentTag]) {
-        if ([self isAllBorderColorsEqual]) {
-            if (_borderColor == value) {
-                return;
-            }
-            [self willChangeValueForKey:@"borderColor"];
-            _borderColor = value;
-            [self didChangeValueForKey:@"borderColor"];
-        }
-        else {
-            if (_borderColor == NSMultipleValuesMarker) {
-                return;
-            }
-            [self willChangeValueForKey:@"borderColor"];
-            _borderColor = NSMultipleValuesMarker;
-            [self didChangeValueForKey:@"borderColor"];
-        }
-    }
+    [self setTopBorderColor:borderColor];
+    [self setLeftBorderColor:borderColor];
+    [self setRightBorderColor:borderColor];
+    [self setBottomBorderColor:borderColor];
+    
+    [self endTransactoin:JD_CURRENT_FUNCTION];
+    
 }
 
 - (BOOL)isAllBorderColorsEqual{
-    if ([self valueForKey:IUCSSTagBorderTopColor] == [self valueForKey:IUCSSTagBorderBottomColor] &&
-        [self valueForKey:IUCSSTagBorderTopColor] == [self valueForKey:IUCSSTagBorderLeftColor] &&
-        [self valueForKey:IUCSSTagBorderTopColor] == [self valueForKey:IUCSSTagBorderRightColor] ) {
+    
+    if([_topBorderColor isEqualTo:_bottomBorderColor]
+       && [_topBorderColor isEqualTo:_leftBorderColor]
+       && [_topBorderColor isEqualTo:_rightBorderColor]){
         return YES;
     }
     return NO;
 }
+- (NSColor *)borderColor{
+    if ([self isAllBorderColorsEqual]) {
+        return _topBorderColor;
+    }
+    return NSMultipleValuesMarker;
+}
+
+- (void)setBorderWidth:(NSNumber *)borderWidth{
+    
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+    
+    [self setTopBorderWidth:borderWidth];
+    [self setBottomBorderWidth:borderWidth];
+    [self setLeftBorderWidth:borderWidth];
+    [self setRightBorderWidth:borderWidth];
+    
+    [self endTransactoin:JD_CURRENT_FUNCTION];
+    
+}
+
+- (BOOL)isAllBorderWidthEqual{
+    if([_topBorderWidth isEqualToNumber:_bottomBorderWidth]
+       && [_topBorderWidth isEqualToNumber:_leftBorderWidth]
+       && [_topBorderWidth isEqualToNumber:_rightBorderWidth]){
+        return YES;
+    }
+    return NO;
+}
+
+- (NSNumber *)borderWidth{
+    if([self isAllBorderWidthEqual]){
+        return _topBorderWidth;
+    }
+    return NSMultipleValuesMarker;
+}
+
+- (void)setBorderRadius:(NSNumber *)borderRadius{
+    
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+
+    [self setTopLeftBorderRadius:borderRadius];
+    [self setTopRightBorderRadius:borderRadius];
+    [self setBottomLeftborderRadius:borderRadius];
+    [self setBottomRightBorderRadius:borderRadius];
+    
+    [self endTransactoin:JD_CURRENT_FUNCTION];
+
+}
+
+- (BOOL)isAllBorderRadiusEqual{
+    if([_topLeftBorderRadius isEqualToNumber:_topRightBorderRadius]
+       && [_topLeftBorderRadius isEqualToNumber:_bottomLeftborderRadius]
+       && [_topLeftBorderRadius isEqualToNumber:_bottomRightBorderRadius]
+       ){
+        return YES;
+    }
+    return NO;
+}
+
+- (NSNumber *)borderRadius{
+    if([self isAllBorderRadiusEqual]){
+        return _topLeftBorderRadius;
+    }
+    
+    return NSMultipleValuesMarker;
+}
+
 
 - (void)overwritingDataStorageForNilValue:(IUCSSStorage*)aStorage{
     [super overwritingDataStorageForNilValue:aStorage];
@@ -374,6 +477,17 @@ static NSArray *cssProperties_cache;
     if (self.x == nil && aStorage.x != nil) {
         self.x = aStorage.x;
     }
+}
+
+
+/* it's for conversion */
+- (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key{
+    if([value isEqualTo:NSMultipleValuesMarker]){
+        //border, radius, color - 서로 다른 값을 가질때.
+        return;
+    }
+    [self setValue:value forKey:key];
+    
 }
 
 
@@ -458,22 +572,25 @@ static NSArray *cssProperties_cache;
 }
 
 
-- (void)storage:(IUCSSStorage*)storage change:(NSDictionary *)change {
+- (void)storage:(IUCSSStorage*)storage changes:(NSArray *)changes{
     //sync current storage and live storage
-    [super storage:storage change:change];
-
-    NSString *key = change[@"key"];
-    id newValue = change[@"newValue"];
-    // id oldValue = change[@"oldValue"]; // use this value if needed
+    [super storage:storage changes:changes];
     
-    // X set from non-nil -> nil value
-    // set XUnit as nil
-    // X set from nil -> non-nil value
-    // set XUnit as live value
-
-    if ([key isEqualToString:@"x"] && newValue != nil ) {
-        if (self.liveStorage.xUnit == nil) {
-            self.liveStorage.xUnit = @(IUFrameUnitPixel);
+    for(NSDictionary *change in changes){
+        
+        NSString *key = change[@"key"];
+        id newValue = change[@"newValue"];
+        // id oldValue = change[@"oldValue"]; // use this value if needed
+        
+        // X set from non-nil -> nil value
+        // set XUnit as nil
+        // X set from nil -> non-nil value
+        // set XUnit as live value
+        
+        if ([key isEqualToString:@"x"] && newValue != nil ) {
+            if (self.liveStorage.xUnit == nil) {
+                self.liveStorage.xUnit = @(IUFrameUnitPixel);
+            }
         }
     }
 }

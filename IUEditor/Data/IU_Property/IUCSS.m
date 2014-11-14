@@ -453,7 +453,8 @@
 
 - (void)convertToStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
     if (convertTagDict[tag]) {
-        [convertStorage setValue:convertTagDict[tag] forKey:key];
+        [convertStorage setCSSValue:convertTagDict[tag] fromCSSforCSSKey:key];
+//        [convertStorage setValue:convertTagDict[tag] forKey:key];
     }
 }
 
@@ -528,6 +529,11 @@
         }
         
         /* border and radius  */
+        [self convertToStorageManager_setTag:IUCSSTagBorderColor toStorageWithkey:@"borderColor"];
+        [self convertToStorageManager_setTag:IUCSSTagBorderWidth toStorageWithkey:@"borderWidth"];
+        [self convertToStorageManager_setTag:IUCSSTagBorderRadius toStorageWithkey:@"borderRadius"];
+        
+
         [self convertToStorageManager_setTag:IUCSSTagBorderTopWidth toStorageWithkey:@"topBorderWidth"];
         [self convertToStorageManager_setTag:IUCSSTagBorderTopColor toStorageWithkey:@"topBorderColor"];
         [self convertToStorageManager_setTag:IUCSSTagBorderRightWidth toStorageWithkey:@"rightBorderWidth"];

@@ -89,6 +89,7 @@
     if ([JDFileUtil isImageFileExtension:[path pathExtension]]) {
         [self willChangeValueForKey:@"imageAndVideoFiles"];
         [self willChangeValueForKey:@"imageFiles"];
+        
         existedFile.originalFilePath = path;
         [[[[NSApp mainWindow] windowController] document] saveDocument:self];
         
@@ -106,11 +107,12 @@
     else if ([JDFileUtil isMovieFileExtension:[path pathExtension]]) {
         [self willChangeValueForKey:@"imageAndVideoFiles"];
         [self willChangeValueForKey:@"movieFiles"];
+        
         existedFile.originalFilePath = path;
+        [[[[NSApp mainWindow] windowController] document] saveDocument:self];
+
         [self didChangeValueForKey:@"movieFiles"];
         [self didChangeValueForKey:@"imageAndVideoFiles"];
-        
-        [[[[NSApp mainWindow] windowController] document] saveDocument:self];
         
         return existedFile;
     }

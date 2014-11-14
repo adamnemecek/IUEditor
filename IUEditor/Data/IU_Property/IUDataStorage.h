@@ -21,12 +21,27 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key;
 - (id)valueForUndefinedKey:(NSString *)key;
 - (NSDictionary*)dictionary;
+
+
+/**
+  support transaction
+ */
+- (void)beginTransaction:(id)sender;
+- (void)endTransactoin:(id)sender;
+- (void)commitTransactoin:(id)sender;
+
+- (void)beginSync:(id)sender;
+- (void)endSync:(id)sender;
+
+#if DEBUG
+- (NSArray *)currentPropertyStackForTest;
+#endif
+
+
 @end
 
 @protocol IUDataStorageManagerDelegate
 @optional
-- (void)beginTransaction:(id)storage;
-- (void)commitTransactoin:(id)storage;
 
 @required
 - (void)setNeedsToUpdateStorage:(IUDataStorage*)storage;
@@ -155,9 +170,9 @@ IUBGSizeTypeFull ,
 
 /* border tag */
 /* following three tag can have NSMultipleValueMarker */
-@property (nonatomic) NSString  *borderWidth;
+@property (nonatomic) NSNumber  *borderWidth;
 @property (nonatomic) NSColor   *borderColor;
-@property (nonatomic) NSString  *borderRadius;
+@property (nonatomic) NSNumber  *borderRadius;
 
 /* followings are border/radius tags */
 @property (nonatomic) NSNumber* topBorderWidth;
@@ -198,6 +213,13 @@ IUBGSizeTypeFull ,
  Move it to IUCarousel.
  static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
  */
+
+
+
+
+//conversion from old IU
+- (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key;
+
 
 @end
 

@@ -293,7 +293,7 @@
     return self;
 }
 
-- (id)initAtTemporaryDirectory {
+- (id)initForUnitTestAtTemporaryDirectory {
     /* initialize at temp directory */
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(defaultFrameWidth), @320]];
@@ -305,7 +305,10 @@
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
     _enableMinWidth = YES;
+    
+    self = [self initWithCreation:nil error:nil];
 
+    
     
     /* create app name */
     /* rule : ProjectName_Number

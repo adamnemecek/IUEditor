@@ -30,7 +30,7 @@
 
 - (void)test1_BOX {
     IUCompiler *compiler = [[IUCompiler alloc] init];
-    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
     IUBox *box = [[IUBox alloc] initWithProject:project options:nil];
     [box.cssManager.liveStorage setX:@(50)];
     NSString *htmlCode = [compiler htmlSource:box target:IUTargetEditor viewPort:IUDefaultViewPort];
