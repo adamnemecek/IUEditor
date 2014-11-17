@@ -54,6 +54,10 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     return [_canvasVC callWebScriptMethod:function withArguments:args];
 }
 
+- (id)evaluateWebScript:(NSString *)script{
+    return [_canvasVC evaluateWebScript:script];
+}
+
 - (void)setDocumentBasePath:(NSString*)documentBasePath {
     _documentBasePath = [documentBasePath copy];
 }
@@ -71,9 +75,11 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     if (_documentBasePath) {
         [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
     }
+#if DEBUG
     else {
-        [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:NSHomeDirectory()]];
+        [[_webView mainFrame] loadHTMLString:code baseURL:nil];
     }
+#endif
 }
 
 - (DOMDocument *)DOMDocument{

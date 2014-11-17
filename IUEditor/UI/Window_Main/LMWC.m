@@ -93,6 +93,7 @@
 //server log
 @property (weak) IBOutlet WebView *serverView;
 
+
 @end
 
 @implementation LMWC{
@@ -174,6 +175,10 @@
         //allocation JSManger
         jsManager = [[LMJSManager alloc] init];
         [jsManager setDelegate:canvasVC];
+        
+        //allocation sourcemanager
+        _sourceManager = [[IUSourceManager alloc] init];
+        [_sourceManager setCanvasVC:canvasVC];
         
         //allocated jsmanager to VC (run js)
         [appearanceVC setJsManager:jsManager];

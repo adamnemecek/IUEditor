@@ -32,8 +32,8 @@
 }
 
 - (void)test2_frameCode {
-    box.liveCSSStorage.x = @(30);
-    box.liveCSSStorage.xUnit = @(IUFrameUnitPixel);
+//    box.cssLiveStorage.x = @(30);
+//    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);

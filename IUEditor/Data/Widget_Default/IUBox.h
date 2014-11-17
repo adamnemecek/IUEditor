@@ -15,6 +15,7 @@
 #import "IUDataStorage.h"
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
+#import "IUSourceManager.h"
 
 typedef enum{
     IUWidgetTypePrimary,
@@ -279,5 +280,12 @@ typedef enum{
 - (NSString*)cssClassStringForHTML;
 
 
+
+#if DEBUG
+//test 를 위해서 setting 가능하게 해놓음.
+@property (nonatomic) IUSourceManager *sourceManager;
+#else
+- (IUSourceManager *)sourceManager;
+#endif
 
 @end

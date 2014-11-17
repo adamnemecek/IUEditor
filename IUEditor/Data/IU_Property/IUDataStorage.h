@@ -49,8 +49,17 @@
 
 @required
 - (void)setNeedsToUpdateStorage:(IUDataStorage*)storage;
+//js
+- (NSRect)currentPercentFrame;
+- (NSRect)currentPixelFrame;
+
 @end
 
+@protocol IUCSSStorageManagerDelegate <NSObject>
+
+@required
+
+@end
 
 /**
  Manage Data(CSS or anything) of IUBox
@@ -134,10 +143,10 @@ typedef enum IUFrameUnit{
 
 /* unit tags uses as value*/
 
-@property (nonatomic) NSNumber* xUnit;
-@property (nonatomic) NSNumber* yUnit;
-@property (nonatomic) NSNumber* widthUnit;
-@property (nonatomic) NSNumber* heightUnit;
+@property (nonatomic, readonly) NSNumber* xUnit;
+@property (nonatomic, readonly) NSNumber* yUnit;
+@property (nonatomic, readonly) NSNumber* widthUnit;
+@property (nonatomic, readonly) NSNumber* heightUnit;
 
 /* frame tags use nsnumber, not enum */
 @property (nonatomic) NSNumber* x;
@@ -224,10 +233,15 @@ IUBGSizeTypeFull ,
  */
 
 
+- (void)initPropertiesForDefaultViewPort;
 
+//set frame unit
+- (void)setXUnitAndChangeX:(NSNumber *)xUnit;
+- (void)setWidthUnitAndChangeWidth:(NSNumber *)widthUnit;
 
 //conversion from old IU
 - (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key;
+
 
 
 @end

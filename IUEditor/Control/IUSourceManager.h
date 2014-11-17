@@ -36,6 +36,7 @@
 - (void)commitUpdate;
 
 /* call javascript */
+- (id)evaluateWebScript:(NSString *)script;
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 
 @end
@@ -74,6 +75,8 @@
 - (void)setNeedsUpdateHTML:(IUBox*)box;
 - (void)setNeedsUpdateCSS:(IUBox*)box;
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
+- (id)evaluateWebScript:(NSString *)script;
+
 
 /* working as transaction */
 - (void)beginTransaction:(id)sender;

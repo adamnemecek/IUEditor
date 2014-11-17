@@ -1,3 +1,29 @@
+//for console defined
+var alertFallback = false;
+if (typeof console === "undefined"
+    || typeof console.log === "undefined"
+    || typeof console.timeStart === "undefined"
+    || typeof console.timeEnd === "undefined"
+    ) {
+    console = {};
+    if (alertFallback) {
+        console.log = function(msg) {
+            alert(msg);
+        };
+        console.timeStart = function(msg) {
+            alert(msg);
+        };
+        console.timeEnd = function(msg) {
+            alert(msg);
+        };
+    } else {
+        console.log = function() {};
+        console.timeStart = function() {};
+        console.timeEnd = function() {};
+    }
+}
+
+
 //this file only used in editor
 isEditor=true;
 document.sharedFrameDict = {};

@@ -7,6 +7,8 @@
 //
 
 #import "IUIdentifierManager.h"
+#import "IUSourceManager.h"
+#import "LMWC.h"
 
 #import "IUBox.h"
 #import "NSObject+JDExtension.h"
@@ -290,10 +292,12 @@
         }
         self.name = self.htmlID;
         
+/*
         _cssStorageManager = [[IUCSSStorageManager alloc] init];
         [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
 
+ */
         [[self undoManager] enableUndoRegistration];
         
     }
@@ -440,9 +444,22 @@
 - (BOOL)canSelectedWhenOpenProject{
     return YES;
 }
-#pragma mark - Undo Manager
+#pragma mark - Core Manager
 - (NSUndoManager *)undoManager{
    return [[[[NSApp mainWindow] windowController] document] undoManager];
+}
+
+- (IUSourceManager *)sourceManager{
+#if DEBUG
+    if(_sourceManager){
+        return _sourceManager;
+    }
+    else{
+        return [(LMWC *)([[NSApp mainWindow] windowController]) sourceManager];
+    }
+#else
+    return [(LMWC *)([[NSApp mainWindow] windowController]) sourceManager];
+#endif
 }
 
 #pragma mark - setXXX
@@ -663,13 +680,16 @@
 
 
 - (void)updateHTML{
+    
+    
     if (_canvasVC && [_canvasVC isUpdateHTMLEnabled]) {
+        
         
         [_canvasVC disableUpdateJS:self];
         NSString *editorHTML = [self.project.compiler htmlCode:self target:IUTargetEditor].string;
         
         [_canvasVC IUHTMLIdentifier:self.htmlID HTML:editorHTML];
-
+        
         if([self.sheet isKindOfClass:[IUClass class]]){
             for(IUBox *box in ((IUClass *)self.sheet).references){
                 [box updateHTML];
@@ -684,6 +704,16 @@
         [self updateCSS];
         
     }
+    
+    if (self.sourceManager) {
+        [self.sourceManager setNeedsUpdateHTML:self];
+        if([self.sheet isKindOfClass:[IUClass class]]){
+            for(IUBox *box in ((IUClass *)self.sheet).references){
+                [self.sourceManager setNeedsUpdateHTML:box];
+            }
+        }
+    }
+    
     
 }
 
@@ -743,6 +773,8 @@ e.g. 만약 css로 옮긴다면)
 ->iu property를 delegate쪽으로 빼야함.(이것도 struture error)
  */
 - (void)updateCSS{
+    
+    
     if (_canvasVC) {
         
         [self updateCSSValuesBeforeUpdateEditor];
@@ -768,6 +800,14 @@ e.g. 만약 css로 옮긴다면)
         [_canvasVC updateJS];
         
     }
+
+    
+    if(self.sourceManager){
+        [self updateCSSValuesBeforeUpdateEditor];
+        [self.sourceManager setNeedsUpdateCSS:self];
+    }
+    
+    
 }
 
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
@@ -1556,6 +1596,34 @@ e.g. 만약 css로 옮긴다면)
     return YES;
 }
 
+#pragma mark - javascript
 
+- (NSRect)currentPercentFrame{
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", self.htmlID];
+    id currentValue = [self.sourceManager evaluateWebScript:frameJS];
+    NSRect percentFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                     [[currentValue valueForKey:@"top"] floatValue],
+                                     [[currentValue valueForKey:@"width"] floatValue],
+                                     [[currentValue valueForKey:@"height"] floatValue]
+                                     );
+    
+    
+    return percentFrame;
+}
+
+- (NSRect)currentPixelFrame{
+    
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", self.htmlID];
+    id currentValue = [self.sourceManager evaluateWebScript:frameJS];
+    NSRect pixelFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                     [[currentValue valueForKey:@"top"] floatValue],
+                                     [[currentValue valueForKey:@"width"] floatValue],
+                                     [[currentValue valueForKey:@"height"] floatValue]
+                                     );
+    
+    
+    return pixelFrame;
+    
+}
 
 @end

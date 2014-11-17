@@ -213,7 +213,6 @@ static NSArray *storageProperties_cache;
 
 
 
-
 @implementation IUDataStorageManager{
     NSMutableArray *_owners;
 }
@@ -393,11 +392,110 @@ static NSArray *storageProperties_cache;
 
 @end
 
+
 @implementation IUCSSStorage {
 }
 
 + (NSArray *)observingList{
     return [IUCSSStorage properties];
+}
+
+
+#pragma mark - property
+
+- (void)initPropertiesForDefaultViewPort{
+    _xUnit = @(IUFrameUnitPixel);
+    _yUnit = @(IUFrameUnitPixel);
+    _widthUnit = @(IUFrameUnitPixel);
+    _heightUnit = @(IUFrameUnitPixel);
+}
+
+- (NSRect)currentFrameByChangingFromUnit:(IUFrameUnit)from toUnit:(IUFrameUnit)to{
+    if(from == IUFrameUnitPixel && to == IUFrameUnitPercent){
+        NSRect frame = [self.manager.box currentPercentFrame];
+        return frame;
+    }
+    else if(from == IUFrameUnitPercent && to == IUFrameUnitPixel){
+        NSRect frame = [self.manager.box currentPixelFrame];
+        return frame;
+        
+    }
+    return NSZeroRect;
+    
+}
+
+- (void)setXUnitAndChangeX:(NSNumber *)xUnit{
+    
+    if(_xUnit != xUnit){
+        [self willChangeValueForKey:@"xUnit"];
+        [self beginTransaction:JD_CURRENT_FUNCTION];
+        
+        //change xValue
+        NSRect frame = [self currentFrameByChangingFromUnit:[_xUnit intValue] toUnit:[xUnit intValue]];
+        [self setX:@(frame.origin.x)];
+        
+        //change Unit
+        _xUnit = xUnit;
+        
+        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self didChangeValueForKey:@"xUnit"];
+    }
+    
+}
+
+- (void)setYUnitAndChangeY:(NSNumber *)yUnit{
+    
+    if (yUnit != _yUnit) {
+        
+        [self willChangeValueForKey:@"yUnit"];
+        [self beginTransaction:JD_CURRENT_FUNCTION];
+        
+        //change yValue
+        NSRect frame = [self currentFrameByChangingFromUnit:[_yUnit intValue] toUnit:[yUnit intValue]];
+        [self setY:@(frame.origin.y)];
+        
+        _yUnit = yUnit;
+        
+        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self didChangeValueForKey:@"yUnit"];
+    }
+}
+
+- (void)setWidthUnitAndChangeWidth:(NSNumber *)widthUnit{
+    
+
+    if (widthUnit != _widthUnit) {
+        
+        [self willChangeValueForKey:@"widthUnit"];
+        [self beginTransaction:JD_CURRENT_FUNCTION];
+        
+        //change widthValue
+        NSRect frame = [self currentFrameByChangingFromUnit:[_widthUnit intValue] toUnit:[widthUnit intValue]];
+        [self setWidth:@(frame.size.width)];
+        
+        _widthUnit = widthUnit;
+        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self didChangeValueForKey:@"widthUnit"];
+        
+    }
+}
+
+- (void)setHeightUnitAndChangeHeight:(NSNumber *)heightUnit{
+    if (heightUnit != _heightUnit) {
+        
+        [self willChangeValueForKey:@"heightUnit"];
+        [self beginTransaction:JD_CURRENT_FUNCTION];
+        
+        //change heightValue
+        NSRect frame = [self currentFrameByChangingFromUnit:[_heightUnit intValue] toUnit:[heightUnit intValue]];
+        [self setHeight:@(frame.size.height)];
+        
+        _heightUnit = heightUnit;
+        
+        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self didChangeValueForKey:@"heightUnit"];
+
+    }
 }
 
 - (void)setBorderColor:(id)borderColor{
@@ -528,6 +626,10 @@ static NSArray *storageProperties_cache;
     defaultSelectorStorages = self.workingStorages;
     activeSelectorStorages = [[JDMutableArrayDict alloc] init];
     hoverSelectorStorages = [[JDMutableArrayDict alloc] init];
+    
+    IUCSSStorage *cssStorage  = [defaultSelectorStorages objectForKey:@(IUDefaultViewPort)];
+    [cssStorage initPropertiesForDefaultViewPort];
+    
     return self;
 }
 
@@ -538,6 +640,7 @@ static NSArray *storageProperties_cache;
     hoverSelectorStorages = [aDecoder decodeObjectForKey:@"hoverSelectorStorages"];
     self.workingStorages = defaultSelectorStorages;
     self.currentViewPort = IUDefaultViewPort;
+    
     return self;
 }
 
@@ -594,10 +697,13 @@ static NSArray *storageProperties_cache;
     
     for(NSDictionary *change in changes){
         
+        /*
         NSString *key = change[@"key"];
         id newValue = change[@"newValue"];
         // id oldValue = change[@"oldValue"]; // use this value if needed
+        */
         
+        /*
         // X set from non-nil -> nil value
         // set XUnit as nil
         // X set from nil -> non-nil value
@@ -608,6 +714,7 @@ static NSArray *storageProperties_cache;
                 self.liveStorage.xUnit = @(IUFrameUnitPixel);
             }
         }
+         */
     }
 }
 

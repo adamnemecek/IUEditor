@@ -83,7 +83,7 @@
 - (void)setAlign:(IUAlign)align{
     if(_align != align){
         
-        [[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
+        [(WPPageLinks *)[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
         _align = align;
         [self updateCSS];
         

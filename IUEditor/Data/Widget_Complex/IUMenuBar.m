@@ -241,7 +241,7 @@
         return;
     }
     
-    [[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
+    [(IUMenuBar *)[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
     _align = align;
     [self updateHTML];
 

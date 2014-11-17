@@ -7,6 +7,8 @@
 //
 
 #import "IUCSSCode.h"
+#import "IUDataStorage.h"
+
 @interface IUCSSCode() {
     IUTarget _currentTarget;
     int _currentViewPort;
@@ -185,6 +187,44 @@
         }
     }
 }
+
+
+
+- (void)insertTag:(NSString*)tag number:(NSNumber*)number frameUnit:(NSNumber *)frameUnit{
+    if (number) {
+        if ([number intValue] == [number floatValue]) {
+            [self insertTag:tag integer:[number intValue] frameUnit:[frameUnit intValue]];
+        }
+        else {
+            [self insertTag:tag floatValue:[number floatValue] frameUnit:[frameUnit intValue]];
+        }
+    }
+}
+
+
+- (void)insertTag:(NSString*)tag floatValue:(CGFloat)value frameUnit:(IUFrameUnit)frameUnit{
+    NSString *unitString;
+    switch (frameUnit) {
+        case IUFrameUnitPercent: unitString = @"%"; break;
+        case IUFrameUnitPixel: unitString = @"px"; break;
+    }
+    NSString *stringValue = [NSString stringWithFormat:@"%.2f%@",  value , unitString];
+    [self insertTag:tag string:stringValue];
+    
+}
+
+- (void)insertTag:(NSString*)tag integer:(int)integer frameUnit:(IUFrameUnit)frameUnit{
+    NSString *unitString;
+    switch (frameUnit) {
+        case IUFrameUnitPercent: unitString = @"%"; break;
+        case IUFrameUnitPixel: unitString = @"px"; break;
+    }
+    NSString *stringValue = [NSString stringWithFormat:@"%d%@", integer , unitString];
+    [self insertTag:tag string:stringValue];
+    
+}
+
+
 
 - (void)insertTag:(NSString*)tag floatValue:(CGFloat)value unit:(IUUnit)unit{
     NSString *unitString;

@@ -12,6 +12,8 @@
 #import "WebCanvasView.h"
 #import "IUController.h"
 #import "LMFileNaviVC.h"
+#import "IUSourceManager.h"
+
 
 @class LMWindow;
 
@@ -23,6 +25,10 @@
 @property _binding_ NSRange selectedTextRange;
 
 @property (nonatomic) IUBox *pastedNewIU;
+
+//source Manager
+@property IUSourceManager *sourceManager;
+
 
 
 /** current sheet for notification 

@@ -85,7 +85,7 @@
 - (void)setAlign:(IUAlign)align{
     if(_align != align){
         
-        [[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
+        [(WPMenu *)[self.undoManager prepareWithInvocationTarget:self] setAlign:_align];
         _align = align;
         [self updateCSS];
     }

@@ -477,15 +477,16 @@
         IUCSSStorage *storage = [_iu.cssStorageManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
         if (storage) {
             if (storage.x) {
-                if ([storage.xUnit integerValue] == IUFrameUnitPercent){
-                    [code insertTag:@"left" floatFromNumber:storage.xUnit unit:IUUnitPercent];
-                }
-                else if ([storage.xUnit integerValue] == IUFrameUnitPixel) {
-                    [code insertTag:@"left" floatFromNumber:storage.x unit:IUUnitPixel];
-                }
-                else {
-                    NSAssert (0, @"no x unit");
-                }
+                [code insertTag:@"left" number:storage.x frameUnit:storage.xUnit];
+            }
+            if(storage.y){
+                [code insertTag:@"top" number:storage.y frameUnit:storage.yUnit];
+            }
+            if(storage.width){
+                [code insertTag:@"width" number:storage.width frameUnit:storage.widthUnit];
+            }
+            if(storage.height){
+                [code insertTag:@"height" number:storage.height frameUnit:storage.heightUnit];
             }
         }
     }

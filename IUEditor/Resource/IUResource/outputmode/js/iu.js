@@ -1,6 +1,6 @@
 //this file only used in output file from IUEditor
 
-//for ie console defined
+//for console defined
 var alertFallback = false;
 if (typeof console === "undefined"
     || typeof console.log === "undefined"
