@@ -30,8 +30,12 @@ typedef enum {
 
 /* support manager for IUBox */
 - (IUIdentifierManager*)identifierManager;
+
+@optional
+
 - (NSString*)IUProjectVersion;
 - (IUClass *)classWithName:(NSString *)name;
+
 
 - (IUCompiler *)compiler __deprecated;
 - (BOOL)enableMinWidth __deprecated;

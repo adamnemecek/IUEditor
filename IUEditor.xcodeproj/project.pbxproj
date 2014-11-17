@@ -30,6 +30,10 @@
 		09D647C41A161EF600634434 /* IUCSSStorage_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942FF111A07E17200436265 /* IUCSSStorage_Test.m */; };
 		09D647C61A161EF600634434 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09D647CE1A16203F00634434 /* IUEditor Tests UI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09D647CD1A16203F00634434 /* IUEditor Tests UI-Info.plist */; };
+		09D647D21A16215C00634434 /* IUTestWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D647D01A16215C00634434 /* IUTestWC.m */; };
+		09D647D31A16215C00634434 /* IUTestWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D647D11A16215C00634434 /* IUTestWC.xib */; };
+		09D647D51A1622E300634434 /* IUSourceManager_UITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D647D41A1622E300634434 /* IUSourceManager_UITest.m */; };
+		09D647D61A16274500634434 /* IUSourceManager_UITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D647D41A1622E300634434 /* IUSourceManager_UITest.m */; };
 		09E8E43B1A08BA1E0017419B /* IUSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceManager.m */; };
 		09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43C1A08DE700017419B /* IUBox_Test.m */; };
 		09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */; };
@@ -1104,6 +1108,10 @@
 		09D4AD1A1A147A84001421C9 /* IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUProject_Test.m; sourceTree = "<group>"; };
 		09D647CB1A161EF600634434 /* IUEditor Tests UI.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests UI.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09D647CD1A16203F00634434 /* IUEditor Tests UI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IUEditor Tests UI-Info.plist"; sourceTree = "<group>"; };
+		09D647CF1A16215C00634434 /* IUTestWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUTestWC.h; sourceTree = "<group>"; };
+		09D647D01A16215C00634434 /* IUTestWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUTestWC.m; sourceTree = "<group>"; };
+		09D647D11A16215C00634434 /* IUTestWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUTestWC.xib; sourceTree = "<group>"; };
+		09D647D41A1622E300634434 /* IUSourceManager_UITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUSourceManager_UITest.m; sourceTree = "<group>"; };
 		09E8E4391A08BA1E0017419B /* IUSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSourceManager.h; path = Control/IUSourceManager.h; sourceTree = "<group>"; };
 		09E8E43A1A08BA1E0017419B /* IUSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSourceManager.m; path = Control/IUSourceManager.m; sourceTree = "<group>"; };
 		09E8E43C1A08DE700017419B /* IUBox_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUBox_Test.m; sourceTree = "<group>"; };
@@ -4357,6 +4365,10 @@
 				09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */,
 				09D4AD1A1A147A84001421C9 /* IUProject_Test.m */,
 				09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */,
+				09D647D41A1622E300634434 /* IUSourceManager_UITest.m */,
+				09D647CF1A16215C00634434 /* IUTestWC.h */,
+				09D647D01A16215C00634434 /* IUTestWC.m */,
+				09D647D11A16215C00634434 /* IUTestWC.xib */,
 				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
 			);
 			path = "IUEditor Tests";
@@ -4615,6 +4627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D647CE1A16203F00634434 /* IUEditor Tests UI-Info.plist in Resources */,
+				09D647D31A16215C00634434 /* IUTestWC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5420,6 +5433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D647D61A16274500634434 /* IUSourceManager_UITest.m in Sources */,
 				09D647BA1A161EF600634434 /* IUCSSCompiler_Test.m in Sources */,
 				09D647BB1A161EF600634434 /* JDCoder+IUProject_Test.m in Sources */,
 				09D647BC1A161EF600634434 /* IUSourceManager_Test.m in Sources */,
@@ -5429,6 +5443,7 @@
 				09D647C01A161EF600634434 /* IUBox_Test.m in Sources */,
 				09D647C11A161EF600634434 /* IUDataStorageTest.m in Sources */,
 				09D647C21A161EF600634434 /* CSSToCSSStorageConversion_Test.m in Sources */,
+				09D647D21A16215C00634434 /* IUTestWC.m in Sources */,
 				09D647C31A161EF600634434 /* IUProject_Test.m in Sources */,
 				09D647C41A161EF600634434 /* IUCSSStorage_Test.m in Sources */,
 			);
@@ -5695,6 +5710,7 @@
 			files = (
 				099128911A0763FA0041DEAC /* IUCSSCompiler_Test.m in Sources */,
 				099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */,
+				09D647D51A1622E300634434 /* IUSourceManager_UITest.m in Sources */,
 				09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */,
 				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
 				09D4AD171A1451FD001421C9 /* IUCompiler_Test.m in Sources */,

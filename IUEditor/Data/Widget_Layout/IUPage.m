@@ -59,6 +59,9 @@
         [self.css eradicateTag:IUCSSTagPercentY];
         [self.css eradicateTag:IUCSSTagPercentWidth];
         [self.css eradicateTag:IUCSSTagPercentHeight];
+        
+        /* storage */
+        self.cssManager.liveStorage
 
         _layout = [[options objectForKey:kIUPageLayout] intValue];
         [self makePageLayout:_layout project:project];
@@ -136,6 +139,7 @@
         case IUPageLayoutSideBarOnly:
             [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
             [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
             _sidebar.type = IUSidebarTypeFull;
             
             _pageContent.positionType = IUPositionTypeFloatRight;
