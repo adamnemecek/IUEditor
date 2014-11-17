@@ -32,17 +32,13 @@
     IUCompiler *compiler = [[IUCompiler alloc] init];
     IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
     IUBox *box = [[IUBox alloc] initWithProject:project options:nil];
-    [box.cssManager.liveStorage setX:@(50)];
+    XCTAssertNotNil(box.cssLiveStorage);
+    [box.cssLiveStorage setX:@(50)];
+    [box.cssLiveStorage setXUnit:@(IUFrameUnitPixel)];
+
     NSString *htmlCode = [compiler editorHTMLString:box viewPort:IUDefaultViewPort];
     XCTAssertNotNil(htmlCode);
     XCTAssertTrue([htmlCode containsString:@"left: 50px;"]);
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
 }
 
 @end

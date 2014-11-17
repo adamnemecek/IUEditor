@@ -32,7 +32,7 @@
 @implementation IUDataStorage {
     IUDataStorageManager *manager;
     int _transactionLevel;
-    int _syncLevel;
+    int _disableUpdateLevel;
     NSMutableArray *_changePropertyStack;
 }
 
@@ -43,20 +43,29 @@ static NSArray *storageProperties_cache;
     return nil;
 }
 
+- (void)disableUpdate:(id)sender{
+    _disableUpdateLevel ++;
+}
+- (void)enableUpdate:(id)sender{
+    _disableUpdateLevel --;
+}
+
+
 - (id)init{
     self = [super init];
     _storage = [NSMutableDictionary dictionary];
     _changePropertyStack = [NSMutableArray array];
     _transactionLevel = 0;
-    _syncLevel = 0;
     
     if (storageProperties_cache == nil) {
         NSArray *properties = [[self class] observingList];
         storageProperties_cache = [properties valueForKey:@"name"];
     }
+
     if(storageProperties_cache){
         [self addObserver:self forKeyPaths:storageProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
     }
+    
     return self;
 
 }
@@ -69,9 +78,8 @@ static NSArray *storageProperties_cache;
 }
 
 
-- (void)storagePropertyContextDidChange:(NSDictionary*)change{
-  
-    if([self isDoingSync] == NO){
+- (void)storagePropertyContextDidChange:(NSDictionary*)change{\
+    if (_disableUpdateLevel == NO) {
         NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
         if (change[NSKeyValueChangeOldKey] != [NSNull null]) {
             [changeDict setValue:change[NSKeyValueChangeOldKey] forKey:@"oldValue"];
@@ -81,13 +89,13 @@ static NSArray *storageProperties_cache;
         }
         [changeDict setValue:change[kJDKey] forKey:@"key"];
         
-        [_changePropertyStack addObject:changeDict];
-        [self commitTransactoin:self];
+        if( _transactionLevel != 0 ){
+            [_changePropertyStack addObject:changeDict];
+        }
+        else{
+            [self.manager storage:self changes:@[changeDict]];
+        }
     }
-    else{
-        JDTraceLog(@"Sync : storage");
-    }
-    
 }
 
 
@@ -107,7 +115,6 @@ static NSArray *storageProperties_cache;
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [self beginTransaction:self];
     manager = [aDecoder decodeByRefObjectForKey:@"manager"];
-    [self commitTransactoin:self];
 }
 
 - (IUDataStorageManager *)manager{
@@ -129,21 +136,29 @@ static NSArray *storageProperties_cache;
         /* if two object are equal, just return */
         return;
     }
-    [_storage setValue:value forKey:key];
+    [_storage setObject:value forKey:key];
     
-    if ([self enableUpdate]){
+    if (_disableUpdateLevel == NO) {
+        NSDictionary *changeLogDict;
         if (oldValue && value) {
-            [_changePropertyStack addObject:@{@"key":key, @"oldValue":oldValue, @"newValue":value}];
+            changeLogDict = @{@"key":key, @"oldValue":oldValue, @"newValue":value};
         }
         else if (oldValue) {
-            [_changePropertyStack addObject:@{@"key":key, @"oldValue":oldValue,}];
+            changeLogDict = @{@"key":key, @"oldValue":oldValue,};
         }
         else {
-            [_changePropertyStack addObject:@{@"key":key, @"newValue":value,}];
+            changeLogDict = @{@"key":key, @"newValue":value,};
         }
         
-        [self commitTransactoin:self];
+        if (_transactionLevel) {
+            [_changePropertyStack addObject:changeLogDict];
+        }
+        else {
+            [self.manager storage:self changes:@[changeLogDict]];
+        }
+        
     }
+
     [self didChangeValueForKey:key];
 }
 
@@ -165,13 +180,12 @@ static NSArray *storageProperties_cache;
 - (void)beginTransaction:(id)sender{
     _transactionLevel++;
 }
-- (void)endTransactoin:(id)sender{
-    _transactionLevel--;
-    [self commitTransactoin:sender];
-}
 
-- (void)commitTransactoin:(id)sender{
-    if([self enableUpdate]){
+
+- (void)commitTransaction:(id)sender{
+    _transactionLevel--;
+    
+    if(_transactionLevel == 0){
         [self.manager.undoManager beginUndoGrouping];
         for(NSDictionary *change in _changePropertyStack){
             [[self.manager.undoManager prepareWithInvocationTarget:self] setValue:change[@"oldValue"] forKey:change[@"key"]];
@@ -183,11 +197,10 @@ static NSArray *storageProperties_cache;
     }
 }
 
-- (BOOL)enableUpdate{
+- (BOOL)isUpdateEnabled{
     if(_transactionLevel==0){
         return YES;
     }
-    
     return NO;
 }
 #if DEBUG
@@ -195,20 +208,6 @@ static NSArray *storageProperties_cache;
     return [_changePropertyStack copy];
 }
 #endif
-
-
-- (void)beginSync:(id)sender{
-    _syncLevel++;
-}
-- (void)endSync:(id)sender{
-    _syncLevel--;
-}
-- (BOOL)isDoingSync{
-    if (_syncLevel == 0) {
-        return NO;
-    }
-    return YES;
-}
 
 @end
 
@@ -271,7 +270,7 @@ static NSArray *storageProperties_cache;
 - (IUDataStorage*)createLiveStorage{
     /* does not send information to manager */
     IUDataStorage *liveStorage = [self.currentStorage copy];
-    [liveStorage beginSync:JD_CURRENT_FUNCTION];
+    [liveStorage disableUpdate:self];
     /*
      get overwrite all data
      */
@@ -279,7 +278,7 @@ static NSArray *storageProperties_cache;
     while ( (currStorage = [self storageWithBiggerViewPortOf:currStorage]) ) {
         [liveStorage overwritingDataStorageForNilValue:currStorage];
     }
-    [liveStorage endSync:JD_CURRENT_FUNCTION];
+    [liveStorage enableUpdate:self];
     return liveStorage;
 }
 
@@ -325,14 +324,14 @@ static NSArray *storageProperties_cache;
         //    id oldValue = change[@"oldValue"];
         
         if (storage == self.currentStorage) {
-            [self.liveStorage beginSync:JD_CURRENT_FUNCTION];
+            [self.liveStorage disableUpdate:self];
             [self.liveStorage setValue:changeDict[@"newValue"] forKey:key];
-            [self.liveStorage endSync:JD_CURRENT_FUNCTION];
+            [self.liveStorage enableUpdate:self];
         }
         else if (storage == self.liveStorage) {
-            [self.currentStorage beginSync:JD_CURRENT_FUNCTION];
+            [self.currentStorage disableUpdate:self];
             [self.currentStorage setValue:changeDict[@"newValue"] forKey:key];
-            [self.currentStorage endSync:JD_CURRENT_FUNCTION];
+            [self.currentStorage enableUpdate:self];
         }
         else {
             NSAssert(0, @"Only current storage and live storage is updatable");
@@ -390,7 +389,7 @@ static NSArray *storageProperties_cache;
     [self setRightBorderColor:borderColor];
     [self setBottomBorderColor:borderColor];
     
-    [self endTransactoin:JD_CURRENT_FUNCTION];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
     
 }
 
@@ -419,7 +418,7 @@ static NSArray *storageProperties_cache;
     [self setLeftBorderWidth:borderWidth];
     [self setRightBorderWidth:borderWidth];
     
-    [self endTransactoin:JD_CURRENT_FUNCTION];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
     
 }
 
@@ -448,7 +447,7 @@ static NSArray *storageProperties_cache;
     [self setBottomLeftborderRadius:borderRadius];
     [self setBottomRightBorderRadius:borderRadius];
     
-    [self endTransactoin:JD_CURRENT_FUNCTION];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
 
 }
 

@@ -256,7 +256,10 @@ typedef enum{
 - (BOOL)canMoveToOtherParent;
 
 
-@property IUCSSStorageManager *cssManager;
 @property BOOL removed; // iu is removed;
+
+@property (readonly) IUCSSStorageManager *cssStorageManager;
+@property (readonly) IUCSSStorage *cssLiveStorage;
+@property (readonly) IUCSSStorage *cssCurrentStorage;
 
 @end

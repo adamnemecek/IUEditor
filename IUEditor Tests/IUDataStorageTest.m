@@ -25,7 +25,7 @@
     [super setUp];
     storage = [[IUCSSStorage alloc] init];
     storageManager = [[IUCSSStorageManager alloc] init];    
-    
+
     arr = [NSMutableArray array];
 }
 
@@ -35,21 +35,19 @@
 }
 
 - (void)test1_IUDataStorage {
+    [storage setValue:@"value" forKey:@"key"];
     XCTAssert([[storage valueForKey:@"key"] isEqualToString:@"value"], @"Pass");
     XCTAssert([storage valueForKey:@"key2"] == nil, @"Pass");
 }
 
 - (void)test2_IUCSSDataStorage {
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderTopColor];
+    storage.topBorderColor = [NSColor blackColor];
+
+    storage.leftBorderColor = [NSColor blackColor];
     XCTAssert([storage borderColor] == NSMultipleValuesMarker, @"Pass");
 
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderLeftColor];
-    XCTAssert([storage borderColor] == NSMultipleValuesMarker, @"Pass");
-
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderRightColor];
-    XCTAssert([storage borderColor] == NSMultipleValuesMarker, @"Pass");
-
-    [storage setValue:[NSColor blackColor] forKey:IUCSSTagBorderBottomColor];
+    storage.rightBorderColor = [NSColor blackColor];
+    storage.bottomBorderColor = [NSColor blackColor];
     XCTAssert([storage borderColor] == [NSColor blackColor], @"Pass");
 }
 
@@ -138,7 +136,7 @@
     XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 1 , @"Pass");
     [storageManager.currentStorage setValue:@(2) forKey:@"fontSize"];
     XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 2 , @"Pass");
-    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    [storageManager.currentStorage commitTransaction:JD_CURRENT_FUNCTION];
     XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 0 , @"Pass");
 }
 
@@ -152,7 +150,7 @@
     storageManager.currentStorage.fontName = @"abc";
     storageManager.currentStorage.fontColor = [NSColor blackColor];
 
-    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    [storageManager.currentStorage commitTransaction:JD_CURRENT_FUNCTION];
     
     XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"abc"], @"Pass");
     XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"abc"], @"Pass");
@@ -161,7 +159,7 @@
     [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
     storageManager.currentStorage.fontName = @"def";
     storageManager.currentStorage.fontColor = [NSColor redColor];
-    [storageManager.currentStorage endTransactoin:JD_CURRENT_FUNCTION];
+    [storageManager.currentStorage commitTransaction:JD_CURRENT_FUNCTION];
     
     XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"def"], @"Pass");
     XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"def"], @"Pass");

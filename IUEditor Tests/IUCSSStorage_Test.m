@@ -39,12 +39,12 @@
 
 - (void)test1_XUnit {
     storageManager.liveStorage.x = @(100);
-    XCTAssertEqualObjects(storageManager.liveStorage.xUnit, @(IUFrameUnitPixel));
+    XCTAssertEqualObjects(storageManager.liveStorage.x, @(100));
 }
 
 - (void)test2_delegate {
     storageManager.liveStorage.x = @(100);
-    XCTAssertEqualObjects(storageManager.liveStorage.xUnit, @(IUFrameUnitPixel));
+    XCTAssertEqualObjects(storageManager.currentStorage.x, @(100));
 }
 
 

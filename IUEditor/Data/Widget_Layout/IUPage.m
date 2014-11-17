@@ -61,7 +61,6 @@
         [self.css eradicateTag:IUCSSTagPercentHeight];
         
         /* storage */
-        self.cssManager.liveStorage
 
         _layout = [[options objectForKey:kIUPageLayout] intValue];
         [self makePageLayout:_layout project:project];

@@ -31,14 +31,9 @@
     [super tearDown];
 }
 
-- (void)test1_XUnit {
-    box.cssManager.liveStorage.x = @(30);
-    XCTAssertEqualObjects(box.cssManager.currentStorage.x, @(30));
-    XCTAssertEqualObjects(box.cssManager.currentStorage.xUnit, @(IUFrameUnitPixel));
-}
-
 - (void)test2_frameCode {
-    box.cssManager.liveStorage.x = @(30);
+    box.cssLiveStorage.x = @(30);
+    box.cssLiveStorage.xUnit = @(IUFrameUnitPixel);
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);

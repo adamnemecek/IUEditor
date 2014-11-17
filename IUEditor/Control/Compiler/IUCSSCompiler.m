@@ -91,7 +91,7 @@
 - (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu storage:(BOOL)storage{
     NSArray *editWidths;
     if (storage) {
-        editWidths = [_iu.cssManager allViewPorts];
+        editWidths = [_iu.cssStorageManager allViewPorts];
     }
     else {
         editWidths = [_iu.css allViewports];;
@@ -474,7 +474,7 @@
 - (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     if (storage) {
-        IUCSSStorage *storage = [_iu.cssManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
+        IUCSSStorage *storage = [_iu.cssStorageManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
         if (storage) {
             if (storage.x) {
                 if ([storage.xUnit integerValue] == IUFrameUnitPercent){

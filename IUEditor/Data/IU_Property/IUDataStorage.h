@@ -24,14 +24,18 @@
 
 
 /**
-  support transaction
+ Support transaction
+ BeginTransaction의 반대는 CommitTransaction으로 한다.
+ Commit Trasaction이 불리면 이제껏 변화를 delegate에 update 한다.
  */
 - (void)beginTransaction:(id)sender;
-- (void)endTransactoin:(id)sender;
-- (void)commitTransactoin:(id)sender;
+- (void)commitTransaction:(id)sender;
 
-- (void)beginSync:(id)sender;
-- (void)endSync:(id)sender;
+/**
+ disableUpdate가 시작된 후에 바뀐 부분에서는 commit 하지 않는다.
+ */
+- (void)disableUpdate:(id)sender;
+- (void)enableUpdate:(id)sender;
 
 #if DEBUG
 - (NSArray *)currentPropertyStackForTest;

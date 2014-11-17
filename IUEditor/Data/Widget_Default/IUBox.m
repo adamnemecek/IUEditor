@@ -40,6 +40,8 @@
     BOOL    _isConnectedWithEditor;
     BOOL _isEnabledFrameUndo;
     
+    IUCSSStorageManager *_cssStorageManager;
+    
     
 }
 #pragma mark - class attributes
@@ -101,7 +103,7 @@
 
 
         //create storage
-        self.cssManager = [_css convertToStorageManager];
+        _cssStorageManager = [_css convertToStorageManager];
     }
     return self;
 }
@@ -216,8 +218,12 @@
         _m_children = [NSMutableArray array];
         
         changedCSSWidths = [NSMutableSet set];
-        _cssManager = [[IUCSSStorageManager alloc] init];
-        _cssManager.box = self;
+
+        _cssStorageManager = [[IUCSSStorageManager alloc] init];
+        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+
+        _cssStorageManager.box = self;
         
     }
     return self;
@@ -288,9 +294,13 @@
             }
         }
         self.name = self.htmlID;
+        
+        _cssStorageManager = [[IUCSSStorageManager alloc] init];
+        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+
         [[self undoManager] enableUndoRegistration];
         
-        self.cssManager = [self.css convertToStorageManager];
     }
     
     return self;
@@ -318,9 +328,13 @@
     _isEnabledFrameUndo = NO;
     [[self undoManager] enableUndoRegistration];
     
-    _cssManager = [[IUCSSStorageManager alloc] init];
+    if (_cssStorageManager == nil) {
+        NSAssert(0, @"css storage manager can't be nil");
 
-    
+        _cssStorageManager = [[IUCSSStorageManager alloc] init];
+        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+    }
 }
 - (void)disconnectWithEditor{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -1546,5 +1560,7 @@ e.g. 만약 css로 옮긴다면)
 - (BOOL)canMoveToOtherParent{
     return YES;
 }
+
+
 
 @end
