@@ -14,6 +14,12 @@
 
 @implementation IUPage{
     IUPageContent *_pageContent;
+    
+    IUHeader *_header; __storage_deprecated//it should be weak at storage mode
+    IUSidebar *_sidebar;  __storage_deprecated//it should be weak at storage mode
+    IUFooter *_footer;  __storage_deprecated//it should be weak at storage mode
+    
+    IUPageLayout _layout;
 }
 
 #pragma mark - class attributes
@@ -22,7 +28,115 @@
     return [NSImage imageNamed:@"ic_background"];
 }
 
+
+
 #pragma mark - Initialize
+
+-(void)loadPresetWithLayout:(IUPageLayout)layout header:(IUHeader*)header footer:(IUFooter*)footer sidebar:(IUSidebar*)sidebar {
+    _layout = layout;
+    _header = header;
+    _sidebar = sidebar;
+    _footer = footer;
+    [self loadPreset_makeCSS];
+}
+
+-(IUPageLayout)layout {
+    return _layout;
+}
+
+-(IUHeader *)header {
+    return  _header;
+}
+
+-(IUFooter *)footer {
+    return _footer;
+}
+
+-(IUSidebar *)sidebar{
+    return _sidebar;
+}
+
+-(IUPageContent *)pageContent{
+    return _pageContent;
+}
+
+- (void)loadPreset_makeCSS{
+    switch (_layout) {
+        case IUPageLayoutDefault:
+            //do nothing - default css
+            break;
+        case IUPageLayoutSideBarOnly:
+            NSAssert(0, @"not coded");
+            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
+            _sidebar.type = IUSidebarTypeFull;
+            
+            _pageContent.positionType = IUPositionTypeFloatRight;
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
+            break;
+        case IUPageLayoutSideBar:
+            NSAssert(0, @"not coded");
+            //sidebar가 header, footer 사이에
+            _sidebar.type = IUSidebarTypeInside;
+            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
+            _pageContent.positionType = IUPositionTypeFloatRight;
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
+            _footer.positionType = IUPositionTypeFloatLeft;
+            
+            break;
+        case IUPageLayoutSideBar2:
+            NSAssert(0, @"not coded");
+            //sidebar가 header, footer 왼쪽에
+            _sidebar.type = IUSidebarTypeFull;
+            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
+            _header.positionType = IUPositionTypeFloatRight;
+            [_header.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_header.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
+            
+            _pageContent.positionType = IUPositionTypeFloatRight;
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
+            
+            _footer.positionType = IUPositionTypeFloatRight;
+            [_footer.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
+            [_footer.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            
+        default:
+            break;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark - Storage deprecated
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
@@ -188,6 +302,8 @@
     
 }
 
+
+
 - (id)copyWithZone:(NSZone *)zone{
     [[self undoManager] disableUndoRegistration];
 
@@ -248,10 +364,6 @@
 }
 
 
--(IUPageContent *)pageContent{
-    return _pageContent;
-}
-
 - (void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
     [super setCanvasVC:canvasVC];
     [_pageContent setCanvasVC:canvasVC];
@@ -311,10 +423,6 @@
 }
 
 
-- (BOOL)floatRightChangeable{
-    return NO;
-}
-
 - (BOOL)canChangePositionType{
     return NO;
 }
@@ -322,7 +430,6 @@
 - (BOOL)canChangeOverflow{
     return NO;
 }
-
 
 
 @end

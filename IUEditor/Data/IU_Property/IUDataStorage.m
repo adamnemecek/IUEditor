@@ -215,6 +215,7 @@ static NSArray *storageProperties_cache;
 
 
 @implementation IUDataStorageManager{
+    NSMutableArray *_owners;
 }
 
 - (IUDataStorage *)newStorage{
@@ -236,7 +237,20 @@ static NSArray *storageProperties_cache;
     
     [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
     self.currentViewPort = IUCSSDefaultViewPort;
+    _owners = [NSMutableArray array];
     return self;
+}
+
+- (void)addOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
+    [_owners addObject:box];
+}
+
+- (void)removeOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
+    [_owners removeObject:box];
+}
+
+- (NSArray *)owners{
+    return [_owners copy];
 }
 
 - (void)dealloc{
@@ -245,15 +259,20 @@ static NSArray *storageProperties_cache;
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
-    self.workingStorages = [aDecoder decodeObjectForKey:@"storages"];
+    _workingStorages = [aDecoder decodeObjectForKey:@"storages"];
     
     [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
     self.currentViewPort = IUCSSDefaultViewPort;
     return self;
 }
 
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    //TODO: decode owner
+}
+
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:self.workingStorages forKey:@"storages"];
+    [aCoder encodeObject:_owners forKey:@"owners"];
 }
 
 - (void)currentViewPortDidChange:(NSDictionary*)change{
@@ -523,14 +542,12 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    self.box = [aDecoder decodeByRefObjectForKey:@"box"];
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:defaultSelectorStorages forKey:@"defaultSelectorStorages"];
     [aCoder encodeObject:activeSelectorStorages forKey:@"activeSelectorStorages"];
     [aCoder encodeObject:hoverSelectorStorages forKey:@"hoverSelectorStorages"];
-    [aCoder encodeByRefObject:self.box forKey:@"box"];
 }
 
 - (void)setSelector:(IUCSSSelector)selector{

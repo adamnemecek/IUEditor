@@ -39,10 +39,6 @@
     __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
     BOOL _isEnabledFrameUndo;
-    
-    IUCSSStorageManager *_cssStorageManager;
-    
-    
 }
 #pragma mark - class attributes
 
@@ -204,30 +200,30 @@
     
 }
 
+-(id)initWithPreset {
+    self = [self init];
+    self.liveCSSStorage.bgColor = [NSColor randomLightMonoColor];
+    return self;
+}
+
 -(id)init{
-    //only called from copyWithZone
     self = [super init];
     if (self) {
-        _css = [[IUCSS alloc] init];
-        _css.delegate = self;
-        
+        _cssStorageManager = [[IUCSSStorageManager alloc] init];
+        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+        [_cssStorageManager addOwner:self];
+
+        _event = [[IUEvent alloc] init];
         _mqData = [[IUMQData alloc] init];
         _mqData.delegate = self;
         
-        _event = [[IUEvent alloc] init];
-        _m_children = [NSMutableArray array];
-        
-        changedCSSWidths = [NSMutableSet set];
-
-        _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
-
-        _cssStorageManager.box = self;
-        
+        _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
+        _name = _htmlID;
     }
     return self;
 }
+
 
 
 
@@ -283,7 +279,6 @@
         [_css setValue:@(1.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
         [_css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
         
-        changedCSSWidths = [NSMutableSet set];
         
         if ([project respondsToSelector:@selector(identifier)]) {
             if (options[IUFileName]) {
@@ -296,8 +291,8 @@
         self.name = self.htmlID;
         
         _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
 
         [[self undoManager] enableUndoRegistration];
         
@@ -332,8 +327,8 @@
         NSAssert(0, @"css storage manager can't be nil");
 
         _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"cssLiveStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"cssCurrentStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
     }
 }
 - (void)disconnectWithEditor{

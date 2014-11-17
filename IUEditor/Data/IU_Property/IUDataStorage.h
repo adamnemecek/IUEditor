@@ -67,7 +67,12 @@
 
 @interface IUDataStorageManager : NSObject <JDCoding>
 
-@property (weak) id  <IUDataStorageManagerDelegate, JDCoding> box;
+- (NSArray *)owners;
+- (void)addOwner:(id <IUDataStorageManagerDelegate, JDCoding>)box;
+- (void)removeOwner:(id <IUDataStorageManagerDelegate, JDCoding>)box;
+
+
+//@property (weak) id  <IUDataStorageManagerDelegate, JDCoding> box;
 @property NSUndoManager *undoManager;
 
 @property NSInteger currentViewPort;

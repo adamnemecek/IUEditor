@@ -10,13 +10,15 @@
 #import <XCTest/XCTest.h>
 
 #import "IUBox.h"
+#import "IUPage.h"
+#import "IUClass.h"
+#import "IUImport.h"
 
 @interface IUBox_Test : XCTestCase
 
 @end
 
 @implementation IUBox_Test {
-    IUBox *box;
 }
 
 - (void)setUp {
@@ -28,5 +30,42 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+/* this explain how to create box, and how  to use */
+- (void)test1_boxCreation {
+    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
+    IUBox *box = [[IUBox alloc] initWithPreset];
+    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
+    [identifierManager addObject:box withIdentifier:box.htmlID];
+    [identifierManager commit];
+    
+    XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
+    XCTAssertTrue([box.liveCSSStorage.bgColor isKindOfClass:[NSColor class]]);
+}
+
+/* this explain how to use import */
+- (void)test2_import {
+    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
+    
+    IUBox *box = [[IUBox alloc] initWithPreset];
+    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
+    [identifierManager addObject:box withIdentifier:box.htmlID];
+    
+    IUClass *class = [[IUClass alloc] initWithPreset];
+    class.htmlID = [identifierManager createIdentifierWithKey:class.className];
+    [identifierManager addObject:class withIdentifier:class.htmlID];
+
+    IUImport *import = [[IUImport alloc] initWithPreset_prototype:class];
+    import.htmlID = [identifierManager createIdentifierWithKey:import.className];
+    [identifierManager addObject:import withIdentifier:import.htmlID];
+    
+    [box addIU:import error:nil];
+    [identifierManager commit];
+
+    XCTAssertEqual(import.prototypeClass, class);
+    XCTAssertEqual(import.liveCSSStorage, class.liveCSSStorage);
+    XCTAssertEqual(box, import.parent);
+}
+
 
 @end

@@ -95,6 +95,22 @@
 
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
+
+- (void)test2_array{
+    NSMutableArray *item = [NSMutableArray array];
+    NSArray *firstArray = @[item];
+    NSArray *secondArray = @[item];
+    NSArray *root = @[firstArray, secondArray];
+
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeObject:root forKey:@"root"];
+    
+    NSArray *decoded = [coder decodeRootObject];
+    NSMutableArray *firstItemDecoded = decoded[0][0];
+    NSMutableArray *secondItemDecoded = decoded[0][1];
+    
+    XCTAssertEqual(firstItemDecoded, secondItemDecoded);
+}
 /*
 - (void)test2_IUBoxCSS{
     // This is an example of a functional test case.

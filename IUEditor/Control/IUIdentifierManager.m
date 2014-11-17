@@ -95,7 +95,7 @@
 }
 
 
-- (void)setNewIdentifierAndRegisterToTemp:(IUBox*)obj withKey:(NSString*)keyString;
+- (void)setNewIdentifierAndRegisterToTemp:(IUBox*)obj withKey:(NSString*)keyString
 {
     NSString *key = obj.className;
     if (keyString) {
@@ -125,4 +125,57 @@
 - (void)dealloc{
     [JDLogUtil log:IULogDealloc string:@"IUIdentifierManager"];
 }
+
+
+/*
+ Storage Conversion
+ */
+
+- (NSString *)createIdentifierWithKey:(NSString *)key{
+    int i=0;
+    while (1) {
+        i++;
+        if ([[key substringToIndex:2] isEqualTo:@"IU"]) {
+            key = [key substringFromIndex:2];
+        }
+        NSString *newIdentifier = [NSString stringWithFormat:@"%@%d",key, i];
+        if (confirmed[newIdentifier] == nil && unconfirmed[newIdentifier] == nil ) {
+            return newIdentifier;
+        }
+        
+        if (i > 10000){
+            //while loop break;
+            //the maximum number of iu : 10000
+            break;
+        }
+    }
+    return nil;
+}
+
+- (void)addObject:(id)obj withIdentifier:(NSString *)identifier{
+    unconfirmed[identifier] = obj;
+}
+
+- (id)objectForIdentifier:(NSString*)identifier{
+    if (unconfirmed[identifier]){
+        return unconfirmed[identifier];
+    }
+    return confirmed[identifier];
+}
+
+- (void)removeIdentifier:(NSString *)identifier{
+    [unconfirmed removeObjectForKey:identifier];
+    [confirmed removeObjectForKey:identifier];
+}
+
+- (void)commit {
+    [unconfirmed enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        confirmed[key] = obj;
+    }];
+    [unconfirmed removeAllObjects];
+}
+- (void)rollback{
+    [unconfirmed removeAllObjects];
+}
+
 @end

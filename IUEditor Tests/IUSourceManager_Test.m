@@ -94,7 +94,7 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [page.cssLiveStorage setX:@(50)];
+    [page.liveCSSStorage setX:@(50)];
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {

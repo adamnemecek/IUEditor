@@ -207,7 +207,7 @@
                 }
             }
             [page insertIU:header atIndex:0 error:nil];
-            page.header = header;
+//            page.header = header;
 
             
             IUFooter *footer = [[IUFooter alloc] initWithProject:self options:nil];
@@ -218,7 +218,7 @@
             [footerClass.css setValue:@(0) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
             
             [page addIU:footer error:nil];
-            page.footer = footer;
+//            page.footer = footer;
             
             //register identifier
             [_identifierManager registerIUs:@[header, footer]];

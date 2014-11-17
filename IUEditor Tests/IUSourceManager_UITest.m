@@ -58,9 +58,9 @@ static     IUTestWC *testWC;
     IUProject *project = [[IUProject alloc] init];
     IUPage *page = [[IUPage alloc] initWithProject:project options:nil];
     
-    page.cssLiveStorage.width = @(30);
-    page.cssLiveStorage.height = @(50);
-    page.cssLiveStorage.bgColor = [NSColor yellowColor];
+    page.liveCSSStorage.width = @(30);
+    page.liveCSSStorage.height = @(50);
+    page.liveCSSStorage.bgColor = [NSColor yellowColor];
     
     [manager loadSheet:page];
     

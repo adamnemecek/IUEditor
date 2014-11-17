@@ -67,6 +67,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
 }
 
+- (id)initWithPreset_prototype:(IUClass*)aClass{
+    self = [super initWithPreset];
+    [self.undoManager disableUndoRegistration];
+
+    _prototypeClass = aClass;
+    _cssStorageManager = aClass.cssStorageManager;
+    [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+
+    [self.undoManager enableUndoRegistration];
+    return self;
+}
+
 - (void)setPrototypeClass:(IUClass *)prototypeClass{
     
     if(prototypeClass && [prototypeClass isEqualTo:_prototypeClass]){

@@ -20,4 +20,5 @@ static NSString *IUClassSidebar = @"sidebarClass";
 - (void)addReference:(IUImport*)import;
 - (void)removeReference:(IUImport*)import;
 - (NSArray*)references;
+
 @end

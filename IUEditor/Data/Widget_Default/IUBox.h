@@ -60,13 +60,74 @@ typedef enum{
 
 @interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUMQDataDelegate, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
-    __weak id <IUSourceDelegate> _canvasVC;
+    __weak id <IUSourceDelegate> _canvasVC __storage_deprecated;
+    
+    IUCSSStorageManager *_cssStorageManager;
+    IUCSSStorage *_liveCSSStorage;
+    IUCSSStorage *_currentCSSStorage;
 }
 
 + (NSImage *)classImage;
 + (NSImage *)navigationImage;
 + (NSString *)shortDescription;
 + (IUWidgetType)widgetType;
+
+-(id)initWithPreset;
+
+
+-(IUSheet *)sheet;
+-(id <IUProjectProtocol>)project;
+
+@property (copy, nonatomic) NSString *name;
+@property (copy) NSString *htmlID;
+@property (weak) IUBox    *parent;
+
+
+@property (readonly) BOOL canAddIUByUserInput;
+@property (readonly) BOOL canChangeXByUserInput;
+@property (readonly) BOOL canChangeYByUserInput;
+@property (readonly) BOOL canChangeWidthByUserInput;
+@property (readonly) BOOL canChangeWidthUnitByUserInput;
+@property (readonly) BOOL canChangeHeightByUserInput;
+
+-(BOOL)shouldCompileChildrenForOutput;
+
+
+-(BOOL)insertIU:(IUBox *)iu atIndex:(NSInteger)index error:(NSError**)error;
+-(BOOL)addIU:(IUBox *)iu error:(NSError**)error;
+
+- (BOOL)shouldCompileX;
+- (BOOL)shouldCompileY;
+- (BOOL)shouldCompileWidth;
+- (BOOL)shouldCompileHeight;
+- (BOOL)shouldCompileFontInfo;
+- (BOOL)shouldCompileImagePositionInfo;
+
+- (BOOL)canChangePositionType;
+- (BOOL)canChangePositionAbsolute;
+- (BOOL)canChangePositionRelative;
+- (BOOL)canChangePositionFloatLeft;
+- (BOOL)canChangePositionFloatRight;
+- (BOOL)canChangePositionAbsoluteBottom;
+- (BOOL)canChangePositionFixed;
+- (BOOL)canChangePositionFixedBottom;
+- (BOOL)canChangeHCenter;
+- (BOOL)canChangeVCenter;
+- (BOOL)canMoveToOtherParent;
+
+
+@property BOOL removed; // iu is removed;
+
+@property (readonly) IUCSSStorageManager *cssStorageManager;
+@property (readonly) IUCSSStorage *liveCSSStorage;
+@property (readonly) IUCSSStorage *currentCSSStorage;
+
+
+
+
+
+
+
 
 /* default box */
 +(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project;
@@ -82,30 +143,20 @@ typedef enum{
  @param options NSDictionary of options. \n
  IUFileName : define filename
  */
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options;
+
+-(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options __storage_deprecated;
 - (void)connectWithEditor;
 - (void)disconnectWithEditor;
 
 - (BOOL)isConnectedWithEditor;
 - (void)setIsConnectedWithEditor;
 
--(IUSheet *)sheet;
-
-
-/**
- @brief return project of box
- @note if iu is not confirmed, return project argument at initialize process
- */
--(id <IUProjectProtocol>)project;
 
 #pragma mark - IU Setting
 
-@property (copy, nonatomic) NSString *name;
-@property (copy) NSString *htmlID;
 - (void)confirmIdentifier;
 
 - (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC;
-@property (weak) IUBox    *parent;
 
 @property (nonatomic) NSString *text;
 
@@ -153,10 +204,6 @@ typedef enum{
 
 
 -(BOOL)canAddIUByUserInput;
--(BOOL)shouldCompileChildrenForOutput;
-
--(BOOL)insertIU:(IUBox *)iu atIndex:(NSInteger)index  error:(NSError**)error;
--(BOOL)addIU:(IUBox *)iu error:(NSError**)error;
 
 /**
  removeIUAtIndex:
@@ -179,18 +226,7 @@ typedef enum{
 
 //Frame
 //user interface status
-@property (readonly) BOOL canChangeXByUserInput;
-@property (readonly) BOOL canChangeYByUserInput;
-@property (readonly) BOOL canChangeWidthByUserInput;
-@property (readonly) BOOL canChangeWidthUnitByUserInput;
-@property (readonly) BOOL canChangeHeightByUserInput;
 
-- (BOOL)shouldCompileX;
-- (BOOL)shouldCompileY;
-- (BOOL)shouldCompileWidth;
-- (BOOL)shouldCompileHeight;
-- (BOOL)shouldCompileFontInfo;
-- (BOOL)shouldCompileImagePositionInfo;
 
 - (NSPoint)originalPoint;
 - (NSSize)originalSize;
@@ -211,16 +247,6 @@ typedef enum{
 //Position
 @property (nonatomic) IUPositionType positionType;
 @property (nonatomic) BOOL enableHCenter, enableVCenter;
-- (BOOL)canChangePositionType;
-- (BOOL)canChangePositionAbsolute;
-- (BOOL)canChangePositionRelative;
-- (BOOL)canChangePositionFloatLeft;
-- (BOOL)canChangePositionFloatRight;
-- (BOOL)canChangePositionAbsoluteBottom;
-- (BOOL)canChangePositionFixed;
-- (BOOL)canChangePositionFixedBottom;
-- (BOOL)canChangeHCenter;
-- (BOOL)canChangeVCenter;
 
 
 //Property
@@ -252,14 +278,6 @@ typedef enum{
 - (NSString*)cssActiveClass;
 - (NSString*)cssClassStringForHTML;
 
-//can move to other parent?
-- (BOOL)canMoveToOtherParent;
 
-
-@property BOOL removed; // iu is removed;
-
-@property (readonly) IUCSSStorageManager *cssStorageManager;
-@property (readonly) IUCSSStorage *cssLiveStorage;
-@property (readonly) IUCSSStorage *cssCurrentStorage;
 
 @end

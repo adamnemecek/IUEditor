@@ -32,9 +32,9 @@
     IUCompiler *compiler = [[IUCompiler alloc] init];
     IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
     IUBox *box = [[IUBox alloc] initWithProject:project options:nil];
-    XCTAssertNotNil(box.cssLiveStorage);
-    [box.cssLiveStorage setX:@(50)];
-    [box.cssLiveStorage setXUnit:@(IUFrameUnitPixel)];
+    XCTAssertNotNil(box.liveCSSStorage);
+    [box.liveCSSStorage setX:@(50)];
+    [box.liveCSSStorage setXUnit:@(IUFrameUnitPixel)];
 
     NSString *htmlCode = [compiler editorHTMLString:box viewPort:IUDefaultViewPort];
     XCTAssertNotNil(htmlCode);

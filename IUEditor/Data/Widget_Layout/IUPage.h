@@ -37,6 +37,7 @@ static NSString *kIUPageLayout = @"layout";
 
 
 
+
 //meta tag
 @property (nonatomic) NSString *title, *keywords, *desc, *metaImage;
 
@@ -44,12 +45,14 @@ static NSString *kIUPageLayout = @"layout";
 @property NSString *extraCode;
 @property NSString *googleCode;
 
+-(void)loadPresetWithLayout:(IUPageLayout)layout header:(IUHeader*)header footer:(IUFooter*)footer sidebar:(IUSidebar*)sidebar;
 
 //layout children
-@property IUPageLayout layout;
-@property IUHeader *header;
-@property IUFooter *footer;
-@property IUSidebar *sidebar;
+-(IUPageLayout)layout;
+-(IUHeader *)header;
+-(IUFooter *)footer;
+-(IUSidebar *)sidebar;
+
 -(IUPageContent *)pageContent;
 
 @end

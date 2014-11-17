@@ -20,4 +20,5 @@
  */
 - (NSString *)modifieldHtmlIDOfChild:(IUBox *)iu;
 
+- (id)initWithPreset_prototype:(IUClass*)aClass;
 @end

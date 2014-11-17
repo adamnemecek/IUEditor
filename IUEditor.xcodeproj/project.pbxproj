@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0942FF121A07E17200436265 /* IUCSSStorage_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942FF111A07E17200436265 /* IUCSSStorage_Test.m */; };
-		097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */; };
+		0926059C1A1A5481008C40FC /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
+		092605A31A1A5481008C40FC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
+		092605AA1A1A54E5008C40FC /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
+		092605AB1A1A54E5008C40FC /* IUCSSStorage_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0942FF111A07E17200436265 /* IUCSSStorage_Test.m */; };
+		092605AC1A1A54E5008C40FC /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD141A144A96001421C9 /* CSSToCSSStorageConversion_Test.m */; };
+		092605AD1A1A54E5008C40FC /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
+		092605AE1A1A54E5008C40FC /* JDCoder+IUEditor_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */; };
+		092605AF1A1A54E5008C40FC /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
+		092605B01A1A54E5008C40FC /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
+		092605B11A1A54E5008C40FC /* IUBox_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43C1A08DE700017419B /* IUBox_Test.m */; };
+		092605B21A1A54E5008C40FC /* IUCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */; };
+		092605B31A1A54E5008C40FC /* IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD1A1A147A84001421C9 /* IUProject_Test.m */; };
+		092605B41A1A54E5008C40FC /* IUSourceManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
-		099128911A0763FA0041DEAC /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
-		099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
 		09CC1E2C1A15A03100E39599 /* IUJSCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CC1E2B1A15A03100E39599 /* IUJSCompiler.m */; };
 		09D1807A1A0C5C40001B9D9B /* IUCSSCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D180791A0C5C40001B9D9B /* IUCSSCode.m */; };
-		09D4AD151A144A96001421C9 /* CSSToCSSStorageConversion_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD141A144A96001421C9 /* CSSToCSSStorageConversion_Test.m */; };
-		09D4AD171A1451FD001421C9 /* IUCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD161A1451FD001421C9 /* IUCompiler_Test.m */; };
-		09D4AD1B1A147A84001421C9 /* IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D4AD1A1A147A84001421C9 /* IUProject_Test.m */; };
 		09D647BA1A161EF600634434 /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
 		09D647BB1A161EF600634434 /* JDCoder+IUProject_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */; };
 		09D647BC1A161EF600634434 /* IUSourceManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */; };
@@ -34,8 +40,6 @@
 		09D647D31A16215C00634434 /* IUTestWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09D647D11A16215C00634434 /* IUTestWC.xib */; };
 		09D647D61A16274500634434 /* IUSourceManager_UITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D647D41A1622E300634434 /* IUSourceManager_UITest.m */; };
 		09E8E43B1A08BA1E0017419B /* IUSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceManager.m */; };
-		09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43C1A08DE700017419B /* IUBox_Test.m */; };
-		09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */; };
 		2637F5BA19FE154F009A09AC /* vcenter_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B619FE154F009A09AC /* vcenter_off.png */; };
 		2637F5BB19FE154F009A09AC /* vcenter_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B719FE154F009A09AC /* vcenter_off@2x.png */; };
 		2637F5BC19FE154F009A09AC /* vcenter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B819FE154F009A09AC /* vcenter_on.png */; };
@@ -987,8 +991,6 @@
 		3D5250651A087AE4001712E4 /* rulermarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5250641A087AE4001712E4 /* rulermarker.png */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
-		3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
-		3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
 		3DE462B219FA4A2600A75567 /* agency.iu.zip in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4626219FA4A2600A75567 /* agency.iu.zip */; };
 		3DE462B319FA4A2600A75567 /* agency_preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4626319FA4A2600A75567 /* agency_preview.png */; };
@@ -1076,6 +1078,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		092605951A1A5481008C40FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D2EF34B19F751FF00BBBAE5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D2EF35219F751FF00BBBAE5;
+			remoteInfo = IUEditor;
+		};
 		09D647B81A161EF600634434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D2EF34B19F751FF00BBBAE5 /* Project object */;
@@ -1093,6 +1102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests copy.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		092605A91A1A5481008C40FC /* IUEditor Tests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "IUEditor Tests copy-Info.plist"; path = "/Users/J/dev/IUEditor/IUEditor Tests copy-Info.plist"; sourceTree = "<absolute>"; };
 		0942FF111A07E17200436265 /* IUCSSStorage_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSStorage_Test.m; sourceTree = "<group>"; };
 		097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUEditor_Test.m"; sourceTree = "<group>"; };
 		097FD7101A105EA8008931A0 /* IUProjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUProjectProtocol.h; sourceTree = "<group>"; };
@@ -2409,6 +2420,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		092605A21A1A5481008C40FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				092605A31A1A5481008C40FC /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		09D647C51A161EF600634434 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2452,6 +2471,7 @@
 				3DE45F5D19F7BFB200A75567 /* IUEditor Tests */,
 				3D2EF35419F751FF00BBBAE5 /* Products */,
 				3D2EF38E19F7540C00BBBAE5 /* Framework */,
+				092605A91A1A5481008C40FC /* IUEditor Tests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2461,6 +2481,7 @@
 				3D2EF35319F751FF00BBBAE5 /* IUEditor.app */,
 				3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */,
 				09D647CB1A161EF600634434 /* IUEditor Tests UI.xctest */,
+				092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4529,6 +4550,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		092605931A1A5481008C40FC /* JDLib Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 092605A51A1A5481008C40FC /* Build configuration list for PBXNativeTarget "JDLib Tests" */;
+			buildPhases = (
+				092605961A1A5481008C40FC /* Sources */,
+				092605A21A1A5481008C40FC /* Frameworks */,
+				092605A41A1A5481008C40FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				092605941A1A5481008C40FC /* PBXTargetDependency */,
+			);
+			name = "JDLib Tests";
+			productName = "IUEditor Tests";
+			productReference = 092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		09D647B61A161EF600634434 /* IUEditor Tests UI */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09D647C81A161EF600634434 /* Build configuration list for PBXNativeTarget "IUEditor Tests UI" */;
@@ -4614,6 +4653,7 @@
 			projectRoot = "";
 			targets = (
 				3D2EF35219F751FF00BBBAE5 /* IUEditor */,
+				092605931A1A5481008C40FC /* JDLib Tests */,
 				3DE45F5B19F7BFB200A75567 /* IUEditor Tests */,
 				09D647B61A161EF600634434 /* IUEditor Tests UI */,
 			);
@@ -4621,6 +4661,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		092605A41A1A5481008C40FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		09D647C71A161EF600634434 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5428,6 +5475,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		092605961A1A5481008C40FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0926059C1A1A5481008C40FC /* JDCoderTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		09D647B91A161EF600634434 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5707,23 +5762,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				099128911A0763FA0041DEAC /* IUCSSCompiler_Test.m in Sources */,
-				099128931A0764270041DEAC /* JDCoder+IUProject_Test.m in Sources */,
-				09E8E4411A0A0B410017419B /* IUSourceManager_Test.m in Sources */,
-				097F70FF19FDD92100C01ECA /* JDCoder+IUEditor_Test.m in Sources */,
-				09D4AD171A1451FD001421C9 /* IUCompiler_Test.m in Sources */,
-				3DE45F6E19F7C04000A75567 /* JDCoderTest.m in Sources */,
-				09E8E43D1A08DE700017419B /* IUBox_Test.m in Sources */,
-				3DE45F6D19F7C04000A75567 /* IUDataStorageTest.m in Sources */,
-				09D4AD151A144A96001421C9 /* CSSToCSSStorageConversion_Test.m in Sources */,
-				09D4AD1B1A147A84001421C9 /* IUProject_Test.m in Sources */,
-				0942FF121A07E17200436265 /* IUCSSStorage_Test.m in Sources */,
+				092605AA1A1A54E5008C40FC /* IUDataStorageTest.m in Sources */,
+				092605AB1A1A54E5008C40FC /* IUCSSStorage_Test.m in Sources */,
+				092605AC1A1A54E5008C40FC /* CSSToCSSStorageConversion_Test.m in Sources */,
+				092605AD1A1A54E5008C40FC /* JDCoderTest.m in Sources */,
+				092605AE1A1A54E5008C40FC /* JDCoder+IUEditor_Test.m in Sources */,
+				092605AF1A1A54E5008C40FC /* JDCoder+IUProject_Test.m in Sources */,
+				092605B01A1A54E5008C40FC /* IUCSSCompiler_Test.m in Sources */,
+				092605B11A1A54E5008C40FC /* IUBox_Test.m in Sources */,
+				092605B21A1A54E5008C40FC /* IUCompiler_Test.m in Sources */,
+				092605B31A1A54E5008C40FC /* IUProject_Test.m in Sources */,
+				092605B41A1A54E5008C40FC /* IUSourceManager_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		092605941A1A5481008C40FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D2EF35219F751FF00BBBAE5 /* IUEditor */;
+			targetProxy = 092605951A1A5481008C40FC /* PBXContainerItemProxy */;
+		};
 		09D647B71A161EF600634434 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D2EF35219F751FF00BBBAE5 /* IUEditor */;
@@ -5765,6 +5825,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		092605A61A1A5481008C40FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IUEditor/AppDefaultFiles/IUEditor-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "IUEditor Tests copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "IUEditor Tests copy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
+			};
+			name = Debug;
+		};
+		092605A71A1A5481008C40FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IUEditor/AppDefaultFiles/IUEditor-Prefix.pch";
+				INFOPLIST_FILE = "IUEditor Tests copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "IUEditor Tests copy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
+			};
+			name = Release;
+		};
 		09D647C91A161EF600634434 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5955,6 +6055,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		092605A51A1A5481008C40FC /* Build configuration list for PBXNativeTarget "JDLib Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				092605A61A1A5481008C40FC /* Debug */,
+				092605A71A1A5481008C40FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		09D647C81A161EF600634434 /* Build configuration list for PBXNativeTarget "IUEditor Tests UI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

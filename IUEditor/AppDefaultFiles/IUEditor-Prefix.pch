@@ -140,6 +140,7 @@
 #define IUKeyCodeArrowDown 125
 #define IUKeyCodeArrowUp 126
 
+#define __storage_deprecated
 
 #define XCA_SHORTHAND
 #endif

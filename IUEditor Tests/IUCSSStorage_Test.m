@@ -23,7 +23,6 @@
 - (void)setUp {
     [super setUp];
     storageManager = [[IUCSSStorageManager alloc] init];
-    storageManager.box = (id <JDCoding, IUDataStorageManagerDelegate>) self;
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
