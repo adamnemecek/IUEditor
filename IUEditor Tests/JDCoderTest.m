@@ -27,7 +27,7 @@
     [super tearDown];
 }
 
-- (void)test0_JDCoder{
+- (void)test01_JDCoder{
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeObject:@"ABCDE" forKey:@"text1"];
     XCTAssertEqual([coder decodeObjectForKey:@"text1"], @"ABCDE");
@@ -55,7 +55,7 @@
     XCTAssertEqual([mutableArrayDecoded objectAtIndex:0], @"asdf");
 }
 
-- (void)test01_MutableArrayDict {
+- (void)test02_MutableArrayDict {
     JDMutableArrayDict *arrayDict = [[JDMutableArrayDict alloc] init];
     [arrayDict insertObject:@"object1" forKey:@"key1" atIndex:0];
     [arrayDict insertObject:@"object2" forKey:@"key2" atIndex:1];
@@ -70,7 +70,7 @@
     XCTAssertEqualObjects(@"object2" ,[decodedArrayDict objectForKey:@"key2"]);
 }
 
-- (void)test01_JDCoderDict{
+- (void)test03_JDCoderDict{
     JDCoder *coder = [[JDCoder alloc] init];
     NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
     mutableDict[@"test"] = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"object", @"key", nil];
@@ -84,7 +84,7 @@
     XCTAssertTrue([innerDict isKindOfClass:[NSMutableDictionary class]]);
 }
 
-- (void)test1_IUBoxEncoding1{
+- (void)test4_IUBoxEncoding1{
     // This is an example of a functional test case.
     IUBox *oneBox = [[IUBox alloc] initWithProject:nil options:nil];
     oneBox.htmlID = @"OneBox";
@@ -96,7 +96,7 @@
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
 
-- (void)test2_array{
+- (void)test5_array{
     NSMutableArray *item = [NSMutableArray array];
     NSArray *firstArray = @[item];
     NSArray *secondArray = @[item];
@@ -111,6 +111,24 @@
     
     XCTAssertEqual(firstItemDecoded, secondItemDecoded);
 }
+
+- (void)test6_dict{
+    NSMutableDictionary *item = [NSMutableDictionary dictionary];
+    NSMutableDictionary *firstDict = [@{@"key":item} mutableCopy];
+    NSMutableDictionary *secondDict = [@{@"key":item} mutableCopy];
+    NSMutableDictionary *root = [@{@"first":firstDict, @"second": secondDict} mutableCopy];
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeObject:root forKey:@"root"];
+    
+    NSMutableDictionary *decoded = [coder decodeRootObject];
+    NSMutableDictionary *firstItem = decoded[@"first"][@"key"];
+    NSMutableDictionary *secondItem = decoded[@"first"][@"key"];
+    
+    XCTAssertEqual(firstItem, secondItem) ;
+}
+
+
 /*
 - (void)test2_IUBoxCSS{
     // This is an example of a functional test case.
