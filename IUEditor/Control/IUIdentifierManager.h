@@ -21,6 +21,9 @@
 - (void)commit;
 - (void)rollback;
 
+@end
+
+@interface IUIdentifierManager( OLD ) __storage_deprecated
 
 /**************
  
