@@ -418,6 +418,8 @@ static NSArray *storageProperties_cache;
 
 - (id)copyWithZone:(NSZone *)zone{
     IUCSSStorage *copyStorage = [super copyWithZone:zone];
+    [copyStorage disableUpdate:JD_CURRENT_FUNCTION];
+
     if(copyStorage){
         copyStorage.hidden = [_hidden copy];
         copyStorage.editorHidden = [_editorHidden copy];
@@ -487,6 +489,7 @@ static NSArray *storageProperties_cache;
         
         
     }
+    [copyStorage enableUpdate:JD_CURRENT_FUNCTION];
     return copyStorage;
 }
 
@@ -629,18 +632,28 @@ static NSArray *storageProperties_cache;
     [self commitTransaction:JD_CURRENT_FUNCTION];
     
 }
+- (BOOL)isAllBorderColorNil{
+    if(_topBorderColor || _bottomBorderColor || _leftBorderColor || _rightBorderColor){
+        return NO;
+    }
+    return YES;
+}
 
 - (BOOL)isAllBorderColorsEqual{
-    
-    if([_topBorderColor isEqualTo:_bottomBorderColor]
-       && [_topBorderColor isEqualTo:_leftBorderColor]
-       && [_topBorderColor isEqualTo:_rightBorderColor]){
-        return YES;
+    if(_topBorderColor && _bottomBorderColor && _leftBorderColor && _rightBorderColor){
+        if( [_topBorderColor isEqualTo:_bottomBorderColor]
+           && [_topBorderColor isEqualTo:_leftBorderColor]
+           && [_topBorderColor isEqualTo:_rightBorderColor]){
+            return YES;
+        }
     }
     return NO;
 }
 - (NSColor *)borderColor{
-    if ([self isAllBorderColorsEqual]) {
+    if([self isAllBorderColorNil]){
+        return nil;
+    }
+    else if ([self isAllBorderColorsEqual]) {
         return _topBorderColor;
     }
     return NSMultipleValuesMarker;
@@ -659,17 +672,29 @@ static NSArray *storageProperties_cache;
     
 }
 
+- (BOOL)isAllBorderWidthNil{
+    if(_topBorderWidth || _leftBorderWidth || _rightBorderWidth || _bottomBorderWidth){
+        return NO;
+    }
+    return YES;
+}
+
 - (BOOL)isAllBorderWidthEqual{
-    if([_topBorderWidth isEqualToNumber:_bottomBorderWidth]
-       && [_topBorderWidth isEqualToNumber:_leftBorderWidth]
-       && [_topBorderWidth isEqualToNumber:_rightBorderWidth]){
-        return YES;
+    if(_topBorderWidth && _leftBorderWidth && _rightBorderWidth && _bottomBorderWidth){
+        if([_topBorderWidth isEqualToNumber:_bottomBorderWidth]
+           && [_topBorderWidth isEqualToNumber:_leftBorderWidth]
+           && [_topBorderWidth isEqualToNumber:_rightBorderWidth]){
+            return YES;
+        }
     }
     return NO;
 }
 
 - (NSNumber *)borderWidth{
-    if([self isAllBorderWidthEqual]){
+    if([self isAllBorderWidthNil]){
+        return nil;
+    }
+    else if([self isAllBorderWidthEqual]){
         return _topBorderWidth;
     }
     return NSMultipleValuesMarker;
@@ -687,19 +712,30 @@ static NSArray *storageProperties_cache;
     [self commitTransaction:JD_CURRENT_FUNCTION];
 
 }
-
+- (BOOL)isAllBorderRadiusNil{
+    if(_topLeftBorderRadius || _topRightBorderRadius || _bottomLeftborderRadius || _bottomRightBorderRadius){
+        return NO;
+    }
+    return YES;
+}
 - (BOOL)isAllBorderRadiusEqual{
-    if([_topLeftBorderRadius isEqualToNumber:_topRightBorderRadius]
-       && [_topLeftBorderRadius isEqualToNumber:_bottomLeftborderRadius]
-       && [_topLeftBorderRadius isEqualToNumber:_bottomRightBorderRadius]
-       ){
-        return YES;
+    if(_topLeftBorderRadius && _topRightBorderRadius && _bottomLeftborderRadius && _bottomRightBorderRadius){
+        
+        if([_topLeftBorderRadius isEqualToNumber:_topRightBorderRadius]
+           && [_topLeftBorderRadius isEqualToNumber:_bottomLeftborderRadius]
+           && [_topLeftBorderRadius isEqualToNumber:_bottomRightBorderRadius]
+           ){
+            return YES;
+        }
     }
     return NO;
 }
 
 - (NSNumber *)borderRadius{
-    if([self isAllBorderRadiusEqual]){
+    if([self isAllBorderRadiusNil]){
+        return nil;
+    }
+    else if([self isAllBorderRadiusEqual]){
         return _topLeftBorderRadius;
     }
     
