@@ -61,5 +61,6 @@
 //observable.
 @property (readonly) NSDictionary *effectiveTagDictionary;
 
-- (IUCSSStorageManager *)convertToStorageManager;
+- (IUCSSStorageManager *)convertToStorageDefaultManager;
+- (IUCSSStorageManager *)convertToStorageHoverManager;
 @end

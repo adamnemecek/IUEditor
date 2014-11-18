@@ -71,5 +71,26 @@
     XCTAssert([dict[@".BOX"] containsString:@"border-left-color"]);
 }
 
+- (void)test4_hover{
+    box.cssDefaultManager.liveStorage.bgColor = [NSColor blueColor];
+    box.cssHoverManager.liveStorage.bgColor = [NSColor redColor];
+    
+    
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.bgColor, [NSColor blueColor]);
+    XCTAssertEqualObjects(box.cssHoverManager.currentStorage.bgColor, [NSColor redColor]);
+    
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+
+    XCTAssert([dict.allKeys containsObject:@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"background-color"]);
+
+    
+    XCTAssert([dict.allKeys containsObject:@".BOX:hover"]);
+    XCTAssert([dict[@".BOX:hover"] containsString:@"background-color"]);
+
+}
+
 
 @end

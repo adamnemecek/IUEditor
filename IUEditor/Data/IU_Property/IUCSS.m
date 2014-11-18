@@ -439,16 +439,7 @@
  //Usage : Transition, carousel hidden
  static NSString * IUCSSTagEditorDisplay = @"editorDisplay";
  
- //hover CSS
- static NSString * IUCSSTagHoverBGImagePositionEnable = @"HoverBGImagePositionEnable";
- static NSString * IUCSSTagHoverBGImageX = @"hoverBGImageX";
- static NSString * IUCSSTagHoverBGImageY = @"hoverBGImageY";
- static NSString * IUCSSTagHoverBGColorEnable  = @"hoverBGColorEnable";
- static NSString * IUCSSTagHoverBGColor  = @"hoverBGColor";
- static NSString * IUCSSTagHoverBGColorDuration  = @"hoverBGColorDuration";
- static NSString * IUCSSTagHoverTextColorEnable  = @"hoverTextColorEnable";
- static NSString * IUCSSTagHoverTextColor  = @"hoverTextColor";
- 
+
 */
 
 - (void)convertToStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
@@ -458,7 +449,7 @@
     }
 }
 
-- (IUCSSStorageManager *)convertToStorageManager {
+- (IUCSSStorageManager *)convertToStorageDefaultManager {
     IUCSSStorageManager *cssStorageManager = [[IUCSSStorageManager alloc] init];
     
     for (NSNumber *number in self.allViewports) {
@@ -578,5 +569,51 @@
     
     return cssStorageManager;
 }
+
+/*
+ 
+ //hover CSS
+ static NSString * IUCSSTagHoverBGImagePositionEnable = @"HoverBGImagePositionEnable";
+ static NSString * IUCSSTagHoverBGImageX = @"hoverBGImageX";
+ static NSString * IUCSSTagHoverBGImageY = @"hoverBGImageY";
+ static NSString * IUCSSTagHoverBGColorEnable  = @"hoverBGColorEnable";
+ static NSString * IUCSSTagHoverBGColor  = @"hoverBGColor";
+ static NSString * IUCSSTagHoverBGColorDuration  = @"hoverBGColorDuration";
+ static NSString * IUCSSTagHoverTextColorEnable  = @"hoverTextColorEnable";
+ static NSString * IUCSSTagHoverTextColor  = @"hoverTextColor";
+ 
+ */
+//convert hover tag
+- (IUCSSStorageManager *)convertToStorageHoverManager{
+    IUCSSStorageManager *cssStorageManager = [[IUCSSStorageManager alloc] init];
+    
+    for (NSNumber *number in self.allViewports) {
+        cssStorageManager.currentViewPort = [number integerValue];
+        
+        convertStorage = cssStorageManager.currentStorage;
+        convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
+        
+        //image position
+        if ([convertTagDict[IUCSSTagHoverBGImagePositionEnable] boolValue]) {
+            [self convertToStorageManager_setTag:IUCSSTagHoverBGImageX toStorageWithkey:@"imageX"];
+            [self convertToStorageManager_setTag:IUCSSTagHoverBGImageY toStorageWithkey:@"imageY"];
+        }
+        
+        //color
+        if ([convertTagDict[IUCSSTagHoverBGColorEnable] boolValue]) {
+            [self convertToStorageManager_setTag:IUCSSTagHoverBGColor toStorageWithkey:@"bgColor"];
+            [self convertToStorageManager_setTag:IUCSSTagHoverBGColorDuration toStorageWithkey:@"bgColorDuration"];
+        }
+        
+        //text color
+        if ([convertTagDict[IUCSSTagHoverTextColorEnable] boolValue]) {
+            [self convertToStorageManager_setTag:IUCSSTagHoverTextColor toStorageWithkey:@"fontColor"];
+        }
+    }
+    
+    return cssStorageManager;
+}
+
+
 
 @end

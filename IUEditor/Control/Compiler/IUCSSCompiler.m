@@ -427,76 +427,18 @@
 
 - (void)updateCSSApperanceCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
-    NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
-    
-    if (viewport == IUCSSDefaultViewPort) {
-        /* pointer */
-        if (_iu.link) {
-            [code insertTag:@"cursor" string:@"pointer"];
-        }
+    if(storage){
+        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
         
-        /* overflow */
-        switch (_iu.overflowType) {
-            case IUOverflowTypeHidden: break; //default is hidden
-            case IUOverflowTypeVisible:{
-                [code insertTag:@"overflow" string:@"visible"]; break;
-            }
-            case IUOverflowTypeScroll:{
-                [code insertTag:@"overflow" string:@"scroll"]; break;
-            }
-        }
-    }
-    
-    /* display */
-    id value = cssTagDict[IUCSSTagDisplayIsHidden];
-    if (value && [value boolValue]) {
-        [code insertTag:@"display" string:@"none"];
-    }
-    else{
-        if (storage == NO) {
-            [code insertTag:@"display" string:@"inherit"];
-        }
-    }
-
-    value = [_iu.css effectiveValueForTag:IUCSSTagEditorDisplay forViewport:viewport];
-    if (value && [value boolValue] == NO) {
-        [code insertTag:@"display" string:@"none" target:IUTargetEditor];
-    }
-
-    
-    /* apperance */
-    if (cssTagDict[IUCSSTagOpacity]) {
-        float opacity = [cssTagDict[IUCSSTagOpacity] floatValue]/100;
-        [code insertTag:@"opacity" floatFromNumber:@(opacity)];
-        [code setInsertingTarget:IUTargetOutput];
-        [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[cssTagDict[IUCSSTagOpacity] intValue]] ];
-    }
-    
-    [code setInsertingTarget:IUTargetBoth];
-    if (cssTagDict[IUCSSTagBGColor]) {
-        [code insertTag:@"background-color" string:[cssTagDict[IUCSSTagBGColor] cssBGColorString]];
-
-    }
-    
-    BOOL enableGraident = [cssTagDict[IUCSSTagBGGradient] boolValue];
-    if(cssTagDict[IUCSSTagBGGradient] && enableGraident){
-        NSColor *bgColor1 = cssTagDict[IUCSSTagBGGradientStartColor];
-        NSColor *bgColor2 = cssTagDict[IUCSSTagBGGradientEndColor];
-        
-        if(enableGraident){
-            if(bgColor2 == nil){
-                bgColor2 = [NSColor rgbColorRed:0 green:0 blue:0 alpha:1];
-            }
-            if(bgColor1 == nil){
-                bgColor1 = [NSColor rgbColorRed:0 green:0 blue:0 alpha:1];
-            }
-            [code insertTag:@"background-color" color:bgColor1];
+        /* background-color */
+        if(cssStorage.bgGradientStartColor && cssStorage.bgGradientEndColor){
+            
+            [code insertTag:@"background-color" color:cssStorage.bgGradientStartColor];
             
             
-            
-            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", bgColor1.rgbString, bgColor2.rgbString];
-            NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", bgColor1.rgbString, bgColor2.rgbString];
-            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", bgColor1.rgbStringWithTransparent, bgColor2.rgbStringWithTransparent];
+            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", cssStorage.bgGradientStartColor.rgbString, cssStorage.bgGradientEndColor.rgbString];
+            NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", cssStorage.bgGradientStartColor.rgbString, cssStorage.bgGradientEndColor.rgbString];
+            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", cssStorage.bgGradientStartColor.rgbStringWithTransparent, cssStorage.bgGradientEndColor.rgbStringWithTransparent];
             NSString *gradientStr = [webKitStr stringByAppendingFormat:@"%@ %@", mozStr, ieStr];
             
             [code setInsertingTarget:IUTargetOutput];
@@ -505,83 +447,174 @@
             [code setInsertingTarget:IUTargetEditor];
             [code insertTag:@"background" string:webKitStr];
             
-            
-        }
-        
-    }
-    //REVIEW: gradient와 background가 상충함, 동시에 실행안되게.
-    else{
-        //REVIEW: image전체로 bg image tag 검사하면 안됨, media query 지원 못하게 됨.
-        if(cssTagDict[IUCSSTagImage]){
-            NSString *imgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetEditor] CSSURLString];
-            if(imgSrc){
-                [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
-            }
-            NSString *outputImgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetOutput] CSSURLString];
-            if(outputImgSrc){
-                [code insertTag:@"background-image" string:outputImgSrc target:IUTargetOutput];
-            }
-        }
-        
-        /* bg size & position */
-        if(cssTagDict[IUCSSTagBGSize]){
-            
-            IUBGSizeType bgSizeType = [cssTagDict[IUCSSTagBGSize] intValue];
-            switch (bgSizeType) {
-                case IUBGSizeTypeStretch:
-                    [code insertTag:@"background-size" string:@"100% 100%"];
-                    break;
-                case IUBGSizeTypeContain:
-                    [code insertTag:@"background-size" string:@"contain"];
-                    break;
-                case IUBGSizeTypeFull:
-                    [code insertTag:@"background-attachment" string:@"fixed"];
-                case IUBGSizeTypeCover:
-                    [code insertTag:@"background-size" string:@"cover"];
-                    break;
-                case IUBGSizeTypeAuto:
-                    default:
-                    break;
-            }
-            if(viewport != IUCSSDefaultViewPort && bgSizeType != IUBGSizeTypeFull){
-                [code insertTag:@"background-attachment" string:@"initial"];
-            }
 
         }
-        
-        if ([cssTagDict[IUCSSTagEnableBGCustomPosition] boolValue]) {
-            /* custom bg position */
-            [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagBGXPosition] unit:IUUnitPixel];
-            [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagBGYPosition] unit:IUUnitPixel];
-        }
-        else {
-            IUCSSBGVPostion vPosition = [cssTagDict[IUCSSTagBGVPosition] intValue];
-            IUCSSBGHPostion hPosition = [cssTagDict[IUCSSTagBGHPosition] intValue];
-            if (vPosition != IUCSSBGVPostionTop || hPosition != IUCSSBGHPostionLeft) {
-                NSString *vPositionString, *hPositionString;
-                switch (vPosition) {
-                    case IUCSSBGVPostionTop: vPositionString = @"top"; break;
-                    case IUCSSBGVPostionCenter: vPositionString = @"center"; break;
-                    case IUCSSBGVPostionBottom: vPositionString = @"bottom"; break;
-                        default: NSAssert(0, @"Cannot be default");  break;
-                }
-                switch (hPosition) {
-                    case IUCSSBGHPostionLeft: hPositionString = @"left"; break;
-                    case IUCSSBGHPostionCenter: hPositionString = @"center"; break;
-                    case IUCSSBGVPostionBottom: hPositionString = @"right"; break;
-                        default: NSAssert(0, @"Cannot be default");  break;
-                }
-                [code insertTag:@"background-position" string:[NSString stringWithFormat:@"%@ %@", vPositionString, hPositionString]];
+        else{
+            if(cssStorage.bgColor){
+                [code insertTag:@"background-color" string:[cssStorage.bgColor cssBGColorString]];
+
             }
         }
         
-        /* bg repeat */
-        if ([cssTagDict[IUCSSTagBGRepeat] boolValue] == YES) {
-            [code insertTag:@"background-repeat" string:@"repeat"];
+        
+    }
+    else{
+        NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
+        
+        if (viewport == IUCSSDefaultViewPort) {
+            /* pointer */
+            if (_iu.link) {
+                [code insertTag:@"cursor" string:@"pointer"];
+            }
+            
+            /* overflow */
+            switch (_iu.overflowType) {
+                case IUOverflowTypeHidden: break; //default is hidden
+                case IUOverflowTypeVisible:{
+                    [code insertTag:@"overflow" string:@"visible"]; break;
+                }
+                case IUOverflowTypeScroll:{
+                    [code insertTag:@"overflow" string:@"scroll"]; break;
+                }
+            }
+        }
+        
+        /* display */
+        id value = cssTagDict[IUCSSTagDisplayIsHidden];
+        if (value && [value boolValue]) {
+            [code insertTag:@"display" string:@"none"];
         }
         else{
             if (storage == NO) {
-                [code insertTag:@"background-repeat" string:@"no-repeat"];
+                [code insertTag:@"display" string:@"inherit"];
+            }
+        }
+        
+        value = [_iu.css effectiveValueForTag:IUCSSTagEditorDisplay forViewport:viewport];
+        if (value && [value boolValue] == NO) {
+            [code insertTag:@"display" string:@"none" target:IUTargetEditor];
+        }
+        
+        
+        /* apperance */
+        if (cssTagDict[IUCSSTagOpacity]) {
+            float opacity = [cssTagDict[IUCSSTagOpacity] floatValue]/100;
+            [code insertTag:@"opacity" floatFromNumber:@(opacity)];
+            [code setInsertingTarget:IUTargetOutput];
+            [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[cssTagDict[IUCSSTagOpacity] intValue]] ];
+        }
+        
+        [code setInsertingTarget:IUTargetBoth];
+        if (cssTagDict[IUCSSTagBGColor]) {
+            [code insertTag:@"background-color" string:[cssTagDict[IUCSSTagBGColor] cssBGColorString]];
+            
+        }
+        
+        BOOL enableGraident = [cssTagDict[IUCSSTagBGGradient] boolValue];
+        if(cssTagDict[IUCSSTagBGGradient] && enableGraident){
+            NSColor *bgColor1 = cssTagDict[IUCSSTagBGGradientStartColor];
+            NSColor *bgColor2 = cssTagDict[IUCSSTagBGGradientEndColor];
+            
+            if(enableGraident){
+                if(bgColor2 == nil){
+                    bgColor2 = [NSColor rgbColorRed:0 green:0 blue:0 alpha:1];
+                }
+                if(bgColor1 == nil){
+                    bgColor1 = [NSColor rgbColorRed:0 green:0 blue:0 alpha:1];
+                }
+                [code insertTag:@"background-color" color:bgColor1];
+                
+                
+                
+                NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", bgColor1.rgbString, bgColor2.rgbString];
+                NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", bgColor1.rgbString, bgColor2.rgbString];
+                NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", bgColor1.rgbStringWithTransparent, bgColor2.rgbStringWithTransparent];
+                NSString *gradientStr = [webKitStr stringByAppendingFormat:@"%@ %@", mozStr, ieStr];
+                
+                [code setInsertingTarget:IUTargetOutput];
+                [code insertTag:@"background" string:gradientStr];
+                
+                [code setInsertingTarget:IUTargetEditor];
+                [code insertTag:@"background" string:webKitStr];
+                
+                
+            }
+            
+        }
+        //REVIEW: gradient와 background가 상충함, 동시에 실행안되게.
+        else{
+            //REVIEW: image전체로 bg image tag 검사하면 안됨, media query 지원 못하게 됨.
+            if(cssTagDict[IUCSSTagImage]){
+                NSString *imgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetEditor] CSSURLString];
+                if(imgSrc){
+                    [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
+                }
+                NSString *outputImgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetOutput] CSSURLString];
+                if(outputImgSrc){
+                    [code insertTag:@"background-image" string:outputImgSrc target:IUTargetOutput];
+                }
+            }
+            
+            /* bg size & position */
+            if(cssTagDict[IUCSSTagBGSize]){
+                
+                IUBGSizeType bgSizeType = [cssTagDict[IUCSSTagBGSize] intValue];
+                switch (bgSizeType) {
+                    case IUBGSizeTypeStretch:
+                        [code insertTag:@"background-size" string:@"100% 100%"];
+                        break;
+                    case IUBGSizeTypeContain:
+                        [code insertTag:@"background-size" string:@"contain"];
+                        break;
+                    case IUBGSizeTypeFull:
+                        [code insertTag:@"background-attachment" string:@"fixed"];
+                    case IUBGSizeTypeCover:
+                        [code insertTag:@"background-size" string:@"cover"];
+                        break;
+                    case IUBGSizeTypeAuto:
+                    default:
+                        break;
+                }
+                if(viewport != IUCSSDefaultViewPort && bgSizeType != IUBGSizeTypeFull){
+                    [code insertTag:@"background-attachment" string:@"initial"];
+                }
+                
+            }
+            
+            if ([cssTagDict[IUCSSTagEnableBGCustomPosition] boolValue]) {
+                /* custom bg position */
+                [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagBGXPosition] unit:IUUnitPixel];
+                [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagBGYPosition] unit:IUUnitPixel];
+            }
+            else {
+                IUCSSBGVPostion vPosition = [cssTagDict[IUCSSTagBGVPosition] intValue];
+                IUCSSBGHPostion hPosition = [cssTagDict[IUCSSTagBGHPosition] intValue];
+                if (vPosition != IUCSSBGVPostionTop || hPosition != IUCSSBGHPostionLeft) {
+                    NSString *vPositionString, *hPositionString;
+                    switch (vPosition) {
+                        case IUCSSBGVPostionTop: vPositionString = @"top"; break;
+                        case IUCSSBGVPostionCenter: vPositionString = @"center"; break;
+                        case IUCSSBGVPostionBottom: vPositionString = @"bottom"; break;
+                        default: NSAssert(0, @"Cannot be default");  break;
+                    }
+                    switch (hPosition) {
+                        case IUCSSBGHPostionLeft: hPositionString = @"left"; break;
+                        case IUCSSBGHPostionCenter: hPositionString = @"center"; break;
+                        case IUCSSBGVPostionBottom: hPositionString = @"right"; break;
+                        default: NSAssert(0, @"Cannot be default");  break;
+                    }
+                    [code insertTag:@"background-position" string:[NSString stringWithFormat:@"%@ %@", vPositionString, hPositionString]];
+                }
+            }
+            
+            /* bg repeat */
+            if ([cssTagDict[IUCSSTagBGRepeat] boolValue] == YES) {
+                [code insertTag:@"background-repeat" string:@"repeat"];
+            }
+            else{
+                if (storage == NO) {
+                    [code insertTag:@"background-repeat" string:@"no-repeat"];
+                }
             }
         }
     }

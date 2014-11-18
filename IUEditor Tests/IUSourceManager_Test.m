@@ -63,16 +63,6 @@
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame{
     [webViewLoadingExpectation fulfill];
 }
-/*
-- (void)test0 {
-    webViewLoadingExpectation = [self expectationWithDescription:@"test0"];
-
-    //this test does not do anything: checking test enviroment
-    [[_webView mainFrame] loadHTMLString:@"Start Source Manager Test" baseURL:nil];
-
-    [self waitForExpectationsWithTimeout:1 handler:^(NSError *error) {}];
-}
-*/
 
 - (void)test1_loadPage {
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];

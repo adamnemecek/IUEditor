@@ -103,7 +103,9 @@
         
         //create storage
         cssManagersDict = [NSMutableDictionary dictionary];
-        [self setCssManager:[_css convertToStorageManager] forSelector:kIUCSSManagerDefault];
+        [self setCssManager:[_css convertToStorageDefaultManager] forSelector:kIUCSSManagerDefault];
+        [self setCssManager:[_css convertToStorageHoverManager] forSelector:kIUCSSManagerHover];
+
 
     }
     return self;
@@ -236,6 +238,9 @@
             [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
             [self bind:@"defaultCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"defaultStorage" options:nil];
         }
+        IUCSSStorageManager *cssHoverManager = [[IUCSSStorageManager alloc] init];
+        [self setCssManager:cssHoverManager forSelector:kIUCSSManagerHover];
+
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
         _name = _htmlID;
@@ -317,6 +322,10 @@
             [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
         }
+        
+        IUCSSStorageManager *cssHoverManager = [[IUCSSStorageManager alloc] init];
+        [self setCssManager:cssHoverManager forSelector:kIUCSSManagerHover];
+
 
 
         [[self undoManager] enableUndoRegistration];
