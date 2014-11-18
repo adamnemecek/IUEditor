@@ -40,6 +40,8 @@ static     IUTestWC *testWC;
 
     webView = testWC.webView;
     webViewLoadingExpectation = [self expectationWithDescription:@"load"];
+    [webView setFrameLoadDelegate:self];
+    [webView setResourceLoadDelegate:self];
 }
 
 - (void)testWCReturned:(BOOL)_result {
@@ -58,6 +60,8 @@ static     IUTestWC *testWC;
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    
+    page.sourceManager = manager;
     
     page.liveCSSStorage.width = @(30);
     page.liveCSSStorage.height = @(50);

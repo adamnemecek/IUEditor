@@ -54,6 +54,7 @@
     IUClass *class = [[IUClass alloc] initWithPreset];
     class.htmlID = [identifierManager createIdentifierWithKey:class.className];
     [identifierManager addObject:class withIdentifier:class.htmlID];
+    [class.cssDefaultManager.liveStorage setX:@(2000)];
 
     IUImport *import = [[IUImport alloc] initWithPresetClass:class];
     import.htmlID = [identifierManager createIdentifierWithKey:import.className];
@@ -63,6 +64,7 @@
     [identifierManager commit];
 
     XCTAssertEqual(import.prototypeClass, class);
+    XCTAssertEqual(import.liveCSSStorage.x, @(2000));
     XCTAssertEqual(import.liveCSSStorage, class.liveCSSStorage);
     XCTAssertEqual(box, import.parent);
 }

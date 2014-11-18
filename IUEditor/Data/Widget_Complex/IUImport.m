@@ -72,8 +72,11 @@
     [self.undoManager disableUndoRegistration];
 
     _prototypeClass = aClass;
+    
+    for (NSString *selector in [aClass allCSSSelectors]) {
+        [self setCssManager:[aClass cssManagerForSelector:selector] forSelector:selector];
+    }
 
-    [self setCssManager:aClass.cssDefaultManager forSelector:kIUCSSManagerDefault];
     [self bind:@"liveCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
     [self bind:@"currentCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
 

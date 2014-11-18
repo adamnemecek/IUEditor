@@ -128,6 +128,19 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 @property (readonly) IUCSSStorage *liveCSSStorage;
 @property (readonly) IUCSSStorage *currentCSSStorage;
 
+- (NSArray *)allCSSSelectors;
+
+- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector;
+- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector;
+- (IUCSSStorageManager *)cssDefaultManager;
+- (IUCSSStorageManager *)cssHoverManager;
+
+
+
+
+
+
+
 
 
 
@@ -284,10 +297,6 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 - (NSString*)cssActiveClass;
 - (NSString*)cssClassStringForHTML;
 
-- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector;
-- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector;
-- (IUCSSStorageManager *)cssDefaultManager;
-- (IUCSSStorageManager *)cssHoverManager;
 
 #if DEBUG
 //test 를 위해서 setting 가능하게 해놓음.

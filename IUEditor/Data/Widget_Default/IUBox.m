@@ -461,6 +461,11 @@
 #pragma mark - css Manager
 /* css manager */
 
+- (NSArray *)allCSSSelectors{
+    return [cssManagersDict allKeys];
+}
+
+
 - (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector{
 //    cssManager.box = self;
     cssManagersDict[selector] = cssManager;
