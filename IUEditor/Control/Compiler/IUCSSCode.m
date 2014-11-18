@@ -17,6 +17,8 @@
     NSMutableDictionary *_outputCSSDictWithViewPort; // data = key:width
     NSArray *allViewports;
     NSString *_mainIdentifier;
+    
+    NSMutableDictionary *_identifierTypeDictionary;
 }
 
 @end
@@ -29,6 +31,7 @@
     if (self) {
         _editorCSSDictWithViewPort = [NSMutableDictionary dictionary];
         _outputCSSDictWithViewPort = [NSMutableDictionary dictionary];
+        _identifierTypeDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -43,15 +46,35 @@
 }
 
 - (void)setInsertingIdentifier:(NSString *)identifier{
+    [self setInsertingIdentifier:identifier withType:IUCSSIdentifierTypeInline];
+}
+
+- (void)setInsertingIdentifier:(NSString *)identifier withType:(IUCSSIdentifierType)type{
     _currentIdentifiers = @[[identifier copy]];
+    if(_identifierTypeDictionary[identifier] == nil){
+        _identifierTypeDictionary[identifier] = @(type);
+    }
 }
 
 - (void)setMainIdentifier:(NSString *)identifier {
     _mainIdentifier = [identifier copy];
+    
+    if(_identifierTypeDictionary[identifier] == nil){
+        _identifierTypeDictionary[identifier] = @(IUCSSIdentifierTypeInline);
+    }
 }
 
 - (void)setInsertingIdentifiers:(NSArray *)identifiers{
+    [self setInsertingIdentifiers:identifiers withType:IUCSSIdentifierTypeInline];
+}
+
+- (void)setInsertingIdentifiers:(NSArray *)identifiers withType:(IUCSSIdentifierType)type{
     _currentIdentifiers = [[NSArray alloc] initWithArray:identifiers copyItems:YES];
+    for(NSString *identifier in identifiers){
+        if(_identifierTypeDictionary[identifier] == nil){
+            _identifierTypeDictionary[identifier] = @(type);
+        }
+    }
 }
 
 - (int)insertingViewPort{
@@ -96,6 +119,8 @@
     }
 }
 
+/*
+
 - (NSArray* )minusInlineTagSelector:(IUCSSCode *)code{
     NSMutableDictionary *dict = [[self inlineTagDictiony] mutableCopy];
     NSDictionary *minusDict = [code inlineTagDictiony];
@@ -113,6 +138,8 @@
     }];
     return [dict allKeys];
 }
+ 
+ */
 
 
 /**
@@ -184,6 +211,17 @@
         }
         else {
             [self insertTag:tag floatValue:[floatNumber floatValue] unit:unit];
+        }
+    }
+}
+
+- (void)insertTag:(NSString*)tag number:(NSNumber*)number unit:(IUUnit)unit{
+    if (number) {
+        if ([number intValue] == [number floatValue]) {
+            [self insertTag:tag integer:[number intValue] unit:unit];
+        }
+        else {
+            [self insertTag:tag floatValue:[number floatValue] unit:unit];
         }
     }
 }
@@ -508,13 +546,32 @@
 }
 
 
-- (NSDictionary *)inlineTagDictiony{ // css for inline insertion ( for example, main css )
-    NSAssert(0, nil);
-    return nil;
+- (NSDictionary *)inlineTagDictionyForViewport:(int)viewport{ // css for inline insertion ( for example, main css )
+
+    //내부 구조까지 같이 바꿀 필요가 있어보임 viewport가 두번들어오게됨.
+    //한번에 호출가능하도록?
+    NSDictionary *dict = [self stringTagDictionaryWithIdentifier:viewport];
+    NSMutableDictionary *inlinedict = [NSMutableDictionary dictionary];
+    
+    for(NSString *identifier in [dict allKeys]){
+        if([_identifierTypeDictionary[identifier] intValue] == IUCSSIdentifierTypeInline){
+            inlinedict[identifier] = dict[identifier];
+        }
+    }
+    
+    return [inlinedict copy];
 }
-- (NSDictionary *)nonInlineTagDictionary{ // css for non-inline insertion (for example, hover or active )
-    NSAssert(0, nil);
-    return nil;
+- (NSDictionary *)nonInlineTagDictionaryForViewport:(int)viewport{ // css for non-inline insertion (for example, hover or active )
+    NSDictionary *dict = [self stringTagDictionaryWithIdentifier:viewport];
+    NSMutableDictionary *inlinedict = [NSMutableDictionary dictionary];
+    
+    for(NSString *identifier in [dict allKeys]){
+        if([_identifierTypeDictionary[identifier] intValue] == IUCSSIdentifierTypeNonInline){
+            inlinedict[identifier] = dict[identifier];
+        }
+    }
+    
+    return [inlinedict copy];
 }
 
 /* uses inline code for IUDefaultViewPort and defaultIdentifier */

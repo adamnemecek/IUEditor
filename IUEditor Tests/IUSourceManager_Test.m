@@ -117,7 +117,10 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [page.liveCSSStorage setX:@(50)];
+
+//    [page.cssLiveStorage setX:@(50)];
+    [page.cssDefaultManager.liveStorage setX:@(50)];
+
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -127,82 +130,149 @@
     }];
 }
 
-- (void)test3_frame{
+- (void)test3_htmlSourceManager{
+    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+//    [page.cssD.liveStorage setX:@(50)];
+    [page setSourceManager:manager];
+    [page setCanvasVC:canvasVC];
+    [page.cssDefaultManager.liveStorage setX:@(50)];
+    
+    [manager loadSheet:page];
+    
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        
+        IUBox *section = ((IUBox*)page.pageContent.children[0]);
+        IUBox *box = section.children[0];
+        
+        box.text = @"hihi";
+        
+        [manager setNeedsUpdateHTML:box];
+
+        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
+        XCTAssertTrue([boxElement.innerHTML containsString:@"hihi"]);
+    }];
+}
+
+- (void)test4_cssSourceManager{
+    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    [page.cssDefaultManager.liveStorage setX:@(50)];
+    
+    [manager loadSheet:page];
+    
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        
+        IUBox *section = ((IUBox*)page.pageContent.children[0]);
+        IUBox *box = section.children[0];
+        
+        [box.cssDefaultManager.liveStorage setWidth:@(100)];
+        
+        [manager setNeedsUpdateCSS:box];
+        
+        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
+        NSLog(@"%@", boxElement.style.cssText);
+        XCTAssertTrue([boxElement.style.cssText containsString:@"100px"]);
+    }];
+    
+}
+
+- (void)test5_cssHover{
+    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    [page.cssHoverManager.liveStorage setX:@(50)];
+    
+    [manager loadSheet:page];
+    
+    
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        
+        IUBox *section = ((IUBox*)page.pageContent.children[0]);
+        IUBox *box = section.children[0];
+        
+        [box.cssHoverManager.liveStorage setWidth:@(100)];
+        
+        [manager setNeedsUpdateCSS:box];
+        
+        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
+        NSLog(@"%@", boxElement.style.cssText);
+        XCTAssertTrue([boxElement.style.cssText containsString:@"100px"]);
+    }];
+    
+}
+
+- (void)test6_frame{
     
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
 
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-//    [page.cssD.liveStorage setX:@(50)];
+    [page.cssDefaultManager.liveStorage setX:@(50)];
     [page setSourceManager:manager];
     [page setCanvasVC:canvasVC];
     
     [manager loadSheet:page];
-
-    IUBox *section = ((IUBox*)page.pageContent.children[0]);
-    IUBox *box = section.children[0];
-    
-    box.text = @"hihi";
-    
-    [manager setNeedsUpdateHTML:box];
-    
-    /*
-    [section setSourceManager:manager];
-    
-    IUBox *parent = [[IUBox alloc] initWithProject:page.project options:nil];
-    [section addIU:parent error:nil];
-//    [section updateHTML];
-    [parent setSourceManager:manager];
-    
-    [parent.cssManager.liveStorage setX:@(0)];
-    [parent.cssManager.liveStorage setY:@(0)];
-    [parent.cssManager.liveStorage setWidth:@(100)];
-    [parent.cssManager.liveStorage setHeight:@(100)];
-    
-    IUBox *child = [[IUBox alloc] initWithProject:page.project options:nil];
-    [parent addIU:child error:nil];
-//    [parent updateHTML];
-
-    [child setSourceManager:manager];
-
-    
-    [child.cssManager.liveStorage setX:@(0)];
-    [child.cssManager.liveStorage setY:@(0)];
-    [child.cssManager.liveStorage setWidth:@(50)];
-    [child.cssManager.liveStorage setHeight:@(50)];
-    
-    [child updateCSS];
-    
-    [manager loadSheet:page];
-    
-    [child.cssManager.liveStorage setWidthUnitAndChangeWidth:@(IUFrameUnitPercent)];
-    
-    [manager loadSheet:page];
-
-    [child updateCSS];
-    
-    XCTAssert([child.cssManager.liveStorage.xUnit isEqualToNumber:@(IUFrameUnitPercent)]);
-
-    [manager loadSheet:page];
-
-     */
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        IUBox *section = ((IUBox*)page.pageContent.children[0]);
+        [section setSourceManager:manager];
+        
+        IUBox *parent = [[IUBox alloc] initWithProject:page.project options:nil];
+        [section addIU:parent error:nil];
+        //    [section updateHTML];
+        [parent setSourceManager:manager];
+        
+        [parent.cssDefaultManager.liveStorage setX:@(0)];
+        [parent.cssDefaultManager.liveStorage setY:@(0)];
+        [parent.cssDefaultManager.liveStorage setWidth:@(100)];
+        [parent.cssDefaultManager.liveStorage setHeight:@(100)];
+        
+        IUBox *child = [[IUBox alloc] initWithProject:page.project options:nil];
+        [parent addIU:child error:nil];
+        
+        [child setSourceManager:manager];
+        
+        child.text = @"hihi";
+        
+        [manager setNeedsUpdateHTML:child];
+        
         DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
-        DOMElement *pageElement = [dom getElementById:page.htmlID];
-        XCTAssertTrue([pageElement.style.cssText containsString:@"left: 50px"]);
-       
-        DOMElement *boxElement = [dom getElementById:box.htmlID];
-        XCTAssertTrue([pageElement.innerText containsString:@"hihi"]);
+        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:child.htmlID];
+        XCTAssertTrue([boxElement.innerHTML containsString:@"hihi"]);
         
-        /*
-        DOMElement *childElement = [dom getElementById:child.htmlID];
-        NSLog(@"css : %@", childElement.style.cssText);
-        XCTAssertTrue([childElement.style.cssText containsString:@"%"]);
-         */
         
-    }];
+        //end of child success
+        ////////////////////////
+        //test frame css
+        
+        
+        [child.cssDefaultManager.liveStorage setX:@(0)];
+        [child.cssDefaultManager.liveStorage setY:@(0)];
+        [child.cssDefaultManager.liveStorage setWidth:@(50)];
+        [child.cssDefaultManager.liveStorage setHeight:@(50)];
+        
+        [child updateCSS];
+        
+        
+        [child.cssDefaultManager.liveStorage setWidthUnitAndChangeWidth:@(IUFrameUnitPercent)];
+        
+        
+        [child updateCSS];
+        
+        XCTAssert([child.cssDefaultManager.liveStorage.xUnit isEqualToNumber:@(IUFrameUnitPercent)]);
     
+        boxElement = (DOMHTMLElement *)[dom getElementById:child.htmlID];
+        XCTAssertTrue([boxElement.style.cssText containsString:@"%"]);
+
+        
+
+    }];
+
 }
 
 

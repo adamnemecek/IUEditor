@@ -170,6 +170,8 @@ static NSArray *storageProperties_cache;
     return [_storage copy];
 }
 
+
+
 - (void)overwritingDataStorageForNilValue:(IUDataStorage*)aStorage{
     for (NSString *key in aStorage.storage) {
         if (self.storage[key] == nil) {
@@ -300,6 +302,17 @@ static NSArray *storageProperties_cache;
     return liveStorage;
 }
 
+- (void)setCurrentViewPort:(NSInteger)currentViewPort{
+    if ([self.workingStorages objectForKey:@(currentViewPort)] == nil) {
+        IUDataStorage *newStorage = [self newStorage];
+        newStorage.manager = self;
+        [self.workingStorages setObject:newStorage forKey:@(currentViewPort)];
+        [self.workingStorages reverseSortArrayWithDictKey];
+    }
+    self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
+    self.liveStorage = [self createLiveStorage];
+}
+
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort{
     return [_workingStorages objectForKey:@(viewPort)];
 }
@@ -412,12 +425,14 @@ static NSArray *storageProperties_cache;
 
 - (NSRect)currentFrameByChangingFromUnit:(IUFrameUnit)from toUnit:(IUFrameUnit)to{
     if(from == IUFrameUnitPixel && to == IUFrameUnitPercent){
-        NSRect frame = [self.manager.box currentPercentFrame];
-        return frame;
+//        NSRect frame = [self.manager.box currentPercentFrame];
+//        return frame;
+        return NSZeroRect;
     }
     else if(from == IUFrameUnitPercent && to == IUFrameUnitPixel){
-        NSRect frame = [self.manager.box currentPixelFrame];
-        return frame;
+//        NSRect frame = [self.manager.box currentPixelFrame];
+//        return frame;
+        return NSZeroRect;
         
     }
     return NSZeroRect;
@@ -437,7 +452,7 @@ static NSArray *storageProperties_cache;
         //change Unit
         _xUnit = xUnit;
         
-        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self commitTransaction:JD_CURRENT_FUNCTION];
         [self didChangeValueForKey:@"xUnit"];
     }
     
@@ -456,7 +471,7 @@ static NSArray *storageProperties_cache;
         
         _yUnit = yUnit;
         
-        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self commitTransaction:JD_CURRENT_FUNCTION];
         [self didChangeValueForKey:@"yUnit"];
     }
 }
@@ -474,7 +489,7 @@ static NSArray *storageProperties_cache;
         [self setWidth:@(frame.size.width)];
         
         _widthUnit = widthUnit;
-        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self commitTransaction:JD_CURRENT_FUNCTION];
         [self didChangeValueForKey:@"widthUnit"];
         
     }
@@ -492,7 +507,7 @@ static NSArray *storageProperties_cache;
         
         _heightUnit = heightUnit;
         
-        [self endTransactoin:JD_CURRENT_FUNCTION];
+        [self commitTransaction:JD_CURRENT_FUNCTION];
         [self didChangeValueForKey:@"heightUnit"];
 
     }
@@ -612,8 +627,6 @@ static NSArray *storageProperties_cache;
 
 @implementation IUCSSStorageManager {
     JDMutableArrayDict *defaultSelectorStorages;
-    JDMutableArrayDict *activeSelectorStorages;
-    JDMutableArrayDict *hoverSelectorStorages;
     
 }
 
@@ -624,8 +637,6 @@ static NSArray *storageProperties_cache;
 - (id)init{
     self = [super init];
     defaultSelectorStorages = self.workingStorages;
-    activeSelectorStorages = [[JDMutableArrayDict alloc] init];
-    hoverSelectorStorages = [[JDMutableArrayDict alloc] init];
     
     IUCSSStorage *cssStorage  = [defaultSelectorStorages objectForKey:@(IUDefaultViewPort)];
     [cssStorage initPropertiesForDefaultViewPort];
@@ -636,8 +647,6 @@ static NSArray *storageProperties_cache;
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
     defaultSelectorStorages = [aDecoder decodeObjectForKey:@"defaultSelectorStorages"];
-    activeSelectorStorages = [aDecoder decodeObjectForKey:@"activeSelectorStorages"];
-    hoverSelectorStorages = [aDecoder decodeObjectForKey:@"hoverSelectorStorages"];
     self.workingStorages = defaultSelectorStorages;
     self.currentViewPort = IUDefaultViewPort;
     
@@ -649,12 +658,10 @@ static NSArray *storageProperties_cache;
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:defaultSelectorStorages forKey:@"defaultSelectorStorages"];
-    [aCoder encodeObject:activeSelectorStorages forKey:@"activeSelectorStorages"];
-    [aCoder encodeObject:hoverSelectorStorages forKey:@"hoverSelectorStorages"];
 }
-
-- (void)setSelector:(IUCSSSelector)selector{
-    _selector = selector;
+/*
+- (void)setSelector:(NSString *)selector{
+    
     switch (selector) {
         case IUCSSSelectorDefault:
             self.workingStorages = defaultSelectorStorages;
@@ -666,29 +673,7 @@ static NSArray *storageProperties_cache;
             self.workingStorages = hoverSelectorStorages;
             break;
     }
-    if ([self.workingStorages objectForKey:@(self.currentViewPort)] == nil) {
-        IUDataStorage *newStorage = [self newStorage];
-        newStorage.manager = self;
-        [self.workingStorages setObject:newStorage forKey:@(self.currentViewPort)];
-        [self.workingStorages reverseSortArrayWithDictKey];
-    }
-    self.currentStorage = [self.workingStorages objectForKey:@(self.currentViewPort)];
-    self.liveStorage = [self createLiveStorage];
-}
-
-- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort selector:(IUCSSSelector)selector{
-    switch (selector) {
-        case IUCSSSelectorActive:
-            return [activeSelectorStorages objectForKey:@(viewPort)];
-            break;
-        case IUCSSSelectorDefault:
-            return [defaultSelectorStorages objectForKey:@(viewPort)];
-            break;
-        case IUCSSSelectorHover:
-        default:
-            return [hoverSelectorStorages objectForKey:@(viewPort)];
-    }
-}
+ */
 
 
 - (void)storage:(IUCSSStorage*)storage changes:(NSArray *)changes{

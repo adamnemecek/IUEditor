@@ -77,6 +77,7 @@ typedef enum _IUCompileRule{
  */
 - (NSString *)editorWebSource:(IUSheet *)document;
 
+
 /* Will be saved as page file */
 - (NSString *)outputHTMLSource:(IUPage *)document;
 
@@ -84,6 +85,9 @@ typedef enum _IUCompileRule{
 - (NSString *)outputCSSSource_storage:(IUPage *)page;
 
 - (IUCSSCode *)editorCSSCode:(IUBox *)box viewPort:(int)viewPort;
+
+/* if IUTarget == IUTargetOutput, viewPort will be ignored */
+- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
 - (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort;

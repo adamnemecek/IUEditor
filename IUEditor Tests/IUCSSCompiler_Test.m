@@ -31,9 +31,22 @@
     [super tearDown];
 }
 
+
+- (void)test1_XUnit {
+    box.cssDefaultManager.liveStorage.x = @(30);
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.x, @(30));
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.xUnit, @(IUFrameUnitPixel));
+}
+
 - (void)test2_frameCode {
+
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
+
+    box.cssDefaultManager.liveStorage.x = @(30);
+//    box.cssLiveStorage.x = @(30);
+//    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
+
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);

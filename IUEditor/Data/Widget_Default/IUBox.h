@@ -55,6 +55,13 @@ typedef enum{
     IUTextInputTypeTextField,
 }IUTextInputType;
 
+
+/* default css manager name */
+static NSString *kIUCSSManagerDefault = @"cssManagerDefault";
+static NSString *kIUCSSManagerHover = @"cssManagerHover";
+static NSString *kIUCSSManagerActive = @"cssManagerActive";
+
+
 @class IUBox;
 @class IUSheet;
 @class IUProject;
@@ -280,6 +287,8 @@ typedef enum{
 - (NSString*)cssClassStringForHTML;
 
 
+- (IUCSSStorageManager *)cssDefaultManager;
+- (IUCSSStorageManager *)cssHoverManager;
 
 #if DEBUG
 //test 를 위해서 setting 가능하게 해놓음.

@@ -82,6 +82,7 @@
 
 
 //@property (weak) id  <IUDataStorageManagerDelegate, JDCoding> box;
+
 @property NSUndoManager *undoManager;
 
 @property NSInteger currentViewPort;
@@ -184,7 +185,9 @@ IUBGSizeTypeFull ,
 
 /* background tag */
 @property (nonatomic) NSColor* bgColor;
-@property (nonatomic) NSColor* bgGradientColor;
+@property (nonatomic) NSColor* bgGradientStartColor;
+@property (nonatomic) NSColor* bgGradientEndColor;
+@property (nonatomic) NSNumber* bgColorDuration;
 
 /* border tag */
 /* following three tag can have NSMultipleValueMarker */
@@ -247,21 +250,15 @@ IUBGSizeTypeFull ,
 @end
 
 
-typedef enum _IUCSSSelector{
-    IUCSSSelectorDefault,
-    IUCSSSelectorActive,
-    IUCSSSelectorHover,
-} IUCSSSelector;
-
 @interface IUCSSStorageManager : IUDataStorageManager
 
-- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort selector:(IUCSSSelector)selector;
-
-@property (nonatomic) IUCSSSelector selector;
+- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort;
 
 @property (readonly) IUCSSStorage *currentStorage;
 @property (readonly) IUCSSStorage *defaultStorage;
 @property (readonly) IUCSSStorage *liveStorage;
+
+
 
 
 @end

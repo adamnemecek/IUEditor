@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "IUDefinition.h"
 
+typedef enum{
+    IUCSSIdentifierTypeInline,
+    IUCSSIdentifierTypeNonInline,
+}IUCSSIdentifierType;
+
 @interface IUCSSCode : NSObject
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport;
@@ -22,11 +27,13 @@
 
 - (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort;
 
-- (NSDictionary *)inlineTagDictiony; // css for inline insertion ( for example, main css )
-- (NSDictionary *)nonInlineTagDictionary; // css for non-inline insertion (for example, hover or active )
+- (NSDictionary *)inlineTagDictionyForViewport:(int)viewport; // css for inline insertion ( for example, main css )
+- (NSDictionary *)nonInlineTagDictionaryForViewport:(int)viewport; // css for non-inline insertion (for example, hover or active )
 
+/*
 - (NSArray* )minusInlineTagSelector:(IUCSSCode *)code;
 - (NSArray *)minusNonInlineSelector:(IUCSSCode *)code;
+ */
 
 /* uses inline code for IUDefaultViewPort and defaultIdentifier */
 - (NSString *)mainIdentifier;
@@ -40,7 +47,9 @@
 - (void)setInsertingViewPort:(int)viewport;
 - (int)insertingViewPort;
 - (void)setInsertingIdentifier:(NSString *)identifier;
+- (void)setInsertingIdentifier:(NSString *)identifier withType:(IUCSSIdentifierType)type;
 - (void)setInsertingIdentifiers:(NSArray *)identifiers;
+- (void)setInsertingIdentifiers:(NSArray *)identifiers withType:(IUCSSIdentifierType)type;
 - (void)renameIdentifier:(NSString*)fromIdentifier to:(NSString*)toIdentifier;
 - (void)setMainIdentifier:(NSString *)identifier;
 
@@ -54,6 +63,7 @@
 - (void)insertTag:(NSString*)tag color:(NSColor*)colorValue;
 - (void)insertTag:(NSString*)tag string:(NSString*)stringValue;
 - (void)insertTag:(NSString*)tag string:(NSString*)stringValue target:(IUTarget)target;
+- (void)insertTag:(NSString*)tag number:(NSNumber*)number unit:(IUUnit)unit;
 - (void)insertTag:(NSString*)tag number:(NSNumber*)number frameUnit:(NSNumber *)frameUnit;
 
 

@@ -862,9 +862,6 @@
 
 
 
-- (IUCSSCode *)cssSource:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort{
-    return nil;
-}
 
 - (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort{
     return [htmlCompiler unitBoxHTMLCode:box target:IUTargetEditor withCSS:YES viewPort:viewPort].string;

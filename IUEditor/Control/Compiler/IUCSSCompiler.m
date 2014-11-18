@@ -91,7 +91,7 @@
 - (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu storage:(BOOL)storage{
     NSArray *editWidths;
     if (storage) {
-        editWidths = [_iu.cssStorageManager allViewPorts];
+        editWidths = [_iu.cssDefaultManager allViewPorts];
     }
     else {
         editWidths = [_iu.css allViewports];;
@@ -122,47 +122,93 @@
 }
 
 - (void)updateCSSHoverCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
-    NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
-
+    
     if([_iu.link isKindOfClass:[IUBox class]]){
-        [code setInsertingIdentifiers:@[_iu.cssHoverClass, _iu.cssActiveClass]];
+        [code setInsertingIdentifiers:@[_iu.cssHoverClass, _iu.cssActiveClass] withType:IUCSSIdentifierTypeNonInline];
     }
     else{
-        [code setInsertingIdentifiers:@[_iu.cssHoverClass]];
+        [code setInsertingIdentifiers:@[_iu.cssHoverClass] withType:IUCSSIdentifierTypeNonInline];
     }
     
-    if ([cssTagDict[IUCSSTagHoverBGImagePositionEnable] boolValue]) {
-        [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageX] unit:IUUnitPixel];
-        [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageY] unit:IUUnitPixel];
-    }
-    
-    if ([cssTagDict[IUCSSTagHoverBGColorEnable] boolValue]){
 
-        NSString *outputColor = [cssTagDict[IUCSSTagHoverBGColor] cssBGColorString];
-        NSString *editorColor = [cssTagDict[IUCSSTagHoverBGColor] rgbaString];
-        if ([outputColor length] == 0) {
-            outputColor = @"black";
-            editorColor = @"black";
-        }
-        [code setInsertingTarget:IUTargetOutput];
-        [code insertTag:@"background-color" string:outputColor];
-        
-        [code setInsertingTarget:IUTargetEditor];
-        [code insertTag:@"background-color" string:editorColor];
-        
-        [code setInsertingTarget:IUTargetOutput];
-        if(cssTagDict[IUCSSTagHoverBGColorDuration]){
-            [code setInsertingIdentifier:_iu.cssIdentifier];
-            NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [cssTagDict[IUCSSTagHoverBGColorDuration] integerValue]];
-            [code insertTag:@"-webkit-transition" string:durationStr];
-            [code insertTag:@"transition" string:durationStr];
+    if (storage) {
+        IUCSSStorage *cssStorage = [_iu.cssHoverManager storageForViewPort:viewport];
+        if (cssStorage) {
+            
+            //css has color or image
+            if(cssStorage.imageX || cssStorage.imageY){
+                if(cssStorage.imageX){
+                    [code insertTag:@"background-position-x" number:cssStorage.imageX unit:IUUnitPixel];
+                }
+                if(cssStorage.imageY){
+                    [code insertTag:@"background-position-y" number:cssStorage.imageY unit:IUUnitPixel];
+                }
+            }
+            else if(cssStorage.bgColor){
+                NSString *outputColor = [cssStorage.bgColor cssBGColorString];
+                NSString *editorColor = [cssStorage.bgColor rgbaString];
+                if ([outputColor length] == 0) {
+                    outputColor = @"black";
+                    editorColor = @"black";
+                }
+                [code setInsertingTarget:IUTargetOutput];
+                [code insertTag:@"background-color" string:outputColor];
+                
+                [code setInsertingTarget:IUTargetEditor];
+                [code insertTag:@"background-color" string:editorColor];
+                
+                if(cssStorage.bgColorDuration){
+                    [code setInsertingIdentifier:_iu.cssIdentifier];
+                    NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [cssStorage.bgColorDuration integerValue]];
+                    [code insertTag:@"-webkit-transition" string:durationStr];
+                    [code insertTag:@"transition" string:durationStr];
+
+                }
+            }
+            
+            if(cssStorage.fontColor){
+                [code insertTag:@"color" color:cssStorage.fontColor];
+
+            }
+            
         }
 
     }
-    
-    
-    if ([cssTagDict[IUCSSTagHoverTextColorEnable] boolValue]){
-        [code insertTag:@"color" color:cssTagDict[IUCSSTagHoverTextColor]];
+    else{
+        NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
+        if ([cssTagDict[IUCSSTagHoverBGImagePositionEnable] boolValue]) {
+            [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageX] unit:IUUnitPixel];
+            [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageY] unit:IUUnitPixel];
+        }
+        
+        if ([cssTagDict[IUCSSTagHoverBGColorEnable] boolValue]){
+            
+            NSString *outputColor = [cssTagDict[IUCSSTagHoverBGColor] cssBGColorString];
+            NSString *editorColor = [cssTagDict[IUCSSTagHoverBGColor] rgbaString];
+            if ([outputColor length] == 0) {
+                outputColor = @"black";
+                editorColor = @"black";
+            }
+            [code setInsertingTarget:IUTargetOutput];
+            [code insertTag:@"background-color" string:outputColor];
+            
+            [code setInsertingTarget:IUTargetEditor];
+            [code insertTag:@"background-color" string:editorColor];
+            
+            [code setInsertingTarget:IUTargetOutput];
+            if(cssTagDict[IUCSSTagHoverBGColorDuration]){
+                [code setInsertingIdentifier:_iu.cssIdentifier];
+                NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [cssTagDict[IUCSSTagHoverBGColorDuration] integerValue]];
+                [code insertTag:@"-webkit-transition" string:durationStr];
+                [code insertTag:@"transition" string:durationStr];
+            }
+            
+        }
+        
+        
+        if ([cssTagDict[IUCSSTagHoverTextColorEnable] boolValue]){
+            [code insertTag:@"color" color:cssTagDict[IUCSSTagHoverTextColor]];
+        }
     }
 }
 
@@ -474,19 +520,19 @@
 - (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     if (storage) {
-        IUCSSStorage *storage = [_iu.cssStorageManager storageForViewPort:viewport selector:IUCSSSelectorDefault];
-        if (storage) {
-            if (storage.x) {
-                [code insertTag:@"left" number:storage.x frameUnit:storage.xUnit];
+        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
+        if (cssStorage) {
+            if (cssStorage.x) {
+                [code insertTag:@"left" number:cssStorage.x frameUnit:cssStorage.xUnit];
             }
-            if(storage.y){
-                [code insertTag:@"top" number:storage.y frameUnit:storage.yUnit];
+            if(cssStorage.y){
+                [code insertTag:@"top" number:cssStorage.y frameUnit:cssStorage.yUnit];
             }
-            if(storage.width){
-                [code insertTag:@"width" number:storage.width frameUnit:storage.widthUnit];
+            if(cssStorage.width){
+                [code insertTag:@"width" number:cssStorage.width frameUnit:cssStorage.widthUnit];
             }
-            if(storage.height){
-                [code insertTag:@"height" number:storage.height frameUnit:storage.heightUnit];
+            if(cssStorage.height){
+                [code insertTag:@"height" number:cssStorage.height frameUnit:cssStorage.heightUnit];
             }
         }
     }
@@ -676,7 +722,7 @@
     [code insertTag:@"display" string:@"block"];
     
     //li class - active, hover
-    [code setInsertingIdentifiers:@[pageLinkSet.activeIdentifier, pageLinkSet.hoverIdentifier]];
+    [code setInsertingIdentifiers:@[pageLinkSet.activeIdentifier, pageLinkSet.hoverIdentifier] withType:IUCSSIdentifierTypeNonInline];
     [code insertTag:@"background-color" color:pageLinkSet.selectedButtonBGColor];
     
 
@@ -916,7 +962,7 @@
     [code insertTag:@"-webkit-box-sizing" string:@"border-box"];
     
     //hover, active
-    [code setInsertingIdentifiers:@[menuItem.hoverItemIdentifier, menuItem.activeItemIdentifier]];
+    [code setInsertingIdentifiers:@[menuItem.hoverItemIdentifier, menuItem.activeItemIdentifier] withType:IUCSSIdentifierTypeNonInline];
     [code setInsertingTarget:IUTargetBoth];
 
     if(menuItem.bgActive){
@@ -937,11 +983,11 @@
         [code insertTag:@"background-color" color:carousel.deselectColor];
     }
     if(carousel.selectColor){
-        [code setInsertingIdentifier:[carousel pagerIDHover]];
+        [code setInsertingIdentifier:[carousel pagerIDHover] withType:IUCSSIdentifierTypeNonInline];
         [code insertTag:@"background-color" color:carousel.selectColor];
     }
     if(carousel.selectColor){
-        [code setInsertingIdentifier:[carousel pagerIDActive]];
+        [code setInsertingIdentifier:[carousel pagerIDActive] withType:IUCSSIdentifierTypeNonInline];
         [code insertTag:@"background-color" color:carousel.selectColor];
     }
     

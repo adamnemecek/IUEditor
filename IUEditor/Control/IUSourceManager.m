@@ -100,7 +100,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
     
     /* insert css code to inline */
-    NSDictionary *inlineCSSDict = [code inlineTagDictiony];
+    NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];
     [inlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
         int length= list.length;
@@ -112,7 +112,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     }];
 
     /* insert non-inline css : hover or css */
-    NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionary];
+    NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewPort];
 
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDocument]  getElementById:@"default"];

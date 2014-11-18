@@ -31,6 +31,9 @@
 @implementation IUBox{
     NSMutableSet *changedCSSWidths;
     
+    //for cssManager tuple dictionary
+    NSMutableDictionary *cssManagersDict;
+    
     //for undo
     NSMutableDictionary *undoFrameDict;
     
@@ -98,13 +101,14 @@
         }
         NSAssert([self.htmlID length] != 0 , @"");
         
-
-
         //create storage
-        _cssStorageManager = [_css convertToStorageManager];
+        cssManagersDict = [NSMutableDictionary dictionary];
+        [self setCssManager:[_css convertToStorageManager] forSelector:kIUCSSManagerDefault];
+
     }
     return self;
 }
+
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     
@@ -211,14 +215,30 @@
 -(id)init{
     self = [super init];
     if (self) {
+        _css = [[IUCSS alloc] init];
+        _css.delegate = self;
+        
+        _mqData = [[IUMQData alloc] init];
+        _mqData.delegate = self;
+        
+        _event = [[IUEvent alloc] init];
+        _m_children = [NSMutableArray array];
+        
+        changedCSSWidths = [NSMutableSet set];
+
+        /*
         _cssStorageManager = [[IUCSSStorageManager alloc] init];
         [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
         [_cssStorageManager addOwner:self];
 
-        _event = [[IUEvent alloc] init];
-        _mqData = [[IUMQData alloc] init];
-        _mqData.delegate = self;
+        _cssStorageManager.box = self;
+         */
+        
+        //create storage
+        cssManagersDict = [NSMutableDictionary dictionary];
+        IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
+        [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
         _name = _htmlID;
@@ -297,7 +317,11 @@
         [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
 
- */
+*/
+        cssManagersDict = [NSMutableDictionary dictionary];
+        IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
+        [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
+
         [[self undoManager] enableUndoRegistration];
         
     }
@@ -326,6 +350,8 @@
     
     _isEnabledFrameUndo = NO;
     [[self undoManager] enableUndoRegistration];
+
+    /*
     
     if (_cssStorageManager == nil) {
         NSAssert(0, @"css storage manager can't be nil");
@@ -334,6 +360,7 @@
         [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
     }
+*/
 }
 - (void)disconnectWithEditor{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -444,7 +471,28 @@
 - (BOOL)canSelectedWhenOpenProject{
     return YES;
 }
+
+#pragma mark - css Manager
+/* css manager */
+
+- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector{
+//    cssManager.box = self;
+    cssManagersDict[selector] = cssManager;
+}
+
+- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector{
+    return cssManagersDict[selector];
+}
+- (IUCSSStorageManager *)cssDefaultManager{
+    return cssManagersDict[kIUCSSManagerDefault];
+}
+- (IUCSSStorageManager *)cssHoverManager{
+    return cssManagersDict[kIUCSSManagerHover];
+}
+
+
 #pragma mark - Core Manager
+
 - (NSUndoManager *)undoManager{
    return [[[[NSApp mainWindow] windowController] document] undoManager];
 }
@@ -681,7 +729,7 @@
 
 - (void)updateHTML{
     
-    
+    /*
     if (_canvasVC && [_canvasVC isUpdateHTMLEnabled]) {
         
         
@@ -704,6 +752,7 @@
         [self updateCSS];
         
     }
+     */
     
     if (self.sourceManager) {
         [self.sourceManager setNeedsUpdateHTML:self];
@@ -774,7 +823,12 @@ e.g. 만약 css로 옮긴다면)
  */
 - (void)updateCSS{
     
+    if(self.sourceManager){
+        [self updateCSSValuesBeforeUpdateEditor];
+        [self.sourceManager setNeedsUpdateCSS:self];
+    }
     
+    /*
     if (_canvasVC) {
         
         [self updateCSSValuesBeforeUpdateEditor];
@@ -800,14 +854,7 @@ e.g. 만약 css로 옮긴다면)
         [_canvasVC updateJS];
         
     }
-
-    
-    if(self.sourceManager){
-        [self updateCSSValuesBeforeUpdateEditor];
-        [self.sourceManager setNeedsUpdateCSS:self];
-    }
-    
-    
+     */
 }
 
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
