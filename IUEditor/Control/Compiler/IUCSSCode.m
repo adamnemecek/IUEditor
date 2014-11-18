@@ -550,7 +550,7 @@
 
     //내부 구조까지 같이 바꿀 필요가 있어보임 viewport가 두번들어오게됨.
     //한번에 호출가능하도록?
-    NSDictionary *dict = [self stringTagDictionaryWithIdentifier:viewport];
+    NSDictionary *dict = [self stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:viewport];
     NSMutableDictionary *inlinedict = [NSMutableDictionary dictionary];
     
     for(NSString *identifier in [dict allKeys]){
@@ -562,7 +562,7 @@
     return [inlinedict copy];
 }
 - (NSDictionary *)nonInlineTagDictionaryForViewport:(int)viewport{ // css for non-inline insertion (for example, hover or active )
-    NSDictionary *dict = [self stringTagDictionaryWithIdentifier:viewport];
+    NSDictionary *dict = [self stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:viewport];
     NSMutableDictionary *inlinedict = [NSMutableDictionary dictionary];
     
     for(NSString *identifier in [dict allKeys]){
