@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0610"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3DE45F5B19F7BFB200A75567"
+               BuildableName = "IUEditor Tests.xctest"
+               BlueprintName = "IUEditor Tests"
+               ReferencedContainer = "container:IUEditor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "092605931A1A5481008C40FC"
+               BuildableName = "IUEditor Tests copy.xctest"
+               BlueprintName = "JDLib Tests"
+               ReferencedContainer = "container:IUEditor.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "09D647B61A161EF600634434"
+               BuildableName = "IUEditor Tests UI.xctest"
+               BlueprintName = "IUEditor Tests UI"
+               ReferencedContainer = "container:IUEditor.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CSSToCSSStorageConversion_Test">
+               </Test>
+               <Test
+                  Identifier = "IUBox_Test">
+               </Test>
+               <Test
+                  Identifier = "IUCSSCompiler_Test">
+               </Test>
+               <Test
+                  Identifier = "IUCSSStorage_Test">
+               </Test>
+               <Test
+                  Identifier = "IUCompiler_Test">
+               </Test>
+               <Test
+                  Identifier = "IUDataStorageTest">
+               </Test>
+               <Test
+                  Identifier = "IUProject_Test">
+               </Test>
+               <Test
+                  Identifier = "IUSourceManager_Test">
+               </Test>
+               <Test
+                  Identifier = "JDCoderTest">
+               </Test>
+               <Test
+                  Identifier = "JDCoder_IUEditor_Test">
+               </Test>
+               <Test
+                  Identifier = "JDCoder_IUProject_Test">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "092605931A1A5481008C40FC"
+            BuildableName = "IUEditor Tests copy.xctest"
+            BlueprintName = "JDLib Tests"
+            ReferencedContainer = "container:IUEditor.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
