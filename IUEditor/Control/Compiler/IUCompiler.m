@@ -457,9 +457,9 @@
     JDCode *code = [[JDCode alloc] init];
     if(isEdit){
         NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", resetCSSPath];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%@\">", resetCSSPath];
         NSString *editorCSSPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"css"];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", editorCSSPath];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%@\">", editorCSSPath];
     }
     else{
         NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput];
