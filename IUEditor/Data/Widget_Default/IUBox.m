@@ -226,19 +226,14 @@
         
         changedCSSWidths = [NSMutableSet set];
 
-        /*
-        _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
-        [_cssStorageManager addOwner:self];
-
-        _cssStorageManager.box = self;
-         */
-        
         //create storage
         cssManagersDict = [NSMutableDictionary dictionary];
         IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
         [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
+        if (self.cssDefaultManager) {
+            [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+        }
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
         _name = _htmlID;
@@ -312,15 +307,15 @@
         }
         self.name = self.htmlID;
         
-/*
-        _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
-
-*/
         cssManagersDict = [NSMutableDictionary dictionary];
         IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
         [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
+        if (self.cssDefaultManager) {
+            
+            [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+        }
+
 
         [[self undoManager] enableUndoRegistration];
         
@@ -351,16 +346,6 @@
     _isEnabledFrameUndo = NO;
     [[self undoManager] enableUndoRegistration];
 
-    /*
-    
-    if (_cssStorageManager == nil) {
-        NSAssert(0, @"css storage manager can't be nil");
-
-        _cssStorageManager = [[IUCSSStorageManager alloc] init];
-        [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
-    }
-*/
 }
 - (void)disconnectWithEditor{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

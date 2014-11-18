@@ -38,7 +38,7 @@
     box.htmlID = [identifierManager createIdentifierWithKey:box.className];
     [identifierManager addObject:box withIdentifier:box.htmlID];
     [identifierManager commit];
-    
+        
     XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
     XCTAssertTrue([box.liveCSSStorage.bgColor isKindOfClass:[NSColor class]]);
 }

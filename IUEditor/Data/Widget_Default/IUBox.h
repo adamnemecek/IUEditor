@@ -70,7 +70,6 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC __storage_deprecated;
     
-    IUCSSStorageManager *_cssStorageManager;
     IUCSSStorage *_liveCSSStorage;
     IUCSSStorage *_currentCSSStorage;
 }
@@ -126,7 +125,6 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 
 @property BOOL removed; // iu is removed;
 
-@property (readonly) IUCSSStorageManager *cssStorageManager;
 @property (readonly) IUCSSStorage *liveCSSStorage;
 @property (readonly) IUCSSStorage *currentCSSStorage;
 
@@ -286,7 +284,8 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 - (NSString*)cssActiveClass;
 - (NSString*)cssClassStringForHTML;
 
-
+- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector;
+- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector;
 - (IUCSSStorageManager *)cssDefaultManager;
 - (IUCSSStorageManager *)cssHoverManager;
 

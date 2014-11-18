@@ -97,7 +97,9 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     [JDLogUtil log:IULogSource key:@"updateCSS" string:box.htmlID];
     
     /* get css code from compiler */
-    IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
+//    IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
+    
+    IUCSSCode *code = [_compiler cssCode:box target:IUTargetEditor viewPort:self.viewPort];
     
     /* insert css code to inline */
     NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];

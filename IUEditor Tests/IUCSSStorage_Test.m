@@ -47,6 +47,16 @@
 }
 
 
+- (void)test3_copy{
+    
+    [storageManager.liveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
+    XCTAssertEqualObjects(storageManager.currentStorage.x, storageManager.currentStorage.x);
+
+    
+    [storageManager.liveStorage setX:@(50)];
+    XCTAssertEqualObjects(storageManager.currentStorage.x, storageManager.currentStorage.x);
+}
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

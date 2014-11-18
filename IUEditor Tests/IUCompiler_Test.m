@@ -29,13 +29,26 @@
 }
 
 - (void)test1_BOX {
+    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
+    IUBox *box = [[IUBox alloc] initWithPreset];
+    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
+    [identifierManager addObject:box withIdentifier:box.htmlID];
+    [identifierManager commit];
+    
+    XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
+    XCTAssertTrue([box.liveCSSStorage.bgColor isKindOfClass:[NSColor class]]);
+    
+    
+    XCTAssertNotNil(box.liveCSSStorage);
+    box.liveCSSStorage.x = @(50);
+    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
+    [box.liveCSSStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
+    
+    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
+    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:box.liveCSSStorage.x]);
+    
+    
     IUCompiler *compiler = [[IUCompiler alloc] init];
-    IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
-    IUBox *box = [[IUBox alloc] initWithProject:project options:nil];
-//    XCTAssertNotNil(box.cssLiveStorage);
-//    [box.cssLiveStorage setX:@(50)];
-//    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
-
     NSString *htmlCode = [compiler editorHTMLString:box viewPort:IUDefaultViewPort];
     XCTAssertNotNil(htmlCode);
     XCTAssertTrue([htmlCode containsString:@"left: 50px;"]);

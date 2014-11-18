@@ -303,6 +303,7 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)setCurrentViewPort:(NSInteger)currentViewPort{
+    
     if ([self.workingStorages objectForKey:@(currentViewPort)] == nil) {
         IUDataStorage *newStorage = [self newStorage];
         newStorage.manager = self;
@@ -311,6 +312,8 @@ static NSArray *storageProperties_cache;
     }
     self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
     self.liveStorage = [self createLiveStorage];
+    
+    _currentViewPort = currentViewPort;
 }
 
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort{
@@ -413,6 +416,79 @@ static NSArray *storageProperties_cache;
     return [IUCSSStorage properties];
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    IUCSSStorage *copyStorage = [super copyWithZone:zone];
+    if(copyStorage){
+        copyStorage.hidden = [_hidden copy];
+        copyStorage.editorHidden = [_editorHidden copy];
+        copyStorage.opacity = [_opacity copy];
+        
+        [copyStorage setXUnitAndChangeX:_xUnit];
+        [copyStorage setYUnitAndChangeY:_yUnit];
+        [copyStorage setWidthUnitAndChangeWidth:_widthUnit];
+        [copyStorage setHeightUnitAndChangeHeight:_heightUnit];
+        
+        copyStorage.x = [_x copy];
+        copyStorage.y = [_y copy];
+        copyStorage.width = [_width copy];
+        copyStorage.height = [_height copy];
+        
+        copyStorage.minHeight = [_minHeight copy];
+        copyStorage.minWidth = [_minWidth copy];
+        
+        copyStorage.imageName = [_imageName copy];
+        copyStorage.imageRepeat = [_imageRepeat copy];
+        copyStorage.imageHPosition = [_imageHPosition copy];
+        copyStorage.imageVPosition = [_imageVPosition copy];
+        copyStorage.imageX = [_imageX copy];
+        copyStorage.imageY = [_imageY copy];
+        copyStorage.imageSizeType = [_imageSizeType copy];
+        
+        copyStorage.bgColor = [_bgColor copy];
+        copyStorage.bgGradientStartColor = [_bgGradientStartColor copy];
+        copyStorage.bgGradientEndColor = [_bgGradientEndColor copy];
+        copyStorage.bgColorDuration = [_bgColorDuration copy];
+        
+        copyStorage.borderWidth = [self.borderWidth copy];
+        copyStorage.borderColor = [self.borderColor copy];
+        copyStorage.borderRadius = [self.borderRadius copy];
+        
+        copyStorage.topBorderWidth = [_topBorderWidth copy];
+        copyStorage.bottomBorderWidth = [_bottomBorderWidth copy];
+        copyStorage.leftBorderWidth = [_leftBorderWidth copy];
+        copyStorage.rightBorderWidth = [_rightBorderWidth copy];
+        
+        copyStorage.topBorderColor = [_topBorderColor copy];
+        copyStorage.bottomBorderColor = [_bottomBorderColor copy];
+        copyStorage.leftBorderColor = [_leftBorderColor copy];
+        copyStorage.rightBorderColor = [_rightBorderColor copy];
+        
+        copyStorage.topLeftBorderRadius = [_topLeftBorderRadius copy];
+        copyStorage.topRightBorderRadius = [_topRightBorderRadius copy];
+        copyStorage.bottomLeftborderRadius = [_bottomLeftborderRadius copy];
+        copyStorage.bottomRightBorderRadius = [_bottomRightBorderRadius copy];
+        
+        copyStorage.fontName = [_fontName copy];
+        copyStorage.fontSize = [_fontSize copy];
+        copyStorage.fontColor = [_fontColor copy];
+        copyStorage.fontWeight = [_fontWeight copy];
+        copyStorage.fontItalic = [_fontItalic copy];
+        copyStorage.fontUnderline = [_fontUnderline copy];
+        copyStorage.fontAlign = [_fontAlign copy];
+        copyStorage.fontLineHeight = [_fontLineHeight copy];
+        copyStorage.fontLetterSpacing = [_fontLetterSpacing copy];
+        copyStorage.fontEllipsis = [_fontEllipsis copy];
+        
+        copyStorage.shadowColor = [_shadowColor copy];
+        copyStorage.shadowColorVertical = [_shadowColorVertical copy];
+        copyStorage.shadowColorHorizontal = [_shadowColorHorizontal copy];
+        copyStorage.shadowColorSpread = [_shadowColorSpread copy];
+        copyStorage.shadowColorBlur = [_shadowColorBlur copy];
+        
+        
+    }
+    return copyStorage;
+}
 
 #pragma mark - property
 
@@ -422,6 +498,8 @@ static NSArray *storageProperties_cache;
     _widthUnit = @(IUFrameUnitPixel);
     _heightUnit = @(IUFrameUnitPixel);
 }
+
+
 
 - (NSRect)currentFrameByChangingFromUnit:(IUFrameUnit)from toUnit:(IUFrameUnit)to{
     if(from == IUFrameUnitPixel && to == IUFrameUnitPercent){
@@ -441,6 +519,13 @@ static NSArray *storageProperties_cache;
 
 - (void)setXUnitAndChangeX:(NSNumber *)xUnit{
     
+    if(_xUnit == nil){
+        [self willChangeValueForKey:@"xUnit"];
+        _xUnit = xUnit;
+        [self didChangeValueForKey:@"xUnit"];
+        return;
+    }
+    
     if(_xUnit != xUnit){
         [self willChangeValueForKey:@"xUnit"];
         [self beginTransaction:JD_CURRENT_FUNCTION];
@@ -459,6 +544,13 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)setYUnitAndChangeY:(NSNumber *)yUnit{
+    if(_yUnit == nil){
+        [self willChangeValueForKey:@"yUnit"];
+        _yUnit = yUnit;
+        [self didChangeValueForKey:@"yUnit"];
+        return;
+    }
+    
     
     if (yUnit != _yUnit) {
         
@@ -477,6 +569,12 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)setWidthUnitAndChangeWidth:(NSNumber *)widthUnit{
+    if(_widthUnit == nil){
+        [self willChangeValueForKey:@"widthUnit"];
+        _widthUnit = widthUnit;
+        [self didChangeValueForKey:@"widthUnit"];
+        return;
+    }
     
 
     if (widthUnit != _widthUnit) {
@@ -496,6 +594,13 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)setHeightUnitAndChangeHeight:(NSNumber *)heightUnit{
+    if(_heightUnit == nil){
+        [self willChangeValueForKey:@"heightUnit"];
+        _heightUnit = heightUnit;
+        [self didChangeValueForKey:@"heightUnit"];
+        return;
+    }
+    
     if (heightUnit != _heightUnit) {
         
         [self willChangeValueForKey:@"heightUnit"];
@@ -640,6 +745,8 @@ static NSArray *storageProperties_cache;
     
     IUCSSStorage *cssStorage  = [defaultSelectorStorages objectForKey:@(IUDefaultViewPort)];
     [cssStorage initPropertiesForDefaultViewPort];
+    
+    [self setCurrentViewPort:IUDefaultViewPort];
     
     return self;
 }

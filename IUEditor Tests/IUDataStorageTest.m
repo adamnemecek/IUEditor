@@ -81,6 +81,7 @@
     XCTAssertEqual([storageManager.defaultStorage valueForKey:@"Key"], @"testValue");
 }
 
+/*
 - (void)test6_IUStorageHover{
     storageManager.selector = IUCSSSelectorHover;
     XCTAssertNotNil(storageManager.currentStorage);
@@ -94,7 +95,7 @@
     XCTAssertEqual([storageManager.currentStorage valueForKey:@"Key"], @"testValue");
     
 }
-
+*/
 - (void)test7_ViewPort{
     IUDataStorage *storage_default = storageManager.currentStorage;
     [storageManager setCurrentViewPort:500];

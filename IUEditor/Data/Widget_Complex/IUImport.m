@@ -72,9 +72,11 @@
     [self.undoManager disableUndoRegistration];
 
     _prototypeClass = aClass;
-    _cssStorageManager = aClass.cssStorageManager;
-    [self bind:@"liveCSSStorage" toObject:_cssStorageManager withKeyPath:@"liveStorage" options:nil];
-    [self bind:@"currentCSSStorage" toObject:_cssStorageManager withKeyPath:@"currentStorage" options:nil];
+
+    [self setCssManager:aClass.cssDefaultManager forSelector:kIUCSSManagerDefault];
+    [self bind:@"liveCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"currentCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+
 
     [self.undoManager enableUndoRegistration];
     return self;

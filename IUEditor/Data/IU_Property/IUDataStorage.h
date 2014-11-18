@@ -85,7 +85,7 @@
 
 @property NSUndoManager *undoManager;
 
-@property NSInteger currentViewPort;
+@property (nonatomic) NSInteger currentViewPort;
 
 - (NSArray*)allViewPorts;
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort;
@@ -216,7 +216,7 @@ IUBGSizeTypeFull ,
 @property (nonatomic) NSColor*  fontColor;
 @property (nonatomic) NSNumber* fontWeight;
 @property (nonatomic) NSNumber* fontItalic;
-@property (nonatomic) NSNumber* fontDeco;
+@property (nonatomic) NSNumber* fontUnderline;
 @property (nonatomic) NSNumber* fontAlign;
 @property (nonatomic) NSNumber* fontLineHeight;
 @property (nonatomic) NSNumber* fontLetterSpacing;
