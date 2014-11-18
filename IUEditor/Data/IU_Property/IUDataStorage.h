@@ -158,7 +158,7 @@ typedef enum IUFrameUnit{
 @property (nonatomic) NSNumber* minWidth;
 
 /* image tag */
-@property (nonatomic) NSString* imageName;
+@property (nonatomic, copy) NSString* imageName;
 @property (nonatomic) NSNumber* imageRepeat;
 /*
  IUCSSBGVPostionTop, = 1
@@ -211,7 +211,7 @@ IUBGSizeTypeFull ,
 @property (nonatomic) NSNumber* bottomLeftborderRadius;
 
 /* font tag */
-@property (nonatomic) NSString* fontName;
+@property (nonatomic, copy) NSString* fontName;
 @property (nonatomic) NSNumber* fontSize;
 @property (nonatomic) NSColor*  fontColor;
 @property (nonatomic) NSNumber* fontWeight;
@@ -239,8 +239,10 @@ IUBGSizeTypeFull ,
 - (void)initPropertiesForDefaultViewPort;
 
 //set frame unit
-- (void)setXUnitAndChangeX:(NSNumber *)xUnit;
-- (void)setWidthUnitAndChangeWidth:(NSNumber *)widthUnit;
+- (void)setX:(NSNumber *)x unit:(NSNumber *)unit;
+- (void)setY:(NSNumber *)y unit:(NSNumber *)unit;
+- (void)setWidth:(NSNumber *)w unit:(NSNumber *)unit;
+- (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit;
 
 //conversion from old IU
 - (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key;

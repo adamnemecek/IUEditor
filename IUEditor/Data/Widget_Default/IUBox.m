@@ -209,6 +209,7 @@
 -(id)initWithPreset {
     self = [self init];
     self.liveCSSStorage.bgColor = [NSColor randomLightMonoColor];
+    self.name = self.className;
     return self;
 }
 
@@ -907,6 +908,9 @@ e.g. 만약 css로 옮긴다면)
 
 #pragma mark add
 -(BOOL)addIU:(IUBox *)iu error:(NSError**)error{
+    if (_m_children == nil) {
+        _m_children = [NSMutableArray array];
+    }
     NSInteger index = [_m_children count];
     return [self insertIU:iu atIndex:index error:error];
 }
@@ -927,7 +931,10 @@ e.g. 만약 css로 옮긴다면)
         [JDUIUtil hudAlert:@"IUImport can't be inserted to IUImport" second:2];
         return NO;
     }
-    
+    if (_m_children == nil) {
+        _m_children = [NSMutableArray array];
+    }
+
     [[self.undoManager prepareWithInvocationTarget:self] removeIU:iu];
     
     [_m_children insertObject:iu atIndex:index];

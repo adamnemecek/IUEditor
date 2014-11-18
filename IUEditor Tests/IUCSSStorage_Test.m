@@ -48,11 +48,9 @@
 
 
 - (void)test3_copy{
-    
-    [storageManager.liveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
+    [storageManager.liveStorage setX:@(40) unit:@(IUFrameUnitPixel)];
     XCTAssertEqualObjects(storageManager.currentStorage.x, storageManager.currentStorage.x);
 
-    
     [storageManager.liveStorage setX:@(50)];
     XCTAssertEqualObjects(storageManager.currentStorage.x, storageManager.currentStorage.x);
 }

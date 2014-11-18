@@ -40,9 +40,8 @@
     
     
     XCTAssertNotNil(box.liveCSSStorage);
-    box.liveCSSStorage.x = @(50);
+    [box.liveCSSStorage setX:@(50) unit:@(IUFrameUnitPixel)];
     XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
-    [box.liveCSSStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
     
     XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
     XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:box.liveCSSStorage.x]);

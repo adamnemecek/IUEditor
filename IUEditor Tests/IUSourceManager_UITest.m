@@ -55,8 +55,9 @@ static     IUTestWC *testWC;
 }
 
 - (void)test1_load {
-    IUProject *project = [[IUProject alloc] init];
-    IUPage *page = [[IUPage alloc] initWithProject:project options:nil];
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     page.liveCSSStorage.width = @(30);
     page.liveCSSStorage.height = @(50);

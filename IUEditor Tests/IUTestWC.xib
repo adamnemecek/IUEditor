@@ -90,6 +90,16 @@
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91r-rT-4r4">
+                        <rect key="frame" x="544" y="529" width="143" height="32"/>
+                        <buttonCell key="cell" type="push" title="Open in Browser" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Tl-cG-vRk">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="performOpenInBrowser:" target="-2" id="khN-ms-Y3I"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>

@@ -13,8 +13,6 @@
 #import "IUProject.h"
 #import "IUBox.h"
 #import "IUPage.h"
-#import "LMCanvasVC.h"
-#import "LMCanvasView.h"
 
 @interface IUSourceManager_Test : XCTestCase <IUProjectProtocol, IUSourceManagerDelegate>
 
@@ -22,9 +20,9 @@
 
 @implementation IUSourceManager_Test {
     /* delegation source */
+    WebView *_webView;
+
     
-    LMCanvasVC *canvasVC;
-    IUCompiler *compiler;
     IUSourceManager *manager;
     NSWindow *w;
     XCTestExpectation *webViewLoadingExpectation;
@@ -39,22 +37,6 @@
                                      styleMask:NSClosableWindowMask
                                        backing:NSBackingStoreBuffered
                                          defer:NO];
-    
-    
-    
-    canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC class].className bundle:nil];
-    
-    [[w contentView] addSubview:canvasVC.view];
-    
-    [((LMCanvasView *)canvasVC.view).webView setFrameLoadDelegate:self];
-
-    [w makeKeyAndOrderFront:nil];
-    CGFloat xPos = NSWidth([[w screen] frame])/2 - NSWidth([w frame])/2;
-    CGFloat yPos = NSHeight([[w screen] frame])/2 - NSHeight([w frame])/2;
-    [w setFrame:NSMakeRect(xPos, yPos, NSWidth([w frame]), NSHeight([w frame])) display:YES];
-
-    
-    /*
     _webView = [[WebView alloc] init];
     [_webView setFrame:CGRectMake(0, 0, 500, 500)];
     [_webView setFrameLoadDelegate:self];
@@ -64,19 +46,14 @@
     CGFloat yPos = NSHeight([[w screen] frame])/2 - NSHeight([w frame])/2;
 
     [w setFrame:NSMakeRect(xPos, yPos, NSWidth([w frame]), NSHeight([w frame])) display:YES];
-     */
-    
-    compiler = [[IUCompiler alloc] init];
     
     manager = [[IUSourceManager alloc] init];
-    [manager setCanvasVC:canvasVC];
-    [manager setCompiler:compiler];
-    
-
+    [manager setCanvasVC:self];
+    [manager setCompiler:[[IUCompiler alloc] init]];
 }
 
 - (WebView *)webView{
-    return ((LMCanvasView *)canvasVC.view).webView;
+    return _webView;
 }
 
 - (void)tearDown {
@@ -104,7 +81,7 @@
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
         DOMHTMLElement *element = (DOMHTMLElement*)[dom documentElement];
         XCTAssertNotNil(element);
         
@@ -118,8 +95,7 @@
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 
-//    [page.cssLiveStorage setX:@(50)];
-    [page.cssDefaultManager.liveStorage setX:@(50)];
+    [page.liveCSSStorage setX:@(50)];
 
     [manager loadSheet:page];
     
@@ -130,12 +106,12 @@
     }];
 }
 
+
 - (void)test3_htmlSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 //    [page.cssD.liveStorage setX:@(50)];
     [page setSourceManager:manager];
-    [page setCanvasVC:canvasVC];
     [page.cssDefaultManager.liveStorage setX:@(50)];
     
     [manager loadSheet:page];
@@ -214,7 +190,6 @@
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
     [page.cssDefaultManager.liveStorage setX:@(50)];
     [page setSourceManager:manager];
-    [page setCanvasVC:canvasVC];
     
     [manager loadSheet:page];
     
@@ -259,7 +234,7 @@
         [child updateCSS];
         
         
-        [child.cssDefaultManager.liveStorage setWidthUnitAndChangeWidth:@(IUFrameUnitPercent)];
+        [child.cssDefaultManager.liveStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
         
         
         [child updateCSS];
@@ -276,6 +251,21 @@
 }
 
 
+- (void)test3_loadPageAndHeader {
+    webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
+    
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    
+    [manager loadSheet:page];
+
+    [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
+        DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
+        DOMElement *pageElement = [dom getElementById:header.htmlID];
+        XCTAssertNotNil(pageElement);
+    }];
+}
 
 
 /* prepare update. for example, text editor enable/disable */
@@ -345,7 +335,5 @@
 - (NSArray *)defaultOutputIEJSArray{
     return nil;
 }
-- (IUCompiler *)compiler{
-    return compiler;
-}
+
 @end

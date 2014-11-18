@@ -67,7 +67,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
 }
 
-- (id)initWithPreset_prototype:(IUClass*)aClass{
+- (id)initWithPresetClass:(IUClass*)aClass{
     self = [super initWithPreset];
     [self.undoManager disableUndoRegistration];
 

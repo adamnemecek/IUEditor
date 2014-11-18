@@ -55,7 +55,7 @@
     class.htmlID = [identifierManager createIdentifierWithKey:class.className];
     [identifierManager addObject:class withIdentifier:class.htmlID];
 
-    IUImport *import = [[IUImport alloc] initWithPreset_prototype:class];
+    IUImport *import = [[IUImport alloc] initWithPresetClass:class];
     import.htmlID = [identifierManager createIdentifierWithKey:import.className];
     [identifierManager addObject:import withIdentifier:import.htmlID];
     
@@ -65,6 +65,23 @@
     XCTAssertEqual(import.prototypeClass, class);
     XCTAssertEqual(import.liveCSSStorage, class.liveCSSStorage);
     XCTAssertEqual(box, import.parent);
+}
+
+/* make page and check every value is in */
+/* in here, we will not use identifier manager */
+- (void)test3_page {
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    class.htmlID = @"class";
+    XCTAssertEqual(class.liveCSSStorage.width, @(100));
+
+    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    header.htmlID = @"header";
+
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    page.htmlID = @"page";
+
+    XCTAssertEqual(header, page.header);
+    XCTAssertNil(page.footer);
 }
 
 

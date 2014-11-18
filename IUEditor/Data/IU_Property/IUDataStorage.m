@@ -409,6 +409,13 @@ static NSArray *storageProperties_cache;
 @end
 
 
+@interface IUCSSStorage()
+@property NSNumber* xUnit;
+@property NSNumber* yUnit;
+@property NSNumber* widthUnit;
+@property NSNumber* heightUnit;
+
+@end
 @implementation IUCSSStorage {
 }
 
@@ -421,71 +428,67 @@ static NSArray *storageProperties_cache;
     [copyStorage disableUpdate:JD_CURRENT_FUNCTION];
 
     if(copyStorage){
-        copyStorage.hidden = [_hidden copy];
-        copyStorage.editorHidden = [_editorHidden copy];
-        copyStorage.opacity = [_opacity copy];
+        copyStorage.hidden = _hidden;
+        copyStorage.editorHidden = _editorHidden;
+        copyStorage.opacity = _opacity;
         
-        [copyStorage setXUnitAndChangeX:_xUnit];
-        [copyStorage setYUnitAndChangeY:_yUnit];
-        [copyStorage setWidthUnitAndChangeWidth:_widthUnit];
-        [copyStorage setHeightUnitAndChangeHeight:_heightUnit];
+        copyStorage.x = _x;
+        copyStorage.y = _y;
+        copyStorage.width = _width;
+        copyStorage.height = _height;
         
-        copyStorage.x = [_x copy];
-        copyStorage.y = [_y copy];
-        copyStorage.width = [_width copy];
-        copyStorage.height = [_height copy];
+        copyStorage.widthUnit = _widthUnit;
+        copyStorage.heightUnit = _heightUnit;
+        copyStorage.xUnit = _xUnit;
+        copyStorage.yUnit = _yUnit;
         
-        copyStorage.minHeight = [_minHeight copy];
-        copyStorage.minWidth = [_minWidth copy];
+        copyStorage.minHeight = _minHeight;
+        copyStorage.minWidth = _minWidth;
         
-        copyStorage.imageName = [_imageName copy];
-        copyStorage.imageRepeat = [_imageRepeat copy];
-        copyStorage.imageHPosition = [_imageHPosition copy];
-        copyStorage.imageVPosition = [_imageVPosition copy];
-        copyStorage.imageX = [_imageX copy];
-        copyStorage.imageY = [_imageY copy];
-        copyStorage.imageSizeType = [_imageSizeType copy];
+        copyStorage.imageName = _imageName;
+        copyStorage.imageRepeat = _imageRepeat;
+        copyStorage.imageHPosition = _imageHPosition;
+        copyStorage.imageVPosition = _imageVPosition;
+        copyStorage.imageX = _imageX;
+        copyStorage.imageY = _imageY;
+        copyStorage.imageSizeType = _imageSizeType;
         
-        copyStorage.bgColor = [_bgColor copy];
-        copyStorage.bgGradientStartColor = [_bgGradientStartColor copy];
-        copyStorage.bgGradientEndColor = [_bgGradientEndColor copy];
-        copyStorage.bgColorDuration = [_bgColorDuration copy];
+        copyStorage.bgColor = _bgColor;
+        copyStorage.bgGradientStartColor = _bgGradientStartColor;
+        copyStorage.bgGradientEndColor = _bgGradientEndColor;
+        copyStorage.bgColorDuration = _bgColorDuration;
         
-        copyStorage.borderWidth = [self.borderWidth copy];
-        copyStorage.borderColor = [self.borderColor copy];
-        copyStorage.borderRadius = [self.borderRadius copy];
+        copyStorage.topBorderWidth = _topBorderWidth;
+        copyStorage.bottomBorderWidth = _bottomBorderWidth;
+        copyStorage.leftBorderWidth = _leftBorderWidth;
+        copyStorage.rightBorderWidth = _rightBorderWidth;
         
-        copyStorage.topBorderWidth = [_topBorderWidth copy];
-        copyStorage.bottomBorderWidth = [_bottomBorderWidth copy];
-        copyStorage.leftBorderWidth = [_leftBorderWidth copy];
-        copyStorage.rightBorderWidth = [_rightBorderWidth copy];
+        copyStorage.topBorderColor = _topBorderColor;
+        copyStorage.bottomBorderColor = _bottomBorderColor;
+        copyStorage.leftBorderColor = _leftBorderColor;
+        copyStorage.rightBorderColor = _rightBorderColor;
         
-        copyStorage.topBorderColor = [_topBorderColor copy];
-        copyStorage.bottomBorderColor = [_bottomBorderColor copy];
-        copyStorage.leftBorderColor = [_leftBorderColor copy];
-        copyStorage.rightBorderColor = [_rightBorderColor copy];
+        copyStorage.topLeftBorderRadius = _topLeftBorderRadius;
+        copyStorage.topRightBorderRadius = _topRightBorderRadius;
+        copyStorage.bottomLeftborderRadius = _bottomLeftborderRadius;
+        copyStorage.bottomRightBorderRadius = _bottomRightBorderRadius;
         
-        copyStorage.topLeftBorderRadius = [_topLeftBorderRadius copy];
-        copyStorage.topRightBorderRadius = [_topRightBorderRadius copy];
-        copyStorage.bottomLeftborderRadius = [_bottomLeftborderRadius copy];
-        copyStorage.bottomRightBorderRadius = [_bottomRightBorderRadius copy];
+        copyStorage.fontName = _fontName;
+        copyStorage.fontSize = _fontSize;
+        copyStorage.fontColor = _fontColor;
+        copyStorage.fontWeight = _fontWeight;
+        copyStorage.fontItalic = _fontItalic;
+        copyStorage.fontUnderline = _fontUnderline;
+        copyStorage.fontAlign = _fontAlign;
+        copyStorage.fontLineHeight = _fontLineHeight;
+        copyStorage.fontLetterSpacing = _fontLetterSpacing;
+        copyStorage.fontEllipsis = _fontEllipsis;
         
-        copyStorage.fontName = [_fontName copy];
-        copyStorage.fontSize = [_fontSize copy];
-        copyStorage.fontColor = [_fontColor copy];
-        copyStorage.fontWeight = [_fontWeight copy];
-        copyStorage.fontItalic = [_fontItalic copy];
-        copyStorage.fontUnderline = [_fontUnderline copy];
-        copyStorage.fontAlign = [_fontAlign copy];
-        copyStorage.fontLineHeight = [_fontLineHeight copy];
-        copyStorage.fontLetterSpacing = [_fontLetterSpacing copy];
-        copyStorage.fontEllipsis = [_fontEllipsis copy];
-        
-        copyStorage.shadowColor = [_shadowColor copy];
-        copyStorage.shadowColorVertical = [_shadowColorVertical copy];
-        copyStorage.shadowColorHorizontal = [_shadowColorHorizontal copy];
-        copyStorage.shadowColorSpread = [_shadowColorSpread copy];
-        copyStorage.shadowColorBlur = [_shadowColorBlur copy];
+        copyStorage.shadowColor = _shadowColor;
+        copyStorage.shadowColorVertical = _shadowColorVertical;
+        copyStorage.shadowColorHorizontal = _shadowColorHorizontal;
+        copyStorage.shadowColorSpread = _shadowColorSpread;
+        copyStorage.shadowColorBlur = _shadowColorBlur;
         
         
     }
@@ -504,122 +507,34 @@ static NSArray *storageProperties_cache;
 
 
 
-- (NSRect)currentFrameByChangingFromUnit:(IUFrameUnit)from toUnit:(IUFrameUnit)to{
-    if(from == IUFrameUnitPixel && to == IUFrameUnitPercent){
-//        NSRect frame = [self.manager.box currentPercentFrame];
-//        return frame;
-        return NSZeroRect;
-    }
-    else if(from == IUFrameUnitPercent && to == IUFrameUnitPixel){
-//        NSRect frame = [self.manager.box currentPixelFrame];
-//        return frame;
-        return NSZeroRect;
-        
-    }
-    return NSZeroRect;
-    
+- (void)setX:(NSNumber *)x unit:(NSNumber *)unit{
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+    [self setX:x];
+    [self setXUnit:unit];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
 }
 
-- (void)setXUnitAndChangeX:(NSNumber *)xUnit{
-    
-    if(_xUnit == nil){
-        [self willChangeValueForKey:@"xUnit"];
-        _xUnit = xUnit;
-        [self didChangeValueForKey:@"xUnit"];
-        return;
-    }
-    
-    if(_xUnit != xUnit){
-        [self willChangeValueForKey:@"xUnit"];
-        [self beginTransaction:JD_CURRENT_FUNCTION];
-        
-        //change xValue
-        NSRect frame = [self currentFrameByChangingFromUnit:[_xUnit intValue] toUnit:[xUnit intValue]];
-        [self setX:@(frame.origin.x)];
-        
-        //change Unit
-        _xUnit = xUnit;
-        
-        [self commitTransaction:JD_CURRENT_FUNCTION];
-        [self didChangeValueForKey:@"xUnit"];
-    }
-    
+- (void)setY:(NSNumber *)y unit:(NSNumber *)unit{
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+    [self setY:y];
+    [self setYUnit:unit];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
 }
 
-- (void)setYUnitAndChangeY:(NSNumber *)yUnit{
-    if(_yUnit == nil){
-        [self willChangeValueForKey:@"yUnit"];
-        _yUnit = yUnit;
-        [self didChangeValueForKey:@"yUnit"];
-        return;
-    }
-    
-    
-    if (yUnit != _yUnit) {
-        
-        [self willChangeValueForKey:@"yUnit"];
-        [self beginTransaction:JD_CURRENT_FUNCTION];
-        
-        //change yValue
-        NSRect frame = [self currentFrameByChangingFromUnit:[_yUnit intValue] toUnit:[yUnit intValue]];
-        [self setY:@(frame.origin.y)];
-        
-        _yUnit = yUnit;
-        
-        [self commitTransaction:JD_CURRENT_FUNCTION];
-        [self didChangeValueForKey:@"yUnit"];
-    }
+- (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit{
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+    [self setHeight:h];
+    [self setHeightUnit:unit];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
 }
 
-- (void)setWidthUnitAndChangeWidth:(NSNumber *)widthUnit{
-    if(_widthUnit == nil){
-        [self willChangeValueForKey:@"widthUnit"];
-        _widthUnit = widthUnit;
-        [self didChangeValueForKey:@"widthUnit"];
-        return;
-    }
-    
-
-    if (widthUnit != _widthUnit) {
-        
-        [self willChangeValueForKey:@"widthUnit"];
-        [self beginTransaction:JD_CURRENT_FUNCTION];
-        
-        //change widthValue
-        NSRect frame = [self currentFrameByChangingFromUnit:[_widthUnit intValue] toUnit:[widthUnit intValue]];
-        [self setWidth:@(frame.size.width)];
-        
-        _widthUnit = widthUnit;
-        [self commitTransaction:JD_CURRENT_FUNCTION];
-        [self didChangeValueForKey:@"widthUnit"];
-        
-    }
+- (void)setWidth:(NSNumber *)w unit:(NSNumber *)unit{
+    [self beginTransaction:JD_CURRENT_FUNCTION];
+    [self setWidth:w];
+    [self setWidthUnit:unit];
+    [self commitTransaction:JD_CURRENT_FUNCTION];
 }
 
-- (void)setHeightUnitAndChangeHeight:(NSNumber *)heightUnit{
-    if(_heightUnit == nil){
-        [self willChangeValueForKey:@"heightUnit"];
-        _heightUnit = heightUnit;
-        [self didChangeValueForKey:@"heightUnit"];
-        return;
-    }
-    
-    if (heightUnit != _heightUnit) {
-        
-        [self willChangeValueForKey:@"heightUnit"];
-        [self beginTransaction:JD_CURRENT_FUNCTION];
-        
-        //change heightValue
-        NSRect frame = [self currentFrameByChangingFromUnit:[_heightUnit intValue] toUnit:[heightUnit intValue]];
-        [self setHeight:@(frame.size.height)];
-        
-        _heightUnit = heightUnit;
-        
-        [self commitTransaction:JD_CURRENT_FUNCTION];
-        [self didChangeValueForKey:@"heightUnit"];
-
-    }
-}
 
 - (void)setBorderColor:(id)borderColor{
     [self beginTransaction:JD_CURRENT_FUNCTION];

@@ -184,7 +184,10 @@
     else if (target == IUTargetEditor && withCSS) {
         NSAssert(self.cssCompiler, @"does not have css compiler");
         IUCSSCode *cssCode = [self.cssCompiler cssCodeForIU_storage:iu target:IUTargetEditor viewPort:IUDefaultViewPort];
-        [attributeDict setObject:[cssCode stringCodeWithMainIdentifieForTarget:IUTargetEditor viewPort:IUDefaultViewPort] forKey:@"style"];
+        NSString *stringCode = [cssCode stringCodeWithMainIdentifieForTarget:IUTargetEditor viewPort:IUDefaultViewPort];
+        if (stringCode) {
+            [attributeDict setObject:stringCode forKey:@"style"];
+        }
     }
     
     return attributeDict;

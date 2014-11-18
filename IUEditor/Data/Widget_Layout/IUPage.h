@@ -45,7 +45,7 @@ static NSString *kIUPageLayout = @"layout";
 @property NSString *extraCode;
 @property NSString *googleCode;
 
--(void)loadPresetWithLayout:(IUPageLayout)layout header:(IUHeader*)header footer:(IUFooter*)footer sidebar:(IUSidebar*)sidebar;
+-(id)initWithPresetWithLayout:(IUPageLayout)layout header:(IUHeader*)header footer:(IUFooter*)footer sidebar:(IUSidebar*)sidebar;
 
 //layout children
 -(IUPageLayout)layout;

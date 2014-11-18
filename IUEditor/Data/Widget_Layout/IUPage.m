@@ -40,6 +40,44 @@
     [self loadPreset_makeCSS];
 }
 
+- (id)init{
+    self = [super init];
+    _pageContent = [[IUPageContent alloc] init];
+    return self;
+}
+
+- (id)initWithPreset {
+    self = [super initWithPreset];
+    _pageContent = [[IUPageContent alloc] init];
+    return self;
+}
+
+- (id)initWithPresetWithLayout:(IUPageLayout)layout header:(IUHeader *)header footer:(IUFooter *)footer sidebar:(IUSidebar *)sidebar{
+    self = [super initWithPreset];
+    _pageContent = [[IUPageContent alloc] initWithPreset];
+    
+    _layout = layout;
+    _header = header;
+    _sidebar = sidebar;
+    _footer = footer;
+    
+    if (_header) {
+        [self addIU:_header error:nil];
+    }
+    if (_sidebar) {
+        [self addIU:_sidebar error:nil];
+    }
+    [self addIU:_pageContent error:nil];
+    if (_footer) {
+        [self addIU:_footer error:nil];
+    }
+    
+    [self loadPreset_makeCSS];
+    
+    return self;
+}
+
+
 -(IUPageLayout)layout {
     return _layout;
 }
@@ -197,6 +235,8 @@
     }
     return self;
 }
+
+
 - (void)makePageLayout:(IUPageLayout)layoutCode project:(id <IUProjectProtocol>)project{
     
     //memory allocation

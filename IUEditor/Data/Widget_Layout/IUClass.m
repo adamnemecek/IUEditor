@@ -22,6 +22,25 @@
 
 #pragma mark - Initialize
 
+- (id)initWithPreset:(IUClassPresetType)classType{
+    self = [super initWithPreset];
+    switch (classType) {
+        case IUClassPresetTypeHeader:{
+            [self.currentCSSStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+            self.currentCSSStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
+            self.currentCSSStorage.fontName = @"Helvetica";
+            [self.mqData setValue:@"Header Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
+            break;
+        }
+            
+        default:{
+            NSAssert(0, @"Not yet coded");
+        }
+            break;
+    }
+    return self;
+}
+
 - (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
     self = [super initWithProject:project options:options];
     if(self){
