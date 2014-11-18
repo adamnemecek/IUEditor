@@ -35,6 +35,9 @@ static     IUTestWC *testWC;
         [testWC showWindow:nil];
     }
     manager = [[IUSourceManager alloc] init];
+    manager.viewPort = IUCSSDefaultViewPort;
+    manager.frameWidth = 960;
+    
     [manager setCanvasVC:testWC];
     [manager setCompiler:[[IUCompiler alloc] init]];
 

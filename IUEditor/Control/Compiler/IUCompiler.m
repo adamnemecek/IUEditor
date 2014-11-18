@@ -484,8 +484,8 @@
     }
 }
 
-- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS{
-    return [htmlCompiler wholeHTMLCode:iu target:target withCSS:withCSS];
+- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
+    return [htmlCompiler unitBoxHTMLCode:iu target:target withCSS:withCSS viewPort:viewPort];
 }
 
 #pragma mark - editor body source
@@ -801,7 +801,7 @@
         // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
         // - text editor를 불러올 수 있음.
         [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES]];
+        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES viewPort:IUCSSDefaultViewPort]];
         [htmlCode addString:@"<div>"];
         [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
         
@@ -869,7 +869,7 @@
 
 
 
-- (NSString *)editorWebSource:(IUSheet *)document{
+- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort frameWidth:(NSInteger)frameWidth{
     NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
     if (templateFilePath == nil) {
         NSAssert(0, @"Template file name wrong");
@@ -903,8 +903,8 @@
     // - 페이지를 center로 보낼수있음
     // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
     // - text editor를 불러올 수 있음.
-    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor]];
+    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\" style='width:%dpx'>", IUSheetOuterIdentifier, frameWidth];
+    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor withCSS:YES viewPort:viewPort]];
     [htmlCode addString:@"<div>"];
     [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
     

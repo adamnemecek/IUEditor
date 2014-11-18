@@ -59,6 +59,7 @@
  Document base path can be replaced by setting project
  */
 - (void)setDocumentBasePath:(NSString*)documentBasePath;
+- (void)setDefaultViewPort:(NSString*)defaultViewPort;
 
 /**
  @Note: setting project will replace document base path
@@ -66,7 +67,8 @@
 - (void)setProject:(IUProject*)project;
 
 /* managing view port */
-@property int viewPort;
+@property NSInteger viewPort;
+@property NSInteger frameWidth;
 
 /* load a sheet */
 - (void)loadSheet:(IUSheet*)sheet;

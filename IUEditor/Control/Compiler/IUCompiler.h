@@ -75,7 +75,8 @@ typedef enum _IUCompileRule{
  Return whole web source of sheet;
  WebSource = HTML + CSS
  */
-- (NSString *)editorWebSource:(IUSheet *)document;
+
+- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort frameWidth:(NSInteger)frameWidth;
 
 
 /* Will be saved as page file */
