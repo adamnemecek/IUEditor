@@ -234,6 +234,7 @@
         if (self.cssDefaultManager) {
             [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"defaultCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"defaultStorage" options:nil];
         }
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];

@@ -144,6 +144,8 @@ typedef enum IUFrameUnit{
 
 /* unit tags uses as value*/
 
+@property (nonatomic) NSNumber *position; //Use IUPositionType
+
 @property (nonatomic, readonly) NSNumber* xUnit;
 @property (nonatomic, readonly) NSNumber* yUnit;
 @property (nonatomic, readonly) NSNumber* widthUnit;

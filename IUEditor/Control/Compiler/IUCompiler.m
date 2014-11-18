@@ -855,7 +855,7 @@
 /* if IUTarget == IUTargetOutput, viewPort will be ignored
  Currently, target & viewport are ignored : make them for every target and viewports 
  */
-- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort {
+- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(NSInteger)viewPort {
     // not coded yet
     return [cssCompiler cssCodeForIU_storage:box];
 }
@@ -863,7 +863,7 @@
 
 
 
-- (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort{
+- (NSString* )editorHTMLString:(IUBox *)box viewPort:(NSInteger)viewPort{
     return [htmlCompiler unitBoxHTMLCode:box target:IUTargetEditor withCSS:YES viewPort:viewPort].string;
 }
 

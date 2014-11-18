@@ -60,14 +60,13 @@ static     IUTestWC *testWC;
 }
 
 - (void)test1_load {
+    testWC.testNumber = 1;
+    testWC.testModule = @"Showing 'Header Area'";
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     page.sourceManager = manager;
-    
-    page.liveCSSStorage.width = @(30);
-    page.liveCSSStorage.height = @(50);
     page.liveCSSStorage.bgColor = [NSColor yellowColor];
     
     [manager loadSheet:page];

@@ -85,13 +85,13 @@ typedef enum _IUCompileRule{
 /* Will be saved as CSS file */
 - (NSString *)outputCSSSource_storage:(IUPage *)page;
 
-- (IUCSSCode *)editorCSSCode:(IUBox *)box viewPort:(int)viewPort;
+- (IUCSSCode *)editorCSSCode:(IUBox *)box viewPort:(NSInteger)viewPort;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(int)viewPort;
+- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(NSInteger)viewPort;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (NSString* )editorHTMLString:(IUBox *)box viewPort:(int)viewPort;
+- (NSString* )editorHTMLString:(IUBox *)box viewPort:(NSInteger)viewPort;
 
 - (NSString *)jsEventFileName:(IUPage *)document;
 - (NSString *)jsEventSource:(IUPage*)document;

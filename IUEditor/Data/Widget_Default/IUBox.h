@@ -125,6 +125,7 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 
 @property BOOL removed; // iu is removed;
 
+@property (readonly) IUCSSStorage *defaultCSSStorage;
 @property (readonly) IUCSSStorage *liveCSSStorage;
 @property (readonly) IUCSSStorage *currentCSSStorage;
 
