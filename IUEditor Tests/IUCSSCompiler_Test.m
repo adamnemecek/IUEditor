@@ -53,5 +53,23 @@
     XCTAssertEqualObjects(dict[@".BOX"], @"left:30px;" );
 }
 
+- (void)test3_border{
+    box.cssDefaultManager.liveStorage.borderWidth = @(3);
+    box.cssDefaultManager.liveStorage.borderColor = [NSColor yellowColor];
+    
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.borderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.leftBorderColor, [NSColor yellowColor]);
+
+    box.cssDefaultManager.liveStorage.topBorderColor = nil;
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.borderColor, NSMultipleValuesMarker);
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.leftBorderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.topBorderColor, nil);
+    
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"border-left-color"]);
+}
+
 
 @end

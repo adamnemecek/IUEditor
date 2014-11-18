@@ -279,77 +279,149 @@
 }
 
 - (void)updateCSSRadiousAndBorderCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
-    //REVIEW: border는 바깥으로 생김. child drop할때 position 계산 때문
-    //IUMENUItem 은 예외 (width고정)
-    NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
-
+    
     [code setInsertingTarget:IUTargetBoth];
 
-    if (cssTagDict[IUCSSTagBorderTopWidth]) {
-        CGFloat width = [cssTagDict[IUCSSTagBorderTopWidth] floatValue];
-        [code insertTag:@"border-top-width" floatValue:width unit:IUUnitPixel];
-        id value = [_iu.css effectiveValueForTag:IUCSSTagBorderTopColor forViewport:viewport];
-        [code insertTag:@"border-top-color" color:value];
-    }
+    if(storage){
+        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
+        if (cssStorage) {
+            if(cssStorage.borderWidth && cssStorage.borderColor){
+                //width
+                if(cssStorage.borderWidth == NSMultipleValuesMarker){
+                    if(cssStorage.topBorderWidth){
+                        [code insertTag:@"border-top-width" number:cssStorage.topBorderWidth unit:IUUnitPixel];
+                    }
+                    if(cssStorage.bottomBorderWidth){
+                        [code insertTag:@"border-bottom-width" number:cssStorage.bottomBorderWidth unit:IUUnitPixel];
+                    }
+                    if(cssStorage.leftBorderWidth){
+                        [code insertTag:@"border-left-width" number:cssStorage.leftBorderWidth unit:IUUnitPixel];
+                    }
+                    if(cssStorage.rightBorderWidth){
+                        [code insertTag:@"border-right-width" number:cssStorage.rightBorderWidth unit:IUUnitPixel];
+                    }
+                }
+                else{
+                    [code insertTag:@"border-width" number:cssStorage.borderWidth unit:IUUnitPixel];
+                }
+                //color
+                if(cssStorage.borderColor == NSMultipleValuesMarker){
+                    if(cssStorage.topBorderColor){
+                        [code insertTag:@"border-top-color" color:cssStorage.topBorderColor];
+                    }
+                    if(cssStorage.bottomBorderColor){
+                        [code insertTag:@"border-bottom-color" color:cssStorage.bottomBorderColor];
+                    }
+                    if(cssStorage.leftBorderColor){
+                        [code insertTag:@"border-left-color" color:cssStorage.leftBorderColor];
+                    }
+                    if(cssStorage.rightBorderColor){
+                        [code insertTag:@"border-right-color" color:cssStorage.rightBorderColor];
+                    }
 
-    if (cssTagDict[IUCSSTagBorderLeftWidth]) {
-        CGFloat width = [cssTagDict[IUCSSTagBorderLeftWidth] floatValue];
-        [code insertTag:@"border-left-width" floatValue:width unit:IUUnitPixel];
-        id value = [_iu.css effectiveValueForTag:IUCSSTagBorderLeftColor forViewport:viewport];
-        [code insertTag:@"border-left-color" color:value];
-
-    }
-    if (cssTagDict[IUCSSTagBorderRightWidth]) {
-        CGFloat width = [cssTagDict[IUCSSTagBorderRightWidth] floatValue];
-        [code insertTag:@"border-right-width" floatValue:width unit:IUUnitPixel];
-        id value = [_iu.css effectiveValueForTag:IUCSSTagBorderRightColor forViewport:viewport];
-        [code insertTag:@"border-right-color" color:value];
-
-    }
-    if (cssTagDict[IUCSSTagBorderBottomWidth]) {
-        CGFloat width = [cssTagDict[IUCSSTagBorderBottomWidth] floatValue];
-        [code insertTag:@"border-bottom-width" floatValue:width unit:IUUnitPixel];
-        id value = [_iu.css effectiveValueForTag:IUCSSTagBorderBottomColor forViewport:viewport];
-        [code insertTag:@"border-bottom-color" color:value];
-    }
-
-    if (cssTagDict[IUCSSTagBorderRadiusTopLeft]) {
-        [code insertTag:@"border-top-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopLeft] unit:IUUnitPixel];
-    }
-    if (cssTagDict[IUCSSTagBorderRadiusTopRight]) {
-        [code insertTag:@"border-top-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopRight] unit:IUUnitPixel];
-    }
-    if (cssTagDict[IUCSSTagBorderRadiusBottomLeft]) {
-        [code insertTag:@"border-bottom-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomLeft] unit:IUUnitPixel];
-    }
-    if (cssTagDict[IUCSSTagBorderRadiusBottomRight]) {
-        [code insertTag:@"border-bottom-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomRight] unit:IUUnitPixel];
-    }
-
-    NSInteger hOff = [cssTagDict[IUCSSTagShadowHorizontal] integerValue];
-    NSInteger vOff = [cssTagDict[IUCSSTagShadowVertical] integerValue];
-    NSInteger blur = [cssTagDict[IUCSSTagShadowBlur] integerValue];
-    NSInteger spread = [cssTagDict[IUCSSTagShadowSpread] integerValue];
-    NSColor *color = cssTagDict[IUCSSTagShadowColor];
-
-    if (hOff || vOff || blur || spread){
-        if (color == nil) {
-            color = [NSColor blackColor];
+                }
+                else{
+                    [code insertTag:@"border-color" color:cssStorage.borderColor];
+                }
+                
+                //radius
+                if(cssStorage.borderRadius){
+                    if(cssStorage.borderRadius == NSMultipleValuesMarker){
+                        if (cssStorage.topLeftBorderRadius) {
+                            [code insertTag:@"border-top-left-radius" number:cssStorage.topLeftBorderRadius unit:IUUnitPixel];
+                        }
+                        if (cssStorage.topLeftBorderRadius) {
+                            [code insertTag:@"border-top-right-radius" number:cssStorage.topRightBorderRadius unit:IUUnitPixel];
+                        }
+                        if (cssStorage.bottomLeftborderRadius) {
+                            [code insertTag:@"border-bottom-left-radius" number:cssStorage.bottomLeftborderRadius unit:IUUnitPixel];
+                        }
+                        if (cssStorage.bottomRightBorderRadius) {
+                            [code insertTag:@"border-bottom-right-radius" number:cssStorage.bottomRightBorderRadius unit:IUUnitPixel];
+                        }
+                    }
+                    else{
+                        [code insertTag:@"border-radius" number:cssStorage.borderRadius unit:IUUnitPixel];
+                    }
+                    
+                }
+            }
+            
         }
-        [code insertTag:@"-moz-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
-        [code insertTag:@"-webkit-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
-        [code insertTag:@"box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
+    }
+    else{
         
-        //for IE5.5-7
-        [code setInsertingTarget:IUTargetOutput];
+        //REVIEW: border는 바깥으로 생김. child drop할때 position 계산 때문
+        //IUMENUItem 은 예외 (width고정)
+        NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
         
-        [code insertTag:@"filter" string:[NSString stringWithFormat:@"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, [color rgbString]]];
         
-        //for IE 8
-        [code insertTag:@"-ms-filter" string:[NSString stringWithFormat:@"\"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, [color rgbString]]];
+        if (cssTagDict[IUCSSTagBorderTopWidth]) {
+            CGFloat width = [cssTagDict[IUCSSTagBorderTopWidth] floatValue];
+            [code insertTag:@"border-top-width" floatValue:width unit:IUUnitPixel];
+            id value = [_iu.css effectiveValueForTag:IUCSSTagBorderTopColor forViewport:viewport];
+            [code insertTag:@"border-top-color" color:value];
+        }
         
-        [code setInsertingTarget:IUTargetBoth];
-
+        if (cssTagDict[IUCSSTagBorderLeftWidth]) {
+            CGFloat width = [cssTagDict[IUCSSTagBorderLeftWidth] floatValue];
+            [code insertTag:@"border-left-width" floatValue:width unit:IUUnitPixel];
+            id value = [_iu.css effectiveValueForTag:IUCSSTagBorderLeftColor forViewport:viewport];
+            [code insertTag:@"border-left-color" color:value];
+            
+        }
+        if (cssTagDict[IUCSSTagBorderRightWidth]) {
+            CGFloat width = [cssTagDict[IUCSSTagBorderRightWidth] floatValue];
+            [code insertTag:@"border-right-width" floatValue:width unit:IUUnitPixel];
+            id value = [_iu.css effectiveValueForTag:IUCSSTagBorderRightColor forViewport:viewport];
+            [code insertTag:@"border-right-color" color:value];
+            
+        }
+        if (cssTagDict[IUCSSTagBorderBottomWidth]) {
+            CGFloat width = [cssTagDict[IUCSSTagBorderBottomWidth] floatValue];
+            [code insertTag:@"border-bottom-width" floatValue:width unit:IUUnitPixel];
+            id value = [_iu.css effectiveValueForTag:IUCSSTagBorderBottomColor forViewport:viewport];
+            [code insertTag:@"border-bottom-color" color:value];
+        }
+        
+        if (cssTagDict[IUCSSTagBorderRadiusTopLeft]) {
+            [code insertTag:@"border-top-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopLeft] unit:IUUnitPixel];
+        }
+        if (cssTagDict[IUCSSTagBorderRadiusTopRight]) {
+            [code insertTag:@"border-top-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopRight] unit:IUUnitPixel];
+        }
+        if (cssTagDict[IUCSSTagBorderRadiusBottomLeft]) {
+            [code insertTag:@"border-bottom-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomLeft] unit:IUUnitPixel];
+        }
+        if (cssTagDict[IUCSSTagBorderRadiusBottomRight]) {
+            [code insertTag:@"border-bottom-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomRight] unit:IUUnitPixel];
+        }
+        
+        NSInteger hOff = [cssTagDict[IUCSSTagShadowHorizontal] integerValue];
+        NSInteger vOff = [cssTagDict[IUCSSTagShadowVertical] integerValue];
+        NSInteger blur = [cssTagDict[IUCSSTagShadowBlur] integerValue];
+        NSInteger spread = [cssTagDict[IUCSSTagShadowSpread] integerValue];
+        NSColor *color = cssTagDict[IUCSSTagShadowColor];
+        
+        if (hOff || vOff || blur || spread){
+            if (color == nil) {
+                color = [NSColor blackColor];
+            }
+            [code insertTag:@"-moz-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
+            [code insertTag:@"-webkit-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
+            [code insertTag:@"box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, [color rgbString]]];
+            
+            //for IE5.5-7
+            [code setInsertingTarget:IUTargetOutput];
+            
+            [code insertTag:@"filter" string:[NSString stringWithFormat:@"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, [color rgbString]]];
+            
+            //for IE 8
+            [code insertTag:@"-ms-filter" string:[NSString stringWithFormat:@"\"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, [color rgbString]]];
+            
+            [code setInsertingTarget:IUTargetBoth];
+            
+        }
     }
 }
 

@@ -96,7 +96,6 @@
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 
     [page.liveCSSStorage setX:@(50)];
-
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -175,9 +174,9 @@
         [manager setNeedsUpdateCSS:box];
         
         DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
-        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
-        NSLog(@"%@", boxElement.style.cssText);
-        XCTAssertTrue([boxElement.style.cssText containsString:@"100px"]);
+        DOMHTMLStyleElement *styleElement = (DOMHTMLStyleElement *)[dom getElementById:@"default"];
+        NSLog(@"%@", styleElement.innerHTML);
+        XCTAssertTrue([styleElement.innerHTML containsString:@"100px"]);
     }];
     
 }
