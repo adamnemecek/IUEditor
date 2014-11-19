@@ -68,7 +68,7 @@
 }
 
 
-- (id)initWithPresetClass:(IUClass*)aClass{
+- (id)initWithPreset:(IUClass*)aClass{
     self = [super initWithPreset];
     [self.undoManager disableUndoRegistration];
 
@@ -164,7 +164,6 @@
     }
     return array;
 }
-
 
 
 @end

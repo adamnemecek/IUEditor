@@ -391,8 +391,7 @@
 }
 
 - (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error{
-    NSData *data = [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:error];
-    
+    NSData *data = [self data];
     return [data writeToFile:filePath options:0 error:error];
 }
 
@@ -433,7 +432,7 @@
     return [arr copy];
 }
 
-- (NSData*)jsonData{
+- (NSData*)data{
     return [NSJSONSerialization dataWithJSONObject:workingDict options:0 error:nil];
 }
 

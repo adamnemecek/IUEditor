@@ -23,7 +23,7 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUSheetGroup *group = [[IUSheetGroup allocWithZone:zone] init];
     for (IUSheet *sheet in self.childrenFiles) {
-        [group addSheet:sheet];
+        [group addItem:sheet];
     }
     group.project = self.project;
     group.name = self.name;
@@ -89,12 +89,12 @@
     return _project;
 }
 
-- (void)addSheet:(IUSheet*)sheet{
+- (void)addItem:(IUSheet*)sheet{
     sheet.group = self;
     [_children addObject:sheet];
 }
 
-- (void)removeSheet:(IUSheet *)sheet{
+- (void)removeItem:(IUSheet *)sheet{
     NSAssert([_children containsObject:sheet], @"");
     [_children removeObject:sheet];
 }

@@ -12,7 +12,8 @@
 #import "IUCompiler.h"
 #import "IUTestWC.h"
 #import "IUProject.h"
-#import "IUPage.h"
+#import "IUBoxes.h"
+
 
 @interface IUSourceManager_UITest : XCTestCase <IUTestWCDelegate, IUProjectProtocol>
 
@@ -63,7 +64,7 @@ static     IUTestWC *testWC;
     testWC.testNumber = 1;
     testWC.testModule = @"Showing 'Header Area'";
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
-    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     page.sourceManager = manager;

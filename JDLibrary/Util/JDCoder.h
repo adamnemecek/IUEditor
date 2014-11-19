@@ -88,4 +88,5 @@
 - (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error;
 - (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error;
 
+- (NSData *)data;
 @end

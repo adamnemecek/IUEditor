@@ -244,7 +244,7 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
     
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
-    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     [manager loadSheet:page];

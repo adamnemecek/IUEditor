@@ -8,7 +8,6 @@
 
 #import "IUIdentifierManager.h"
 #import "IUSourceManager.h"
-#import "LMWC.h"
 
 #import "IUBox.h"
 #import "NSObject+JDExtension.h"
@@ -498,17 +497,13 @@
    return [[[[NSApp mainWindow] windowController] document] undoManager];
 }
 
-- (IUSourceManager *)sourceManager{
-#if DEBUG
+- (id <IUSourceManagerProtocol>)sourceManager{
     if(_sourceManager){
         return _sourceManager;
     }
     else{
-        return [(LMWC *)([[NSApp mainWindow] windowController]) sourceManager];
+        return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
     }
-#else
-    return [(LMWC *)([[NSApp mainWindow] windowController]) sourceManager];
-#endif
 }
 
 #pragma mark - setXXX

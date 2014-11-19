@@ -34,8 +34,13 @@
 
 - (void)test1_XUnit {
     box.cssDefaultManager.liveStorage.x = @(30);
+
     XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.x, @(30));
     XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.xUnit, @(IUFrameUnitPixel));
+
+    [box.cssDefaultManager.liveStorage setX:@(40) unit:@(IUFrameUnitPercent)];
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.x, @(40));
+    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.xUnit, @(IUFrameUnitPercent));
 }
 
 - (void)test2_frameCode {

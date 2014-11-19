@@ -15,7 +15,7 @@
 #import "IUDataStorage.h"
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
-#import "IUSourceManager.h"
+#import "IUSourceManagerProtocol.h"
 
 typedef enum{
     IUWidgetTypePrimary,
@@ -301,7 +301,7 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 
 #if DEBUG
 //test 를 위해서 setting 가능하게 해놓음.
-@property (nonatomic) IUSourceManager *sourceManager;
+@property (nonatomic) id <IUSourceManagerProtocol> sourceManager;
 #else
 - (IUSourceManager *)sourceManager;
 #endif

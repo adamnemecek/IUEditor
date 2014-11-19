@@ -56,7 +56,7 @@
     [identifierManager addObject:class withIdentifier:class.htmlID];
     [class.cssDefaultManager.liveStorage setX:@(2000)];
 
-    IUImport *import = [[IUImport alloc] initWithPresetClass:class];
+    IUImport *import = [[IUImport alloc] initWithPreset:class];
     import.htmlID = [identifierManager createIdentifierWithKey:import.className];
     [identifierManager addObject:import withIdentifier:import.htmlID];
     
@@ -76,7 +76,7 @@
     class.htmlID = @"class";
     XCTAssertEqual(class.liveCSSStorage.width, @(100));
 
-    IUHeader *header = [[IUHeader alloc] initWithPresetClass:class];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     header.htmlID = @"header";
 
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];

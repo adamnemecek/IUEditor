@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "IUBox.h"
 #import "IUProject.h"
 #import "IUCompiler.h"
+#import "IUBoxes.h"
 
 @interface IUCompiler_Test : XCTestCase
 
@@ -52,5 +52,21 @@
     XCTAssertNotNil(htmlCode);
     XCTAssertTrue([htmlCode containsString:@"left: 50px;"]);
 }
+
+- (void)test2_Import {
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    class.htmlID = @"class";
+    
+    IUImport *import = [[IUImport alloc] initWithPreset:class];
+    import.htmlID = @"import";
+    
+    IUCompiler *compiler = [[IUCompiler alloc] init];
+//    NSString *src = [compiler editorHTMLString:import viewPort:IUDefaultViewPort];
+
+    /*code not generated */
+    XCTAssertFalse(YES);
+}
+
+
 
 @end

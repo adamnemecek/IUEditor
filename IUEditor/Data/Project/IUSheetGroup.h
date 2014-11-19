@@ -17,10 +17,18 @@
 @property (weak) IUProject *project;
 @property NSString *name;
 
+/**
+ return all children sheets
+ */
 - (NSArray*)childrenFiles;
-- (void)addSheet:(IUSheet*)sheet;
-- (void)removeSheet:(IUSheet *)sheet;
-- (void)changeIndex:(IUSheet *)sheet toIndex:(NSUInteger)newIndex;
+
+/**
+ Add Item. Item can be IUSheet or IUSheet Group
+ */
+- (void)addItem:(id)item;
+- (void)removeItem:(id)item;
+- (void)changeIndex:(id)item toIndex:(NSUInteger)newIndex;
+
 - (id)sheetWithHtmlID:(NSString *)identifier;
 
 - (NSUndoManager *)undoManager;

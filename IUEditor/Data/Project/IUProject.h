@@ -144,8 +144,8 @@ static NSString *IUClassGroupName = @"class";
 - (IUSheetGroup*)classGroup;
 - (IUResourceGroup *)resourceGroup;
 
-- (void)addSheet:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
-- (void)removeSheet:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
+- (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
+- (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
 
 - (void)connectWithEditor;
 - (void)setIsConnectedWithEditor;
@@ -162,5 +162,8 @@ static NSString *IUClassGroupName = @"class";
 
 //undo manager
 - (NSUndoManager *)undoManager;
+
+- (NSData *)lastCreatedData;
+- (NSData *)createData;
 
 @end

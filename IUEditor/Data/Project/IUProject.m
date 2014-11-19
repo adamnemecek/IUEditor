@@ -30,6 +30,7 @@
 
 @implementation IUProject{
     BOOL _isConnectedWithEditor;
+    NSData *_lastCreatedData;
 }
 
 #pragma mark - class attributes
@@ -345,12 +346,12 @@
     IUPage *pg = [[IUPage alloc] initWithProject:self options:nil];
     pg.name = @"index";
     pg.htmlID = @"index";
-    [self addSheet:pg toSheetGroup:_pageGroup];
+    [self addItem:pg toSheetGroup:_pageGroup];
     
     IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
     class.name = @"class";
     class.htmlID = @"class";
-    [self addSheet:class toSheetGroup:_classGroup];
+    [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
@@ -404,12 +405,12 @@
     IUPage *pg = [[IUPage alloc] initWithProject:self options:nil];
     pg.name = @"index";
     pg.htmlID = @"index";
-    [self addSheet:pg toSheetGroup:_pageGroup];
+    [self addItem:pg toSheetGroup:_pageGroup];
     
     IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
     class.name = @"class";
     class.htmlID = @"class";
-    [self addSheet:class toSheetGroup:_classGroup];
+    [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
@@ -433,7 +434,7 @@
         IUClass *header = [[IUClass alloc] initWithProject:self options:headerDict];
         header.name = @"header";
         header.htmlID = @"header";
-        [self addSheet:header toSheetGroup:_classGroup];
+        [self addItem:header toSheetGroup:_classGroup];
         [_identifierManager registerIUs:@[header]];
     }
     
@@ -443,7 +444,7 @@
         IUClass *footer = [[IUClass alloc] initWithProject:self options:footerDict];
         footer.name = @"footer";
         footer.htmlID = @"footer";
-        [self addSheet:footer toSheetGroup:_classGroup];
+        [self addItem:footer toSheetGroup:_classGroup];
         [_identifierManager registerIUs:@[footer]];
     }
     
@@ -453,7 +454,7 @@
         IUClass *sidebar = [[IUClass alloc] initWithProject:self options:sidebarDict];
         sidebar.name = @"sidebar";
         sidebar.htmlID = @"sidebar";
-        [self addSheet:sidebar toSheetGroup:_classGroup];
+        [self addItem:sidebar toSheetGroup:_classGroup];
         [_identifierManager registerIUs:@[sidebar]];
 
     }
@@ -957,7 +958,7 @@
     return _resourceGroup;
 }
 
-- (void)addSheet:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
+- (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -969,7 +970,7 @@
 
     }
     
-    [sheetGroup addSheet:sheet];
+    [sheetGroup addItem:sheet];
     
     if([sheetGroup isEqualTo:_pageGroup]){
         [self didChangeValueForKey:@"pageGroup"];
@@ -983,7 +984,7 @@
     }
 }
 
-- (void)removeSheet:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
+- (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -994,7 +995,7 @@
         [self willChangeValueForKey:@"classSheets"];
         
     }
-    [sheetGroup removeSheet:sheet];
+    [sheetGroup removeItem:sheet];
     
     if([sheetGroup isEqualTo:_pageGroup]){
         [self didChangeValueForKey:@"pageGroup"];
@@ -1008,6 +1009,15 @@
     }
 }
 
+- (NSData *)lastCreatedData{
+    return _lastCreatedData;
+}
 
+- (NSData *)createData{
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:self];
+    _lastCreatedData = [coder data];
+    return _lastCreatedData;
+}
 
 @end

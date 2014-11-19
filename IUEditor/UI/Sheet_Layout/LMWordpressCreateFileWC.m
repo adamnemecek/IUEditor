@@ -105,7 +105,7 @@
     IUPage *newSheet = [[IUPage alloc] initWithProject:self.project options:@{IUFileName: fileName}];
     
     [[self.project identifierManager] resetUnconfirmedIUs];
-    [self.project addSheet:newSheet toSheetGroup:self.project.pageGroup];
+    [self.project addItem:newSheet toSheetGroup:self.project.pageGroup];
     [self.project.identifierManager registerIUs:@[newSheet]];
     [newSheet connectWithEditor];
     [newSheet setIsConnectedWithEditor];

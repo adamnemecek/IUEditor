@@ -211,7 +211,7 @@
     NSTreeNode *item = [_outlineV itemAtRow:sender.tag];
     IUSheet * node = [item representedObject];
     IUSheet * newNode = [node copy];
-    [self.project addSheet:newNode toSheetGroup:node.group];
+    [self.project addItem:newNode toSheetGroup:node.group];
     [self.project.identifierManager registerIUs:@[newNode]];
     [self.documentController rearrangeObjects];
 }
@@ -225,7 +225,7 @@
         [JDUIUtil hudAlert:@"Each document folder should have at least one document" second:2];
         return;
     }
-    [self.project removeSheet:node toSheetGroup:node.group];
+    [self.project removeItem:node toSheetGroup:node.group];
     [self.project.identifierManager unregisterIUs:@[node]];
     [_documentController setSelectedObject:[[parent childrenFiles] firstObject]];
     [_documentController rearrangeObjects];
@@ -243,7 +243,7 @@
     
     NSDictionary *options = @{kIUPageLayout: @(layoutCode)};
     IUPage *newDoc = [[IUPage alloc] initWithProject:self.project options:options];
-    [self.project addSheet:newDoc toSheetGroup:self.project.pageGroup];
+    [self.project addItem:newDoc toSheetGroup:self.project.pageGroup];
     [self.project.identifierManager registerIUs:@[newDoc]];
     
     
@@ -264,7 +264,7 @@
     [[self.project identifierManager] resetUnconfirmedIUs];
 
     IUClass *newDoc = [[IUClass alloc] initWithProject:self.project options:nil];
-    [self.project addSheet:newDoc toSheetGroup:self.project.classGroup];
+    [self.project addItem:newDoc toSheetGroup:self.project.classGroup];
     [self.project.identifierManager registerIUs:@[newDoc]];
     
     if(newDoc){
@@ -277,7 +277,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType:IUNotificationStructureAdding, IUNotificationStructureChangedIU:newDoc}];
 }
-- (IBAction)performAddSheet:(id)sender{
+- (IBAction)performaddItem:(id)sender{
     
     NSTableCellView *cellView = (NSTableCellView *)[sender superview];
     NSString *groupName =  cellView.textField.stringValue;

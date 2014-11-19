@@ -99,31 +99,31 @@
     [home WPInitializeAsHome];
     home.name = @"home";
     home.htmlID = @"home";
-    [self addSheet:home toSheetGroup:_pageGroup];
+    [self addItem:home toSheetGroup:_pageGroup];
     
     IUPage *index = [[IUPage alloc] initWithProject:self options:nil];
     [index WPInitializeAsIndex];
     index.name = @"index";
     index.htmlID = @"index";
-    [self addSheet:index toSheetGroup:_pageGroup];
+    [self addItem:index toSheetGroup:_pageGroup];
 
 
     IUPage *_404 = [[IUPage alloc] initWithProject:self options:nil];
     [_404 WPInitializeAs404];
     _404.name = @"_404";
     _404.htmlID = @"_404";
-    [self addSheet:_404 toSheetGroup:_pageGroup];
+    [self addItem:_404 toSheetGroup:_pageGroup];
 
     IUClass *commentWrapper = [[IUClass alloc] initWithProject:self options:nil];
     commentWrapper.name = @"commentWrapper";
     commentWrapper.htmlID = @"commentWrapper";
-    [self addSheet:commentWrapper toSheetGroup:_classGroup];
+    [self addItem:commentWrapper toSheetGroup:_classGroup];
 
 
     IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
     class.name = @"class";
     class.htmlID = @"class";
-    [self addSheet:class toSheetGroup:_classGroup];
+    [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];

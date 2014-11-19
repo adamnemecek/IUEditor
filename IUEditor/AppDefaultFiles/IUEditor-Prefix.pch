@@ -85,7 +85,7 @@
 #define IUNotificationSelectionDidChange @"IUNotificationSelectionDidChange" //called when selection is changed
 
 
-#define IUNotificationStructureDidChange @"IUNotificationStructureDidChange" //called when IUstructure changed, usually occured by addSheet, removeSheet, addIU, removeIU or changeIUIndex, renaming
+#define IUNotificationStructureDidChange @"IUNotificationStructureDidChange" //called when IUstructure changed, usually occured by addItem, removeItem, addIU, removeIU or changeIUIndex, renaming
 
 // followings are IUNotificationStructureDidChange notification userInfo
 #define IUNotificationStructureChangeType @"ChangeType"  

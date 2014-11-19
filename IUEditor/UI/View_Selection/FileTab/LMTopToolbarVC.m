@@ -36,7 +36,7 @@
     return self;
 }
 - (void)awakeFromNib{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeSheet:) name:IUNotificationStructureDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeItem:) name:IUNotificationStructureDidChange object:nil];
     
     [self.view addObserver:self forKeyPath:@"frame" options:0 context:nil];
 
@@ -77,7 +77,7 @@
     [self updateHiddenTabBtn];
 }
 
-- (void)removeSheet:(NSNotification *)notification{
+- (void)removeItem:(NSNotification *)notification{
     NSDictionary *userInfo = notification.userInfo;
     if ([userInfo[IUNotificationStructureChangeType] isEqualToString:IUNotificationStructureChangeRemoving] ){
         IUSheet *sheet = [userInfo objectForKey:IUNotificationStructureChangedIU];
