@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "IUSourceManagerProtocol.h"
 
 /**
  
@@ -41,7 +42,7 @@
 
 @end
 
-@interface IUSourceManager : NSObject
+@interface IUSourceManager : NSObject <IUSourceManagerProtocol>
 
 /* setting
  @Note : Never call these functions twice. */

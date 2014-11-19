@@ -25,13 +25,15 @@ typedef enum {
 
 @protocol IUProjectProtocol <NSObject>
 
+
+
+@optional
+
 /* media query view ports */
 - (NSArray *)mqSizes;
 
 /* support manager for IUBox */
 - (IUIdentifierManager*)identifierManager;
-
-@optional
 
 - (NSString*)IUProjectVersion;
 - (IUClass *)classWithName:(NSString *)name;
