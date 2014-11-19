@@ -125,13 +125,13 @@
 }
 
 - (void)test6_dict{
-    NSMutableDictionary *item = [NSMutableDictionary dictionary];
+    NSMutableDictionary *item = [NSMutableDictionary dictionaryWithObject:@"ItemValue" forKey:@"ItemKey"];
     NSMutableDictionary *firstDict = [@{@"key":item} mutableCopy];
     NSMutableDictionary *secondDict = [@{@"key":item} mutableCopy];
     NSMutableDictionary *root = [@{@"first":firstDict, @"second": secondDict} mutableCopy];
     
     JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeObject:root forKey:@"root"];
+    [coder encodeRootObject:root];
     
     NSMutableDictionary *decoded = [coder decodeRootObject];
     NSMutableDictionary *firstItem = decoded[@"first"][@"key"];
