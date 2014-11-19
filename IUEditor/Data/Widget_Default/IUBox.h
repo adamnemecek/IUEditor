@@ -140,7 +140,7 @@ static NSString *kIUPositionManagerDefault = @"positionManagerDefault";
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;
 - (IUDataStorageManager *)defaultStyleManager;
 - (IUDataStorageManager *)hoverStyleManager;
-- (IUDataStorageManager *)defaultPositionManager;
+- (IUDataStorageManager *)positionManager;
 
 
 

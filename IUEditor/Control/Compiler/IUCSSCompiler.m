@@ -93,7 +93,7 @@
     if (storage) {
         //TODO : organize
         editWidths = [[_iu.defaultStyleManager allViewPorts] mutableCopy];
-        for(NSNumber *viewport in [_iu.defaultPositionManager allViewPorts]){
+        for(NSNumber *viewport in [_iu.positionManager allViewPorts]){
             if ([editWidths containsObject:viewport] == NO) {
                 [editWidths addObject:viewport];
             }
@@ -641,7 +641,7 @@
             }
         }
         
-        IUPositionStorage *positionStorage = (IUPositionStorage *)[_iu.defaultPositionManager storageForViewPort:viewport];
+        IUPositionStorage *positionStorage = (IUPositionStorage *)[_iu.positionManager storageForViewPort:viewport];
         if(positionStorage){
             if (positionStorage.x) {
                 [code insertTag:@"left" number:positionStorage.x frameUnit:positionStorage.xUnit];

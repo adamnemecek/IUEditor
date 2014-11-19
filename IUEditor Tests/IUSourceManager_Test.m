@@ -176,7 +176,7 @@
 
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [(IUPositionStorage *)page.defaultPositionManager.liveStorage setX:@(50)];
+    [(IUPositionStorage *)page.positionManager.liveStorage setX:@(50)];
     [page setSourceManager:manager];
     
     [manager loadSheet:page];

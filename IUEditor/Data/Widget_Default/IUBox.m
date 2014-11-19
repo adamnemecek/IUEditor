@@ -241,10 +241,10 @@
         
         IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
         [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
-        if(self.defaultPositionManager){
-             [self bind:@"currentPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"livePositionStorage" toObject:self.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"defaultPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"defaultStorage" options:nil];
+        if(self.positionManager){
+             [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
 
 
         }
@@ -338,10 +338,10 @@
         
         IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
         [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
-        if(self.defaultPositionManager){
-            [self bind:@"currentPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"livePositionStorage" toObject:self.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"defaultPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"defaultStorage" options:nil];
+        if(self.positionManager){
+            [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
 
         }
         
@@ -511,7 +511,7 @@
 - (IUDataStorageManager *)hoverStyleManager{
     return cssManagersDict[kIUStyleManagerHover];
 }
-- (IUDataStorageManager *)defaultPositionManager{
+- (IUDataStorageManager *)positionManager{
     return cssManagersDict[kIUPositionManagerDefault];
 }
 

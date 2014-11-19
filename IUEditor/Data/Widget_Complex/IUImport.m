@@ -80,8 +80,8 @@
 
     [self bind:@"liveStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
     [self bind:@"currentStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-    [self bind:@"livePositionStorage" toObject:aClass.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
-    [self bind:@"currentPositionStorage" toObject:aClass.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
+    [self bind:@"livePositionStorage" toObject:aClass.positionManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"currentPositionStorage" toObject:aClass.positionManager withKeyPath:@"currentStorage" options:nil];
 
 
 
