@@ -85,7 +85,7 @@
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 
-    [page.liveCSSStorage setX:@(50)];
+    [page.livePositionStorage setX:@(50)];
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -101,7 +101,7 @@
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 //    [page.cssD.liveStorage setX:@(50)];
     [page setSourceManager:manager];
-    [page.cssDefaultManager.liveStorage setX:@(50)];
+    [page.livePositionStorage setX:@(50)];
     
     [manager loadSheet:page];
     
@@ -124,7 +124,7 @@
 - (void)test4_cssSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [page.cssDefaultManager.liveStorage setX:@(50)];
+    [page.livePositionStorage setX:@(50)];
     
     [manager loadSheet:page];
     
@@ -134,7 +134,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        [box.cssDefaultManager.liveStorage setWidth:@(100)];
+        [box.liveStyleStorage setWidth:@(100)];
         
         [manager setNeedsUpdateCSS:box];
         
@@ -149,7 +149,6 @@
 - (void)test5_cssHover{
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [page.cssHoverManager.liveStorage setX:@(50)];
     
     [manager loadSheet:page];
     
@@ -159,7 +158,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        box.cssHoverManager.liveStorage.bgColor = [NSColor yellowColor];
+        ((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor = [NSColor yellowColor];
         
         [manager setNeedsUpdateCSS:box];
         
@@ -177,7 +176,7 @@
 
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
-    [page.cssDefaultManager.liveStorage setX:@(50)];
+    [(IUPositionStorage *)page.defaultPositionManager.liveStorage setX:@(50)];
     [page setSourceManager:manager];
     
     [manager loadSheet:page];
@@ -191,10 +190,10 @@
         //    [section updateHTML];
         [parent setSourceManager:manager];
         
-        [parent.cssDefaultManager.liveStorage setX:@(0)];
-        [parent.cssDefaultManager.liveStorage setY:@(0)];
-        [parent.cssDefaultManager.liveStorage setWidth:@(100)];
-        [parent.cssDefaultManager.liveStorage setHeight:@(100)];
+        [parent.livePositionStorage setX:@(0)];
+        [parent.livePositionStorage setY:@(0)];
+        [parent.liveStyleStorage setWidth:@(100)];
+        [parent.liveStyleStorage setHeight:@(100)];
         
         IUBox *child = [[IUBox alloc] initWithProject:page.project options:nil];
         [parent addIU:child error:nil];
@@ -215,20 +214,23 @@
         //test frame css
         
         
-        [child.cssDefaultManager.liveStorage setX:@(0)];
-        [child.cssDefaultManager.liveStorage setY:@(0)];
-        [child.cssDefaultManager.liveStorage setWidth:@(50)];
-        [child.cssDefaultManager.liveStorage setHeight:@(50)];
+        [child.livePositionStorage setX:@(0)];
+        [child.livePositionStorage setY:@(0)];
+        [child.liveStyleStorage setWidth:@(50)];
+        [child.liveStyleStorage setHeight:@(50)];
         
+        XCTAssertEqualObjects(child.livePositionStorage.xUnit, @(IUFrameUnitPixel));
+
         [child updateCSS];
         
         
-        [child.cssDefaultManager.liveStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
-        
+        [child.livePositionStorage setX:@(100) unit:@(IUFrameUnitPercent)];
+        XCTAssertEqualObjects(child.livePositionStorage.x, @(100));
+        XCTAssertEqualObjects(child.livePositionStorage.xUnit, @(IUFrameUnitPercent));
+
         
         [child updateCSS];
         
-        XCTAssert([child.cssDefaultManager.liveStorage.xUnit isEqualToNumber:@(IUFrameUnitPercent)]);
     
         boxElement = (DOMHTMLElement *)[dom getElementById:child.htmlID];
         XCTAssertTrue([boxElement.style.cssText containsString:@"%"]);

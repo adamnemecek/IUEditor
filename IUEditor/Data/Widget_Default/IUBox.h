@@ -13,6 +13,8 @@
 #import "IUMQData.h"
 #import "IUIdentifierManager.h"
 #import "IUDataStorage.h"
+#import "IUStyleStorage.h"
+#import "IUPositionStorage.h"
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
 #import "IUSourceManagerProtocol.h"
@@ -56,11 +58,11 @@ typedef enum{
 }IUTextInputType;
 
 
-/* default css manager name */
-static NSString *kIUCSSManagerDefault = @"cssManagerDefault";
-static NSString *kIUCSSManagerHover = @"cssManagerHover";
-static NSString *kIUCSSManagerActive = @"cssManagerActive";
-
+/* default data manager name */
+static NSString *kIUStyleManagerDefault = @"styleManagerDefault";
+static NSString *kIUStyleManagerHover = @"styleManagerHover";
+static NSString *kIUStyleManagerActive = @"styleManagerActive";
+static NSString *kIUPositionManagerDefault = @"positionManagerDefault";
 
 @class IUBox;
 @class IUSheet;
@@ -70,8 +72,8 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC __storage_deprecated;
     
-    IUCSSStorage *_liveCSSStorage;
-    IUCSSStorage *_currentCSSStorage;
+    IUStyleStorage *_liveStyleStorage;
+    IUStyleStorage *_currentStyleStorage;
 }
 
 + (NSImage *)classImage;
@@ -125,17 +127,20 @@ static NSString *kIUCSSManagerActive = @"cssManagerActive";
 
 @property BOOL removed; // iu is removed;
 
-@property (readonly) IUCSSStorage *defaultCSSStorage;
-@property (readonly) IUCSSStorage *liveCSSStorage;
-@property (readonly) IUCSSStorage *currentCSSStorage;
+@property (readonly) IUStyleStorage *defaultStyleStorage;
+@property (readonly) IUStyleStorage *liveStyleStorage;
+@property (readonly) IUStyleStorage *currentStyleStorage;
+@property (readonly) IUPositionStorage *defaultPositionStorage;
+@property (readonly) IUPositionStorage *livePositionStorage;
+@property (readonly) IUPositionStorage *currentPositionStorage;
 
 - (NSArray *)allCSSSelectors;
 
-- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector;
-- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector;
-- (IUCSSStorageManager *)cssDefaultManager;
-- (IUCSSStorageManager *)cssHoverManager;
-
+- (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector;
+- (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;
+- (IUDataStorageManager *)defaultStyleManager;
+- (IUDataStorageManager *)hoverStyleManager;
+- (IUDataStorageManager *)defaultPositionManager;
 
 
 

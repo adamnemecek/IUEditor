@@ -26,11 +26,11 @@
     self = [super initWithPreset];
     switch (classType) {
         case IUClassPresetTypeHeader:{
-            [self.currentCSSStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
-            [self.currentCSSStorage setHeight:@(150) unit:@(IUFrameUnitPixel)];
+            [self.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+            [self.currentStyleStorage setHeight:@(150) unit:@(IUFrameUnitPixel)];
 
-            self.currentCSSStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
-            self.currentCSSStorage.fontName = @"Helvetica";
+            self.currentStyleStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
+            self.currentStyleStorage.fontName = @"Helvetica";
             [self.mqData setValue:@"Header Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
             break;
         }

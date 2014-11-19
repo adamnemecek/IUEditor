@@ -546,7 +546,7 @@
 }
 
 
-- (NSDictionary *)inlineTagDictionyForViewport:(int)viewport{ // css for inline insertion ( for example, main css )
+- (NSDictionary *)inlineTagDictionyForViewport:(NSInteger)viewport{ // css for inline insertion ( for example, main css )
 
     //내부 구조까지 같이 바꿀 필요가 있어보임 viewport가 두번들어오게됨.
     //한번에 호출가능하도록?
@@ -561,7 +561,7 @@
     
     return [inlinedict copy];
 }
-- (NSDictionary *)nonInlineTagDictionaryForViewport:(int)viewport{ // css for non-inline insertion (for example, hover or active )
+- (NSDictionary *)nonInlineTagDictionaryForViewport:(NSInteger)viewport{ // css for non-inline insertion (for example, hover or active )
     NSDictionary *dict = [self stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:viewport];
     NSMutableDictionary *inlinedict = [NSMutableDictionary dictionary];
     

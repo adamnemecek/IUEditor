@@ -102,8 +102,9 @@
         
         //create storage
         cssManagersDict = [NSMutableDictionary dictionary];
-        [self setCssManager:[_css convertToStorageDefaultManager] forSelector:kIUCSSManagerDefault];
-        [self setCssManager:[_css convertToStorageHoverManager] forSelector:kIUCSSManagerHover];
+        [self setStorageManager:[_css convertToStyleStorageDefaultManager] forSelector:kIUStyleManagerDefault];
+        [self setStorageManager:[_css convertToStyleStorageHoverManager] forSelector:kIUStyleManagerHover];
+        [self setStorageManager:[_css convertToPositionStorageDefaultManager] forSelector:kIUPositionManagerDefault];
 
 
     }
@@ -209,7 +210,7 @@
 
 -(id)initWithPreset {
     self = [self init];
-    self.liveCSSStorage.bgColor = [NSColor randomLightMonoColor];
+    self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
     self.name = self.className;
     return self;
 }
@@ -230,15 +231,27 @@
 
         //create storage
         cssManagersDict = [NSMutableDictionary dictionary];
-        IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
-        [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
-        if (self.cssDefaultManager) {
-            [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"defaultCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"defaultStorage" options:nil];
+        IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [self setStorageManager:styleManager forSelector:kIUStyleManagerDefault];
+        if (self.defaultStyleManager) {
+            [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
         }
-        IUCSSStorageManager *cssHoverManager = [[IUCSSStorageManager alloc] init];
-        [self setCssManager:cssHoverManager forSelector:kIUCSSManagerHover];
+        
+        IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+        [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
+        if(self.defaultPositionManager){
+             [self bind:@"currentPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"livePositionStorage" toObject:self.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"defaultPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"defaultStorage" options:nil];
+
+
+        }
+        
+        
+        IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [self setStorageManager:hoverManager forSelector:kIUStyleManagerHover];
 
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
@@ -313,19 +326,28 @@
         }
         self.name = self.htmlID;
         
+        //create storage
         cssManagersDict = [NSMutableDictionary dictionary];
-        IUCSSStorageManager *cssManager = [[IUCSSStorageManager alloc] init];
-        [self setCssManager:cssManager forSelector:kIUCSSManagerDefault];
-        if (self.cssDefaultManager) {
-            
-            [self bind:@"liveCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"currentCSSStorage" toObject:self.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+        IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [self setStorageManager:styleManager forSelector:kIUStyleManagerDefault];
+        if (self.defaultStyleManager) {
+            [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
         }
         
-        IUCSSStorageManager *cssHoverManager = [[IUCSSStorageManager alloc] init];
-        [self setCssManager:cssHoverManager forSelector:kIUCSSManagerHover];
+        IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+        [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
+        if(self.defaultPositionManager){
+            [self bind:@"currentPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
+            [self bind:@"livePositionStorage" toObject:self.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
+            [self bind:@"defaultPositionStorage" toObject:self.defaultPositionManager withKeyPath:@"defaultStorage" options:nil];
 
-
+        }
+        
+        
+        IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [self setStorageManager:hoverManager forSelector:kIUStyleManagerHover];
 
         [[self undoManager] enableUndoRegistration];
         
@@ -475,20 +497,24 @@
 }
 
 
-- (void)setCssManager:(IUCSSStorageManager *)cssManager forSelector:(NSString *)selector{
+- (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector{
 //    cssManager.box = self;
     cssManagersDict[selector] = cssManager;
 }
 
-- (IUCSSStorageManager *)cssManagerForSelector:(NSString *)selector{
+- (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector{
     return cssManagersDict[selector];
 }
-- (IUCSSStorageManager *)cssDefaultManager{
-    return cssManagersDict[kIUCSSManagerDefault];
+- (IUDataStorageManager *)defaultStyleManager{
+    return cssManagersDict[kIUStyleManagerDefault];
 }
-- (IUCSSStorageManager *)cssHoverManager{
-    return cssManagersDict[kIUCSSManagerHover];
+- (IUDataStorageManager *)hoverStyleManager{
+    return cssManagersDict[kIUStyleManagerHover];
 }
+- (IUDataStorageManager *)defaultPositionManager{
+    return cssManagersDict[kIUPositionManagerDefault];
+}
+
 
 
 #pragma mark - Core Manager

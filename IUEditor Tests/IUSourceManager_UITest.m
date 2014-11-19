@@ -68,7 +68,7 @@ static     IUTestWC *testWC;
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     page.sourceManager = manager;
-    page.liveCSSStorage.bgColor = [NSColor yellowColor];
+    page.liveStyleStorage.bgColor = [NSColor yellowColor];
     
     [manager loadSheet:page];
     

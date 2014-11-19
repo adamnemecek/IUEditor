@@ -17,7 +17,8 @@
 
 @implementation IUCSS{
     /* for version control; used in 'convertToStorageManager' */
-    IUCSSStorage *convertStorage;
+    IUStyleStorage *convertStyleStorage;
+    IUPositionStorage *convertPositionStorage;
     NSDictionary *convertTagDict;
 }
 
@@ -442,132 +443,160 @@
 
 */
 
-- (void)convertToStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
+- (void)convertToStyleStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
     if (convertTagDict[tag]) {
-        [convertStorage setCSSValue:convertTagDict[tag] fromCSSforCSSKey:key];
+        [convertStyleStorage setCSSValue:convertTagDict[tag] fromCSSforCSSKey:key];
 //        [convertStorage setValue:convertTagDict[tag] forKey:key];
     }
 }
 
-- (IUCSSStorageManager *)convertToStorageDefaultManager {
-    IUCSSStorageManager *cssStorageManager = [[IUCSSStorageManager alloc] init];
+- (void)convertToPositionStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
+    if (convertTagDict[tag]) {
+        [convertPositionStorage setCSSValue:convertTagDict[tag] fromCSSforCSSKey:key];
+        //        [convertStorage setValue:convertTagDict[tag] forKey:key];
+    }
+}
+
+- (IUDataStorageManager *)convertToPositionStorageDefaultManager{
+    IUDataStorageManager *positionStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+    for (NSNumber *number in self.allViewports) {
+        positionStorageManager.currentViewPort = [number integerValue];
+        convertPositionStorage = (IUPositionStorage *)positionStorageManager.currentStorage;
+        convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
+        
+        /* convert position */
+        [self convertToPositionStorageManager_setTag:IUCSSTagXUnitIsPercent toStorageWithkey:@"xUnit"];
+        if ([convertTagDict[IUCSSTagXUnitIsPercent] boolValue]) {
+            [self convertToPositionStorageManager_setTag:IUCSSTagPercentX toStorageWithkey:@"x"];
+        }
+        else {
+            [self convertToPositionStorageManager_setTag:IUCSSTagPixelX toStorageWithkey:@"x"];
+        }
+        
+        [self convertToPositionStorageManager_setTag:IUCSSTagYUnitIsPercent toStorageWithkey:@"yUnit"];
+        if ([convertTagDict[IUCSSTagYUnitIsPercent] boolValue]) {
+            [self convertToPositionStorageManager_setTag:IUCSSTagPercentY toStorageWithkey:@"y"];
+        }
+        else {
+            [self convertToPositionStorageManager_setTag:IUCSSTagPixelY toStorageWithkey:@"y"];
+        }
+        
+
+
+    }
+    return positionStorageManager;
+
+}
+
+
+
+- (IUDataStorageManager *)convertToStyleStorageDefaultManager {
+    IUDataStorageManager *styleStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
     
     for (NSNumber *number in self.allViewports) {
-        cssStorageManager.currentViewPort = [number integerValue];
+        styleStorageManager.currentViewPort = [number integerValue];
         
-        convertStorage = cssStorageManager.currentStorage;
+        convertStyleStorage = (IUStyleStorage *)styleStorageManager.currentStorage;
+        
+        
+        
         convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
+        
 
-        /* convert frame */
-        [self convertToStorageManager_setTag:IUCSSTagXUnitIsPercent toStorageWithkey:@"xUnit"];
-        if ([convertTagDict[IUCSSTagXUnitIsPercent] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagPercentX toStorageWithkey:@"x"];
-        }
-        else {
-            [self convertToStorageManager_setTag:IUCSSTagPixelX toStorageWithkey:@"x"];
-        }
-        
-        [self convertToStorageManager_setTag:IUCSSTagYUnitIsPercent toStorageWithkey:@"yUnit"];
-        if ([convertTagDict[IUCSSTagYUnitIsPercent] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagPercentY toStorageWithkey:@"y"];
-        }
-        else {
-            [self convertToStorageManager_setTag:IUCSSTagPixelY toStorageWithkey:@"y"];
-        }
-        
-        [self convertToStorageManager_setTag:IUCSSTagWidthUnitIsPercent toStorageWithkey:@"widthUnit"];
+        /* size */
+        [self convertToStyleStorageManager_setTag:IUCSSTagWidthUnitIsPercent toStorageWithkey:@"widthUnit"];
         if ([convertTagDict[IUCSSTagWidthUnitIsPercent] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagPercentWidth toStorageWithkey:@"width"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagPercentWidth toStorageWithkey:@"width"];
         }
         else {
-            [self convertToStorageManager_setTag:IUCSSTagPixelWidth toStorageWithkey:@"width"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagPixelWidth toStorageWithkey:@"width"];
         }
 
-        [self convertToStorageManager_setTag:IUCSSTagHeightUnitIsPercent toStorageWithkey:@"heightUnit"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagHeightUnitIsPercent toStorageWithkey:@"heightUnit"];
         if ([convertTagDict[IUCSSTagHeightUnitIsPercent] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagPercentHeight toStorageWithkey:@"height"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagPercentHeight toStorageWithkey:@"height"];
         }
         else {
-            [self convertToStorageManager_setTag:IUCSSTagPixelHeight toStorageWithkey:@"height"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagPixelHeight toStorageWithkey:@"height"];
         }
-        [self convertToStorageManager_setTag:IUCSSTagMinPixelWidth toStorageWithkey:@"minWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagMinPixelHeight toStorageWithkey:@"minHeight"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagMinPixelWidth toStorageWithkey:@"minWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagMinPixelHeight toStorageWithkey:@"minHeight"];
 
         
         /* convert image */
-        [self convertToStorageManager_setTag:IUCSSTagImage toStorageWithkey:@"imageName"];
-        [self convertToStorageManager_setTag:IUCSSTagBGRepeat toStorageWithkey:@"imageRepeat"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagImage toStorageWithkey:@"imageName"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBGRepeat toStorageWithkey:@"imageRepeat"];
         
         if (convertTagDict[IUCSSTagBGSize]) {
-            [self convertToStorageManager_setTag:IUCSSTagBGSize toStorageWithkey:@"imageSizeType"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGSize toStorageWithkey:@"imageSizeType"];
         }
         if ([convertTagDict[IUCSSTagEnableBGCustomPosition] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagBGXPosition toStorageWithkey:@"imageX"];
-            [self convertToStorageManager_setTag:IUCSSTagBGYPosition toStorageWithkey:@"imageY"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGXPosition toStorageWithkey:@"imageX"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGYPosition toStorageWithkey:@"imageY"];
         }
         else {
-            [self convertToStorageManager_setTag:IUCSSTagBGVPosition toStorageWithkey:@"imageVPosition"];
-            [self convertToStorageManager_setTag:IUCSSTagBGHPosition toStorageWithkey:@"imageHPosition"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGVPosition toStorageWithkey:@"imageVPosition"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGHPosition toStorageWithkey:@"imageHPosition"];
         }
         
         /* convert bg color */
         if (convertTagDict[IUCSSTagBGGradient]) {
-            [self convertToStorageManager_setTag:IUCSSTagBGGradientStartColor toStorageWithkey:@"bgColor"];
-            [self convertToStorageManager_setTag:IUCSSTagBGGradientEndColor toStorageWithkey:@"bgGradientColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientStartColor toStorageWithkey:@"bgColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientEndColor toStorageWithkey:@"bgGradientColor"];
         }
         else {
-            [self convertToStorageManager_setTag:IUCSSTagBGColor toStorageWithkey:@"bgColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGColor toStorageWithkey:@"bgColor"];
         }
         
         /* border and radius  */
-        [self convertToStorageManager_setTag:IUCSSTagBorderColor toStorageWithkey:@"borderColor"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderWidth toStorageWithkey:@"borderWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRadius toStorageWithkey:@"borderRadius"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderColor toStorageWithkey:@"borderColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderWidth toStorageWithkey:@"borderWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRadius toStorageWithkey:@"borderRadius"];
         
 
-        [self convertToStorageManager_setTag:IUCSSTagBorderTopWidth toStorageWithkey:@"topBorderWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderTopColor toStorageWithkey:@"topBorderColor"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRightWidth toStorageWithkey:@"rightBorderWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRightColor toStorageWithkey:@"rightBorderColor"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderLeftWidth toStorageWithkey:@"leftBorderWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderLeftColor toStorageWithkey:@"leftBorderColor"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderBottomWidth toStorageWithkey:@"bottomBorderWidth"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderBottomColor toStorageWithkey:@"bottomBorderColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderTopWidth toStorageWithkey:@"topBorderWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderTopColor toStorageWithkey:@"topBorderColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRightWidth toStorageWithkey:@"rightBorderWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRightColor toStorageWithkey:@"rightBorderColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderLeftWidth toStorageWithkey:@"leftBorderWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderLeftColor toStorageWithkey:@"leftBorderColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderBottomWidth toStorageWithkey:@"bottomBorderWidth"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderBottomColor toStorageWithkey:@"bottomBorderColor"];
 
-        [self convertToStorageManager_setTag:IUCSSTagBorderRadiusTopLeft toStorageWithkey:@"topLeftBorderRadius"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRadiusTopRight toStorageWithkey:@"topRightBorderRadius"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRadiusBottomLeft toStorageWithkey:@"bottomLeftborderRadius"];
-        [self convertToStorageManager_setTag:IUCSSTagBorderRadiusBottomRight toStorageWithkey:@"bottomRightBorderRadius"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRadiusTopLeft toStorageWithkey:@"topLeftBorderRadius"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRadiusTopRight toStorageWithkey:@"topRightBorderRadius"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRadiusBottomLeft toStorageWithkey:@"bottomLeftborderRadius"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagBorderRadiusBottomRight toStorageWithkey:@"bottomRightBorderRadius"];
 
         /* font tag */
-        [self convertToStorageManager_setTag:IUCSSTagFontName toStorageWithkey:@"fontName"];
-        [self convertToStorageManager_setTag:IUCSSTagFontSize toStorageWithkey:@"fontSize"];
-        [self convertToStorageManager_setTag:IUCSSTagFontColor toStorageWithkey:@"fontColor"];
-        [self convertToStorageManager_setTag:IUCSSTagFontWeight toStorageWithkey:@"fontWeight"];
-        [self convertToStorageManager_setTag:IUCSSTagFontItalic toStorageWithkey:@"fontItalic"];
-        [self convertToStorageManager_setTag:IUCSSTagFontDecoration toStorageWithkey:@"fontDeco"];
-        [self convertToStorageManager_setTag:IUCSSTagTextLetterSpacing toStorageWithkey:@"fontLetterSpacing"];
-        [self convertToStorageManager_setTag:IUCSSTagEllipsis toStorageWithkey:@"fontEllipsis"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontName toStorageWithkey:@"fontName"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontSize toStorageWithkey:@"fontSize"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontColor toStorageWithkey:@"fontColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontWeight toStorageWithkey:@"fontWeight"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontItalic toStorageWithkey:@"fontItalic"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagFontDecoration toStorageWithkey:@"fontDeco"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagTextLetterSpacing toStorageWithkey:@"fontLetterSpacing"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagEllipsis toStorageWithkey:@"fontEllipsis"];
 
 
         /* shadow tag */
-        [self convertToStorageManager_setTag:IUCSSTagShadowColor toStorageWithkey:@"shadowColor"];
-        [self convertToStorageManager_setTag:IUCSSTagShadowVertical toStorageWithkey:@"shadowColorVertical"];
-        [self convertToStorageManager_setTag:IUCSSTagShadowHorizontal toStorageWithkey:@"shadowColorHorizontal"];
-        [self convertToStorageManager_setTag:IUCSSTagShadowSpread toStorageWithkey:@"shadowColorSpread"];
-        [self convertToStorageManager_setTag:IUCSSTagShadowBlur toStorageWithkey:@"shadowColorBlur"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagShadowColor toStorageWithkey:@"shadowColor"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagShadowVertical toStorageWithkey:@"shadowColorVertical"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagShadowHorizontal toStorageWithkey:@"shadowColorHorizontal"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagShadowSpread toStorageWithkey:@"shadowColorSpread"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagShadowBlur toStorageWithkey:@"shadowColorBlur"];
 
 
         /* display hidden */
-        [self convertToStorageManager_setTag:IUCSSTagDisplayIsHidden toStorageWithkey:@"hidden"];
-        [self convertToStorageManager_setTag:IUCSSTagOpacity toStorageWithkey:@"opacity"];
-        [self convertToStorageManager_setTag:IUCSSTagEditorDisplay toStorageWithkey:@"editorHidden"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagDisplayIsHidden toStorageWithkey:@"hidden"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagOpacity toStorageWithkey:@"opacity"];
+        [self convertToStyleStorageManager_setTag:IUCSSTagEditorDisplay toStorageWithkey:@"editorHidden"];
         
         /* hover */
         //TODO: Hover converting
     }
     
-    return cssStorageManager;
+    return styleStorageManager;
 }
 
 /*
@@ -584,30 +613,29 @@
  
  */
 //convert hover tag
-- (IUCSSStorageManager *)convertToStorageHoverManager{
-    IUCSSStorageManager *cssStorageManager = [[IUCSSStorageManager alloc] init];
+- (IUDataStorageManager *)convertToStyleStorageHoverManager{
+    IUDataStorageManager *cssStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
     
     for (NSNumber *number in self.allViewports) {
         cssStorageManager.currentViewPort = [number integerValue];
-        
-        convertStorage = cssStorageManager.currentStorage;
+        convertStyleStorage = (IUStyleStorage *)cssStorageManager.currentStorage;
         convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
         
         //image position
         if ([convertTagDict[IUCSSTagHoverBGImagePositionEnable] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagHoverBGImageX toStorageWithkey:@"imageX"];
-            [self convertToStorageManager_setTag:IUCSSTagHoverBGImageY toStorageWithkey:@"imageY"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGImageX toStorageWithkey:@"imageX"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGImageY toStorageWithkey:@"imageY"];
         }
         
         //color
         if ([convertTagDict[IUCSSTagHoverBGColorEnable] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagHoverBGColor toStorageWithkey:@"bgColor"];
-            [self convertToStorageManager_setTag:IUCSSTagHoverBGColorDuration toStorageWithkey:@"bgColorDuration"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGColor toStorageWithkey:@"bgColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGColorDuration toStorageWithkey:@"bgColorDuration"];
         }
         
         //text color
         if ([convertTagDict[IUCSSTagHoverTextColorEnable] boolValue]) {
-            [self convertToStorageManager_setTag:IUCSSTagHoverTextColor toStorageWithkey:@"fontColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverTextColor toStorageWithkey:@"fontColor"];
         }
     }
     

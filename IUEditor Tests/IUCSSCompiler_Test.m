@@ -33,14 +33,9 @@
 
 
 - (void)test1_XUnit {
-    box.cssDefaultManager.liveStorage.x = @(30);
-
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.x, @(30));
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.xUnit, @(IUFrameUnitPixel));
-
-    [box.cssDefaultManager.liveStorage setX:@(40) unit:@(IUFrameUnitPercent)];
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.x, @(40));
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.xUnit, @(IUFrameUnitPercent));
+    box.livePositionStorage.x = @(30);
+    XCTAssertEqualObjects(box.currentPositionStorage.x, @(30));
+    XCTAssertEqualObjects(box.currentPositionStorage.xUnit, @(IUFrameUnitPixel));
 }
 
 - (void)test2_frameCode {
@@ -48,7 +43,7 @@
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
-    box.cssDefaultManager.liveStorage.x = @(30);
+    box.livePositionStorage.x = @(30);
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
@@ -59,16 +54,16 @@
 }
 
 - (void)test3_border{
-    box.cssDefaultManager.liveStorage.borderWidth = @(3);
-    box.cssDefaultManager.liveStorage.borderColor = [NSColor yellowColor];
+    box.liveStyleStorage.borderWidth = @(3);
+    box.liveStyleStorage.borderColor = [NSColor yellowColor];
     
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.borderColor, [NSColor yellowColor]);
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.leftBorderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.currentStyleStorage.borderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.liveStyleStorage.leftBorderColor, [NSColor yellowColor]);
 
-    box.cssDefaultManager.liveStorage.topBorderColor = nil;
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.borderColor, NSMultipleValuesMarker);
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.leftBorderColor, [NSColor yellowColor]);
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.topBorderColor, nil);
+    box.liveStyleStorage.topBorderColor = nil;
+    XCTAssertEqualObjects(box.currentStyleStorage.borderColor, NSMultipleValuesMarker);
+    XCTAssertEqualObjects(box.currentStyleStorage.leftBorderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.currentStyleStorage.topBorderColor, nil);
     
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
@@ -77,12 +72,12 @@
 }
 
 - (void)test4_hover{
-    box.cssDefaultManager.liveStorage.bgColor = [NSColor blueColor];
-    box.cssHoverManager.liveStorage.bgColor = [NSColor redColor];
+    box.liveStyleStorage.bgColor = [NSColor blueColor];
+    ((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor = [NSColor redColor];
     
     
-    XCTAssertEqualObjects(box.cssDefaultManager.currentStorage.bgColor, [NSColor blueColor]);
-    XCTAssertEqualObjects(box.cssHoverManager.currentStorage.bgColor, [NSColor redColor]);
+    XCTAssertEqualObjects(box.liveStyleStorage.bgColor, [NSColor blueColor]);
+    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor, [NSColor redColor]);
     
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];

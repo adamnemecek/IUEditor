@@ -75,11 +75,14 @@
     _prototypeClass = aClass;
     
     for (NSString *selector in [aClass allCSSSelectors]) {
-        [self setCssManager:[aClass cssManagerForSelector:selector] forSelector:selector];
+        [self setStorageManager:[aClass dataManagerForSelector:selector] forSelector:selector];
     }
 
-    [self bind:@"liveCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"liveStorage" options:nil];
-    [self bind:@"currentCSSStorage" toObject:aClass.cssDefaultManager withKeyPath:@"currentStorage" options:nil];
+    [self bind:@"liveStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"currentStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+    [self bind:@"livePositionStorage" toObject:aClass.defaultPositionManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"currentPositionStorage" toObject:aClass.defaultPositionManager withKeyPath:@"currentStorage" options:nil];
+
 
 
     [self.undoManager enableUndoRegistration];

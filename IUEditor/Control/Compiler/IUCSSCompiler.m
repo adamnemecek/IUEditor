@@ -89,12 +89,18 @@
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu storage:(BOOL)storage{
-    NSArray *editWidths;
+    NSMutableArray *editWidths;
     if (storage) {
-        editWidths = [_iu.cssDefaultManager allViewPorts];
+        //TODO : organize
+        editWidths = [[_iu.defaultStyleManager allViewPorts] mutableCopy];
+        for(NSNumber *viewport in [_iu.defaultPositionManager allViewPorts]){
+            if ([editWidths containsObject:viewport] == NO) {
+                [editWidths addObject:viewport];
+            }
+        }
     }
     else {
-        editWidths = [_iu.css allViewports];;
+        editWidths = [_iu.css allViewports];
     }
     
     for (NSNumber *viewportNumber in editWidths) {
@@ -132,21 +138,21 @@
     
 
     if (storage) {
-        IUCSSStorage *cssStorage = [_iu.cssHoverManager storageForViewPort:viewport];
-        if (cssStorage) {
+        IUStyleStorage *hoverStorage = (IUStyleStorage *)[_iu.hoverStyleManager storageForViewPort:viewport];
+        if (hoverStorage) {
             
             //css has color or image
-            if(cssStorage.imageX || cssStorage.imageY){
-                if(cssStorage.imageX){
-                    [code insertTag:@"background-position-x" number:cssStorage.imageX unit:IUUnitPixel];
+            if(hoverStorage.imageX || hoverStorage.imageY){
+                if(hoverStorage.imageX){
+                    [code insertTag:@"background-position-x" number:hoverStorage.imageX unit:IUUnitPixel];
                 }
-                if(cssStorage.imageY){
-                    [code insertTag:@"background-position-y" number:cssStorage.imageY unit:IUUnitPixel];
+                if(hoverStorage.imageY){
+                    [code insertTag:@"background-position-y" number:hoverStorage.imageY unit:IUUnitPixel];
                 }
             }
-            else if(cssStorage.bgColor){
-                NSString *outputColor = [cssStorage.bgColor cssBGColorString];
-                NSString *editorColor = [cssStorage.bgColor rgbaString];
+            else if(hoverStorage.bgColor){
+                NSString *outputColor = [hoverStorage.bgColor cssBGColorString];
+                NSString *editorColor = [hoverStorage.bgColor rgbaString];
                 if ([outputColor length] == 0) {
                     outputColor = @"black";
                     editorColor = @"black";
@@ -157,17 +163,17 @@
                 [code setInsertingTarget:IUTargetEditor];
                 [code insertTag:@"background-color" string:editorColor];
                 
-                if(cssStorage.bgColorDuration){
+                if(hoverStorage.bgColorDuration){
                     [code setInsertingIdentifier:_iu.cssIdentifier];
-                    NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [cssStorage.bgColorDuration integerValue]];
+                    NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [hoverStorage.bgColorDuration integerValue]];
                     [code insertTag:@"-webkit-transition" string:durationStr];
                     [code insertTag:@"transition" string:durationStr];
 
                 }
             }
             
-            if(cssStorage.fontColor){
-                [code insertTag:@"color" color:cssStorage.fontColor];
+            if(hoverStorage.fontColor){
+                [code insertTag:@"color" color:hoverStorage.fontColor];
 
             }
             
@@ -283,65 +289,65 @@
     [code setInsertingTarget:IUTargetBoth];
 
     if(storage){
-        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
-        if (cssStorage) {
-            if(cssStorage.borderWidth && cssStorage.borderColor){
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
+        if (styleStorage) {
+            if(styleStorage.borderWidth && styleStorage.borderColor){
                 //width
-                if(cssStorage.borderWidth == NSMultipleValuesMarker){
-                    if(cssStorage.topBorderWidth){
-                        [code insertTag:@"border-top-width" number:cssStorage.topBorderWidth unit:IUUnitPixel];
+                if(styleStorage.borderWidth == NSMultipleValuesMarker){
+                    if(styleStorage.topBorderWidth){
+                        [code insertTag:@"border-top-width" number:styleStorage.topBorderWidth unit:IUUnitPixel];
                     }
-                    if(cssStorage.bottomBorderWidth){
-                        [code insertTag:@"border-bottom-width" number:cssStorage.bottomBorderWidth unit:IUUnitPixel];
+                    if(styleStorage.bottomBorderWidth){
+                        [code insertTag:@"border-bottom-width" number:styleStorage.bottomBorderWidth unit:IUUnitPixel];
                     }
-                    if(cssStorage.leftBorderWidth){
-                        [code insertTag:@"border-left-width" number:cssStorage.leftBorderWidth unit:IUUnitPixel];
+                    if(styleStorage.leftBorderWidth){
+                        [code insertTag:@"border-left-width" number:styleStorage.leftBorderWidth unit:IUUnitPixel];
                     }
-                    if(cssStorage.rightBorderWidth){
-                        [code insertTag:@"border-right-width" number:cssStorage.rightBorderWidth unit:IUUnitPixel];
+                    if(styleStorage.rightBorderWidth){
+                        [code insertTag:@"border-right-width" number:styleStorage.rightBorderWidth unit:IUUnitPixel];
                     }
                 }
                 else{
-                    [code insertTag:@"border-width" number:cssStorage.borderWidth unit:IUUnitPixel];
+                    [code insertTag:@"border-width" number:styleStorage.borderWidth unit:IUUnitPixel];
                 }
                 //color
-                if(cssStorage.borderColor == NSMultipleValuesMarker){
-                    if(cssStorage.topBorderColor){
-                        [code insertTag:@"border-top-color" color:cssStorage.topBorderColor];
+                if(styleStorage.borderColor == NSMultipleValuesMarker){
+                    if(styleStorage.topBorderColor){
+                        [code insertTag:@"border-top-color" color:styleStorage.topBorderColor];
                     }
-                    if(cssStorage.bottomBorderColor){
-                        [code insertTag:@"border-bottom-color" color:cssStorage.bottomBorderColor];
+                    if(styleStorage.bottomBorderColor){
+                        [code insertTag:@"border-bottom-color" color:styleStorage.bottomBorderColor];
                     }
-                    if(cssStorage.leftBorderColor){
-                        [code insertTag:@"border-left-color" color:cssStorage.leftBorderColor];
+                    if(styleStorage.leftBorderColor){
+                        [code insertTag:@"border-left-color" color:styleStorage.leftBorderColor];
                     }
-                    if(cssStorage.rightBorderColor){
-                        [code insertTag:@"border-right-color" color:cssStorage.rightBorderColor];
+                    if(styleStorage.rightBorderColor){
+                        [code insertTag:@"border-right-color" color:styleStorage.rightBorderColor];
                     }
 
                 }
                 else{
-                    [code insertTag:@"border-color" color:cssStorage.borderColor];
+                    [code insertTag:@"border-color" color:styleStorage.borderColor];
                 }
                 
                 //radius
-                if(cssStorage.borderRadius){
-                    if(cssStorage.borderRadius == NSMultipleValuesMarker){
-                        if (cssStorage.topLeftBorderRadius) {
-                            [code insertTag:@"border-top-left-radius" number:cssStorage.topLeftBorderRadius unit:IUUnitPixel];
+                if(styleStorage.borderRadius){
+                    if(styleStorage.borderRadius == NSMultipleValuesMarker){
+                        if (styleStorage.topLeftBorderRadius) {
+                            [code insertTag:@"border-top-left-radius" number:styleStorage.topLeftBorderRadius unit:IUUnitPixel];
                         }
-                        if (cssStorage.topLeftBorderRadius) {
-                            [code insertTag:@"border-top-right-radius" number:cssStorage.topRightBorderRadius unit:IUUnitPixel];
+                        if (styleStorage.topLeftBorderRadius) {
+                            [code insertTag:@"border-top-right-radius" number:styleStorage.topRightBorderRadius unit:IUUnitPixel];
                         }
-                        if (cssStorage.bottomLeftborderRadius) {
-                            [code insertTag:@"border-bottom-left-radius" number:cssStorage.bottomLeftborderRadius unit:IUUnitPixel];
+                        if (styleStorage.bottomLeftborderRadius) {
+                            [code insertTag:@"border-bottom-left-radius" number:styleStorage.bottomLeftborderRadius unit:IUUnitPixel];
                         }
-                        if (cssStorage.bottomRightBorderRadius) {
-                            [code insertTag:@"border-bottom-right-radius" number:cssStorage.bottomRightBorderRadius unit:IUUnitPixel];
+                        if (styleStorage.bottomRightBorderRadius) {
+                            [code insertTag:@"border-bottom-right-radius" number:styleStorage.bottomRightBorderRadius unit:IUUnitPixel];
                         }
                     }
                     else{
-                        [code insertTag:@"border-radius" number:cssStorage.borderRadius unit:IUUnitPixel];
+                        [code insertTag:@"border-radius" number:styleStorage.borderRadius unit:IUUnitPixel];
                     }
                     
                 }
@@ -428,17 +434,17 @@
 - (void)updateCSSApperanceCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     if(storage){
-        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
         
         /* background-color */
-        if(cssStorage.bgGradientStartColor && cssStorage.bgGradientEndColor){
+        if(styleStorage.bgGradientStartColor && styleStorage.bgGradientEndColor){
             
-            [code insertTag:@"background-color" color:cssStorage.bgGradientStartColor];
+            [code insertTag:@"background-color" color:styleStorage.bgGradientStartColor];
             
             
-            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", cssStorage.bgGradientStartColor.rgbString, cssStorage.bgGradientEndColor.rgbString];
-            NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", cssStorage.bgGradientStartColor.rgbString, cssStorage.bgGradientEndColor.rgbString];
-            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", cssStorage.bgGradientStartColor.rgbStringWithTransparent, cssStorage.bgGradientEndColor.rgbStringWithTransparent];
+            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", styleStorage.bgGradientStartColor.rgbString, styleStorage.bgGradientEndColor.rgbString];
+            NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", styleStorage.bgGradientStartColor.rgbString, styleStorage.bgGradientEndColor.rgbString];
+            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", styleStorage.bgGradientStartColor.rgbStringWithTransparent, styleStorage.bgGradientEndColor.rgbStringWithTransparent];
             NSString *gradientStr = [webKitStr stringByAppendingFormat:@"%@ %@", mozStr, ieStr];
             
             [code setInsertingTarget:IUTargetOutput];
@@ -450,8 +456,8 @@
 
         }
         else{
-            if(cssStorage.bgColor){
-                [code insertTag:@"background-color" string:[cssStorage.bgColor cssBGColorString]];
+            if(styleStorage.bgColor){
+                [code insertTag:@"background-color" string:[styleStorage.bgColor cssBGColorString]];
 
             }
         }
@@ -625,21 +631,26 @@
 - (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     if (storage) {
-        IUCSSStorage *cssStorage = [_iu.cssDefaultManager storageForViewPort:viewport];
-        if (cssStorage) {
-            if (cssStorage.x) {
-                [code insertTag:@"left" number:cssStorage.x frameUnit:cssStorage.xUnit];
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
+        if (styleStorage) {
+            if(styleStorage.width){
+                [code insertTag:@"width" number:styleStorage.width frameUnit:styleStorage.widthUnit];
             }
-            if(cssStorage.y){
-                [code insertTag:@"top" number:cssStorage.y frameUnit:cssStorage.yUnit];
-            }
-            if(cssStorage.width){
-                [code insertTag:@"width" number:cssStorage.width frameUnit:cssStorage.widthUnit];
-            }
-            if(cssStorage.height){
-                [code insertTag:@"height" number:cssStorage.height frameUnit:cssStorage.heightUnit];
+            if(styleStorage.height){
+                [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
             }
         }
+        
+        IUPositionStorage *positionStorage = (IUPositionStorage *)[_iu.defaultPositionManager storageForViewPort:viewport];
+        if(positionStorage){
+            if (positionStorage.x) {
+                [code insertTag:@"left" number:positionStorage.x frameUnit:positionStorage.xUnit];
+            }
+            if(positionStorage.y){
+                [code insertTag:@"top" number:positionStorage.y frameUnit:positionStorage.yUnit];
+            }
+        }
+        
     }
     else {
         NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];

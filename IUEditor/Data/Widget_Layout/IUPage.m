@@ -101,8 +101,8 @@
 - (void)loadPreset_makeCSS{
     switch (_layout) {
         case IUPageLayoutDefault:
-            _header.defaultCSSStorage.position = @(IUPositionTypeRelative);
-            _pageContent.defaultCSSStorage.position = @(IUPositionTypeRelative);
+            _header.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
             break;
         case IUPageLayoutSideBarOnly:
             NSAssert(0, @"not coded");

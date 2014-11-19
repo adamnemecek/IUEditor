@@ -9,22 +9,23 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "IUDataStorage.h"
+#import "IUStyleStorage.h"
 
 @interface IUDataStorageTest : XCTestCase
 
 @end
 
 @implementation IUDataStorageTest {
-    IUCSSStorage *storage;
+    IUStyleStorage *storage;
     NSMutableArray *arr;
     
-    IUCSSStorageManager *storageManager;
+    IUDataStorageManager *storageManager;
 }
 
 - (void)setUp {
     [super setUp];
-    storage = [[IUCSSStorage alloc] init];
-    storageManager = [[IUCSSStorageManager alloc] init];    
+    storage = [[IUStyleStorage alloc] init];
+    storageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
 
     arr = [NSMutableArray array];
 }
@@ -117,10 +118,10 @@
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:storageManager];
     
-    IUCSSStorageManager *decodedStorageManager = [coder decodeRootObject];
+    IUDataStorageManager *decodedStorageManager = [coder decodeRootObject];
     XCTAssertEqual(decodedStorageManager.currentViewPort,9999);
     
-    IUCSSStorage *decodedStorageDefault = decodedStorageManager.currentStorage;
+    IUStyleStorage *decodedStorageDefault = (IUStyleStorage *)decodedStorageManager.currentStorage;
     XCTAssertNotNil(decodedStorageDefault);
     
     XCTAssertEqualObjects([decodedStorageDefault valueForKey:@"Key"], @"testValue");
@@ -148,24 +149,24 @@
     storageManager.undoManager = undoManager;
     
     [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
-    storageManager.currentStorage.fontName = @"abc";
-    storageManager.currentStorage.fontColor = [NSColor blackColor];
+    ((IUStyleStorage *)storageManager.currentStorage).fontName = @"abc";
+    ((IUStyleStorage *)storageManager.currentStorage).fontColor = [NSColor blackColor];
 
     [storageManager.currentStorage commitTransaction:JD_CURRENT_FUNCTION];
     
-    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"abc"], @"Pass");
-    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.currentStorage).fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.liveStorage).fontName isEqualToString:@"abc"], @"Pass");
 
 
     [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
-    storageManager.currentStorage.fontName = @"def";
-    storageManager.currentStorage.fontColor = [NSColor redColor];
+    ((IUStyleStorage *)storageManager.currentStorage).fontName = @"def";
+    ((IUStyleStorage *)storageManager.currentStorage).fontColor = [NSColor redColor];
     [storageManager.currentStorage commitTransaction:JD_CURRENT_FUNCTION];
     
-    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"def"], @"Pass");
-    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"def"], @"Pass");
-    XCTAssert([storageManager.currentStorage.fontColor isEqualTo:[NSColor redColor]], @"Pass");
-    XCTAssert([storageManager.liveStorage.fontColor isEqualTo:[NSColor redColor]], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.currentStorage).fontName isEqualToString:@"def"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.liveStorage).fontName isEqualToString:@"def"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.currentStorage).fontColor isEqualTo:[NSColor redColor]], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.liveStorage).fontColor isEqualTo:[NSColor redColor]], @"Pass");
 
 
     if([storageManager.undoManager canUndo]){
@@ -173,11 +174,11 @@
     }
    
     
-    XCTAssert([storageManager.currentStorage.fontName isEqualToString:@"abc"], @"Pass");
-    XCTAssert([storageManager.liveStorage.fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.currentStorage).fontName isEqualToString:@"abc"], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.liveStorage).fontName isEqualToString:@"abc"], @"Pass");
     
-    XCTAssert([storageManager.currentStorage.fontColor isEqualTo:[NSColor blackColor]], @"Pass");
-    XCTAssert([storageManager.liveStorage.fontColor isEqualTo:[NSColor blackColor]], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.currentStorage).fontColor isEqualTo:[NSColor blackColor]], @"Pass");
+    XCTAssert([((IUStyleStorage *)storageManager.liveStorage).fontColor isEqualTo:[NSColor blackColor]], @"Pass");
 
 
     if([storageManager.undoManager canUndo]){
@@ -185,8 +186,8 @@
     }
     
 
-    XCTAssert(storageManager.currentStorage.fontName == nil, @"Pass");
-    XCTAssert(storageManager.liveStorage.fontName == nil, @"Pass");
+    XCTAssert(((IUStyleStorage *)storageManager.currentStorage).fontName == nil, @"Pass");
+    XCTAssert(((IUStyleStorage *)storageManager.liveStorage).fontName == nil, @"Pass");
 
 }
 

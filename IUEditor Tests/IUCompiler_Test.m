@@ -36,15 +36,15 @@
     [identifierManager commit];
     
     XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
-    XCTAssertTrue([box.liveCSSStorage.bgColor isKindOfClass:[NSColor class]]);
+    XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
     
     
-    XCTAssertNotNil(box.liveCSSStorage);
-    [box.liveCSSStorage setX:@(50) unit:@(IUFrameUnitPixel)];
-    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
-    
-    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:@(50)]);
-    XCTAssertTrue([box.cssDefaultManager.liveStorage.x isEqualToNumber:box.liveCSSStorage.x]);
+    XCTAssertNotNil(box.liveStyleStorage);
+    [box.livePositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
+    XCTAssertTrue([box.livePositionStorage.x isEqualToNumber:@(50)]);
+
+    XCTAssertTrue([box.currentPositionStorage.x isEqualToNumber:@(50)]);
+    XCTAssertTrue([box.currentPositionStorage.x isEqualToNumber:box.livePositionStorage.x]);
     
     
     IUCompiler *compiler = [[IUCompiler alloc] init];

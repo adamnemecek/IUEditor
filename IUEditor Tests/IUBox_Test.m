@@ -40,7 +40,7 @@
     [identifierManager commit];
         
     XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
-    XCTAssertTrue([box.liveCSSStorage.bgColor isKindOfClass:[NSColor class]]);
+    XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
 }
 
 /* this explain how to use import */
@@ -54,7 +54,7 @@
     IUClass *class = [[IUClass alloc] initWithPreset];
     class.htmlID = [identifierManager createIdentifierWithKey:class.className];
     [identifierManager addObject:class withIdentifier:class.htmlID];
-    [class.cssDefaultManager.liveStorage setX:@(2000)];
+    [class.livePositionStorage setX:@(2000)];
 
     IUImport *import = [[IUImport alloc] initWithPreset:class];
     import.htmlID = [identifierManager createIdentifierWithKey:import.className];
@@ -64,8 +64,8 @@
     [identifierManager commit];
 
     XCTAssertEqual(import.prototypeClass, class);
-    XCTAssertEqual(import.liveCSSStorage.x, @(2000));
-    XCTAssertEqual(import.liveCSSStorage, class.liveCSSStorage);
+    XCTAssertEqual(import.livePositionStorage.x, @(2000));
+    XCTAssertEqual(import.liveStyleStorage, class.liveStyleStorage);
     XCTAssertEqual(box, import.parent);
 }
 
@@ -74,7 +74,7 @@
 - (void)test3_page {
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     class.htmlID = @"class";
-    XCTAssertEqual(class.liveCSSStorage.width, @(100));
+    XCTAssertEqual(class.liveStyleStorage.width, @(100));
 
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     header.htmlID = @"header";

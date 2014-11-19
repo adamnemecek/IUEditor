@@ -25,10 +25,10 @@ typedef enum{
 - (NSArray*)allViewports;
 - (NSArray*)allIdentifiers;
 
-- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort;
+- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(NSInteger)viewPort;
 
-- (NSDictionary *)inlineTagDictionyForViewport:(int)viewport; // css for inline insertion ( for example, main css )
-- (NSDictionary *)nonInlineTagDictionaryForViewport:(int)viewport; // css for non-inline insertion (for example, hover or active )
+- (NSDictionary *)inlineTagDictionyForViewport:(NSInteger)viewport; // css for inline insertion ( for example, main css )
+- (NSDictionary *)nonInlineTagDictionaryForViewport:(NSInteger)viewport; // css for non-inline insertion (for example, hover or active )
 
 /*
 - (NSArray* )minusInlineTagSelector:(IUCSSCode *)code;

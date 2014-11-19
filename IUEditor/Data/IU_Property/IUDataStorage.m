@@ -37,7 +37,8 @@
 }
 
 /* using cache for multiple calling [IUDataStorage properties] */
-static NSArray *storageProperties_cache;
+//static NSArray *storageProperties_cache;
+//subclass 불가능
 
 +(NSArray *)observingList{
     return nil;
@@ -57,6 +58,7 @@ static NSArray *storageProperties_cache;
     _changePropertyStack = [NSMutableArray array];
     _transactionLevel = 0;
     
+    /*
     if (storageProperties_cache == nil) {
         NSArray *properties = [[self class] observingList];
         storageProperties_cache = [properties valueForKey:@"name"];
@@ -65,20 +67,31 @@ static NSArray *storageProperties_cache;
     if(storageProperties_cache){
         [self addObserver:self forKeyPaths:storageProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
     }
+     */
+    if([[self class] observingList]){
+        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
+        [self addObserver:self forKeyPaths:keyPaths options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
+    }
     
     return self;
 
 }
 
 
+
+- (void)initPropertiesForDefaultViewPort{
+    
+}
+
 - (void)dealloc{
-    if(storageProperties_cache){
-        [self removeObserver:self forKeyPaths:storageProperties_cache];
+    if([[self class] observingList]){
+        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
+        [self removeObserver:self forKeyPaths:keyPaths];
     }
 }
 
 
-- (void)storagePropertyContextDidChange:(NSDictionary*)change{\
+- (void)storagePropertyContextDidChange:(NSDictionary*)change{
     if (_disableUpdateLevel == NO) {
         NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
         if (change[NSKeyValueChangeOldKey] != [NSNull null]) {
@@ -101,6 +114,8 @@ static NSArray *storageProperties_cache;
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
+    _changePropertyStack = [NSMutableArray array];
+    _transactionLevel = 0;
     _storage = [aDecoder decodeObjectForKey:@"storage"];
     return self;
 }
@@ -113,8 +128,12 @@ static NSArray *storageProperties_cache;
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    [self beginTransaction:self];
     manager = [aDecoder decodeByRefObjectForKey:@"manager"];
+    
+    if([[self class] observingList]){
+        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
+        [self addObserver:self forKeyPaths:keyPaths options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
+    }
 }
 
 - (IUDataStorageManager *)manager{
@@ -214,21 +233,29 @@ static NSArray *storageProperties_cache;
 @end
 
 
+#pragma mark - IUDataStorageManager
 
 @implementation IUDataStorageManager{
     NSMutableArray *_owners;
+    NSString *_storageClassName;
 }
 
 - (IUDataStorage *)newStorage{
-    IUDataStorage *storage = [[IUDataStorage alloc] init];
+    IUDataStorage *storage = [[NSClassFromString(_storageClassName) alloc] init];
     return storage;
+}
+
+- (NSString *)storageClassName{
+    return _storageClassName;
 }
 
 - (id)init{
     self = [super init];
 
     self.workingStorages = [[JDMutableArrayDict alloc] init];
+    _storageClassName = @"IUDataStorage";
     IUDataStorage *defaultStorage = [self newStorage];
+    [defaultStorage initPropertiesForDefaultViewPort];
     defaultStorage.manager = self;
     
     [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];
@@ -239,6 +266,28 @@ static NSArray *storageProperties_cache;
     [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
     self.currentViewPort = IUCSSDefaultViewPort;
     _owners = [NSMutableArray array];
+    return self;
+}
+
+- (id)initWithStorageClassName:(NSString *)className{
+    self = [super init];
+    if(self){
+        self.workingStorages = [[JDMutableArrayDict alloc] init];
+        _storageClassName = className;
+        IUDataStorage *defaultStorage = [self newStorage];
+        [defaultStorage initPropertiesForDefaultViewPort];
+        defaultStorage.manager = self;
+        
+        [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];
+        
+        _defaultStorage = defaultStorage;
+        _currentStorage = defaultStorage;
+        
+        [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
+        self.currentViewPort = IUCSSDefaultViewPort;
+        _owners = [NSMutableArray array];
+    }
+    
     return self;
 }
 
@@ -406,365 +455,6 @@ static NSArray *storageProperties_cache;
 }
 
 
-@end
-
-
-@interface IUCSSStorage()
-@property NSNumber* xUnit;
-@property NSNumber* yUnit;
-@property NSNumber* widthUnit;
-@property NSNumber* heightUnit;
-
-@end
-@implementation IUCSSStorage {
-}
-
-+ (NSArray *)observingList{
-    return [IUCSSStorage properties];
-}
-
-- (id)copyWithZone:(NSZone *)zone{
-    IUCSSStorage *copyStorage = [super copyWithZone:zone];
-    [copyStorage disableUpdate:JD_CURRENT_FUNCTION];
-
-    if(copyStorage){
-        copyStorage.hidden = _hidden;
-        copyStorage.editorHidden = _editorHidden;
-        copyStorage.opacity = _opacity;
-        
-        copyStorage.x = _x;
-        copyStorage.y = _y;
-        copyStorage.width = _width;
-        copyStorage.height = _height;
-        
-        copyStorage.widthUnit = _widthUnit;
-        copyStorage.heightUnit = _heightUnit;
-        copyStorage.xUnit = _xUnit;
-        copyStorage.yUnit = _yUnit;
-        
-        copyStorage.minHeight = _minHeight;
-        copyStorage.minWidth = _minWidth;
-        
-        copyStorage.imageName = _imageName;
-        copyStorage.imageRepeat = _imageRepeat;
-        copyStorage.imageHPosition = _imageHPosition;
-        copyStorage.imageVPosition = _imageVPosition;
-        copyStorage.imageX = _imageX;
-        copyStorage.imageY = _imageY;
-        copyStorage.imageSizeType = _imageSizeType;
-        
-        copyStorage.bgColor = _bgColor;
-        copyStorage.bgGradientStartColor = _bgGradientStartColor;
-        copyStorage.bgGradientEndColor = _bgGradientEndColor;
-        copyStorage.bgColorDuration = _bgColorDuration;
-        
-        copyStorage.topBorderWidth = _topBorderWidth;
-        copyStorage.bottomBorderWidth = _bottomBorderWidth;
-        copyStorage.leftBorderWidth = _leftBorderWidth;
-        copyStorage.rightBorderWidth = _rightBorderWidth;
-        
-        copyStorage.topBorderColor = _topBorderColor;
-        copyStorage.bottomBorderColor = _bottomBorderColor;
-        copyStorage.leftBorderColor = _leftBorderColor;
-        copyStorage.rightBorderColor = _rightBorderColor;
-        
-        copyStorage.topLeftBorderRadius = _topLeftBorderRadius;
-        copyStorage.topRightBorderRadius = _topRightBorderRadius;
-        copyStorage.bottomLeftborderRadius = _bottomLeftborderRadius;
-        copyStorage.bottomRightBorderRadius = _bottomRightBorderRadius;
-        
-        copyStorage.fontName = _fontName;
-        copyStorage.fontSize = _fontSize;
-        copyStorage.fontColor = _fontColor;
-        copyStorage.fontWeight = _fontWeight;
-        copyStorage.fontItalic = _fontItalic;
-        copyStorage.fontUnderline = _fontUnderline;
-        copyStorage.fontAlign = _fontAlign;
-        copyStorage.fontLineHeight = _fontLineHeight;
-        copyStorage.fontLetterSpacing = _fontLetterSpacing;
-        copyStorage.fontEllipsis = _fontEllipsis;
-        
-        copyStorage.shadowColor = _shadowColor;
-        copyStorage.shadowColorVertical = _shadowColorVertical;
-        copyStorage.shadowColorHorizontal = _shadowColorHorizontal;
-        copyStorage.shadowColorSpread = _shadowColorSpread;
-        copyStorage.shadowColorBlur = _shadowColorBlur;
-        
-        
-    }
-    [copyStorage enableUpdate:JD_CURRENT_FUNCTION];
-    return copyStorage;
-}
-
-#pragma mark - property
-
-- (void)initPropertiesForDefaultViewPort{
-    _xUnit = @(IUFrameUnitPixel);
-    _yUnit = @(IUFrameUnitPixel);
-    _widthUnit = @(IUFrameUnitPixel);
-    _heightUnit = @(IUFrameUnitPixel);
-}
-
-
-
-- (void)setX:(NSNumber *)x unit:(NSNumber *)unit{
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    [self setX:x];
-    [self setXUnit:unit];
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-}
-
-- (void)setY:(NSNumber *)y unit:(NSNumber *)unit{
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    [self setY:y];
-    [self setYUnit:unit];
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-}
-
-- (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit{
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    [self setHeight:h];
-    [self setHeightUnit:unit];
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-}
-
-- (void)setWidth:(NSNumber *)w unit:(NSNumber *)unit{
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    [self setWidth:w];
-    [self setWidthUnit:unit];
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-}
-
-
-- (void)setBorderColor:(id)borderColor{
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    
-    [self setTopBorderColor:borderColor];
-    [self setLeftBorderColor:borderColor];
-    [self setRightBorderColor:borderColor];
-    [self setBottomBorderColor:borderColor];
-    
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-    
-}
-- (BOOL)isAllBorderColorNil{
-    if(_topBorderColor || _bottomBorderColor || _leftBorderColor || _rightBorderColor){
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)isAllBorderColorsEqual{
-    if(_topBorderColor && _bottomBorderColor && _leftBorderColor && _rightBorderColor){
-        if( [_topBorderColor isEqualTo:_bottomBorderColor]
-           && [_topBorderColor isEqualTo:_leftBorderColor]
-           && [_topBorderColor isEqualTo:_rightBorderColor]){
-            return YES;
-        }
-    }
-    return NO;
-}
-- (NSColor *)borderColor{
-    if([self isAllBorderColorNil]){
-        return nil;
-    }
-    else if ([self isAllBorderColorsEqual]) {
-        return _topBorderColor;
-    }
-    return NSMultipleValuesMarker;
-}
-
-- (void)setBorderWidth:(NSNumber *)borderWidth{
-    
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-    
-    [self setTopBorderWidth:borderWidth];
-    [self setBottomBorderWidth:borderWidth];
-    [self setLeftBorderWidth:borderWidth];
-    [self setRightBorderWidth:borderWidth];
-    
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-    
-}
-
-- (BOOL)isAllBorderWidthNil{
-    if(_topBorderWidth || _leftBorderWidth || _rightBorderWidth || _bottomBorderWidth){
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)isAllBorderWidthEqual{
-    if(_topBorderWidth && _leftBorderWidth && _rightBorderWidth && _bottomBorderWidth){
-        if([_topBorderWidth isEqualToNumber:_bottomBorderWidth]
-           && [_topBorderWidth isEqualToNumber:_leftBorderWidth]
-           && [_topBorderWidth isEqualToNumber:_rightBorderWidth]){
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (NSNumber *)borderWidth{
-    if([self isAllBorderWidthNil]){
-        return nil;
-    }
-    else if([self isAllBorderWidthEqual]){
-        return _topBorderWidth;
-    }
-    return NSMultipleValuesMarker;
-}
-
-- (void)setBorderRadius:(NSNumber *)borderRadius{
-    
-    [self beginTransaction:JD_CURRENT_FUNCTION];
-
-    [self setTopLeftBorderRadius:borderRadius];
-    [self setTopRightBorderRadius:borderRadius];
-    [self setBottomLeftborderRadius:borderRadius];
-    [self setBottomRightBorderRadius:borderRadius];
-    
-    [self commitTransaction:JD_CURRENT_FUNCTION];
-
-}
-- (BOOL)isAllBorderRadiusNil{
-    if(_topLeftBorderRadius || _topRightBorderRadius || _bottomLeftborderRadius || _bottomRightBorderRadius){
-        return NO;
-    }
-    return YES;
-}
-- (BOOL)isAllBorderRadiusEqual{
-    if(_topLeftBorderRadius && _topRightBorderRadius && _bottomLeftborderRadius && _bottomRightBorderRadius){
-        
-        if([_topLeftBorderRadius isEqualToNumber:_topRightBorderRadius]
-           && [_topLeftBorderRadius isEqualToNumber:_bottomLeftborderRadius]
-           && [_topLeftBorderRadius isEqualToNumber:_bottomRightBorderRadius]
-           ){
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (NSNumber *)borderRadius{
-    if([self isAllBorderRadiusNil]){
-        return nil;
-    }
-    else if([self isAllBorderRadiusEqual]){
-        return _topLeftBorderRadius;
-    }
-    
-    return NSMultipleValuesMarker;
-}
-
-
-- (void)overwritingDataStorageForNilValue:(IUCSSStorage*)aStorage{
-    [super overwritingDataStorageForNilValue:aStorage];
-    /* remove update manager for temporary */
-    if (self.x == nil && aStorage.x != nil) {
-        self.x = aStorage.x;
-    }
-}
-
-
-/* it's for conversion */
-- (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key{
-    if([value isEqualTo:NSMultipleValuesMarker]){
-        //border, radius, color - 서로 다른 값을 가질때.
-        return;
-    }
-    [self setValue:value forKey:key];
-    
-}
-
-
-
-@end
-
-@implementation IUCSSStorageManager {
-    JDMutableArrayDict *defaultSelectorStorages;
-    
-}
-
-- (IUDataStorage *)newStorage{
-    return [[IUCSSStorage alloc] init];
-}
-
-- (id)init{
-    self = [super init];
-    defaultSelectorStorages = self.workingStorages;
-    
-    IUCSSStorage *cssStorage  = [defaultSelectorStorages objectForKey:@(IUDefaultViewPort)];
-    [cssStorage initPropertiesForDefaultViewPort];
-    
-    [self setCurrentViewPort:IUDefaultViewPort];
-    
-    return self;
-}
-
-- (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [super init];
-    defaultSelectorStorages = [aDecoder decodeObjectForKey:@"defaultSelectorStorages"];
-    self.workingStorages = defaultSelectorStorages;
-    self.currentViewPort = IUDefaultViewPort;
-    
-    return self;
-}
-
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-}
-
-- (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [aCoder encodeObject:defaultSelectorStorages forKey:@"defaultSelectorStorages"];
-}
-/*
-- (void)setSelector:(NSString *)selector{
-    
-    switch (selector) {
-        case IUCSSSelectorDefault:
-            self.workingStorages = defaultSelectorStorages;
-            break;
-        case IUCSSSelectorActive:
-            self.workingStorages = activeSelectorStorages;
-        case IUCSSSelectorHover:
-        default:
-            self.workingStorages = hoverSelectorStorages;
-            break;
-    }
- */
-
-
-- (void)storage:(IUCSSStorage*)storage changes:(NSArray *)changes{
-    //sync current storage and live storage
-    [super storage:storage changes:changes];
-    
-    for(NSDictionary *change in changes){
-        
-        /*
-        NSString *key = change[@"key"];
-        id newValue = change[@"newValue"];
-        // id oldValue = change[@"oldValue"]; // use this value if needed
-        */
-        
-        /*
-        // X set from non-nil -> nil value
-        // set XUnit as nil
-        // X set from nil -> non-nil value
-        // set XUnit as live value
-        
-        if ([key isEqualToString:@"x"] && newValue != nil ) {
-            if (self.liveStorage.xUnit == nil) {
-                self.liveStorage.xUnit = @(IUFrameUnitPixel);
-            }
-        }
-         */
-    }
-}
-
-
-- (IUCSSStorage*)storageForViewPort:(NSInteger)viewPort{
-    return (IUCSSStorage*)[super storageForViewPort:viewPort];
-}
 
 @end
 
