@@ -118,13 +118,55 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewPort];
 
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
-        DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDocument]  getElementById:@"default"];
-        NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withSelector:selector];
-        [sheetElement setInnerHTML:newCSSText];
+        [self updateNonInlineCSSText:cssString withSelector:selector];
     }];
     
     /* remove unnecessary IUCSSCode */
     
+}
+
+-(void)updateNonInlineCSSText:(NSString *)css withSelector:(NSString *)selector{
+    [JDLogUtil log:IULogSource key:@"css source" string:css];
+    
+    if(css.length == 0){
+        //nothing to do
+        [self removeCSSTextInDefaultSheetWithIdentifier:selector];
+    }else{
+        NSString *cssText = [NSString stringWithFormat:@"%@{%@}", selector, css];
+        //default setting
+        [self addCSSText:cssText withSelector:selector];
+    }
+}
+
+- (void)addCSSText:(NSString *)cssText withSelector:(NSString *)selector{
+    
+    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDocument] getElementById:@"default"];
+    NSString *newCSSText = [self innerCSSText:sheetElement.innerHTML byAddingCSSText:cssText withSelector:selector];
+    [sheetElement setInnerHTML:newCSSText];
+    
+}
+
+- (NSString *)innerCSSText:(NSString *)innerCSSText byAddingCSSText:(NSString *)cssText withSelector:(NSString *)selector
+{
+    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
+    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
+    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
+    
+    for(NSString *rule in cssRuleList){
+        if(rule.length == 0){
+            continue;
+        }
+        NSString *ruleID = [self cssIDInCSSRule:rule];
+        NSString *modifyidentifier = [selector stringByTrim];
+        if([ruleID isEqualToString:modifyidentifier] == NO){
+            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
+        }
+    }
+    
+    [innerCSSHTML appendString:cssText];
+    [innerCSSHTML appendString:@"\n"];
+    
+    return innerCSSHTML;
 }
 
 - (NSString *)removeCSSText:(NSString *)innerCSSText withSelector:(NSString *)selector
@@ -155,11 +197,11 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 
 
 - (void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier{
-    /*
-    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
+
+    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self DOMDocument] getElementById:@"default"];
     NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withID:identifier];
     [sheetElement setInnerHTML:newCSSText];
-     */
+    
 }
 
 - (NSString *)removeCSSText:(NSString *)innerCSSText withID:(NSString *)identifier

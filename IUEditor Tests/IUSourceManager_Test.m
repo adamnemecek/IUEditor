@@ -159,14 +159,14 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        [box.cssHoverManager.liveStorage setWidth:@(100)];
+        box.cssHoverManager.liveStorage.bgColor = [NSColor yellowColor];
         
         [manager setNeedsUpdateCSS:box];
         
         DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
         DOMHTMLStyleElement *styleElement = (DOMHTMLStyleElement *)[dom getElementById:@"default"];
         NSLog(@"%@", styleElement.innerHTML);
-        XCTAssertTrue([styleElement.innerHTML containsString:@"100px"]);
+        XCTAssertTrue([styleElement.innerHTML containsString:@"background-color"]);
     }];
     
 }
