@@ -96,18 +96,30 @@
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
 
-- (void)test5_array{
-    NSMutableArray *item = [NSMutableArray array];
-    NSArray *firstArray = @[item];
-    NSArray *secondArray = @[item];
+-(void)test5_memorySharing{
+    NSMutableString *str = [@"abcd" mutableCopy];
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeObject:str forKey:@"key1"];
+    [coder encodeObject:str forKey:@"key2"];
+    
+    NSMutableString *str2 = [coder decodeObjectForKey:@"key1"];
+    NSMutableString *str3 = [coder decodeObjectForKey:@"key2"];
+    
+    XCTAssertEqual(str2, str3);
+}
+
+- (void)test6_complex_array{
+    NSMutableArray *item = [NSMutableArray arrayWithObjects:@"item", nil];
+    NSArray *firstArray = @[item, @"first"];
+    NSArray *secondArray = @[item, @"second"];
     NSArray *root = @[firstArray, secondArray];
 
     JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeObject:root forKey:@"root"];
+    [coder encodeRootObject:root];
     
     NSArray *decoded = [coder decodeRootObject];
     NSMutableArray *firstItemDecoded = decoded[0][0];
-    NSMutableArray *secondItemDecoded = decoded[0][1];
+    NSMutableArray *secondItemDecoded = decoded[1][0];
     
     XCTAssertEqual(firstItemDecoded, secondItemDecoded);
 }
