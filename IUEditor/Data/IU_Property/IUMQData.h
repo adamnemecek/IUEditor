@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
+#import "IUDataStorage.h"
 
 @protocol IUMQDataDelegate
 
@@ -53,5 +54,9 @@
 //observable.
 @property (readonly) NSDictionary *effectiveTagDictionary;
 
+
+
+/*convert to storageManager */
+- (IUDataStorageManager *)convertToPropertyStorageManager;
 
 @end

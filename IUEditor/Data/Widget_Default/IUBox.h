@@ -15,6 +15,7 @@
 #import "IUDataStorage.h"
 #import "IUStyleStorage.h"
 #import "IUPositionStorage.h"
+#import "IUPropertyStorage.h"
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
 #import "IUSourceManagerProtocol.h"
@@ -59,10 +60,11 @@ typedef enum{
 
 
 /* default data manager name */
-static NSString *kIUStyleManagerDefault = @"styleManagerDefault";
-static NSString *kIUStyleManagerHover = @"styleManagerHover";
-static NSString *kIUStyleManagerActive = @"styleManagerActive";
-static NSString *kIUPositionManagerDefault = @"positionManagerDefault";
+static NSString *kIUStyleManager = @"styleManager";
+static NSString *kIUStyleHoverManager = @"styleManagerHover";
+static NSString *kIUStyleActiveManager = @"styleManagerActive";
+static NSString *kIUPositionManager = @"positionManager";
+static NSString *kIUPropertyManager = @"propertyManager";
 
 @class IUBox;
 @class IUSheet;
@@ -133,6 +135,10 @@ static NSString *kIUPositionManagerDefault = @"positionManagerDefault";
 @property (readonly) IUPositionStorage *defaultPositionStorage;
 @property (readonly) IUPositionStorage *livePositionStorage;
 @property (readonly) IUPositionStorage *currentPositionStorage;
+@property (readonly) IUPropertyStorage *defaultPropertyStorage;
+@property (readonly) IUPropertyStorage *livePropertyStorage;
+@property (readonly) IUPropertyStorage *currentPropertyStorage;
+
 
 - (NSArray *)allCSSSelectors;
 
@@ -141,6 +147,7 @@ static NSString *kIUPositionManagerDefault = @"positionManagerDefault";
 - (IUDataStorageManager *)defaultStyleManager;
 - (IUDataStorageManager *)hoverStyleManager;
 - (IUDataStorageManager *)positionManager;
+- (IUDataStorageManager *)propertyManager;
 
 
 

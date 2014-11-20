@@ -7,13 +7,19 @@
 //
 
 #import "IUMQData.h"
+#import "IUDataStorage.h"
+#import "IUPropertyStorage.h"
 
 @interface IUMQData ()
 @property NSMutableDictionary *mqDictWithViewPort;
 @property (readwrite) NSMutableDictionary *effectiveTagDictionaryForEditWidth;
 @end
 
-@implementation IUMQData
+@implementation IUMQData{
+    /* for version control; used in 'convertToStorageManager' */
+    IUPropertyStorage *convertPropertyStorage;
+    NSDictionary *convertTagDict;
+}
 
 
 -(id)init{
@@ -224,6 +230,39 @@
     return _mqDictWithViewPort[Integer2Str(width)];
 }
 
+#pragma mark - conversion
+/*
+ static NSString * IUMQDataTagInnerHTML = @"innerHTML";
+ static NSString * IUMQDataTagCollectionCount = @"collectionCount";
+ */
+
+- (void)convertToPropertyStorageManager_setTag:(NSString*)tag  toStorageWithkey:(NSString*)key{
+    if (convertTagDict[tag]) {
+        [convertPropertyStorage setPropertyValue:convertTagDict[key] fromMQDataforKey:key];
+    }
+}
+
+
+- (IUDataStorageManager *)convertToPropertyStorageManager{
+    IUDataStorageManager *cssStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    
+    for (NSNumber *number in self.allViewports) {
+        cssStorageManager.currentViewPort = [number integerValue];
+        convertPropertyStorage = (IUPropertyStorage *)cssStorageManager.currentStorage;
+        convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
+        
+        if(convertTagDict[IUMQDataTagInnerHTML]){
+            [self convertToPropertyStorageManager_setTag:IUMQDataTagInnerHTML toStorageWithkey:@"innerHTML"];
+        }
+        
+        if(convertTagDict[IUMQDataTagCollectionCount]){
+            [self convertToPropertyStorageManager_setTag:IUMQDataTagCollectionCount toStorageWithkey:@"collectionCount"];
+
+        }
+    }
+    
+    return cssStorageManager;
+}
 
 
 @end

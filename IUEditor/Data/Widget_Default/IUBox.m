@@ -30,8 +30,8 @@
 @implementation IUBox{
     NSMutableSet *changedCSSWidths;
     
-    //for cssManager tuple dictionary
-    NSMutableDictionary *cssManagersDict;
+    //for storage manager tuple dictionary
+    NSMutableDictionary *storageManagersDict;
     
     //for undo
     NSMutableDictionary *undoFrameDict;
@@ -101,11 +101,13 @@
         NSAssert([self.htmlID length] != 0 , @"");
         
         //create storage
-        cssManagersDict = [NSMutableDictionary dictionary];
-        [self setStorageManager:[_css convertToStyleStorageDefaultManager] forSelector:kIUStyleManagerDefault];
-        [self setStorageManager:[_css convertToStyleStorageHoverManager] forSelector:kIUStyleManagerHover];
-        [self setStorageManager:[_css convertToPositionStorageDefaultManager] forSelector:kIUPositionManagerDefault];
+        storageManagersDict = [NSMutableDictionary dictionary];
+        [self setStorageManager:[_css convertToStyleStorageDefaultManager] forSelector:kIUStyleManager];
+        [self setStorageManager:[_css convertToStyleStorageHoverManager] forSelector:kIUStyleHoverManager];
+        [self setStorageManager:[_css convertToPositionStorageDefaultManager] forSelector:kIUPositionManager];
 
+        //property storage
+        [self setStorageManager:[_mqData convertToPropertyStorageManager] forSelector:kIUPropertyManager];
 
     }
     return self;
@@ -230,9 +232,9 @@
         changedCSSWidths = [NSMutableSet set];
 
         //create storage
-        cssManagersDict = [NSMutableDictionary dictionary];
+        storageManagersDict = [NSMutableDictionary dictionary];
         IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:styleManager forSelector:kIUStyleManagerDefault];
+        [self setStorageManager:styleManager forSelector:kIUStyleManager];
         if (self.defaultStyleManager) {
             [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
@@ -240,7 +242,7 @@
         }
         
         IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
-        [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
+        [self setStorageManager:positionManager forSelector:kIUPositionManager];
         if(self.positionManager){
              [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
             [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
@@ -251,7 +253,10 @@
         
         
         IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:hoverManager forSelector:kIUStyleManagerHover];
+        [self setStorageManager:hoverManager forSelector:kIUPositionManager];
+        
+        IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+        [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
 
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
@@ -327,9 +332,9 @@
         self.name = self.htmlID;
         
         //create storage
-        cssManagersDict = [NSMutableDictionary dictionary];
+        storageManagersDict = [NSMutableDictionary dictionary];
         IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:styleManager forSelector:kIUStyleManagerDefault];
+        [self setStorageManager:styleManager forSelector:kIUStyleManager];
         if (self.defaultStyleManager) {
             [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
@@ -337,17 +342,21 @@
         }
         
         IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
-        [self setStorageManager:positionManager forSelector:kIUPositionManagerDefault];
+
+        [self setStorageManager:positionManager forSelector:kIUPositionManager];
         if(self.positionManager){
             [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
             [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-
         }
         
         
         IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:hoverManager forSelector:kIUStyleManagerHover];
+        [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+        
+        IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+        [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
+
 
         [[self undoManager] enableUndoRegistration];
         
@@ -493,27 +502,31 @@
 /* css manager */
 
 - (NSArray *)allCSSSelectors{
-    return [cssManagersDict allKeys];
+    return [storageManagersDict allKeys];
 }
 
 
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector{
 //    cssManager.box = self;
-    cssManagersDict[selector] = cssManager;
+    storageManagersDict[selector] = cssManager;
 }
 
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector{
-    return cssManagersDict[selector];
+    return storageManagersDict[selector];
 }
 - (IUDataStorageManager *)defaultStyleManager{
-    return cssManagersDict[kIUStyleManagerDefault];
+    return storageManagersDict[kIUStyleManager];
 }
 - (IUDataStorageManager *)hoverStyleManager{
-    return cssManagersDict[kIUStyleManagerHover];
+    return storageManagersDict[kIUStyleHoverManager];
 }
 - (IUDataStorageManager *)positionManager{
-    return cssManagersDict[kIUPositionManagerDefault];
+    return storageManagersDict[kIUPositionManager];
 }
+- (IUDataStorageManager *)propertyManager{
+    return storageManagersDict[kIUPropertyManager];
+}
+
 
 
 
