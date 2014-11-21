@@ -427,6 +427,32 @@
                     }
                     
                 }
+                
+                //blur
+                if(styleStorage.shadowColorBlur || styleStorage.shadowColorHorizontal || styleStorage.shadowColorVertical || styleStorage.shadowColorSpread){
+                    if(styleStorage.shadowColor){
+                        
+                        NSInteger hOff = [styleStorage.shadowColorHorizontal integerValue];
+                        NSInteger vOff = [styleStorage.shadowColorVertical integerValue];
+                        NSInteger blur = [styleStorage.shadowColorBlur integerValue];
+                        NSInteger spread = [styleStorage.shadowColorSpread integerValue];
+                        NSString *colorString = [styleStorage.shadowColor rgbaString];
+                        
+                        [code insertTag:@"-moz-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, colorString]];
+                        [code insertTag:@"-webkit-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, colorString]];
+                        [code insertTag:@"box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, colorString]];
+                        
+                        //for IE5.5-7
+                        [code setInsertingTarget:IUTargetOutput];
+                        [code insertTag:@"filter" string:[NSString stringWithFormat:@"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, colorString]];
+                        
+                        //for IE 8
+                        [code insertTag:@"-ms-filter" string:[NSString stringWithFormat:@"\"progid:DXImageTransform.Microsoft.Shadow(Strength=%ld, Direction=135, Color='%@')",spread, colorString]];
+                        [code setInsertingTarget:IUTargetBoth];
+                        
+                    }
+                }
+                
             }
             
         }
@@ -512,6 +538,55 @@
     if(storage){
         IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
         
+        /* css for default view port */
+        /* pointer */
+        if (_iu.link) {
+            [code insertTag:@"cursor" string:@"pointer"];
+        }
+        
+        /*overflow*/
+        if(styleStorage.overflowType){
+            IUOverflowType overflow = [[styleStorage overflowType] intValue];
+            switch (overflow) {
+                case IUOverflowTypeVisible:
+                    [code insertTag:@"overflow" string:@"visible"];
+                    break;
+                case IUOverflowTypeScroll:
+                    [code insertTag:@"overflow" string:@"scroll"];
+                    break;
+                case IUOverflowTypeHidden:
+                    //default overflow type : hidden
+                default:
+                    break;
+            }
+        }
+        
+        /* display */
+        if(styleStorage.hidden){
+            if([styleStorage.hidden boolValue]){
+                [code insertTag:@"display" string:@"none"];
+            }
+            else{
+                [code insertTag:@"display" string:@"inherit"];
+            }
+        }
+        
+        if(styleStorage.editorHidden && [styleStorage.editorHidden boolValue]){
+            [code insertTag:@"display" string:@"none" target:IUTargetEditor];
+        }
+        
+        /* opacity */
+        if(styleStorage.opacity){
+            float opacity = [styleStorage.opacity floatValue] / 100;
+            [code insertTag:@"opacity" number:@(opacity) unit:IUUnitNone];
+            
+            [code setInsertingTarget:IUTargetOutput];
+            [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[styleStorage.opacity intValue]] ];
+            
+            [code setInsertingTarget:IUTargetBoth];
+        }
+        
+        
         /* background-color */
         if(styleStorage.bgGradientStartColor && styleStorage.bgGradientEndColor){
             
@@ -535,6 +610,71 @@
             if(styleStorage.bgColor){
                 [code insertTag:@"background-color" string:[styleStorage.bgColor cssBGColorString]];
 
+            }
+            
+            /* background - image */
+            if(styleStorage.imageName){
+                NSString *imgSrc = [[_compiler imagePathWithImageName:styleStorage.imageName target:IUTargetEditor] CSSURLString];
+                if(imgSrc){
+                    [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
+                }
+                NSString *outputImgSrc = [[_compiler imagePathWithImageName:styleStorage.imageName target:IUTargetOutput] CSSURLString];
+                if(outputImgSrc){
+                    [code insertTag:@"background-image" string:outputImgSrc target:IUTargetOutput];
+                }
+                
+                
+                /* image size */
+                if(styleStorage.imageSizeType){
+                    IUBGSizeType sizetype = [styleStorage.imageSizeType intValue];
+                    switch (sizetype) {
+                        case IUBGSizeTypeStretch:
+                            [code insertTag:@"background-size" string:@"100% 100%"];
+                            break;
+                        case IUBGSizeTypeContain:
+                            [code insertTag:@"background-size" string:@"contain"];
+                            break;
+                        case IUBGSizeTypeFull:
+                            [code insertTag:@"background-attachment" string:@"fixed"];
+                        case IUBGSizeTypeCover:
+                            [code insertTag:@"background-size" string:@"cover"];
+                            break;
+                        case IUBGSizeTypeAuto:
+                        default:
+                            break;
+                    }
+                    
+                    if(viewport != IUCSSDefaultViewPort && sizetype != IUBGSizeTypeFull){
+                        [code insertTag:@"background-attachment" string:@"initial"];
+                    }
+                }
+                
+                /* image position */
+                if(styleStorage.imageX || styleStorage.imageY){
+                    if(styleStorage.imageX){
+                        [code insertTag:@"background-position-x" number:styleStorage.imageX unit:IUUnitPixel];
+                    }
+                    if(styleStorage.imageY){
+                        [code insertTag:@"background-position-y" number:styleStorage.imageY unit:IUUnitPixel];
+                    }
+                }
+                else{
+                    if(styleStorage.imageVPosition){
+                        IUCSSBGVPostion vPosition = [styleStorage.imageVPosition intValue];
+                        /*
+                        switch (vPosition) {
+                            case <#constant#>:
+                                <#statements#>
+                                break;
+                                
+                            default:
+                                break;
+                        }
+                        */
+                    }
+                    
+                    
+                }
             }
         }
         

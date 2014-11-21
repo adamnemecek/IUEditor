@@ -43,6 +43,14 @@ typedef enum{
 @property (nonatomic) NSNumber* editorHidden;
 @property (nonatomic) NSNumber* opacity;
 
+typedef enum _IUOverflowType{
+    IUOverflowTypeHidden,
+    IUOverflowTypeVisible,
+    IUOverflowTypeScroll,
+}IUOverflowType;
+
+@property (nonatomic) NSNumber* overflowType;
+
 
 /* unit tags uses as value*/
 @property (nonatomic, readonly) NSNumber* widthUnit;
@@ -57,27 +65,31 @@ typedef enum{
 /* image tag */
 @property (nonatomic, copy) NSString* imageName;
 @property (nonatomic) NSNumber* imageRepeat;
-/*
- IUCSSBGVPostionTop, = 1
- IUCSSBGVPostionCenter, = 2
- IUCSSBGVPostionBottom, = 3
- 
- IUCSSBGHPostionLeft, = 1
- IUCSSBGHPostionCenter, = 2
- IUCSSBGHPostionRight, = 3
- */
+
+typedef enum{
+    IUCSSBGVPostionTop,
+    IUCSSBGVPostionCenter,
+    IUCSSBGVPostionBottom,
+}IUCSSBGVPostion;
+typedef enum{
+    IUCSSBGHPostionLeft,
+    IUCSSBGHPostionCenter,
+    IUCSSBGHPostionRight,
+}IUCSSBGHPostion;
+
 @property (nonatomic) NSNumber* imageHPosition; // if imageHPosition is not nil, imageX should be nil
 @property (nonatomic) NSNumber* imageVPosition; // if imageVPosition is not nil, imageY should be nil
 @property (nonatomic) NSNumber* imageX; //if imageX is not nil, imageHPosition should be nil;
 @property (nonatomic) NSNumber* imageY; //if imageY is not nil, imageVPosition should be nil
 
-/* imageSizeTypes:
- IUBGSizeTypeAuto = 1,
- IUBGSizeTypeCover = 2,
- IUBGSizeTypeContain = 3,
- IUBGSizeTypeStretch = 4,
- IUBGSizeTypeFull ,
- */
+typedef enum{
+    IUBGSizeTypeAuto,
+    IUBGSizeTypeCover,
+    IUBGSizeTypeContain,
+    IUBGSizeTypeStretch,
+    IUBGSizeTypeFull,
+}IUBGSizeType;
+
 @property (nonatomic) NSNumber* imageSizeType;
 
 /* background tag */

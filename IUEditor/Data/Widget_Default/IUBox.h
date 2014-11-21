@@ -45,11 +45,7 @@ typedef enum{
     IUTextTypeH2,
 }IUTextType;
 
-typedef enum _IUOverflowType{
-    IUOverflowTypeHidden,
-    IUOverflowTypeVisible,
-    IUOverflowTypeScroll,
-}IUOverflowType;
+
 
 typedef enum{
     IUTextInputTypeNone,

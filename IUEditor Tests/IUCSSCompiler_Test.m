@@ -65,10 +65,15 @@
     XCTAssertEqualObjects(box.currentStyleStorage.leftBorderColor, [NSColor yellowColor]);
     XCTAssertEqualObjects(box.currentStyleStorage.topBorderColor, nil);
     
+    box.liveStyleStorage.shadowColorBlur = @(2);
+    box.liveStyleStorage.shadowColor = [NSColor greenColor];
+    
     IUCSSCode *code = [compiler cssCodeForIU_storage:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"border-left-color"]);
+    XCTAssert([dict[@".BOX"] containsString:@"box-shadow"]);
+    
 }
 
 - (void)test4_hover{
