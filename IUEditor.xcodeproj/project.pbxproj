@@ -1107,7 +1107,6 @@
 
 /* Begin PBXFileReference section */
 		092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests copy.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		092605A91A1A5481008C40FC /* IUEditor Tests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "IUEditor Tests copy-Info.plist"; path = "/Users/J/dev/IUEditor/IUEditor Tests copy-Info.plist"; sourceTree = "<absolute>"; };
 		092605B51A1C1078008C40FC /* IUBoxes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUBoxes.h; sourceTree = "<group>"; };
 		092605B61A1C2B19008C40FC /* IUSourceManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUSourceManagerProtocol.h; sourceTree = "<group>"; };
 		092605B71A1C6538008C40FC /* IUFileItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUFileItem.h; sourceTree = "<group>"; };
@@ -2484,7 +2483,6 @@
 				3DE45F5D19F7BFB200A75567 /* IUEditor Tests */,
 				3D2EF35419F751FF00BBBAE5 /* Products */,
 				3D2EF38E19F7540C00BBBAE5 /* Framework */,
-				092605A91A1A5481008C40FC /* IUEditor Tests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

@@ -126,12 +126,6 @@ static NSString * IUCSSTagFontDecoration = @"fontDeco";
 
 static NSString * IUCSSTagTextLink = @"textLink";
 static NSString * IUCSSTagTextAlign = @"textAlign";
-typedef enum{
-    IUAlignLeft,
-    IUAlignCenter,
-    IUAlignRight,
-    IUAlignJustify,
-}IUAlign;
 
 static NSString * IUCSSTagLineHeight = @"lineHeight";
 static NSString * IUCSSTagTextLetterSpacing = @"letterSpacing";

@@ -220,66 +220,142 @@
 
 
 - (void)updateCSSFontCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
-    NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
     
     [code setInsertingTarget:IUTargetBoth];
-    if (cssTagDict[IUCSSTagFontName] ) {
-        NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:cssTagDict[IUCSSTagFontName]];
-        if(fontFamily){
-            [code insertTag:@"font-family" string:fontFamily];
-        }
-    }
-    if (cssTagDict[IUCSSTagFontSize]) {
-        [code insertTag:@"font-size" intFromNumber:cssTagDict[IUCSSTagFontSize] unit:IUUnitPixel];
-    }
-    if (cssTagDict[IUCSSTagFontColor]) {
-        [code insertTag:@"color" color:cssTagDict[IUCSSTagFontColor]];
-    }
-    if ([cssTagDict[IUCSSTagTextLetterSpacing] floatValue]) {
-        [code insertTag:@"letter-spacing" floatFromNumber:cssTagDict[IUCSSTagTextLetterSpacing] unit:IUUnitPixel];
-    }
-    if (cssTagDict[IUCSSTagFontWeight]) {
-        [code insertTag:@"font-weight" string:cssTagDict[IUCSSTagFontWeight]];
-    }
-    if ([cssTagDict[IUCSSTagFontItalic] boolValue]) {
-        [code insertTag:@"font-style" string:@"italic"];
-    }
-    if ([cssTagDict[IUCSSTagFontDecoration] boolValue]) {
-        [code insertTag:@"text-decoration" string:@"underline"];
-    }
-    if (cssTagDict[IUCSSTagTextAlign]) {
-        NSString *alignText;
-        switch ([cssTagDict[IUCSSTagTextAlign] intValue]) {
-            case IUAlignLeft: alignText = @"left"; break;
-            case IUAlignCenter: alignText = @"center"; break;
-            case IUAlignRight: alignText = @"right"; break;
-            case IUAlignJustify: alignText = @"justify"; break;
-            default: JDErrorLog(@"no align type"); NSAssert(0, @"no align type");
-        }
-        [code insertTag:@"text-align" string:alignText];
-    }
-    if (cssTagDict[IUCSSTagLineHeight]) {
-        [code insertTag:@"line-height" floatFromNumber:cssTagDict[IUCSSTagLineHeight]];
-    }
-    if(_compiler.rule == IUCompileRuleDjango){
-        if(cssTagDict[IUCSSTagEllipsis]){
-            [code setInsertingTarget:IUTargetOutput];
-            NSInteger line =  [cssTagDict[IUCSSTagEllipsis] integerValue];
-            if(line > 0){
-                if(line > 1){
-                    [code insertTag:@"display" string:@"-webkit-box"];
-                }
-                else if(line == 1){
-                    [code insertTag:@"white-space" string:@"nowrap"];
-                }
-                [code insertTag:@"overflow" string:@"hidden"];
-                [code insertTag:@"text-overflow" string:@"ellipsis"];
-                [code insertTag:@"-webkit-line-clamp" integer:(int)line unit:IUUnitNone];
-                [code insertTag:@"-webkit-box-orient" string:@"vertical"];
-                [code insertTag:@"height" integer:100 unit:IUUnitPercent];
-            }
-        }
 
+    if(storage){
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
+        if(styleStorage){
+            if(styleStorage.fontName){
+                NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:styleStorage.fontName];
+                [code insertTag:@"font-family" string:fontFamily];
+            }
+            
+            if(styleStorage.fontSize){
+                [code insertTag:@"font-size" number:styleStorage.fontSize unit:IUUnitPixel];
+            }
+            
+            if(styleStorage.fontColor){
+                [code insertTag:@"color" color:styleStorage.fontColor];
+            }
+            
+            if(styleStorage.fontLetterSpacing){
+                [code insertTag:@"letter-spacing" number:styleStorage.fontLetterSpacing unit:IUUnitPixel];
+            }
+            
+            if(styleStorage.fontWeight){
+                [code insertTag:@"font-weight" string:styleStorage.fontWeight];
+            }
+            
+            if(styleStorage.fontItalic && [styleStorage.fontItalic boolValue]){
+                [code insertTag:@"font-style" string:@"italic"];
+            }
+            
+            if(styleStorage.fontUnderline && [styleStorage.fontUnderline boolValue]){
+                [code insertTag:@"text-decoration" string:@"underline"];
+            }
+            
+            if(styleStorage.fontAlign){
+                NSString *alignText;
+                switch ([styleStorage.fontAlign intValue]) {
+                    case IUAlignLeft: alignText = @"left"; break;
+                    case IUAlignCenter: alignText = @"center"; break;
+                    case IUAlignRight: alignText = @"right"; break;
+                    case IUAlignJustify: alignText = @"justify"; break;
+                    default: JDErrorLog(@"no align type"); NSAssert(0, @"no align type");
+                }
+                [code insertTag:@"text-align" string:alignText];
+            }
+            
+            if(styleStorage.fontLineHeight){
+                [code insertTag:@"line-height" number:styleStorage.fontLineHeight unit:IUUnitNone];
+            }
+            
+            if(_compiler.rule == IUCompileRuleDjango){
+                if(styleStorage.fontEllipsis){
+                    [code setInsertingTarget:IUTargetOutput];
+                    NSInteger line =  [styleStorage.fontEllipsis integerValue];
+                    if(line > 0){
+                        if(line > 1){
+                            [code insertTag:@"display" string:@"-webkit-box"];
+                        }
+                        else if(line == 1){
+                            [code insertTag:@"white-space" string:@"nowrap"];
+                        }
+                        [code insertTag:@"overflow" string:@"hidden"];
+                        [code insertTag:@"text-overflow" string:@"ellipsis"];
+                        [code insertTag:@"-webkit-line-clamp" number:styleStorage.fontEllipsis unit:IUUnitNone];
+                        [code insertTag:@"-webkit-box-orient" string:@"vertical"];
+                        [code insertTag:@"height" number:@(100) unit:IUUnitPercent];
+                    }
+                }
+            }
+            
+        }
+    }
+    else{
+        
+        NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
+        
+        if (cssTagDict[IUCSSTagFontName] ) {
+            NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:cssTagDict[IUCSSTagFontName]];
+            if(fontFamily){
+                [code insertTag:@"font-family" string:fontFamily];
+            }
+            
+        }
+        if (cssTagDict[IUCSSTagFontSize]) {
+            [code insertTag:@"font-size" intFromNumber:cssTagDict[IUCSSTagFontSize] unit:IUUnitPixel];
+        }
+        if (cssTagDict[IUCSSTagFontColor]) {
+            [code insertTag:@"color" color:cssTagDict[IUCSSTagFontColor]];
+        }
+        if ([cssTagDict[IUCSSTagTextLetterSpacing] floatValue]) {
+            [code insertTag:@"letter-spacing" floatFromNumber:cssTagDict[IUCSSTagTextLetterSpacing] unit:IUUnitPixel];
+        }
+        if (cssTagDict[IUCSSTagFontWeight]) {
+            [code insertTag:@"font-weight" string:cssTagDict[IUCSSTagFontWeight]];
+        }
+        if ([cssTagDict[IUCSSTagFontItalic] boolValue]) {
+            [code insertTag:@"font-style" string:@"italic"];
+        }
+        if ([cssTagDict[IUCSSTagFontDecoration] boolValue]) {
+            [code insertTag:@"text-decoration" string:@"underline"];
+        }
+        if (cssTagDict[IUCSSTagTextAlign]) {
+            NSString *alignText;
+            switch ([cssTagDict[IUCSSTagTextAlign] intValue]) {
+                case IUAlignLeft: alignText = @"left"; break;
+                case IUAlignCenter: alignText = @"center"; break;
+                case IUAlignRight: alignText = @"right"; break;
+                case IUAlignJustify: alignText = @"justify"; break;
+                default: JDErrorLog(@"no align type"); NSAssert(0, @"no align type");
+            }
+            [code insertTag:@"text-align" string:alignText];
+        }
+        if (cssTagDict[IUCSSTagLineHeight]) {
+            [code insertTag:@"line-height" floatFromNumber:cssTagDict[IUCSSTagLineHeight]];
+        }
+        if(_compiler.rule == IUCompileRuleDjango){
+            if(cssTagDict[IUCSSTagEllipsis]){
+                [code setInsertingTarget:IUTargetOutput];
+                NSInteger line =  [cssTagDict[IUCSSTagEllipsis] integerValue];
+                if(line > 0){
+                    if(line > 1){
+                        [code insertTag:@"display" string:@"-webkit-box"];
+                    }
+                    else if(line == 1){
+                        [code insertTag:@"white-space" string:@"nowrap"];
+                    }
+                    [code insertTag:@"overflow" string:@"hidden"];
+                    [code insertTag:@"text-overflow" string:@"ellipsis"];
+                    [code insertTag:@"-webkit-line-clamp" integer:(int)line unit:IUUnitNone];
+                    [code insertTag:@"-webkit-box-orient" string:@"vertical"];
+                    [code insertTag:@"height" integer:100 unit:IUUnitPercent];
+                }
+            }
+            
+        }
     }
     
 }

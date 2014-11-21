@@ -92,5 +92,30 @@
 
 }
 
+- (void)test5_font{
+    [box.mqData setValue:@"test" forTag:IUMQDataTagInnerHTML];
+    box.liveStyleStorage.fontName = @"Roboto";
+    box.liveStyleStorage.fontSize = @(13);
+    box.liveStyleStorage.fontColor = [NSColor blueColor];
+    
+    box.liveStyleStorage.fontAlign = @(IUAlignLeft);
+    
+    XCTAssertEqualObjects(box.currentStyleStorage.fontName, @"Roboto");
+    XCTAssertEqualObjects(box.currentStyleStorage.fontSize, @(13));
+    XCTAssertEqualObjects(box.currentStyleStorage.fontColor, [NSColor blueColor]);
+    
+    
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    
+    XCTAssert([dict.allKeys containsObject:@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"color"]);
+    XCTAssert([dict[@".BOX"] containsString:@"Roboto"]);
+    XCTAssert([dict[@".BOX"] containsString:@"text-align"]);
+
+    
+}
+
 
 @end

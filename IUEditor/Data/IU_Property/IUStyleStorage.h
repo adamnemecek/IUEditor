@@ -111,9 +111,17 @@ typedef enum{
 @property (nonatomic, copy) NSString* fontName;
 @property (nonatomic) NSNumber* fontSize;
 @property (nonatomic) NSColor*  fontColor;
-@property (nonatomic) NSNumber* fontWeight;
+@property (nonatomic) NSString* fontWeight;
 @property (nonatomic) NSNumber* fontItalic;
 @property (nonatomic) NSNumber* fontUnderline;
+
+typedef enum{
+    IUAlignLeft,
+    IUAlignCenter,
+    IUAlignRight,
+    IUAlignJustify,
+}IUAlign;
+
 @property (nonatomic) NSNumber* fontAlign;
 @property (nonatomic) NSNumber* fontLineHeight;
 @property (nonatomic) NSNumber* fontLetterSpacing;

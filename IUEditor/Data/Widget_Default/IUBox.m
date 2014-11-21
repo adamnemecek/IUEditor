@@ -253,7 +253,7 @@
         
         
         IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:hoverManager forSelector:kIUPositionManager];
+        [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
         
         IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
         [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
