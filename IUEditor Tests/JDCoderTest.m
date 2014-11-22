@@ -122,6 +122,7 @@
     NSMutableArray *secondItemDecoded = decoded[1][0];
     
     XCTAssertEqual(firstItemDecoded, secondItemDecoded);
+    XCTAssertTrue([firstItemDecoded isKindOfClass:[NSMutableArray class]]);
 }
 
 - (void)test6_dict{
@@ -139,91 +140,5 @@
     
     XCTAssertEqual(firstItem, secondItem) ;
 }
-
-
-/*
-- (void)test2_IUBoxCSS{
-    // This is an example of a functional test case.
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:parentBox];
-    IUBox *resultBox = [coder decodedAndInitializeObject];
-    
-    XCTAssert([[resultBox.css effectiveValueForTag:@"IUCSSTagForTest" forViewport:IUCSSDefaultViewPort] isEqualToString:@"VALUETEST"], @"Pass");
-    NSInteger result = [[resultBox.css effectiveValueForTag:@"IUCSSTagForTestNum" forViewport:IUCSSDefaultViewPort] integerValue];
-    XCTAssert(result == 10, @"Pass");
-}
-
-
-- (void)test3_CoderSaveLoad{
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:parentBox];
-    NSString *tempDir = NSTemporaryDirectory();
-    NSURL *fileURL = [NSURL fileURLWithPath:[tempDir stringByAppendingPathComponent:@"parentBox.iuml"]];
-    NSError *err;
-    BOOL saveResult = [coder saveToURL:fileURL error:&err];
-    XCTAssert(saveResult, @"Pass");
-    JDCoder *loadCoder = [[JDCoder alloc] init];
-    [loadCoder loadFromURL:fileURL error:&err];
-    IUBox *resultBox = [loadCoder decodedAndInitializeObject];
-    
-    XCTAssert([[resultBox.css effectiveValueForTag:@"IUCSSTagForTest" forViewport:IUCSSDefaultViewPort] isEqualToString:@"VALUETEST"], @"Pass");
-    NSInteger result = [[resultBox.css effectiveValueForTag:@"IUCSSTagForTestNum" forViewport:IUCSSDefaultViewPort] integerValue];
-    XCTAssert(result == 10, @"Pass");
-}
-
-- (void)test4_children{
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:parentBox];
-    
-    IUBox *resultBox = [coder decodedAndInitializeObject];
-    IUBox *resultChildBox1 = [[resultBox children] objectAtIndex:0];
-    
-    XCTAssert([resultChildBox1.htmlID isEqualToString:@"ChildBox1"], @"Pass");
-    XCTAssert([resultChildBox1.parent.htmlID isEqualToString:@"parentBox"], @"Pass");
-}
-
-- (void)test5_selector{
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:parentBox];
-    
-    IUBox *resultBox = [coder decodedAndInitializeObject];
-    IUBox *resultChildBox1 = [[resultBox children] objectAtIndex:0];
-    IUBox *resultChildBox2 = [[resultBox children] objectAtIndex:1];
-
-    XCTAssert(resultChildBox1, @"Pass");
-    XCTAssert(resultChildBox1.link == resultChildBox2, @"Pass");
-    XCTAssert(resultChildBox2.link == resultChildBox1, @"Pass");
-}
-
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
-- (void)test02_CoderSaveLoad{
-    JDCoder *coder = [[JDCoder alloc] init];
-    NSMutableDictionary *mutableDict = [NSMutableDictionary dictionary];
-    mutableDict[@"test"] = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"object", @"key", nil];
-    [coder encodeRootObject:mutableDict];
-    
-    NSString *tempDir = NSTemporaryDirectory();
-    NSURL *fileURL = [NSURL fileURLWithPath:[tempDir stringByAppendingPathComponent:@"coder"]];
-    NSError *err;
-
-    BOOL saveResult = [coder saveToURL:fileURL error:&err];
-    XCTAssertTrue(saveResult, @"Pass");
-
-    JDCoder *loadCoder = [[JDCoder alloc] init];
-    [loadCoder loadFromURL:fileURL error:&err];
-    NSMutableDictionary *decodedDict = [loadCoder decodedAndInitializeObject];
-    NSDictionary *innerDict = [decodedDict objectForKey:@"test"];
-    NSString *decoded = [innerDict objectForKey:@"key"];
-    XCTAssertEqualObjects(decoded, @"object");
-    XCTAssertTrue([decodedDict isKindOfClass:[NSMutableDictionary class]]);
-    XCTAssertTrue([innerDict isKindOfClass:[NSMutableDictionary class]]);
-}
- */
 
 @end

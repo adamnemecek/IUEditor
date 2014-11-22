@@ -53,15 +53,12 @@
     }];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    NSMutableDictionary *temp = [NSMutableDictionary dictionary];
-    for (id key in [aDecoder keysOfCurrentDecodingObject]) {
-        if ([key isEqualTo:@"class__"] == NO ) {
-            temp[key] = [aDecoder decodeObjectForKey:key];
-        }
-    }
-    return [self initWithDictionary:temp];
+    return [aDecoder decodeDictionary];
 }
+#pragma clang diagnostic pop
 @end
 
 @implementation NSNumber (JDCoding)
@@ -176,6 +173,27 @@
         [self encodeObject:item];
     }
     workingDict = workingDict_cache;
+}
+- (NSDictionary*)decodeDictionary {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *originalDict = workingDict;
+    for (NSMutableDictionary *key in workingDict) {
+        if ([key isEqualTo:@"memory__"] || [key isEqualTo:@"class__"]) {
+            continue;
+        }
+        workingDict = workingDict[key];
+        if (decodedObjects[workingDict[@"memory__"]]){
+            dict[key] = decodedObjects[workingDict[@"memory__"]];
+        }
+        else {
+            dict[key] = [self decodeObject];
+        }
+        workingDict = originalDict;
+    }
+    
+    NSString *className = workingDict[@"class__"];
+    NSDictionary *retDict = [[NSClassFromString(className) alloc] initWithDictionary:dict];
+    return retDict;
 }
 
 - (NSArray *)decodeArray {
