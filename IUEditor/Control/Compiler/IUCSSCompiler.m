@@ -100,7 +100,7 @@
         }
     }
     else {
-        editWidths = [_iu.css allViewports];
+        editWidths = [[_iu.css allViewports] mutableCopy];
     }
     
     for (NSNumber *viewportNumber in editWidths) {
