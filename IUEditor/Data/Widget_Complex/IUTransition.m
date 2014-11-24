@@ -173,6 +173,7 @@
     }
 }
 
+/*
 - (void)setEventType:(NSString *)eventType{
     if([_eventType isEqualToString:eventType]){
         return ;
@@ -182,6 +183,7 @@
     
     _eventType = eventType;
 }
+ */
 
 - (void)setAnimation:(NSString *)animation{
     if ([_animation isEqualToString:animation]) {

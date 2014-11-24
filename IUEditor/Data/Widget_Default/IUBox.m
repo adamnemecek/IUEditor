@@ -10,8 +10,14 @@
 #import "IUSourceManager.h"
 
 #import "IUBox.h"
+#import "NSString+JDExtension.h"
 #import "NSObject+JDExtension.h"
 #import "NSCoder+JDExtension.h"
+#import "NSDictionary+JDExtension.h"
+#import "NSArray+JDExtension.h"
+
+#import "JDUIUtil.h"
+
 #import "IUCSSCompiler.h"
 
 #import "IUCompiler.h"
@@ -43,6 +49,9 @@
     __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
     BOOL _isEnabledFrameUndo;
+    
+    NSMutableArray *_events;
+    NSMutableArray *_eventsCalledByOtherIU;
 }
 #pragma mark - class attributes
 
@@ -261,6 +270,9 @@
         
         _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
         _name = _htmlID;
+        
+        _events = [NSMutableArray array];
+        _eventsCalledByOtherIU = [NSMutableArray array];
     }
     return self;
 }
@@ -1712,6 +1724,27 @@ e.g. 만약 css로 옮긴다면)
     
     return pixelFrame;
     
+}
+
+- (NSArray *)events{
+    return [_events copy];
+}
+
+- (NSArray *)eventsCalledByOtherIU:(IUEvent2 *)event{
+    return [_eventsCalledByOtherIU copy];
+}
+
+- (void)addEvent:(IUEvent2 *)event{
+    [_events addObject:event];
+}
+
+- (void)addEventCalledByOtherIU:(IUEvent2 *)event{
+    [_eventsCalledByOtherIU addObject:event];
+}
+
+- (void)removeEvent:(IUEvent2 *)event{
+    [_events removeObject:event];
+    [_eventsCalledByOtherIU removeObject:event];
 }
 
 @end

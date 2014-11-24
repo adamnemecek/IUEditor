@@ -19,6 +19,7 @@
 #import "IUSourceDelegate.h"
 #import "IUProjectProtocol.h"
 #import "IUSourceManagerProtocol.h"
+#import "IUEvent2.h"
 
 typedef enum{
     IUWidgetTypePrimary,
@@ -116,9 +117,11 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property (readonly) IUStyleStorage *defaultStyleStorage;
 @property (readonly) IUStyleStorage *liveStyleStorage;
 @property (readonly) IUStyleStorage *currentStyleStorage;
+
 @property (readonly) IUPositionStorage *defaultPositionStorage;
 @property (readonly) IUPositionStorage *livePositionStorage;
 @property (readonly) IUPositionStorage *currentPositionStorage;
+
 @property (readonly) IUPropertyStorage *defaultPropertyStorage;
 @property (readonly) IUPropertyStorage *livePropertyStorage;
 @property (readonly) IUPropertyStorage *currentPropertyStorage;
@@ -132,10 +135,14 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (IUDataStorageManager *)hoverStyleManager;
 - (IUDataStorageManager *)positionManager;
 - (IUDataStorageManager *)propertyManager;
+//- (IUEventStorageManager *)eventManager;
 
+- (NSArray *)events;
+- (NSArray *)eventsCalledByOtherIU:(IUEvent2 *)event;
 
-
-
+- (void)addEvent:(IUEvent2 *)event;
+- (void)addEventCalledByOtherIU:(IUEvent2 *)event;
+- (void)removeEvent:(IUEvent2 *)event;
 
 
 

@@ -89,7 +89,6 @@
 - (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error;
 - (void)encodeArray:(NSArray *)array;
 - (NSArray *)decodeArray;
-- (void)encodeArray:(NSArray *)array;
 - (NSDictionary *)decodeDictionary;
 - (NSData *)data;
 @end

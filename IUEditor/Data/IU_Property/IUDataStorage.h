@@ -77,7 +77,6 @@ typedef enum IUFrameUnit{
  If updating should be disabled, DO IT AT IUBOX!!!!
  */
 
-#define IUDefaultViewPort 9999
 
 @interface IUDataStorageManager : NSObject <JDCoding>
 

@@ -54,6 +54,7 @@
 }
 
 - (void)test2_Import {
+    /* How to use class-import */
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     class.htmlID = @"class";
     
