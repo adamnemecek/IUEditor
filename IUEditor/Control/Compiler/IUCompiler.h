@@ -46,7 +46,7 @@ typedef enum _IUCompileRule{
 //html source
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target;
 - (NSString *)outputHTMLSource:(IUSheet*)document;
-- (NSString *)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
+- (NSString*)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray ForViewport:(NSInteger)viewport;
 
 //css code
 - (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;

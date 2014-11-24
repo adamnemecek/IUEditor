@@ -537,7 +537,7 @@
 
 #pragma mark - editor body source
 
--(NSString*)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray{
+-(NSString*)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray ForViewport:(NSInteger)viewport{
     NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
     if (templateFilePath == nil) {
         NSAssert(0, @"Template file name wrong");
@@ -557,7 +557,14 @@
         
     
     JDCode *iuCSS = [self cssHeaderForSheet:document isEdit:YES];
+    if(viewport < IUMobileSize){
+        NSString *mobileCSSPath = [[NSBundle mainBundle] pathForResource:@"menubarMobile" ofType:@"css"];
+        [iuCSS addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", mobileCSSPath];
+    }
+
     [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+    
+
     
     //add for hover css
     [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
@@ -617,7 +624,7 @@
         if(_rule == IUCompileRuleWordpress){
             
             if(size == IUCSSDefaultViewPort){
-                [code addCodeLine:@"<style id=default>"];
+                [code addCodeLine:@"<style id=\"default\">"];
             }
             else if(count < mqSizeArray.count-1){
                 [code addCodeWithFormat:@"<style type=\"text/css\" media ='screen and (min-width:%dpx) and (max-width:%dpx)' id='style%d'>" , size, largestWidth-1, size];

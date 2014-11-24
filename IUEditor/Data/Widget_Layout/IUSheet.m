@@ -73,7 +73,7 @@
 
 
 
--(NSString*)editorSource{
+-(NSString*)editorSourceForViewport:(NSInteger)viewport{
     NSAssert(self.project.compiler, @"compiler");
     
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
@@ -81,7 +81,7 @@
     
     
     
-    return [self.project.compiler editorSource:self mqSizeArray:sortedArray];
+    return [self.project.compiler editorSource:self mqSizeArray:sortedArray ForViewport:viewport];
 }
 
 - (NSString *)outputCSSSource{

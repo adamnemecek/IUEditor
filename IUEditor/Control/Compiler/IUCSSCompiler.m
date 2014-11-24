@@ -35,6 +35,7 @@
 
 
 
+
 @implementation IUCSSCompiler {
     __weak IUResourceManager *_resourceManager;
 }
@@ -503,6 +504,7 @@
         NSString *topTag;
         NSString *leftTag;
         bool enablebottom=NO;
+        bool isFixed = NO;
         /* insert position */
         /* Note */
         /* Cannot use'top' tag for relative position here.
@@ -552,11 +554,13 @@
             }
             case IUPositionTypeFixedBottom:{
                 enablebottom = YES;
+                isFixed = YES;
                 [code insertTag:@"position" string:@"fixed"];
                 [code insertTag:@"z-index" string:@"11"];
                 leftTag = @"left"; break;
             }
             case IUPositionTypeFixed:{
+                isFixed = YES;
                 [code insertTag:@"position" string:@"fixed"];
                 [code insertTag:@"z-index" string:@"11"];
                 if(_iu.enableVCenter == NO){
@@ -567,11 +571,31 @@
             default:
                 break;
         }
+        
+        int realViewport = viewport;
+        if(realViewport == IUDefaultViewPort){
+            realViewport = [_iu.project.mqSizes[0] intValue];;
+        }
+        
         if (_iu.shouldCompileY && topTag) {
             [code insertTag:topTag floatFromNumber:yValue unit:yUnit];
+            
+            if(isFixed && yUnit == IUUnitPercent ){
+                [code setInsertingTarget:IUTargetEditor];
+                CGFloat pixelTop = ([yValue floatValue]/100)*realViewport;
+                [code insertTag:topTag floatFromNumber:@(pixelTop) unit:IUUnitPixel];
+                [code setInsertingTarget:IUTargetBoth];
+            }
         }
         if (_iu.shouldCompileX && leftTag) {
             [code insertTag:leftTag floatFromNumber:xValue unit:xUnit];
+            
+            if(isFixed && xUnit == IUUnitPercent ){
+                [code setInsertingTarget:IUTargetEditor];
+                CGFloat pixelLeft = ([xValue floatValue]/100)*realViewport;
+                [code insertTag:leftTag floatFromNumber:@(pixelLeft) unit:IUUnitPixel];
+                [code setInsertingTarget:IUTargetBoth];
+            }
         }
         if (enablebottom){
             [code insertTag:@"bottom" integer:0 unit:IUCSSUnitPixel];
@@ -580,9 +604,19 @@
             
             IUUnit wUnit = [[_iu.css effectiveValueForTag:IUCSSTagWidthUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
             NSNumber *wValue = (wUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentWidth] : cssTagDict[IUCSSTagPixelWidth];
+            
             [code insertTag:@"width" floatFromNumber:wValue unit:wUnit];
+ 
+            
             if(wUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelWidth]){
                 [code insertTag:@"min-width" intFromNumber:cssTagDict[IUCSSTagMinPixelWidth] unit:IUUnitPixel];
+            }
+            
+            if(isFixed && wUnit == IUUnitPercent ){
+                [code setInsertingTarget:IUTargetEditor];
+                CGFloat pixelWidth = ([wValue floatValue]/100)*realViewport;
+                [code insertTag:@"width" floatFromNumber:@(pixelWidth) unit:IUUnitPixel];
+                [code setInsertingTarget:IUTargetBoth];
             }
         }
         
@@ -595,6 +629,15 @@
             if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
                 [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
             }
+            
+            if(isFixed && hUnit == IUUnitPercent ){
+                [code setInsertingTarget:IUTargetEditor];
+                CGFloat pixelWidth = ([hValue floatValue]/100)*realViewport;
+                [code insertTag:@"height" floatFromNumber:@(pixelWidth) unit:IUUnitPixel];
+                [code setInsertingTarget:IUTargetBoth];
+            }
+            
+            
         }
     }
 }
@@ -764,11 +807,21 @@
         [code setInsertingIdentifier:[menuItem cssIdentifier]];
         [code setInsertingTarget:IUTargetBoth];
         
+        //remove width
+        
+        if(viewport < IUMobileSize){
+            if(menuItem.depth >= 1){
+                [code removeTag:@"width" identifier:[menuItem cssIdentifier] viewport:viewport];
+            }
+        }
         
         //set height for depth
         id value;
         if(menuItem.depth == 1){
-            value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+            value = [menuItem.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+            if(value == nil){
+                value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+            }
         }
         else if(menuItem.depth == 2){
             value = [menuItem.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
@@ -924,6 +977,7 @@
     if(menuItem.fontActive){
         [code insertTag:@"color" color:menuItem.fontActive];
     }
+    
     
 
 }

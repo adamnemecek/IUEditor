@@ -25,7 +25,7 @@
 @property BOOL hasEvent;
 
 #pragma mark editor source
--(NSString*)editorSource;
+-(NSString*)editorSourceForViewport:(NSInteger)viewport;
 
 #pragma mark output Source
 - (NSString*)outputHTMLSource;

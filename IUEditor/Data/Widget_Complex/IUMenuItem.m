@@ -325,7 +325,7 @@
     }
 }
 - (BOOL)canChangeHeightByUserInput{
-    if(self.depth == 2){
+    if(self.depth ==1 ||  self.depth == 2){
         return YES;
     }
     return NO;

@@ -132,7 +132,7 @@
     
     [self.canvasView loadDefaultZoom];
     
-    NSString *editorSrc = [sheet.editorSource copy];
+    NSString *editorSrc = [[sheet editorSourceForViewport:_selectedFrameWidth] copy];
     [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
     
     [self updateClassHeight];
