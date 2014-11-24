@@ -76,16 +76,6 @@ static NSString * IUCSSTagBGRepeat    = @"bacground-repeat";
 static NSString * IUCSSTagBGVPosition = @"bgV-position";
 static NSString * IUCSSTagBGHPosition = @"bgH-position";
 
-typedef enum{
-    IUCSSBGVPostionTop,
-    IUCSSBGVPostionCenter,
-    IUCSSBGVPostionBottom,
-}IUCSSBGVPostion;
-typedef enum{
-    IUCSSBGHPostionLeft,
-    IUCSSBGHPostionCenter,
-    IUCSSBGHPostionRight,
-}IUCSSBGHPostion;
 
 static NSString * IUCSSTagEnableBGCustomPosition = @"enableDigitPosition";
 static NSString * IUCSSTagBGXPosition = @"bgX";
