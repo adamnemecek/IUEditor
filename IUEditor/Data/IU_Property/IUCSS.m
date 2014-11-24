@@ -528,7 +528,14 @@
         [self convertToStyleStorageManager_setTag:IUCSSTagBGRepeat toStorageWithkey:@"imageRepeat"];
         
         if (convertTagDict[IUCSSTagBGSize]) {
-            [self convertToStyleStorageManager_setTag:IUCSSTagBGSize toStorageWithkey:@"imageSizeType"];
+            IUBGSizeType bgSizeType = [convertTagDict[IUCSSTagBGSize] intValue];
+            if(bgSizeType == IUBGSizeTypeFull){
+                [convertStyleStorage setCSSValue:@(IUStyleImageSizeTypeCover) fromCSSforCSSKey:@"imageSizeType"];
+                [convertStyleStorage setCSSValue:@(YES) fromCSSforCSSKey:@"imageAttachment"];
+            }
+            else{
+                [self convertToStyleStorageManager_setTag:IUCSSTagBGSize toStorageWithkey:@"imageSizeType"];
+            }
         }
         if ([convertTagDict[IUCSSTagEnableBGCustomPosition] boolValue]) {
             [self convertToStyleStorageManager_setTag:IUCSSTagBGXPosition toStorageWithkey:@"imageX"];

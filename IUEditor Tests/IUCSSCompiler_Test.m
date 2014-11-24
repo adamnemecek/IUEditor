@@ -43,6 +43,7 @@
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
+    box.livePositionStorage.position = @(IUPositionTypeAbsolute);
     box.livePositionStorage.x = @(30);
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
@@ -118,8 +119,35 @@
     XCTAssert([dict[@".BOX"] containsString:@"color"]);
     XCTAssert([dict[@".BOX"] containsString:@"Roboto"]);
     XCTAssert([dict[@".BOX"] containsString:@"text-align"]);
+    
+}
+
+- (void)test6_bg{
+    box.liveStyleStorage.imageName = @"hihihi.jpg";
+    box.liveStyleStorage.imageSizeType = @(IUBGSizeTypeStretch);
+    box.liveStyleStorage.imageX = @(100);
+    box.liveStyleStorage.imageY = @(200);
+    
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict.allKeys containsObject:@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"background-position-x"]);
 
     
+    box.liveStyleStorage.imageRepeat = @(YES);
+    box.liveStyleStorage.imageX = nil;
+    box.liveStyleStorage.imageY = nil;
+    box.liveStyleStorage.imageVPosition = @(IUCSSBGVPostionTop);
+    box.liveStyleStorage.imageHPosition = @(IUCSSBGHPostionLeft);
+    
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"background-repeat"]);
+    XCTAssert([dict[@".BOX"] containsString:@"background-position-x"]);
+    XCTAssert([dict[@".BOX"] containsString:@"top"]);
+
 }
 
 

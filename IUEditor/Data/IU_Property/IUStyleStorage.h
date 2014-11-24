@@ -82,21 +82,24 @@ typedef enum{
 @property (nonatomic) NSNumber* imageX; //if imageX is not nil, imageHPosition should be nil;
 @property (nonatomic) NSNumber* imageY; //if imageY is not nil, imageVPosition should be nil
 
+
 typedef enum{
-    IUBGSizeTypeAuto,
-    IUBGSizeTypeCover,
-    IUBGSizeTypeContain,
-    IUBGSizeTypeStretch,
-    IUBGSizeTypeFull,
-}IUBGSizeType;
+    IUStyleImageSizeTypeAuto,
+    IUStyleImageSizeTypeCover,
+    IUStyleImageSizeTypeContain,
+    IUStyleImageSizeTypeStretch,
+}IUStyleImageSizeType;
+
 
 @property (nonatomic) NSNumber* imageSizeType;
+@property (nonatomic) NSNumber* imageAttachment;
 
 /* background tag */
 @property (nonatomic) NSColor* bgColor;
 @property (nonatomic) NSColor* bgGradientStartColor;
 @property (nonatomic) NSColor* bgGradientEndColor;
 @property (nonatomic) NSNumber* bgColorDuration;
+
 
 /* border tag */
 /* following three tag can have NSMultipleValueMarker */

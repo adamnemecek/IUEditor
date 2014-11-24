@@ -10,7 +10,15 @@
 
 @interface IUPositionStorage : IUDataStorage
 
-
+typedef enum _IUPositionType{
+    IUPositionTypeAbsolute,
+    IUPositionTypeAbsoluteBottom,
+    IUPositionTypeRelative,
+    IUPositionTypeFloatLeft,
+    IUPositionTypeFloatRight,
+    IUPositionTypeFixed,
+    IUPositionTypeFixedBottom,
+}IUPositionType;
 @property (nonatomic) NSNumber *position; //Use IUPositionType
 
 @property (nonatomic, readonly) NSNumber* xUnit;

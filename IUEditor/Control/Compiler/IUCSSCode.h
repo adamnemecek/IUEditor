@@ -63,17 +63,14 @@ typedef enum{
 - (void)insertTag:(NSString*)tag color:(NSColor*)colorValue;
 - (void)insertTag:(NSString*)tag string:(NSString*)stringValue;
 - (void)insertTag:(NSString*)tag string:(NSString*)stringValue target:(IUTarget)target;
+- (void)insertTag:(NSString*)tag number:(NSNumber*)number;
 - (void)insertTag:(NSString*)tag number:(NSNumber*)number unit:(IUUnit)unit;
 - (void)insertTag:(NSString*)tag number:(NSNumber*)number frameUnit:(NSNumber *)frameUnit;
 
 
-//
-- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber;
-- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber unit:(IUUnit)unit;
-- (void)insertTag:(NSString*)tag floatValue:(CGFloat)value unit:(IUUnit)unit;
-- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber;
-- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber unit:(IUUnit)unit;
-- (void)insertTag:(NSString*)tag integer:(int)number unit:(IUUnit)unit;
+/*
+ remove css tag to receiver
+ */
 - (void)removeTag:(NSString*)tag identifier:(NSString*)identifier;
 - (void)removeTag:(NSString*)tag identifier:(NSString*)identifier viewport:(NSInteger)viewport;
 

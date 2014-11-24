@@ -66,7 +66,17 @@
     XCTAssertEqualObjects(((IUStyleStorage *)storageManager.currentStorage).borderColor, NSMultipleValuesMarker);
     XCTAssertEqualObjects(((IUStyleStorage *)storageManager.currentStorage).leftBorderColor, [NSColor redColor]);
 
+}
 
+- (void)test_bg{
+    IUCSS *css = [[IUCSS alloc] init];
+    [css setValue:@(IUBGSizeTypeFull) forTag:IUCSSTagBGSize];
+    
+    
+    IUDataStorageManager *storageManager = [css convertToStyleStorageDefaultManager];
+    XCTAssertEqual(storageManager.currentViewPort, IUDefaultViewPort);
+    XCTAssertEqualObjects(((IUStyleStorage *)storageManager.currentStorage).imageSizeType, @(IUBGSizeTypeCover));
+    XCTAssertEqualObjects(((IUStyleStorage *)storageManager.currentStorage).imageAttachment, @(YES));
 
 }
 @end

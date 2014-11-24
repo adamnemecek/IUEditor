@@ -37,6 +37,7 @@
 }
 
 - (void)initPropertiesForDefaultViewPort{
+    _position = @(IUPositionTypeAbsolute);
     _xUnit = @(IUFrameUnitPixel);
     _yUnit = @(IUFrameUnitPixel);
 }

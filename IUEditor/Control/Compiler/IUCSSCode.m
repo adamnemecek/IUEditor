@@ -200,19 +200,8 @@
     }
 }
 
-- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber{
-    [self insertTag:tag floatFromNumber:floatNumber unit:IUUnitNone];
-}
-
-- (void)insertTag:(NSString*)tag floatFromNumber:(NSNumber*)floatNumber unit:(IUUnit)unit{
-    if (floatNumber) {
-        if ([floatNumber intValue] == [floatNumber floatValue]) {
-            [self insertTag:tag integer:[floatNumber intValue] unit:unit];
-        }
-        else {
-            [self insertTag:tag floatValue:[floatNumber floatValue] unit:unit];
-        }
-    }
+- (void)insertTag:(NSString*)tag number:(NSNumber*)number{
+    [self insertTag:tag number:number unit:IUUnitNone];
 }
 
 - (void)insertTag:(NSString*)tag number:(NSNumber*)number unit:(IUUnit)unit{
@@ -225,9 +214,6 @@
         }
     }
 }
-
-
-
 - (void)insertTag:(NSString*)tag number:(NSNumber*)number frameUnit:(NSNumber *)frameUnit{
     if (number) {
         if ([number intValue] == [number floatValue]) {
@@ -238,7 +224,6 @@
         }
     }
 }
-
 
 - (void)insertTag:(NSString*)tag floatValue:(CGFloat)value frameUnit:(IUFrameUnit)frameUnit{
     NSString *unitString;
@@ -262,8 +247,6 @@
     
 }
 
-
-
 - (void)insertTag:(NSString*)tag floatValue:(CGFloat)value unit:(IUUnit)unit{
     NSString *unitString;
     switch (unit) {
@@ -274,15 +257,6 @@
     NSString *stringValue = [NSString stringWithFormat:@"%.2f%@",  value , unitString];
     [self insertTag:tag string:stringValue];
     
-}
-- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber{
-    if(intNumber){
-        [self insertTag:tag intFromNumber:intNumber unit:IUUnitNone];
-    }
-}
-
-- (void)insertTag:(NSString*)tag intFromNumber:(NSNumber*)intNumber unit:(IUUnit)unit{
-    [self insertTag:tag integer:[intNumber intValue] unit:unit];
 }
 
 - (void)insertTag:(NSString*)tag integer:(int)number unit:(IUUnit)unit{

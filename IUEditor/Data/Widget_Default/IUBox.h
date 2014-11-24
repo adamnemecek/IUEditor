@@ -27,18 +27,6 @@ typedef enum{
     IUWidgetTypeWP,
 }IUWidgetType;
 
-
-typedef enum _IUPositionType{
-    IUPositionTypeAbsolute,
-    IUPositionTypeAbsoluteBottom,
-    IUPositionTypeRelative,
-    IUPositionTypeFloatLeft,
-    IUPositionTypeFloatRight,
-    IUPositionTypeFixed,
-    IUPositionTypeFixedBottom,
-}IUPositionType;
-
-
 typedef enum{
     IUTextTypeDefault,
     IUTextTypeH1,

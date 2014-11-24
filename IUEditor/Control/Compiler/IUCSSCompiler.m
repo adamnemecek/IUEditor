@@ -183,8 +183,8 @@
     else{
         NSDictionary *cssTagDict = [_iu.css tagDictionaryForViewport:viewport];
         if ([cssTagDict[IUCSSTagHoverBGImagePositionEnable] boolValue]) {
-            [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageX] unit:IUUnitPixel];
-            [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagHoverBGImageY] unit:IUUnitPixel];
+            [code insertTag:@"background-position-x" number:cssTagDict[IUCSSTagHoverBGImageX] unit:IUUnitPixel];
+            [code insertTag:@"background-position-y" number:cssTagDict[IUCSSTagHoverBGImageY] unit:IUUnitPixel];
         }
         
         if ([cssTagDict[IUCSSTagHoverBGColorEnable] boolValue]){
@@ -305,13 +305,13 @@
             
         }
         if (cssTagDict[IUCSSTagFontSize]) {
-            [code insertTag:@"font-size" intFromNumber:cssTagDict[IUCSSTagFontSize] unit:IUUnitPixel];
+            [code insertTag:@"font-size" number:cssTagDict[IUCSSTagFontSize] unit:IUUnitPixel];
         }
         if (cssTagDict[IUCSSTagFontColor]) {
             [code insertTag:@"color" color:cssTagDict[IUCSSTagFontColor]];
         }
         if ([cssTagDict[IUCSSTagTextLetterSpacing] floatValue]) {
-            [code insertTag:@"letter-spacing" floatFromNumber:cssTagDict[IUCSSTagTextLetterSpacing] unit:IUUnitPixel];
+            [code insertTag:@"letter-spacing" number:cssTagDict[IUCSSTagTextLetterSpacing] unit:IUUnitPixel];
         }
         if (cssTagDict[IUCSSTagFontWeight]) {
             [code insertTag:@"font-weight" string:cssTagDict[IUCSSTagFontWeight]];
@@ -334,7 +334,7 @@
             [code insertTag:@"text-align" string:alignText];
         }
         if (cssTagDict[IUCSSTagLineHeight]) {
-            [code insertTag:@"line-height" floatFromNumber:cssTagDict[IUCSSTagLineHeight]];
+            [code insertTag:@"line-height" number:cssTagDict[IUCSSTagLineHeight]];
         }
         if(_compiler.rule == IUCompileRuleDjango){
             if(cssTagDict[IUCSSTagEllipsis]){
@@ -349,9 +349,9 @@
                     }
                     [code insertTag:@"overflow" string:@"hidden"];
                     [code insertTag:@"text-overflow" string:@"ellipsis"];
-                    [code insertTag:@"-webkit-line-clamp" integer:(int)line unit:IUUnitNone];
+                    [code insertTag:@"-webkit-line-clamp" number:@((int)line) unit:IUUnitNone];
                     [code insertTag:@"-webkit-box-orient" string:@"vertical"];
-                    [code insertTag:@"height" integer:100 unit:IUUnitPercent];
+                    [code insertTag:@"height" number:@(100) unit:IUUnitPercent];
                 }
             }
             
@@ -466,43 +466,43 @@
         
         if (cssTagDict[IUCSSTagBorderTopWidth]) {
             CGFloat width = [cssTagDict[IUCSSTagBorderTopWidth] floatValue];
-            [code insertTag:@"border-top-width" floatValue:width unit:IUUnitPixel];
+            [code insertTag:@"border-top-width" number:@(width) unit:IUUnitPixel];
             id value = [_iu.css effectiveValueForTag:IUCSSTagBorderTopColor forViewport:viewport];
             [code insertTag:@"border-top-color" color:value];
         }
         
         if (cssTagDict[IUCSSTagBorderLeftWidth]) {
             CGFloat width = [cssTagDict[IUCSSTagBorderLeftWidth] floatValue];
-            [code insertTag:@"border-left-width" floatValue:width unit:IUUnitPixel];
+            [code insertTag:@"border-left-width" number:@(width) unit:IUUnitPixel];
             id value = [_iu.css effectiveValueForTag:IUCSSTagBorderLeftColor forViewport:viewport];
             [code insertTag:@"border-left-color" color:value];
             
         }
         if (cssTagDict[IUCSSTagBorderRightWidth]) {
             CGFloat width = [cssTagDict[IUCSSTagBorderRightWidth] floatValue];
-            [code insertTag:@"border-right-width" floatValue:width unit:IUUnitPixel];
+            [code insertTag:@"border-right-width" number:@(width) unit:IUUnitPixel];
             id value = [_iu.css effectiveValueForTag:IUCSSTagBorderRightColor forViewport:viewport];
             [code insertTag:@"border-right-color" color:value];
             
         }
         if (cssTagDict[IUCSSTagBorderBottomWidth]) {
             CGFloat width = [cssTagDict[IUCSSTagBorderBottomWidth] floatValue];
-            [code insertTag:@"border-bottom-width" floatValue:width unit:IUUnitPixel];
+            [code insertTag:@"border-bottom-width" number:@(width) unit:IUUnitPixel];
             id value = [_iu.css effectiveValueForTag:IUCSSTagBorderBottomColor forViewport:viewport];
             [code insertTag:@"border-bottom-color" color:value];
         }
         
         if (cssTagDict[IUCSSTagBorderRadiusTopLeft]) {
-            [code insertTag:@"border-top-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopLeft] unit:IUUnitPixel];
+            [code insertTag:@"border-top-left-radius" number:cssTagDict[IUCSSTagBorderRadiusTopLeft] unit:IUUnitPixel];
         }
         if (cssTagDict[IUCSSTagBorderRadiusTopRight]) {
-            [code insertTag:@"border-top-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusTopRight] unit:IUUnitPixel];
+            [code insertTag:@"border-top-right-radius" number:cssTagDict[IUCSSTagBorderRadiusTopRight] unit:IUUnitPixel];
         }
         if (cssTagDict[IUCSSTagBorderRadiusBottomLeft]) {
-            [code insertTag:@"border-bottom-left-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomLeft] unit:IUUnitPixel];
+            [code insertTag:@"border-bottom-left-radius" number:cssTagDict[IUCSSTagBorderRadiusBottomLeft] unit:IUUnitPixel];
         }
         if (cssTagDict[IUCSSTagBorderRadiusBottomRight]) {
-            [code insertTag:@"border-bottom-right-radius" floatFromNumber:cssTagDict[IUCSSTagBorderRadiusBottomRight] unit:IUUnitPixel];
+            [code insertTag:@"border-bottom-right-radius" number:cssTagDict[IUCSSTagBorderRadiusBottomRight] unit:IUUnitPixel];
         }
         
         NSInteger hOff = [cssTagDict[IUCSSTagShadowHorizontal] integerValue];
@@ -626,27 +626,25 @@
                 
                 /* image size */
                 if(styleStorage.imageSizeType){
-                    IUBGSizeType sizetype = [styleStorage.imageSizeType intValue];
+                    IUStyleImageSizeType sizetype = [styleStorage.imageSizeType intValue];
                     switch (sizetype) {
-                        case IUBGSizeTypeStretch:
+                        case IUStyleImageSizeTypeStretch:
                             [code insertTag:@"background-size" string:@"100% 100%"];
                             break;
-                        case IUBGSizeTypeContain:
+                        case IUStyleImageSizeTypeContain:
                             [code insertTag:@"background-size" string:@"contain"];
                             break;
-                        case IUBGSizeTypeFull:
-                            [code insertTag:@"background-attachment" string:@"fixed"];
-                        case IUBGSizeTypeCover:
+                        case IUStyleImageSizeTypeCover:
                             [code insertTag:@"background-size" string:@"cover"];
                             break;
-                        case IUBGSizeTypeAuto:
+                        case IUStyleImageSizeTypeAuto:
                         default:
                             break;
                     }
-                    
-                    if(viewport != IUCSSDefaultViewPort && sizetype != IUBGSizeTypeFull){
-                        [code insertTag:@"background-attachment" string:@"initial"];
-                    }
+                }
+                
+                if(styleStorage.imageAttachment && [styleStorage.imageAttachment boolValue]){
+                    [code insertTag:@"background-attachment" string:@"fixed"];
                 }
                 
                 /* image position */
@@ -661,19 +659,38 @@
                 else{
                     if(styleStorage.imageVPosition){
                         IUCSSBGVPostion vPosition = [styleStorage.imageVPosition intValue];
-                        /*
+                        NSString *vPositionString;
                         switch (vPosition) {
-                            case <#constant#>:
-                                <#statements#>
-                                break;
-                                
+                            case IUCSSBGVPostionTop: vPositionString = @"top"; break;
+                            case IUCSSBGVPostionCenter: vPositionString = @"center"; break;
+                            case IUCSSBGVPostionBottom: vPositionString = @"bottom"; break;
                             default:
                                 break;
                         }
-                        */
+                        [code insertTag:@"background-position-y" string:vPositionString];
+                    }
+                    if(styleStorage.imageHPosition){
+                        IUCSSBGHPostion hPosition = [styleStorage.imageHPosition intValue];
+                        NSString *hPositionString;
+                        switch (hPosition) {
+                            case IUCSSBGHPostionLeft: hPositionString = @"left"; break;
+                            case IUCSSBGHPostionCenter: hPositionString = @"center"; break;
+                            case IUCSSBGVPostionBottom: hPositionString = @"right"; break;
+                            default: NSAssert(0, @"Cannot be default");  break;
+                        }
+                        [code insertTag:@"background-position-x" string:hPositionString];
                     }
                     
-                    
+                }
+                
+                /* image repeat */
+                if(styleStorage.imageRepeat){
+                    if ([styleStorage.imageRepeat boolValue]) {
+                        [code insertTag:@"background-repeat" string:@"repeat"];
+                    }
+                    else{
+                        [code insertTag:@"background-repeat" string:@"no-repeat"];
+                    }
                 }
             }
         }
@@ -721,7 +738,7 @@
         /* apperance */
         if (cssTagDict[IUCSSTagOpacity]) {
             float opacity = [cssTagDict[IUCSSTagOpacity] floatValue]/100;
-            [code insertTag:@"opacity" floatFromNumber:@(opacity)];
+            [code insertTag:@"opacity" number:@(opacity)];
             [code setInsertingTarget:IUTargetOutput];
             [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[cssTagDict[IUCSSTagOpacity] intValue]] ];
         }
@@ -777,7 +794,7 @@
                 }
             }
             
-            /* bg size & position */
+            /* bg size */
             if(cssTagDict[IUCSSTagBGSize]){
                 
                 IUBGSizeType bgSizeType = [cssTagDict[IUCSSTagBGSize] intValue];
@@ -803,10 +820,12 @@
                 
             }
             
+            /* bg position */
+            
             if ([cssTagDict[IUCSSTagEnableBGCustomPosition] boolValue]) {
                 /* custom bg position */
-                [code insertTag:@"background-position-x" floatFromNumber:cssTagDict[IUCSSTagBGXPosition] unit:IUUnitPixel];
-                [code insertTag:@"background-position-y" floatFromNumber:cssTagDict[IUCSSTagBGYPosition] unit:IUUnitPixel];
+                [code insertTag:@"background-position-x" number:cssTagDict[IUCSSTagBGXPosition] unit:IUUnitPixel];
+                [code insertTag:@"background-position-y" number:cssTagDict[IUCSSTagBGYPosition] unit:IUUnitPixel];
             }
             else {
                 IUCSSBGVPostion vPosition = [cssTagDict[IUCSSTagBGVPosition] intValue];
@@ -847,25 +866,124 @@
 - (void)updateCSSPositionCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport storage:(BOOL)storage{
     [code setInsertingTarget:IUTargetBoth];
     if (storage) {
-        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
-        if (styleStorage) {
-            if(styleStorage.width){
-                [code insertTag:@"width" number:styleStorage.width frameUnit:styleStorage.widthUnit];
-            }
-            if(styleStorage.height){
-                [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
-            }
-        }
         
         IUPositionStorage *positionStorage = (IUPositionStorage *)[_iu.positionManager storageForViewPort:viewport];
         if(positionStorage){
-            if (positionStorage.x) {
-                [code insertTag:@"left" number:positionStorage.x frameUnit:positionStorage.xUnit];
-            }
-            if(positionStorage.y){
-                [code insertTag:@"top" number:positionStorage.y frameUnit:positionStorage.yUnit];
+            if(positionStorage.position){
+                NSString *topTag;
+                NSString *leftTag;
+                bool enablebottom=NO;
+                IUPositionType positionType = [positionStorage.position intValue];
+                /* insert position */
+                /* Note */
+                /* Cannot use'top' tag for relative position here.
+                 If parent is relative postion and do not have height,
+                 parent's height will be children's margintop + height.
+                 */
+                
+                switch (positionType) {
+                    case IUPositionTypeAbsoluteBottom:{
+                        enablebottom = YES;
+                        if(_iu.enableHCenter == NO){
+                            leftTag = @"left";
+                        }
+                        break;
+                    }
+                    case IUPositionTypeAbsolute:{
+                        if(_iu.enableVCenter == NO){
+                            topTag = @"top";
+                        }
+                        if(_iu.enableHCenter == NO){
+                            leftTag = @"left";
+                        }
+                        break;
+                    }
+                    case IUPositionTypeRelative:{
+                        [code insertTag:@"position" string:@"relative"];
+                        topTag = @"margin-top";
+                        if(_iu.enableHCenter == NO){
+                            leftTag = @"left";
+                        }
+                        break;
+                    }
+                    case IUPositionTypeFloatLeft:{
+                        [code insertTag:@"position" string:@"relative"];
+                        [code insertTag:@"float" string:@"left"];
+                        topTag = @"margin-top"; leftTag = @"margin-left"; break;
+                        break;
+                    }
+                    case IUPositionTypeFloatRight:{
+                        [code insertTag:@"position" string:@"relative"];
+                        [code insertTag:@"float" string:@"right"];
+                        topTag = @"margin-top";
+                        leftTag = @"margin-right";
+                        break;
+                    }
+                    case IUPositionTypeFixedBottom:{
+                        enablebottom = YES;
+                        [code insertTag:@"position" string:@"fixed"];
+                        [code insertTag:@"z-index" string:@"11"];
+                        leftTag = @"left"; break;
+                    }
+                    case IUPositionTypeFixed:{
+                        [code insertTag:@"position" string:@"fixed"];
+                        [code insertTag:@"z-index" string:@"11"];
+                        if(_iu.enableVCenter == NO){
+                            topTag = @"top";
+                        }
+                        leftTag = @"left"; break;
+                    }
+                    default:
+                        break;
+                }
+                
+                //set x location
+                if (enablebottom){
+                    [code insertTag:@"bottom" number:@(0) unit:IUCSSUnitPixel];
+                }
+                else if (positionStorage.x && _iu.shouldCompileX && leftTag ) {
+
+                    if(positionType == IUPositionTypeFloatRight){
+                        CGFloat right = [positionStorage.x floatValue] * (-1);
+                        [code insertTag:leftTag number:@(right) frameUnit:positionStorage.xUnit];
+                    }
+                    else{
+                        [code insertTag:leftTag number:positionStorage.x frameUnit:positionStorage.xUnit];
+                    }
+                }
+                //set y location
+                if(positionStorage.y && _iu.shouldCompileY && topTag){
+                    [code insertTag:topTag number:positionStorage.y frameUnit:positionStorage.yUnit];
+                }
+
             }
         }
+        
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
+        if (styleStorage) {
+            
+            if(_iu.shouldCompileWidth){
+                
+                if(styleStorage.width){
+                    [code insertTag:@"width" number:styleStorage.width frameUnit:styleStorage.widthUnit];
+                }
+                if(styleStorage.minWidth){
+                    [code insertTag:@"min-width" number:styleStorage.minWidth frameUnit:@(IUFrameUnitPixel)];
+                }
+            }
+            
+            
+            if(_iu.shouldCompileHeight){
+                
+                if(styleStorage.height){
+                    [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
+                }
+                if(styleStorage.minHeight){
+                    [code insertTag:@"min-height" number:styleStorage.minHeight frameUnit:@(IUFrameUnitPixel)];
+                }
+            }
+        }
+      
         
     }
     else {
@@ -947,21 +1065,21 @@
                 break;
         }
         if (_iu.shouldCompileY && topTag) {
-            [code insertTag:topTag floatFromNumber:yValue unit:yUnit];
+            [code insertTag:topTag number:yValue unit:yUnit];
         }
         if (_iu.shouldCompileX && leftTag) {
-            [code insertTag:leftTag floatFromNumber:xValue unit:xUnit];
+            [code insertTag:leftTag number:xValue unit:xUnit];
         }
         if (enablebottom){
-            [code insertTag:@"bottom" integer:0 unit:IUCSSUnitPixel];
+            [code insertTag:@"bottom" number:@(0) unit:IUCSSUnitPixel];
         }
         if (_iu.shouldCompileWidth) {
             
             IUUnit wUnit = [[_iu.css effectiveValueForTag:IUCSSTagWidthUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
             NSNumber *wValue = (wUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentWidth] : cssTagDict[IUCSSTagPixelWidth];
-            [code insertTag:@"width" floatFromNumber:wValue unit:wUnit];
+            [code insertTag:@"width" number:wValue unit:wUnit];
             if(wUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelWidth]){
-                [code insertTag:@"min-width" intFromNumber:cssTagDict[IUCSSTagMinPixelWidth] unit:IUUnitPixel];
+                [code insertTag:@"min-width" number:cssTagDict[IUCSSTagMinPixelWidth] unit:IUUnitPixel];
             }
         }
         
@@ -969,10 +1087,10 @@
             
             IUUnit hUnit = [[_iu.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
             NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
-            [code insertTag:@"height" floatFromNumber:hValue unit:hUnit];
+            [code insertTag:@"height" number:hValue unit:hUnit];
             
             if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
-                [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+                [code insertTag:@"min-height" number:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
             }
         }
     }
@@ -982,7 +1100,7 @@
     if(section.enableFullSize){
         [code setInsertingTarget:IUTargetEditor];
         [code setInsertingIdentifier:section.cssIdentifier];
-        [code insertTag:@"height" integer:720 unit:IUUnitPixel];
+        [code insertTag:@"height" number:@(720) unit:IUUnitPixel];
     }
 }
 
@@ -991,20 +1109,39 @@
         NSArray *editWidths = [header.css allViewports];
         [code setInsertingIdentifier:header.cssIdentifier];
         
-        
-        for (NSNumber *viewportNumber in editWidths) {
-            int viewport = [viewportNumber intValue];
-            [code setInsertingViewPort:viewport];
+        if(storage){
+            //FIXME : import가 css를 공유한다면 사라져도 될 코드임.
+            for (NSNumber *viewportNumber in editWidths) {
+                int viewport = [viewportNumber intValue];
+                [code setInsertingViewPort:viewport];
 
-            //IUHeader의 높이는 prototypeclass의 높이와 일치시킨다.
-            NSDictionary *cssTagDict = [header.prototypeClass.css tagDictionaryForViewport:viewport];
-            
-            IUUnit hUnit = [[header.prototypeClass.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-            NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
-            [code insertTag:@"height" floatFromNumber:hValue unit:hUnit];
-            
-            if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
-                [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+                IUStyleStorage *styleStorage = (IUStyleStorage *)[header.prototypeClass.defaultStyleManager storageForViewPort:viewport];
+                if(styleStorage.height){
+                    [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
+                }
+                
+                if(styleStorage.minHeight && [styleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPercent)]){
+                    [code insertTag:@"min-height" number:styleStorage.minHeight frameUnit:(IUFrameUnitPixel)];
+
+                }
+            }
+
+        }
+        else{
+            for (NSNumber *viewportNumber in editWidths) {
+                int viewport = [viewportNumber intValue];
+                [code setInsertingViewPort:viewport];
+                
+                //IUHeader의 높이는 prototypeclass의 높이와 일치시킨다.
+                NSDictionary *cssTagDict = [header.prototypeClass.css tagDictionaryForViewport:viewport];
+                
+                IUUnit hUnit = [[header.prototypeClass.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+                NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
+                [code insertTag:@"height" number:hValue unit:hUnit];
+                
+                if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
+                    [code insertTag:@"min-height" number:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+                }
             }
         }
     }
@@ -1015,21 +1152,40 @@
         NSArray *editWidths = [footer.css allViewports];
         [code setInsertingIdentifier:footer.cssIdentifier];
         
-        
-        for (NSNumber *viewportNumber in editWidths) {
-            int viewport = [viewportNumber intValue];
-            [code setInsertingViewPort:viewport];
+        if(storage){
+            //FIXME : import가 css를 공유한다면 사라져도 될 코드임.
+            for (NSNumber *viewportNumber in editWidths) {
+                int viewport = [viewportNumber intValue];
+                [code setInsertingViewPort:viewport];
+                
+                IUStyleStorage *styleStorage = (IUStyleStorage *)[footer.prototypeClass.defaultStyleManager storageForViewPort:viewport];
+                if(styleStorage.height){
+                    [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
+                }
+                
+                if(styleStorage.minHeight && [styleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPercent)]){
+                    [code insertTag:@"min-height" number:styleStorage.minHeight frameUnit:(IUFrameUnitPixel)];
+                    
+                }
+            }
+        }
+        else{
             
-            //IUHeader의 높이는 prototypeclass의 높이와 일치시킨다.
-            if(footer.prototypeClass){
-                NSDictionary *cssTagDict = [footer.prototypeClass.css tagDictionaryForViewport:viewport];
+            for (NSNumber *viewportNumber in editWidths) {
+                int viewport = [viewportNumber intValue];
+                [code setInsertingViewPort:viewport];
                 
-                IUUnit hUnit = [[footer.prototypeClass.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
-                NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
-                [code insertTag:@"height" floatFromNumber:hValue unit:hUnit];
-                
-                if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
-                    [code insertTag:@"min-height" intFromNumber:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+                //IUHeader의 높이는 prototypeclass의 높이와 일치시킨다.
+                if(footer.prototypeClass){
+                    NSDictionary *cssTagDict = [footer.prototypeClass.css tagDictionaryForViewport:viewport];
+                    
+                    IUUnit hUnit = [[footer.prototypeClass.css effectiveValueForTag:IUCSSTagHeightUnitIsPercent forViewport:viewport] boolValue] ? IUUnitPercent : IUUnitPixel;
+                    NSNumber *hValue = (hUnit == IUUnitPercent) ? cssTagDict[IUCSSTagPercentHeight] : cssTagDict[IUCSSTagPixelHeight];
+                    [code insertTag:@"height" number:hValue unit:hUnit];
+                    
+                    if(hUnit == IUUnitPercent && cssTagDict[IUCSSTagMinPixelHeight]){
+                        [code insertTag:@"min-height" number:cssTagDict[IUCSSTagMinPixelHeight] unit:IUUnitPixel];
+                    }
                 }
             }
         }
@@ -1061,8 +1217,8 @@
     //li class
     [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
     [code insertTag:@"display" string:@"block"];
-    [code insertTag:@"margin-left" floatFromNumber:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
-    [code insertTag:@"margin-right" floatFromNumber:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
+    [code insertTag:@"margin-left" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
+    [code insertTag:@"margin-right" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
     [code insertTag:@"background-color" color:pageLinkSet.defaultButtonBGColor];
 
     
@@ -1070,10 +1226,22 @@
     [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
     for (NSNumber *viewPort in [pageLinkSet.css allViewports]) {
         [code setInsertingViewPort:[viewPort intValue]];
-        id height = [pageLinkSet.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewPort intValue]];
-        [code insertTag:@"height" floatFromNumber:height unit:IUUnitPixel];
-        [code insertTag:@"width" floatFromNumber:height unit:IUUnitPixel];
-        [code insertTag:@"line-height" floatFromNumber:height unit:IUUnitPixel];
+        
+        if(storage){
+            IUStyleStorage *styleStorage = (IUStyleStorage *)[pageLinkSet.defaultStyleManager storageForViewPort:[viewPort intValue]];
+            if(styleStorage.height){
+                //FIXME: percent가 들어오면 어떻게 되는건지????
+                [code insertTag:@"width" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
+                [code insertTag:@"height" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
+                [code insertTag:@"line-height" number:styleStorage.height unit:IUUnitPixel];
+            }
+        }
+        else{
+            id height = [pageLinkSet.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewPort intValue]];
+            [code insertTag:@"height" number:height unit:IUUnitPixel];
+            [code insertTag:@"width" number:height unit:IUUnitPixel];
+            [code insertTag:@"line-height" number:height unit:IUUnitPixel];
+        }
         
     }
     
@@ -1086,7 +1254,15 @@
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];
         [code setInsertingViewPort:viewport];
-        int height = [[menuBar.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport] intValue];
+        int height;
+        if(storage){
+            IUStyleStorage *styleStorage = (IUStyleStorage *)[menuBar.defaultStyleManager storageForViewPort:viewport];
+            height = [styleStorage.height intValue];
+
+        }
+        else{
+            height = [[menuBar.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport] intValue];
+        }
 
         [code setInsertingTarget:IUTargetBoth];
         if(viewport < IUMobileSize){
@@ -1095,19 +1271,19 @@
             if(height > 10){
                 //mobile
                 [code setInsertingIdentifier:menuBar.mobileButtonIdentifier];
-                [code insertTag:@"line-height" integer:height unit:IUUnitPixel];
+                [code insertTag:@"line-height" number:@(height) unit:IUUnitPixel];
                 [code insertTag:@"color" color:menuBar.mobileTitleColor];
                 
                 
                 //mobile-menu
                 [code setInsertingIdentifier:menuBar.topButtonIdentifier];
                 int top = (height -10)/2;
-                [code insertTag:@"top" integer:top unit:IUUnitPixel];
+                [code insertTag:@"top" number:@(top) unit:IUUnitPixel];
                 [code insertTag:@"border-color" color:menuBar.iconColor];
                 
                 [code setInsertingIdentifier:menuBar.bottomButtonIdentifier];
                 top =(height -10)/2 +10;
-                [code insertTag:@"top" integer:top unit:IUUnitPixel];
+                [code insertTag:@"top" number:@(top) unit:IUUnitPixel];
                 [code insertTag:@"border-color" color:menuBar.iconColor];
             }
             
@@ -1146,25 +1322,50 @@
         
         //set height for depth
         id value;
-        if(menuItem.depth == 1){
-            value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
-        }
-        else if(menuItem.depth == 2){
-            value = [menuItem.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
-
-            if(value == nil){
-                value = [menuItem.parent.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+        if(storage){
+            if(menuItem.depth == 1){
+                IUStyleStorage *styleStorage = (IUStyleStorage *)[menuItem.parent.defaultStyleManager storageForViewPort:viewport];
+                value = styleStorage.height;
+            }
+            else if(menuItem.depth == 2){
+                IUStyleStorage *styleStorage = (IUStyleStorage *)[menuItem.defaultStyleManager storageForViewPort:viewport];
+                value = styleStorage.height;
+                
+                if(value == nil){
+                    IUStyleStorage *parentStyleStorage = (IUStyleStorage *)[menuItem.parent.parent.defaultStyleManager storageForViewPort:viewport];
+                    value = parentStyleStorage.height;
+                }
+            }
+            else{
+                IUStyleStorage *styleStorage = (IUStyleStorage *)[menuItem.parent.defaultStyleManager storageForViewPort:viewport];
+                value = styleStorage.height;
+                
+                if(value== nil){
+                    IUStyleStorage *parentStyleStorage = (IUStyleStorage *)[menuItem.parent.parent.parent.defaultStyleManager storageForViewPort:viewport];
+                    value = parentStyleStorage.height;
+                }
             }
         }
         else{
-            value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
-
-            if(value== nil){
-                value = [menuItem.parent.parent.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+            if(menuItem.depth == 1){
+                value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
             }
+            else if(menuItem.depth == 2){
+                value = [menuItem.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+                
+                if(value == nil){
+                    value = [menuItem.parent.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+                }
+            }
+            else{
+                value = [menuItem.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+                
+                if(value== nil){
+                    value = [menuItem.parent.parent.parent.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:viewport];
+                }
+            }
+            
         }
-        
-
         int height = [value intValue];
         
         //item identifier
@@ -1182,16 +1383,16 @@
         
         [code setInsertingIdentifier:[menuItem cssIdentifier]];
         [code setInsertingTarget:IUTargetBoth];
-
+        
         if(viewport <= IUMobileSize && menuItem.children.count > 0){
             [code insertTag:@"height" string:@"initial"];
         }
         else{
-            [code insertTag:@"height" integer:height unit:IUUnitPixel];
+            [code insertTag:@"height" number:@(height) unit:IUUnitPixel];
         }
-        [code insertTag:@"line-height" integer:height unit:IUUnitPixel];
-
-
+        [code insertTag:@"line-height" number:@(height) unit:IUUnitPixel];
+        
+        
         
         //clousre
         //closure removed 2014.10.20 @smchoi
@@ -1331,7 +1532,7 @@
         if(carousel.pagerPosition < 50){
             [code insertTag:@"text-align" string:@"left"];
             int left = (int)((currentWidth) * ((CGFloat)carousel.pagerPosition/100));
-            [code insertTag:@"left" integer:left unit:IUUnitPixel];
+            [code insertTag:@"left" number:@(left) unit:IUUnitPixel];
         }
         else if(carousel.pagerPosition == 50){
             [code insertTag:@"text-align" string:@"center"];
@@ -1339,13 +1540,13 @@
         else if(carousel.pagerPosition < 100){
             [code insertTag:@"text-align" string:@"center"];
             int left = (int)((currentWidth) * ((CGFloat)(carousel.pagerPosition-50)/100));
-            [code insertTag:@"left" integer:left unit:IUUnitPixel];
+            [code insertTag:@"left" number:@(left) unit:IUUnitPixel];
             
         }
         else if(carousel.pagerPosition == 100){
             int right = (int)((currentWidth) * ((CGFloat)(100-carousel.pagerPosition)/100));
             [code insertTag:@"text-align" string:@"right"];
-            [code insertTag:@"right" integer:right unit:IUUnitPixel];
+            [code insertTag:@"right" number:@(right) unit:IUUnitPixel];
         }
     }
     
@@ -1353,8 +1554,8 @@
     
     NSString *imageName = carousel.leftArrowImage;
     if(imageName){
-        [code insertTag:@"left" integer:carousel.leftX unit:IUUnitPixel];
-        [code insertTag:@"top" integer:carousel.leftY unit:IUUnitPixel];
+        [code insertTag:@"left" number:@(carousel.leftX) unit:IUUnitPixel];
+        [code insertTag:@"top" number:@(carousel.leftY) unit:IUUnitPixel];
         
         NSString *imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor];
         if(imgSrc){
@@ -1377,8 +1578,8 @@
         }
         
         if(arrowImage){
-            [code insertTag:@"height" floatFromNumber:@(arrowImage.size.height) unit:IUCSSUnitPixel];
-            [code insertTag:@"width" floatFromNumber:@(arrowImage.size.width) unit:IUCSSUnitPixel];
+            [code insertTag:@"height" number:@(arrowImage.size.height) unit:IUCSSUnitPixel];
+            [code insertTag:@"width" number:@(arrowImage.size.width) unit:IUCSSUnitPixel];
         }
     }
     
@@ -1387,8 +1588,8 @@
     
     imageName = carousel.rightArrowImage;
     if(imageName){
-        [code insertTag:@"right" integer:carousel.rightX unit:IUUnitPixel];
-        [code insertTag:@"top" integer:carousel.rightY unit:IUUnitPixel];
+        [code insertTag:@"right" number:@(carousel.rightX) unit:IUUnitPixel];
+        [code insertTag:@"top" number:@(carousel.rightY) unit:IUUnitPixel];
         
         NSString * imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor];
         if(imgSrc){
@@ -1411,8 +1612,8 @@
         }
         
         if(arrowImage){
-            [code insertTag:@"height" floatFromNumber:@(arrowImage.size.height) unit:IUCSSUnitPixel];
-            [code insertTag:@"width" floatFromNumber:@(arrowImage.size.width) unit:IUCSSUnitPixel];
+            [code insertTag:@"height" number:@(arrowImage.size.height) unit:IUCSSUnitPixel];
+            [code insertTag:@"width" number:@(arrowImage.size.width) unit:IUCSSUnitPixel];
         }
     }
     
@@ -1476,10 +1677,19 @@
     
     [code setInsertingIdentifier:wpmenu.itemIdetnfier];
     for (NSNumber *viewport in [code allViewports]) {
-        NSNumber *heightValue = [wpmenu.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewport intValue]];
-        //IUTarget Editor value is equal to IUTargetOutput.
-        if (heightValue) {
-            [code insertTag:@"line-height" floatFromNumber:heightValue unit:IUUnitPixel];
+        if(storage){
+            IUStyleStorage *styleStorage = (IUStyleStorage *)[wpmenu.defaultStyleManager storageForViewPort:[viewport intValue]];
+            //IUTarget Editor value is equal to IUTargetOutput.
+            if (styleStorage.height) {
+                [code insertTag:@"line-height" number:styleStorage.height unit:IUUnitPixel];
+            }
+        }
+        else{
+            NSNumber *heightValue = [wpmenu.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewport intValue]];
+            //IUTarget Editor value is equal to IUTargetOutput.
+            if (heightValue) {
+                [code insertTag:@"line-height" number:heightValue unit:IUUnitPixel];
+            }
         }
     }
 }
@@ -1531,15 +1741,26 @@
     if(pageLinks.align != IUAlignJustify){
         
         [code insertTag:@"position" string:@"relative"];
-        [code insertTag:@"margin-right" intFromNumber:[NSNumber numberWithInteger:pageLinks.leftRightPadding] unit:IUUnitPixel];
+        [code insertTag:@"margin-right" number:[NSNumber numberWithInteger:pageLinks.leftRightPadding] unit:IUUnitPixel];
         [code insertTag:@"display" string:@"inline-block"];
     }
     
     for (NSNumber *viewport in [code allViewports]) {
-        NSNumber *heightValue = [pageLinks.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewport intValue]];
-        //IUTarget Editor value is equal to IUTargetOutput.
-        if (heightValue) {
-            [code insertTag:@"line-height" floatFromNumber:heightValue unit:IUUnitPixel];
+        
+        if(storage){
+            IUStyleStorage *styleStorage = (IUStyleStorage *)[pageLinks.defaultStyleManager storageForViewPort:[viewport intValue]];
+            //IUTarget Editor value is equal to IUTargetOutput.
+            if(styleStorage.height){
+                [code insertTag:@"line-height" number:styleStorage.height unit:IUUnitPixel];
+            }
+
+        }
+        else{
+            NSNumber *heightValue = [pageLinks.css effectiveValueForTag:IUCSSTagPixelHeight forViewport:[viewport intValue]];
+            //IUTarget Editor value is equal to IUTargetOutput.
+            if (heightValue) {
+                [code insertTag:@"line-height" number:heightValue unit:IUUnitPixel];
+            }
         }
     }
     

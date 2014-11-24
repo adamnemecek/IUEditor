@@ -67,6 +67,14 @@ static NSString * IUCSSTagMinPixelHeight = @"minPixelHeight";
 static NSString * IUCSSTagImage = @"background-image";
 static NSString * IUCSSTagBGSize = @"background-size";
 
+typedef enum{
+    IUBGSizeTypeAuto,
+    IUBGSizeTypeCover,
+    IUBGSizeTypeContain,
+    IUBGSizeTypeStretch,
+    IUBGSizeTypeFull,
+}IUBGSizeType;
+
 
 static NSString * IUCSSTagBGColor = @"background-color";
 static NSString * IUCSSTagBGGradient = @"bg-gradient";

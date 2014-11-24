@@ -85,13 +85,13 @@
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 
-    [page.livePositionStorage setX:@(50)];
+    ((IUStyleStorage *)page.liveStyleStorage).bgColor = [NSColor greenColor];
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
         DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
         DOMElement *pageElement = [dom getElementById:page.htmlID];
-        XCTAssertTrue([pageElement.style.cssText containsString:@"left: 50px"]);
+        XCTAssertTrue([pageElement.style.cssText containsString:@"background-color"]);
     }];
 }
 
