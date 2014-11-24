@@ -150,5 +150,63 @@
 
 }
 
+- (void)test7_position{
+    box.livePositionStorage.position = @(IUPositionTypeAbsolute);
+    box.livePositionStorage.x = @(20);
+    box.livePositionStorage.y = @(50);
+
+    
+    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict.allKeys containsObject:@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"position"]==NO);
+    
+    box.livePositionStorage.position = @(IUPositionTypeRelative);
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"position"]);
+    XCTAssert([dict[@".BOX"] containsString:@"relative"]);
+    XCTAssert([dict[@".BOX"] containsString:@"margin-top"]);
+
+    box.livePositionStorage.position = @(IUPositionTypeFloatLeft);
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"position"]);
+    XCTAssert([dict[@".BOX"] containsString:@"relative"]);
+    XCTAssert([dict[@".BOX"] containsString:@"margin-left"]);
+    
+    
+    box.livePositionStorage.position = @(IUPositionTypeFloatRight);
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"position"]);
+    XCTAssert([dict[@".BOX"] containsString:@"relative"]);
+    XCTAssert([dict[@".BOX"] containsString:@"margin-right"]);
+
+
+    box.livePositionStorage.position = @(IUPositionTypeFixed);
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"position"]);
+    XCTAssert([dict[@".BOX"] containsString:@"fixed"]);
+    XCTAssert([dict[@".BOX"] containsString:@"z-index"]);
+    
+    box.livePositionStorage.position = @(IUPositionTypeFixedBottom);
+    code = [compiler cssCodeForIU_storage:box];
+    dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    XCTAssert([dict[@".BOX"] containsString:@"position"]);
+    XCTAssert([dict[@".BOX"] containsString:@"fixed"]);
+    XCTAssert([dict[@".BOX"] containsString:@"z-index"]);
+    XCTAssert([dict[@".BOX"] containsString:@"bottom"]);
+
+
+}
+
 
 @end
