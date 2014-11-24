@@ -477,7 +477,7 @@
     }else{
         //image tag attributes
         if(image.imageName && image.imageName.length > 0){
-            NSString *imgSrc = [_compiler imagePathWithImageName:image.imageName target:target];
+            NSString *imgSrc = [_compiler imagePathWithImageName:image.imageName target:target forFilePath:IUFilePathHTML];
             if(imgSrc && imgSrc.length > 0){
                 attributeDict[@"src"] = imgSrc;
             }
@@ -872,7 +872,7 @@
         }
         //marker icon
         if(map.markerIconName){
-            NSString *imagePath = [_compiler imagePathWithImageName:map.markerIconName target:target];
+            NSString *imagePath = [_compiler imagePathWithImageName:map.markerIconName target:target forFilePath:IUFilePathHTML];
             [code addCodeLineWithFormat:@"<div style=\"background-image:url('%@'); \
              background-repeat:no-repeat; \
              background-position:center; \

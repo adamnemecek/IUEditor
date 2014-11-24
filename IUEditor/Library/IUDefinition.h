@@ -44,6 +44,12 @@ typedef enum _IUTarget{
 } IUTarget;
 
 
+typedef enum{
+    IUFilePathHTML,
+    IUFilePathResource,
+}IUFilePath;
+
+
 typedef enum _IUUnit{
     IUUnitNone,
     IUUnitPixel,

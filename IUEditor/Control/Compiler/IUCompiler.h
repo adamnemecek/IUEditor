@@ -64,7 +64,7 @@ typedef enum _IUCompileRule{
 
 
 //default function
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target;
+- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target forFilePath:(IUFilePath)filePath;
 
 /////////////////////////////////////////
 //

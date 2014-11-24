@@ -161,7 +161,7 @@
 
     }
     if(page.metaImage && page.metaImage.length !=0){
-        NSString *imgSrc = [self imagePathWithImageName:page.metaImage target:IUTargetOutput];
+        NSString *imgSrc = [self imagePathWithImageName:page.metaImage target:IUTargetOutput forFilePath:IUFilePathHTML];
         [code addCodeLineWithFormat:@"<meta property=\"og:image\" content=\"%@\" />", imgSrc];
         [code addCodeLineWithFormat:@"<meta name=\"twitter:image\" content=\"%@\">", imgSrc];
         [code addCodeLineWithFormat:@"<meta itemprop=\"image\" content=\"%@\">", imgSrc];
@@ -171,7 +171,7 @@
 
         NSString *type = [page.project.favicon faviconType];
         if(type){
-            NSString *imgSrc = [self imagePathWithImageName:page.project.favicon target:IUTargetOutput];
+            NSString *imgSrc = [self imagePathWithImageName:page.project.favicon target:IUTargetOutput forFilePath:IUFilePathHTML];
             [code addCodeLineWithFormat:@"<link rel=\"icon\" type=\"image/%@\" href=\"%@\">",type, imgSrc];
             
         }
@@ -318,7 +318,7 @@
 
 #pragma mark default function 
 
-- (NSString *)resourcePathForTarget:(IUTarget)target{
+- (NSString *)resourcePathForTarget:(IUTarget)target forFilePath:(IUFilePath)filePath{
     if(target == IUTargetEditor){
         return @"resource";
     }
@@ -330,12 +330,18 @@
             return @"\"<?php bloginfo('template_url'); ?>/resource/";
         }
         else{
-            return @"resource";
+            if(filePath == IUFilePathHTML){
+                return @"resource";
+            }
+            else if(filePath == IUFilePathResource){
+                return @"../../resource";
+            }
         }
     }
+    return nil;
 }
 
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
+- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target forFilePath:(IUFilePath)filePath{
     NSString *imgSrc;
     
     if(imageName == nil || imageName.length==0){
@@ -352,14 +358,17 @@
             imgSrc = [[NSBundle mainBundle] pathForImageResource:[imageName lastPathComponent]];
         }
         else{
-            imgSrc = [[self resourcePathForTarget:target] stringByAppendingPathComponent:imageName];
+            imgSrc = [[self resourcePathForTarget:target forFilePath:filePath] stringByAppendingPathComponent:imageName];
         }
     }
     else {
         IUResourceFile *file = [self.resourceManager resourceFileWithName:imageName];
         if(file){
-            if(_rule == IUCompileRuleDjango && target == IUTargetOutput){
+            if(target == IUTargetOutput && _rule == IUCompileRuleDjango){
                 imgSrc = [@"/" stringByAppendingString:[file relativePath]];
+            }
+            else if(target == IUTargetOutput && filePath == IUFilePathResource){
+                imgSrc = [@"../../" stringByAppendingString:[file relativePath]];
             }
             else{
                 imgSrc = [file relativePath];
@@ -413,7 +422,7 @@
     }
     else{
         
-        NSString *currentResourcePath = [self resourcePathForTarget:IUTargetOutput];
+        NSString *currentResourcePath = [self resourcePathForTarget:IUTargetOutput forFilePath:IUFilePathHTML];
         [code addCodeLine:@"<script src='http://code.jquery.com/jquery-1.10.2.js'></script>"];
         [code addCodeLine:@"<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>"];
         
@@ -456,7 +465,7 @@
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@\">", editorCSSPath];
     }
     else{
-        NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput];
+        NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput forFilePath:IUFilePathHTML];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/reset.css\">", currentResourcePath];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/iu.css\">", currentResourcePath];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",currentResourcePath, sheet.name];
@@ -840,7 +849,7 @@
             [code addCodeLineWithFormat:@"map: map_%@,", map.htmlID];
             [code addCodeLineWithFormat:@"position: map_%@.getCenter(),", map.htmlID];
             if(map.markerIconName){
-                NSString *imgSrc = [self imagePathWithImageName:map.markerIconName target:IUTargetOutput];
+                NSString *imgSrc = [self imagePathWithImageName:map.markerIconName target:IUTargetOutput forFilePath:IUFilePathResource];
                 [code addCodeLineWithFormat:@"icon: '%@'", imgSrc];
             }
             [code decreaseIndentLevelForEdit];

@@ -395,11 +395,11 @@
     else{
         //REVIEW: image전체로 bg image tag 검사하면 안됨, media query 지원 못하게 됨.
         if(cssTagDict[IUCSSTagImage]){
-            NSString *imgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetEditor] CSSURLString];
+            NSString *imgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetEditor forFilePath:IUFilePathResource] CSSURLString];
             if(imgSrc){
                 [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
             }
-            NSString *outputImgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetOutput] CSSURLString];
+            NSString *outputImgSrc = [[_compiler imagePathWithImageName:cssTagDict[IUCSSTagImage] target:IUTargetOutput forFilePath:IUFilePathResource] CSSURLString];
             if(outputImgSrc){
                 [code insertTag:@"background-image" string:outputImgSrc target:IUTargetOutput];
             }
@@ -977,12 +977,12 @@
         [code insertTag:@"left" integer:carousel.leftX unit:IUUnitPixel];
         [code insertTag:@"top" integer:carousel.leftY unit:IUUnitPixel];
         
-        NSString *imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor];
+        NSString *imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor forFilePath:IUFilePathResource];
         if(imgSrc){
             [code insertTag:@"background" string:[imgSrc CSSURLString] target:IUTargetEditor];
         }
         
-        NSString *outputImgSrc = [[_compiler imagePathWithImageName:imageName target:IUTargetOutput] CSSURLString];
+        NSString *outputImgSrc = [[_compiler imagePathWithImageName:imageName target:IUTargetOutput forFilePath:IUFilePathResource] CSSURLString];
         if(outputImgSrc){
             [code insertTag:@"background" string:outputImgSrc target:IUTargetOutput];
         }
@@ -1011,12 +1011,12 @@
         [code insertTag:@"right" integer:carousel.rightX unit:IUUnitPixel];
         [code insertTag:@"top" integer:carousel.rightY unit:IUUnitPixel];
         
-        NSString * imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor];
+        NSString * imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor forFilePath:IUFilePathResource];
         if(imgSrc){
             [code insertTag:@"background" string:[imgSrc CSSURLString] target:IUTargetEditor];
         }
         
-         NSString *outputImgSrc = [[_compiler imagePathWithImageName:imageName target:IUTargetOutput] CSSURLString];
+         NSString *outputImgSrc = [[_compiler imagePathWithImageName:imageName target:IUTargetOutput forFilePath:IUFilePathResource] CSSURLString];
         if(outputImgSrc){
             [code insertTag:@"background" string:outputImgSrc target:IUTargetOutput];
         }
