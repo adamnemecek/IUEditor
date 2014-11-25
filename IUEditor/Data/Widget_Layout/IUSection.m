@@ -45,6 +45,15 @@
     return self;
 }
 
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        self.liveStyleStorage.height = @(500);
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];

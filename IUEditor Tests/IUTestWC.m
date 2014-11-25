@@ -36,4 +36,8 @@
     [[NSWorkspace sharedWorkspace] openFile:path];
 }
 
+- (IUSourceManager *)sourceManager{
+    return [self.delegate performSelector:@selector(sourceManager)];
+}
+
 @end

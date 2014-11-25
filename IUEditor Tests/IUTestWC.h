@@ -24,5 +24,6 @@
 
 @property __weak id <IUTestWCDelegate>  delegate;
 @property (weak) IBOutlet WebView *webView;
+- (IUSourceManager *)sourceManager;
 
 @end

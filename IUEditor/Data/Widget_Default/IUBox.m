@@ -223,52 +223,23 @@
 
 -(id)initWithPreset {
     self = [super init];
-    
-    //create storage
-    storageManagersDict = [NSMutableDictionary dictionary];
-    IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-    [styleManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-    [styleManager.defaultStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
-    
-    [self setStorageManager:styleManager forSelector:kIUStyleManager];
-    if (self.defaultStyleManager) {
-        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
-    }
-    
-    IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
-    [self setStorageManager:positionManager forSelector:kIUPositionManager];
-    
-    IUPositionStorage *positionStorage = positionManager.defaultStorage;
-    [positionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
-    [positionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
-    [positionStorage setPosition:@(IUPositionTypeAbsolute)];
-    
-    if(self.positionManager){
-        [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-    }
-    
-    
-    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-    [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
-    
-    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
-    [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-    [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-    
-    
-    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
-    _name = _htmlID;
-    
-    _events = [NSMutableArray array];
-    _eventsCalledByOtherIU = [NSMutableArray array];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
+        self.name = self.className;
+        [positionStorage setPosition:@(IUPositionTypeAbsolute)];
 
-    self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
-    self.name = self.className;
+        [positionStorage setX:nil unit:@(IUFrameUnitPixel)];
+        [positionStorage setY:nil unit:@(IUFrameUnitPixel)];
+        
+        [styleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+        [styleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+
+
+        [hoverManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+        [hoverManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -1065,17 +1036,18 @@ e.g. 만약 css로 옮긴다면)
         [iu setIsConnectedWithEditor];
     }
     
-    if ([self.sheet isKindOfClass:[IUClass class]]) {
-        for (IUBox *import in [(IUClass*)self.sheet references]) {
-            [import updateHTML];
-        }
-    }
     
-
-    [self updateHTML];
     [iu bind:@"identifierManager" toObject:self withKeyPath:@"identifierManager" options:nil];
 
     if (self.isConnectedWithEditor) {
+        
+        if ([self.sheet isKindOfClass:[IUClass class]]) {
+            for (IUBox *import in [(IUClass*)self.sheet references]) {
+                [import updateHTML];
+            }
+        }
+        [self updateHTML];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureAdding, IUNotificationStructureChangedIU: iu}];
     }
 

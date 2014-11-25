@@ -97,7 +97,7 @@
 
 
 - (void)test3_htmlSourceManager{
-    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
 //    [page.cssD.liveStorage setX:@(50)];
     [page setSourceManager:manager];
@@ -122,7 +122,7 @@
 }
 
 - (void)test4_cssSourceManager{
-    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    webViewLoadingExpectation = [self expectationWithDescription:@"test4"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
     [page.livePositionStorage setX:@(50)];
     
@@ -147,7 +147,7 @@
 }
 
 - (void)test5_cssHover{
-    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    webViewLoadingExpectation = [self expectationWithDescription:@"test5"];
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
     
     [manager loadSheet:page];
@@ -172,7 +172,7 @@
 
 - (void)test6_frame{
     
-    webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
+    webViewLoadingExpectation = [self expectationWithDescription:@"test6"];
 
     
     IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
@@ -187,7 +187,7 @@
         
         IUBox *parent = [[IUBox alloc] initWithProject:page.project options:nil];
         [section addIU:parent error:nil];
-        //    [section updateHTML];
+        [manager setNeedsUpdateHTML:section];
         [parent setSourceManager:manager];
         
         [parent.livePositionStorage setX:@(0)];
@@ -197,6 +197,7 @@
         
         IUBox *child = [[IUBox alloc] initWithProject:page.project options:nil];
         [parent addIU:child error:nil];
+        [manager setNeedsUpdateHTML:parent];
         
         [child setSourceManager:manager];
         

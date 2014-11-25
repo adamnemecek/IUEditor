@@ -25,7 +25,12 @@ static     IUTestWC *testWC;
     WebView *webView;
     BOOL result;
     XCTestExpectation *webViewLoadingExpectation;
+    XCTestExpectation *passBtnExpectation;
     IUSourceManager *manager;
+}
+
+- (IUSourceManager *)sourceManager{
+    return manager;
 }
 
 - (void)setUp {
@@ -35,6 +40,8 @@ static     IUTestWC *testWC;
         testWC.delegate = self;
         [testWC showWindow:nil];
     }
+    
+    
     manager = [[IUSourceManager alloc] init];
     manager.viewPort = IUCSSDefaultViewPort;
     manager.frameWidth = 960;
@@ -43,14 +50,19 @@ static     IUTestWC *testWC;
     [manager setCompiler:[[IUCompiler alloc] init]];
 
     webView = testWC.webView;
-    webViewLoadingExpectation = [self expectationWithDescription:@"load"];
     [webView setFrameLoadDelegate:self];
     [webView setResourceLoadDelegate:self];
 }
 
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame{
+    [webViewLoadingExpectation fulfill];
+}
+
+
 - (void)testWCReturned:(BOOL)_result {
     result = _result;
-    [webViewLoadingExpectation fulfill];
+    [passBtnExpectation fulfill];
 }
 
 
@@ -61,21 +73,125 @@ static     IUTestWC *testWC;
 }
 
 - (void)test1_load {
+    webViewLoadingExpectation = [self expectationWithDescription:@"load"];
+    
     testWC.testNumber = 1;
     testWC.testModule = @"Showing 'Header Area'";
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
-    
-    page.sourceManager = manager;
-    page.liveStyleStorage.bgColor = [NSColor yellowColor];
+
     
     [manager loadSheet:page];
     
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
+    
+    //wait for web view's load
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        page.liveStyleStorage.bgColor = [NSColor yellowColor];
+        [page updateCSS];
+
+    }];
+    
+    //wait for pass btn action
+    passBtnExpectation = [self expectationWithDescription:@"passBtn"];
+    [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
         XCTAssert(result, @"Pass");
+
     }];
 }
 
+- (void)test2_child{
+    webViewLoadingExpectation = [self expectationWithDescription:@"load"];
+
+    testWC.testNumber = 2;
+    testWC.testModule = @"add child";
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    
+    [manager loadSheet:page];
+    
+    
+    //wait for web view's load
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        IUSection *section = [[IUSection alloc] initWithPreset];
+        section.text = @"test2";
+        [page.pageContent addIU:section error:nil];
+        [manager setNeedsUpdateHTML:page.pageContent];
+        
+        IUBox *parent = [[IUBox alloc] initWithPreset];
+        [section addIU:parent error:nil];
+        [manager setNeedsUpdateHTML:section];
+        
+    }];
+    
+    //wait for pass btn action
+    passBtnExpectation = [self expectationWithDescription:@"passBtn"];
+    [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
+        XCTAssert(result, @"Pass");
+        
+    }];
+}
+
+- (void)test3_frame{
+    webViewLoadingExpectation = [self expectationWithDescription:@"load"];
+    
+    testWC.testNumber = 3;
+    testWC.testModule = @"frame";
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    
+    
+    [manager loadSheet:page];
+    
+    
+    //wait for web view's load
+    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
+        IUSection *section = [[IUSection alloc] initWithPreset];
+        [page.pageContent addIU:section error:nil];
+        [manager setNeedsUpdateHTML:page.pageContent];
+        
+        IUBox *parent = [[IUBox alloc] initWithPreset];
+        [section addIU:parent error:nil];
+        [manager setNeedsUpdateHTML:section];
+        
+        [parent.livePositionStorage setX:@(0)];
+        [parent.livePositionStorage setY:@(0)];
+        [parent.liveStyleStorage setWidth:@(100)];
+        [parent.liveStyleStorage setHeight:@(100)];
+        [manager setNeedsUpdateCSS:parent];
+        
+        IUBox *child = [[IUBox alloc] initWithPreset];
+        [parent addIU:child error:nil];
+        [manager setNeedsUpdateHTML:parent];
+        
+        child.text = @"hihi";
+        [manager setNeedsUpdateHTML:child];
+        
+        
+        //end of child success
+        ////////////////////////
+        //test frame css
+        
+        
+        [child.livePositionStorage setX:@(0)];
+        [child.livePositionStorage setY:@(0)];
+        [child.liveStyleStorage setWidth:@(50)];
+        [child.liveStyleStorage setHeight:@(50)];
+        
+        
+        [manager setNeedsUpdateCSS:child];
+        
+        
+    }];
+    
+    //wait for pass btn action
+    passBtnExpectation = [self expectationWithDescription:@"passBtn"];
+    [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
+        XCTAssert(result, @"Pass");
+        
+    }];
+}
 
 @end
