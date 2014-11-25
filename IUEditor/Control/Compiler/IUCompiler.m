@@ -423,8 +423,8 @@
     else{
         
         NSString *currentResourcePath = [self resourcePathForTarget:IUTargetOutput forFilePath:IUFilePathHTML];
-        [code addCodeLine:@"<script src='http://code.jquery.com/jquery-1.10.2.js'></script>"];
-        [code addCodeLine:@"<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>"];
+        [code addCodeLine:@"<script src='https://code.jquery.com/jquery-1.10.2.js'></script>"];
+        [code addCodeLine:@"<script src='https://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>"];
         
         for(NSString *filename in sheet.project.defaultOutputJSArray){
             [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@\"></script>", currentResourcePath, filename];
@@ -436,10 +436,10 @@
         [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-init.js\"></script>",currentResourcePath, sheet.name];
 
         if([sheet containClass:[IUGoogleMap class]]){
-            [code addCodeLine:@"<script src=\"http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true\"></script>"];
+            [code addCodeLine:@"<script src=\"https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true\"></script>"];
         }
         if([sheet containClass:[IUWebMovie class]]){
-            [code addCodeLine:@"<script src=\"http://f.vimeocdn.com/js/froogaloop2.min.js\"></script>"];
+            [code addCodeLine:@"<script src=\"https://f.vimeocdn.com/js/froogaloop2.min.js\"></script>"];
         }
 #if DEBUG
         [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/stressTest.js\"></script>", currentResourcePath];

@@ -252,7 +252,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/hanna.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/hanna.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Jeju Gothic</key>
 		<dict>
@@ -269,7 +269,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/jejugothic.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/jejugothic.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Jeju Hallasan</key>
 		<dict>
@@ -286,7 +286,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/jejuhallasan.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/jejuhallasan.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Jeju Myeongjo</key>
 		<dict>
@@ -303,7 +303,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/jejumyeongjo.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/jejumyeongjo.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>KoPub Batang</key>
 		<dict>
@@ -320,7 +320,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/kopubbatang.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/kopubbatang.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Nanum Brush Script</key>
 		<dict>
@@ -337,7 +337,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Nanum Gothic</key>
 		<dict>
@@ -354,7 +354,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/nanumgothic.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/nanumgothic.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Nanum Gothic Coding</key>
 		<dict>
@@ -371,7 +371,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Nanum Myeongjo</key>
 		<dict>
@@ -388,7 +388,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Nanum Pen Script</key>
 		<dict>
@@ -405,7 +405,7 @@
 			<key>isGoogleFonts</key>
 			<false/>
 			<key>link</key>
-			<string>&lt;link href=&apos;http://fonts.googleapis.com/earlyaccess/nanumpenscript.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
+			<string>&lt;link href=&apos;https://fonts.googleapis.com/earlyaccess/nanumpenscript.css&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;</string>
 		</dict>
 		<key>Tinos</key>
 		<dict>
