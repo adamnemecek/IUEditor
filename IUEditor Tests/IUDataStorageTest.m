@@ -108,6 +108,22 @@
     XCTAssertNil([storageManager storageOfBiggerViewPortOfStorage:storage_default]);
 }
 
+- (void)test71_style {
+    IUStyleStorage *a = [[IUStyleStorage alloc] init];
+    a= nil;
+}
+
+- (void)test72_styleEncoding {
+    IUStyleStorage *a = [[IUStyleStorage alloc] init];
+    a.height = @(10);
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:a];
+    
+    IUStyleStorage *b = [coder decodeRootObject];
+    XCTAssertEqual(b.height, @(10));
+}
+
 - (void)test8_encoding{
     [storageManager.currentStorage setValue:@"testValue" forKey:@"Key"];
     [storageManager.currentStorage setValue:@"testValue2" forKey:@"Key2"];
