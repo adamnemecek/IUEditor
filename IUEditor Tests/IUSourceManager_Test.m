@@ -223,7 +223,7 @@
         
         XCTAssertEqualObjects(child.livePositionStorage.xUnit, @(IUFrameUnitPixel));
 
-        [child updateCSS];
+        [manager setNeedsUpdateCSS:child];
         
         
         [child.livePositionStorage setX:@(100) unit:@(IUFrameUnitPercent)];
@@ -231,13 +231,11 @@
         XCTAssertEqualObjects(child.livePositionStorage.xUnit, @(IUFrameUnitPercent));
 
         
-        [child updateCSS];
+        [manager setNeedsUpdateCSS:child];
         
     
         boxElement = (DOMHTMLElement *)[dom getElementById:child.htmlID];
         XCTAssertTrue([boxElement.style.cssText containsString:@"%"]);
-
-        
 
     }];
 

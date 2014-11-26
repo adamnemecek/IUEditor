@@ -861,7 +861,7 @@
  */
 - (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(NSInteger)viewPort {
     // not coded yet
-    return [cssCompiler cssCodeForIU_storage:box];
+    return [cssCompiler cssCodeForIU:box target:target viewPort:(int)viewPort];
 }
 
 

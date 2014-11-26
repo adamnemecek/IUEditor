@@ -150,12 +150,6 @@ typedef enum{
 @property (nonatomic) NSNumber* shadowColorBlur;
 
 
-/*
- Move it to IUCarousel.
- static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
- */
-
-
 //set frame unit
 - (void)setWidth:(NSNumber *)w unit:(NSNumber *)unit;
 - (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit;

@@ -798,34 +798,6 @@ e.g. 만약 css로 옮긴다면)
         [self updateCSSValuesBeforeUpdateEditor];
         [self.sourceManager setNeedsUpdateCSS:self];
     }
-    
-    /*
-    if (_canvasVC) {
-        
-        [self updateCSSValuesBeforeUpdateEditor];
-        
-        IUCSSCode *cssCode = [self.project.compiler cssCodeForIU:self];
-        NSDictionary *dictionaryWithIdentifier = [cssCode stringTagDictionaryWithIdentifier:(int)_css.editViewPort];
-        for (NSString *identifier in dictionaryWithIdentifier) {
-            [_canvasVC IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
-        }
-        
-        
-        //Review : sheet css로 들어가는 id 들은 없어지면, 지워줘야함.
-        NSMutableArray *removedIdentifier = [NSMutableArray arrayWithArray:[self cssIdentifierArray]];
-        [removedIdentifier removeObjectsInArray:[dictionaryWithIdentifier allKeys]];
-        
-        for(NSString *identifier in removedIdentifier){
-            if([identifier containsString:@"hover"]){
-                [_canvasVC removeCSSTextInDefaultSheetWithIdentifier:identifier];
-            }
-        }
-        
-        
-        [_canvasVC updateJS];
-        
-    }
-     */
 }
 
 
@@ -834,16 +806,6 @@ e.g. 만약 css로 옮긴다면)
         [self updateCSSValuesBeforeUpdateEditor];
         [self.sourceManager setNeedsUpdateCSS:self withIdentifiers:identifiers];
     }
-    /*
-    if (_canvasVC) {
-        IUCSSCode *cssCode = [self.project.compiler cssCodeForIU:self];
-        NSDictionary *dictionaryWithIdentifier = [cssCode stringTagDictionaryWithIdentifier:(int)_css.editViewPort];
-        
-        for (NSString *identifier in identifiers) {
-            [_canvasVC IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
-        }
-    }
-    */
 }
 
 

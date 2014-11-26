@@ -48,7 +48,7 @@
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssertEqualObjects(dict[@".BOX"], @"left:30px;" );
@@ -69,7 +69,7 @@
     box.liveStyleStorage.shadowColorBlur = @(2);
     box.liveStyleStorage.shadowColor = [NSColor greenColor];
     
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"border-left-color"]);
@@ -85,7 +85,7 @@
     XCTAssertEqualObjects(box.liveStyleStorage.bgColor, [NSColor blueColor]);
     XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor, [NSColor redColor]);
     
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
 
@@ -111,7 +111,7 @@
     XCTAssertEqualObjects(box.currentStyleStorage.fontColor, [NSColor blueColor]);
     
     
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     
@@ -128,7 +128,7 @@
     box.liveStyleStorage.imageX = @(100);
     box.liveStyleStorage.imageY = @(200);
     
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict.allKeys containsObject:@".BOX"]);
@@ -141,7 +141,7 @@
     box.liveStyleStorage.imageVPosition = @(IUCSSBGVPostionTop);
     box.liveStyleStorage.imageHPosition = @(IUCSSBGHPostionLeft);
     
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"background-repeat"]);
@@ -156,14 +156,14 @@
     box.livePositionStorage.y = @(50);
 
     
-    IUCSSCode *code = [compiler cssCodeForIU_storage:box];
+    IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict.allKeys containsObject:@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"position"]==NO);
     
     box.livePositionStorage.position = @(IUPositionTypeRelative);
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"position"]);
@@ -171,7 +171,7 @@
     XCTAssert([dict[@".BOX"] containsString:@"margin-top"]);
 
     box.livePositionStorage.position = @(IUPositionTypeFloatLeft);
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"position"]);
@@ -180,7 +180,7 @@
     
     
     box.livePositionStorage.position = @(IUPositionTypeFloatRight);
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"position"]);
@@ -189,7 +189,7 @@
 
 
     box.livePositionStorage.position = @(IUPositionTypeFixed);
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"position"]);
@@ -197,7 +197,7 @@
     XCTAssert([dict[@".BOX"] containsString:@"z-index"]);
     
     box.livePositionStorage.position = @(IUPositionTypeFixedBottom);
-    code = [compiler cssCodeForIU_storage:box];
+    code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     XCTAssert([dict[@".BOX"] containsString:@"position"]);
