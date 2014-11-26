@@ -15,6 +15,28 @@
 
 @end
 
+@interface JDCoderTestClass : NSObject <JDCoding>
+@property JDCoderTestClass *link;
+@end
+
+@implementation JDCoderTestClass
+
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super init];
+    _link = [aDecoder decodeObjectForKey:@"link"];
+    return self;
+}
+
+-(void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+}
+
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [aCoder encodeObject:_link forKey:@"link"];
+}
+
+@end
+
+
 @implementation JDCoderTest {
 }
 
@@ -26,6 +48,20 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+- (void)test00{
+    JDCoderTestClass *a = [[JDCoderTestClass alloc] init];
+    JDCoderTestClass *b = [[JDCoderTestClass alloc] init];
+    
+    a.link = b;
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:a];
+    
+    JDCoderTestClass *c = [coder decodeRootObject];
+    XCTAssertNotNil(c.link);
+}
+
 
 - (void)test01_JDCoder{
     JDCoder *coder = [[JDCoder alloc] init];

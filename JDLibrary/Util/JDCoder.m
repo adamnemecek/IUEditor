@@ -183,7 +183,7 @@
         }
         workingDict = workingDict[key];
         if (decodedObjects[workingDict[@"memory__"]]){
-            dict[key] = decodedObjects[workingDict[@"memory__"]];
+            dict[key] = decodedObjects[workingDict[@"memory__"]][@"object__"];
         }
         else {
             dict[key] = [self decodeObject];
@@ -204,7 +204,7 @@
     for (NSMutableDictionary *itemDict in contentArray) {
         workingDict = itemDict;
         if (decodedObjects[workingDict[@"memory__"]]){
-            [array addObject:decodedObjects[workingDict[@"memory__"]]];
+            [array addObject:decodedObjects[workingDict[@"memory__"]][@"object__"]];
         }
         else {
             [array addObject:[self decodeObject]];
@@ -233,7 +233,7 @@
         if (decodedObjects[memoryAddress] == nil) {
             [NSException raise:@"JDDecodeError" format:@"Object Not decoded before decodeByRefObjectForKey:%@ is called", key];
         }
-        return decodedObjects[memoryAddress];
+        return decodedObjects[memoryAddress][@"object__"];
     }
     else {
         return nil;
@@ -254,7 +254,7 @@
     if (workingDict[key]) {
         id memory = workingDict[key][@"memory__"];
         if (decodedObjects[memory]) {
-            return decodedObjects[memory];
+            return decodedObjects[memory][@"object__"];
         }
         
         NSMutableDictionary *originalWorkingDict = workingDict;
@@ -277,7 +277,7 @@
     NSString *memory = workingDict[@"memory__"];
     
     NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
-    decodedObjects[memory] = newObj;
+    decodedObjects[memory] = @{@"workingDict__":workingDict, @"object__":newObj};
     return newObj;
 }
 
@@ -412,15 +412,16 @@
 - (id)decodeRootObject {
     NSString *className = workingDict[@"class__"];
     NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
-    [decodedObjects setObject:newObj forKey:workingDict[@"memory__"]];
+    [decodedObjects setObject:@{@"workingDict__":dataDict, @"object__":newObj} forKey:workingDict[@"memory__"]];
     
     for (NSString *selectorString in initSelectors) {
         SEL sel = NSSelectorFromString(selectorString);
-        [decodedObjects enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            if ([obj respondsToSelector:sel]) {
+        [decodedObjects enumerateKeysAndObjectsUsingBlock:^(id key, NSDictionary* obj, BOOL *stop) {
+            workingDict = obj[@"workingDict__"];
+            if ([obj[@"object__"] respondsToSelector:sel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                [obj performSelector:sel withObject:self];
+                [obj[@"object__"] performSelector:sel withObject:self];
 #pragma clang diagnostic pop
             }
         }];
