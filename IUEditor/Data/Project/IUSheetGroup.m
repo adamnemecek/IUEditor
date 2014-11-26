@@ -20,12 +20,15 @@
     return self;
 }
 
+- (BOOL)isFileItemGroup{
+    return YES;
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUSheetGroup *group = [[IUSheetGroup allocWithZone:zone] init];
     for (IUSheet *sheet in self.childrenFiles) {
-        [group addItem:sheet];
+        [group addFileItem:sheet];
     }
-    group.project = self.project;
     group.name = self.name;
     return group;
 }
@@ -55,10 +58,6 @@
     return self;
 }
 
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    self.project = [aDecoder decodeByRefObjectForKey:@"project"];
-}
-
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeFromObject:self withProperties:[IUSheetGroup properties]];
@@ -71,8 +70,11 @@
 
 #pragma mark - Undo Manager
 
-- (NSUndoManager *)undoManager{
-    return [[[[NSApp mainWindow] windowController] document] undoManager];
+- (NSUndoManager *)undoManagers{
+    if (_undoManager == nil) {
+        return [[[[NSApp mainWindow] windowController] document] undoManager];
+    }
+    return _undoManager;
 }
 
 #pragma mark - manage sheet
@@ -85,18 +87,15 @@
     return _children;
 }
 
-- (IUProject*)parent{
-    return _project;
+- (void)addFileItem:(id<IUFileItemProtocol>)fileItem{
+    fileItem.parentFileItem = self;
+    [_children addObject:fileItem];
 }
 
-- (void)addItem:(IUSheet*)sheet{
-    sheet.group = self;
-    [_children addObject:sheet];
-}
-
-- (void)removeItem:(IUSheet *)sheet{
-    NSAssert([_children containsObject:sheet], @"");
-    [_children removeObject:sheet];
+- (void)removeFileItem:(id<IUFileItemProtocol>)fileItem{
+    NSAssert([_children containsObject:fileItem], @"");
+    fileItem.parentFileItem = nil;
+    [_children removeObject:fileItem];
 }
 
 - (void)changeIndex:(IUSheet *)sheet toIndex:(NSUInteger)newIndex{

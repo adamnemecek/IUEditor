@@ -86,12 +86,10 @@
 
     _pageGroup = [[IUSheetGroup alloc] init];
     _pageGroup.name = IUPageGroupName;
-    _pageGroup.project = self;
     
     
     _classGroup = [[IUSheetGroup alloc] init];
     _classGroup.name = IUClassGroupName;
-    _classGroup.project = self;
     
     
     IUPage *home = [[IUPage alloc] initWithPreset];

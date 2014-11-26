@@ -45,9 +45,8 @@
     
     IUEventCompiler *compiler = [[IUEventCompiler alloc] init];
     NSDictionary *rule = [compiler unitEventRuleCode:box];
-    XCTAssertEqualObjects(rule[IUEventTriggerKey], @"trigger.click");
-    XCTAssertEqualObjects(rule[IUEventActionKey], @"receiver.visible.0");
-    XCTAssertEqualObjects(rule[IUEventConditionKey], @"window.innerWidth >= 100");
+    
+    XCTAssertFalse(@"error");
 }
 
 @end

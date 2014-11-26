@@ -10,11 +10,12 @@
 #import "IUCompiler.h"
 #import "IUBox.h"
 #import "IUIdentifierManager.h"
+#import "IUFileItem.h"
 
 
 @class IUSheetGroup;
 
-@interface IUSheet : IUBox
+@interface IUSheet : IUBox <IUFileItemProtocol>
 
 @property CGFloat ghostX, ghostY, ghostOpacity;
 @property NSString *ghostImageName;
@@ -40,6 +41,6 @@
 - (BOOL)containClass:(Class)class;
 - (NSDictionary *)eventVariableDict;
 
-@property (weak) IUSheetGroup *group;
+@property (weak) id <IUFileItemProtocol> parentFileItem;
 
 @end

@@ -49,7 +49,7 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol>{
+@interface IUProject : NSObject <IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUResourceGroup *_resourceGroup;
@@ -93,7 +93,7 @@ static NSString *IUClassGroupName = @"class";
 
  @brief create project at temporary directory
  */
-- (id)initForUnitTestAtTemporaryDirectory;
+- (id)initAtTemporaryDirectory;
 
 - (void)initializeResource;
 
@@ -122,7 +122,7 @@ static NSString *IUClassGroupName = @"class";
 
 //build
 - (IUProjectType)projectType;
-- (IUCompiler *)compiler __deprecated_enum_msg("Will be removed at storage mode");
+//- (IUCompiler *)compiler __deprecated_enum_msg("Will be removed at storage mode");
 - (BOOL)build:(NSError**)error __deprecated;
 
 //manager
@@ -165,5 +165,6 @@ static NSString *IUClassGroupName = @"class";
 
 - (NSData *)lastCreatedData;
 - (NSData *)createData;
+
 
 @end

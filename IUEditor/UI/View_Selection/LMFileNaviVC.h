@@ -25,4 +25,6 @@
 - (void)selectFirstDocument;
 - (void)reloadNavigation;
 
+@property IUIdentifierManager *identifierManager;
+
 @end

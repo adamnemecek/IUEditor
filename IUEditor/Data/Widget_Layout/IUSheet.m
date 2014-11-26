@@ -13,10 +13,12 @@
 
 - (id)initWithPreset{
     self = [super initWithPreset];
-    if(self){
-        _ghostOpacity = 0.5;
-    }
+    _ghostOpacity = 0.5;
     return self;
+}
+
+- (BOOL)isFileItemGroup{
+    return NO;
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -27,7 +29,7 @@
         _ghostY = [aDecoder decodeFloatForKey:@"ghostY"];
         _ghostOpacity = [aDecoder decodeFloatForKey:@"ghostOpacity"];
         _ghostImageName = [aDecoder decodeObjectForKey:@"ghostImageName"];
-        _group = [aDecoder decodeObjectForKey:@"group"];
+        _parentFileItem = [aDecoder decodeObjectForKey:@"group"];
 
 
     }
@@ -40,7 +42,7 @@
     [aCoder encodeFloat:_ghostY forKey:@"ghostY"];
     [aCoder encodeFloat:_ghostOpacity forKey:@"ghostOpacity"];
     [aCoder encodeObject:_ghostImageName forKey:@"ghostImageName"];
-    [aCoder encodeObject:_group forKey:@"group"];
+    [aCoder encodeObject:_parentFileItem forKey:@"group"];
 }
 
 
@@ -203,6 +205,10 @@
         return [variableDictionary copy];
     }
     return nil;
+}
+
+- (IUProject *)project {
+    return self.parentFileItem.project;
 }
 
 @end

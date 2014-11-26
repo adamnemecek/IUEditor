@@ -43,6 +43,14 @@
              ];
 }
 
+- (BOOL)isFileItemGroup{
+    return YES;
+}
+
+- (NSArray *)childrenFileItems{
+    return @[_pageGroup, _classGroup];
+}
+
 + (id)projectWithContentsOfPath:(NSString*)path {
     IUProject *project = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     project.path = path;
@@ -163,7 +171,7 @@
     return self;
 }
 
-
+/*
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
 
@@ -230,11 +238,12 @@
     
     return self;
 }
-
+*/
 /**
  @brief
  It's for convert project
  */
+/*
 -(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error{
     self = [super init];
     
@@ -291,28 +300,16 @@
 
     return self;
 }
-
+*/
 /* 그냥 initWithCreation:nil] 하면
     NSAssert에 걸리므로 임시로 이렇게 처리 */
 
-- (id)initForUnitTestAtTemporaryDirectory {
+- (id)initAtTemporaryDirectory {
     /* initialize at temp directory */
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(defaultFrameWidth), @320]];
-    _compiler = [[IUCompiler alloc] init];
-    _resourceManager = [[IUResourceManager alloc] init];
-    _compiler.resourceManager = _resourceManager;
-    
-    //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
     _enableMinWidth = YES;
-    
-    
-    /* create app name */
-    /* rule : ProjectName_Number
-     example :  IUProject_3
-     IUDjangoProject_5
-     */
     
     self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.iu", self.className]];
     
@@ -332,13 +329,14 @@
     
     _pageGroup = [[IUSheetGroup alloc] init];
     _pageGroup.name = IUPageGroupName;
-    _pageGroup.project = self;
+    _pageGroup.parentFileItem = self;
     
     _classGroup = [[IUSheetGroup alloc] init];
     _classGroup.name = IUClassGroupName;
-    _classGroup.project = self;
+    _classGroup.parentFileItem = self;
     
-    [self makeDefaultClasses];
+    /*
+     [self makeDefaultClasses];
     
     IUPage *pg = [[IUPage alloc] initWithPreset];
     pg.name = @"index";
@@ -357,11 +355,11 @@
     
     // create build directory
     [[NSFileManager defaultManager] createDirectoryAtPath:self.absoluteBuildPath withIntermediateDirectories:YES attributes:nil error:nil];
-    
+    */
     return self;
 }
 
-
+/*
 -(id)initWithCreation:(NSDictionary*)options error:(NSError**)error{
     self = [super init];
     
@@ -421,7 +419,7 @@
     
     return self;
 }
-
+*/
 - (void)makeDefaultClasses{
 
     IUClass *header = [self classWithName:@"header"];
@@ -927,11 +925,17 @@
 }
 
 - (NSArray*)pageSheets{
+    return nil;
+    /*
     NSAssert(_pageGroup, @"pg");
     return _pageGroup.childrenFiles;
+     */
 }
 - (NSArray*)classSheets{
+    return nil;
+    /*
     return _classGroup.childrenFiles;
+     */
 }
 - (IUClass *)classWithName:(NSString *)name{
     return [_classGroup sheetWithHtmlID:name];
@@ -948,11 +952,10 @@
 - (IUSheetGroup*)classGroup{
     return _classGroup;
 }
-- (IUResourceGroup*)resourceGroup{
-    return _resourceGroup;
-}
 
 - (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
+    NSAssert(0, @"not yet coded");
+    /*
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -976,9 +979,12 @@
         [self didChangeValueForKey:@"classSheets"];
 
     }
+     */
 }
 
 - (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
+    NSAssert(0, @"to be deleted");
+    /*
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -1001,6 +1007,7 @@
         [self didChangeValueForKey:@"classSheets"];
         
     }
+     */
 }
 
 - (NSData *)lastCreatedData{
@@ -1012,6 +1019,14 @@
     [coder encodeRootObject:self];
     _lastCreatedData = [coder data];
     return _lastCreatedData;
+}
+
+- (IUProject *)project{
+    return self;
+}
+
+- (IUResourceGroup *)resourceGroup __storage_deprecated {
+    return nil;
 }
 
 @end

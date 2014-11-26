@@ -36,6 +36,7 @@
 }
 
 - (void)setSelectedFileName:(NSString *)selectedFileName{
+    /*
     _selectedFileName = selectedFileName;
     NSString *commentFile = [[NSBundle mainBundle] pathForResource:@"wpPageInformation" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary  dictionaryWithContentsOfFile:commentFile];
@@ -64,6 +65,7 @@
         //custom
         self.showPHPInfo = NO;
     }
+     */
 }
 
 - (IBAction)openHierachy:(id)sender {

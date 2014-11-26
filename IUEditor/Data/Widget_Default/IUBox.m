@@ -515,22 +515,6 @@
     return nil;
 }
 
-- (id <IUProjectProtocol>)project{
-    /*
-    if ([self isKindOfClass:[IUSheet class]]) {
-        [((IUSheet *)self).parent project];
-    }
-    if (self.sheet.project) {
-        return self.sheet.project;
-    }
-    else if (_tempProject) {
-        //not assigned to document
-        return _tempProject;
-    }
-     */
-    //FIXME: decoder할때 project가 없을때가 있음 확인요
-    return nil;
-}
 
 -(NSString*)description{
     return [[super description] stringByAppendingFormat:@" %@", self.htmlID];

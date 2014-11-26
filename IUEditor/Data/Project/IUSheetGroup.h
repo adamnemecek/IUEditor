@@ -8,29 +8,30 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
+#import "IUFileItem.h"
 
 @class IUProject;
 @class IUSheet;
 
-@interface IUSheetGroup : NSObject < NSCoding, NSCopying, JDCoding>
+@interface IUSheetGroup : IUFileItem < NSCoding, NSCopying, JDCoding>
 
-@property (weak) IUProject *project;
-@property NSString *name;
 
 /**
  return all children sheets
  */
-- (NSArray*)childrenFiles;
+- (NSArray*)childrenFileItems;
 
 /**
  Add Item. Item can be IUSheet or IUSheet Group
  */
+/*
 - (void)addItem:(id)item;
 - (void)removeItem:(id)item;
 - (void)changeIndex:(id)item toIndex:(NSUInteger)newIndex;
+ */
 
 - (id)sheetWithHtmlID:(NSString *)identifier;
 
-- (NSUndoManager *)undoManager;
+@property (nonatomic) NSUndoManager *undoManager;
 
 @end

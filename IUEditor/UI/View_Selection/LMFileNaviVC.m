@@ -104,10 +104,10 @@
         NSString *cellIdentifier, *nodeName;
         if ([[item representedObject] isKindOfClass:[IUSheet class]]){
             IUSheet *node = [item representedObject];
-            if([node.group.name isEqualToString:IUPageGroupName]){
+            if([node.parent.name isEqualToString:IUPageGroupName]){
                 cellIdentifier = @"pageFile";
             }
-            else if ([node.group.name isEqualToString:IUClassGroupName]){
+            else if ([node.parent.name isEqualToString:IUClassGroupName]){
                 cellIdentifier = @"classFile";
             }
             else {
@@ -208,30 +208,33 @@
 }
 
 - (void)copyDocument:(NSMenuItem*)sender{
+    /*
     NSTreeNode *item = [_outlineV itemAtRow:sender.tag];
     IUSheet * node = [item representedObject];
     IUSheet * newNode = [node copy];
-    [self.project addItem:newNode toSheetGroup:node.group];
-    [self.project.identifierManager registerIUs:@[newNode]];
+    [self.project addItem:newNode toSheetGroup:node.parent];
+    [self.identifierManager registerIUs:@[newNode]];
     [self.documentController rearrangeObjects];
+     */
 }
 
 - (void)removeDocument:(NSMenuItem*)sender{
+    /*
     NSTreeNode *item = [_outlineV itemAtRow:sender.tag];
     IUSheet * node = [item representedObject];
-    IUSheetGroup *parent = node.group;
-    if (node.group.childrenFiles.count == 1) {
+    IUSheetGroup *parent = node.parent;
+    if (parent.childrenFiles.count == 1) {
         NSBeep();
         [JDUIUtil hudAlert:@"Each document folder should have at least one document" second:2];
         return;
     }
-    [self.project removeItem:node toSheetGroup:node.group];
+    [self.project removeItem:node toSheetGroup:node.parent];
     [self.project.identifierManager unregisterIUs:@[node]];
     [_documentController setSelectedObject:[[parent childrenFiles] firstObject]];
     [_documentController rearrangeObjects];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType:IUNotificationStructureChangeRemoving, IUNotificationStructureChangedIU:node}];
-
+*/
 }
 
 
@@ -417,16 +420,20 @@
 }
 
 - (NSDragOperation)outlineView:(NSOutlineView *)ov validateDrop:(id <NSDraggingInfo>)info proposedItem:(NSTreeNode*)item proposedChildIndex:(NSInteger)childIndex {
+    NSAssert(0, @"not yet coded ");
+    /*
     id itemRepresented = [item representedObject];
     if ([itemRepresented isKindOfClass:[IUSheetGroup class]]) {
         if ((IUSheetGroup*)itemRepresented == [_draggingItem group] ) {
             return NSDragOperationMove;
         }
     }
+     */
     return NO;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id < NSDraggingInfo >)info item:(id)item childIndex:(NSInteger)index{
+    /*
     //rearrange
     IUSheetGroup *group = [item representedObject];
     NSIndexPath *originalIndexPath = [_draggingIndexPaths lastObject];
@@ -436,6 +443,7 @@
     }
     [group changeIndex:_draggingItem toIndex:index];
     [_documentController rearrangeObjects];
+     */
     return YES;
 }
 

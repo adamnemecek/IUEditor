@@ -30,7 +30,7 @@
 }
 
 - (void)test_build {
-    IUProject *project = [[IUProject alloc] initForUnitTestAtTemporaryDirectory];
+    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
     IUSourceManager *sManager = [[IUSourceManager alloc] init];
     [sManager setProject:project];
     [sManager setCompiler:[[IUCompiler alloc] init]];
@@ -44,11 +44,16 @@
     XCTAssertTrue(isDirectory);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)test_fileItem {
+    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    
+    XCTAssertNotNil(project.pageGroup);
+    IUSheetGroup *anotherGroup = [[IUSheetGroup alloc] init];
+    [project.pageGroup addFileItem:anotherGroup];
+    
+    XCTAssertEqual(anotherGroup.project, project);
+    XCTAssertEqual(anotherGroup.parentFileItem, project.pageGroup);
+
 }
 
 @end
