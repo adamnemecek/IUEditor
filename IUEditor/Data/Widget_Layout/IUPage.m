@@ -207,7 +207,7 @@
 }
 
 - (void)connectWithEditor{
-    NSAssert(self.project, @"");
+//    NSAssert(self.project, @"");
     
     [[self undoManager] disableUndoRegistration];
     

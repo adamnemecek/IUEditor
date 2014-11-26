@@ -236,23 +236,20 @@
         [self.undoManager disableUndoRegistration];
         
         [self setDefaultProperties];
-        
-        //setting for css
         [self createDefaultStorages];
-        self.liveStyleStorage.overflowType = @(IUOverflowTypeHidden);
-        self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
 
-        [positionStorage setPosition:@(IUPositionTypeAbsolute)];
-
-        [positionStorage setX:nil unit:@(IUFrameUnitPixel)];
-        [positionStorage setY:nil unit:@(IUFrameUnitPixel)];
+        //setting for css
+        [self.defaultPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+        [self.defaultPositionStorage setX:nil unit:@(IUFrameUnitPixel)];
+        [self.defaultPositionStorage setY:nil unit:@(IUFrameUnitPixel)];
         
-        [styleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
-        [styleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+        [self.defaultStyleStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+        [self.defaultStyleStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+        self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden);
+        self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
 
-
-        [hoverManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
-        [hoverManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+        [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+        [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
 
         [self.undoManager enableUndoRegistration];
     }
@@ -300,7 +297,6 @@
         [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
         [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-        
         
     }
     
@@ -520,13 +516,18 @@
 }
 
 - (id <IUProjectProtocol>)project{
-    if (self.sheet.fileItemParent.project) {
-        return self.sheet.fileItemParent.project;
+    /*
+    if ([self isKindOfClass:[IUSheet class]]) {
+        [((IUSheet *)self).parent project];
+    }
+    if (self.sheet.project) {
+        return self.sheet.project;
     }
     else if (_tempProject) {
         //not assigned to document
         return _tempProject;
     }
+     */
     //FIXME: decoder할때 project가 없을때가 있음 확인요
     return nil;
 }
