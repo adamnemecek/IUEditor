@@ -350,9 +350,9 @@
             break;
     }
     
-    [self.controller startFrameMoveWithUndoManager:self];
+    [self.controller startFrameMoveWithTransaction:self];
     [self.controller moveIUToTotalDiffPoint:diffPoint];
-    [self.controller endFrameMoveWithUndoManager:self];
+    [self.controller endFrameMoveWithTransaction:self];
 }
 
 //no를 리턴하면 sendevent 슈퍼를 호출하지 않음.
@@ -450,7 +450,7 @@
                         isMouseDownForMoveIU = NO;
                     }
                     else{
-                        [self.controller startFrameMoveWithUndoManager:self];
+                        [self.controller startFrameMoveWithTransaction:self];
                     }
                     
                     startDragPoint = centerConvertedPoint;
@@ -534,7 +534,7 @@
     
     if(isMouseDownForMoveIU){
         isMouseDownForMoveIU = NO;
-        [self.controller endFrameMoveWithUndoManager:self];
+        [self.controller endFrameMoveWithTransaction:self];
     }
     if(isMouseDragForIU){
         isMouseDragForIU = NO;

@@ -11,13 +11,13 @@
 @implementation IUCarouselItem
 
 #pragma mark - Initialize
-
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        self.positionType = IUPositionTypeFloatLeft;
+        self.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
         [self.undoManager enableUndoRegistration];
+
     }
     return self;
 }

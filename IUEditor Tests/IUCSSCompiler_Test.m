@@ -99,7 +99,7 @@
 }
 
 - (void)test5_font{
-    [box.mqData setValue:@"test" forTag:IUMQDataTagInnerHTML];
+    box.livePropertyStorage.innerHTML = @"test";
     box.liveStyleStorage.fontName = @"Roboto";
     box.liveStyleStorage.fontSize = @(13);
     box.liveStyleStorage.fontColor = [NSColor blueColor];

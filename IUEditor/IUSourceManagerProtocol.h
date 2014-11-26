@@ -12,10 +12,15 @@
 
 @protocol IUSourceManagerProtocol
 
--(void)setNeedsUpdateHTML:(id)obj;
--(void)setNeedsUpdateCSS:(id)obj;
+- (void)setNeedsUpdateHTML:(id)obj;
+- (void)setNeedsUpdateCSS:(id)obj;
+- (void)setNeedsUpdateCSS:(id)obj withIdentifiers:(NSArray *)identifiers;
+- (void)removeIU:(id)obj;
+
+/* call js */
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 - (id)evaluateWebScript:(NSString *)script;
+- (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
 
 @end
 

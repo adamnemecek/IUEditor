@@ -57,7 +57,7 @@ static NSString *IUClassGroupName = @"class";
     
     IUCompiler *_compiler;
     IUResourceManager *_resourceManager;
-    IUIdentifierManager *_identifierManager;
+//    IUIdentifierManager *_identifierManager;
     
     NSString  *_path;
     NSMutableArray *_mqSizes;
@@ -85,7 +85,7 @@ static NSString *IUClassGroupName = @"class";
  @breif create project from other project (conversion)
  @param setting a dictionary which has IUProjectKeyAppName and IUProjectKeyDirectory
  */
--(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error;
+-(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error __deprecated;
 
 /**
  Make Project at Temporary directory.

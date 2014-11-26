@@ -19,26 +19,25 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultStyleStorage.width = nil;
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
     
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css eradicateTag:IUCSSTagPixelWidth];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    
-    [self.css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(14) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.0) forTag:IUCSSTagTextLetterSpacing forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignRight) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:0 green:120 blue:220 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-
-    
-    [self.undoManager enableUndoRegistration];
+        self.defaultStyleStorage.fontName = @"Roboto";
+        self.defaultStyleStorage.fontSize = @(14);
+        self.defaultStyleStorage.fontLineHeight = @(1.0);
+        self.defaultStyleStorage.fontLetterSpacing = @(1.0);
+        self.defaultStyleStorage.fontAlign = @(IUAlignRight);
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:0 green:120 blue:220 alpha:1];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -73,10 +72,6 @@
 }
 
 #pragma mark -
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 
 - (BOOL)canRemoveIUByUserInput {
     return NO;

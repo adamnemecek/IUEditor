@@ -18,31 +18,33 @@
     for (IUBox *box in self.header.children) {
         [self.header removeIU:box];
     }
-    WPSiteTitle *title = [[WPSiteTitle alloc] initWithProject:self.project options:nil];
+    WPSiteTitle *title = [[WPSiteTitle alloc] initWithPreset];
     title.htmlID = @"SiteTitle";
     title.name = @"SiteTitle";
-    [title.css setValue:@(60) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
+    title.livePositionStorage.y = @(60);
     title.enableHCenter = YES;
 
     [self.header addIU:title error:nil];
-    [self.project.identifierManager registerIUs:@[title]];
+    [self.identifierManager registerIUs:@[title]];
     
-    WPSiteDescription *desc = [[WPSiteDescription alloc] initWithProject:self.project options:nil];
+    WPSiteDescription *desc = [[WPSiteDescription alloc] initWithPreset];
     desc.htmlID = @"SiteDescription";
     desc.name = @"SiteDescription";
-    [desc.css setValue:@(110) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
+    desc.livePositionStorage.y = @(110);
+    
     [self.header addIU:desc error:nil];
-    [self.project.identifierManager registerIUs:@[desc]];
+    [self.identifierManager registerIUs:@[desc]];
 
-    WPMenu *menu = [[WPMenu alloc] initWithProject:self.project options:nil];
+    WPMenu *menu = [[WPMenu alloc] initWithPreset];
     menu.htmlID = @"Menu";
     menu.name = @"Menu";
+    
     [self.header addIU:menu error:nil];
     [self.project.identifierManager registerIUs:@[menu]];
     
-    [self.header.css setValue:@(200) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+    self.header.liveStyleStorage.height = @(200);
+    self.header.liveStyleStorage.bgColor = nil;
     
-    [self.header.css eradicateTag:IUCSSTagBGColor];
 }
 
 @end

@@ -26,8 +26,8 @@
 
 #pragma mark - init
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if (self) {
         [self.undoManager disableUndoRegistration];
         
@@ -82,9 +82,6 @@
     [self updateHTML];
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 
 - (IUTextInputType)textInputType{
     return IUTextInputTypeTextField;

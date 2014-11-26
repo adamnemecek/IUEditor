@@ -13,6 +13,7 @@
 #import "IUProject.h"
 #import "IUBox.h"
 #import "IUPage.h"
+#import "IUText.h"
 
 @interface IUSourceManager_Test : XCTestCase <IUProjectProtocol, IUSourceManagerDelegate>
 
@@ -67,7 +68,7 @@
 - (void)test1_loadPage {
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -83,7 +84,7 @@
 - (void)test2_loadPageAndCheckCSS {
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
 
     ((IUStyleStorage *)page.liveStyleStorage).bgColor = [NSColor greenColor];
     [manager loadSheet:page];
@@ -98,7 +99,7 @@
 
 - (void)test3_htmlSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
 //    [page.cssD.liveStorage setX:@(50)];
     [page setSourceManager:manager];
     [page.livePositionStorage setX:@(50)];
@@ -123,7 +124,7 @@
 
 - (void)test4_cssSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test4"];
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
     [page.livePositionStorage setX:@(50)];
     
     [manager loadSheet:page];
@@ -148,7 +149,7 @@
 
 - (void)test5_cssHover{
     webViewLoadingExpectation = [self expectationWithDescription:@"test5"];
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
     
     [manager loadSheet:page];
     
@@ -175,7 +176,7 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test6"];
 
     
-    IUPage *page = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *page = [[IUPage alloc] initWithPreset];
     [(IUPositionStorage *)page.positionManager.liveStorage setX:@(50)];
     [page setSourceManager:manager];
     
@@ -185,7 +186,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         [section setSourceManager:manager];
         
-        IUBox *parent = [[IUBox alloc] initWithProject:page.project options:nil];
+        IUBox *parent = [[IUBox alloc] initWithPreset];
         [section addIU:parent error:nil];
         [manager setNeedsUpdateHTML:section];
         [parent setSourceManager:manager];
@@ -195,7 +196,7 @@
         [parent.liveStyleStorage setWidth:@(100)];
         [parent.liveStyleStorage setHeight:@(100)];
         
-        IUBox *child = [[IUBox alloc] initWithProject:page.project options:nil];
+        IUBox *child = [[IUBox alloc] initWithPreset];
         [parent addIU:child error:nil];
         [manager setNeedsUpdateHTML:parent];
         
@@ -243,7 +244,7 @@
 }
 
 
-- (void)test3_loadPageAndHeader {
+- (void)test7_loadPageAndHeader {
     webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
     
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
@@ -258,6 +259,7 @@
         XCTAssertNotNil(pageElement);
     }];
 }
+
 
 
 /* prepare update. for example, text editor enable/disable */

@@ -18,20 +18,20 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if (self) {
         [self.undoManager disableUndoRegistration];
 
         //setting for css
-        [self.css eradicateTag:IUCSSTagPixelHeight];
-        [self.css eradicateTag:IUCSSTagBGColor];
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
 
         //setting children
-        self.titleWidget = [[WPWidgetTitle alloc] initWithProject:project options:options];
+        self.titleWidget = [[WPWidgetTitle alloc] initWithPreset];
         [self addIU:self.titleWidget error:nil];
         
-        self.bodyWidget = [[WPWidgetBody alloc] initWithProject:project options:options];
+        self.bodyWidget = [[WPWidgetBody alloc] initWithPreset];
         [self addIU:self.bodyWidget error:nil];
         
         [self.undoManager enableUndoRegistration];

@@ -95,6 +95,7 @@
         return;
     }
     
+    //FIXME: remove IU
     [[self.undoManager prepareWithInvocationTarget:self] setPrototypeClass:_prototypeClass];
 
     [self willChangeValueForKey:@"children"];
@@ -104,29 +105,33 @@
     if(prototypeClass == nil && _prototypeClass != nil){
         //remove layers
         for(IUBox *box in _prototypeClass.allChildren){
-            NSString *currentID = [self modifieldHtmlIDOfChild:box];
-            [_canvasVC IURemoved:currentID];
+//            NSString *currentID = [self modifieldHtmlIDOfChild:box];
+            [self.sourceManager removeIU:box];
+//            [_canvasVC IURemoved:currentID];
         }
         
-        [_canvasVC IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
+        [self.sourceManager removeIU:_prototypeClass];
+//        [_canvasVC IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
 
     }
     
     _prototypeClass = prototypeClass;
     
     if(_prototypeClass){
-        [_prototypeClass setCanvasVC:  _canvasVC];
+//        [_prototypeClass setCanvasVC:  _canvasVC];
         [_prototypeClass addReference:self];
     }
     
     [self updateHTML];
     
+    /*
     if (_canvasVC && _prototypeClass) {
         for (IUBox *iu in [prototypeClass.allChildren arrayByAddingObject:prototypeClass]) {
             [iu updateCSS];
         }
         
     }
+     */
     [self didChangeValueForKey:@"children"];
 }
 

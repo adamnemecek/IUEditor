@@ -22,36 +22,22 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    if(self){
-        
-        [self.undoManager disableUndoRegistration];
-        
-        [self.css setValue:@(0) forTag:IUCSSTagXUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(0) forTag:IUCSSTagYUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(1) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(0) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(500) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(0) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(0) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-        
-        self.positionType = IUPositionTypeRelative;
-        
-        [self.undoManager enableUndoRegistration];
-     }
-    return self;
-}
-
 - (id)initWithPreset{
     self = [super initWithPreset];
     if(self){
+        
         [self.undoManager disableUndoRegistration];
-        self.liveStyleStorage.height = @(500);
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.x = nil;
+        self.defaultPositionStorage.y = nil;
+        
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = @(500);
+
+        
         [self.undoManager enableUndoRegistration];
-    }
+     }
     return self;
 }
 

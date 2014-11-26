@@ -31,16 +31,16 @@
 
 #pragma mark - init
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+-(id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [[self undoManager] disableUndoRegistration];
         self.sizeType = IUTweetButtonSizeTypeMeidum;
         self.countType = IUTweetButtonCountTypeNone;
         
-        [self.css setValue:@(20) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(56) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:nil forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
+        self.defaultStyleStorage.height = @(20);
+        self.defaultStyleStorage.width = @(56);
+        self.defaultStyleStorage.bgColor = nil;
         
         [[self undoManager] enableUndoRegistration];
         

@@ -97,7 +97,7 @@ typedef enum _IUCompileRule{
 - (NSString *)jsEventSource:(IUPage*)document;
 
 - (NSString *)jsInitFileName:(IUPage *)document;
-- (NSString *)jsInitSource:(IUPage*)document;
+- (NSString *)jsInitSource:(IUPage*)document storage:(BOOL)storage;
 
 - (void)setJSBasePath:(NSString*)urlPath;
 - (void)setCSSBasePath:(NSString*)urlPath;

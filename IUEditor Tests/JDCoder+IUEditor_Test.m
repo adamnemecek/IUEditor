@@ -23,15 +23,15 @@
 - (void)setUp {
     [super setUp];
     NSLog(@"test");
-    parentBox = [[IUBox alloc] initWithProject:nil options:nil];
+    parentBox = [[IUBox alloc] initWithPreset];
     parentBox.htmlID = @"parentBox";
     [parentBox.css setValue:@"VALUETEST" forTag:@"IUCSSTagForTest"];
     [parentBox.css setValue:@(10) forTag:@"IUCSSTagForTestNum"];
     
-    childBox1 = [[IUBox alloc] initWithProject:nil options:nil];
+    childBox1 = [[IUBox alloc] initWithPreset];
     childBox1.htmlID = @"ChildBox1";
     
-    childBox2 = [[IUBox alloc] initWithProject:nil options:nil];
+    childBox2 = [[IUBox alloc] initWithPreset];
     childBox2.htmlID = @"ChildBox2";
     
     [parentBox addIU:childBox1 error:nil];
@@ -50,7 +50,7 @@
 
 - (void)test1_IUBoxEncoding1{
     // This is an example of a functional test case.
-    IUBox *oneBox = [[IUBox alloc] initWithProject:nil options:nil];
+    IUBox *oneBox = [[IUBox alloc] initWithPreset];
     oneBox.htmlID = @"OneBox";
     
     JDCoder *coder = [[JDCoder alloc] init];

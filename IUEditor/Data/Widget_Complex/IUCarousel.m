@@ -29,16 +29,12 @@
 
 
 #pragma mark - Initialize
-
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [[self undoManager] disableUndoRegistration];
-
+        
         self.count = 3;
-        [self.css setValue:@(500) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(300) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:[NSColor clearColor] forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
         _selectColor = [NSColor blackColor];
         _deselectColor = [NSColor grayColor];
         _rightArrowImage = @"clipArt/arrow_right.png";
@@ -46,11 +42,14 @@
         _leftY = 100;
         _rightY = 100;
         _pagerPosition = 50;
-        
-        [[self undoManager] enableUndoRegistration];
 
+        self.defaultStyleStorage.width = @(500);
+        self.defaultStyleStorage.height = @(300);
+        self.defaultStyleStorage.bgColor = nil;
+
+        [[self undoManager] enableUndoRegistration];
     }
-    return self;
+    return  self;
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -155,7 +154,7 @@
         
 
         for(NSInteger i=self.children.count; i <count; i++){
-            IUCarouselItem *item = [[IUCarouselItem alloc] initWithProject:self.project options:nil];
+            IUCarouselItem *item = [[IUCarouselItem alloc] initWithPreset];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }

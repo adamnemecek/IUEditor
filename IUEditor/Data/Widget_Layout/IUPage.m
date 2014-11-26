@@ -43,12 +43,18 @@
 - (id)init{
     self = [super init];
     _pageContent = [[IUPageContent alloc] init];
+    _layout = IUPageLayoutNone;
     return self;
 }
 
 - (id)initWithPreset {
     self = [super initWithPreset];
-    _pageContent = [[IUPageContent alloc] init];
+    
+    _pageContent = [[IUPageContent alloc] initWithPreset];
+    _layout = IUPageLayoutDefault;
+    
+    [self addIU:_pageContent error:nil];
+    
     return self;
 }
 
@@ -105,72 +111,47 @@
             _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
             break;
         case IUPageLayoutSideBarOnly:
-            NSAssert(0, @"not coded");
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
             
             _sidebar.type = IUSidebarTypeFull;
+            [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
+            [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
+            
             break;
-        case IUPageLayoutSideBar:
-            NSAssert(0, @"not coded");
-            //sidebar가 header, footer 사이에
-            _sidebar.type = IUSidebarTypeInside;
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
             
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-            _footer.positionType = IUPositionTypeFloatLeft;
+        case IUPageLayoutSideBar:
+            _sidebar.type = IUSidebarTypeInside;
+            [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
+            
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
+            [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
+
+            _footer.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
             
             break;
         case IUPageLayoutSideBar2:
-            NSAssert(0, @"not coded");
-            //sidebar가 header, footer 왼쪽에
+            
             _sidebar.type = IUSidebarTypeFull;
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _header.positionType = IUPositionTypeFloatRight;
-            [_header.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_header.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            
-            
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-            
-            _footer.positionType = IUPositionTypeFloatRight;
-            [_footer.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_footer.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
+            _header.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            [_header.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
+
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
+            [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
+
+            _footer.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+            [_footer.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             
         default:
             break;
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -195,36 +176,6 @@
     return self;
 }
 
-
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    if(self){
-        [self.undoManager disableUndoRegistration];
-        
-        [self.css setValue:[NSColor whiteColor] forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-        
-        [self.css eradicateTag:IUCSSTagPixelX];
-        [self.css eradicateTag:IUCSSTagPixelY];
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css eradicateTag:IUCSSTagPixelHeight];
-
-        [self.css eradicateTag:IUCSSTagPercentX];
-        [self.css eradicateTag:IUCSSTagPercentY];
-        [self.css eradicateTag:IUCSSTagPercentWidth];
-        [self.css eradicateTag:IUCSSTagPercentHeight];
-        
-        /* storage */
-
-        _layout = [[options objectForKey:kIUPageLayout] intValue];
-        [self makePageLayout:_layout project:project];
-        
-        [self.undoManager enableUndoRegistration];
-
-
-    }
-    return self;
-}
-
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
     if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, self.project.IUProjectVersion) ){
@@ -236,114 +187,6 @@
     }
     return self;
 }
-
-
-- (void)makePageLayout:(IUPageLayout)layoutCode project:(id <IUProjectProtocol>)project{
-    
-    //memory allocation
-    _pageContent = [[IUPageContent alloc] initWithProject:project options:nil];
-    _pageContent.htmlID = @"pageContent";
-    _pageContent.name = @"pageContent";
-    
-    if(layoutCode == IUPageLayoutSideBar || layoutCode == IUPageLayoutSideBar2
-       || layoutCode == IUPageLayoutSideBarOnly){
-        _sidebar = [[IUSidebar alloc] initWithProject:project options:nil];
-        _sidebar.name = @"sidebar";
-        _sidebar.prototypeClass = [project classWithName:@"sidebar"];
-
-    }
-    
-    if(layoutCode == IUPageLayoutDefault ||
-       layoutCode == IUPageLayoutSideBar ||
-       layoutCode == IUPageLayoutSideBar2){
-        
-        _header = [[IUHeader alloc] initWithProject:project options:nil];
-        _header.name = @"header";
-        _header.prototypeClass = [project classWithName:@"header"];
-        
-        _footer = [[IUFooter alloc] initWithProject:project options:nil];
-        _footer.name = @"footer";
-        _footer.prototypeClass = [project classWithName:@"footer"];
-    }
-    
-    //initialize css
-    [self initializeLayoutCSS:layoutCode];
-    
-    //순서대로 넣어야함
-    if(_header){
-        [self addIU:_header error:nil];
-    }
-    if(_sidebar){
-        [self addIU:_sidebar error:nil];
-    }
-    if(_pageContent){
-        [self addIU:_pageContent error:nil];
-    }
-    if(_footer){
-        [self addIU:_footer error:nil];
-    }
-}
-
-- (void)initializeLayoutCSS:(IUPageLayout)layoutCode{
-    
-    switch (layoutCode) {
-        case IUPageLayoutDefault:
-            //do nothing - default css 
-            break;
-        case IUPageLayoutSideBarOnly:
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            
-            _sidebar.type = IUSidebarTypeFull;
-            
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-            break;
-        case IUPageLayoutSideBar:
-            //sidebar가 header, footer 사이에
-            _sidebar.type = IUSidebarTypeInside;
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-            _footer.positionType = IUPositionTypeFloatLeft;
-            
-            break;
-        case IUPageLayoutSideBar2:
-            //sidebar가 header, footer 왼쪽에
-            _sidebar.type = IUSidebarTypeFull;
-            [_sidebar.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_sidebar.css setValue:@(15) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-
-            _header.positionType = IUPositionTypeFloatRight;
-            [_header.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_header.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-
-            
-            _pageContent.positionType = IUPositionTypeFloatRight;
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_pageContent.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-            
-            _footer.positionType = IUPositionTypeFloatRight;
-            [_footer.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-            [_footer.css setValue:@(85) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-
-        default:
-            break;
-    }
-    
-}
-
-
 
 - (id)copyWithZone:(NSZone *)zone{
     [[self undoManager] disableUndoRegistration];

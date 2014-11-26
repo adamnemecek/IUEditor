@@ -32,8 +32,8 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [[self undoManager] disableUndoRegistration];
 
@@ -41,9 +41,10 @@
         _fbSource = @"<iframe src=\"//www.facebook.com/plugins/like.php?href=__FB_LINK_ADDRESS__+&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=__SHOW_FACE__&amp;share=true&amp;colorscheme=__COLOR_SCHEME__&amp;\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; height:__HEIGHT__px\" allowTransparency=\"true\"></iframe>";
         _showFriendsFace = YES;
         _colorscheme = IUFBLikeColorLight;
-        [self.css setValue:@(80) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(320) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:nil forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
+        
+        self.defaultStyleStorage.height = @(80);
+        self.defaultStyleStorage.width = @(320);
+        self.defaultStyleStorage.bgColor = nil;
         
         [[self undoManager] enableUndoRegistration];
 

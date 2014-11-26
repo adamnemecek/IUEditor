@@ -13,6 +13,7 @@
 #import "IUTestWC.h"
 #import "IUProject.h"
 #import "IUBoxes.h"
+#import "IUText.h"
 
 
 @interface IUSourceManager_UITest : XCTestCase <IUTestWCDelegate, IUProjectProtocol>
@@ -192,6 +193,42 @@ static     IUTestWC *testWC;
         XCTAssert(result, @"Pass");
         
     }];
+}
+
+- (void)test4_iutext{
+    webViewLoadingExpectation = [self expectationWithDescription:@"load"];
+    
+    testWC.testNumber = 4;
+    testWC.testModule = @"text test";
+    
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:class];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    
+    [manager loadSheet:page];
+    
+    [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
+        
+        IUBox *section = ((IUBox*)page.pageContent.children[0]);
+        [section setSourceManager:manager];
+        
+        IUText *textIU = [[IUText alloc] initWithPreset];
+        [section addIU:textIU error:nil];
+        [manager setNeedsUpdateHTML:section];
+        
+        textIU.currentPropertyStorage.innerHTML = @"text<b>text</b>";
+        [manager setNeedsUpdateHTML:textIU];
+        
+    }];
+    
+    //wait for pass btn action
+    passBtnExpectation = [self expectationWithDescription:@"passBtn"];
+    [self waitForExpectationsWithTimeout:20 handler:^(NSError *error) {
+        XCTAssert(result, @"Pass");
+        
+    }];
+    
+
 }
 
 @end

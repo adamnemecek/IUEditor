@@ -133,7 +133,7 @@
 }
 
 
--(NSMutableDictionary *)htmlAttributeForIU:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS{
+-(NSMutableDictionary *)htmlAttributeForIU:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewport:(NSInteger)viewport{
     NSMutableDictionary *attributeDict = [NSMutableDictionary dictionary];
     [attributeDict setObject:iu.htmlID forKey:@"id"];
     [attributeDict setObject:[self htmlClassForIU:iu target:target] forKey:@"class"];
@@ -183,8 +183,8 @@
     }
     else if (target == IUTargetEditor && withCSS) {
         NSAssert(self.cssCompiler, @"does not have css compiler");
-        IUCSSCode *cssCode = [self.cssCompiler cssCodeForIU_storage:iu target:IUTargetEditor viewPort:IUDefaultViewPort];
-        NSString *stringCode = [cssCode stringCodeWithMainIdentifieForTarget:IUTargetEditor viewPort:IUDefaultViewPort];
+        IUCSSCode *cssCode = [self.cssCompiler cssCodeForIU_storage:iu target:IUTargetEditor viewPort:(int)viewport];
+        NSString *stringCode = [cssCode stringCodeWithMainIdentifieForTarget:IUTargetEditor viewPort:(int)viewport];
         if (stringCode) {
             [attributeDict setObject:stringCode forKey:@"style"];
         }
@@ -297,7 +297,7 @@
             //call widget html
             IMP imp = [self methodForSelector:selector];
             JDCode *(*func)(id, SEL, id, IUTarget, NSDictionary *, BOOL, NSInteger) = (void *)imp;
-            NSMutableDictionary *attributeDict = [self htmlAttributeForIU:iu target:target withCSS:withCSS];
+            NSMutableDictionary *attributeDict = [self htmlAttributeForIU:iu target:target withCSS:withCSS viewport:viewPort];
             
             [code addCodeWithIndent:(JDCode *)func(self, selector, iu, target, attributeDict, withCSS, viewPort)];
             
@@ -1174,23 +1174,46 @@
 
         }
     }
-    if ([iu.mqData dictionaryForTag:IUMQDataTagInnerHTML].count == 1){
-        NSString *innerHTML = [iu.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
-        if(innerHTML && innerHTML.length > 0){
-            [code increaseIndentLevelForEdit];
-            [code addCodeLine:innerHTML];
-            [code decreaseIndentLevelForEdit];
+    if(iu.propertyManager){
+        if([iu.propertyManager countOfValueForKey:@"innerHTML"] == 1){
+            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[iu.propertyManager storageForViewPort:IUCSSDefaultViewPort];
+            if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:propertyStorage.innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        else if(target == IUTargetEditor){
+            if(iu.currentPropertyStorage.innerHTML && iu.currentPropertyStorage.innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:iu.currentPropertyStorage.innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        
+    }
+    /* to be removed */
+    /*
+    else{
+        if ([iu.mqData dictionaryForTag:IUMQDataTagInnerHTML].count == 1){
+            NSString *innerHTML = [iu.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
+            if(innerHTML && innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        else if(target == IUTargetEditor){
+            NSString *innerHTML = [iu.mqData effectiveValueForTag:IUMQDataTagInnerHTML forViewport:iu.mqData.editViewPort];
+            if(innerHTML && innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+            
         }
     }
-    else if(target == IUTargetEditor){
-        NSString *innerHTML = [iu.mqData effectiveValueForTag:IUMQDataTagInnerHTML forViewport:iu.mqData.editViewPort];
-        if(innerHTML && innerHTML.length > 0){
-            [code increaseIndentLevelForEdit];
-            [code addCodeLine:innerHTML];
-            [code decreaseIndentLevelForEdit];
-        }
-
-    }
+    */
     
     if (target == IUTargetEditor || ( target == IUTargetOutput && [iu shouldCompileChildrenForOutput] )) {
         for (IUBox *child in iu.children) {

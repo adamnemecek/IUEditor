@@ -102,7 +102,7 @@
     if ([fileName isEqualToString:@"404"]) {
         fileName = @"_404";
     }
-    IUPage *newSheet = [[IUPage alloc] initWithProject:self.project options:@{IUFileName: fileName}];
+    IUPage *newSheet = [[IUPage alloc] initWithPreset];
     
     [[self.project identifierManager] resetUnconfirmedIUs];
     [self.project addItem:newSheet toSheetGroup:self.project.pageGroup];

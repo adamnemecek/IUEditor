@@ -29,7 +29,7 @@
     return [NSString stringWithFormat:@"%@-init.js", page.name];
 }
 
--(NSString *)jsInitSource:(IUSheet *)sheet{
+-(NSString *)jsInitSource:(IUSheet *)sheet storage:(BOOL)storage{
     
     JDCode *jsCode = [[JDCode alloc] init];
     
@@ -48,7 +48,9 @@
     
     //text media query
     [jsCode addCodeLine:@"function reloadTextMediaQuery(){"];
-    [jsCode addCodeWithIndent:[self jsInitSource_textMQJavascriptCode:sheet]];
+    if(storage){
+        [jsCode addCodeWithIndent:[self jsInitSource_textMQJavascriptCode__storage:sheet]];
+    }
     [jsCode addCodeLine:@"}"];
     
     
@@ -253,6 +255,10 @@
 }
 
 
+/*
+ 
+to be removed : mqdata strucutre
+
 - (JDCode *)mqCodeForTag:(IUMQDataTag)tag inIU:(IUBox *)iu{
     JDCode *code = [[JDCode alloc] init];
     NSDictionary *mqDict = [iu.mqData dictionaryForTag:tag];
@@ -268,7 +274,48 @@
     }
     return code;
 }
+ */
 
+- (JDCode *)mqCodeForProperty__storage:(NSString *)property inIU:(IUBox *)iu{
+    JDCode *code = [[JDCode alloc] init];
+    NSDictionary *mqDict = [iu.propertyManager dictionaryWithWidthForKey:property];
+    if(mqDict.count > 0){
+        [code addCodeLine:@"{"];
+        [code increaseIndentLevelForEdit];
+        for(NSNumber *width in [mqDict allKeys]){
+            [code addCodeLineWithFormat:@"%d:\"%@\",", [width intValue], [mqDict[width] JSEscape]];
+            
+        }
+        [code decreaseIndentLevelForEdit];
+        [code addCodeLine:@"}"];
+    }
+    return code;
+}
+- (JDCode *)jsInitSource_textMQJavascriptCode__storage:(IUBox *)iu{
+    JDCode *code = [[JDCode alloc] init];
+    if ([iu isKindOfClass:[IUBox class]]) {
+        if([iu.propertyManager countOfValueForKey:@"innerHTML"]){
+            [code addCodeLineWithFormat:@"var %@_textMQDict = ", iu.htmlID];
+            [code addCode:[self mqCodeForProperty__storage:@"innerHTML" inIU:iu]];
+            [code addCodeLineWithFormat:@"var %@_currentText = getCurrentData(%@_textMQDict)", iu.htmlID, iu.htmlID];
+            [code addCodeLineWithFormat:@"$('.%@').html(%@_currentText)", iu.htmlID, iu.htmlID];
+            
+        }
+        else{
+            for (IUBox *child in iu.children) {
+                [code addCode:[self jsInitSource_textMQJavascriptCode__storage:child]];
+            }
+        }
+    }
+    
+    
+    return code;
+}
+/*
+ 
+ to be removed : mqdata strucutre 
+ 
+ 
 - (JDCode *)jsInitSource_textMQJavascriptCode:(IUBox *)iu{
     JDCode *code = [[JDCode alloc] init];
     if ([iu isKindOfClass:[IUBox class]]) {
@@ -290,7 +337,7 @@
     
     return code;
 }
-
+*/
 
 
 /**

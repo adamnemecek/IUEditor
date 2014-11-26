@@ -18,7 +18,7 @@ typedef enum _IUClassPresetType{
     IUClassPresetTypeNone,
     IUClassPresetTypeHeader,
     IUClassPresetTypeFooter,
-//    IUClassPresetTypeSidebar, 
+    IUClassPresetTypeSidebar, 
 } IUClassPresetType;
 
 @class IUImport;

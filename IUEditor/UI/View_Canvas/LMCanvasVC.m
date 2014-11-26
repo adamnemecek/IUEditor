@@ -125,24 +125,23 @@
         return;
     }
     JDSectionInfoLog( IULogSource, @"resourcePath  : %@", self.documentBasePath);
-    [[self gridView] clearAllLayer];
-    [_sheet setCanvasVC:nil];
+    [[self gridView] clearAllLayer];  
+//    [_sheet setCanvasVC:nil];
     _sheet = sheet;
-    [_sheet setCanvasVC:self];
+//    [_sheet setCanvasVC:self];
     
     [self.canvasView loadDefaultZoom];
     
-    NSString *editorSrc = [sheet.editorSource copy];
-    [[[self webView] mainFrame] loadHTMLString:editorSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
+//    NSString *editorSrc = [sheet.editorSource copy];
+//    NSString *editorHtmlSrc =
+//    [[[self webView] mainFrame] loadHTMLString:editorHtmlSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
     
     [self updateClassHeight];
 }
 
 
 - (void)reloadSheet{
-    if(_sheet){
-        [self setSheet:_sheet];
-    }
+    [(LMWC *)[[NSApp mainWindow] windowController] reloadCurrentDocument:self];
 }
 
 
@@ -256,6 +255,7 @@
 
 - (void)webViewdidFinishLoadFrame{
     
+    /*
     [self disableUpdateJS:self];
     
     [_sheet updateCSS];
@@ -268,6 +268,7 @@
     NSString *htmlSource =  [(DOMHTMLElement *)[[self webDocument] documentElement] outerHTML];
     JDTraceLog(@"%@", htmlSource);
 
+    */
     [self updateWebViewWidth];
     [self updateJS];
 }
@@ -440,26 +441,26 @@
 
 #pragma mark - IUFrame
 
-- (void)startFrameMoveWithUndoManager:(id)sender{
+- (void)startFrameMoveWithTransaction:(id)sender{
     if([sender isKindOfClass:[GridView class]]){
         [((LMCanvasView *)[self view]) startDraggingFromGridView];
     }
     for(IUBox *obj in self.controller.selectedObjects){
         if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
-            [obj.parent startFrameMoveWithUndoManager];
+            [obj.parent startFrameMoveWithTransactionForStartFrame:[self absoluteIUFrame:obj.htmlID]];
         }
-        [obj startFrameMoveWithUndoManager];
+        [obj startFrameMoveWithTransactionForStartFrame:[self absoluteIUFrame:obj.htmlID]];
         
     }
 }
 
-- (void)endFrameMoveWithUndoManager:(id)sender{
+- (void)endFrameMoveWithTransaction:(id)sender{
     for(IUBox *obj in self.controller.selectedObjects){
         if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){
-            [obj.parent endFrameMoveWithUndoManager];
+            [obj.parent endFrameMoveWithTransaction];
         }
         
-        [obj endFrameMoveWithUndoManager];
+        [obj endFrameMoveWithTransaction];
         
     }
 }
@@ -508,7 +509,7 @@
         [JDLogUtil timeLogEnd:@"getpercent"];
 
         
-        NSPoint origianlLocation = [moveObj originalPoint];
+        NSPoint origianlLocation = [moveObj originalFrame].origin;
         
         if([moveObj canChangeXByUserInput]){
             CGFloat currentX = origianlLocation.x + totalPoint.x;
@@ -552,7 +553,7 @@
         id currentValue = [self.webView evaluateWebScript:frameJS];
         
         
-        NSSize originalSize = [moveObj originalSize];
+        NSSize originalSize = [moveObj originalFrame].size;
         
         if([moveObj canChangeWidthByDraggable]){
             CGFloat currentW = originalSize.width + totalSize.width;
@@ -577,10 +578,9 @@
 }
 
 
--(void)IURemoved:(NSString*)identifier{
+-(void)IURemoved:(IUBox *)iu{
     
     [self deselectedAllIUs];
-    IUBox *iu = [_controller tryIUBoxByIdentifier:identifier];
     
     //remove sheet css
     NSArray *cssIds = [iu cssIdentifierArray];
@@ -594,8 +594,8 @@
     if(iu){
         //remove layer
         if([iu isKindOfClass:[IUImport class]]){
-            [[self gridView] removeLayerForIdentifier:identifier];
-            [frameDict.dict removeObjectForKey:identifier];
+            [[self gridView] removeLayerForIdentifier:iu.htmlID];
+            [frameDict.dict removeObjectForKey:iu.htmlID];
             
             for(IUBox *box in iu.allChildren){
                 NSString *currentIdentifier =  [(IUImport *)iu modifieldHtmlIDOfChild:box];
@@ -631,7 +631,7 @@
                 //remove sheet css
                 NSArray *childIds= [box cssIdentifierArray];
                 for (NSString *childIdentifier in childIds){
-                    if([identifier containsString:@"hover"]){
+                    if([childIdentifier containsString:@"hover"]){
                         [self removeCSSTextInDefaultSheetWithIdentifier:childIdentifier];
                     }
                 }
@@ -673,12 +673,11 @@
         if(iu){
             if(node.innerText && [node.innerText stringByTrim].length > 0){
                 [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
-                [iu.mqData setValue:node.innerHTML forTag:IUMQDataTagInnerHTML forViewport:width];
+                iu.livePropertyStorage.innerHTML = node.innerHTML;
             }
             
             else{
-                [iu.mqData setValue:nil forTag:IUMQDataTagInnerHTML forViewport:width];
-                
+                iu.livePropertyStorage.innerHTML = nil;
             }
         }
         [iu updateCSS];

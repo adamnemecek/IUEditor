@@ -19,23 +19,35 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css eradicateTag:IUCSSTagBGColor];
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(120) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        
-        self.positionType = IUPositionTypeRelative;
-        self.overflowType = IUOverflowTypeVisible;
-        
+        [self setDefaultProperties];
         [self.undoManager enableUndoRegistration];
     }
     return self;
+}
+
+- (id)initWithPreset:(IUClass *)aClass{
+    self = [super initWithPreset:aClass];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [self setDefaultProperties];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+- (void)setDefaultProperties{
+
+    self.defaultStyleStorage.bgColor = nil;
+    
+    [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+    self.defaultStyleStorage.height = @(120);
+    self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
+    
+    self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    
 }
 
 #pragma mark - property

@@ -25,36 +25,39 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    //property
-    self.itemCount = 4;
-    self.leftRightPadding = 16;
-    self.align = IUAlignLeft;
-    
-    //css
-    self.enableHCenter = YES;
-    [self.css setValue:@(160) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(800) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(40) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    //font
-    [self.css setValue:@(12) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:0 green:120 blue:220 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-    
-    //border
-    [self.css setValue:[NSColor rgbColorRed:204 green:204 blue:204 alpha:1] forTag:IUCSSTagBorderTopColor forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:204 green:204 blue:204 alpha:1] forTag:IUCSSTagBorderBottomColor forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1) forTag:IUCSSTagBorderTopWidth forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1) forTag:IUCSSTagBorderBottomWidth forViewport:IUCSSDefaultViewPort];
-    
-    [self.undoManager enableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        //property
+        self.itemCount = 4;
+        self.leftRightPadding = 16;
+        self.align = IUAlignLeft;
+        
+        //css
+        self.enableHCenter = YES;
+        self.defaultPositionStorage.y = @(160);
+        self.defaultStyleStorage.width = @(800);
+        self.defaultStyleStorage.height = @(40);
+        
+        self.defaultStyleStorage.bgColor = nil;
+        
+        //font
+        self.defaultStyleStorage.fontSize = @(12);
+        self.defaultStyleStorage.fontLineHeight = @(1.0);
+        self.defaultStyleStorage.fontAlign = @(IUAlignCenter);
+        self.defaultStyleStorage.fontName = @"Roboto";
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:0 green:120 blue:220 alpha:1];
+        
+        //border
+        self.defaultStyleStorage.topBorderColor = [NSColor rgbColorRed:204 green:204 blue:204 alpha:1];
+        self.defaultStyleStorage.bottomBorderColor = [NSColor rgbColorRed:204 green:204 blue:204 alpha:1];
+        self.defaultStyleStorage.topBorderWidth = @(1);
+        self.defaultStyleStorage.bottomBorderWidth = @(1);
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -132,11 +135,6 @@
     }
     [returnText appendString:@"</ul></div>"];
     return [returnText copy];
-}
-
-
--(BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 -(BOOL)canAddIUByUserInput{

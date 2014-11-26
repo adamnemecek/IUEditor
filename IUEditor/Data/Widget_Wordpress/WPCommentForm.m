@@ -13,40 +13,47 @@
 @implementation WPCommentForm {
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css setValue:@(0) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    
-
-    [self.css eradicateTag:IUCSSTagBGColor];
-
-    WPCommentFormLabel *label = [[WPCommentFormLabel alloc] initWithProject:project options:nil];
-    [label.css setValue:@(5) forTag:IUCSSTagPixelX];
-    [label.css setValue:@(5) forTag:IUCSSTagPixelY];
-    [label.css setValue:@(100) forTag:IUCSSTagPixelWidth];
-    [label.css setValue:@(20) forTag:IUCSSTagPixelHeight];
-    [self addIU:label error:nil];
-    label.name = @"Label";
-
-    WPCommentFormCell *cell = [[WPCommentFormCell alloc] initWithProject:project options:nil];
-    [cell.css setValue:@(120) forTag:IUCSSTagPixelX];
-    [cell.css setValue:@(5) forTag:IUCSSTagPixelY];
-    [cell.css setValue:@(200) forTag:IUCSSTagPixelWidth];
-    [cell.css setValue:@(20) forTag:IUCSSTagPixelHeight];
-    [self addIU:cell error:nil];
-    cell.name = @"Cell";
-    
-    if ([options[@"formType"] isEqualToString:@"content"]) {
-        self.formType = WPCommentFormTypeContent;
-        [self.css setValue:@(30) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    }
-    else {
-        [self.css setValue:@(30) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.x = nil;
+        
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.bgColor = nil;
+        
+        //label allocation
+        WPCommentFormLabel *label = [[WPCommentFormLabel alloc] initWithPreset];
+        label.defaultPositionStorage.x = @(5);
+        label.defaultPositionStorage.y = @(5);
+        
+        label.defaultStyleStorage.width = @(100);
+        label.defaultStyleStorage.height = @(20);
+        
+        [self addIU:label error:nil];
+        label.name = @"Label";
+        
+        //cell allocation
+        WPCommentFormCell *cell = [[WPCommentFormCell alloc] initWithPreset];
+        cell.defaultPositionStorage.x = @(120);
+        cell.defaultPositionStorage.y = @(5);
+        cell.defaultStyleStorage.width = @(200);
+        cell.defaultStyleStorage.height = @(20);
+        
+        [self addIU:cell error:nil];
+        cell.name = @"Cell";
+        
+        /*
+         FIXME : option사용중이 었음
+        if ([options[@"formType"] isEqualToString:@"content"]) {
+            self.formType = WPCommentFormTypeContent;
+            [self.css setValue:@(30) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+        }
+        else {
+            [self.css setValue:@(30) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+        }
+         */
     }
 
     return self;
@@ -125,10 +132,6 @@
         }
     }
     return nil;
-}
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 - (BOOL)shouldCompileChildrenForOutput{

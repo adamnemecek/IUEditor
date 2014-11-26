@@ -15,6 +15,8 @@
 #import "WPSidebar.h"
 
 #import "IUImage.h"
+#import "IUCenterBox.h"
+#import "IUText.h"
 
 @implementation IUPage (WP)
 
@@ -23,47 +25,46 @@
     [self.pageContent removeAllIU];
     
     //contents
-    IUSection *section = [[IUSection alloc] initWithProject:self.project options:nil];
+    IUSection *section = [[IUSection alloc] initWithPreset];
     section.name = @"Contents";
-    [section.css eradicateTag:IUCSSTagBGColor];
-    [section.css eradicateTag:IUCSSTagPixelHeight];
+    section.defaultStyleStorage.bgColor = nil;
+    section.defaultStyleStorage.height = nil;
     [self.pageContent addIU:section error:nil];
     
-    IUBox *centerBox = [[IUBox alloc] initWithProject:self.project options:nil];
+    IUCenterBox *centerBox = [[IUCenterBox alloc] initWithPreset];
     centerBox.name = @"CenterBox";
     centerBox.enableHCenter = YES;
-    centerBox.positionType = IUPositionTypeRelative;
-    [centerBox.css setValue:@(0) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [centerBox.css setValue:@(960) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [centerBox.css eradicateTag:IUCSSTagPixelHeight];
-    [centerBox.css eradicateTag:IUCSSTagBGColor];
+    centerBox.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    centerBox.defaultPositionStorage.y = @(0);
+    
+    centerBox.defaultStyleStorage.height = nil;
+    centerBox.defaultStyleStorage.bgColor = nil;
     [section addIU:centerBox error:nil];
 
-    WPSidebar *sidebar = [[WPSidebar alloc] initWithProject:self.project options:nil];
-    sidebar.positionType = IUPositionTypeFloatLeft;
-    [sidebar.css setValue:@(40) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-    [sidebar.css setValue:@(40) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
+    WPSidebar *sidebar = [[WPSidebar alloc] initWithPreset];
+    sidebar.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+    sidebar.defaultPositionStorage.y = @(40);
     [centerBox addIU:sidebar error:nil];
     
-    WPArticleList *list = [[WPArticleList alloc] initWithProject:self.project options:nil];
-    [list.css setValue:@(-40) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-    [list.css setValue:@(0) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    list.positionType = IUPositionTypeRelative;
+    WPArticleList *list = [[WPArticleList alloc] initWithPreset];
+    list.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    sidebar.defaultPositionStorage.y = @(0);
     list.enableHCenter = YES;
 
     [centerBox addIU:list error:nil];
     
-    WPPageLinks *links = [[WPPageLinks alloc] initWithProject:self.project options:nil];
-    [links.css setValue:@(60) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
+    WPPageLinks *links = [[WPPageLinks alloc] initWithPreset];
+    links.defaultPositionStorage.y = @(60);
+
     [centerBox addIU:links error:nil];
     
     //footer
-    IUSection *footer = [[IUSection alloc] initWithProject:self.project options:nil];
+    IUSection *footer = [[IUSection alloc] initWithPreset];
     footer.name = @"Footer";
     [footer.css eradicateTag:IUCSSTagBGColor];
     [footer.css setValue:@(100) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
     
-    IUBox *copyright = [IUBox copyrightBoxWithProject:self.project];
+    IUText *copyright = [IUText copyrightBox];
     
     [footer addIU:copyright error:nil];
     [self.pageContent addIU:footer error:nil];
@@ -78,55 +79,59 @@
     [self.pageContent removeAllIU];
     
     //contents
-    IUSection *section = [[IUSection alloc] initWithProject:self.project options:nil];
+    IUSection *section = [[IUSection alloc] initWithPreset];
     section.name = @"Contents";
-    [section.css eradicateTag:IUCSSTagBGColor];
-    [section.css setValue:@(400) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+    section.defaultStyleStorage.bgColor = nil;
+    section.defaultStyleStorage.height = @(400);
     [self.pageContent addIU:section error:nil];
     
     
-    IUImage *image = [[IUImage alloc] initWithProject:self.project options:nil];
+    IUImage *image = [[IUImage alloc] initWithPreset];
     image.htmlID = @"image404";
     image.name = @"image404";
     image.imageName = @"clipArt/warning.png";
     image.enableHCenter = YES;
-    [image.css setValue:@(110) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [image.css setValue:@(140) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [image.css setValue:@(140) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    [image.css eradicateTag:IUCSSTagBGColor];
+    
+    image.defaultPositionStorage.y = @(110);
+    image.defaultStyleStorage.width = @(140);
+    image.defaultStyleStorage.height = @(140);
+    image.defaultStyleStorage.bgColor = nil;
+    
     
     [section addIU:image error:nil];
     
-    IUBox *text404 = [[IUBox alloc] initWithProject:self.project options:nil];
+    IUText *text404 = [[IUText alloc] initWithPreset];
     text404.htmlID = @"text404";
     text404.name = @"text404";
-    [text404.mqData setValue:@"Sorry, but the page you are looking for has not been found.\nTry checking the URL for errors, then hit the refresh button." forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
+    text404.defaultPropertyStorage.innerHTML= @"Sorry, but the page you are looking for has not been found.\nTry checking the URL for errors, then hit the refresh button.";
 
     //frame
     text404.enableHCenter = YES;
-    [text404 setPositionType:IUPositionTypeAbsolute];
+    text404.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
+    text404.defaultPositionStorage.y = @(270);
+
     
-    [text404.css setValue:@(270) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [text404.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [text404.css setValue:@(750) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [text404.css eradicateTag:IUCSSTagPixelHeight];
-    [text404.css eradicateTag:IUCSSTagBGColor];
+    [text404.defaultStyleStorage setWidth:@(75) unit:@(IUFrameUnitPercent)];
+    text404.defaultStyleStorage.height = nil;
+    text404.defaultStyleStorage.bgColor = nil;
+    
     
     //font
-    [text404.css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [text404.css setValue:@(14) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [text404.css setValue:@(2.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [text404.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
+    text404.defaultStyleStorage.fontName = @"Roboto";
+    text404.defaultStyleStorage.fontSize = @(14);
+    text404.defaultStyleStorage.fontLineHeight = @(2.0);
+    text404.defaultStyleStorage.fontAlign = @(IUAlignCenter);
 
     [section addIU:text404 error:nil];
     
     //footer
-    IUSection *footer = [[IUSection alloc] initWithProject:self.project options:nil];
+    IUSection *footer = [[IUSection alloc] initWithPreset];
     footer.name = @"Footer";
-    [footer.css eradicateTag:IUCSSTagBGColor];
-    [footer.css setValue:@(100) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+    footer.defaultStyleStorage.bgColor = nil;
+    footer.defaultStyleStorage.height = @(100);
+
     
-    IUBox *copyright = [IUBox copyrightBoxWithProject:self.project];
+    IUText *copyright = [IUText copyrightBox];
 
     [footer addIU:copyright error:nil];
     

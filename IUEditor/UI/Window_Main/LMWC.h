@@ -13,6 +13,7 @@
 #import "IUController.h"
 #import "LMFileNaviVC.h"
 #import "IUSourceManager.h"
+#import "IUIdentifierManager.h"
 
 
 @class LMWindow;
@@ -28,6 +29,8 @@
 
 //source Manager
 @property IUSourceManager *sourceManager;
+//identifier Manager
+@property IUIdentifierManager *identifierManager;
 
 
 

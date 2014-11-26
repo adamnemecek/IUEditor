@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 #import "IUSourceManagerProtocol.h"
+#import "WebCanvasView.h"
 
 /**
  
@@ -29,7 +30,7 @@
 
 @required
 /* get WebView. We Manage source of it */
-- (WebView *)webView;
+- (WebCanvasView *)webView;
 
 @optional
 /* prepare update. for example, text editor enable/disable */
@@ -39,6 +40,9 @@
 /* call javascript */
 - (id)evaluateWebScript:(NSString *)script;
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
+
+/* remove iu - grid view */
+-(void)IURemoved:(IUBox *)iu;
 
 @end
 
@@ -92,5 +96,7 @@
 /* build */
 - (BOOL)build:(NSError **)error;
 - (BOOL)builtPath;
+
+
 
 @end

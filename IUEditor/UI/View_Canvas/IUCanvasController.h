@@ -25,8 +25,8 @@
 //change iu frame
 - (void)moveIUToTotalDiffPoint:(NSPoint)totalPoint;
 - (void)extendIUToTotalDiffSize:(NSSize)totalSize;
-- (void)startFrameMoveWithUndoManager:(id)sender;
-- (void)endFrameMoveWithUndoManager:(id)sender;
+- (void)startFrameMoveWithTransaction:(id)sender;
+- (void)endFrameMoveWithTransaction:(id)sender;
 - (void)setSelectIUsInRect:(NSRect)frame;
 
 //call by webView

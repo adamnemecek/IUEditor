@@ -26,8 +26,8 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
 
     if(self){
         [[self undoManager] disableUndoRegistration];
@@ -35,13 +35,13 @@
 
         _placeholder = @"placeholder";
         _inputValue = @"Sample Text";
-        [self.css setValue:@(130) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(50) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@"1.3" forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(IUAlignLeft) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-        [[self undoManager] enableUndoRegistration];
-
         
+        self.defaultStyleStorage.width = @(130);
+        self.defaultStyleStorage.height = @(50);
+        self.defaultStyleStorage.fontLineHeight = @(1.3);
+        self.defaultStyleStorage.fontAlign = @(IUAlignLeft);
+
+        [[self undoManager] enableUndoRegistration];
     }
 
     return self;
@@ -120,9 +120,6 @@
     _inputName = inputName;
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 - (IUTextInputType)textInputType{
     return IUTextInputTypeTextField;
 }

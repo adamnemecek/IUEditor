@@ -10,8 +10,5 @@
 
 @implementation WPMenuItem
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 
 @end

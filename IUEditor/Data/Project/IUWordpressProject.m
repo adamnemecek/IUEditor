@@ -74,7 +74,6 @@
     
     _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
-    _identifierManager = [[IUIdentifierManager alloc] init];
     
     NSAssert(options[IUProjectKeyAppName], @"app Name");
     NSAssert(options[IUProjectKeyIUFilePath], @"path");
@@ -95,39 +94,39 @@
     _classGroup.project = self;
     
     
-    IUPage *home = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *home = [[IUPage alloc] initWithPreset];
     [home WPInitializeAsHome];
     home.name = @"home";
     home.htmlID = @"home";
     [self addItem:home toSheetGroup:_pageGroup];
     
-    IUPage *index = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *index = [[IUPage alloc] initWithPreset];
     [index WPInitializeAsIndex];
     index.name = @"index";
     index.htmlID = @"index";
     [self addItem:index toSheetGroup:_pageGroup];
 
 
-    IUPage *_404 = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *_404 = [[IUPage alloc] initWithPreset];
     [_404 WPInitializeAs404];
     _404.name = @"_404";
     _404.htmlID = @"_404";
     [self addItem:_404 toSheetGroup:_pageGroup];
 
-    IUClass *commentWrapper = [[IUClass alloc] initWithProject:self options:nil];
+    IUClass *commentWrapper = [[IUClass alloc] initWithPreset];
     commentWrapper.name = @"commentWrapper";
     commentWrapper.htmlID = @"commentWrapper";
     [self addItem:commentWrapper toSheetGroup:_classGroup];
 
 
-    IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
+    IUClass *class = [[IUClass alloc] initWithPreset];
     class.name = @"class";
     class.htmlID = @"class";
     [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allSheets];
+    [self.identifierManager registerIUs:self.allSheets];
     
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];

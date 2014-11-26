@@ -11,13 +11,10 @@
 
 @implementation IUSheet
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
-        [self.undoManager disableUndoRegistration];
         _ghostOpacity = 0.5;
-        
-        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

@@ -22,8 +22,8 @@
 
 #pragma mark - init
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+-(id)initWithPreset{
+    self = [super initWithPreset];
     [self.undoManager disableUndoRegistration];
     
     if(self){

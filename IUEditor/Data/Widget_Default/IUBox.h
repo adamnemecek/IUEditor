@@ -10,7 +10,6 @@
 #import "JDCoder.h"
 #import "IUCSS.h"
 #import "IUEvent.h"
-#import "IUMQData.h"
 #import "IUIdentifierManager.h"
 #import "IUDataStorage.h"
 #import "IUStyleStorage.h"
@@ -44,6 +43,14 @@ typedef enum{
 }IUTextInputType;
 
 
+@protocol IUTextProtocol
+@optional
+
+@required
+
+@end
+
+
 /* default data manager name */
 static NSString *kIUStyleManager = @"styleManager";
 static NSString *kIUStyleHoverManager = @"styleManagerHover";
@@ -55,7 +62,8 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @class IUSheet;
 @class IUProject;
 
-@interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUMQDataDelegate, IUDataStorageManagerDelegate>{
+
+@interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC __storage_deprecated;
     
@@ -96,7 +104,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (BOOL)shouldCompileY;
 - (BOOL)shouldCompileWidth;
 - (BOOL)shouldCompileHeight;
-- (BOOL)shouldCompileFontInfo;
 - (BOOL)shouldCompileImagePositionInfo;
 
 - (BOOL)canChangePositionType;
@@ -144,6 +151,24 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (void)addEventCalledByOtherIU:(IUEvent2 *)event;
 - (void)removeEvent:(IUEvent2 *)event;
 
+#if DEBUG
+//test 를 위해서 setting 가능하게 해놓음.
+@property (nonatomic) id <IUSourceManagerProtocol> sourceManager;
+@property (nonatomic) IUIdentifierManager *identifierManager;
+#else
+- (id <IUSourceManagerProtocol>) sourceManager;
+- (IUIdentifierManager *) identifierManager;
+#endif
+
+
+/* call by grid view */
+- (void)startFrameMoveWithTransactionForStartFrame:(NSRect)frame;
+- (void)endFrameMoveWithTransaction;
+- (NSRect)originalFrame;
+
+
+//undoManager
+- (NSUndoManager *)undoManager;
 
 
 
@@ -152,8 +177,10 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 
 
-/* default box */
-+(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project;
+
+
+
+
 
 /*
  Following are options
@@ -167,7 +194,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
  IUFileName : define filename
  */
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options __storage_deprecated;
 - (void)connectWithEditor;
 - (void)disconnectWithEditor;
 
@@ -179,18 +205,13 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 - (void)confirmIdentifier;
 
-- (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC;
+- (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC __deprecated;
 
 @property (nonatomic) NSString *text;
 
 - (IUTextInputType)textInputType;
 
-//undoManager
-- (NSUndoManager *)undoManager;
 
-
-//mediaquery
-@property (readonly) IUMQData *mqData;
 
 - (void)addMQSize:(NSNotification *)notification;
 - (void)removeMQSize:(NSNotification *)notification;
@@ -209,7 +230,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 
 //CSS
-@property (readonly) IUCSS *css; //used by subclass
+@property (readonly) IUCSS *css __deprecated; //used by subclass
 - (NSArray *)cssIdentifierArray;
 - (void)updateCSS;
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers;
@@ -251,10 +272,10 @@ static NSString *kIUPropertyManager = @"propertyManager";
 //user interface status
 
 
-- (NSPoint)originalPoint;
-- (NSSize)originalSize;
-- (NSSize)currentSize;
-- (NSSize)currentPercentSize;
+- (NSPoint)originalPoint __deprecated;
+- (NSSize)originalSize __deprecated;
+- (NSSize)currentSize __deprecated;
+- (NSSize)currentPercentSize __deprecated;
 
 - (BOOL)canChangeWidthByDraggable;
 - (BOOL)canChangeHeightByDraggable;
@@ -264,11 +285,9 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth;
 - (void)setPixelHeight:(CGFloat)pixelHeight percentHeight:(CGFloat)percentHeight;
 
-- (void)startFrameMoveWithUndoManager;
-- (void)endFrameMoveWithUndoManager;
 
 //Position
-@property (nonatomic) IUPositionType positionType;
+@property (nonatomic) IUPositionType positionType __deprecated;
 @property (nonatomic) BOOL enableHCenter, enableVCenter;
 
 
@@ -276,7 +295,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (BOOL)canCopy;
 - (BOOL)canChangeOverflow;
 - (BOOL)canSelectedWhenOpenProject;
-@property (nonatomic) IUOverflowType overflowType;
+@property (nonatomic) IUOverflowType overflowType __deprecated;
 @property (nonatomic) BOOL lineHeightAuto;
 
 - (void)setImageName:(NSString *)imageName;
@@ -302,11 +321,5 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (NSString*)cssClassStringForHTML;
 
 
-#if DEBUG
-//test 를 위해서 setting 가능하게 해놓음.
-@property (nonatomic) id <IUSourceManagerProtocol> sourceManager;
-#else
-- (IUSourceManager *)sourceManager;
-#endif
 
 @end

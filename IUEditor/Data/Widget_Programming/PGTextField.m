@@ -28,8 +28,8 @@
 #pragma mark - Initialize
 
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+-(id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
@@ -37,8 +37,9 @@
         _inputValue = @"value example";
         _type = IUTextFieldTypeDefault;
         
-        [self.css setValue:@(130) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(30) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+        self.defaultStyleStorage.width = @(130);
+        self.defaultStyleStorage.height = @(80);
+        
         
         [self.undoManager enableUndoRegistration];
     }
@@ -86,9 +87,6 @@
 
 - (IUTextInputType)textInputType{
     return IUTextInputTypeTextField;
-}
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 - (void)setInputName:(NSString *)inputName{

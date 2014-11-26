@@ -9,6 +9,7 @@
 #import "IUClass.h"
 #import "IUProject.h"
 #import "IUImport.h"
+#import "IUText.h"
 
 @implementation IUClass{
     NSMutableArray *_referenceImports;
@@ -22,16 +23,70 @@
 
 #pragma mark - Initialize
 
+- (id)initWithPreset{
+    return [self initWithPreset:IUClassPresetTypeNone];
+}
+
 - (id)initWithPreset:(IUClassPresetType)classType{
     self = [super initWithPreset];
+    
+    _referenceImports = [NSMutableArray array];
+
+    
+    IUText *titleBox = [[IUText alloc] initWithPreset];
+    titleBox.currentPositionStorage.y = @(43);
+    titleBox.currentPositionStorage.position = @(IUPositionTypeAbsolute);
+    
+    titleBox.currentStyleStorage.width = @(140);
+    titleBox.currentStyleStorage.height = @(34);
+    titleBox.currentStyleStorage.fontSize = @(24);
+    titleBox.currentStyleStorage.fontAlign = @(IUAlignCenter);
+    titleBox.currentStyleStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
+    titleBox.currentStyleStorage.bgColor  = nil;
+    titleBox.currentStyleStorage.fontName = @"Helvetica";
+    
+    titleBox.enableHCenter = YES;
+    
     switch (classType) {
+            
+            
         case IUClassPresetTypeHeader:{
             [self.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
-            [self.currentStyleStorage setHeight:@(150) unit:@(IUFrameUnitPixel)];
+            [self.currentStyleStorage setHeight:@(120) unit:@(IUFrameUnitPixel)];
 
-            self.currentStyleStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
-            self.currentStyleStorage.fontName = @"Helvetica";
-            [self.mqData setValue:@"Header Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
+            self.currentStyleStorage.fontColor = [NSColor rgbColorRed:50 green:50 blue:50 alpha:1];
+            
+            titleBox.textType = IUTextTypeH1;
+            titleBox.currentPropertyStorage.innerHTML = @"Header Area";
+            
+            [self addIU:titleBox error:nil];
+
+            break;
+        }
+        case IUClassPresetTypeSidebar:{
+            [self.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+            [self.currentStyleStorage setHeight:@(120) unit:@(IUFrameUnitPixel)];
+            
+            titleBox.currentStyleStorage.fontSize = @(12);
+            titleBox.currentPropertyStorage.innerHTML = @"Sidebar Area";
+            
+            [self addIU:titleBox error:nil];
+
+            break;
+        }
+        case IUClassPresetTypeFooter:{
+            [self.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+            [self.currentStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
+            
+            titleBox.currentPropertyStorage.innerHTML = @"Footer Area";
+            
+            
+            [self addIU:titleBox error:nil];
+            
+            break;
+        }
+        case IUClassPresetTypeNone:{
+            
             break;
         }
             
@@ -43,77 +98,6 @@
     return self;
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    if(self){
-        [self.undoManager disableUndoRegistration];
-        _referenceImports = [NSMutableArray array];
-        
-        [self initializeDefaultCSSWithProject:project option:options];
-        
-        [self.undoManager enableUndoRegistration];
-    }
-    return self;
-}
-
-- (void)initializeDefaultCSSWithProject:(id <IUProjectProtocol>)project option:(NSDictionary *)option{
-    NSString *type = [option objectForKey:kClassType];
-    
-    
-    IUBox *titleBox = [[IUBox alloc] initWithProject:project options:option];
-    [titleBox.css setValue:@(140) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:@(34) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:@(43) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:@(24) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:[NSColor rgbColorRed:153 green:153 blue:153 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:nil forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-    [titleBox.css setValue:@"Helvetica" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    
-    titleBox.positionType = IUPositionTypeAbsolute;
-    titleBox.enableHCenter = YES;
-    
-    
-    if([type isEqualToString:IUClassHeader]){
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(120) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:[NSColor rgbColorRed:50 green:50 blue:50 alpha:1] forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-       
-        titleBox.textType = IUTextTypeH1;
-        [titleBox.mqData setValue:@"Header Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
-        
-        [self addIU:titleBox error:nil];
-        
-    }
-    else if([type isEqualToString:IUClassFooter]){
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(120) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        
-        [titleBox.mqData setValue:@"Footer Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
-        [self addIU:titleBox error:nil];
-
-        
-    }
-    else if([type isEqualToString:IUClassSidebar]){
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(YES) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentHeight forViewport:IUCSSDefaultViewPort];
-        [titleBox.css setValue:@(12) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-
-        [titleBox.mqData setValue:@"Sidebar Area" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];        
-        [self addIU:titleBox error:nil];
-
-    }
-    
-    [self.project.identifierManager registerIUs:@[titleBox]];
-
-}
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self =  [super awakeAfterUsingCoder:aDecoder];
 

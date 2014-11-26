@@ -8,10 +8,9 @@
 
 #import "IUBox.h"
 
-/** 
- Depreacted
- */
 
+
+__deprecated
 @interface IUResponsiveSection : IUBox
 
 @end

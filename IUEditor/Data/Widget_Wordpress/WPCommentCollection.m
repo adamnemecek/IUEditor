@@ -23,38 +23,43 @@
 
 @implementation WPCommentCollection
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if (self) {
         
         [self.undoManager disableUndoRegistration];
         
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
         
-        self.positionType = IUPositionTypeRelative;
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css eradicateTag:IUCSSTagPixelHeight];
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = nil;
+        
 
         /* WPCommentForm */
-        WPCommentObject *authorObj = [[WPCommentObject alloc] initWithProject:project options:options];
+        WPCommentObject *authorObj = [[WPCommentObject alloc] initWithPreset];
         authorObj.objType = WPCommentObjectTypeAuthor;
-        [authorObj.css eradicateTag:IUCSSTagPixelHeight];
-        [authorObj.css eradicateTag:IUCSSTagPixelWidth];
-        authorObj.positionType = IUPositionTypeRelative;
+        
+        authorObj.defaultStyleStorage.height = nil;
+        authorObj.defaultStyleStorage.width = nil;
+        authorObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
         [self addIU:authorObj error:nil];
         
-        WPCommentObject *dateObj = [[WPCommentObject alloc] initWithProject:project options:options];
+        WPCommentObject *dateObj = [[WPCommentObject alloc] initWithPreset];
         dateObj.objType = WPCommentObjectTypeDate;
-        [dateObj.css eradicateTag:IUCSSTagPixelHeight];
-        [dateObj.css eradicateTag:IUCSSTagPixelWidth];
-        dateObj.positionType = IUPositionTypeRelative;
+        
+        dateObj.defaultStyleStorage.height = nil;
+        dateObj.defaultStyleStorage.width = nil;
+        dateObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+
         [self addIU:dateObj error:nil];
 
-        WPCommentObject *commentObj = [[WPCommentObject alloc] initWithProject:project options:options];
+        WPCommentObject *commentObj = [[WPCommentObject alloc] initWithPreset];
         commentObj.objType = WPCommentObjectTypeContent;
-        [commentObj.css eradicateTag:IUCSSTagPixelHeight];
-        [commentObj.css eradicateTag:IUCSSTagPixelWidth];
-        commentObj.positionType = IUPositionTypeRelative;
+        commentObj.defaultStyleStorage.height = nil;
+        commentObj.defaultStyleStorage.width = nil;
+        commentObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
         [self addIU:commentObj error:nil];
         
         [self.undoManager enableUndoRegistration];

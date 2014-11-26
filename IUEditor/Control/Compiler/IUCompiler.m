@@ -274,11 +274,15 @@
                 [fontArray addObject:@{IUCSSTagFontName:fontName}];
             }
         }
-        NSDictionary *mqDict = [box.mqData dictionaryForTag:IUMQDataTagInnerHTML];
-        NSArray *innerFontArray = [self fontNameFromInnerHTMLDictionary:mqDict];
-        if(innerFontArray.count > 0){
-            [fontArray addObjectsFromArray:innerFontArray];
+       
+        if(box.propertyManager){
+            NSDictionary *mqDict = [box.propertyManager dictionaryWithWidthForKey:@"innerHTML"];
+            NSArray *innerFontArray = [self fontNameFromInnerHTMLDictionary:mqDict];
+            if(innerFontArray.count > 0){
+                [fontArray addObjectsFromArray:innerFontArray];
+            }
         }
+       
 
     }
 
@@ -1013,8 +1017,8 @@
     return [jsCompiler jsInitFileName:document];
 }
 
-- (NSString *)jsInitSource:(IUPage *)document{
-    return [jsCompiler jsInitSource:document];
+- (NSString *)jsInitSource:(IUPage *)document storage:(BOOL)storage{
+    return [jsCompiler jsInitSource:document storage:storage];
 }
 
 - (NSString *)jsEventSource:(IUPage *)document{

@@ -57,23 +57,26 @@
     [aCoder encodeBool:_enableComment forKey:@"enableComment"];
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    self.positionType = IUPositionTypeRelative;
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-
-    [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self setEnableTitle:YES];
-    [self setEnableDate:YES];
-    [self setEnableBody:YES];
-    [self setEnableComment:YES];
-    [self setEnableCommentForm:YES];
-    
-    [self.undoManager enableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+        
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        
+        [self setEnableTitle:YES];
+        [self setEnableDate:YES];
+        [self setEnableBody:YES];
+        [self setEnableComment:YES];
+        [self setEnableCommentForm:YES];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     
     return self;
 }
@@ -87,7 +90,7 @@
             [self.project.identifierManager resetUnconfirmedIUs];
         }
 
-        WPArticleTitle *title = [[WPArticleTitle alloc] initWithProject:self.project options:nil];
+        WPArticleTitle *title = [[WPArticleTitle alloc] initWithPreset];
         [self addIU:title error:nil];
         if (self.isConnectedWithEditor) {
             [title confirmIdentifier];
@@ -108,7 +111,7 @@
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager resetUnconfirmedIUs];
         }
-        WPArticleDate *date = [[WPArticleDate alloc] initWithProject:self.project options:nil];
+        WPArticleDate *date = [[WPArticleDate alloc] initWithPreset];
         [self addIU:date error:nil];
         if (self.isConnectedWithEditor) {
             [date confirmIdentifier];
@@ -129,7 +132,7 @@
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager resetUnconfirmedIUs];
         }
-        WPCommentFormCollection *formCollection = [[WPCommentFormCollection alloc] initWithProject:self.project options:nil];
+        WPCommentFormCollection *formCollection = [[WPCommentFormCollection alloc] initWithPreset];
         [self addIU:formCollection error:nil];
         if (self.isConnectedWithEditor) {
             [formCollection confirmIdentifier];
@@ -150,7 +153,7 @@
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager resetUnconfirmedIUs];
         }
-        WPArticleBody *body = [[WPArticleBody alloc] initWithProject:self.project options:nil];
+        WPArticleBody *body = [[WPArticleBody alloc] initWithPreset];
         [self addIU:body error:nil];
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager confirm];
@@ -172,7 +175,7 @@
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager resetUnconfirmedIUs];
         }
-        WPCommentCollection *comment = [[WPCommentCollection alloc] initWithProject:self.project options:nil];
+        WPCommentCollection *comment = [[WPCommentCollection alloc] initWithPreset];
         [self addIU:comment error:nil];
         if (self.isConnectedWithEditor) {
             [self.project.identifierManager confirm];

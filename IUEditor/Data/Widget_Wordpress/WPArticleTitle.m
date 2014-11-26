@@ -22,27 +22,28 @@
 
 
 #pragma mark - initialize
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    //css
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css setValue:@(80) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(90) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    self.enableHCenter = YES;
-    
-    [self.css setValue:@(21) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.5) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@"HelveticaNeue-Light" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    
-    [self.undoManager enableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        //css
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.y = @(80);
+        
+        [self.defaultStyleStorage setWidth:@(90) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+        
+        self.enableHCenter = YES;
+        
+        self.defaultStyleStorage.fontSize = @(21);
+        self.defaultStyleStorage.fontLineHeight = @(1.5);
+        self.defaultStyleStorage.fontAlign = @(IUAlignCenter);
+        self.defaultStyleStorage.fontName = @"HelveticaNeue-Light";
+                
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -52,10 +53,6 @@
 
 - (NSString*)sampleInnerHTML{
     return @"Here comes title of article. Elcitra fo eltit semoc ereh.";
-}
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 - (BOOL)canMoveToOtherParent{

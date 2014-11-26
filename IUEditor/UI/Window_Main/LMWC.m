@@ -180,6 +180,9 @@
         _sourceManager = [[IUSourceManager alloc] init];
         [_sourceManager setCanvasVC:canvasVC];
         
+        //allocation identifiermanager
+        _identifierManager = [[IUIdentifierManager alloc] init];
+        
         //allocated jsmanager to VC (run js)
         [appearanceVC setJsManager:jsManager];
         
@@ -314,7 +317,6 @@
         _project = document.project;
         NSError *error;
         NSAssert(_project.pageSheets, @"");
-        NSAssert(_project.identifierManager, @"");
         NSAssert(_project.resourceManager, @"");
         
         if (error) {
@@ -430,6 +432,9 @@
 -(void)setSelectedNode:(NSObject*)selectedNode{
     _selectedNode = (IUSheet*) selectedNode;
     if ([selectedNode isKindOfClass:[IUSheet class]]) {
+        
+        [self.sourceManager loadSheet:(IUSheet *)selectedNode];
+        
         [stackVC setSheet:_selectedNode];
         [canvasVC setSheet:_selectedNode];
         [bottomToolbarVC setSheet:_selectedNode];
@@ -460,7 +465,7 @@
 }
 
 - (IBAction)reloadCurrentDocument:(id)sender{
-    [canvasVC reloadSheet];
+    [self.sourceManager loadSheet:(IUSheet *)_selectedNode];
 }
 
 

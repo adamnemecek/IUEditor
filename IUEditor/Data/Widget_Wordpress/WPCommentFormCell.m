@@ -59,10 +59,6 @@
     return self.sampleHTML;
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
-
 - (BOOL)shouldCompileChildrenForOutput{
     return YES;
 }

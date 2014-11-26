@@ -995,6 +995,7 @@
 		3D2EFCEE19F7964400BBBAE5 /* wpWebTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */; };
 		3D2EFCF019F796D600BBBAE5 /* sample.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCEF19F796D600BBBAE5 /* sample.jpg */; };
 		3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EFCF119F7976B00BBBAE5 /* image_default.png */; };
+		3D4DFF301A248BC600418CE0 /* IUText.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF2F1A248BC600418CE0 /* IUText.m */; };
 		3D5250651A087AE4001712E4 /* rulermarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5250641A087AE4001712E4 /* rulermarker.png */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
@@ -2339,6 +2340,8 @@
 		3D2EFCEC19F7964400BBBAE5 /* wpWebTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = wpWebTemplate.html; path = IUEditor/Resource/IUResource/default/wpWebTemplate.html; sourceTree = "<group>"; };
 		3D2EFCEF19F796D600BBBAE5 /* sample.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sample.jpg; path = IUEditor/Resource/IUResource/editormode/image/sample.jpg; sourceTree = "<group>"; };
 		3D2EFCF119F7976B00BBBAE5 /* image_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = image_default.png; path = IUEditor/Resource/IUResource/editormode/image/image_default.png; sourceTree = "<group>"; };
+		3D4DFF2E1A248BC600418CE0 /* IUText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUText.h; path = Data/Widget_Default/IUText.h; sourceTree = "<group>"; };
+		3D4DFF2F1A248BC600418CE0 /* IUText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUText.m; path = Data/Widget_Default/IUText.m; sourceTree = "<group>"; };
 		3D5250641A087AE4001712E4 /* rulermarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rulermarker.png; path = IUEditor/Resource/AppResource/image/ui/icon/rulermarker.png; sourceTree = "<group>"; };
 		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
 		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
@@ -2741,6 +2744,8 @@
 				3D2EF49719F781C400BBBAE5 /* IUImage.m */,
 				3D2EF49819F781C400BBBAE5 /* IUMovie.h */,
 				3D2EF49919F781C400BBBAE5 /* IUMovie.m */,
+				3D4DFF2E1A248BC600418CE0 /* IUText.h */,
+				3D4DFF2F1A248BC600418CE0 /* IUText.m */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -5590,6 +5595,7 @@
 				3D2EF3F419F780E000BBBAE5 /* IUCSSCompiler.m in Sources */,
 				3D2EF42A19F7815B00BBBAE5 /* IUResourceGroup.m in Sources */,
 				3D2EF67419F7848F00BBBAE5 /* LMPropertyProgrammingType2VC.m in Sources */,
+				3D4DFF301A248BC600418CE0 /* IUText.m in Sources */,
 				3D2EF48919F781B700BBBAE5 /* IUPage.m in Sources */,
 				3D2EF40C19F780EA00BBBAE5 /* IUProjectController.m in Sources */,
 				3D2EFCB219F78CBD00BBBAE5 /* LMPropertyIUFBLikeVC.m in Sources */,

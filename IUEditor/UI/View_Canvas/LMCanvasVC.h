@@ -35,7 +35,6 @@
 //call by wc
 - (void)windowDidResize:(NSNotification *)notification;
 - (void)setSheet:(IUSheet *)sheet;
-- (void)reloadSheet;
 
 - (void)zoomIn;
 - (void)zoomOut;

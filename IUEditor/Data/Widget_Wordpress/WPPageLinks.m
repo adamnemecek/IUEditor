@@ -28,25 +28,28 @@
 
 #pragma mark - initialize
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+-(id)initWithPreset{
 
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    self.positionType = IUPositionTypeRelative;
-    self.enableHCenter = YES;
-    self.align = IUAlignRight;
-    self.leftRightPadding = 5;
-    
-    [self.css setValue:@(900) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(100) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    
-    WPPageLink *pageLink = [[WPPageLink alloc] initWithProject:project options:options];
-    [self addIU:pageLink error:nil];
-    
-    [self.undoManager enableUndoRegistration];
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        self.enableHCenter = YES;
+        self.align = IUAlignRight;
+        self.leftRightPadding = 5;
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
+        self.defaultStyleStorage.width = @(900);
+        self.defaultStyleStorage.height = @(100);
+        self.defaultStyleStorage.bgColor = nil;
+        
+        
+        WPPageLink *pageLink = [[WPPageLink alloc] initWithPreset];
+        [self addIU:pageLink error:nil];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 

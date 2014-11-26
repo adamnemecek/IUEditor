@@ -32,8 +32,8 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
 
@@ -45,9 +45,9 @@
         _thumbnailID = @"101677733";
         _thumbnailPath = @"http://i.vimeocdn.com/video/483513294_640.jpg";
         
-        [self.css setValue:@(700) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(400) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-
+        self.defaultStyleStorage.width = @(700);
+        self.defaultStyleStorage.height = @(400);
+        
         
         [self.undoManager enableUndoRegistration];
     }

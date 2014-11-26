@@ -105,6 +105,10 @@ typedef enum IUFrameUnit{
 
 - (void)removeStorageForViewPort:(NSInteger)viewPort;
 
+
+- (NSInteger)countOfValueForKey:(NSString *)key;
+- (NSDictionary *)dictionaryWithWidthForKey:(NSString *)key;
+
 @end
 
 

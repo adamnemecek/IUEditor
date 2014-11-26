@@ -101,6 +101,11 @@
     }
 }
 
+- (IUIdentifierManager *)identifierManager{
+    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+    
+}
+
 #pragma mark collectionview -drag
 - (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard{
     NSAssert(_project, @"");
@@ -108,7 +113,11 @@
     NSUInteger index = [indexes firstIndex];
     LMGeneralObject *object = [[collectionView itemAtIndex:index] representedObject];
     
-    IUBox *obj = [[NSClassFromString(object.title) alloc] initWithProject:_project options:nil];
+    IUBox *obj = [[NSClassFromString(object.title) alloc] initWithPreset];
+    obj.htmlID = [[self identifierManager] createIdentifierWithKey:obj.className];
+    [[self identifierManager] addObject:obj withIdentifier:obj.htmlID];
+    [[self identifierManager] commit];
+
     if (obj == nil) {
     //    NSAssert(0, @"");
         JDErrorLog(@"objISNil");

@@ -28,8 +28,8 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
@@ -39,8 +39,8 @@
         self.enableMarkerIcon = YES;
         self.markerTitle = @"JDLab @ RocketSpace";
         
-        [self.css setValue:@(400) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(400) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+        self.defaultStyleStorage.width = @(400);
+        self.defaultStyleStorage.height = @(400);
         
         [self.undoManager enableUndoRegistration];
     }

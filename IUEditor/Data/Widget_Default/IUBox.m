@@ -29,6 +29,7 @@
 #import "IUItem.h"
 #import "IUImport.h"
 #import "IUPage.h"
+#import "IUText.h"
 
 #import "IUStyleStorage.h"
 
@@ -45,12 +46,13 @@
     NSMutableDictionary *undoFrameDict;
     
     //for draggin precisely
-    NSPoint originalPoint, originalPercentPoint;
-    NSSize originalSize, originalPercentSize;
+    NSPoint originalPoint, originalPercentPoint __deprecated;
+    NSSize originalSize, originalPercentSize __deprecated;
+    
+    NSRect origianlFrame;
     
     __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
-    BOOL _isEnabledFrameUndo;
     
     NSMutableArray *_events;
     NSMutableArray *_eventsCalledByOtherIU;
@@ -96,29 +98,17 @@
         }
         
         
-        _css = [aDecoder decodeObjectForKey:@"css"];
-        _css.delegate = self;
-        
-        //move css to cssStorage
-        
-        _mqData = [aDecoder decodeObjectForKey:@"mqData"];
-        _mqData.delegate = self;
-        
         _event = [aDecoder decodeObjectForKey:@"event"];
         changedCSSWidths = [NSMutableSet set];
+        storageManagersDict = [NSMutableDictionary dictionary];
+        
         if ([self.htmlID length] == 0) {
             self.htmlID = [NSString randomStringWithLength:8];
         }
+        
+
         NSAssert([self.htmlID length] != 0 , @"");
         
-        //create storage
-        storageManagersDict = [NSMutableDictionary dictionary];
-        [self setStorageManager:[_css convertToStyleStorageDefaultManager] forSelector:kIUStyleManager];
-        [self setStorageManager:[_css convertToStyleStorageHoverManager] forSelector:kIUStyleHoverManager];
-        [self setStorageManager:[_css convertToPositionStorageDefaultManager] forSelector:kIUPositionManager];
-
-        //property storage
-        [self setStorageManager:[_mqData convertToPropertyStorageManager] forSelector:kIUPropertyManager];
 
     }
     return self;
@@ -129,7 +119,6 @@
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
 //    _css = [aDecoder decodeObjectForKey:@"css"];
-    _mqData = [aDecoder decodeObjectForKey:@"mqData"];
     _m_children = [aDecoder decodeObjectForKey:@"children"];
     
     return self;
@@ -143,7 +132,6 @@
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:self.htmlID forKey:@"htmlID"];
 //    [aCoder encodeObject:self.css forKey:@"css"];
-    [aCoder encodeObject:self.mqData forKey:@"mqData"];
     [aCoder encodeObject:self.children forKey:@"children"];
     [aCoder encodeByRefObject:self.link forKey:@"link"];
     [aCoder encodeByRefObject:self.parent forKey:@"parent"];
@@ -189,18 +177,35 @@
                 }
             }
         }
-        if(IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_TEXTMCE, self.project.IUProjectVersion)){
-            _mqData = [[IUMQData alloc] init];
-            _mqData.delegate = self;
+        
+        if(IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_STORAGE, self.project.IUProjectVersion)){
             
-            //sampletext가 아니고 innerHTML로 동작해야 하는경우에는 mqdata로 옮겨준다.
-            if(_text && _text.length > 0 && [self textInputType] == IUTextInputTypeEditable ){
-                NSString *innerHTML = [NSString stringWithFormat:@"<p>%@</p>", _text];
+            
+            IUCSS *css = [aDecoder decodeObjectForKey:@"css"];
+            
+            //create storage
+            [self setStorageManager:[css convertToStyleStorageDefaultManager] forSelector:kIUStyleManager];
+            [self setStorageManager:[css convertToStyleStorageHoverManager] forSelector:kIUStyleHoverManager];
+            [self setStorageManager:[css convertToPositionStorageDefaultManager] forSelector:kIUPositionManager];
+            
+            IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+            [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
+            
+        
+            
+            NSString *text = [aDecoder decodeObjectForKey:@"text"];
+            if(text && text.length > 0){
+                NSString *innerHTML = [NSString stringWithFormat:@"<p>%@</p>", text];
                 innerHTML = [innerHTML stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
-                [_mqData setValue:innerHTML forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
-                _text = nil;
+                IUText *textIU = [[IUText alloc] initWithCoder:aDecoder];
+                ((IUPropertyStorage *)textIU.propertyManager.defaultStorage).innerHTML = innerHTML;
+                
+                return textIU;
             }
+           
         }
+
+        
         
     }
     return self;
@@ -213,9 +218,13 @@
 #endif 
         self.htmlID = [NSString randomStringWithLength:8];
     }
+#if DEBUG
+    [aCoder encodeFromObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"identifierManager", @"textController", @"linkCaller", @"cssManager", @"sourceManager"]]];
+#else
     [aCoder encodeFromObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"identifierManager", @"textController", @"linkCaller", @"cssManager"]]];
+
+#endif
     [aCoder encodeObject:_css forKey:@"css"];
-    [aCoder encodeObject:_mqData forKey:@"mqData"];
     [aCoder encodeObject:_event forKey:@"event"];
     [aCoder encodeObject:_m_children forKey:@"children"];
     
@@ -225,8 +234,14 @@
     self = [super init];
     if(self){
         [self.undoManager disableUndoRegistration];
+        
+        [self setDefaultProperties];
+        
+        //setting for css
+        [self createDefaultStorages];
+        self.liveStyleStorage.overflowType = @(IUOverflowTypeHidden);
         self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
-        self.name = self.className;
+
         [positionStorage setPosition:@(IUPositionTypeAbsolute)];
 
         [positionStorage setX:nil unit:@(IUFrameUnitPixel)];
@@ -238,6 +253,7 @@
 
         [hoverManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
         [hoverManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+
         [self.undoManager enableUndoRegistration];
     }
     return self;
@@ -246,168 +262,67 @@
 -(id)init{
     self = [super init];
     if (self) {
-        _css = [[IUCSS alloc] init];
-        _css.delegate = self;
-        
-        _mqData = [[IUMQData alloc] init];
-        _mqData.delegate = self;
-        
-        _event = [[IUEvent alloc] init];
-        _m_children = [NSMutableArray array];
-        
-        changedCSSWidths = [NSMutableSet set];
-
-        //create storage
-        storageManagersDict = [NSMutableDictionary dictionary];
-        IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [styleManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-        [styleManager.defaultStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
-        
-        [self setStorageManager:styleManager forSelector:kIUStyleManager];
-        if (self.defaultStyleManager) {
-            [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
-        }
-        
-        IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
-        
-        [self setStorageManager:positionManager forSelector:kIUPositionManager];
-        
-        IUPositionStorage *positionStorage = positionManager.defaultStorage;
-        [positionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
-        [positionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
-        [positionStorage setPosition:@(IUPositionTypeAbsolute)];
-                
-        if(self.positionManager){
-             [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-        }
-        
-        
-        IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-        [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
-        
-        IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
-        [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
-        [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-
-        
-        _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
-        _name = _htmlID;
-        
-        _events = [NSMutableArray array];
-        _eventsCalledByOtherIU = [NSMutableArray array];
+        [self setDefaultProperties];
+        [self createDefaultStorages];
     }
     return self;
 }
 
+- (void)setDefaultProperties{
+    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
+    _name = _htmlID;
+    
+    _event = [[IUEvent alloc] init];
+    _m_children = [NSMutableArray array];
+
+    _events = [NSMutableArray array];
+    _eventsCalledByOtherIU = [NSMutableArray array];
+    
+    changedCSSWidths = [NSMutableSet set];
+}
 
 
-
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super init];
-    if(self){
+- (void)createDefaultStorages{
+    //create storage
+    storageManagersDict = [NSMutableDictionary dictionary];
+    
+    IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    [self setStorageManager:styleManager forSelector:kIUStyleManager];
+    if (self.defaultStyleManager) {
+        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    
+    IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+    [self setStorageManager:positionManager forSelector:kIUPositionManager];
+    if(self.positionManager){
+        [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
         
-        [[self undoManager] disableUndoRegistration];
-        
-        _tempProject = project;
-        _css = [[IUCSS alloc] init];
-        _css.delegate = self;
-        
-        _mqData = [[IUMQData alloc] init];
-        _mqData.delegate = self;
-        
-        _event = [[IUEvent alloc] init];
-        _m_children = [NSMutableArray array];
-        _lineHeightAuto = NO;
-        
-        _overflowType = IUOverflowTypeHidden;
-        /*
-         set HTMLID for temporary : IUResourceManager and IdentifierManager can be nil for test
-         */
-        _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
-        
-        [_css setValue:@(0) forTag:IUCSSTagXUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagYUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagHeightUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        
-        [_css setValue:@(100) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(60) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-        
-        //background
-        [_css setValue:[NSColor randomLightMonoColor] forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(IUBGSizeTypeAuto) forTag:IUCSSTagBGSize forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagBGXPosition forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagBGYPosition forViewport:IUCSSDefaultViewPort];
-        
-        //border
-        [_css setValue:@(0) forTag:IUCSSTagBorderTopWidth forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagBorderLeftWidth forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagBorderRightWidth forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(0) forTag:IUCSSTagBorderBottomWidth forViewport:IUCSSDefaultViewPort];
-        
-        [_css setValue:[NSColor rgbColorRed:0 green:0 blue:0 alpha:1] forTag:IUCSSTagBorderTopColor forViewport:IUCSSDefaultViewPort];
-        [_css setValue:[NSColor rgbColorRed:0 green:0 blue:0 alpha:1] forTag:IUCSSTagBorderLeftColor forViewport:IUCSSDefaultViewPort];
-        [_css setValue:[NSColor rgbColorRed:0 green:0 blue:0 alpha:1] forTag:IUCSSTagBorderRightColor forViewport:IUCSSDefaultViewPort];
-        [_css setValue:[NSColor rgbColorRed:0 green:0 blue:0 alpha:1] forTag:IUCSSTagBorderBottomColor forViewport:IUCSSDefaultViewPort];
-        
-        //font-type
-        [_css setValue:@(1.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-        [_css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-        
-        
-        if ([project respondsToSelector:@selector(identifier)]) {
-            if (options[IUFileName]) {
-                [project.identifierManager setIdentifierAndRegisterToTemp:self identifier:options[IUFileName]];
-            }
-            else {
-                [project.identifierManager setNewIdentifierAndRegisterToTemp:self withKey:nil];
-            }
-        }
-        self.name = self.htmlID;
-        
-        //create storage
-        storageManagersDict = [NSMutableDictionary dictionary];
-        IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:styleManager forSelector:kIUStyleManager];
-        if (self.defaultStyleManager) {
-            [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
-        }
-        
-        IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
-
-        [self setStorageManager:positionManager forSelector:kIUPositionManager];
-        if(self.positionManager){
-            [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
-            [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
-            [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-        }
-        
-        
-        IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
-        [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
-        
-        IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
-        [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-
-
-        [[self undoManager] enableUndoRegistration];
         
     }
     
-    return self;
+    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+    
+    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
+    if(self.propertyManager){
+        [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
+    }
+
 }
 
 
-
 - (void)connectWithEditor{
+    /*
+     FIXME: self.project
     NSAssert(self.project, @"");
+     */
     
     
     [[self undoManager] disableUndoRegistration];
@@ -416,14 +331,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
+    /*
+     FIXME
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:self.project];
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:nil];
+
     
     
     for (IUBox *box in self.children) {
         [box connectWithEditor];
     }
     
-    _isEnabledFrameUndo = NO;
     [[self undoManager] enableUndoRegistration];
 
 }
@@ -443,33 +362,7 @@
 }
 #pragma mark - default box 
 
-/**
- 
- Some convenience methods to create iubox
- */
-+(IUBox *)copyrightBoxWithProject:(id <IUProjectProtocol>)project{
-    IUBox *copyright = [[IUBox alloc] initWithProject:project options:nil];
-    [copyright.undoManager disableUndoRegistration];
-    
-    copyright.name = @"Copyright";
-    [copyright.mqData setValue:@"Copyright (C) IUEditor all rights reserved" forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
 
-    copyright.enableHCenter = YES;
-    [copyright.css setValue:@(40) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [copyright.css eradicateTag:IUCSSTagPixelWidth];
-    [copyright.css eradicateTag:IUCSSTagPixelHeight];
-    [copyright.css eradicateTag:IUCSSTagBGColor];
-    
-    [copyright.css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [copyright.css setValue:@(12) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [copyright.css setValue:@(1.5) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [copyright.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [copyright.css setValue:[NSColor rgbColorRed:102 green:102 blue:102 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-    
-    
-    [copyright.undoManager enableUndoRegistration];
-    return copyright;
-}
 
 
 #pragma mark - copy
@@ -477,13 +370,12 @@
 - (id)copyWithZone:(NSZone *)zone{
     
     [[self undoManager] disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
+//    [_canvasVC disableUpdateAll:self];
 
     IUBox *box = [[[self class] allocWithZone: zone] init];
     if(box){
         
         IUCSS *newCSS = [_css copy];
-        IUMQData *newMQData = [_mqData copy];
         IUEvent *newEvent = [_event copy];
         NSArray *children = [self.children deepCopy];
         box.text = [_text copy];
@@ -495,9 +387,6 @@
         
         box.css = newCSS;
         newCSS.delegate  = box;
-        
-        box.mqData = newMQData;
-        newMQData.delegate = box;
         
         box.event = newEvent;
         
@@ -521,7 +410,7 @@
         [[self undoManager] enableUndoRegistration];
     }
 
-    [_canvasVC enableUpdateAll:self];
+//    [_canvasVC enableUpdateAll:self];
     return box;
 }
 - (void)copyCSSFromIU:(IUBox *)box{
@@ -575,7 +464,12 @@
    return [[[[NSApp mainWindow] windowController] document] undoManager];
 }
 
+#if DEBUG
 - (id <IUSourceManagerProtocol>)sourceManager{
+    if(self.isConnectedWithEditor == NO){
+        return nil;
+    }
+    
     if(_sourceManager){
         return _sourceManager;
     }
@@ -584,14 +478,36 @@
     }
 }
 
+- (IUIdentifierManager *)identifierManager{
+    if(_identifierManager){
+        return _identifierManager;
+    }
+    else{
+        return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+
+    }
+}
+
+#else
+- (id <IUSourceManagerProtocol>)sourceManager{
+    return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+}
+- (IUIdentifierManager *)identifierManager{
+    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+
+}
+#endif
+
 #pragma mark - setXXX
 
+/*
 -(void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
     _canvasVC = canvasVC;
     for (IUBox *obj in _m_children) {
         [obj setCanvasVC:canvasVC];
     }
 }
+ */
 
 -(IUSheet*)sheet{
     if ([self isKindOfClass:[IUSheet class]]) {
@@ -626,12 +542,6 @@
 - (void)setCss:(IUCSS *)css{
     _css = css;
 }
-
-#pragma mark - MQData
-- (void)setMqData:(IUMQData *)mqData{
-    _mqData = mqData;
-}
-
 
 #pragma mark - Event
 
@@ -760,7 +670,6 @@
     }
     
     [_css setMaxViewPort:maxSize];
-    [_mqData setMaxViewPort:maxSize];
     
 }
 
@@ -769,7 +678,6 @@
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     [_css removeTagDictionaryForViewport:size];
     [_css setMaxViewPort:maxSize];
-    [_mqData setMaxViewPort:maxSize];
 
 }
 
@@ -783,19 +691,17 @@
 
     if (selectedSize == maxSize) {
         [_css setEditViewPort:IUCSSDefaultViewPort];
-        [_mqData setEditViewPort:IUCSSDefaultViewPort];
     }
     else {
         [_css setEditViewPort:selectedSize];
-        [_mqData setEditViewPort:selectedSize];
     }
     [_css setMaxViewPort:maxSize];
-    [_mqData setMaxViewPort:maxSize];
     
     [self didChangeValueForKey:@"canChangeHCenter"];
         
     
 }
+
 
 //source
 #pragma mark HTML
@@ -858,10 +764,10 @@
 
 
 - (void)updateCSSValuesBeforeUpdateEditor{
-    if(_lineHeightAuto && self.shouldCompileFontInfo){
+    if(_lineHeightAuto){
         if(_css.effectiveTagDictionary[IUCSSTagPixelHeight]){
             
-            NSInteger brCount = [_canvasVC countOfLineWithIdentifier:self.htmlID];
+            NSInteger brCount = [self.sourceManager countOfLineWithIdentifier:self.htmlID];
             CGFloat height = [_css.effectiveTagDictionary[IUCSSTagPixelHeight] floatValue];
             CGFloat fontSize = [_css.effectiveTagDictionary[IUCSSTagFontSize] floatValue];
             CGFloat lineheight;
@@ -931,7 +837,13 @@ e.g. 만약 css로 옮긴다면)
      */
 }
 
+
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
+    if(self.sourceManager){
+        [self updateCSSValuesBeforeUpdateEditor];
+        [self.sourceManager setNeedsUpdateCSS:self withIdentifiers:identifiers];
+    }
+    /*
     if (_canvasVC) {
         IUCSSCode *cssCode = [self.project.compiler cssCodeForIU:self];
         NSDictionary *dictionaryWithIdentifier = [cssCode stringTagDictionaryWithIdentifier:(int)_css.editViewPort];
@@ -940,6 +852,7 @@ e.g. 만약 css로 옮긴다면)
             [_canvasVC IUClassIdentifier:identifier CSSUpdated:dictionaryWithIdentifier[identifier]];
         }
     }
+    */
 }
 
 
@@ -978,9 +891,6 @@ e.g. 만약 css로 옮긴다면)
 
 -(BOOL)canAddIUByUserInput{
     if(self.pgContentVariable && self.pgContentVariable.length > 0){
-        return NO;
-    }
-    if( [self.mqData dictionaryForTag:IUMQDataTagInnerHTML].count > 0){
         return NO;
     }
     return YES;
@@ -1023,13 +933,10 @@ e.g. 만약 css로 옮긴다면)
         _m_children = [NSMutableArray array];
     }
 
-    [[self.undoManager prepareWithInvocationTarget:self] removeIU:iu];
+    [(IUBox *)[self.undoManager prepareWithInvocationTarget:self] removeIU:iu];
     
     [_m_children insertObject:iu atIndex:index];
     
-    //iu 의 delegate와 children
-    [iu setCanvasVC:_canvasVC];
-
     iu.parent = self;
     if (self.isConnectedWithEditor) {
         [iu connectWithEditor];
@@ -1056,9 +963,6 @@ e.g. 만약 css로 옮긴다면)
 
 -(BOOL)addIUReference:(IUBox *)iu error:(NSError**)error{
     [_m_children addObject:iu];
-    if (_canvasVC) {
-        [iu setCanvasVC:_canvasVC];
-    }
     return YES;
 }
 
@@ -1070,7 +974,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [_canvasVC IURemoved:iu.htmlID];
+        [self.sourceManager removeIU:self];
         [_m_children removeObject:iu];
         
         if (self.isConnectedWithEditor) {
@@ -1091,7 +995,7 @@ e.g. 만약 css로 옮긴다면)
         //IURemoved 호출한 다음에 m_children을 호출해야함.
         //border를 지울려면 controller 에 iu 정보 필요.
         //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [_canvasVC IURemoved:iu.htmlID];
+        [self.sourceManager removeIU:iu];
         [_m_children removeObject:iu];
     }
     
@@ -1134,12 +1038,11 @@ e.g. 만약 css로 옮긴다면)
         return;
     }
     
-    [self willChangeValueForKey:@"shouldCompileFontInfo"];
-    
     [[[self undoManager] prepareWithInvocationTarget:self] setPgContentVariable:_pgContentVariable];
     
     BOOL needUpdate = NO;
     
+    /*
     if(_pgContentVariable == nil && pgContentVariable && pgContentVariable.length > 0){
         _text = [self.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
         [self.mqData eradicateTag:IUMQDataTagInnerHTML];
@@ -1148,6 +1051,7 @@ e.g. 만약 css로 옮긴다면)
         [self.mqData setValue:_text forTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
         _text = nil;
     }
+    */
     
     _pgContentVariable = pgContentVariable;
     
@@ -1155,7 +1059,6 @@ e.g. 만약 css로 옮긴다면)
         [self updateHTML];
     }
     
-    [self didChangeValueForKey:@"shouldCompileFontInfo"];
 }
 
 - (void)setPgVisibleConditionVariable:(NSString *)pgVisibleConditionVariable{
@@ -1168,43 +1071,8 @@ e.g. 만약 css로 옮긴다면)
     _pgVisibleConditionVariable = pgVisibleConditionVariable;
 }
 
-- (BOOL)shouldCompileFontInfo{
-    IUTextInputType inputType = [self textInputType];
-    
-    switch (inputType) {
-        case IUTextInputTypeNone:
-            return NO;
-        case IUTextInputTypeAddible:
-        case IUTextInputTypeTextField:
-            return YES;
-        case IUTextInputTypeEditable:
-            if( [self.mqData dictionaryForTag:IUMQDataTagInnerHTML].count > 0){
-                return YES;
-            }
-            else{
-                return NO;
-            }
-    }
-    
-    return NO;
-
-}
 
 - (IUTextInputType)textInputType{
-    
-    if(self.children.count > 0){
-        return IUTextInputTypeNone;
-    }
-    
-    if([self isMemberOfClass:[IUBox class]]){
-        if(self.pgContentVariable && self.pgContentVariable.length > 0){
-            return IUTextInputTypeAddible;
-        }
-        else{
-            return IUTextInputTypeEditable;
-        }
-    }
-    
     return IUTextInputTypeNone;
 }
 
@@ -1301,34 +1169,9 @@ e.g. 만약 css로 옮긴다면)
  drag session이 시작될때부터 위치에서의 diff size로 계산해야 오차가 발생 안함.
  drag session이 시작할때 그 때의 위치를 저장함.
  */
+/*
 
-- (NSPoint)currentPosition{
-    NSInteger currentX = [_css.effectiveTagDictionary[IUCSSTagPixelX] integerValue];
-    NSInteger currentY = 0;
-    if([_css.effectiveTagDictionary objectForKey:IUCSSTagPixelY]){
-        currentY = [_css.effectiveTagDictionary[IUCSSTagPixelY] integerValue];
-    }
-    else if(self.positionType == IUPositionTypeRelative || self.positionType == IUPositionTypeFloatRight ||
-            self.positionType == IUPositionTypeFloatLeft){
-        
-        NSRect currentFrame = [_canvasVC absoluteIUFrame:self.htmlID];
-        NSRect parentframe = [_canvasVC absoluteIUFrame:self.parent.htmlID];
-        currentY = parentframe.origin.y - currentFrame.origin.y;
-        
-    }
-    return NSMakePoint(currentX, currentY);
-}
-- (NSPoint)currentPercentPosition{
-    NSInteger currentX = 0;
-    NSInteger currentY = 0;
-    if([_css.effectiveTagDictionary objectForKey:IUCSSTagPercentX]){
-        currentX = [_css.effectiveTagDictionary[IUCSSTagPercentX] integerValue];
-    }
-    if([_css.effectiveTagDictionary objectForKey:IUCSSTagPercentY]){
-        currentY = [_css.effectiveTagDictionary[IUCSSTagPercentY] integerValue];
-    }
-    return NSMakePoint(currentX, currentY);
-}
+
 - (NSSize)currentSize{
     NSInteger currentWidth = [_css.effectiveTagDictionary[IUCSSTagPixelWidth] integerValue];
     NSInteger currentHeight = [_css.effectiveTagDictionary[IUCSSTagPixelHeight] integerValue];
@@ -1375,11 +1218,7 @@ e.g. 만약 css로 옮긴다면)
         undoFrameDict[IUCSSTagPercentHeight] = _css.effectiveTagDictionary[IUCSSTagPercentHeight];
     }
 
-    originalSize = [self currentSize];
-    originalPercentSize = [self currentPercentSize];
-    originalPoint = [self currentPosition];
-    originalPercentPoint = [self currentPercentPosition];
-    
+ 
 }
 
 - (void)endFrameMoveWithUndoManager{
@@ -1444,12 +1283,6 @@ e.g. 만약 css로 옮긴다면)
     _isEnabledFrameUndo = NO;
 }
 
-- (NSPoint)originalPoint{
-    return originalPoint;
-}
-- (NSSize)originalSize{
-    return originalSize;
-}
 
 - (BOOL)canChangeWidthByDraggable{
     
@@ -1500,6 +1333,26 @@ e.g. 만약 css로 옮긴다면)
     [_css setValueWithoutUpdateCSS:@(pixelHeight) forTag:IUCSSTagPixelHeight];
     [_css setValueWithoutUpdateCSS:@(percentHeight) forTag:IUCSSTagPercentHeight];
 }
+ */
+
+
+- (void)startFrameMoveWithTransactionForStartFrame:(NSRect)frame{
+    [self.currentPositionStorage beginTransaction:JD_CURRENT_FUNCTION];
+    [self.currentStyleStorage beginTransaction:JD_CURRENT_FUNCTION];
+    
+    origianlFrame = frame;
+}
+
+
+- (void)endFrameMoveWithTransaction{
+    [self.currentPositionStorage commitTransaction:JD_CURRENT_FUNCTION];
+    [self.currentStyleStorage commitTransaction:JD_CURRENT_FUNCTION];
+    
+}
+- (NSRect)originalFrame{
+    return origianlFrame;
+}
+
 
 #pragma mark - position
 - (BOOL)canChangePositionType{
@@ -1671,20 +1524,14 @@ e.g. 만약 css로 옮긴다면)
     if([_text isEqualToString:text]){
         return;
     }
-    BOOL isNeedUpdated = NO;
-    if(_text == nil || text == nil){
-        [self willChangeValueForKey:@"shouldCompileFontInfo"];
-        isNeedUpdated = YES;
-    }
+    
     _text = text;
     
     if(_text.length > 300){
         [self setLineHeightAuto:NO];
     }
     
-    if(isNeedUpdated){
-        [self didChangeValueForKey:@"shouldCompileFontInfo"];
-    }
+  
 
 }
 

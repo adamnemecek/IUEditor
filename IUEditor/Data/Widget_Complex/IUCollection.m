@@ -46,8 +46,8 @@
     [aCoder encodeInteger:_defaultItemCount forKey:@"defaultItemCount"];
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
@@ -58,6 +58,7 @@
     }
     return self;
 }
+
 
 - (id)copyWithZone:(NSZone *)zone{
     IUCollection *iu = [super copyWithZone:zone];

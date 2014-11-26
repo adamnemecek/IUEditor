@@ -37,7 +37,7 @@
 
 + (NSArray *)widgetList{
     return @[
-             @"IUBox", @"IUCenterBox", @"IUImage", @"PGSubmitButton", @"PGForm", @"IUImport",
+             @"IUBox", @"IUText", @"IUCenterBox", @"IUImage", @"PGSubmitButton", @"PGForm", @"IUImport",
              @"IUMovie", @"IUHTML", @"IUTweetButton", @"IUGoogleMap", @"IUWebMovie", @"IUFBLike",
              @"PGTextField", @"PGTextView", @"IUTransition", @"IUMenuBar", @"IUCarousel"
              ];
@@ -125,7 +125,6 @@
         }
         
         
-        _identifierManager = [[IUIdentifierManager alloc] init];
         _compiler = [[IUCompiler alloc] init];
         _compiler.webTemplateFileName = @"webTemplate";
         
@@ -169,7 +168,7 @@
     [super awakeAfterUsingCoder:aDecoder];
 
     
-    [_identifierManager registerIUs:self.allSheets];
+    [self.identifierManager registerIUs:self.allSheets];
 
     
     if( IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, _IUProjectVersion) ){
@@ -185,14 +184,14 @@
         for(IUBox *child in oldHeader.children){
             IUBox *copychild = [child copy];
             [headerClass addIU:copychild error:nil];
-            [_identifierManager registerIUs:@[copychild]];
+            [self.identifierManager registerIUs:@[copychild]];
         }
         [headerClass copyCSSFromIU:oldHeader];
         [headerClass.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
         [headerClass.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
         
         for(IUPage *page in _pageGroup.childrenFiles){
-             IUHeader *header = [[IUHeader alloc] initWithProject:self options:nil];
+            IUHeader *header = [[IUHeader alloc] initWithPreset];
             header.name = @"header";
             header.prototypeClass = headerClass;
             
@@ -211,7 +210,7 @@
 //            page.header = header;
 
             
-            IUFooter *footer = [[IUFooter alloc] initWithProject:self options:nil];
+            IUFooter *footer = [[IUFooter alloc] initWithPreset];
             footer.name = @"footer";
             IUClass *footerClass = [self classWithName:@"footer"];
             footer.prototypeClass = footerClass;
@@ -222,7 +221,7 @@
 //            page.footer = footer;
             
             //register identifier
-            [_identifierManager registerIUs:@[header, footer]];
+            [self.identifierManager registerIUs:@[header, footer]];
 
 
         }
@@ -247,7 +246,6 @@
     _compiler = [[IUCompiler alloc] init];
     _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
-    _identifierManager = [[IUIdentifierManager alloc] init];
     
     NSAssert(options[IUProjectKeyAppName], @"appName");
     NSAssert(options[IUProjectKeyIUFilePath], @"path");
@@ -276,7 +274,7 @@
     _resourceGroup.parent = self;
     
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allSheets];
+    [self.identifierManager registerIUs:self.allSheets];
     
     _serverInfo = [[IUServerInfo alloc] init];
     _serverInfo.localPath = [self path];
@@ -304,7 +302,6 @@
     _compiler = [[IUCompiler alloc] init];
     _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
-    _identifierManager = [[IUIdentifierManager alloc] init];
     
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
@@ -343,19 +340,19 @@
     
     [self makeDefaultClasses];
     
-    IUPage *pg = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *pg = [[IUPage alloc] initWithPreset];
     pg.name = @"index";
     pg.htmlID = @"index";
     [self addItem:pg toSheetGroup:_pageGroup];
     
-    IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
+    IUClass *class = [[IUClass alloc] initWithPreset];
     class.name = @"class";
     class.htmlID = @"class";
     [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allSheets];
+    [self.identifierManager registerIUs:self.allSheets];
     
     
     // create build directory
@@ -374,7 +371,6 @@
     _compiler = [[IUCompiler alloc] init];
     _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
-    _identifierManager = [[IUIdentifierManager alloc] init];
     
     NSAssert(options[IUProjectKeyAppName], @"app Name");
     NSAssert(options[IUProjectKeyIUFilePath], @"path");
@@ -402,19 +398,19 @@
     
     [self makeDefaultClasses];
     
-    IUPage *pg = [[IUPage alloc] initWithProject:self options:nil];
+    IUPage *pg = [[IUPage alloc] initWithPreset];
     pg.name = @"index";
     pg.htmlID = @"index";
     [self addItem:pg toSheetGroup:_pageGroup];
     
-    IUClass *class = [[IUClass alloc] initWithProject:self options:nil];
+    IUClass *class = [[IUClass alloc] initWithPreset];
     class.name = @"class";
     class.htmlID = @"class";
     [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [_identifierManager registerIUs:self.allSheets];
+    [self.identifierManager registerIUs:self.allSheets];
     
     //    ReturnNilIfFalse([self save]);
     _serverInfo = [[IUServerInfo alloc] init];
@@ -430,32 +426,29 @@
 
     IUClass *header = [self classWithName:@"header"];
     if(header == nil){
-        NSDictionary *headerDict = @{kClassType: IUClassHeader};
-        IUClass *header = [[IUClass alloc] initWithProject:self options:headerDict];
+        IUClass *header = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
         header.name = @"header";
         header.htmlID = @"header";
         [self addItem:header toSheetGroup:_classGroup];
-        [_identifierManager registerIUs:@[header]];
+        [self.identifierManager registerIUs:@[header]];
     }
     
     IUClass *footer = [self classWithName:@"footer"];
     if(footer == nil){
-        NSDictionary *footerDict = @{kClassType: IUClassFooter};
-        IUClass *footer = [[IUClass alloc] initWithProject:self options:footerDict];
+        IUClass *footer = [[IUClass alloc] initWithPreset:IUClassPresetTypeFooter];
         footer.name = @"footer";
         footer.htmlID = @"footer";
         [self addItem:footer toSheetGroup:_classGroup];
-        [_identifierManager registerIUs:@[footer]];
+        [self.identifierManager registerIUs:@[footer]];
     }
     
     IUClass *sidebar = [self classWithName:@"sidebar"];
     if(sidebar == nil){
-        NSDictionary *sidebarDict = @{kClassType: IUClassSidebar};
-        IUClass *sidebar = [[IUClass alloc] initWithProject:self options:sidebarDict];
+        IUClass *sidebar = [[IUClass alloc] initWithPreset:IUClassPresetTypeSidebar];
         sidebar.name = @"sidebar";
         sidebar.htmlID = @"sidebar";
         [self addItem:sidebar toSheetGroup:_classGroup];
-        [_identifierManager registerIUs:@[sidebar]];
+        [self.identifierManager registerIUs:@[sidebar]];
 
     }
 }
@@ -517,8 +510,9 @@
 }
 
 
-- (IUIdentifierManager*)identifierManager{
-    return _identifierManager;
+- (IUIdentifierManager *)identifierManager{
+    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+    
 }
 
 - (IUResourceManager *)resourceManager{

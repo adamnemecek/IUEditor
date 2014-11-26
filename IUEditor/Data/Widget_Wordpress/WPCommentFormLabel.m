@@ -54,10 +54,6 @@
     }
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
-
 - (BOOL)shouldCompileChildrenForOutput{
     return NO;
 }

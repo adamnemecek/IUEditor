@@ -27,8 +27,8 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     [[self undoManager] disableUndoRegistration];
 
     if(self){
@@ -128,10 +128,6 @@
 
 - (BOOL)canAddIUByUserInput{
     return NO;
-}
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 #pragma mark - css

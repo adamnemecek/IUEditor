@@ -331,9 +331,9 @@
         return;
     }
 
-    [_sheet.project.identifierManager resetUnconfirmedIUs];
-    IUSection *newIU = [[IUSection alloc]  initWithProject:_sheet.project options:nil];
-    [_sheet.project.identifierManager confirm];
+    [_sheet.identifierManager resetUnconfirmedIUs];
+    IUSection *newIU = [[IUSection alloc]  initWithPreset];
+    [_sheet.identifierManager confirm];
     if (newIU == nil) {
         NSAssert(0, @"");
     }

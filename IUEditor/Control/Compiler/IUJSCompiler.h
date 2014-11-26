@@ -16,7 +16,7 @@
 @interface IUJSCompiler : NSObject
 @property IUCompiler *compiler;
 
-- (NSString *)jsInitSource:(IUPage *)page;
+- (NSString *)jsInitSource:(IUSheet *)sheet storage:(BOOL)storage;
 - (NSString *)jsInitFileName:(IUPage *)page;
 
 - (NSString *)jsEventFileName:(IUPage *)page;

@@ -118,6 +118,10 @@
     return allKey_cache;
 }
 
+- (NSArray *)allValues{
+    return [dict allValues];
+}
+
 
 - (NSUInteger)indexOfObject:(id)anObject{
 	return [array indexOfObject:anObject];

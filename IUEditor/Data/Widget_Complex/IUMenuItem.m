@@ -20,24 +20,22 @@
 
 #pragma mark - Initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
         self.text = @"MENU";
-        
-        self.positionType = IUPositionTypeRelative;
-        self.overflowType = IUOverflowTypeVisible;
-        
-        [self.css setValue:[NSColor grayColor] forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:[NSColor whiteColor] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(130) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-
-        [self.css setValue:nil forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-        
         self.bgActive = [NSColor blackColor];
         self.fontActive = [NSColor whiteColor];
+
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
+        self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
+        self.defaultStyleStorage.bgColor = [NSColor grayColor];
+        self.defaultStyleStorage.fontColor = [NSColor whiteColor];
+        self.defaultStyleStorage.width = @(130);
+        self.defaultStyleStorage.fontLineHeight = nil;
 
         [self.undoManager enableUndoRegistration];
     }
@@ -173,7 +171,7 @@
         }
         
         for(NSInteger i=self.children.count; i <count; i++){
-            IUMenuItem *subMenu = [[IUMenuItem alloc] initWithProject:self.project options:nil];
+            IUMenuItem *subMenu = [[IUMenuItem alloc] initWithPreset];
             subMenu.name = subMenu.htmlID;
             [self addIU:subMenu error:nil];
         }

@@ -40,4 +40,26 @@
     XCTAssertEqualObjects(((IUPropertyStorage *)storageManager.currentStorage).collectionCount, @(4));
 }
 
+- (void)test2_dictionary{
+    IUDataStorageManager *storageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    IUPropertyStorage *defaultStorage = (IUPropertyStorage *)[storageManager storageForViewPort:IUDefaultViewPort];
+    defaultStorage.innerHTML = @"hahaha";
+    
+    [storageManager setCurrentViewPort:650];
+    IUPropertyStorage *tabletStorage = (IUPropertyStorage *)[storageManager storageForViewPort:650];
+    tabletStorage.innerHTML = @"hihihi";
+    
+    [storageManager setCurrentViewPort:320];
+    IUPropertyStorage *mobileStorage = (IUPropertyStorage *)[storageManager storageForViewPort:320];
+    mobileStorage.innerHTML = @"hehehe";
+    
+    
+    NSDictionary *dictionary = [storageManager dictionaryWithWidthForKey:@"innerHTML"];
+    
+    XCTAssertEqual(dictionary.count, 3);
+    XCTAssertEqual(dictionary[@(IUDefaultViewPort)], @"hahaha");
+    XCTAssertEqual(dictionary[@(650)], @"hihihi");
+    XCTAssertEqual(dictionary[@(320)], @"hehehe");
+}
+
 @end

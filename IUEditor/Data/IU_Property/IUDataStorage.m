@@ -386,7 +386,27 @@
     return nil;
 }
 
-
+- (NSInteger)countOfValueForKey:(NSString *)key{
+    NSInteger count =0;
+    for(IUDataStorage *storage in [_workingStorages allValues]){
+        id value = [storage valueForKey:key];
+        if(value){
+            count++;
+        }
+    }
+    return count;
+}
+- (NSDictionary *)dictionaryWithWidthForKey:(NSString *)key{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    for(NSNumber *viewport in [_workingStorages allKeys]){
+        IUDataStorage *storage = [_workingStorages objectForKey:viewport];
+        id value = [storage valueForKey:key];
+        if(value){
+            [dictionary setObject:value forKey:viewport];
+        }
+    }
+    return [dictionary copy];
+}
 
 
 /**

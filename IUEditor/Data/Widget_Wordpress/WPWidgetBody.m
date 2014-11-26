@@ -18,27 +18,26 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
         //setting for css
-        [self setPositionType:IUPositionTypeRelative];
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.x = nil;
+        self.defaultPositionStorage.y = @(40);
         
-        [self.css setValue:@(0) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(40) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-        [self.css eradicateTag:IUCSSTagPixelHeight];
-        [self.css eradicateTag:IUCSSTagBGColor];
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
         
         //font css
-        [self.css setValue:@(14) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(2.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(IUAlignLeft) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:[NSColor rgbColorRed:51 green:51 blue:51 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
+        self.defaultStyleStorage.fontSize = @(14);
+        self.defaultStyleStorage.fontLineHeight = @(2.0);
+        self.defaultStyleStorage.fontAlign = @(IUAlignLeft);
+        self.defaultStyleStorage.fontName = @"Roboto";
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:51 green:51 blue:51 alpha:1];
         
         [self.undoManager enableUndoRegistration];
     }
@@ -59,9 +58,6 @@
 
 - (BOOL)canRemoveIUByUserInput{
     return NO;
-}
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 @end

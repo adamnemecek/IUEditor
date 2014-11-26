@@ -10,15 +10,17 @@
 
 @implementation WPCommentFormField
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css setValue:@(0) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.x = nil;
+        
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+    }
     return self;
 }
 
@@ -71,8 +73,5 @@
     }
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 
 @end

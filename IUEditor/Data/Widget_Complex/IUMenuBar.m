@@ -29,22 +29,25 @@
 
 #pragma mark - Initialize
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+-(id)initWithPreset{
 
-    self = [super initWithProject:project options:options];
+    self = [super initWithPreset];
     if(self){
         [[self undoManager] disableUndoRegistration];
         
         self.count = 3;
         self.align = IUMenuBarAlignLeft;
-        self.overflowType = IUOverflowTypeVisible;
         
         self.mobileTitle = @"MENU";
         self.iconColor = [NSColor whiteColor];
-        [self.css setValue:@(IUAlignLeft) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
         
+        self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
+        self.defaultStyleStorage.fontAlign = @(IUAlignLeft);
+        
+        
+        /* FIXME should가 아니라 hasHeight가 필요함 */
         if (self.shouldCompileHeight) {
-            [self.css setValue:@(50) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+            self.defaultStyleStorage.height = @(50);
         }
         
         
@@ -186,7 +189,7 @@
         }
         
         for(NSInteger i=self.children.count; i <count; i++){
-            IUMenuItem *item = [[IUMenuItem alloc] initWithProject:self.project options:nil];
+            IUMenuItem *item = [[IUMenuItem alloc] initWithPreset];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }
@@ -252,9 +255,7 @@
 - (BOOL)canChangeOverflow{
     return NO;
 }
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
+
 
 - (BOOL)canAddIUByUserInput{
     return NO;

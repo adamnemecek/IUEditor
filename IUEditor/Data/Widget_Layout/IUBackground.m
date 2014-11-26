@@ -13,25 +13,8 @@
 @end
 
 
-@implementation IUBackground
+@implementation IUBackground __storage_deprecated
 
--(id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    if(self){
-        [self.undoManager disableUndoRegistration];
-        [self.css setValue:nil forTag:IUCSSTagBGColor forViewport:IUCSSDefaultViewPort];
-        
-        NSNumber *num = [options objectForKey:kIUBackgroundOptionEmpty];
-        if ([num intValue] == NO) {
-            _header = [[IUHeader alloc] initWithProject:project options:nil];
-            _header.htmlID = @"Header";
-            [self addIU:_header error:nil];
-        }
-        NSAssert(self.children, @"");
-        [self.undoManager enableUndoRegistration];
-    }
-    return self;
-}
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];

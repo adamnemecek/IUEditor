@@ -28,22 +28,24 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
+- (id)initWithPreset{
     
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    [self.css setValue:@(300) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    [self.css setValue:@"Helvetica" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(30) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.5) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:51 green:51 blue:51 alpha:1] forTag:IUCSSTagFontColor];    
-    
-    [self.undoManager enableUndoRegistration];
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        self.defaultStyleStorage.width = @(300);
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+        
+        self.defaultStyleStorage.fontName = @"Helvetica";
+        self.defaultStyleStorage.fontSize = @(30);
+        self.defaultStyleStorage.fontLineHeight = @(1.5);
+        self.defaultStyleStorage.fontAlign = @(IUAlignCenter);
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:51 green:51 blue:51 alpha:1];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -59,9 +61,6 @@
     return NO;
 }
 
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
 
 - (BOOL)shouldCompileChildrenForOutput{
     return NO;

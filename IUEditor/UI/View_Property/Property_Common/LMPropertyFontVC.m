@@ -72,7 +72,6 @@
                       [self pathForCSSTag:IUCSSTagFontSize],
                       [self pathForCSSTag:IUCSSTagLineHeight],
                        */
-                      [self pathForProperty:@"shouldCompileFontInfo"],
                       @"controller.selectedObjects",
                       ];
     [self addObserver:self forKeyPaths:observingList options:0 context:@"font"];
@@ -113,20 +112,11 @@
  Check Font should be enabled for current IUController selection
  */
 - (BOOL)isEnabledForCurrentSelection{
-    BOOL isTextType = YES;
-    
-    
     if(self.controller.selectedObjects.count < 1){
         return NO;
     }
     
-    for(IUBox *box in self.controller.selectedObjects){
-        if ([box shouldCompileFontInfo] == NO) {
-            isTextType = NO;
-            break;
-        }
-    }
-    return isTextType;
+    return YES;
 }
 
 - (void)fontContextDidChange:(NSDictionary *)change{

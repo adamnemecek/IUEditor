@@ -50,5 +50,6 @@
 /**
  return sorted key in dictionary 
  */
-- (NSArray*)allKeys;
+- (NSArray *)allKeys;
+- (NSArray *)allValues;
 @end

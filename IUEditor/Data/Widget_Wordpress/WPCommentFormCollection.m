@@ -14,60 +14,65 @@
 @implementation WPCommentFormCollection {
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    
-    //css
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css setValue:@(0) forTag:IUCSSTagPixelX forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(40) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(100) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-
-    
-    WPCommentFormField *leaveAReplay = [[WPCommentFormField alloc] initWithProject:project options:nil];
-    leaveAReplay.fieldType = WPCommentFormFieldLeaveAReply;
-    [self addIU:leaveAReplay error:nil];
-    leaveAReplay.name = @"Leave a reply";
-
-    WPCommentFormField *commentBefore = [[WPCommentFormField alloc] initWithProject:project options:nil];
-    commentBefore.fieldType = WPCommentFormFieldCommentBefore;
-    [self addIU:commentBefore error:nil];
-    commentBefore.name = @"Comment before";
-
-
-    WPCommentForm *authorForm = [[WPCommentForm alloc] initWithProject:project options:nil];
-    authorForm.formType = WPCommentFormTypeAuthor;
-    [self addIU:authorForm error:nil];
-    authorForm.name = @"Author form";
-
-    WPCommentForm *siteForm = [[WPCommentForm alloc] initWithProject:project options:nil];
-    siteForm.formType = WPCommentFormTypeWebsite;
-    [self addIU:siteForm error:nil];
-    siteForm.name = @"Site form";
-
-    WPCommentForm *emailForm = [[WPCommentForm alloc] initWithProject:project options:nil];
-    emailForm.formType = WPCommentFormTypeEmail;
-    [self addIU:emailForm error:nil];
-    emailForm.name = @"Email form";
-
-    WPCommentForm *content = [[WPCommentForm alloc] initWithProject:project options:@{@"formType": @"content"}];
-    content.formType = WPCommentFormTypeContent;
-    [self addIU:content error:nil];
-    content.name = @"Content form";
-    
-    WPCommentFormField *commentAfter = [[WPCommentFormField alloc] initWithProject:project options:nil];
-    commentAfter.fieldType = WPCommentFormFieldCommentAfter;
-    [self addIU:commentAfter error:nil];
-    commentAfter.name = @"Comment after";
-    
-    WPCommentFormSubmitBtn *submitBtn = [[WPCommentFormSubmitBtn alloc] initWithProject:project options:nil];
-    submitBtn.label = @"Comment";
-    submitBtn.name = @"Submit";
-    [self addIU:submitBtn error:nil];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        
+        //css
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.x = nil;
+        self.defaultPositionStorage.y = @(40);
+        
+        [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+        
+        
+        //alloc children
+        WPCommentFormField *leaveAReplay = [[WPCommentFormField alloc] initWithPreset];
+        leaveAReplay.fieldType = WPCommentFormFieldLeaveAReply;
+        [self addIU:leaveAReplay error:nil];
+        leaveAReplay.name = @"Leave a reply";
+        
+        WPCommentFormField *commentBefore = [[WPCommentFormField alloc] initWithPreset];
+        commentBefore.fieldType = WPCommentFormFieldCommentBefore;
+        [self addIU:commentBefore error:nil];
+        commentBefore.name = @"Comment before";
+        
+        
+        WPCommentForm *authorForm = [[WPCommentForm alloc] initWithPreset];
+        authorForm.formType = WPCommentFormTypeAuthor;
+        [self addIU:authorForm error:nil];
+        authorForm.name = @"Author form";
+        
+        WPCommentForm *siteForm = [[WPCommentForm alloc] initWithPreset];
+        siteForm.formType = WPCommentFormTypeWebsite;
+        [self addIU:siteForm error:nil];
+        siteForm.name = @"Site form";
+        
+        WPCommentForm *emailForm = [[WPCommentForm alloc] initWithPreset];
+        emailForm.formType = WPCommentFormTypeEmail;
+        [self addIU:emailForm error:nil];
+        emailForm.name = @"Email form";
+        
+        /* FIXME : option
+         WPCommentForm *content = [[WPCommentForm alloc] initWithProject:project options:@{@"formType": @"content"}];
+         */
+        WPCommentForm *content = [[WPCommentForm alloc] initWithPreset];
+        content.formType = WPCommentFormTypeContent;
+        [self addIU:content error:nil];
+        content.name = @"Content form";
+        
+        WPCommentFormField *commentAfter = [[WPCommentFormField alloc] initWithPreset];
+        commentAfter.fieldType = WPCommentFormFieldCommentAfter;
+        [self addIU:commentAfter error:nil];
+        commentAfter.name = @"Comment after";
+        
+        WPCommentFormSubmitBtn *submitBtn = [[WPCommentFormSubmitBtn alloc] initWithPreset];
+        submitBtn.label = @"Comment";
+        submitBtn.name = @"Submit";
+        [self addIU:submitBtn error:nil];
+    }
 
     return self;
 }

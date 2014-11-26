@@ -30,7 +30,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 @implementation IUSourceManager {
     __weak  id <IUSourceManagerDelegate> _canvasVC;
     __weak  IUCompiler *_compiler;
-    __weak WebView *_webView;
+    __weak WebCanvasView *_webView;
     __weak IUProject *_project;
     
     NSString *_documentBasePath;
@@ -41,6 +41,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 - (id)init{
     self = [super init];
     _viewPort = IUDefaultViewPort;
+    [self setCompiler:[[IUCompiler alloc] init]];
     return self;
 }
 
@@ -57,6 +58,31 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 - (id)evaluateWebScript:(NSString *)script{
     return [_canvasVC evaluateWebScript:script];
 }
+
+/**
+ @brief get element line count by only selected iu
+ */
+-(NSInteger)countOfLineWithIdentifier:(NSString *)identifier{
+    DOMNodeList *list = [self.DOMDocument getElementsByClassName:identifier];
+    if(list.length > 0){
+        DOMHTMLElement *element = (DOMHTMLElement *)[list item:0];
+        DOMNodeList *pList  = [element getElementsByTagName:@"p"];
+        return pList.length;
+        
+        /*
+         replace : 14.11.07 tinymce 에서 text를 p tag가 있는 상탤 동작하게 됨.
+         int count = brList.length;
+         DOMHTMLElement *lastElement = (DOMHTMLElement *)[element.childNodes item:element.childNodes.length-1];
+         if([lastElement isKindOfClass:[DOMHTMLBRElement class]]==NO){
+         count++;
+         }
+         return count;
+         */
+    }
+    return 0;
+}
+
+
 
 - (void)setDocumentBasePath:(NSString*)documentBasePath {
     _documentBasePath = [documentBasePath copy];
@@ -81,10 +107,15 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
         [[_webView mainFrame] loadHTMLString:code baseURL:nil];
     }
 #endif
+        
 }
 
 - (DOMDocument *)DOMDocument{
     return [[_webView mainFrame] DOMDocument];
+}
+
+- (void)removeIU:(id)obj{
+    [_canvasVC IURemoved:obj];
 }
 
 - (void)setNeedsUpdateHTML:(IUBox *)box{
@@ -97,32 +128,48 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 - (void)setNeedsUpdateCSS:(IUBox*)box{
     [JDLogUtil log:IULogSource key:@"updateCSS" string:box.htmlID];
     
+    [self setNeedsUpdateCSS:box withIdentifiers:nil];
+    
+}
+
+- (void)setNeedsUpdateCSS:(IUBox *)box withIdentifiers:(NSArray *)identifiers{
     /* get css code from compiler */
-//    IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
+    //    IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
     
     IUCSSCode *code = [_compiler cssCode:box target:IUTargetEditor viewPort:self.viewPort];
     
     /* insert css code to inline */
     NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];
     [inlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
-        DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
-        int length= list.length;
-        for(int i=0; i<length; i++){
-            DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
-            DOMCSSStyleDeclaration *style = element.style;
-            style.cssText = cssString;
+        BOOL isUpdate = NO;
+        if(identifiers == nil || [identifiers containsString:selector]){
+            isUpdate = YES;
+        }
+        if(isUpdate){
+            DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
+            int length= list.length;
+            for(int i=0; i<length; i++){
+                DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
+                DOMCSSStyleDeclaration *style = element.style;
+                style.cssText = cssString;
+            }
         }
     }];
-
+    
     /* insert non-inline css : hover or css */
     NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewPort];
-
+    
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
-        [self updateNonInlineCSSText:cssString withSelector:selector];
+        BOOL isUpdate = NO;
+        if(identifiers == nil || [identifiers containsString:selector]){
+            isUpdate = YES;
+        }
+        if(isUpdate){
+            [self updateNonInlineCSSText:cssString withSelector:selector];
+        }
     }];
     
     /* remove unnecessary IUCSSCode */
-    
 }
 
 -(void)updateNonInlineCSSText:(NSString *)css withSelector:(NSString *)selector{
@@ -308,7 +355,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
         if ([sheet isKindOfClass:[IUPage class]]) {
             IUPage *page = (IUPage *)sheet;
             /* make JS File */
-            NSString *jsInitCode = [_compiler jsInitSource:page];
+            NSString *jsInitCode = [_compiler jsInitSource:page storage:YES];
             if (jsInitCode) {
                 NSString *jsFilePath = [resourceJSPath stringByAppendingPathComponent:[_compiler jsInitFileName:page]];
                 /* save */
@@ -435,5 +482,6 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     }
     return YES;
 }
+
 
 @end

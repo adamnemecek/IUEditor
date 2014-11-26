@@ -27,20 +27,23 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    [self.css setValue:@(450) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
-    self.enableHCenter = YES;
-    
-    [self.css setValue:@(12) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(1.5) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:76 green:76 blue:76 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-    
-    [self.undoManager enableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        self.enableHCenter = YES;
+
+        self.defaultStyleStorage.width = @(450);
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+        
+        self.defaultStyleStorage.fontSize = @(12);
+        self.defaultStyleStorage.fontLineHeight = @(1.5);
+        self.defaultStyleStorage.fontAlign = @(IUAlignCenter);
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:76 green:76 blue:76 alpha:1];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -50,10 +53,6 @@
 
 - (NSString*)code{
     return @"<?bloginfo('description')?>";
-}
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 - (BOOL)shouldCompileChildrenForOutput{

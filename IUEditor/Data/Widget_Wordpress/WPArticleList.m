@@ -36,18 +36,20 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
-    
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    [self.css setValue:@(680) forTag:IUCSSTagPixelWidth];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        [self.undoManager disableUndoRegistration];
 
-    WPArticle *article = [[WPArticle alloc] initWithProject:project options:options];
-    [self addIU:article error:nil];
-    
-    [self.undoManager enableUndoRegistration];
+        self.defaultStyleStorage.width = @(680);
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+
+        WPArticle *article = [[WPArticle alloc] initWithPreset];
+        [self addIU:article error:nil];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 

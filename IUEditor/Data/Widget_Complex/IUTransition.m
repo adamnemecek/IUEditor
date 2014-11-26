@@ -66,15 +66,17 @@
     [aCoder encodeFromObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
 }
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     
     if(self){
         [[self undoManager] disableUndoRegistration];
 
-        _firstItem = [[IUItem alloc] initWithProject:project options:options];
-        _secondItem = [[IUItem alloc] initWithProject:project options:options];
-        [_secondItem.css setValue:@(NO) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
+        _firstItem = [[IUItem alloc] initWithPreset];
+        _secondItem = [[IUItem alloc] initWithPreset];
+        
+        _secondItem.defaultStyleStorage.editorHidden = @(YES);
+        
         
         [self addIU:_firstItem error:nil];
         [self addIU:_secondItem error:nil];

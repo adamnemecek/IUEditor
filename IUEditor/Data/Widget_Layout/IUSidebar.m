@@ -20,22 +20,42 @@
 #pragma mark - Initialize
 
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
         
-        [self.css eradicateTag:IUCSSTagPixelWidth];
-        [self.css eradicateTag:IUCSSTagBGColor];
-        
-        self.positionType = IUPositionTypeFloatLeft;
-        self.overflowType = IUOverflowTypeVisible;
+        [self setDefaultProperties];
         
         [self.undoManager enableUndoRegistration];
     }
     return self;
 }
 
+- (id)initWithPreset:(IUClass *)aClass{
+    self = [super initWithPreset:aClass];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        
+        [self setDefaultProperties];
+
+        [self.undoManager enableUndoRegistration];
+
+    }
+    return  self;
+}
+
+- (void)setDefaultProperties{
+    
+    self.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+    self.defaultStyleStorage.width = nil;
+    self.defaultStyleStorage.bgColor = nil;
+    self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
+    
+    [self.css eradicateTag:IUCSSTagPixelWidth];
+    [self.css eradicateTag:IUCSSTagBGColor];
+    
+}
 
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
     [super setPixelWidth:pixelWidth percentWidth:percentWidth];

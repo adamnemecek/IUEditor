@@ -118,9 +118,8 @@
         [self updateCSSPositionCode:code asIUBox:_iu viewport:viewport storage:storage];
         [self updateCSSApperanceCode:code asIUBox:_iu viewport:viewport storage:storage];
 
-        if ([_iu shouldCompileFontInfo]) {
-            [self updateCSSFontCode:code asIUBox:_iu viewport:viewport storage:storage];
-        }
+        [self updateCSSFontCode:code asIUBox:_iu viewport:viewport storage:storage];
+        
         
         [self updateCSSRadiousAndBorderCode:code asIUBox:_iu viewport:viewport storage:storage];
         [self updateCSSHoverCode:code asIUBox:_iu viewport:viewport storage:storage];

@@ -10,12 +10,14 @@
 
 @implementation WPCommentFormSubmitBtn
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    if(self){
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        
+        self.defaultStyleStorage.height = nil;
+        self.defaultStyleStorage.bgColor = nil;
+    }
 
     return self;
 }
@@ -41,10 +43,6 @@
 
 - (NSString*)cssIdentifier{
     return @"#iu_wp_comment_submit";
-}
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
 }
 
 @end

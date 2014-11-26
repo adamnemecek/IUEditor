@@ -241,8 +241,8 @@
  
     [[self.project identifierManager] resetUnconfirmedIUs];
     
-    NSDictionary *options = @{kIUPageLayout: @(layoutCode)};
-    IUPage *newDoc = [[IUPage alloc] initWithProject:self.project options:options];
+    //FIXME: code에 맞는거 찾아서 넣기.? 
+    IUPage *newDoc = [[IUPage alloc] initWithPresetWithLayout:layoutCode header:nil footer:nil sidebar:nil];
     [self.project addItem:newDoc toSheetGroup:self.project.pageGroup];
     [self.project.identifierManager registerIUs:@[newDoc]];
     
@@ -263,7 +263,7 @@
     
     [[self.project identifierManager] resetUnconfirmedIUs];
 
-    IUClass *newDoc = [[IUClass alloc] initWithProject:self.project options:nil];
+    IUClass *newDoc = [[IUClass alloc] initWithPreset];
     [self.project addItem:newDoc toSheetGroup:self.project.classGroup];
     [self.project.identifierManager registerIUs:@[newDoc]];
     

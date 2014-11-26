@@ -19,30 +19,28 @@
 
 #pragma mark - initialize
 
-- (id)initWithProject:(id <IUProjectProtocol>)project options:(NSDictionary *)options{
-    self = [super initWithProject:project options:options];
-    [self.undoManager disableUndoRegistration];
+- (id)initWithPreset{
+    self = [super initWithPreset];
     
-    //css
-    self.positionType = IUPositionTypeRelative;
-    
-    [self.css setValue:@(10) forTag:IUCSSTagPixelY forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(YES) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(30) forTag:IUCSSTagPercentWidth forViewport:IUCSSDefaultViewPort];
-    [self.css eradicateTag:IUCSSTagPixelHeight];
-    [self.css eradicateTag:IUCSSTagBGColor];
+    if(self){
+        [self.undoManager disableUndoRegistration];
 
-    
-    self.enableHCenter = YES;
-    
-    [self.css setValue:@(14) forTag:IUCSSTagFontSize forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(2.0) forTag:IUCSSTagLineHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(IUAlignCenter) forTag:IUCSSTagTextAlign forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@"HelveticaNeue-Light" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:[NSColor rgbColorRed:137 green:137 blue:137 alpha:1] forTag:IUCSSTagFontColor forViewport:IUCSSDefaultViewPort];
-
-
-    [self.undoManager enableUndoRegistration];
+        self.enableHCenter = YES;
+        
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.y = @(10);
+        
+        [self.defaultStyleStorage setWidth:@(30) unit:@(IUFrameUnitPercent)];
+        self.defaultStyleStorage.bgColor = nil;
+        
+        self.defaultStyleStorage.fontSize = @(14);
+        self.defaultStyleStorage.fontLineHeight = @(2.0);
+        self.defaultStyleStorage.fontAlign = @(IUAlignCenter);
+        self.defaultStyleStorage.fontName = @"HelveticaNeue-Light";
+        self.defaultStyleStorage.fontColor = [NSColor rgbColorRed:137 green:137 blue:137 alpha:1];
+        
+        [self.undoManager enableUndoRegistration];
+    }
     return self;
 }
 
@@ -53,11 +51,6 @@
 - (NSString*)sampleInnerHTML{
     return @"Dec. 24. 2014.";
 }
-
-- (BOOL)shouldCompileFontInfo{
-    return YES;
-}
-
 
 - (BOOL)canMoveToOtherParent{
     return NO;

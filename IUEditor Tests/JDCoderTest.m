@@ -122,7 +122,7 @@
 
 - (void)test4_IUBoxEncoding1{
     // This is an example of a functional test case.
-    IUBox *oneBox = [[IUBox alloc] initWithProject:nil options:nil];
+    IUBox *oneBox = [[IUBox alloc] initWithPreset];
     oneBox.htmlID = @"OneBox";
     
     JDCoder *coder = [[JDCoder alloc] init];

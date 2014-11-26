@@ -204,7 +204,7 @@
     startPoint = convertedPoint;
     middlePoint = convertedPoint;
     
-    [self.controller startFrameMoveWithUndoManager:self];
+    [self.controller startFrameMoveWithTransaction:self];
 
 }
 
@@ -252,7 +252,7 @@
     }
     if(isDragged){
         isDragged = NO;
-        [self.controller endFrameMoveWithUndoManager:self];
+        [self.controller endFrameMoveWithTransaction:self];
     }
 }
 
