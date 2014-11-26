@@ -112,7 +112,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        box.text = @"hihi";
+        //box.text = @"hihi";
         
         [manager setNeedsUpdateHTML:box];
 
@@ -202,7 +202,7 @@
         
         [child setSourceManager:manager];
         
-        child.text = @"hihi";
+        //child.text = @"hihi";
         
         [manager setNeedsUpdateHTML:child];
         

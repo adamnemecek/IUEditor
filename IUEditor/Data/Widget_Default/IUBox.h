@@ -27,13 +27,6 @@ typedef enum{
     IUWidgetTypeWP,
 }IUWidgetType;
 
-typedef enum{
-    IUTextTypeDefault,
-    IUTextTypeH1,
-    IUTextTypeH2,
-}IUTextType;
-
-
 
 typedef enum{
     IUTextInputTypeNone,
@@ -42,13 +35,6 @@ typedef enum{
     IUTextInputTypeTextField,
 }IUTextInputType;
 
-
-@protocol IUTextProtocol
-@optional
-
-@required
-
-@end
 
 
 /* default data manager name */
@@ -207,7 +193,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 - (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC __deprecated;
 
-@property (nonatomic) NSString *text;
+//@property (nonatomic) NSString *text;
 
 - (IUTextInputType)textInputType;
 
@@ -310,10 +296,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
  - (void)checkBeforeBuildCode:(IUBox *)iu target:(IUTarget)target{
  */
 @property id linkCaller;
-
-
-//0 for default, 1 for H1, 2 for H2
-@property IUTextType textType;
 
 - (NSString*)cssIdentifier;
 - (NSString*)cssHoverClass;

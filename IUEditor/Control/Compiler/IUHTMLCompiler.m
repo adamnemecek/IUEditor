@@ -13,6 +13,7 @@
 #import "IUClass.h"
 #import "IUSidebar.h"
 #import "IUSection.h"
+#import "IUText.h"
 
 #import "IUImage.h"
 #import "IUMovie.h"
@@ -475,7 +476,81 @@
     
     return code;
 }
+- (JDCode *)htmlCodeAsIUText:(IUText *)textIU target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
+    JDCode *code = [[JDCode alloc] init];
+    
+    NSString *tag  = @"div";
+    
+    if (textIU.textType == IUTextTypeH1){
+        tag = @"h1";
+    }
+    else if (textIU.textType == IUTextTypeH2){
+        tag = @"h2";
+    }
 
+    
+    
+    //before tag
+    if(target == IUTargetOutput){
+        if ([textIU.pgVisibleConditionVariable length] && _compiler.rule == IUCompileRuleDjango) {
+            [code addCodeLineWithFormat:@"{%%if %@%%}", textIU.pgVisibleConditionVariable];
+        }
+        
+    }
+    
+    //open tag
+    [code addCodeLineWithFormat:@"<%@ %@>", tag, [self attributeString:attributeDict]];
+    
+    if(target == IUTargetOutput){
+        if (_compiler.rule == IUCompileRuleDjango && textIU.pgContentVariable) {
+            [code increaseIndentLevelForEdit];
+            if ([textIU.sheet isKindOfClass:[IUClass class]]) {
+                [code addCodeLineWithFormat:@"<p>{{object.%@|linebreaksbr}}</p>", textIU.pgContentVariable];
+            }
+            else {
+                [code addCodeLineWithFormat:@"<p>{{%@|linebreaksbr}}</p>", textIU.pgContentVariable];
+            }
+            [code decreaseIndentLevelForEdit];
+            
+        }
+    }
+    
+    NSString *htmlText;
+    if(htmlText){
+        if(IUTargetEditor == target ||
+           (IUTargetOutput == target && textIU.pgContentVariable == nil)){
+            [code increaseIndentLevelForEdit];
+            [code addCodeLineWithFormat:@"<p>%@</p>",htmlText];
+            [code decreaseIndentLevelForEdit];
+            
+        }
+    }
+    if(textIU.propertyManager){
+        if([textIU.propertyManager countOfValueForKey:@"innerHTML"] == 1){
+            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:IUCSSDefaultViewPort];
+            if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:propertyStorage.innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        else if(target == IUTargetEditor){
+            if(textIU.currentPropertyStorage.innerHTML && textIU.currentPropertyStorage.innerHTML.length > 0){
+                [code increaseIndentLevelForEdit];
+                [code addCodeLine:textIU.currentPropertyStorage.innerHTML];
+                [code decreaseIndentLevelForEdit];
+            }
+        }
+        
+    }
+    
+    [code addCodeLineWithFormat:@"</%@>", tag];
+    if ([textIU.pgVisibleConditionVariable length] && _compiler.rule == IUCompileRuleDjango) {
+        [code addCodeLine:@"{% endif %}"];
+    }
+    return code;
+
+}
 - (JDCode *)htmlCodeAsIUImage:(IUImage *)image target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
     JDCode *code = [[JDCode alloc] init];
     
@@ -1000,6 +1075,7 @@
 }
 
 
+
 - (JDCode *)htmlCodeAsPGTextView:(PGTextView *)textview target:(IUTarget)target attributeDict:(NSMutableDictionary *)attributeDict withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
 
     if(textview.placeholder){
@@ -1033,7 +1109,27 @@
     attributeDict[@"method"] = @"post";
     
     JDCode *code = [[JDCode alloc] init];
-    code = [self htmlCodeAsIUBox:form target:target attributeDict:attributeDict withCSS:withCSS viewPort:viewPort];
+    
+    //open tag
+    [code addCodeLineWithFormat:@"<form %@>", [self attributeString:attributeDict]];
+    
+    if(target == IUTargetOutput){
+        if (_compiler.rule == IUCompileRuleDjango) {
+            [code addCodeLine:@"{% csrf_token %}"];
+        }
+    }
+    
+    if (target == IUTargetEditor || ( target == IUTargetOutput && [form shouldCompileChildrenForOutput] )) {
+        for (IUBox *child in form.children) {
+            JDCode *childCode = [[JDCode alloc] init];
+            [self htmlCode:child target:target code:childCode withCSS:withCSS viewPort:viewPort];
+            if (childCode) {
+                [code addCodeWithIndent:childCode];
+            }
+        }
+    }
+    
+    [code addCodeLine:@"</form>"];
     
     return code;
 }
@@ -1048,7 +1144,6 @@
 
     return code;
 }
-
 
 
 /*
@@ -1099,18 +1194,6 @@
         return code;
     }
     
-    NSString *tag = @"div";
-    if ([iu isKindOfClass:[PGForm class]]) {
-        tag = @"form";
-    }
-    else if (iu.textType == IUTextTypeH1){
-        tag = @"h1";
-    }
-    else if (iu.textType == IUTextTypeH2){
-        tag = @"h2";
-    }
-    
-    
     //before tag
     if(target == IUTargetOutput){
         if ([iu.pgVisibleConditionVariable length] && _compiler.rule == IUCompileRuleDjango) {
@@ -1120,26 +1203,12 @@
     }
     
     //open tag
-    [code addCodeLineWithFormat:@"<%@ %@>", tag, [self attributeString:attributeDict]];
+    [code addCodeLineWithFormat:@"<div %@>", [self attributeString:attributeDict]];
     
     if(target == IUTargetOutput){
-        if (_compiler.rule == IUCompileRuleDjango && [iu isKindOfClass:[PGForm class]]) {
-            [code addCodeLine:@"{% csrf_token %}"];
-        }
         
-        if (_compiler.rule == IUCompileRuleDjango && iu.pgContentVariable) {
-            [code increaseIndentLevelForEdit];
-            if ([iu.sheet isKindOfClass:[IUClass class]]) {
-                [code addCodeLineWithFormat:@"<p>{{object.%@|linebreaksbr}}</p>", iu.pgContentVariable];
-            }
-            else {
-                [code addCodeLineWithFormat:@"<p>{{%@|linebreaksbr}}</p>", iu.pgContentVariable];
-            }
-            [code decreaseIndentLevelForEdit];
-            
-        }
         //TODO: WP
-        else if ([iu conformsToProtocol:@protocol(IUSampleHTMLProtocol)] && _compiler.rule == IUCompileRuleDefault){
+        if ([iu conformsToProtocol:@protocol(IUSampleHTMLProtocol)] && _compiler.rule == IUCompileRuleDefault){
             /* for example, WORDPRESS can be compiled as HTML */
             IUBox <IUSampleHTMLProtocol> *sampleProtocolIU = (id)iu;
             if ([sampleProtocolIU respondsToSelector:@selector(sampleInnerHTML)]) {
@@ -1159,62 +1228,6 @@
         }
     }
     
-    NSString *htmlText;
-    if(iu.text && iu.text.length > 0
-       && [iu conformsToProtocol:@protocol(IUPHPCodeProtocol)] == NO){
-        htmlText = [iu.text stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
-        htmlText = [htmlText stringByReplacingOccurrencesOfString:@"  " withString:@" &nbsp;"];
-    }
-    if(htmlText){
-        if(IUTargetEditor == target ||
-           (IUTargetOutput == target && iu.pgContentVariable == nil)){
-            [code increaseIndentLevelForEdit];
-            [code addCodeLineWithFormat:@"<p>%@</p>",htmlText];
-            [code decreaseIndentLevelForEdit];
-
-        }
-    }
-    if(iu.propertyManager){
-        if([iu.propertyManager countOfValueForKey:@"innerHTML"] == 1){
-            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[iu.propertyManager storageForViewPort:IUCSSDefaultViewPort];
-            if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
-                [code increaseIndentLevelForEdit];
-                [code addCodeLine:propertyStorage.innerHTML];
-                [code decreaseIndentLevelForEdit];
-            }
-        }
-        else if(target == IUTargetEditor){
-            if(iu.currentPropertyStorage.innerHTML && iu.currentPropertyStorage.innerHTML.length > 0){
-                [code increaseIndentLevelForEdit];
-                [code addCodeLine:iu.currentPropertyStorage.innerHTML];
-                [code decreaseIndentLevelForEdit];
-            }
-        }
-        
-    }
-    /* to be removed */
-    /*
-    else{
-        if ([iu.mqData dictionaryForTag:IUMQDataTagInnerHTML].count == 1){
-            NSString *innerHTML = [iu.mqData valueForTag:IUMQDataTagInnerHTML forViewport:IUCSSDefaultViewPort];
-            if(innerHTML && innerHTML.length > 0){
-                [code increaseIndentLevelForEdit];
-                [code addCodeLine:innerHTML];
-                [code decreaseIndentLevelForEdit];
-            }
-        }
-        else if(target == IUTargetEditor){
-            NSString *innerHTML = [iu.mqData effectiveValueForTag:IUMQDataTagInnerHTML forViewport:iu.mqData.editViewPort];
-            if(innerHTML && innerHTML.length > 0){
-                [code increaseIndentLevelForEdit];
-                [code addCodeLine:innerHTML];
-                [code decreaseIndentLevelForEdit];
-            }
-            
-        }
-    }
-    */
-    
     if (target == IUTargetEditor || ( target == IUTargetOutput && [iu shouldCompileChildrenForOutput] )) {
         for (IUBox *child in iu.children) {
             JDCode *childCode = [[JDCode alloc] init];
@@ -1233,7 +1246,7 @@
     }
     
     
-    [code addCodeLineWithFormat:@"</%@>", tag];
+    [code addCodeLine:@"</div>"];
     if ([iu.pgVisibleConditionVariable length] && _compiler.rule == IUCompileRuleDjango) {
         [code addCodeLine:@"{% endif %}"];
     }

@@ -25,6 +25,7 @@
 
 //editor mode- display
 @property BOOL isOpened;
+@property (nonatomic) NSString *text;
 
 
 @end

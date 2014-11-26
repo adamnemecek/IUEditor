@@ -116,7 +116,7 @@ static     IUTestWC *testWC;
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
         IUSection *section = [[IUSection alloc] initWithPreset];
-        section.text = @"test2";
+//        section.text = @"test2";
         [page.pageContent addIU:section error:nil];
         [manager setNeedsUpdateHTML:page.pageContent];
         
@@ -167,7 +167,7 @@ static     IUTestWC *testWC;
         [parent addIU:child error:nil];
         [manager setNeedsUpdateHTML:parent];
         
-        child.text = @"hihi";
+//        child.text = @"hihi";
         [manager setNeedsUpdateHTML:child];
         
         

@@ -235,7 +235,12 @@
 }
 
 - (void)setText:(NSString *)text{
-    [super setText:text];
+    if([_text isEqualToString:text]){
+        return;
+    }
+    [[self.undoManager prepareWithInvocationTarget:self] setText:_text];
+    
+    _text = text;
     [self updateHTML];
 }
 

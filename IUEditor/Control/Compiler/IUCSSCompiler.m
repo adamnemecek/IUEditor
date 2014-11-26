@@ -77,7 +77,7 @@
     //REVIEW: a tag는 밑으로 들어감. 상위에 있을 경우에 %사이즈를 먹어버림.
     //밑에 child 혹은 p tag 가 없을 경우에는 a tag의 사이즈가 0이 되기 때문에 size를 만들어줌
     if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
-        if(iu.text == nil || iu.text.length ==0){
+        if(iu.textInputType == IUTextInputTypeEditable){
             [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
             [code setInsertingTarget:IUTargetBoth];
             

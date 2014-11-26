@@ -8,10 +8,19 @@
 
 #import "IUBox.h"
 
-@interface IUText : IUBox <IUTextProtocol>
+typedef enum{
+    IUTextTypeDefault,
+    IUTextTypeH1,
+    IUTextTypeH2,
+}IUTextType;
+
+
+@interface IUText : IUBox
 
 /* default box - already customized box */
 +(IUText *)copyrightBox;
 
+//0 for default, 1 for H1, 2 for H2
+@property IUTextType textType;
 
 @end

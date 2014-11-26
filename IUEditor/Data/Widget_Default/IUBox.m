@@ -87,15 +87,7 @@
     self = [super init];
     if (self) {
 
-        [aDecoder decodeToObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"delegate", @"textType", @"linkCaller"]]];
-        
-        //VERSION COMPABILITY: texttype decode int issue
-        @try {
-            _textType = [aDecoder decodeInt32ForKey:@"textType"] ;
-        }
-        @catch (NSException *exception) {
-            _textType = IUTextTypeDefault;
-        }
+        [aDecoder decodeToObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"delegate", @"linkCaller"]]];
         
         
         _event = [aDecoder decodeObjectForKey:@"event"];
@@ -202,6 +194,17 @@
                 innerHTML = [innerHTML stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
                 IUText *textIU = [[IUText alloc] initWithCoder:aDecoder];
                 ((IUPropertyStorage *)textIU.propertyManager.defaultStorage).innerHTML = innerHTML;
+                
+                //VERSION COMPABILITY: texttype decode int issue
+                IUTextType textType;
+                @try {
+                    textType = [aDecoder decodeInt32ForKey:@"textType"] ;
+                }
+                @catch (NSException *exception) {
+                    textType = IUTextTypeDefault;
+                }
+                
+                textIU.textType = textType;
                 
                 return textIU;
             }
@@ -380,18 +383,18 @@
     IUBox *box = [[[self class] allocWithZone: zone] init];
     if(box){
         
-        IUCSS *newCSS = [_css copy];
         IUEvent *newEvent = [_event copy];
         NSArray *children = [self.children deepCopy];
-        box.text = [_text copy];
         
         box.overflowType = _overflowType;
         box.positionType = _positionType;
         box.enableHCenter = _enableHCenter;
         box.enableVCenter = _enableVCenter;
         
+        /*
         box.css = newCSS;
         newCSS.delegate  = box;
+        */
         
         box.event = newEvent;
         
@@ -1476,31 +1479,20 @@ e.g. 만약 css로 옮긴다면)
 
 #pragma mark -text
 
-- (void)setText:(NSString *)text{
-    if([_text isEqualToString:text]){
-        return;
-    }
-    
-    _text = text;
-    
-    if(_text.length > 300){
-        [self setLineHeightAuto:NO];
-    }
-    
-  
-
-}
 
 - (void)setLineHeightAuto:(BOOL)lineHeightAuto{
+    /*
     if( _text && _text.length > 300){
         lineHeightAuto = false;
     }
+     */
     if(lineHeightAuto != _lineHeightAuto){
         [[self.undoManager prepareWithInvocationTarget:self] setLineHeightAuto:_lineHeightAuto];
         _lineHeightAuto = lineHeightAuto;
         [self updateCSS];
     }
 }
+
 
 - (NSString*)cssIdentifier{
     return [@"." stringByAppendingString:self.htmlID];

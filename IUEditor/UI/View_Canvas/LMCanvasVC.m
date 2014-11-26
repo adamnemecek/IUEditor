@@ -19,6 +19,7 @@
 #import "IUSection.h"
 #import "IUImport.h"
 #import "IUMenuItem.h"
+#import "IUText.h"
 
 #import "LMHelpWC.h"
 #import "LMFontController.h"
@@ -650,17 +651,7 @@
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         //save current text
-        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
-        if(iu){
-            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
-            if(node.innerText && [node.innerText stringByTrim].length > 0){
-                iu.text = node.innerText;
-            }
-            else{
-                iu.text = nil;
-            }
-            
-        }
+        [self saveElementText:node forIdnetifier:node.idName];
     
     }
 
@@ -669,21 +660,25 @@
         //find editor
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         //save current text
-        IUBox *iu = [self.controller tryIUBoxByIdentifier:node.idName];
-        if(iu){
-            if(node.innerText && [node.innerText stringByTrim].length > 0){
-                [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
-                iu.livePropertyStorage.innerHTML = node.innerHTML;
-            }
-            
-            else{
-                iu.livePropertyStorage.innerHTML = nil;
-            }
-        }
-        [iu updateCSS];
-        
+        [self saveElementText:node forIdnetifier:node.idName];
     }
 }
+- (void)saveElementText:(DOMHTMLElement *)element forIdnetifier:(NSString *)identifier{
+    IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
+    if(iu){
+
+        if(element.innerText && [element.innerText stringByTrim].length > 0){
+            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
+            iu.livePropertyStorage.innerHTML = element.innerHTML;
+        }
+        else{
+            iu.livePropertyStorage.innerHTML = nil;
+        }
+ 
+    }
+    [iu updateCSS];
+}
+
 - (void)saveCurrentTextEditor{
     if(self.selectedFrameWidth == self.maxFrameWidth){
         [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
