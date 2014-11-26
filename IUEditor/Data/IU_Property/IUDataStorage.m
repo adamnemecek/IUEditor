@@ -82,7 +82,9 @@
 - (void)dealloc{
     if([[self class] observingList]){
         NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
-        [self removeObserver:self forKeyPaths:keyPaths];
+        for (NSString *keyPath in keyPaths) {
+            [self removeObserver:self forKeyPath:keyPath];
+        }
     }
 }
 

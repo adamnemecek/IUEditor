@@ -24,7 +24,6 @@
 
 - (void)setUp {
     [super setUp];
-    storage = [[IUStyleStorage alloc] init];
     storageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
 
     arr = [NSMutableArray array];
@@ -109,8 +108,9 @@
 }
 
 - (void)test71_style {
-    IUStyleStorage *a = [[IUStyleStorage alloc] init];
-    a= nil;
+    JDCoder *coder = [[JDCoder alloc] init];
+    IUStyleStorage *a = [[NSClassFromString(@"IUStyleStorage") alloc] initWithJDCoder:coder];
+    a = nil;
 }
 
 - (void)test72_styleEncoding {
@@ -121,7 +121,8 @@
     [coder encodeRootObject:a];
     
     IUStyleStorage *b = [coder decodeRootObject];
-    XCTAssertEqual(b.height, @(10));
+    NSNumber *bH = b.height;
+    XCTAssertEqualObjects(bH, @(10.0));
 }
 
 - (void)test8_encoding{

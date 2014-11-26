@@ -22,6 +22,20 @@
     return [IUStyleStorage properties];
 }
 
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeObject:_width forKey:@"width"];
+    [aCoder encodeObject:_height forKey:@"height"];
+    return;
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    _width = [aDecoder decodeObjectForKey:@"width"];
+    _height = [aDecoder decodeObjectForKey:@"height"];
+    return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUStyleStorage *copyStorage = [super copyWithZone:zone];
     [copyStorage disableUpdate:JD_CURRENT_FUNCTION];

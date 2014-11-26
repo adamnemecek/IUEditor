@@ -11,6 +11,7 @@
 
 #import "IUProject.h"
 #import "IUSourceManager.h"
+#import "IUBoxes.h"
 
 
 @interface IUProject_Test : XCTestCase
@@ -53,7 +54,18 @@
     
     XCTAssertEqual(anotherGroup.project, project);
     XCTAssertEqual(anotherGroup.parentFileItem, project.pageGroup);
+}
 
+
+- (void)test_boxProject {
+    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    IUSheet *sheet = [[IUSheet alloc] init];
+    [project.pageGroup addFileItem:sheet];
+    XCTAssertEqual(sheet.project, project);
+    
+    IUBox *box = [[IUBox alloc] init];
+    [sheet addIU:box error:nil];
+    XCTAssertEqual(box.project, project);
 }
 
 @end
