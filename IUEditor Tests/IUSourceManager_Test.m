@@ -249,6 +249,7 @@
     
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
+    XCTAssertNotNil(header.htmlID);
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     [manager loadSheet:page];

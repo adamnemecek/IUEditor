@@ -24,9 +24,7 @@
     self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        
-        [self setDefaultProperties];
-        
+        [self setDefaultPropertiesSidebar];
         [self.undoManager enableUndoRegistration];
     }
     return self;
@@ -36,25 +34,18 @@
     self = [super initWithPreset:aClass];
     if(self){
         [self.undoManager disableUndoRegistration];
-        
-        [self setDefaultProperties];
-
+        [self setDefaultPropertiesSidebar];
         [self.undoManager enableUndoRegistration];
 
     }
     return  self;
 }
 
-- (void)setDefaultProperties{
-    
+- (void)setDefaultPropertiesSidebar{
     self.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
     self.defaultStyleStorage.width = nil;
     self.defaultStyleStorage.bgColor = nil;
     self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
-    
-    [self.css eradicateTag:IUCSSTagPixelWidth];
-    [self.css eradicateTag:IUCSSTagBGColor];
-    
 }
 
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{

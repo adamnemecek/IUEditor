@@ -23,7 +23,7 @@
     self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        [self setDefaultProperties];
+        [self setDefaultPropertiesHeader];
         [self.undoManager enableUndoRegistration];
     }
     return self;
@@ -33,13 +33,12 @@
     self = [super initWithPreset:aClass];
     if(self){
         [self.undoManager disableUndoRegistration];
-        [self setDefaultProperties];
+        [self setDefaultPropertiesHeader];
         [self.undoManager enableUndoRegistration];
     }
     return self;
 }
-- (void)setDefaultProperties{
-
+- (void)setDefaultPropertiesHeader{
     self.defaultStyleStorage.bgColor = nil;
     
     [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];

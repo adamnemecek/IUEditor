@@ -239,17 +239,7 @@
         [self createDefaultStorages];
 
         //setting for css
-        [self.defaultPositionStorage setPosition:@(IUPositionTypeAbsolute)];
-        [self.defaultPositionStorage setX:nil unit:@(IUFrameUnitPixel)];
-        [self.defaultPositionStorage setY:nil unit:@(IUFrameUnitPixel)];
-        
-        [self.defaultStyleStorage setWidth:nil unit:@(IUFrameUnitPixel)];
-        [self.defaultStyleStorage setHeight:nil unit:@(IUFrameUnitPixel)];
-        self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden);
         self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
-
-        [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
-        [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
 
         [self.undoManager enableUndoRegistration];
     }
@@ -259,8 +249,14 @@
 -(id)init{
     self = [super init];
     if (self) {
+        [self.undoManager disableUndoRegistration];
+
         [self setDefaultProperties];
         [self createDefaultStorages];
+        
+        
+        
+        [self.undoManager enableUndoRegistration];
     }
     return self;
 }
@@ -311,6 +307,16 @@
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
     }
 
+    [self.defaultPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+    [self.defaultPositionStorage setX:nil unit:@(IUFrameUnitPixel)];
+    [self.defaultPositionStorage setY:nil unit:@(IUFrameUnitPixel)];
+    
+    [self.defaultStyleStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+    [self.defaultStyleStorage setHeight:nil unit:@(IUFrameUnitPixel)];
+    self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden);
+
+    [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
+    [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
 }
 
 
