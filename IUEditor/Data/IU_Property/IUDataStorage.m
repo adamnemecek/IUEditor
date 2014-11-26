@@ -21,9 +21,9 @@
 
 @property JDMutableArrayDict *workingStorages; //key == viewPort(NSNumber) value=IUDataStorage.
 
-@property IUDataStorage *currentStorage;
-@property IUDataStorage *defaultStorage;
-@property IUDataStorage *liveStorage;
+@property id currentStorage;
+@property id defaultStorage;
+@property id liveStorage;
 - (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes;
 @end
 
@@ -78,10 +78,6 @@
 }
 
 
-
-- (void)initPropertiesForDefaultViewPort{
-    
-}
 
 - (void)dealloc{
     if([[self class] observingList]){
@@ -255,7 +251,6 @@
     self.workingStorages = [[JDMutableArrayDict alloc] init];
     _storageClassName = @"IUDataStorage";
     IUDataStorage *defaultStorage = [self newStorage];
-    [defaultStorage initPropertiesForDefaultViewPort];
     defaultStorage.manager = self;
     
     [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];
@@ -275,7 +270,6 @@
         self.workingStorages = [[JDMutableArrayDict alloc] init];
         _storageClassName = className;
         IUDataStorage *defaultStorage = [self newStorage];
-        [defaultStorage initPropertiesForDefaultViewPort];
         defaultStorage.manager = self;
         
         [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];

@@ -93,12 +93,6 @@
 
 #pragma mark - property
 
-- (void)initPropertiesForDefaultViewPort{
-    _widthUnit = @(IUFrameUnitPixel);
-    _heightUnit = @(IUFrameUnitPixel);
-}
-
-
 
 - (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit{
     [self beginTransaction:JD_CURRENT_FUNCTION];

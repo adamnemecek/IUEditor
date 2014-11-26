@@ -36,12 +36,6 @@
     return copyStorage;
 }
 
-- (void)initPropertiesForDefaultViewPort{
-    _position = @(IUPositionTypeAbsolute);
-    _xUnit = @(IUFrameUnitPixel);
-    _yUnit = @(IUFrameUnitPixel);
-}
-
 
 - (void)setX:(NSNumber *)x unit:(NSNumber *)unit{
     [self beginTransaction:JD_CURRENT_FUNCTION];

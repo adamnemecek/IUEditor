@@ -30,6 +30,8 @@
 #import "IUImport.h"
 #import "IUPage.h"
 
+#import "IUStyleStorage.h"
+
 @interface IUBox()
 @end
 
@@ -220,7 +222,51 @@
 }
 
 -(id)initWithPreset {
-    self = [self init];
+    self = [super init];
+    
+    //create storage
+    storageManagersDict = [NSMutableDictionary dictionary];
+    IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    [styleManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
+    [styleManager.defaultStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
+    
+    [self setStorageManager:styleManager forSelector:kIUStyleManager];
+    if (self.defaultStyleManager) {
+        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    
+    IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+    [self setStorageManager:positionManager forSelector:kIUPositionManager];
+    
+    IUPositionStorage *positionStorage = positionManager.defaultStorage;
+    [positionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
+    [positionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
+    [positionStorage setPosition:@(IUPositionTypeAbsolute)];
+    
+    if(self.positionManager){
+        [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    
+    
+    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
+    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+    
+    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
+    [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
+    
+    
+    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
+    _name = _htmlID;
+    
+    _events = [NSMutableArray array];
+    _eventsCalledByOtherIU = [NSMutableArray array];
+
     self.liveStyleStorage.bgColor = [NSColor randomLightMonoColor];
     self.name = self.className;
     return self;
@@ -243,6 +289,9 @@
         //create storage
         storageManagersDict = [NSMutableDictionary dictionary];
         IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [styleManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
+        [styleManager.defaultStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
+        
         [self setStorageManager:styleManager forSelector:kIUStyleManager];
         if (self.defaultStyleManager) {
             [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
@@ -251,20 +300,27 @@
         }
         
         IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+        
         [self setStorageManager:positionManager forSelector:kIUPositionManager];
+        
+        IUPositionStorage *positionStorage = positionManager.defaultStorage;
+        [positionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
+        [positionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
+        [positionStorage setPosition:@(IUPositionTypeAbsolute)];
+                
         if(self.positionManager){
              [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
             [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
             [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-
-
         }
         
         
         IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+        [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
         [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
         
         IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+        [hoverManager.defaultStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
         [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
 
         
@@ -577,8 +633,8 @@
 }
 
 - (id <IUProjectProtocol>)project{
-    if (self.sheet.group.project) {
-        return self.sheet.group.project;
+    if (self.sheet.fileItemParent.project) {
+        return self.sheet.fileItemParent.project;
     }
     else if (_tempProject) {
         //not assigned to document

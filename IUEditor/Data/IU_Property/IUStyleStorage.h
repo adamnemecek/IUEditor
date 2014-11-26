@@ -156,8 +156,6 @@ typedef enum{
  */
 
 
-- (void)initPropertiesForDefaultViewPort;
-
 //set frame unit
 - (void)setWidth:(NSNumber *)w unit:(NSNumber *)unit;
 - (void)setHeight:(NSNumber *)h unit:(NSNumber *)unit;
