@@ -934,6 +934,9 @@
                         leftTag = @"left"; break;
                     }
                     default:
+                        if (viewport == IUDefaultViewPort) {
+                            NSAssert(0, @"cannot come here");
+                        }
                         break;
                 }
                 
@@ -957,6 +960,9 @@
                 }
 
             }
+        }
+        else if (viewport == IUDefaultViewPort) {
+            NSAssert(0, @"can not come to here");
         }
         
         IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
