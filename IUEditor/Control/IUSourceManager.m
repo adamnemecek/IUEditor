@@ -321,7 +321,9 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     
     /* copy resource */
     [[NSFileManager defaultManager] setDelegate:self];
-    [[NSFileManager defaultManager] copyItemAtPath:_project.resourceGroup.absolutePath toPath:buildResourcePath error:error];
+    
+    JDErrorLog(@"Currently, resource group does not copied");
+//    [[NSFileManager defaultManager] copyItemAtPath:_project.resourceGroup.absolutePath toPath:buildResourcePath error:error];
     [self copyCSSJSResourceToBuildPath:buildResourcePath];
     
     
