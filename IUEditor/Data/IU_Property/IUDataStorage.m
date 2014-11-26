@@ -89,6 +89,28 @@
 }
 
 
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [self init];
+    _changePropertyStack = [NSMutableArray array];
+    _transactionLevel = 0;
+    _storage = [aDecoder decodeObjectForKey:@"storage"];
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone{
+    IUDataStorage *returnObject = [[[self class] allocWithZone:zone] init];
+    returnObject.manager = self.manager;
+    returnObject.storage = [self.storage mutableCopy];
+    return returnObject;
+}
+
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    manager = [aDecoder decodeByRefObjectForKey:@"manager"];
+    
+}
+
+
 - (void)storagePropertyContextDidChange:(NSDictionary*)change{
     if (_disableUpdateLevel == NO) {
         NSMutableDictionary *changeDict = [NSMutableDictionary dictionary];
@@ -109,30 +131,6 @@
     }
 }
 
-
-- (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self init];
-    _changePropertyStack = [NSMutableArray array];
-    _transactionLevel = 0;
-    _storage = [aDecoder decodeObjectForKey:@"storage"];
-    return self;
-}
-
-- (id)copyWithZone:(NSZone *)zone{
-    IUDataStorage *returnObject = [[[self class] allocWithZone:zone] init];
-    returnObject.manager = self.manager;
-    returnObject.storage = [self.storage mutableCopy];
-    return returnObject;
-}
-
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    manager = [aDecoder decodeByRefObjectForKey:@"manager"];
-    
-    if([[self class] observingList]){
-        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
-        [self addObserver:self forKeyPaths:keyPaths options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
-    }
-}
 
 - (IUDataStorageManager *)manager{
     return manager;
