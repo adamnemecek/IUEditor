@@ -137,6 +137,9 @@
     [aCoder encodeByRefObject:self.parent forKey:@"parent"];
 }
 
+-(id <IUProjectProtocol>)project{
+    return self.sheet.project;
+}
 
 /**
  Review: _m_children의 decode는 순서가 꼬이기 때문에 initWithCoder가 아닌 awkaAfterUsingCoder로 하도록한다.
