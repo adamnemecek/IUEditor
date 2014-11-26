@@ -113,7 +113,7 @@
 
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [super init];
+    self = [self init];
     _changePropertyStack = [NSMutableArray array];
     _transactionLevel = 0;
     _storage = [aDecoder decodeObjectForKey:@"storage"];
