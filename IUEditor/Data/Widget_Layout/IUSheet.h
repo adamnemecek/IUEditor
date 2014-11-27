@@ -41,6 +41,6 @@
 - (BOOL)containClass:(Class)class;
 - (NSDictionary *)eventVariableDict;
 
-@property (weak) id <IUFileItemProtocol> parentFileItem;
+@property (weak) id <IUFileItemProtocol, JDCoding> parentFileItem;
 
 @end

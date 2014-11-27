@@ -22,7 +22,7 @@
 - (void)setUp {
     [super setUp];
     filePath = [NSString stringWithFormat:@"%@/sampleProject.iuml", NSTemporaryDirectory()];
-    project = [[IUProject alloc] initWithCreation:@{IUProjectKeyAppName:@"sampleProject", IUProjectKeyIUFilePath:filePath}  error:nil];
+    project = [[IUProject alloc] initAtTemporaryDirectory];
 }
 
 - (void)tearDown {
@@ -37,17 +37,34 @@
     XCTAssert(YES, @"Pass");
 }
 
-- (void)test2_saveLoad{
+- (void)test2_saveLoadProject{
+    
+    project.name= @"sampleProject";
+    
     JDCoder *encoder = [[JDCoder alloc] init];
     [encoder encodeRootObject:project];
     NSLog(@"file save path: %@", filePath, nil);
-    [encoder writeToFile:filePath error:nil];
+    [encoder writeToFilePath:filePath error:nil];
 
     JDCoder *decoder = [[JDCoder alloc] init];
-    IUProject *proj = [decoder decodeContentOfFile:filePath error:nil];
-    XCTAssertEqualObjects(proj.name, @"sampleProject");
+    IUProject *decodeProject = [decoder decodeContentOfFilePath:filePath error:nil];
+    XCTAssertEqualObjects(decodeProject.name, @"sampleProject");
 }
 
+- (void)test3_saveLoadChild{
+    project.name= @"sampleProject";
+    IUPage *page = project.pageSheets[0];
+    
+    
+    JDCoder *encoder = [[JDCoder alloc] init];
+    [encoder encodeRootObject:project];
+    NSLog(@"file save path: %@", filePath, nil);
+    [encoder writeToFilePath:filePath error:nil];
+    
+    JDCoder *decoder = [[JDCoder alloc] init];
+    IUProject *decodeProject = [decoder decodeContentOfFilePath:filePath error:nil];
+    XCTAssertEqualObjects(decodeProject.name, @"sampleProject");
+}
 
 
 @end

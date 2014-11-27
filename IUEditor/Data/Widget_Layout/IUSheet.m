@@ -21,6 +21,31 @@
     return NO;
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        _ghostX = [aDecoder decodeFloatForKey:@"ghostX"];
+        _ghostY = [aDecoder decodeFloatForKey:@"ghostY"];
+        _ghostOpacity = [aDecoder decodeFloatForKey:@"ghostOpacity"];
+        _ghostImageName = [aDecoder decodeObjectForKey:@"ghostImageName"];
+
+    }
+    return self;
+}
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    _parentFileItem = [aDecoder decodeByRefObjectForKey:@"group"];
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFloat:_ghostX forKey:@"ghostX"];
+    [aCoder encodeFloat:_ghostY forKey:@"ghostY"];
+    [aCoder encodeFloat:_ghostOpacity forKey:@"ghostOpacity"];
+    [aCoder encodeObject:_ghostImageName forKey:@"ghostImageName"];
+    
+    [aCoder encodeByRefObject:_parentFileItem forKey:@"group"];
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {

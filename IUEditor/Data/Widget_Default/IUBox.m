@@ -82,7 +82,7 @@
 #pragma mark - initialize
 
 
--(id)initWithCoder:(NSCoder *)aDecoder{
+-(id)initWithCoder:(NSCoder *)aDecoder __deprecated{
     
     self = [super init];
     if (self) {
@@ -192,7 +192,7 @@
  Review: _m_children의 decode는 순서가 꼬이기 때문에 initWithCoder가 아닌 awkaAfterUsingCoder로 하도록한다.
  (self가 다 할당되기전에 children이 먼저 할당 되면서 발생하는 문제 제거)
  */
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
+- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder __deprecated{
     [super awakeAfterUsingCoder:aDecoder];
     
     _m_children = [aDecoder decodeObjectForKey:@"children"];
@@ -272,7 +272,7 @@
     return self;
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
+-(void)encodeWithCoder:(NSCoder *)aCoder __deprecated{
     if ([self.htmlID length] == 0) {
 #ifdef DEBUG
         NSAssert(0, @"");
@@ -546,7 +546,7 @@
         return _identifierManager;
     }
     else{
-        return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+        return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
 
     }
 }
@@ -556,7 +556,7 @@
     return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
 }
 - (IUIdentifierManager *)identifierManager{
-    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
 
 }
 #endif

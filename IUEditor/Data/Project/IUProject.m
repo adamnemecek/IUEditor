@@ -104,7 +104,23 @@
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [self encodeWithCoder:(NSCoder*)aCoder];
+    [aCoder encodeObject:_mqSizes forKey:@"mqSizes"];
+    [aCoder encodeObject:_buildPath forKey:@"_buildPath"];
+    
+    [aCoder encodeObject:self.buildResourcePath forKey:@"_buildResourcePath"];
+    [aCoder encodeObject:_pageGroup forKey:@"_pageGroup"];
+    [aCoder encodeObject:_classGroup forKey:@"_classGroup"];
+//    [encoder encodeObject:_resourceGroup forKey:@"_resourceGroup"];
+    [aCoder encodeObject:_name forKey:@"_name"];
+    [aCoder encodeObject:_favicon forKey:@"_favicon"];
+    [aCoder encodeObject:_author forKey:@"_author"];
+    
+    //Do not encode server info. instead, save at NSUserDefault
+    //[encoder encodeObject:_serverInfo forKey:@"serverInfo"];
+    [aCoder encodeBool:_enableMinWidth forKey:@"_enableMinWidth"];
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [aCoder encodeObject:version forKey:@"IUProjectVersion"];
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
@@ -335,22 +351,32 @@
     _classGroup.name = IUClassGroupName;
     _classGroup.parentFileItem = self;
     
-    /*
-     [self makeDefaultClasses];
     
+    /* alloc default pages */
+    [self makeDefaultClasses];
     IUPage *pg = [[IUPage alloc] initWithPreset];
     pg.name = @"index";
     pg.htmlID = @"index";
     [self addItem:pg toSheetGroup:_pageGroup];
-    
+
     IUClass *class = [[IUClass alloc] initWithPreset];
     class.name = @"class";
     class.htmlID = @"class";
     [self addItem:class toSheetGroup:_classGroup];
-    
+
+    /*
+     FIXME : resourceManager
+     */
+    _resourceManager = [[IUResourceManager alloc] init];
+
     [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
-    [self.identifierManager registerIUs:self.allSheets];
+
+
+    
+    /*
+    
+    
     
     
     // create build directory
@@ -509,7 +535,7 @@
 
 
 - (IUIdentifierManager *)identifierManager{
-    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
     
 }
 
@@ -542,13 +568,8 @@
     return _compiler;
 }
 
-- (IUCompileRule )compileRule{
-    return _compiler.rule;
-}
-
-- (void)setCompileRule:(IUCompileRule)compileRule{
-    _compiler.rule = compileRule;
-    NSAssert(_compiler != nil, @"");
+- (void)setCompileRule:(IUCompileRule)compileRule __deprecated{
+    //FIXME
 }
 
 
@@ -913,7 +934,7 @@
     
     
     //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
-    //[self initializeCSSJSResource];
+    [self initializeCSSJSResource];
 }
 
 
@@ -924,18 +945,16 @@
     return array;
 }
 
-- (NSArray*)pageSheets{
-    return nil;
-    /*
+- (NSArray*)pageSheets __deprecated{
+    //FIXME :
     NSAssert(_pageGroup, @"pg");
-    return _pageGroup.childrenFiles;
-     */
+    return _pageGroup.childrenFileItems;
+    
 }
-- (NSArray*)classSheets{
-    return nil;
-    /*
-    return _classGroup.childrenFiles;
-     */
+- (NSArray*)classSheets __deprecated{
+    //FIXME :
+    return _classGroup.childrenFileItems;
+    
 }
 - (IUClass *)classWithName:(NSString *)name{
     return [_classGroup sheetWithHtmlID:name];
@@ -954,8 +973,8 @@
 }
 
 - (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
-    NSAssert(0, @"not yet coded");
-    /*
+    /*FIXME : group 구조 바꿔야함. 동작테스트를 위해서 우선 옛날 구조 사용함 */
+
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -967,7 +986,7 @@
 
     }
     
-    [sheetGroup addItem:sheet];
+    [sheetGroup addFileItem:sheet];
     
     if([sheetGroup isEqualTo:_pageGroup]){
         [self didChangeValueForKey:@"pageGroup"];
@@ -979,12 +998,13 @@
         [self didChangeValueForKey:@"classSheets"];
 
     }
-     */
 }
 
 - (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
-    NSAssert(0, @"to be deleted");
     /*
+    NSAssert(0, @"to be deleted");
+     */
+    /*FIXME : group 구조 바꿔야함. 동작테스트를 위해서 우선 옛날 구조 사용함 */
     if([sheetGroup isEqualTo:_pageGroup]){
         [self willChangeValueForKey:@"pageGroup"];
         [self willChangeValueForKey:@"pageSheets"];
@@ -995,7 +1015,7 @@
         [self willChangeValueForKey:@"classSheets"];
         
     }
-    [sheetGroup removeItem:sheet];
+    [sheetGroup removeFileItem:sheet];
     
     if([sheetGroup isEqualTo:_pageGroup]){
         [self didChangeValueForKey:@"pageGroup"];
@@ -1007,7 +1027,7 @@
         [self didChangeValueForKey:@"classSheets"];
         
     }
-     */
+    
 }
 
 - (NSData *)lastCreatedData{

@@ -9,12 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "IUBox.h"
+#import "IUBoxes.h"
 
-@interface JDCoder_IUEditor_Test : XCTestCase
+@interface IUBoxCoder_Test : XCTestCase
 
 @end
 
-@implementation JDCoder_IUEditor_Test{
+@implementation IUBoxCoder_Test{
     IUBox *parentBox;
     IUBox *childBox1;
     IUBox *childBox2;
@@ -60,7 +61,7 @@
 
 
 
-- (void)test4_children{
+- (void)test2_children{
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:parentBox];
     
@@ -71,7 +72,7 @@
     XCTAssert([resultChildBox1.parent.htmlID isEqualToString:@"parentBox"], @"Pass");
 }
 
-- (void)test5_selector{
+- (void)test3_selector{
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:parentBox];
     
@@ -84,6 +85,42 @@
     XCTAssert(resultChildBox2.link == resultChildBox1, @"Pass");
 }
 
+- (void)test4_IUPage{
+    IUClass *headerClass = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUHeader *header = [[IUHeader alloc] initWithPreset:headerClass];
+    IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
+    IUPageContent *pageContent = page.pageContent;
+    IUText *titleBox = (IUText *)pageContent.children[0];
+    titleBox.defaultPropertyStorage.innerHTML = @"hihi";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:page];
+    
+    
+    
+    IUPage *decodePage = [coder decodeRootObject];
+    IUPageContent *decodePageContent = decodePage.pageContent;
+    IUText *decodeTitleBox = (IUText *)decodePageContent.children[0];
+
+    
+    XCTAssertEqual(decodePage.layout, IUPageLayoutDefault);
+    XCTAssertEqual(decodeTitleBox.defaultPropertyStorage.innerHTML, @"hihi");
+
+}
+
+- (void)test5_IUClass{
+    IUClass *iu = [[IUClass alloc] initWithPreset];
+    IUImport *import = [[IUImport alloc] initWithPreset:iu];
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUClass *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.references.count, 1);
+
+    
+
+}
 
 
 @end

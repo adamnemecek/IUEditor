@@ -72,7 +72,7 @@
     self = [super initWithPreset];
     [self.undoManager disableUndoRegistration];
 
-    _prototypeClass = aClass;
+    self.prototypeClass = aClass;
     
     for (NSString *selector in [aClass allCSSSelectors]) {
         [self setStorageManager:[aClass dataManagerForSelector:selector] forSelector:selector];

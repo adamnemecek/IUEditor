@@ -98,6 +98,20 @@
     return self;
 }
 
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    //FIXME:
+    //encodeObject  무한루프
+    //encodeByRefObject 디코드 익셉션으로 빠짐
+    
+    _referenceImports = [aDecoder decodeObjectForKey:@"referenceImport"];
+    
+}
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    //FIXME:
+    [aCoder encodeObject:_referenceImports forKey:@"referenceImport"];
+}
+
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self =  [super awakeAfterUsingCoder:aDecoder];
 

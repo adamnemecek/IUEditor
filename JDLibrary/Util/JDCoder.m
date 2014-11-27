@@ -398,12 +398,17 @@
     }
 }
 
-- (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error{
+- (BOOL)writeToFilePath:(NSString *)filePath error:(NSError **)error{
     NSData *data = [self data];
     return [data writeToFile:filePath options:0 error:error];
 }
 
-- (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error{
+- (id)decodeContentOfData:(NSData *)data error:(NSError *__autoreleasing *)error{
+    workingDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
+    return [self decodeRootObject];
+}
+
+- (id)decodeContentOfFilePath:(NSString*)filePath error:(NSError **)error{
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     workingDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:error];
     return [self decodeRootObject];

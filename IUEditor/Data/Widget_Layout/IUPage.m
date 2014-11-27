@@ -13,12 +13,14 @@
 #import "IUProject.h"
 
 @implementation IUPage{
+    
+    //page has only 4 children as below
     IUPageContent *_pageContent;
+    IUHeader *_header;
+    IUSidebar *_sidebar;
+    IUFooter *_footer;
     
-    IUHeader *_header; __storage_deprecated//it should be weak at storage mode
-    IUSidebar *_sidebar;  __storage_deprecated//it should be weak at storage mode
-    IUFooter *_footer;  __storage_deprecated//it should be weak at storage mode
-    
+    //page layout
     IUPageLayout _layout;
 }
 
@@ -31,7 +33,6 @@
 
 
 #pragma mark - Initialize
-
 -(void)loadPresetWithLayout:(IUPageLayout)layout header:(IUHeader*)header footer:(IUFooter*)footer sidebar:(IUSidebar*)sidebar {
     _layout = layout;
     _header = header;
@@ -157,6 +158,35 @@
 
 
 #pragma mark - Storage deprecated
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    
+    [aCoder encodeObject:_pageContent forKey:@"pageContent"];
+    [aCoder encodeObject:_header forKey:@"header"];
+    [aCoder encodeObject:_footer forKey:@"footer"];
+    [aCoder encodeObject:_sidebar forKey:@"sidebar"];
+    [aCoder encodeInteger:_layout forKey:@"layout"];
+    
+    [aCoder encodeFromObject:self withProperties:[IUPage properties]];
+
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [aDecoder decodeToObject:self withProperties:[IUPage properties]];
+        _pageContent = [aDecoder decodeObjectForKey:@"pageContent"];
+        _header = [aDecoder decodeObjectForKey:@"header"];
+        _footer = [aDecoder decodeObjectForKey:@"footer"];
+        _sidebar = [aDecoder decodeObjectForKey:@"sidebar"];
+        _layout = (IUPageLayout)[aDecoder decodeIntegerForKey:@"layout"];
+
+    }
+    return self;
+}
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    
+}
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
@@ -170,8 +200,6 @@
         
         [aDecoder decodeToObject:self withProperties:[IUPage properties]];
         _pageContent = [aDecoder decodeObjectForKey:@"pageContent"];
-        [_pageContent bind:@"delegate" toObject:self withKeyPath:@"delegate" options:nil];
-        
     }
     return self;
 }
@@ -247,11 +275,6 @@
     return NO;
 }
 
-
-- (void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
-    [super setCanvasVC:canvasVC];
-    [_pageContent setCanvasVC:canvasVC];
-}
 
 #pragma mark - property
 

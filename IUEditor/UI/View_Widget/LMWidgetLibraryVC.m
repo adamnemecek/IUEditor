@@ -102,7 +102,7 @@
 }
 
 - (IUIdentifierManager *)identifierManager{
-    return [[[NSApp mainWindow] windowController] performSelector:@selector(identifierManager)];
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
     
 }
 

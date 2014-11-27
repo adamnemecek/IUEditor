@@ -10,6 +10,7 @@
 #define IUEditor_IUBoxes_h
 
 #import "IUBox.h"
+#import "IUText.h"
 #import "IUImage.h"
 #import "IUCenterBox.h"
 #import "IUHTML.h"
@@ -21,6 +22,7 @@
 #import "IUBackground+WP.h"
 #import "IUFooter.h"
 #import "IUHeader.h"
+#import "IUPage.h"
 #import "IUPage+WP.h"
 #import "IUPageContent.h"
 #import "IUSection.h"

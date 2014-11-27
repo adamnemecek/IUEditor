@@ -10,6 +10,7 @@
 #import "IUProjectController.h"
 
 static NSString *iuDataName = @"iuData";
+static NSString *projectJsonData = @"projectJsonData";
 
 //set metadata
 static NSString *metaDataFileName = @"metaData.plist";
@@ -30,7 +31,10 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
 - (id)init{
     self = [super init];
     if(self){
-    
+        //allocation identifiermanager
+        _identifierManager = [[IUIdentifierManager alloc] init];
+        
+        //allocation metadata
         self.metaDataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              @"IUEditor", MetaDataKey,
                              nil];
@@ -94,14 +98,18 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         [projectDict setObject:filePath forKey:IUProjectKeyIUFilePath];
         [projectDict setObject:appName forKey:IUProjectKeyAppName];
         
-        NSError *error;
         
+        /*
+         FIXME : version Control
+         NSError *error;
         IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initWithCreation:projectDict error:&error];
-        if (error != nil) {
-            NSAssert(0, @"");
-        }
+         */
+        
+        IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initAtTemporaryDirectory];
         if(newProject){
             _project = newProject;
+            [self.identifierManager registerIUs:_project.allSheets];
+            
             return YES;
         }
         return NO;
@@ -219,18 +227,33 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     
     NSDictionary *fileWrappers = [[self documentFileWrapper] fileWrappers];
     //save iudata
+    //FIXME : Version Control
+    /*
     if( [fileWrappers objectForKey:iuDataName] != nil ){
         NSFileWrapper *iuDataWrapper = [fileWrappers objectForKey:iuDataName];
         [[self documentFileWrapper] removeFileWrapper:iuDataWrapper];
     }
     
     if(_project){
+     
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_project];
-        //FIXME: Change to JSONData
-//        NSData *data = [_project jsonData];
         NSFileWrapper *iuDataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:data];
         [iuDataWrapper setPreferredFilename:iuDataName];
         [[self documentFileWrapper] addFileWrapper:iuDataWrapper];
+    }
+    */
+    //save Project
+    if( [fileWrappers objectForKey:projectJsonData] != nil){
+        NSFileWrapper *projectDataWrapper = [fileWrappers objectForKey:projectJsonData];
+        [[self documentFileWrapper] removeFileWrapper:projectDataWrapper];
+    }
+    if(_project){
+        JDCoder *coder = [[JDCoder alloc] init];
+        [coder encodeRootObject:_project];
+        NSString *tempJsonPath = [NSString stringWithFormat:@"%@/%@_temp.iuml", NSTemporaryDirectory(), _project.name];
+        [coder writeToFilePath:tempJsonPath error:nil];
+        NSFileWrapper *projectWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:tempJsonPath]options:0 error:nil];
+        [projectWrapper setPreferredFilename:_project.name];
     }
 
     //save resource files
@@ -345,6 +368,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     BOOL readSuccess= NO;
     NSDictionary *fileWrappers = [fileWrapper fileWrappers];
 
+    /*FIXME : version Control*/
+    /*
     NSFileWrapper *iuDataWrapper = [fileWrappers objectForKey:iuDataName];
 
     if(iuDataWrapper){
@@ -358,7 +383,19 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         
 
     }
+     */
     
+    NSFileWrapper *projectDataWarpper = [fileWrappers objectForKey:projectJsonData];
+    if(projectDataWarpper){
+        NSData *jsonData = [projectDataWarpper regularFileContents];
+        JDCoder *coder = [[JDCoder alloc] init];
+        _project =  [coder decodeContentOfData:jsonData error:nil];
+        if(_project){
+            [self changeProjectPath:[self fileURL]];
+            readSuccess = YES;
+        }
+    }
+        
     
     // load the metaData file from it's wrapper
     NSFileWrapper *metaDataFileWrapper = [fileWrappers objectForKey:metaDataFileName];

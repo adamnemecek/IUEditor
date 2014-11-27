@@ -85,8 +85,9 @@
 - (void)encodeRootObject:(id<JDCoding>)object;
 - (id)decodeRootObject;
 
-- (BOOL)writeToFile:(NSString *)filePath error:(NSError **)error;
-- (id)decodeContentOfFile:(NSString*)filePath error:(NSError **)error;
+- (BOOL)writeToFilePath:(NSString *)filePath error:(NSError **)error;
+- (id)decodeContentOfData:(NSData *)data error:(NSError *__autoreleasing *)error;
+- (id)decodeContentOfFilePath:(NSString*)filePath error:(NSError **)error;
 - (void)encodeArray:(NSArray *)array;
 - (NSArray *)decodeArray;
 - (NSDictionary *)decodeDictionary;

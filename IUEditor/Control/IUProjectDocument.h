@@ -14,6 +14,13 @@
 
 @property IUProject *project;
 
+/* manager */
+//source Manager
+@property IUSourceManager *sourceManager;
+//identifier Manager
+@property IUIdentifierManager *identifierManager;
+
+
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
 - (LMWC *)lemonWindowController;
 

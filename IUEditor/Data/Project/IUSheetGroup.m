@@ -26,7 +26,7 @@
 
 - (id)copyWithZone:(NSZone *)zone{
     IUSheetGroup *group = [[IUSheetGroup allocWithZone:zone] init];
-    for (IUSheet *sheet in self.childrenFiles) {
+    for (IUSheet *sheet in self.childrenFileItems) {
         [group addFileItem:sheet];
     }
     group.name = self.name;
@@ -83,7 +83,7 @@
     _children = [children mutableCopy];
 }
 
-- (NSArray*)childrenFiles{
+- (NSArray*)childrenFileItems{
     return _children;
 }
 

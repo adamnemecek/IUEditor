@@ -193,7 +193,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 - (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC __deprecated;
 
-//@property (nonatomic) NSString *text;
 
 - (IUTextInputType)textInputType;
 

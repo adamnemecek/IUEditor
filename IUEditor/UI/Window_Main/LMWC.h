@@ -29,9 +29,6 @@
 
 //source Manager
 @property IUSourceManager *sourceManager;
-//identifier Manager
-@property IUIdentifierManager *identifierManager;
-
 
 
 /** current sheet for notification 

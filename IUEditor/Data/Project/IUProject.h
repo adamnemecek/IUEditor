@@ -55,20 +55,60 @@ static NSString *IUClassGroupName = @"class";
     IUResourceGroup *_resourceGroup;
     IUServerInfo *_serverInfo;
     
-    IUCompiler *_compiler;
-    IUResourceManager *_resourceManager;
-//    IUIdentifierManager *_identifierManager;
+    IUCompiler *_compiler __deprecated;
+    IUResourceManager *_resourceManager __deprecated;
     
     NSString  *_path;
     NSMutableArray *_mqSizes;
     
 }
+
+//class properties
++ (NSArray *)widgetList;
+
+
+
+/**
+ Make Project at Temporary directory.
+ Use Untitled document
+ @brief create project at temporary directory
+ */
+- (id)initAtTemporaryDirectory;
+
+//project properties
+- (NSArray*)mqSizes;
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//      Old Version                //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 /**
  IUProject version control
  */
 @property  NSString *IUProjectVersion;
 
-+ (NSArray *)widgetList;
+
 
 
 //create project
@@ -79,7 +119,7 @@ static NSString *IUClassGroupName = @"class";
  @breif create project
  @param setting a dictionary which has IUProjectKeyAppName and IUProjectKeyDirectory
  */
--(id)initWithCreation:(NSDictionary*)options error:(NSError**)error;
+-(id)initWithCreation:(NSDictionary*)options error:(NSError**)error __deprecated;
 
 /**
  @breif create project from other project (conversion)
@@ -87,13 +127,6 @@ static NSString *IUClassGroupName = @"class";
  */
 -(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error __deprecated;
 
-/**
- Make Project at Temporary directory.
- Used in Unit Test
-
- @brief create project at temporary directory
- */
-- (id)initAtTemporaryDirectory;
 
 - (void)initializeResource;
 
@@ -104,8 +137,6 @@ static NSString *IUClassGroupName = @"class";
 - (NSArray *)defaultEditorJSArray;
 - (NSArray *)defaultOutputJSArray;
 
-//project properties
-- (NSArray*)mqSizes;
 
 /*
  @ important
@@ -160,8 +191,6 @@ static NSString *IUClassGroupName = @"class";
 @property NSString *buildResourcePath;
 - (void)resetBuildPath;
 
-//undo manager
-- (NSUndoManager *)undoManager;
 
 - (NSData *)lastCreatedData;
 - (NSData *)createData;

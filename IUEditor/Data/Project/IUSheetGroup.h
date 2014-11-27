@@ -24,11 +24,10 @@
 /**
  Add Item. Item can be IUSheet or IUSheet Group
  */
-/*
-- (void)addItem:(id)item;
-- (void)removeItem:(id)item;
+
+- (void)addFileItem:(id<IUFileItemProtocol>)fileItem;
+- (void)removeFileItem:(id<IUFileItemProtocol>)fileItem;
 - (void)changeIndex:(id)item toIndex:(NSUInteger)newIndex;
- */
 
 - (id)sheetWithHtmlID:(NSString *)identifier;
 

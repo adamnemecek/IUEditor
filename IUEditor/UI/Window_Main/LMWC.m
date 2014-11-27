@@ -180,9 +180,6 @@
         _sourceManager = [[IUSourceManager alloc] init];
         [_sourceManager setCanvasVC:canvasVC];
         
-        //allocation identifiermanager
-        _identifierManager = [[IUIdentifierManager alloc] init];
-        
         //allocated jsmanager to VC (run js)
         [appearanceVC setJsManager:jsManager];
         
@@ -315,14 +312,12 @@
         
         //project error check
         _project = document.project;
-        NSError *error;
         NSAssert(_project.pageSheets, @"");
+        
+        //FIXME: resource
         NSAssert(_project.resourceManager, @"");
         
-        if (error) {
-            NSAssert(0, @"");
-            return;
-        }
+
         if (_project == nil) {
             return;
         }
