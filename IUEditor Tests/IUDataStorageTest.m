@@ -25,6 +25,7 @@
 - (void)setUp {
     [super setUp];
     storageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    storage = [[IUStyleStorage alloc] init];
 
     arr = [NSMutableArray array];
 }

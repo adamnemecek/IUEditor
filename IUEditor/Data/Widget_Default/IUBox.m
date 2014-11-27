@@ -110,23 +110,78 @@
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
-//    _css = [aDecoder decodeObjectForKey:@"css"];
+    _name = [aDecoder decodeObjectForKey:@"name"];
     _m_children = [aDecoder decodeObjectForKey:@"children"];
+    
+    _linkTarget = [aDecoder decodeBoolForKey:@"linkTarget"];
+    
+    //storage manager
+    IUDataStorageManager *positionManager = [aDecoder decodeObjectForKey:@"positionManager"];
+    IUDataStorageManager *styleManager = [aDecoder decodeObjectForKey:@"styleManager"];
+    IUDataStorageManager *propertyManager = [aDecoder decodeObjectForKey:@"propertyManager"];
+    IUDataStorageManager *hoverManager = [aDecoder decodeObjectForKey:@"hoverStyleManager"];
+    
+    storageManagersDict = [NSMutableDictionary dictionary];
+    
+    [self setStorageManager:positionManager forSelector:kIUPositionManager];
+    [self setStorageManager:styleManager forSelector:kIUStyleManager];
+    [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
+    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+    
+    
+    //binding
+    if (self.defaultStyleManager) {
+        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    
+    if(self.positionManager){
+        [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
+        
+    }
+    
+    if(self.propertyManager){
+        [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    
+
     
     return self;
 }
 
+
+
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    _link = [aDecoder decodeByRefObjectForKey:@"link"];
+
     _parent = [aDecoder decodeByRefObjectForKey:@"parent"];
+    
+    _link = [aDecoder decodeByRefObjectForKey:@"link"];
+    _divLink = [aDecoder decodeByRefObjectForKey:@"divLink"];
+
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    
     [aCoder encodeObject:self.htmlID forKey:@"htmlID"];
-//    [aCoder encodeObject:self.css forKey:@"css"];
+    [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.children forKey:@"children"];
-    [aCoder encodeByRefObject:self.link forKey:@"link"];
+    
     [aCoder encodeByRefObject:self.parent forKey:@"parent"];
+    
+    [aCoder encodeBool:self.linkTarget forKey:@"linkTarget"];
+    [aCoder encodeByRefObject:self.link forKey:@"link"];
+    [aCoder encodeByRefObject:self.divLink forKey:@"divLink"];
+    
+    
+    [aCoder encodeObject:self.positionManager forKey:@"positionManager"];
+    [aCoder encodeObject:self.defaultStyleManager forKey:@"styleManager"];
+    [aCoder encodeObject:self.propertyManager forKey:@"propertyManager"];
+    [aCoder encodeObject:self.hoverStyleManager forKey:@"hoverStyleManager"];
 }
 
 -(id <IUProjectProtocol>)project{

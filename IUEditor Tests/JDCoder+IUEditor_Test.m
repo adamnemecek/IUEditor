@@ -25,8 +25,6 @@
     NSLog(@"test");
     parentBox = [[IUBox alloc] initWithPreset];
     parentBox.htmlID = @"parentBox";
-    [parentBox.css setValue:@"VALUETEST" forTag:@"IUCSSTagForTest"];
-    [parentBox.css setValue:@(10) forTag:@"IUCSSTagForTestNum"];
     
     childBox1 = [[IUBox alloc] initWithPreset];
     childBox1.htmlID = @"ChildBox1";
@@ -60,18 +58,22 @@
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
 
-/*
- - (void)test2_IUBoxCSS{
- // This is an example of a functional test case.
- JDCoder *coder = [[JDCoder alloc] init];
- [coder encodeRootObject:parentBox];
- IUBox *resultBox = [coder decodedAndInitializeObject];
- 
- XCTAssert([[resultBox.css effectiveValueForTag:@"IUCSSTagForTest" forViewport:IUCSSDefaultViewPort] isEqualToString:@"VALUETEST"], @"Pass");
- NSInteger result = [[resultBox.css effectiveValueForTag:@"IUCSSTagForTestNum" forViewport:IUCSSDefaultViewPort] integerValue];
- XCTAssert(result == 10, @"Pass");
- }
- */
+
+- (void)test2_IUBoxEncoding2{
+    // This is an example of a functional test case.
+    IUBox *oneBox = [[IUBox alloc] initWithPreset];
+    oneBox.htmlID = @"OneBox";
+    oneBox.defaultStyleStorage.fontName = @"Roboto";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:oneBox];
+    IUBox *resultBox = [coder decodeRootObject];
+    
+    XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
+    XCTAssert([resultBox.defaultStyleStorage.fontName isEqualToString:@"Roboto"], @"Pass");
+
+}
+
 
 
 - (void)test4_children{
