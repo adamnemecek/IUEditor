@@ -59,22 +59,6 @@
 }
 
 
-- (void)test2_IUBoxEncoding2{
-    // This is an example of a functional test case.
-    IUBox *oneBox = [[IUBox alloc] initWithPreset];
-    oneBox.htmlID = @"OneBox";
-    oneBox.defaultStyleStorage.fontName = @"Roboto";
-    
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:oneBox];
-    IUBox *resultBox = [coder decodeRootObject];
-    
-    XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
-    XCTAssert([resultBox.defaultStyleStorage.fontName isEqualToString:@"Roboto"], @"Pass");
-
-}
-
-
 
 - (void)test4_children{
     JDCoder *coder = [[JDCoder alloc] init];

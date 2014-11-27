@@ -15,6 +15,23 @@
     return [IUPropertyStorage properties];
 }
 
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    
+    [aCoder encodeObject:_innerHTML forKey:@"innerHTML"];
+    [aCoder encodeObject:_collectionCount forKey:@"collectionCount"];
+    [aCoder encodeObject:_carouselArrowDisable forKey:@"carouselArrowDisable"];
+}
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if (self) {
+        _innerHTML = [aDecoder decodeObjectForKey:@"innerHTML"];
+        _collectionCount = [aDecoder decodeObjectForKey:@"collectionCount"];
+        _carouselArrowDisable = [aDecoder decodeObjectForKey:@"carouselArrowDisable"];
+    }
+    return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUPropertyStorage *copyStorage = [super copyWithZone:zone];
     [copyStorage disableUpdate:JD_CURRENT_FUNCTION];

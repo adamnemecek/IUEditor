@@ -24,15 +24,135 @@
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [super encodeWithJDCoder:aCoder];
+    
+    [aCoder encodeObject:_hidden forKey:@"hidden"];
+    [aCoder encodeObject:_editorHidden forKey:@"editorHidden"];
+    [aCoder encodeObject:_opacity forKey:@"opacity"];
+    
+    [aCoder encodeObject:_overflowType forKey:@"overflowType"];
+    
+    [aCoder encodeObject:_widthUnit forKey:@"widthUnit"];
+    [aCoder encodeObject:_heightUnit forKey:@"heightUnit"];
+    
     [aCoder encodeObject:_width forKey:@"width"];
     [aCoder encodeObject:_height forKey:@"height"];
+    [aCoder encodeObject:_minHeight forKey:@"minHeight"];
+    [aCoder encodeObject:_minWidth forKey:@"minWidth"];
+    
+    [aCoder encodeObject:_imageName forKey:@"imageName"];
+    [aCoder encodeObject:_imageRepeat forKey:@"imageRepeat"];
+    
+    [aCoder encodeObject:_imageHPosition forKey:@"imageHPosition"];
+    [aCoder encodeObject:_imageVPosition forKey:@"imageVPosition"];
+    [aCoder encodeObject:_imageX forKey:@"imageX"];
+    [aCoder encodeObject:_imageY forKey:@"imageY"];
+    
+    [aCoder encodeObject:_imageSizeType forKey:@"imageSizeType"];
+    [aCoder encodeObject:_imageAttachment forKey:@"imageAttachment"];
+    
+    [aCoder encodeObject:_bgColor forKey:@"bgColor"];
+    [aCoder encodeObject:_bgGradientStartColor forKey:@"bgGradientStartColor"];
+    [aCoder encodeObject:_bgGradientEndColor forKey:@"bgGradientEndColor"];
+    [aCoder encodeObject:_bgColorDuration forKey:@"bgColorDuration"];
+    
+    [aCoder encodeObject:_topBorderColor forKey:@"topBorderColor"];
+    [aCoder encodeObject:_leftBorderColor forKey:@"leftBorderColor"];
+    [aCoder encodeObject:_rightBorderColor forKey:@"rightBorderColor"];
+    [aCoder encodeObject:_bottomBorderColor forKey:@"bottomBorderColor"];
+    
+    [aCoder encodeObject:_topBorderWidth forKey:@"topBorderWidth"];
+    [aCoder encodeObject:_leftBorderWidth forKey:@"leftBorderWidth"];
+    [aCoder encodeObject:_rightBorderWidth forKey:@"rightBorderWidth"];
+    [aCoder encodeObject:_bottomBorderWidth forKey:@"bottomBorderWidth"];
+    
+    [aCoder encodeObject:_fontName forKey:@"fontName"];
+    [aCoder encodeObject:_fontSize forKey:@"fontSize"];
+    [aCoder encodeObject:_fontColor forKey:@"fontColor"];
+    [aCoder encodeObject:_fontWeight forKey:@"fontWeight"];
+    [aCoder encodeObject:_fontItalic forKey:@"fontItalic"];
+    [aCoder encodeObject:_fontUnderline forKey:@"fontUnderline"];
+    
+    [aCoder encodeObject:_fontAlign forKey:@"fontAlign"];
+    [aCoder encodeObject:_fontLineHeight forKey:@"fontLineHeight"];
+    [aCoder encodeObject:_fontLetterSpacing forKey:@"fontLetterSpacing"];
+    [aCoder encodeObject:_fontEllipsis forKey:@"fontEllipsis"];
+
+    [aCoder encodeObject:_shadowColor forKey:@"shadowColor"];
+    [aCoder encodeObject:_shadowColorVertical forKey:@"shadowColorVertical"];
+    [aCoder encodeObject:_shadowColorHorizontal forKey:@"shadowColorHorizontal"];
+    [aCoder encodeObject:_shadowColorSpread forKey:@"shadowColorSpread"];
+    [aCoder encodeObject:_shadowColorBlur forKey:@"shadowColorBlur"];
+        
     return;
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
-    _width = [aDecoder decodeObjectForKey:@"width"];
-    _height = [aDecoder decodeObjectForKey:@"height"];
+    if(self){
+        _hidden = [aDecoder decodeObjectForKey:@"hidden"];
+        _editorHidden = [aDecoder decodeObjectForKey:@"editorHidden"];
+        _opacity = [aDecoder decodeObjectForKey:@"opacity"];
+        
+        _overflowType = [aDecoder decodeObjectForKey:@"overflowType"];
+        
+    
+        _widthUnit = [aDecoder decodeObjectForKey:@"widthUnit"];
+        _heightUnit = [aDecoder decodeObjectForKey:@"heightUnit"];
+        
+        _width = [aDecoder decodeObjectForKey:@"width"];
+        _height = [aDecoder decodeObjectForKey:@"height"];
+        _minHeight = [aDecoder decodeObjectForKey:@"minHeight"];
+        _minWidth = [aDecoder decodeObjectForKey:@"minWidth"];
+        
+        _imageName = [aDecoder decodeObjectForKey:@"imageName"];
+        _imageRepeat = [aDecoder decodeObjectForKey:@"imageRepeat"];
+        
+        _imageHPosition = [aDecoder decodeObjectForKey:@"imageHPosition"];
+        _imageVPosition = [aDecoder decodeObjectForKey:@"imageVPosition"];
+        _imageX = [aDecoder decodeObjectForKey:@"imageX"];
+        _imageY = [aDecoder decodeObjectForKey:@"imageY"];
+        
+        _imageSizeType = [aDecoder decodeObjectForKey:@"imageSizeType"];
+        _imageAttachment = [aDecoder decodeObjectForKey:@"imageAttachment"];
+        
+        
+        _bgColor = [aDecoder decodeObjectForKey:@"bgColor"];
+        _bgGradientStartColor = [aDecoder decodeObjectForKey:@"bgGradientStartColor"];
+        _bgGradientEndColor = [aDecoder decodeObjectForKey:@"bgGradientEndColor"];
+        _bgColorDuration = [aDecoder decodeObjectForKey:@"bgColorDuration"];
+        
+        
+        _topBorderColor = [aDecoder decodeObjectForKey:@"topBorderColor"];
+        _leftBorderColor = [aDecoder decodeObjectForKey:@"leftBorderColor"];
+        _rightBorderColor = [aDecoder decodeObjectForKey:@"rightBorderColor"];
+        _bottomBorderColor = [aDecoder decodeObjectForKey:@"bottomBorderColor"];
+        
+        _topBorderWidth = [aDecoder decodeObjectForKey:@"topBorderWidth"];
+        _leftBorderWidth = [aDecoder decodeObjectForKey:@"leftBorderWidth"];
+        _rightBorderWidth = [aDecoder decodeObjectForKey:@"rightBorderWidth"];
+        _bottomBorderWidth = [aDecoder decodeObjectForKey:@"bottomBorderWidth"];
+        
+        
+        _fontName = [aDecoder decodeObjectForKey:@"fontName"];
+        _fontSize = [aDecoder decodeObjectForKey:@"fontSize"];
+        _fontColor = [aDecoder decodeObjectForKey:@"fontColor"];
+        _fontWeight = [aDecoder decodeObjectForKey:@"fontWeight"];
+        _fontItalic = [aDecoder decodeObjectForKey:@"fontItalic"];
+        _fontUnderline = [aDecoder decodeObjectForKey:@"fontUnderline"];
+        
+        _fontAlign = [aDecoder decodeObjectForKey:@"fontAlign"];
+        _fontLineHeight = [aDecoder decodeObjectForKey:@"fontLineHeight"];
+        _fontLetterSpacing = [aDecoder decodeObjectForKey:@"fontLetterSpacing"];
+        _fontEllipsis = [aDecoder decodeObjectForKey:@"fontEllipsis"];
+        
+        _shadowColor = [aDecoder decodeObjectForKey:@"shadowColor"];
+        _shadowColorVertical = [aDecoder decodeObjectForKey:@"shadowColorVertical"];
+        _shadowColorHorizontal = [aDecoder decodeObjectForKey:@"shadowColorHorizontal"];
+        _shadowColorSpread = [aDecoder decodeObjectForKey:@"shadowColorSpread"];
+        _shadowColorBlur = [aDecoder decodeObjectForKey:@"shadowColorBlur"];
+        
+    }
+    
     return self;
 }
 
@@ -98,7 +218,6 @@
         copyStorage.shadowColorHorizontal = _shadowColorHorizontal;
         copyStorage.shadowColorSpread = _shadowColorSpread;
         copyStorage.shadowColorBlur = _shadowColorBlur;
-        
         
     }
     [copyStorage enableUpdate:JD_CURRENT_FUNCTION];

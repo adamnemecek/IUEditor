@@ -20,6 +20,30 @@
     return [IUPositionStorage properties];
 }
 
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    
+    [aCoder encodeObject:_position forKey:@"position"];
+    [aCoder encodeObject:_xUnit forKey:@"xUnit"];
+    [aCoder encodeObject:_yUnit forKey:@"yUnit"];
+    [aCoder encodeObject:_x forKey:@"x"];
+    [aCoder encodeObject:_y forKey:@"y"];
+    
+}
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if (self){
+        
+        _position = [aDecoder decodeObjectForKey:@"position"];
+        _xUnit = [aDecoder decodeObjectForKey:@"xUnit"];
+        _yUnit = [aDecoder decodeObjectForKey:@"yUnit"];
+        _x = [aDecoder decodeObjectForKey:@"x"];
+        _y = [aDecoder decodeObjectForKey:@"y"];
+        
+    }
+    return self;
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUPositionStorage *copyStorage = [super copyWithZone:zone];
     [copyStorage disableUpdate:JD_CURRENT_FUNCTION];

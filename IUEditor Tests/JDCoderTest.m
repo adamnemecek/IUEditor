@@ -132,6 +132,28 @@
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
 }
 
+
+- (void)test5_IUBoxEncoding2{
+    // This is an example of a functional test case.
+    IUBox *oneBox = [[IUBox alloc] initWithPreset];
+    oneBox.htmlID = @"OneBox";
+    oneBox.defaultStyleStorage.fontName = @"Roboto";
+    oneBox.defaultPropertyStorage.innerHTML = @"aaa";
+    oneBox.defaultPositionStorage.y = @(20);
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:oneBox];
+    IUBox *resultBox = [coder decodeRootObject];
+    
+    XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
+    XCTAssert([resultBox.defaultStyleStorage.fontName isEqualToString:@"Roboto"], @"Pass");
+    XCTAssert([resultBox.defaultPropertyStorage.innerHTML isEqualToString:@"aaa"], @"Pass");
+    XCTAssert([resultBox.defaultPositionStorage.y isEqualToNumber:@(20)], @"Pass");
+
+}
+
+
+
 -(void)test5_memorySharing{
     NSMutableString *str = [@"abcd" mutableCopy];
     JDCoder *coder = [[JDCoder alloc] init];

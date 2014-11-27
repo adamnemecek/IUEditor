@@ -303,15 +303,26 @@
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
-    _workingStorages = [aDecoder decodeObjectForKey:@"storages"];
-    
-    [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-    self.currentViewPort = IUCSSDefaultViewPort;
+    if(self){
+        _workingStorages = [aDecoder decodeObjectForKey:@"storages"];
+        self.currentViewPort = IUCSSDefaultViewPort;
+        
+        _defaultStorage =  [_workingStorages objectForKey:@(IUDefaultViewPort)];
+        _currentStorage = _defaultStorage;
+
+        _owners = [aDecoder decodeObjectForKey:@"owners"];
+    }
     return self;
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    //TODO: decode owner
+        
+    for(IUDataStorage *storage in [_workingStorages allValues]){
+        storage.manager = self;
+    }
+    
+    [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
+    
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
