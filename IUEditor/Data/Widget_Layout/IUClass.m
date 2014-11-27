@@ -99,11 +99,15 @@
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    [self.undoManager disableUndoRegistration];
     //FIXME:
     //encodeObject  무한루프
     //encodeByRefObject 디코드 익셉션으로 빠짐
     
     _referenceImports = [aDecoder decodeObjectForKey:@"referenceImport"];
+    
+    [self.undoManager enableUndoRegistration];
     
 }
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{

@@ -41,6 +41,20 @@
     [aCoder encodeFromObject:self withProperties:[IUCollectionView properties]];
 }
 
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    [self.undoManager disableUndoRegistration];
+    
+    _collection = [aDecoder decodeByRefObjectForKey:@"collection"];
+    
+    [self.undoManager enableUndoRegistration];
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeByRefObject:_collection forKey:@"collection"];
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUCollectionView *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];

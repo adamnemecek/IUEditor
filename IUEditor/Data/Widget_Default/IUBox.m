@@ -157,12 +157,14 @@
 
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-
+    [self.undoManager disableUndoRegistration];
+    
     _parent = [aDecoder decodeByRefObjectForKey:@"parent"];
     
     _link = [aDecoder decodeByRefObjectForKey:@"link"];
     _divLink = [aDecoder decodeByRefObjectForKey:@"divLink"];
 
+    [self.undoManager enableUndoRegistration];
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{

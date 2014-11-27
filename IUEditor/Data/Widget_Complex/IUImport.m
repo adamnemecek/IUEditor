@@ -44,6 +44,19 @@
     
     [aCoder encodeObject:_prototypeClass forKey:@"_prototypeClass"];
 }
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    [self.undoManager disableUndoRegistration];
+    
+    self.prototypeClass = [aDecoder decodeByRefObjectForKey:@"_prototypeClass"];
+    
+    [self.undoManager enableUndoRegistration];
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeByRefObject:_prototypeClass forKey:@"_prototypeClass"];
+}
 
 - (id)copyWithZone:(NSZone *)zone{
     IUImport *iu = [super copyWithZone:zone];
@@ -57,6 +70,8 @@
     [self.undoManager enableUndoRegistration];
     return iu;
 }
+
+
 
 - (void)connectWithEditor{
     

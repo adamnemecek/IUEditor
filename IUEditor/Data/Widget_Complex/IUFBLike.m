@@ -67,6 +67,23 @@
     }
     return self;
 }
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUFBLike class] properties]];
+        _fbSource = @"<iframe src=\"//www.facebook.com/plugins/like.php?href=__FB_LINK_ADDRESS__+&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=__SHOW_FACE__&amp;share=true&amp;colorscheme=__COLOR_SCHEME__&amp;\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; height:__HEIGHT__px\" allowTransparency=\"true\"></iframe>";
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUFBLike class] properties]];
+}
+
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
     [aCoder encodeFromObject:self withProperties:[[IUFBLike class] properties]];
@@ -87,7 +104,9 @@
 }
 
 -(void) dealloc{
-    [self removeObserver:self forKeyPaths:@[@"showFriendsFace", @"likePage", @"colorscheme"]];
+    if(self.isConnectedWithEditor){
+        [self removeObserver:self forKeyPaths:@[@"showFriendsFace", @"likePage", @"colorscheme"]];
+    }
 }
 
 - (void)IUFBSourceContextDidChange:(NSDictionary *)change{

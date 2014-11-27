@@ -69,7 +69,9 @@
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [self.undoManager disableUndoRegistration];
     _parent = [aDecoder decodeByRefObjectForKey:@"_parent"];
+    [self.undoManager enableUndoRegistration];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{

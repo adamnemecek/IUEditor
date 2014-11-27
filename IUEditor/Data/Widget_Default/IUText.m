@@ -55,7 +55,9 @@
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){
+        [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[[IUText class] properties]];
+        [self.undoManager enableUndoRegistration];
     }
     return self;
 }

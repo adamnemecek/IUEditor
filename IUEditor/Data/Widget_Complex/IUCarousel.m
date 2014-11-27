@@ -52,6 +52,21 @@
     return  self;
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
@@ -75,8 +90,8 @@
     if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
         
         BOOL disable = [[aDecoder decodeObjectForKey:@"disableArrowControl"] boolValue];
-        [self.css setValue:@(disable) forTag:IUCSSTagCarouselArrowDisable forViewport:IUCSSDefaultViewPort];
-                
+        self.defaultPropertyStorage.carouselArrowDisable = @(disable);
+
     }
     
     return self;
@@ -182,11 +197,11 @@
     IUBox *selectedChild = [set anyObject];
     for(IUCarouselItem *item in self.children){
         if([item isEqualTo:selectedChild] || [item.allChildren containsObject:selectedChild]){
-            [item.css setValue:@(YES) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
+            item.currentStyleStorage.editorHidden = @(NO);
             item.isActive = YES;
         }
         else{
-            [item.css setValue:@(NO) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
+            item.currentStyleStorage.editorHidden = @(YES);
             item.isActive = NO;
         }
     }

@@ -33,7 +33,11 @@
     return self;
 }
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    
+    [self.undoManager disableUndoRegistration];
     _parentFileItem = [aDecoder decodeByRefObjectForKey:@"group"];
+    [self.undoManager enableUndoRegistration];
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{

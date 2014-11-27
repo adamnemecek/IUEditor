@@ -50,11 +50,28 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
+        [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[[IUGoogleMap class] properties]];
+        [self.undoManager enableUndoRegistration];
     }
-    [self.undoManager enableUndoRegistration];
     return self;
 }
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUGoogleMap class] properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUGoogleMap class] properties]];
+}
+
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
     

@@ -46,6 +46,22 @@
     [aCoder encodeInteger:_defaultItemCount forKey:@"defaultItemCount"];
 }
 
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[IUCollection properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[IUCollection properties]];
+}
+
 - (id)initWithPreset{
     self = [super initWithPreset];
     if(self){

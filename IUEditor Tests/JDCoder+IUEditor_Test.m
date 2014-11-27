@@ -164,4 +164,54 @@
     XCTAssertEqual(decodeIU.textType, IUTextTypeH1);
 }
 
+- (void)test10_IUCarousel{
+    IUCarousel *iu = [[IUCarousel alloc] initWithPreset];
+    iu.timer = 4;
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUCarousel *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.timer, 4);
+    //default carousel item count = 3 (check children decode)
+    XCTAssertEqual(decodeIU.count, 3);
+}
+
+- (void)test11_IUCollection{
+    IUCollection *iu = [[IUCollection alloc] initWithPreset];
+    iu.collectionVariable = @"test";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUCollection *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.collectionVariable, @"test");
+}
+
+
+- (void)test12_IUCollectionView{
+    //FIXME : iuimport not working
+    IUCollection *iu = [[IUCollection alloc] initWithPreset];
+    iu.collectionVariable = @"test";
+    IUCollectionView *view = [[IUCollectionView alloc] initWithPreset];
+    view.collection = iu;
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:view];
+    
+    IUCollectionView *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.collection.collectionVariable, @"test");
+}
+
+- (void)test13_IUFBLike{
+    IUFBLike *iu = [[IUFBLike alloc] initWithPreset];
+    iu.likePage = @"test";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUFBLike *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.likePage, @"test");
+}
+
 @end

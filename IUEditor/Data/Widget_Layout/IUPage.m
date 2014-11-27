@@ -184,9 +184,6 @@
     }
     return self;
 }
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    
-}
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
