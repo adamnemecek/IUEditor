@@ -24,6 +24,7 @@
 
 - (void)setUp {
     [super setUp];
+    storage = [[IUStyleStorage alloc] init];
     storageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
     storage = [[IUStyleStorage alloc] init];
 
