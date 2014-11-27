@@ -27,6 +27,19 @@
 
 #pragma mark - init
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [aDecoder decodeToObject:self withProperties:[[IUMovie class] properties]];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUMovie class] properties]];
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self =  [super initWithCoder:aDecoder];
     if(self){
@@ -68,7 +81,9 @@
 
 
 -(void)dealloc{
-    [self removeObserver:self forKeyPaths:@[@"posterPath"]];
+    if(self.isConnectedWithEditor){
+        [self removeObserver:self forKeyPaths:@[@"posterPath"]];
+    }
 }
 
 - (BOOL)canAddIUByUserInput{

@@ -118,9 +118,50 @@
     IUClass *decodeIU = [coder decodeRootObject];
     XCTAssertEqual(decodeIU.references.count, 1);
 
-    
-
 }
 
+- (void)test6_IUHTML{
+    IUHTML *iu = [[IUHTML alloc] initWithPreset];
+    iu.innerHTML = @"<p>abc</p>";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUHTML *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.innerHTML, @"<p>abc</p>");
+}
+
+- (void)test7_IUImage{
+    IUImage *iu = [[IUImage alloc] initWithPreset];
+    iu.imageName = @"a.jpg";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUImage *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.imageName,@"a.jpg");
+}
+
+- (void)test8_IUMovie{
+    IUMovie *iu = [[IUMovie alloc] initWithPreset];
+    iu.videoPath = @"a.mp4";
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUMovie *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.videoPath,@"a.mp4");
+}
+
+- (void)test9_IUText{
+    IUText *iu = [[IUText alloc] initWithPreset];
+    iu.textType = IUTextTypeH1;
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUText *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.textType, IUTextTypeH1);
+}
 
 @end

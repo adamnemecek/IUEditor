@@ -52,6 +52,19 @@
 
 #pragma mark -
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [aDecoder decodeToObject:self withProperties:[[IUText class] properties]];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUText class] properties]];
+}
+
 - (IUTextInputType)textInputType{
     if(self.pgContentVariable && self.pgContentVariable.length > 0){
         return IUTextInputTypeAddible;
