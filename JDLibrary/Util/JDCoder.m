@@ -103,7 +103,8 @@
     NSMutableArray *initSelectors;
     NSMutableDictionary *dataDict;
     NSMutableDictionary *workingDict;
-    NSMutableDictionary *decodedObjects;
+    NSMutableDictionary *decodedObjects; /* decoded Objects has objects which finished decoding. It is updated at when object is decoded */
+    NSMutableArray *encodingObjects; /* encoding objects has objects in current encoding. It is updated at when object will be encoded */
 }
 
 /**
@@ -116,6 +117,7 @@
     workingDict = [NSMutableDictionary dictionary];
     dataDict = workingDict;
     decodedObjects = [NSMutableDictionary dictionary];
+    encodingObjects = [NSMutableArray array];
     return self;
 }
 
@@ -139,7 +141,9 @@
     }
     workingDict[@"class__"] = object.className;
     workingDict[@"memory__"] = object.memoryAddress;
+    [encodingObjects addObject:object];
     [object encodeWithJDCoder:self];
+    [encodingObjects removeObject:object];
 }
 
 - (void)encodeInteger:(NSInteger)value forKey:(NSString*)key{
@@ -170,7 +174,14 @@
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         [contentArray addObject:dict];
         workingDict = dict;
-        [self encodeObject:item];
+        if ([encodingObjects containsObject:item]) {
+            [self encodeByRefObject:item];
+        }
+        else {
+            [encodingObjects addObject:item];
+            [self encodeObject:item];
+            [encodingObjects removeObject:item];
+        }
     }
     workingDict = workingDict_cache;
 }
@@ -225,6 +236,11 @@
     workingDict[key] = [NSMutableDictionary dictionary];
     workingDict[key][@"class__"] = NSStringFromClass([obj classForKeyedArchiver]);
     workingDict[key][@"memory__"] = [NSString stringWithFormat:@"%p", obj];
+}
+
+- (void)encodeByRefObject:(NSObject <JDCoding> *)obj{
+    workingDict[@"class__"] = NSStringFromClass([obj classForKeyedArchiver]);
+    workingDict[@"memory__"] = [NSString stringWithFormat:@"%p", obj];
 }
 
 - (id)decodeByRefObjectForKey:(NSString *)key{
@@ -291,7 +307,14 @@
     NSMutableDictionary *newworkingDict = [NSMutableDictionary dictionary];
     workingDict[key] = newworkingDict;
     workingDict = newworkingDict;
-    [self encodeObject:obj];
+    if ([encodingObjects containsObject:obj]) {
+        [self encodeByRefObject:obj];
+    }
+    else {
+        [encodingObjects addObject:obj];
+        [self encodeObject:obj];
+        [encodingObjects removeObject:obj];
+    }
     workingDict = originalworkingDict;
 }
 

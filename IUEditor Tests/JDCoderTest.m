@@ -17,6 +17,7 @@
 
 @interface JDCoderTestClass : NSObject <JDCoding>
 @property JDCoderTestClass *link;
+@property NSArray *array;
 @end
 
 @implementation JDCoderTestClass
@@ -28,10 +29,12 @@
 }
 
 -(void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    _array = [aDecoder decodeObjectForKey:@"array"];
 }
 
 -(void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:_link forKey:@"link"];
+    [aCoder encodeObject:_array forKey:@"array"];
 }
 
 @end
@@ -199,4 +202,18 @@
     XCTAssertEqual(firstItem, secondItem) ;
 }
 
+- (void)test7_mixedArray1 {
+    JDCoderTestClass *a = [[JDCoderTestClass alloc] init];
+    JDCoderTestClass *b = [[JDCoderTestClass alloc] init];
+    
+    a.array = @[b];
+    b.link = a;
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:a];
+    
+    JDCoderTestClass *decodedA = [coder decodeRootObject];
+    JDCoderTestClass *decodedB = [decodedA.array firstObject];
+    XCTAssertEqual(decodedB.link, decodedA);
+}
 @end
