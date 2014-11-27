@@ -22,6 +22,11 @@
 
 @implementation JDCoderTestClass
 
+/**
+ 아래와 같은 클래스를 인코딩/디코딩할 시에는 순서를 주의한다.
+ _link 를 먼저 인코딩했기때문에 _array는 awakeAfterUsingJDCoder:에서 호출한다.
+ */
+
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
     _link = [aDecoder decodeObjectForKey:@"link"];
@@ -216,4 +221,20 @@
     JDCoderTestClass *decodedB = [decodedA.array firstObject];
     XCTAssertEqual(decodedB.link, decodedA);
 }
+
+- (void)test7_mixedArray2 {
+    JDCoderTestClass *a = [[JDCoderTestClass alloc] init];
+    JDCoderTestClass *b = [[JDCoderTestClass alloc] init];
+    
+    a.link = b;
+    b.array = @[a];
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:a];
+    
+    JDCoderTestClass *decodedA = [coder decodeRootObject];
+    JDCoderTestClass *decodedB = decodedA.link;
+    XCTAssertEqual([decodedB.array firstObject], decodedA);
+}
+
 @end
