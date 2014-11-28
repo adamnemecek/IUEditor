@@ -95,7 +95,9 @@
 
         }
     
-        [folder.textField setStringValue:doc.name];
+        if(doc.name){
+            [folder.textField setStringValue:doc.name];
+        }
         
         return folder;
     }
@@ -104,10 +106,10 @@
         NSString *cellIdentifier, *nodeName;
         if ([[item representedObject] isKindOfClass:[IUSheet class]]){
             IUSheet *node = [item representedObject];
-            if([node.parent.name isEqualToString:IUPageGroupName]){
+            if([node.parentFileItem.name isEqualToString:IUPageGroupName]){
                 cellIdentifier = @"pageFile";
             }
-            else if ([node.parent.name isEqualToString:IUClassGroupName]){
+            else if ([node.parentFileItem.name isEqualToString:IUClassGroupName]){
                 cellIdentifier = @"classFile";
             }
             else {

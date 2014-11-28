@@ -61,8 +61,8 @@
     //footer
     IUSection *footer = [[IUSection alloc] initWithPreset];
     footer.name = @"Footer";
-    [footer.css eradicateTag:IUCSSTagBGColor];
-    [footer.css setValue:@(100) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
+    footer.defaultStyleStorage.bgColor  = nil;
+    footer.defaultStyleStorage.height = @(100);
     
     IUText *copyright = [IUText copyrightBox];
     

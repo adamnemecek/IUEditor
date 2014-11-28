@@ -217,7 +217,6 @@
     [[self undoManager] disableUndoRegistration];
 
     IUPage *page = [super copyWithZone:zone];
-    [_canvasVC disableUpdateAll:self];
     
     page.title = [_title copy];
     page.keywords = [_keywords copy];
@@ -226,7 +225,6 @@
     page.extraCode = [_extraCode copy];
     page.googleCode = [_googleCode copy];
     
-    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
     return page;
 }

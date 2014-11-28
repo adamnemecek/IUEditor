@@ -253,7 +253,9 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         NSString *tempJsonPath = [NSString stringWithFormat:@"%@/%@_temp.iuml", NSTemporaryDirectory(), _project.name];
         [coder writeToFilePath:tempJsonPath error:nil];
         NSFileWrapper *projectWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:tempJsonPath]options:0 error:nil];
-        [projectWrapper setPreferredFilename:_project.name];
+        [projectWrapper setPreferredFilename:projectJsonData];
+        [[self documentFileWrapper] addFileWrapper:projectWrapper];
+
     }
 
     //save resource files

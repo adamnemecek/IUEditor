@@ -54,7 +54,7 @@
     
     for(IUBox *box in self.parent.children){
         if([box isKindOfClass:[IUPageContent class]]){
-            [box.css setValueWithoutUpdateCSS:@(pageContentWidth) forTag:IUCSSTagPercentWidth];
+            [box.currentStyleStorage setWidth:@(pageContentWidth) unit:@(IUFrameUnitPercent)];
             [box updateCSS];
         }
     }

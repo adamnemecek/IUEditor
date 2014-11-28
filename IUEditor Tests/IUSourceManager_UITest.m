@@ -663,6 +663,8 @@ static     IUTestWC *testWC;
         iu2.defaultPositionStorage.position = @(IUPositionTypeRelative);
         [section addIU:iu2 error:nil];
         [manager setNeedsUpdateHTML:section];
+        [iu2 setIsConnectedWithEditor];
+        iu2.sourceManager = manager;
         
         iu2.movieLink = @"http://vimeo.com/channels/staffpicks/112483572";
         

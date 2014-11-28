@@ -59,6 +59,7 @@
     self = [self init];
     if(self){
         [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
         _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];
         
         
@@ -72,6 +73,7 @@
 
 
 -(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [aCoder encodeFromObject:self withProperties:[IUSheetGroup properties]];
     [aCoder encodeObject:_children forKey:@"_children"];
 }
 

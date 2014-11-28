@@ -54,6 +54,21 @@
     
 }
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self =  [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUSection class] properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUSection class] properties]];
+    
+}
+
 
 - (BOOL)canChangeXByUserInput{
     return NO;
@@ -83,8 +98,7 @@
     _enableFullSize = enableFullSize;
     
     if(_enableFullSize){
-        [self.css eradicateTag:IUCSSTagPixelHeight];
-        [self.css eradicateTag:IUCSSTagPercentHeight];
+        self.defaultStyleStorage.height = nil;
     }
     
     [self didChangeValueForKey:@"canChangeHeightByUserInput"];
