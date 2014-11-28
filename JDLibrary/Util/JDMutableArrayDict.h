@@ -19,7 +19,7 @@
  
  */
 
-@interface JDMutableArrayDict : NSObject <NSCoding, JDCoding>{
+@interface JDMutableArrayDict : NSObject <NSCoding, JDCoding, NSCopying>{
 	NSMutableDictionary* dict;
 	NSMutableArray* array;
 }

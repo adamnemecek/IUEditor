@@ -12,6 +12,12 @@
 
 @protocol IUSourceManagerProtocol
 
+/* working as transaction */
+- (void)beginTransaction:(id)sender;
+- (void)commitTransaction:(id)sender;
+
+
+/* update obj */
 - (void)setNeedsUpdateHTML:(id)obj;
 - (void)setNeedsUpdateCSS:(id)obj;
 - (void)setNeedsUpdateCSS:(id)obj withIdentifiers:(NSArray *)identifiers;
@@ -20,8 +26,10 @@
 /* call js */
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 - (id)evaluateWebScript:(NSString *)script;
-- (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
 
+/* call js - common function */
+- (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
+- (NSRect)absolutePixelFrameWithIdentifier:(NSString *)identifier;
 @end
 
 

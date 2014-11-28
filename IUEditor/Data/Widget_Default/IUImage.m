@@ -57,14 +57,11 @@
 
 -(id)copyWithZone:(NSZone *)zone{
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
-
     
     IUImage *image = [super copyWithZone:zone];
     image.imageName = [_imageName copy];
     image.altText = [_altText copy];
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return image;
 }

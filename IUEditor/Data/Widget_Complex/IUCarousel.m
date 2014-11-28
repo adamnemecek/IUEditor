@@ -11,6 +11,7 @@
 #import "IUSheet.h"
 #import "IUProject.h"
 
+
 @implementation IUCarousel{
 }
 #pragma mark - class attributes
@@ -103,7 +104,6 @@
     IUCarousel *carousel = [super copyWithZone:zone];
     
     [[self undoManager] disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
 
     //auto
@@ -123,9 +123,7 @@
     carousel.deselectColor = [_deselectColor copy];
     carousel.pagerPosition = _pagerPosition;
     
-    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
-
     
     return carousel;
 }
@@ -190,8 +188,8 @@
         return;
     }
     
-    if(_canvasVC){
-        [_canvasVC disableUpdateCSS:self];
+    if(self.sourceManager){
+        [self.sourceManager beginTransaction:self];
     }
     
     IUBox *selectedChild = [set anyObject];
@@ -206,8 +204,8 @@
         }
     }
     
-    if(_canvasVC){
-        [_canvasVC enableUpdateCSS:self];
+    if(self.sourceManager){
+        [self.sourceManager commitTransaction:self];
     }
     
     [self updateHTML];

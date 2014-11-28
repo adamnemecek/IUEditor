@@ -61,12 +61,10 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUImport *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
     
     iu.prototypeClass = _prototypeClass;
 
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

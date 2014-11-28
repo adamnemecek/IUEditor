@@ -26,6 +26,12 @@
 	return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    JDMutableArrayDict *copyArrayDict = [[[self class] allocWithZone:zone] init];
+    copyArrayDict.dict = [dict mutableCopy];
+    copyArrayDict.array = [array mutableCopy];
+    return copyArrayDict;
+}
 
 //NSCoding Protocol
 

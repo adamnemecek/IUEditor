@@ -51,7 +51,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 @interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
-    __weak id <IUSourceDelegate> _canvasVC __storage_deprecated;
+    __weak id <IUSourceDelegate> _canvasVC __deprecated;
     
     IUStyleStorage *_liveStyleStorage;
     IUStyleStorage *_currentStyleStorage;

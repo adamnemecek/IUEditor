@@ -50,7 +50,7 @@
     return copyright;
 }
 
-#pragma mark -
+#pragma mark - initialize
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
@@ -66,6 +66,18 @@
     [super encodeWithJDCoder:aCoder];
     [aCoder encodeFromObject:self withProperties:[[IUText class] properties]];
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    [self.undoManager disableUndoRegistration];
+    
+    IUText *copy =  [super copyWithZone:zone];
+    copy.textType = _textType;
+    
+    [self.undoManager enableUndoRegistration];
+    return copy;
+}
+
+#pragma mark - properties
 
 - (IUTextInputType)textInputType{
     if(self.pgContentVariable && self.pgContentVariable.length > 0){

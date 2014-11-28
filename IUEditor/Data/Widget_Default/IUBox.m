@@ -434,50 +434,52 @@
 
 - (id)copyWithZone:(NSZone *)zone{
     
-    [[self undoManager] disableUndoRegistration];
-//    [_canvasVC disableUpdateAll:self];
 
     IUBox *box = [[[self class] allocWithZone: zone] init];
     if(box){
+        [[self undoManager] disableUndoRegistration];
         
-        IUEvent *newEvent = [_event copy];
         NSArray *children = [self.children deepCopy];
-        
-        
-        
-        box.overflowType = _overflowType;
-        box.positionType = _positionType;
-        box.enableHCenter = _enableHCenter;
-        box.enableVCenter = _enableVCenter;
-        
-        /*
-        box.css = newCSS;
-        newCSS.delegate  = box;
-        */
-        
-        box.event = newEvent;
-        
-        [box setCanvasVC:_canvasVC];
-        [box setTempProject:self.project];
-        
         for (IUBox *iu in children) {
             BOOL result = [box addIU:iu error:nil];
             NSAssert(result == YES, @"copy");
         }
         
-        NSAssert(self.project, @"project");
-        [self.project.identifierManager resetUnconfirmedIUs];
-        [self.project.identifierManager setNewIdentifierAndRegisterToTemp:box withKey:@"copy"];
-        box.name = box.htmlID;
-        [box.project.identifierManager confirm];
         
-        [box connectWithEditor];
-        [box setIsConnectedWithEditor];
+        box.enableHCenter = _enableHCenter;
+        box.enableVCenter = _enableVCenter;
+        
+        box.event = [_event copy];
+
+        
+        //handle storage manager
+        for(NSString *managerKey in [storageManagersDict allKeys]){
+            IUDataStorageManager *copiedManager = [[storageManagersDict objectForKey:managerKey] copy];
+            [box setStorageManager:copiedManager forSelector:managerKey];
+        }
+        //binding
+        if (box.defaultStyleManager) {
+            [box bind:@"liveStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"currentStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
+            [box bind:@"defaultStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
+        }
+        if(box.positionManager){
+            [box bind:@"currentPositionStorage" toObject:box.positionManager withKeyPath:@"currentStorage" options:nil];
+            [box bind:@"livePositionStorage" toObject:box.positionManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"defaultPositionStorage" toObject:box.positionManager withKeyPath:@"defaultStorage" options:nil];
+            
+        }
+        if(box.propertyManager){
+            [box bind:@"currentPropertyStorage" toObject:box.propertyManager withKeyPath:@"currentStorage" options:nil];
+            [box bind:@"livePropertyStorage" toObject:box.propertyManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"defaultPropertyStorage" toObject:box.propertyManager withKeyPath:@"defaultStorage" options:nil];
+        }
+        
+        box.name = box.htmlID;
         
         [[self undoManager] enableUndoRegistration];
     }
 
-//    [_canvasVC enableUpdateAll:self];
     return box;
 }
 - (void)copyCSSFromIU:(IUBox *)box{
@@ -502,7 +504,10 @@
 
 
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector{
-//    cssManager.box = self;
+    
+    if(storageManagersDict == nil){
+        storageManagersDict = [NSMutableDictionary dictionary];
+    }
     storageManagersDict[selector] = cssManager;
 }
 
@@ -765,32 +770,7 @@
 
 - (void)updateHTML{
     
-    /*
-    if (_canvasVC && [_canvasVC isUpdateHTMLEnabled]) {
-        
-        
-        [_canvasVC disableUpdateJS:self];
-        NSString *editorHTML = [self.project.compiler htmlCode:self target:IUTargetEditor].string;
-        
-        [_canvasVC IUHTMLIdentifier:self.htmlID HTML:editorHTML];
-        
-        if([self.sheet isKindOfClass:[IUClass class]]){
-            for(IUBox *box in ((IUClass *)self.sheet).references){
-                [box updateHTML];
-            }
-        }
-        
-        for(IUBox *box in self.allChildren){
-            [box updateCSS];
-        }
-        
-        [_canvasVC enableUpdateJS:self];
-        [self updateCSS];
-        
-    }
-     */
-    
-    if (self.sourceManager) {
+    if (self.sourceManager && self.isConnectedWithEditor) {
         [self.sourceManager setNeedsUpdateHTML:self];
         if([self.sheet isKindOfClass:[IUClass class]]){
             for(IUBox *box in ((IUClass *)self.sheet).references){
@@ -859,7 +839,7 @@ e.g. 만약 css로 옮긴다면)
  */
 - (void)updateCSS{
     
-    if(self.sourceManager){
+    if(self.sourceManager && self.isConnectedWithEditor){
         [self updateCSSValuesBeforeUpdateEditor];
         [self.sourceManager setNeedsUpdateCSS:self];
     }

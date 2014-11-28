@@ -93,12 +93,10 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUFBLike *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
     
     iu.likePage = [_likePage copy];
     iu.showFriendsFace = _showFriendsFace;
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }
@@ -112,16 +110,16 @@
 - (void)IUFBSourceContextDidChange:(NSDictionary *)change{
     NSString *showFaces;
     if(self.showFriendsFace){
-        [self.css setValue:@(80) forTag:IUCSSTagPixelHeight forViewport:self.css.editViewPort];
+        [self.currentStyleStorage setHeight:@(80) unit:@(IUFrameUnitPixel)];
         showFaces = @"true";
     }else{
-        [self.css setValue:@(45) forTag:IUCSSTagPixelHeight forViewport:self.css.editViewPort];
+        [self.currentStyleStorage setHeight:@(45) unit:@(IUFrameUnitPixel)];
         showFaces = @"false";
     }
     
     [self updateCSS];
         
-    NSString *currentPixel = [[NSString alloc] initWithFormat:@"%.0f", [self.css.effectiveTagDictionary[IUCSSTagPixelHeight] floatValue]];
+    NSString *currentPixel = [[NSString alloc] initWithFormat:@"%.0f", [self.liveStyleStorage.height floatValue]];
     
     NSString *source;
 

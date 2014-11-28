@@ -81,7 +81,6 @@
 
 -(id)copyWithZone:(NSZone *)zone{
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
     
     IUGoogleMap *map = [super copyWithZone:zone];
     
@@ -95,7 +94,6 @@
     map.markerTitle =[_markerTitle copy];
     
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return map;
 }
@@ -174,37 +172,13 @@
 
 #pragma mark - size
 
--(BOOL)percentUnitAtCSSTag:(IUCSSTag)tag{
-    BOOL unit = [self.css.effectiveTagDictionary[tag] boolValue];
-    return unit;
-}
-
 - (NSSize)currentApproximatePixelSize{
-    
-    NSSize pixelSize;
-    NSInteger currentWidth;
-    if(self.css.editViewPort == IUCSSDefaultViewPort){
-        currentWidth = self.css.maxViewPort;
-    }
-    else{
-        currentWidth = self.css.editViewPort;
+    if(self.sourceManager){
+        NSRect frame = [self.sourceManager absolutePixelFrameWithIdentifier:self.htmlID];
+        return frame.size;
     }
     
-    if([self percentUnitAtCSSTag:IUCSSTagWidthUnitIsPercent]){
-        CGFloat pWidth = [self currentPercentSize].width;
-        pixelSize.width = (pWidth/100) * currentWidth;
-    }
-    else{
-        pixelSize.width = [self currentSize].width;
-    }
-    if( [self percentUnitAtCSSTag:IUCSSTagHeightUnitIsPercent]){
-        CGFloat pHeight = [self currentPercentSize].height;
-        pixelSize.height =(pHeight/100) * currentWidth;
-    }
-    else{
-        pixelSize.height = [self currentSize].height;
-    }
-    return pixelSize;
+    return NSZeroSize;
 }
 
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
@@ -252,8 +226,8 @@
 
 - (NSString *)innerCurrentThemeStyle{
     
-    if(_themeType != 0){
-        NSString *staticStyle = [_canvasVC callWebScriptMethod:@"getGoogleMapStaticStyle" withArguments:@[@(_themeType-1)]];
+    if(_themeType != 0 && self.sourceManager){
+        NSString *staticStyle = [self.sourceManager callWebScriptMethod:@"getGoogleMapStaticStyle" withArguments:@[@(_themeType-1)]];
         
         if(staticStyle){
             return [@"&" stringByAppendingString:staticStyle];

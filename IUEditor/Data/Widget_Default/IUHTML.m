@@ -69,14 +69,10 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUHTML *html = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
-
     
     if(html){
         html.innerHTML = [_innerHTML copy];
     }
-    
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return html;
 }

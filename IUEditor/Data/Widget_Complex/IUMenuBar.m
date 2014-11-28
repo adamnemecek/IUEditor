@@ -104,7 +104,6 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUMenuBar *menuBar = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
     
     //menubar
@@ -114,7 +113,6 @@
     menuBar.mobileTitle = [self.mobileTitle copy];
     menuBar.iconColor = [self.iconColor copy];
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return menuBar;
 }

@@ -91,7 +91,6 @@
 - (id)copyWithZone:(NSZone *)zone{
     IUWebMovie *webMovie = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
     
     webMovie.thumbnail = self.thumbnail;
     webMovie.thumbnailID = [_thumbnailID copy];
@@ -103,7 +102,6 @@
     webMovie.movieLink = [_movieLink copy];
     webMovie.movieID = [_movieID copy];
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return webMovie;
 }
@@ -205,9 +203,12 @@
         _thumbnailID = _movieID;
         //http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
         NSString *youtubePath = [NSString stringWithFormat:@"http://img.youtube.com/vi/%@/sdddefault.jpg", _movieID];
-        NSInteger width = [[_canvasVC callWebScriptMethod:@"getImageWidth" withArguments:@[youtubePath]] integerValue];
-        if(width < 130 ){
-            youtubePath = [NSString stringWithFormat:@"http://img.youtube.com/vi/%@/0.jpg", _movieID];
+        if(self.sourceManager){
+            NSInteger width = [[self.sourceManager callWebScriptMethod:@"getImageWidth" withArguments:@[youtubePath]] integerValue];
+            if(width < 130 ){
+                youtubePath = [NSString stringWithFormat:@"http://img.youtube.com/vi/%@/0.jpg", _movieID];
+            }
+
         }
         
         _thumbnailPath = youtubePath;
