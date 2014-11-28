@@ -39,15 +39,30 @@
     [aCoder encodeFromObject:self withProperties:[[PGForm class] properties]];
 }
 
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    [self.undoManager disableUndoRegistration];
+    _target = [aDecoder decodeObjectForKey:@"target"];
+    
+    [self.undoManager enableUndoRegistration];
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeObject:_target forKey:@"target"];
+}
 - (id)copyWithZone:(NSZone *)zone{
     PGForm *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
     
-    iu.target = [_target copy];
+    if([_target isKindOfClass:[IUBox class]]){
+        iu.target = _target;
+    }
+    else if([_target isKindOfClass:[NSString class]]){
+        iu.target = [_target copy];
+    }
 
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

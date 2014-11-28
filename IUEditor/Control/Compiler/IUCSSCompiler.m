@@ -770,25 +770,25 @@
             
             if(height > 10){
                 //mobile
-                [code setInsertingIdentifier:menuBar.mobileButtonIdentifier];
+                [code setInsertingIdentifier:menuBar.mobileButtonIdentifier withType:IUCSSIdentifierTypeNonInline];
                 [code insertTag:@"line-height" number:@(height) unit:IUUnitPixel];
                 [code insertTag:@"color" color:menuBar.mobileTitleColor];
                 
                 
                 //mobile-menu
-                [code setInsertingIdentifier:menuBar.topButtonIdentifier];
+                [code setInsertingIdentifier:menuBar.topButtonIdentifier withType:IUCSSIdentifierTypeNonInline];
                 int top = (height -10)/2;
                 [code insertTag:@"top" number:@(top) unit:IUUnitPixel];
                 [code insertTag:@"border-color" color:menuBar.iconColor];
                 
-                [code setInsertingIdentifier:menuBar.bottomButtonIdentifier];
+                [code setInsertingIdentifier:menuBar.bottomButtonIdentifier withType:IUCSSIdentifierTypeNonInline];
                 top =(height -10)/2 +10;
                 [code insertTag:@"top" number:@(top) unit:IUUnitPixel];
                 [code insertTag:@"border-color" color:menuBar.iconColor];
             }
             
             //editormode
-            [code setInsertingIdentifier:menuBar.editorDisplayIdentifier];
+            [code setInsertingIdentifier:menuBar.editorDisplayIdentifier withType:IUCSSIdentifierTypeNonInline];
             [code setInsertingTarget:IUTargetEditor];
             
             if(menuBar.isOpened){
@@ -992,7 +992,7 @@
     
     [code setInsertingViewPort:IUCSSDefaultViewPort];
     if(carousel.deselectColor){
-        [code setInsertingIdentifier:carousel.pagerID];
+        [code setInsertingIdentifier:carousel.pagerID withType:IUCSSIdentifierTypeNonInline];
         [code insertTag:@"background-color" color:carousel.deselectColor];
     }
     if(carousel.selectColor){
@@ -1005,7 +1005,7 @@
     }
     
     
-    [code setInsertingIdentifier:carousel.pagerWrapperID];
+    [code setInsertingIdentifier:carousel.pagerWrapperID withType:IUCSSIdentifierTypeNonInline];
     if(carousel.pagerPosition){
         //FIXME: carousel width가 percent일 경우 width를 구해와야함!!
         NSInteger currentWidth = [carousel.defaultStyleStorage.width integerValue];
@@ -1031,7 +1031,7 @@
         }
     }
     
-    [code setInsertingIdentifier:carousel.prevID];
+    [code setInsertingIdentifier:carousel.prevID withType:IUCSSIdentifierTypeNonInline];
     
     NSString *imageName = carousel.leftArrowImage;
     if(imageName){
@@ -1064,7 +1064,7 @@
         }
     }
     
-    [code setInsertingIdentifier:carousel.nextID];
+    [code setInsertingIdentifier:carousel.nextID withType:IUCSSIdentifierTypeNonInline];
     
     
     imageName = carousel.rightArrowImage;
@@ -1103,7 +1103,7 @@
         int viewport = [viewportNumber intValue];
         
         [code setInsertingViewPort:viewport];
-        [code setInsertingIdentifiers:@[carousel.prevID, carousel.nextID]];
+        [code setInsertingIdentifiers:@[carousel.prevID, carousel.nextID] withType:IUCSSIdentifierTypeNonInline];
         
         BOOL carouseldisable = [((IUPropertyStorage *)[carousel.propertyManager storageForViewPort:viewport]).carouselArrowDisable boolValue];
         

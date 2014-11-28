@@ -64,15 +64,31 @@
     
 }
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self =  [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[PGTextView class] properties]];
+        [self.undoManager enableUndoRegistration];
+        
+    }
+    
+    return self;
+}
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[PGTextView class] properties]];
+    
+}
+
+
 - (id)copyWithZone:(NSZone *)zone{
     PGTextView *iu = [super copyWithZone:zone];
     [[self undoManager] disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
     iu.placeholder = [_placeholder copy];
     iu.inputValue = [_inputValue copy];
     
-    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
 
     return iu;

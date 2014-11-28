@@ -51,14 +51,29 @@
     [aCoder encodeFromObject:self withProperties:[PGSubmitButton properties]];
 }
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[PGSubmitButton properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[PGSubmitButton properties]];
+}
+
+
+
 - (id)copyWithZone:(NSZone *)zone{
     PGSubmitButton *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
     
     iu.label = [_label copy];
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

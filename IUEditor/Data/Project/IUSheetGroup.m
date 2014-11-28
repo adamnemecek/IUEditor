@@ -43,15 +43,6 @@
     return self;
 }
 
--(id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self init];
-    
-    [aDecoder decodeToObject:self withProperties:[IUSheetGroup strongProperties]];
-    //TODO: load project
-    
-    return self;
-}
-
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self = [super awakeAfterUsingCoder:aDecoder];
     _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];    
@@ -64,8 +55,24 @@
     [aCoder encodeObject:_children forKey:@"_children"];
 }
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [self init];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];
+        
+        
+        //TODO: load project
+        
+        
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+
 -(void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [self encodeWithCoder:(NSCoder*)aCoder];
+    [aCoder encodeObject:_children forKey:@"_children"];
 }
 
 #pragma mark - Undo Manager

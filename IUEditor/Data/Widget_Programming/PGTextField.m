@@ -59,17 +59,30 @@
     
 }
 
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self =  [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[PGTextField class] properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[PGTextField class] properties]];
+    
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     PGTextField *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
     
     iu.inputName = [_inputName copy];
     iu.placeholder = [_placeholder copy];
     iu.inputValue = [_inputValue copy];
     iu.type = _type;
     
-    [_canvasVC enableUpdateAll:self];
     [self.undoManager enableUndoRegistration];
     return iu;
 }

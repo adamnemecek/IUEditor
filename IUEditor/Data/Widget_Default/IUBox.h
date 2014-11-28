@@ -286,7 +286,8 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (void)setImageName:(NSString *)imageName;
 - (NSString *)imageName;
 
-@property (nonatomic) id link, divLink;
+@property (nonatomic) id link;
+@property (nonatomic, weak) id divLink;
 @property BOOL linkTarget;
 
 /**

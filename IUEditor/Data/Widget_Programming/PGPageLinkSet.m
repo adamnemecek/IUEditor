@@ -58,11 +58,26 @@
     return self;
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if (self) {
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[PGPageLinkSet properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[PGPageLinkSet properties]];
+}
+
+
 
 - (id)copyWithZone:(NSZone *)zone{
     PGPageLinkSet *iu = [super copyWithZone:zone];
     [[self undoManager] disableUndoRegistration];
-    [_canvasVC disableUpdateAll:self];
 
 
     iu.pageCountVariable = [_pageCountVariable copy];
@@ -71,7 +86,6 @@
     iu.defaultButtonBGColor = [_defaultButtonBGColor copy];
     iu.buttonMargin = _buttonMargin;
     
-    [_canvasVC enableUpdateAll:self];
     [[self undoManager] enableUndoRegistration];
 
     return iu;
@@ -134,14 +148,14 @@
 
 - (void)updateCSS{
     [super updateCSS];
-    if(_canvasVC){
-        [_canvasVC callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
+    if(self.sourceManager){
+        [self.sourceManager callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
     }
 }
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
     [super updateCSSWithIdentifiers:identifiers];
-    if(_canvasVC){
-        [_canvasVC callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
+    if(self.sourceManager){
+        [self.sourceManager callWebScriptMethod:@"resizePageLinkSet" withArguments:nil];
     }
 }
 - (NSArray *)cssIdentifierArray{

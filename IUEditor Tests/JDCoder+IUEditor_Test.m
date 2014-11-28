@@ -49,14 +49,38 @@
 
 - (void)test1_IUBoxEncoding1{
     // This is an example of a functional test case.
+    IUBox *parent = [[IUBox alloc] initWithPreset];
+    parent.htmlID = @"parent";
+
     IUBox *oneBox = [[IUBox alloc] initWithPreset];
-    oneBox.htmlID = @"OneBox";
+    oneBox.htmlID = @"oneBox";
+
+    [parent addIU:oneBox error:nil];
+    
+    IUBox *second = [[IUBox alloc] initWithPreset];
+    [parent addIU:second error:nil];
+    
+    oneBox.link = second;
     
     JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:oneBox];
+    [coder encodeRootObject:parent];
+    
+    
     IUBox *resultBox = [coder decodeRootObject];
     
-    XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
+    IUBox *decodeOneBox, *decodeSecond;
+    for(IUBox *box in resultBox.children){
+        if([box.htmlID isEqualToString:@"oneBox"]){
+            decodeOneBox = box;
+        }
+        else{
+            decodeSecond = box;
+        }
+    }
+    
+    XCTAssert([resultBox.htmlID isEqualToString:@"parent"], @"Pass");
+    XCTAssertEqual(decodeOneBox.link, decodeSecond);
+
 }
 
 

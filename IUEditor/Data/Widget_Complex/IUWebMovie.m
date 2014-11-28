@@ -125,9 +125,8 @@
     }
     [[self.undoManager prepareWithInvocationTarget:self] setMovieLink:_movieLink];
     _movieLink = movieLink;
-    if(self.isConnectedWithEditor){
-        [self classifyWebMovieSource];
-    }
+    [self classifyWebMovieSource];
+    
 }
 
 - (void)setPlayType:(IUWebMoviePlayType)playType{
@@ -202,7 +201,7 @@
     if (_movieType == IUWebMovieTypeYoutube){
         _thumbnailID = _movieID;
         //http://stackoverflow.com/questions/2068344/how-do-i-get-a-youtube-video-thumbnail-from-the-youtube-api
-        NSString *youtubePath = [NSString stringWithFormat:@"http://img.youtube.com/vi/%@/sdddefault.jpg", _movieID];
+        NSString *youtubePath = [NSString stringWithFormat:@"http://img.youtube.com/vi/%@/sddefault.jpg", _movieID];
         if(self.sourceManager){
             NSInteger width = [[self.sourceManager callWebScriptMethod:@"getImageWidth" withArguments:@[youtubePath]] integerValue];
             if(width < 130 ){

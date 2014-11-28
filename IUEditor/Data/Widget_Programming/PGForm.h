@@ -10,6 +10,7 @@
 
 @interface PGForm : IUBox
 
+/* target can be a string class or iubox class*/
 @property (nonatomic) id target;
 
 @end

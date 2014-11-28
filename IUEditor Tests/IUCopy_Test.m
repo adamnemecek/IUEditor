@@ -109,4 +109,12 @@
 
     XCTAssertEqual(copyIU.children.count, 1);
 }
+
+- (void)test5_IUImport{
+    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUImport *import = [[IUImport alloc] initWithPreset:class];
+    
+    IUImport *copy = [import copy];
+    XCTAssertEqual(copy.class, import.class);
+}
 @end

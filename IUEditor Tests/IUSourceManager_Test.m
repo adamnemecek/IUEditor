@@ -96,32 +96,6 @@
     }];
 }
 
-
-- (void)test3_htmlSourceManager{
-    webViewLoadingExpectation = [self expectationWithDescription:@"test3"];
-    IUPage *page = [[IUPage alloc] initWithPreset];
-//    [page.cssD.liveStorage setX:@(50)];
-    [page setSourceManager:manager];
-    [page.livePositionStorage setX:@(50)];
-    
-    [manager loadSheet:page];
-    
-    
-    [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        
-        IUBox *section = ((IUBox*)page.pageContent.children[0]);
-        IUBox *box = section.children[0];
-        
-        //box.text = @"hihi";
-        
-        [manager setNeedsUpdateHTML:box];
-
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
-        DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
-        XCTAssertTrue([boxElement.innerHTML containsString:@"hihi"]);
-    }];
-}
-
 - (void)test4_cssSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test4"];
     IUPage *page = [[IUPage alloc] initWithPreset];
@@ -196,13 +170,13 @@
         [parent.liveStyleStorage setWidth:@(100)];
         [parent.liveStyleStorage setHeight:@(100)];
         
-        IUBox *child = [[IUBox alloc] initWithPreset];
+        IUText *child = [[IUText alloc] initWithPreset];
         [parent addIU:child error:nil];
         [manager setNeedsUpdateHTML:parent];
         
         [child setSourceManager:manager];
         
-        //child.text = @"hihi";
+        child.currentPropertyStorage.innerHTML = @"hihi";
         
         [manager setNeedsUpdateHTML:child];
         

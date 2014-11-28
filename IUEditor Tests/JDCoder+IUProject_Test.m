@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "IUProject.h"
+#import "IUBoxes.h"
 
 @interface JDCoder_IUProject_Test : XCTestCase
 
@@ -54,7 +55,7 @@
 - (void)test3_saveLoadChild{
     project.name= @"sampleProject";
     IUPage *page = project.pageSheets[0];
-    
+    page.name = @"hahaha";
     
     JDCoder *encoder = [[JDCoder alloc] init];
     [encoder encodeRootObject:project];
@@ -63,7 +64,11 @@
     
     JDCoder *decoder = [[JDCoder alloc] init];
     IUProject *decodeProject = [decoder decodeContentOfFilePath:filePath error:nil];
+    IUPage *decodedPage = decodeProject.pageSheets[0];
+
     XCTAssertEqualObjects(decodeProject.name, @"sampleProject");
+    XCTAssertEqualObjects(decodedPage.name, @"hahaha");
+
 }
 
 

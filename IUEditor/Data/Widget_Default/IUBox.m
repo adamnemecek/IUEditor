@@ -161,8 +161,9 @@
     
     _parent = [aDecoder decodeByRefObjectForKey:@"parent"];
     
-    _link = [aDecoder decodeByRefObjectForKey:@"link"];
+    _link = [aDecoder decodeObjectForKey:@"link"];
     _divLink = [aDecoder decodeByRefObjectForKey:@"divLink"];
+    
 
     [self.undoManager enableUndoRegistration];
 }
@@ -176,7 +177,7 @@
     [aCoder encodeByRefObject:self.parent forKey:@"parent"];
     
     [aCoder encodeBool:self.linkTarget forKey:@"linkTarget"];
-    [aCoder encodeByRefObject:self.link forKey:@"link"];
+    [aCoder encodeObject:self.link forKey:@"link"];
     [aCoder encodeByRefObject:self.divLink forKey:@"divLink"];
     
     
@@ -450,7 +451,17 @@
         box.enableVCenter = _enableVCenter;
         
         box.event = [_event copy];
+        
+        if([_link isKindOfClass:[IUBox class]]){
+            box.link = _link;
+        }
+        else if([_link isKindOfClass:[NSString class]]){
+            box.link = [_link copy];
+        }
 
+        
+        box.divLink = _divLink;
+        box.divLink = _linkCaller;
         
         //handle storage manager
         for(NSString *managerKey in [storageManagersDict allKeys]){
@@ -772,6 +783,7 @@
     
     if (self.sourceManager && self.isConnectedWithEditor) {
         [self.sourceManager setNeedsUpdateHTML:self];
+        
         if([self.sheet isKindOfClass:[IUClass class]]){
             for(IUBox *box in ((IUClass *)self.sheet).references){
                 [self.sourceManager setNeedsUpdateHTML:box];
