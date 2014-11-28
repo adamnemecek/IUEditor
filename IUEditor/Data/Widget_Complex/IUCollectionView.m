@@ -27,18 +27,9 @@
 
 #pragma mark - initialize
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    
-    [aDecoder decodeToObject:self withProperties:[IUCollectionView properties]];
-    
-    return self;
-}
-
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeFromObject:self withProperties:[IUCollectionView properties]];
+    [aCoder encodeByrefObject:_collection];
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
