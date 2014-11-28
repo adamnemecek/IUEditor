@@ -190,17 +190,30 @@
 
 
 - (void)test12_IUCollectionView{
-    //FIXME : iuimport not working
+    
+    IUBox *parent = [[IUBox alloc] initWithPreset];
+    
     IUCollection *iu = [[IUCollection alloc] initWithPreset];
     iu.collectionVariable = @"test";
     IUCollectionView *view = [[IUCollectionView alloc] initWithPreset];
     view.collection = iu;
     
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:view];
+    [parent addIU:iu error:nil];
+    [parent addIU:view error:nil];
     
-    IUCollectionView *decodeIU = [coder decodeRootObject];
-    XCTAssertEqual(decodeIU.collection.collectionVariable, @"test");
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:parent];
+    
+    IUBox *decodeIU = [coder decodeRootObject];
+    IUCollectionView *decodedView;
+    for(IUBox *iu in decodeIU.children){
+        if([iu isKindOfClass:[IUCollectionView class]]){
+            decodedView = (IUCollectionView *)iu;
+        }
+            
+    }
+    XCTAssert(decodedView);
+    XCTAssertEqual(decodedView.collection.collectionVariable, @"test");
 }
 
 - (void)test13_IUFBLike{

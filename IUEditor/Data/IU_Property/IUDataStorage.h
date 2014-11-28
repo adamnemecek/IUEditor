@@ -78,7 +78,7 @@ typedef enum IUFrameUnit{
  */
 
 
-@interface IUDataStorageManager : NSObject <JDCoding>
+@interface IUDataStorageManager : NSObject <JDCoding, NSCopying>
 
 - (id)initWithStorageClassName:(NSString *)className;
 - (NSString *)storageClassName;

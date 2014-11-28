@@ -29,7 +29,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [super encodeWithCoder:aCoder];
-    [aCoder encodeByrefObject:_collection];
+    [aCoder encodeFromObject:self withProperties:[IUCollectionView properties]];
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{

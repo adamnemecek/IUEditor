@@ -443,6 +443,8 @@
         IUEvent *newEvent = [_event copy];
         NSArray *children = [self.children deepCopy];
         
+        
+        
         box.overflowType = _overflowType;
         box.positionType = _positionType;
         box.enableHCenter = _enableHCenter;

@@ -285,17 +285,6 @@
     return self;
 }
 
-- (void)addOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
-    [_owners addObject:box];
-}
-
-- (void)removeOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
-    [_owners removeObject:box];
-}
-
-- (NSArray *)owners{
-    return [_owners copy];
-}
 
 - (void)dealloc{
     [self removeObserver:self forKeyPath:@"currentViewPort"];
@@ -329,6 +318,36 @@
     [aCoder encodeObject:self.workingStorages forKey:@"storages"];
     [aCoder encodeObject:_owners forKey:@"owners"];
 }
+
+- (id)copyWithZone:(NSZone *)zone{
+    IUDataStorageManager *manager = [[[self class] allocWithZone:zone] init];
+    manager.workingStorages = [_workingStorages copy];
+    manager.defaultStorage = [manager.workingStorages objectForKey:@(IUDefaultViewPort)];
+    manager.currentViewPort = _currentViewPort; //create live
+    
+    for(IUDataStorage *storage in [manager.workingStorages allValues]){
+        storage.manager = manager;
+    }
+    
+    
+    return manager;
+}
+
+#pragma mark - properties
+
+- (void)addOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
+    [_owners addObject:box];
+}
+
+- (void)removeOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
+    [_owners removeObject:box];
+}
+
+- (NSArray *)owners{
+    return [_owners copy];
+}
+
+
 
 - (void)currentViewPortDidChange:(NSDictionary*)change{
     if ([self.workingStorages objectForKey:@(_currentViewPort)] == nil) {
