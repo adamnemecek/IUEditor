@@ -39,12 +39,6 @@
     return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone{
-    WPWidget *widget = [super copyWithZone:zone];
-    widget.titleWidget = widget.children[0];
-    widget.bodyWidget = widget.children[1];
-    return widget;
-}
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
@@ -57,6 +51,30 @@
     [aCoder encodeFromObject:self withProperties:[WPWidget properties]];
 }
 
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[WPWidget properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPWidget properties]];
+}
+
+
+
+- (id)copyWithZone:(NSZone *)zone{
+    WPWidget *widget = [super copyWithZone:zone];
+    widget.titleWidget = widget.children[0];
+    widget.bodyWidget = widget.children[1];
+    return widget;
+}
 
 - (BOOL)shouldCompileX{
     return NO;

@@ -22,6 +22,22 @@
 }
 
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[WPCommentFormLabel properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPCommentFormLabel properties]];
+}
+
+
 - (NSString*)sampleHTML{
     switch (self.formType) {
         case WPCommentFormTypeAuthor:

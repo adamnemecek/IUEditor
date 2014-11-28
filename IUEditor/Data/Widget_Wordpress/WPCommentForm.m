@@ -70,6 +70,18 @@
     [aCoder encodeFromObject:self withProperties:[WPCommentForm properties]];
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    [aDecoder decodeToObject:self withProperties:[WPCommentForm properties]];
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPCommentForm properties]];
+}
+
+
 - (void)setFormType:(WPCommentFormType)formType{
     if (formType != WPCommentFormTypeContent && _formType == WPCommentFormTypeContent) {
         self.cell.cellType = WPCommentFormCellTypeField;

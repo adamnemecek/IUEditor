@@ -66,6 +66,35 @@
     [aCoder encodeFromObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
 }
 
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if (self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
+        [self.undoManager enableUndoRegistration];
+        
+    }
+    return self;
+}
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [super awakeAfterUsingJDCoder:aDecoder];
+    if(self.children.count > 1){
+        _firstItem = self.children[0];
+        _secondItem = self.children[1];
+    }
+    else{
+        assert(0);
+    }
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
+    
+}
+
+
 - (id)initWithPreset{
     self = [super initWithPreset];
     
@@ -166,12 +195,12 @@
 - (void)setCurrentEdit:(NSInteger)currentEdit{
     _currentEdit = currentEdit;
     if (currentEdit == 0) {
-        [_firstItem.css setValue:@(YES) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
-        [_secondItem.css setValue:@(NO) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
+        _firstItem.currentStyleStorage.editorHidden = @(NO);
+        _secondItem.currentStyleStorage.editorHidden = @(YES);
     }
     else {
-        [_firstItem.css setValue:@(NO) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
-        [_secondItem.css setValue:@(YES) forTag:IUCSSTagEditorDisplay forViewport:IUCSSDefaultViewPort];
+        _firstItem.currentStyleStorage.editorHidden = @(YES);
+        _secondItem.currentStyleStorage.editorHidden = @(NO);
     }
 }
 

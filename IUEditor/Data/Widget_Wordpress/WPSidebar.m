@@ -59,15 +59,30 @@
     return self;
 }
 
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPSidebar properties]];
+}
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[WPSidebar properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPSidebar properties]];
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     WPSidebar *sidebar = [super copyWithZone:zone];
     sidebar.wordpressName = _wordpressName;
     return sidebar;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[WPSidebar properties]];
 }
 
 - (void)setWordpressName:(NSString *)wordpressName{
@@ -96,6 +111,7 @@
             [retInnerHTML appendString:widget.sampleHTML];
         }
         else{
+            //FIXME:
             NSString *string =  [self.project.compiler htmlCode:self target:IUTargetEditor].string;
             [retInnerHTML appendString:string];
         }

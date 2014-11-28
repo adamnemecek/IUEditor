@@ -43,12 +43,12 @@
 
 - (void)connectWithEditor{
     [super connectWithEditor];
-    [self.parent.css.effectiveTagDictionary addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
+    [self.parent.livePositionStorage addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
 }
 
 - (void)prepareDealloc{
     if([self isConnectedWithEditor]){
-        [self.parent.css.effectiveTagDictionary removeObserver:self forKeyPath:@"height" context:@"height"];
+        [self.parent.livePositionStorage removeObserver:self forKeyPath:@"height" context:@"height"];
     }
     
 }

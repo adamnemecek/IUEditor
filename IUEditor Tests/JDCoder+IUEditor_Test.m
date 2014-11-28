@@ -214,4 +214,13 @@
     XCTAssertEqual(decodeIU.likePage, @"test");
 }
 
+- (void)test14_IUtransition{
+    IUTransition *iu = [[IUTransition alloc] initWithPreset];
+    
+    JDCoder *coder = [[JDCoder alloc] init];
+    [coder encodeRootObject:iu];
+    
+    IUTransition *decodeIU = [coder decodeRootObject];
+    XCTAssertEqual(decodeIU.children.count, 2);
+}
 @end

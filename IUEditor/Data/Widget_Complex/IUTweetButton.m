@@ -67,6 +67,23 @@
     
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUTweetButton class] properties]];
+
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUTweetButton class] properties]];
+
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUTweetButton *iu = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
@@ -175,9 +192,9 @@
         }
     }
     
-    [self.css setValue:@(currentSize.height) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
-    [self.css setValue:@(currentSize.width) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-
+    self.defaultStyleStorage.height = @(currentSize.height);
+    self.defaultStyleStorage.width = @(currentSize.width);
+    
     [self updateCSS];
     
 }

@@ -53,6 +53,17 @@
     return self;
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUMenuItem class] propertiesWithOutProperties:@[@"isOpened"]]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
     if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
@@ -69,6 +80,11 @@
     [super encodeWithCoder:aCoder];
     [aCoder encodeFromObject:self withProperties:[[IUMenuItem class]  propertiesWithOutProperties:@[@"isOpened"]]];
 
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUMenuItem class]  propertiesWithOutProperties:@[@"isOpened"]]];
 }
 
 - (id)copyWithZone:(NSZone *)zone{
@@ -90,7 +106,7 @@
     [super connectWithEditor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:nil];
-    [self.parent.css.effectiveTagDictionary addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
+    [self.parent.liveStyleStorage addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
     
 
 }
@@ -99,7 +115,7 @@
 
 - (void)disconnectWithEditor{
     if([self isConnectedWithEditor]){
-        [self.parent.css.effectiveTagDictionary removeObserver:self forKeyPath:@"height" context:@"height"];
+        [self.parent.liveStyleStorage removeObserver:self forKeyPath:@"height" context:@"height"];
         [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     }
@@ -109,7 +125,7 @@
 
 -(void)selectionChanged:(NSNotification*)noti{
     
-    if(self.children.count > 0 && self.css.editViewPort > IUMobileSize){
+    if(self.children.count > 0 && self.defaultStyleManager.currentViewPort > IUMobileSize){
         NSMutableSet *set = [NSMutableSet setWithArray:[self.allChildren arrayByAddingObject:self]];
         [set intersectSet:[NSSet setWithArray:[noti userInfo][@"selectedObjects"]]];
         BOOL isChanged = NO;
@@ -357,7 +373,7 @@
 }
 
 - (BOOL)canChangeWidthByUserInput{
-    if(self.css.editViewPort <= IUMobileSize){
+    if(self.defaultStyleManager.currentViewPort <= IUMobileSize){
         return NO;
     }
     else{
@@ -365,7 +381,7 @@
     }
 }
 - (BOOL)shouldExtendParent{
-    if(self.css.editViewPort <= IUMobileSize){
+    if(self.defaultStyleManager.currentViewPort <= IUMobileSize){
         return YES;
     }
     else{

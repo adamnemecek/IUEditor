@@ -85,6 +85,22 @@
     
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUMenuBar class] properties]];
+        [self.undoManager enableUndoRegistration];
+
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUMenuBar class] properties]];
+}
+
 - (id)copyWithZone:(NSZone *)zone{
     IUMenuBar *menuBar = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];
@@ -107,20 +123,21 @@
     [super connectWithEditor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:nil];
     
-    [self.css.effectiveTagDictionary addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+    [self.liveStyleStorage addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+    
     
 }
 
 - (void)dealloc{
     if([self isConnectedWithEditor]){
         [[NSNotificationCenter defaultCenter] removeObserver:self];
-        [self.css.effectiveTagDictionary removeObserver:self forKeyPath:@"height" context:nil];
+        [self.liveStyleStorage removeObserver:self forKeyPath:@"height"];
     }
 }
 
 -(void)selectionChanged:(NSNotification*)noti{
     
-    if(self.children.count > 0 && self.css.editViewPort <= IUMobileSize){
+    if(self.children.count > 0 && self.defaultStyleManager.currentViewPort  <= IUMobileSize){
         NSMutableSet *set = [NSMutableSet setWithArray:[self.allChildren arrayByAddingObject:self]];
         [set intersectSet:[NSSet setWithArray:[noti userInfo][@"selectedObjects"]]];
         
@@ -138,7 +155,7 @@
 }
 
 - (void)heightDidChange:(NSDictionary *)dictionary{
-    if(self.css.editViewPort <= IUMobileSize){
+    if(self.defaultStyleManager.currentViewPort <= IUMobileSize){
         //mobile에서만 사용하는 button들
         [self updateCSSWithIdentifiers:@[[self mobileButtonIdentifier], [self topButtonIdentifier], [self bottomButtonIdentifier]]];
     }
@@ -262,7 +279,7 @@
 }
 
 - (BOOL)canChangeWidthByUserInput{
-    if( self.css.editViewPort <= IUMobileSize){
+    if( self.defaultStyleManager.currentViewPort <= IUMobileSize){
         return YES;
     }
     else{

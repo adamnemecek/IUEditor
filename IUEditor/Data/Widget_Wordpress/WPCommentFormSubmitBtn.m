@@ -33,6 +33,22 @@
     [aCoder encodeFromObject:self withProperties:[WPCommentFormSubmitBtn properties]];
 }
 
+
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[WPCommentFormSubmitBtn properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPCommentFormSubmitBtn properties]];
+}
+
 - (NSString*)sampleHTML{
     return [NSString stringWithFormat:@"<input name='submit' type='submit' id='%@' class='%@' value='%@' />", self.htmlID, self.cssClassStringForHTML , self.label];
 }

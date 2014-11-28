@@ -36,6 +36,22 @@
     [aCoder encodeFromObject:self withProperties:[WPCommentFormField properties]];
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[WPCommentFormField properties]];
+        [self.undoManager enableUndoRegistration];
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[WPCommentFormField properties]];
+}
+
+
 - (void)setFieldType:(WPCommentFormFieldType)fieldType{
     _fieldType = fieldType;
     [self updateHTML];

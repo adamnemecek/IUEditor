@@ -67,6 +67,27 @@
     [aCoder encodeFromObject:self withProperties:[[IUWebMovie class] properties]];
     
 }
+
+-(id)initWithJDCoder:(JDCoder *)aDecoder{
+    self =  [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        [aDecoder decodeToObject:self withProperties:[[IUWebMovie class] properties]];
+        [self.undoManager enableUndoRegistration];
+        
+    }
+    return self;
+}
+
+-(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeFromObject:self withProperties:[[IUWebMovie class] properties]];
+    
+}
+
+
+
+
 - (id)copyWithZone:(NSZone *)zone{
     IUWebMovie *webMovie = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];

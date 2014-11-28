@@ -57,6 +57,29 @@
     [aCoder encodeBool:_enableComment forKey:@"enableComment"];
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        [self.undoManager disableUndoRegistration];
+        _enableTitle = [aDecoder decodeBoolForKey:@"enableTitle"];
+        _enableBody = [aDecoder decodeBoolForKey:@"enableBody"];
+        _enableDate = [aDecoder decodeBoolForKey:@"enableDate"];
+        _enableComment = [aDecoder decodeBoolForKey:@"enableComment"];
+        [self.undoManager enableUndoRegistration];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeBool:_enableTitle forKey:@"enableTitle"];
+    [aCoder encodeBool:_enableBody forKey:@"enableBody"];
+    [aCoder encodeBool:_enableDate forKey:@"enableDate"];
+    [aCoder encodeBool:_enableComment forKey:@"enableComment"];
+}
+
+
 - (id)initWithPreset{
     self = [super initWithPreset];
     if(self){
