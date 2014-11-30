@@ -279,7 +279,7 @@
 #pragma mark - notification from other Controllers
 
 - (void)ghostImageContextDidChange:(NSDictionary *)change{
-    
+    /*
     NSString *ghostImageName = _sheet.ghostImageName;
     IUResourceFile *resourceNode = [_resourceManager resourceFileWithName:ghostImageName];
     NSImage *ghostImage = [[NSImage alloc] initWithContentsOfFile:resourceNode.absolutePath];
@@ -288,6 +288,7 @@
     NSPoint ghostPosition = NSMakePoint(_sheet.ghostX, _sheet.ghostY);
     [[self gridView] setGhostPosition:ghostPosition];
     [[self gridView] setGhostOpacity:_sheet.ghostOpacity];
+     */
 }
 
 

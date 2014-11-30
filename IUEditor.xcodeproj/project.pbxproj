@@ -45,6 +45,7 @@
 		09E6F9391A22CBFE00FD1EBB /* IUEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E6F9381A22CBFE00FD1EBB /* IUEvent.m */; };
 		09E6F93C1A22CC3500FD1EBB /* IUEvent2.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E6F93B1A22CC3500FD1EBB /* IUEvent2.m */; };
 		09E8E43B1A08BA1E0017419B /* IUSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceManager.m */; };
+		09F473791A2AE3D300EB0BCC /* IUResource_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F473781A2AE3D300EB0BCC /* IUResource_Test.m */; };
 		2637F5BA19FE154F009A09AC /* vcenter_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B619FE154F009A09AC /* vcenter_off.png */; };
 		2637F5BB19FE154F009A09AC /* vcenter_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B719FE154F009A09AC /* vcenter_off@2x.png */; };
 		2637F5BC19FE154F009A09AC /* vcenter_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2637F5B819FE154F009A09AC /* vcenter_on.png */; };
@@ -86,14 +87,12 @@
 		3D2EF40B19F780EA00BBBAE5 /* IUIdentifierManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF3FC19F780EA00BBBAE5 /* IUIdentifierManager.m */; };
 		3D2EF40C19F780EA00BBBAE5 /* IUProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF3FE19F780EA00BBBAE5 /* IUProjectController.m */; };
 		3D2EF40D19F780EA00BBBAE5 /* IUProjectDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40019F780EA00BBBAE5 /* IUProjectDocument.m */; };
-		3D2EF40E19F780EA00BBBAE5 /* IUResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40219F780EA00BBBAE5 /* IUResourceManager.m */; };
+		3D2EF40E19F780EA00BBBAE5 /* IUResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40219F780EA00BBBAE5 /* IUResource.m */; };
 		3D2EF40F19F780EA00BBBAE5 /* IUSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */; };
 		3D2EF41019F780EA00BBBAE5 /* LMFontController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40619F780EA00BBBAE5 /* LMFontController.m */; };
 		3D2EF41119F780EA00BBBAE5 /* LMGeneralObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */; };
 		3D2EF42719F7815B00BBBAE5 /* IUDjangoProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */; };
 		3D2EF42819F7815B00BBBAE5 /* IUProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF41E19F7815B00BBBAE5 /* IUProject.m */; };
-		3D2EF42919F7815B00BBBAE5 /* IUResourceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF42019F7815B00BBBAE5 /* IUResourceFile.m */; };
-		3D2EF42A19F7815B00BBBAE5 /* IUResourceGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF42219F7815B00BBBAE5 /* IUResourceGroup.m */; };
 		3D2EF42B19F7815B00BBBAE5 /* IUSheetGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF42419F7815B00BBBAE5 /* IUSheetGroup.m */; };
 		3D2EF42C19F7815B00BBBAE5 /* IUWordpressProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF42619F7815B00BBBAE5 /* IUWordpressProject.m */; };
 		3D2EF48519F781B700BBBAE5 /* IUBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF47019F781B700BBBAE5 /* IUBackground.m */; };
@@ -1145,6 +1144,7 @@
 		09E8E43A1A08BA1E0017419B /* IUSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSourceManager.m; path = Control/IUSourceManager.m; sourceTree = "<group>"; };
 		09E8E43C1A08DE700017419B /* IUBox_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUBox_Test.m; sourceTree = "<group>"; };
 		09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUSourceManager_Test.m; sourceTree = "<group>"; };
+		09F473781A2AE3D300EB0BCC /* IUResource_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUResource_Test.m; sourceTree = "<group>"; };
 		2637F5B619FE154F009A09AC /* vcenter_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vcenter_off.png; path = IUEditor/Resource/AppResource/image/ui/button/vcenter_off.png; sourceTree = "<group>"; };
 		2637F5B719FE154F009A09AC /* vcenter_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "vcenter_off@2x.png"; path = "IUEditor/Resource/AppResource/image/ui/button/vcenter_off@2x.png"; sourceTree = "<group>"; };
 		2637F5B819FE154F009A09AC /* vcenter_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vcenter_on.png; path = IUEditor/Resource/AppResource/image/ui/button/vcenter_on.png; sourceTree = "<group>"; };
@@ -1202,8 +1202,8 @@
 		3D2EF3FE19F780EA00BBBAE5 /* IUProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUProjectController.m; path = Control/IUProjectController.m; sourceTree = "<group>"; };
 		3D2EF3FF19F780EA00BBBAE5 /* IUProjectDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUProjectDocument.h; path = Control/IUProjectDocument.h; sourceTree = "<group>"; };
 		3D2EF40019F780EA00BBBAE5 /* IUProjectDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUProjectDocument.m; path = Control/IUProjectDocument.m; sourceTree = "<group>"; };
-		3D2EF40119F780EA00BBBAE5 /* IUResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUResourceManager.h; path = Control/IUResourceManager.h; sourceTree = "<group>"; };
-		3D2EF40219F780EA00BBBAE5 /* IUResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUResourceManager.m; path = Control/IUResourceManager.m; sourceTree = "<group>"; };
+		3D2EF40119F780EA00BBBAE5 /* IUResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUResource.h; path = Control/IUResource.h; sourceTree = "<group>"; };
+		3D2EF40219F780EA00BBBAE5 /* IUResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUResource.m; path = Control/IUResource.m; sourceTree = "<group>"; };
 		3D2EF40319F780EA00BBBAE5 /* IUSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSheetController.h; path = Control/IUSheetController.h; sourceTree = "<group>"; };
 		3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSheetController.m; path = Control/IUSheetController.m; sourceTree = "<group>"; };
 		3D2EF40519F780EA00BBBAE5 /* LMFontController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMFontController.h; path = Control/LMFontController.h; sourceTree = "<group>"; };
@@ -1214,10 +1214,6 @@
 		3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUDjangoProject.m; path = Data/Project/IUDjangoProject.m; sourceTree = "<group>"; };
 		3D2EF41D19F7815B00BBBAE5 /* IUProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUProject.h; path = Data/Project/IUProject.h; sourceTree = "<group>"; };
 		3D2EF41E19F7815B00BBBAE5 /* IUProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUProject.m; path = Data/Project/IUProject.m; sourceTree = "<group>"; };
-		3D2EF41F19F7815B00BBBAE5 /* IUResourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUResourceFile.h; path = Data/Project/IUResourceFile.h; sourceTree = "<group>"; };
-		3D2EF42019F7815B00BBBAE5 /* IUResourceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUResourceFile.m; path = Data/Project/IUResourceFile.m; sourceTree = "<group>"; };
-		3D2EF42119F7815B00BBBAE5 /* IUResourceGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUResourceGroup.h; path = Data/Project/IUResourceGroup.h; sourceTree = "<group>"; };
-		3D2EF42219F7815B00BBBAE5 /* IUResourceGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUResourceGroup.m; path = Data/Project/IUResourceGroup.m; sourceTree = "<group>"; };
 		3D2EF42319F7815B00BBBAE5 /* IUSheetGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSheetGroup.h; path = Data/Project/IUSheetGroup.h; sourceTree = "<group>"; };
 		3D2EF42419F7815B00BBBAE5 /* IUSheetGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSheetGroup.m; path = Data/Project/IUSheetGroup.m; sourceTree = "<group>"; };
 		3D2EF42519F7815B00BBBAE5 /* IUWordpressProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUWordpressProject.h; path = Data/Project/IUWordpressProject.h; sourceTree = "<group>"; };
@@ -2609,8 +2605,8 @@
 				3D2EF3FE19F780EA00BBBAE5 /* IUProjectController.m */,
 				3D2EF3FF19F780EA00BBBAE5 /* IUProjectDocument.h */,
 				3D2EF40019F780EA00BBBAE5 /* IUProjectDocument.m */,
-				3D2EF40119F780EA00BBBAE5 /* IUResourceManager.h */,
-				3D2EF40219F780EA00BBBAE5 /* IUResourceManager.m */,
+				3D2EF40119F780EA00BBBAE5 /* IUResource.h */,
+				3D2EF40219F780EA00BBBAE5 /* IUResource.m */,
 				3D2EF40319F780EA00BBBAE5 /* IUSheetController.h */,
 				3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */,
 				3D2EF40519F780EA00BBBAE5 /* LMFontController.h */,
@@ -2655,10 +2651,6 @@
 				3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */,
 				3D2EF41D19F7815B00BBBAE5 /* IUProject.h */,
 				3D2EF41E19F7815B00BBBAE5 /* IUProject.m */,
-				3D2EF41F19F7815B00BBBAE5 /* IUResourceFile.h */,
-				3D2EF42019F7815B00BBBAE5 /* IUResourceFile.m */,
-				3D2EF42119F7815B00BBBAE5 /* IUResourceGroup.h */,
-				3D2EF42219F7815B00BBBAE5 /* IUResourceGroup.m */,
 				3D2EF42319F7815B00BBBAE5 /* IUSheetGroup.h */,
 				3D2EF42419F7815B00BBBAE5 /* IUSheetGroup.m */,
 				3D2EF42519F7815B00BBBAE5 /* IUWordpressProject.h */,
@@ -4434,6 +4426,7 @@
 				09D647D01A16215C00634434 /* IUTestWC.m */,
 				09D647D11A16215C00634434 /* IUTestWC.xib */,
 				3DE45F5E19F7BFB200A75567 /* Supporting Files */,
+				09F473781A2AE3D300EB0BCC /* IUResource_Test.m */,
 			);
 			path = "IUEditor Tests";
 			sourceTree = "<group>";
@@ -5599,7 +5592,6 @@
 				3D2EF66E19F7848F00BBBAE5 /* LMPropertyDisplayVC.m in Sources */,
 				3D2EF6D319F784A400BBBAE5 /* LMPropertySampleTextVC.m in Sources */,
 				3D2EF3F419F780E000BBBAE5 /* IUCSSCompiler.m in Sources */,
-				3D2EF42A19F7815B00BBBAE5 /* IUResourceGroup.m in Sources */,
 				3D2EF67419F7848F00BBBAE5 /* LMPropertyProgrammingType2VC.m in Sources */,
 				3D4DFF301A248BC600418CE0 /* IUText.m in Sources */,
 				3D2EF48919F781B700BBBAE5 /* IUPage.m in Sources */,
@@ -5612,7 +5604,6 @@
 				3D2EF48619F781B700BBBAE5 /* IUBackground+WP.m in Sources */,
 				3D2EF40919F780EA00BBBAE5 /* ClipArt.m in Sources */,
 				3D2EF5B019F7830100BBBAE5 /* LMHelpTextPopoverVC.m in Sources */,
-				3D2EF42919F7815B00BBBAE5 /* IUResourceFile.m in Sources */,
 				3DE462FF19FA4B8100A75567 /* LMJSManager.m in Sources */,
 				3D2EFC5819F788BA00BBBAE5 /* JDSyncUtil.m in Sources */,
 				3D2EF59119F782C700BBBAE5 /* LMStartWC.m in Sources */,
@@ -5675,7 +5666,7 @@
 				3D2EF65E19F7848F00BBBAE5 /* LMAppearanceFrameVC.m in Sources */,
 				3D2EF4BD19F781D300BBBAE5 /* IUFBLike.m in Sources */,
 				3D2EF51A19F781FB00BBBAE5 /* WPMenu.m in Sources */,
-				3D2EF40E19F780EA00BBBAE5 /* IUResourceManager.m in Sources */,
+				3D2EF40E19F780EA00BBBAE5 /* IUResource.m in Sources */,
 				3D2EF3F619F780E000BBBAE5 /* IUHTMLCompiler.m in Sources */,
 				3D2EF49A19F781C400BBBAE5 /* IUBox.m in Sources */,
 				3D2EFC8819F788C600BBBAE5 /* NSTextField+DragAndDrop.m in Sources */,
@@ -5823,6 +5814,7 @@
 				092605B01A1A54E5008C40FC /* IUCSSCompiler_Test.m in Sources */,
 				092605B11A1A54E5008C40FC /* IUBox_Test.m in Sources */,
 				0965D1321A21CED5000E400B /* IUEvent_Test.m in Sources */,
+				09F473791A2AE3D300EB0BCC /* IUResource_Test.m in Sources */,
 				092605B21A1A54E5008C40FC /* IUCompiler_Test.m in Sources */,
 				092605B31A1A54E5008C40FC /* IUProject_Test.m in Sources */,
 				3D0499A71A1C7C5C0084632B /* IUPropertyStorage_Test.m in Sources */,

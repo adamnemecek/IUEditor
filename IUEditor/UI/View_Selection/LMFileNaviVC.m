@@ -8,7 +8,6 @@
 
 #import "LMFileNaviVC.h"
 #import "IUSheetGroup.h"
-#import "IUResourceFile.h"
 #import "IUPage.h"
 #import "IUBackground.h"
 #import "IUClass.h"
@@ -75,6 +74,7 @@
 #pragma mark - outlineView
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode*)item {
+#if 0
     //folder
     if ( [item.representedObject isKindOfClass:[IUProject class]] ||
         [item.representedObject isKindOfClass:[IUResourceGroup class]]){
@@ -143,6 +143,7 @@
 
         return cell;
     }
+#endif
     return nil;
 }
 

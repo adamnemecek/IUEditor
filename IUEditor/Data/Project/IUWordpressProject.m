@@ -72,7 +72,6 @@
     _compiler = [[IUCompiler alloc] init];
     _compiler.webTemplateFileName = @"wpWebTemplate";
     
-    _resourceManager = [[IUResourceManager alloc] init];
     _compiler.resourceManager = _resourceManager;
     
     NSAssert(options[IUProjectKeyAppName], @"app Name");
@@ -123,7 +122,6 @@
     [self addItem:class toSheetGroup:_classGroup];
     
     [self initializeResource];
-    [_resourceManager setResourceGroup:_resourceGroup];
     [self.identifierManager registerIUs:self.allSheets];
     
     //    ReturnNilIfFalse([self save]);

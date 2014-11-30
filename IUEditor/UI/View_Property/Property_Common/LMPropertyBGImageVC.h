@@ -8,13 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
-#import "IUResourceManager.h"
+#import "IUResource.h"
 #import "JDOutlineCellView.h"
 #import "LMJSManager.h"
 
 @interface LMPropertyBGImageVC : LMDefaultPropertyVC <NSComboBoxDelegate>
 
-@property (weak) IUResourceManager     *resourceManager;
+@property (weak) IUResourceRootItem     *resourceRootItem;
 @property (weak) LMJSManager *jsManager;
 
 @end

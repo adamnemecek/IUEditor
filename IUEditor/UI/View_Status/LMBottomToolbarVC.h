@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IUResourceManager.h"
 #import "IUSheet.h"
 
 @interface LMBottomToolbarVC : NSViewController <NSComboBoxDelegate>

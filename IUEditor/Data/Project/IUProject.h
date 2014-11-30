@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IUResourceGroup.h"
 #import "IUCompiler.h"
 #import "IUSheetGroup.h"
 #import "IUServerInfo.h"
@@ -49,10 +48,9 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <IUResourcePathProtocol, NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
+@interface IUProject : NSObject <NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
-    IUResourceGroup *_resourceGroup;
     IUServerInfo *_serverInfo;
     
     IUCompiler *_compiler __deprecated;
@@ -173,7 +171,7 @@ static NSString *IUClassGroupName = @"class";
 // return groups
 - (IUSheetGroup*)pageGroup;
 - (IUSheetGroup*)classGroup;
-- (IUResourceGroup *)resourceGroup;
+//- (IUResourceGroup *)resourceGroup;
 
 - (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
 - (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;

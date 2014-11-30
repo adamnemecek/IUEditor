@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
-#import "IUResourceManager.h"
 
 
 @interface LMPropertyIUPageVC : LMDefaultPropertyVC

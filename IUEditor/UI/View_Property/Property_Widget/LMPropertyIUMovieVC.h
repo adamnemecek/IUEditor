@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
-#import "IUResourceManager.h"
+//#import "IUResourceManager.h"
 
 @interface LMPropertyIUMovieVC : LMDefaultPropertyVC <NSComboBoxDelegate>
 
-@property (nonatomic, weak) IUResourceManager *resourceManager;
+//@property (nonatomic, weak) IUResourceManager *resourceManager;
 
 @end

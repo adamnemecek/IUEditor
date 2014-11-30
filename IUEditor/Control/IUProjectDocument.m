@@ -283,7 +283,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         [resourceWrapper addFileWrapper:videoWrapper];
     }
     
-
+/*
     [self fileWrapper:imageWrapper removeFileNotInArray:[_project.resourceManager namesWithFiles:_project.resourceManager.imageFiles]];
     for(IUResourceFile *resourceFile in _project.resourceManager.imageFiles){
         [self fileWrapper:imageWrapper addResourceNode:resourceFile];
@@ -293,7 +293,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     for(IUResourceFile *resourceFile in _project.resourceManager.videoFiles){
         [self fileWrapper:videoWrapper addResourceNode:resourceFile];
     }
-
+*/
     //save metadata
     // write the new file wrapper for our meta data
     NSFileWrapper *metaDataFileWrapper = [[[self documentFileWrapper] fileWrappers] objectForKey:metaDataFileName];
@@ -333,7 +333,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     }
     return i;
 }
-
+/*
 - (NSString *)fileWrapper:(NSFileWrapper *)fileWrapper overwriteResourceNode:(IUResourceFile *)resource{
     NSFileWrapper *oldFileWrapper = [[fileWrapper fileWrappers] objectForKey:resource.name];
     if(oldFileWrapper){
@@ -361,7 +361,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     }
     return resource.name;
 }
-
+*/
 
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)fileWrapper ofType:(NSString *)typeName error:(NSError **)outError
 {

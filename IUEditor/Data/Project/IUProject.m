@@ -8,16 +8,12 @@
 
 #import "IUProject.h"
 #import "IUPage.h"
-#import "IUResourceGroup.h"
 #import "IUSheetGroup.h"
-#import "IUResourceFile.h"
-#import "IUResourceManager.h"
 #import "JDUIUtil.h"
 #import "IUBackground.h"
 #import "IUClass.h"
 #import "IUFooter.h"
 #import "IUEventVariable.h"
-#import "IUResourceManager.h"
 #import "IUIdentifierManager.h"
 
 #import "IUDjangoProject.h"
@@ -84,13 +80,11 @@
 #pragma mark - init
 
 - (void)encodeWithCoder:(NSCoder *)encoder{
-    NSAssert(_resourceGroup, @"no resource");
     [encoder encodeObject:_mqSizes forKey:@"mqSizes"];
     [encoder encodeObject:self.buildPath forKey:@"_buildPath"];
     [encoder encodeObject:self.buildResourcePath forKey:@"_buildResourcePath"];
     [encoder encodeObject:_pageGroup forKey:@"_pageGroup"];
     [encoder encodeObject:_classGroup forKey:@"_classGroup"];
-    [encoder encodeObject:_resourceGroup forKey:@"_resourceGroup"];
     [encoder encodeObject:_name forKey:@"_name"];
     [encoder encodeObject:_favicon forKey:@"_favicon"];
     [encoder encodeObject:_author forKey:@"_author"];
@@ -152,13 +146,11 @@
         _compiler = [[IUCompiler alloc] init];
         _compiler.webTemplateFileName = @"webTemplate";
         
-        _resourceManager = [[IUResourceManager alloc] init];
         _compiler.resourceManager = _resourceManager;
         
         _mqSizes = [[aDecoder decodeObjectForKey:@"mqSizes"] mutableCopy];
         _classGroup = [aDecoder decodeObjectForKey:@"_classGroup"];
         _pageGroup = [aDecoder decodeObjectForKey:@"_pageGroup"];
-        _resourceGroup = [aDecoder decodeObjectForKey:@"_resourceGroup"];
         _name = [aDecoder decodeObjectForKey:@"_name"];
         
         self.buildPath = [aDecoder decodeObjectForKey:@"_buildPath"];
@@ -178,7 +170,7 @@
         //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
         //[self initializeCSSJSResource];
 
-        [_resourceManager setResourceGroup:_resourceGroup];
+//        [_resourceManager setResourceGroup:_resourceGroup];
         
         _serverInfo = [[IUServerInfo alloc] init];
         
@@ -366,11 +358,8 @@
 
     /*
      FIXME : resourceManager
-     */
-    _resourceManager = [[IUResourceManager alloc] init];
 
     [self initializeResource];
-    [_resourceManager setResourceGroup:_resourceGroup];
 
 
     
@@ -704,7 +693,7 @@
     
     
     [[NSFileManager defaultManager] setDelegate:self];
-    [[NSFileManager defaultManager] copyItemAtPath:_resourceGroup.absolutePath toPath:buildResourcePath error:error];
+//    [[NSFileManager defaultManager] copyItemAtPath:_resourceGroup.absolutePath toPath:buildResourcePath error:error];
     [[NSFileManager defaultManager] setDelegate:nil];
     
     [self copyCSSJSResourceToBuildPath:buildResourcePath];
@@ -871,50 +860,11 @@
 }
 
 - (NSArray *)childrenFiles{
-    return @[_pageGroup, _classGroup, _resourceGroup];
+    return @[_pageGroup, _classGroup];
 }
 
-- (IUResourceGroup*)resourceNode{
-    return [self.childrenFiles objectAtIndex:3];
-}
 
-//TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
-//현재는 불리지 않음.
-- (void)initializeCSSJSResource{
-    IUResourceGroup *JSGroup = [[IUResourceGroup alloc] init];
-    JSGroup.name = IUJSResourceGroupName;
-    [_resourceGroup addResourceGroup:JSGroup];
-    
-    IUResourceGroup *CSSGroup = [[IUResourceGroup alloc] init];
-    CSSGroup.name = IUCSSResourceGroupName;
-    [_resourceGroup addResourceGroup:CSSGroup];
-    
-    //CSS resource Copy
-    NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
-    [CSSGroup addResourceFileWithContentOfPath:resetCSSPath];
-    
-    NSString *iuCSSPath = [[NSBundle mainBundle] pathForResource:@"iu" ofType:@"css"];
-    [CSSGroup addResourceFileWithContentOfPath:iuCSSPath];
-    
-    NSString *iueditorCSSPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"css"];
-    [CSSGroup addResourceFileWithContentOfPath:iueditorCSSPath];
-
-    
-    //Java Script resource copy
-    NSString *iuEditorJSPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"js"];
-    [JSGroup addResourceFileWithContentOfPath:iuEditorJSPath];
-    
-    NSString *iuFrameJSPath = [[NSBundle mainBundle] pathForResource:@"iuframe" ofType:@"js"];
-    [JSGroup addResourceFileWithContentOfPath:iuFrameJSPath];
-    
-    NSString *iuJSPath = [[NSBundle mainBundle] pathForResource:@"iu" ofType:@"js"];
-    [JSGroup addResourceFileWithContentOfPath:iuJSPath];
-    
-    NSString *carouselJSPath = [[NSBundle mainBundle] pathForResource:@"iucarousel" ofType:@"js"];
-    [JSGroup addResourceFileWithContentOfPath:carouselJSPath];
-    
-}
-
+/*
 - (void)initializeResource{
     //remove resource node if exist
     JDInfoLog(@"initilizeResource");
@@ -936,7 +886,7 @@
     //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
     [self initializeCSSJSResource];
 }
-
+*/
 
 - (NSArray*)allSheets{
     NSMutableArray *array = [NSMutableArray array];
@@ -1045,8 +995,5 @@
     return self;
 }
 
-- (IUResourceGroup *)resourceGroup __storage_deprecated {
-    return nil;
-}
 
 @end

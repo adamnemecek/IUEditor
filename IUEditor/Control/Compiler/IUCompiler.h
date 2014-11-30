@@ -10,7 +10,6 @@
 #import "IUBox.h"
 #import "IUCarousel.h"
 #import "JDCode.h"
-#import "IUResourceManager.h"
 #import "IUCSSCompiler.h"
 #import "IUDefinition.h"
 

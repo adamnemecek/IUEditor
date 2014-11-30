@@ -10,7 +10,6 @@
 #import <WebKit/WebKit.h>
 #import "IUSheet.h"
 #import "IUController.h"
-#import "IUResourceManager.h"
 #import "IUCanvasController.h"
 
 @class LMCanvasView;

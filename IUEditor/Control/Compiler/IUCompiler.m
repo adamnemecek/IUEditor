@@ -346,6 +346,7 @@
 }
 
 - (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
+    /*
     NSString *imgSrc;
     
     if(imageName == nil || imageName.length==0){
@@ -378,6 +379,8 @@
         
     }
     return imgSrc;
+     */
+    return nil;
 }
 
 - (BOOL)hasLink:(IUBox *)iu{

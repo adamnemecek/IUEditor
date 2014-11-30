@@ -175,6 +175,8 @@
         
         //marker
         if(map.enableMarkerIcon){
+            NSAssert(0, @"not yet coded");
+            /*
             [code addCodeLineWithFormat:@"var marker_%@ = new google.maps.Marker({", map.htmlID];
             [code increaseIndentLevelForEdit];
             [code addCodeLineWithFormat:@"map: map_%@,", map.htmlID];
@@ -185,6 +187,7 @@
             }
             [code decreaseIndentLevelForEdit];
             [code addCodeLine:@"});"];
+             */
         }
         //info window
         if(map.markerTitle){
@@ -214,6 +217,7 @@
 }
 
 // FIXME: 오래된 코드 참조
+/*
 - (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
     NSString *imgSrc;
     
@@ -254,7 +258,7 @@
     return imgSrc;
 }
 
-
+*/
 /*
  
 to be removed : mqdata strucutre

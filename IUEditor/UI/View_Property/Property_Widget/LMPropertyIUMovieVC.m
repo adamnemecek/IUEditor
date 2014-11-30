@@ -102,7 +102,8 @@
     }
 }
 - (void)updateVideoFileName:(NSString *)videoFileName{
-    
+    JDErrorLog(@"update video file name not working");
+    /*
     gettingInfo = YES;
     if(videoFileName.length == 0){
         [self setValue:nil forIUProperty:@"posterPath"];
@@ -162,7 +163,7 @@
         }
         
     }
-    
+    */
 }
 
 

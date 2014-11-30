@@ -184,6 +184,7 @@
 
 
 - (IBAction)performFitToImage:(id)sender { // Fit to Image button function
+    /*
     NSAssert(_resourceManager, @"");
 
     //image filename
@@ -241,6 +242,7 @@
         [box endFrameMoveWithUndoManager];
         [box updateCSS];
     }
+     */
 }
 
 @end

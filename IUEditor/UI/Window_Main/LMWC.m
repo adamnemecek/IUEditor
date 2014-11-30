@@ -12,11 +12,8 @@
 #import "IUSheetController.h"
 #import "IUProject.h"
 #import "IUSheetGroup.h"
-#import "IUResourceGroup.h"
-#import "IUResourceFile.h"
 
 
-#import "IUResourceManager.h"
 #import "IUIdentifierManager.h"
 
 #import "LMJSManager.h"
@@ -121,7 +118,7 @@
     
     //right bottom
     LMWidgetLibraryVC   *widgetLibraryVC;
-    LMResourceVC    *resourceVC;
+//    LMResourceVC    *resourceVC;
     LMClipArtVC     *clipArtVC;
     
 
@@ -151,7 +148,7 @@
         topToolbarVC = [[LMTopToolbarVC alloc] initWithNibName:@"LMTopToolbarVC" bundle:nil];
         bottomToolbarVC = [[LMBottomToolbarVC alloc] initWithNibName:@"LMBottomToolbarVC" bundle:nil];
         widgetLibraryVC = [[LMWidgetLibraryVC alloc] initWithNibName:@"LMWidgetLibraryVC" bundle:nil];
-        resourceVC = [[LMResourceVC alloc] initWithNibName:@"LMResourceVC" bundle:nil];
+//        resourceVC = [[LMResourceVC alloc] initWithNibName:@"LMResourceVC" bundle:nil];
         clipArtVC = [[LMClipArtVC alloc] initWithNibName:@"LMClipArtVC" bundle:nil];
         appearanceVC = [[LMAppearanceVC alloc] initWithNibName:@"LMAppearanceVC" bundle:nil];
         iuInspectorVC = [[LMIUPropertyVC alloc] initWithNibName:[LMIUPropertyVC class].className bundle:nil];
@@ -214,7 +211,7 @@
     
     ////////////////right view/////////////////////////
     [_widgetV addSubviewFullFrame:widgetLibraryVC.view];
-    [_resourceV addSubviewFullFrame:resourceVC.view];
+   // [_resourceV addSubviewFullFrame:resourceVC.view];
     [_clipartV addSubviewFullFrame:clipArtVC.view];
     
     [_appearanceV addSubviewFullFrame:appearanceVC.view];
@@ -283,7 +280,6 @@
     ((LMWindow*)(self.window)).canvasView = nil;
     [canvasVC prepareDealloc];
     [commandVC prepareDealloc];
-    [resourceVC prepareDealloc];
     [iuInspectorVC prepareDealloc];
     [appearanceVC prepareDealloc];
 }
@@ -339,7 +335,7 @@
         //FIXME : resourceManager
         /*
         canvasVC.resourceManager = _project.resourceManager;
-        resourceVC.manager = _project.resourceManager;
+   //     resourceVC.manager = _project.resourceManager;
         appearanceVC.resourceManager = _project.resourceManager;
         iuInspectorVC.resourceManager = _project.resourceManager;
         bottomToolbarVC.resourceManager = _project.resourceManager;
@@ -452,12 +448,6 @@
         return;
     }
     else if ([selectedNode isKindOfClass:[IUSheetGroup class]]){
-        return;
-    }
-    else if ([selectedNode isKindOfClass:[IUResourceGroup class]]) {
-        return;
-    }
-    else if ([selectedNode isKindOfClass:[IUResourceFile class]]) {
         return;
     }
 }

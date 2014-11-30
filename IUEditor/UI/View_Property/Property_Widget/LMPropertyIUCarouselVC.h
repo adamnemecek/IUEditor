@@ -8,12 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
-#import "IUResourceManager.h"
 
 
 @interface LMPropertyIUCarouselVC : LMDefaultPropertyVC <NSOutlineViewDataSource, NSOutlineViewDelegate>
 
-@property (nonatomic) IUResourceManager     *resourceManager;
 @property (nonatomic) NSArray *imageArray;
 
 @end

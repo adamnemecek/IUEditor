@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
-#import "IUResourceManager.h"
+//#import "IUResourceManager.h"
 #import "LMInspectorLinkVC.h"
 
 @protocol IUPropertyDoubleClickReceiver <NSObject>

@@ -266,8 +266,6 @@
 
 - (void)setResourceManager:(IUResourceManager *)resourceManager{
     _resourceManager = resourceManager;
-    propertyIUCarouselVC.resourceManager = resourceManager;
-    propertyIUMovieVC.resourceManager = resourceManager;
     propertyIUGoogleMapVC.resourceManager = resourceManager;
 }
 

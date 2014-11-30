@@ -5,9 +5,8 @@
 //  Created by JD on 3/31/14.
 //  Copyright (c) 2014 JDLab. All rights reserved.
 //
-
+#if 0
 #import "LMResourceVC.h"
-#import "IUResourceFile.h"
 #import "LMHelpPopover.h"
 
 @interface LMResourceVC ()
@@ -263,3 +262,4 @@
 }
 
 @end
+#endif
