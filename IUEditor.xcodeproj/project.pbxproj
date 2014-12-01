@@ -27,6 +27,9 @@
 		09C860811A2C6146001C0A53 /* IUWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C8607E1A2C6146001C0A53 /* IUWidgetCellView.xib */; };
 		09C860821A2C6146001C0A53 /* IUWidgetIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C8607F1A2C6146001C0A53 /* IUWidgetIconView.xib */; };
 		09C860831A2C6146001C0A53 /* IUWidgetLibraryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860801A2C6146001C0A53 /* IUWidgetLibraryView.xib */; };
+		09C860891A2C7443001C0A53 /* BFWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860861A2C7443001C0A53 /* BFWidgetCellView.xib */; };
+		09C8608A1A2C7443001C0A53 /* BFWidgetIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860871A2C7443001C0A53 /* BFWidgetIconView.xib */; };
+		09C8608B1A2C7443001C0A53 /* BFWidgetLibraryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860881A2C7443001C0A53 /* BFWidgetLibraryView.xib */; };
 		09CC1E2C1A15A03100E39599 /* IUJSCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CC1E2B1A15A03100E39599 /* IUJSCompiler.m */; };
 		09D1807A1A0C5C40001B9D9B /* IUCSSCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D180791A0C5C40001B9D9B /* IUCSSCode.m */; };
 		09D647BA1A161EF600634434 /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
@@ -1129,6 +1132,9 @@
 		09C8607E1A2C6146001C0A53 /* IUWidgetCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetCellView.xib; sourceTree = "<group>"; };
 		09C8607F1A2C6146001C0A53 /* IUWidgetIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetIconView.xib; sourceTree = "<group>"; };
 		09C860801A2C6146001C0A53 /* IUWidgetLibraryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetLibraryView.xib; sourceTree = "<group>"; };
+		09C860861A2C7443001C0A53 /* BFWidgetCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BFWidgetCellView.xib; path = UI/View_Widget/BFWidgetCellView.xib; sourceTree = "<group>"; };
+		09C860871A2C7443001C0A53 /* BFWidgetIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BFWidgetIconView.xib; path = UI/View_Widget/BFWidgetIconView.xib; sourceTree = "<group>"; };
+		09C860881A2C7443001C0A53 /* BFWidgetLibraryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BFWidgetLibraryView.xib; path = UI/View_Widget/BFWidgetLibraryView.xib; sourceTree = "<group>"; };
 		09CC1E2A1A15A03100E39599 /* IUJSCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUJSCompiler.h; path = Control/Compiler/IUJSCompiler.h; sourceTree = "<group>"; };
 		09CC1E2B1A15A03100E39599 /* IUJSCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUJSCompiler.m; path = Control/Compiler/IUJSCompiler.m; sourceTree = "<group>"; };
 		09D180781A0C5C40001B9D9B /* IUCSSCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUCSSCode.h; path = Control/Compiler/IUCSSCode.h; sourceTree = "<group>"; };
@@ -3150,6 +3156,9 @@
 		3D2EF5FA19F783DF00BBBAE5 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
+				09C860861A2C7443001C0A53 /* BFWidgetCellView.xib */,
+				09C860871A2C7443001C0A53 /* BFWidgetIconView.xib */,
+				09C860881A2C7443001C0A53 /* BFWidgetLibraryView.xib */,
 				3D2EF70119F784D600BBBAE5 /* LMClipArtVC.h */,
 				3D2EF70219F784D600BBBAE5 /* LMClipArtVC.m */,
 				3D2EF70319F784D600BBBAE5 /* LMClipArtVC.xib */,
@@ -4879,6 +4888,7 @@
 				3D2EFA4E19F7869E00BBBAE5 /* tab_pg_on.png in Resources */,
 				3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */,
 				3D2EF8C219F7867700BBBAE5 /* tool_mail.png in Resources */,
+				09C8608A1A2C7443001C0A53 /* BFWidgetIconView.xib in Resources */,
 				3D2EF9EC19F7869E00BBBAE5 /* border_icon_04@2x.png in Resources */,
 				3D2EF87F19F7867700BBBAE5 /* stack_form@2x.png in Resources */,
 				3D2EF54219F7828000BBBAE5 /* LMCloseWC.xib in Resources */,
@@ -5252,6 +5262,7 @@
 				3D2EFBB719F786C700BBBAE5 /* twitter3-128.png in Resources */,
 				3D2EFBAD19F786C700BBBAE5 /* stop.png in Resources */,
 				3D2EF9D419F7869E00BBBAE5 /* bg_fullsize@2x.png in Resources */,
+				09C860891A2C7443001C0A53 /* BFWidgetCellView.xib in Resources */,
 				3D2EFCDE19F794C100BBBAE5 /* new_django@2x.png in Resources */,
 				3D2EF5E719F7836500BBBAE5 /* LMPreferenceWC.xib in Resources */,
 				3D2EFBAB19F786C700BBBAE5 /* social_4-128.png in Resources */,
@@ -5289,6 +5300,7 @@
 				3D2EFCDB19F794C100BBBAE5 /* new_default.png in Resources */,
 				3D2EFBB219F786C700BBBAE5 /* Streamline-44-128.png in Resources */,
 				3D2EFA1E19F7869E00BBBAE5 /* radius_icon_01.png in Resources */,
+				09C8608B1A2C7443001C0A53 /* BFWidgetLibraryView.xib in Resources */,
 				3D2EF5E519F7836500BBBAE5 /* LMPreferenceHelpVC.xib in Resources */,
 				3D2EFB7A19F786C700BBBAE5 /* Mail.png in Resources */,
 				3D2EF86319F7867700BBBAE5 /* ic_contents@2x.png in Resources */,
