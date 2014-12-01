@@ -1,0 +1,3 @@
+[submodule "IUEditor/XIB"]
+	path = IUEditor/XIB
+	url = git@github.com:JDLabOrg/IUEditorXIB.git
