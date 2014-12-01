@@ -24,6 +24,9 @@
 		0965D1321A21CED5000E400B /* IUEvent_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0965D1311A21CED5000E400B /* IUEvent_Test.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09890A251A25B4C30015AF9A /* IUFileItem.m */; };
+		09C860811A2C6146001C0A53 /* IUWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C8607E1A2C6146001C0A53 /* IUWidgetCellView.xib */; };
+		09C860821A2C6146001C0A53 /* IUWidgetIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C8607F1A2C6146001C0A53 /* IUWidgetIconView.xib */; };
+		09C860831A2C6146001C0A53 /* IUWidgetLibraryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860801A2C6146001C0A53 /* IUWidgetLibraryView.xib */; };
 		09CC1E2C1A15A03100E39599 /* IUJSCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CC1E2B1A15A03100E39599 /* IUJSCompiler.m */; };
 		09D1807A1A0C5C40001B9D9B /* IUCSSCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D180791A0C5C40001B9D9B /* IUCSSCode.m */; };
 		09D647BA1A161EF600634434 /* IUCSSCompiler_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */; };
@@ -1123,6 +1126,9 @@
 		09890A251A25B4C30015AF9A /* IUFileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUFileItem.m; path = Data/Project/IUFileItem.m; sourceTree = "<group>"; };
 		099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSCompiler_Test.m; sourceTree = "<group>"; };
 		099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
+		09C8607E1A2C6146001C0A53 /* IUWidgetCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetCellView.xib; sourceTree = "<group>"; };
+		09C8607F1A2C6146001C0A53 /* IUWidgetIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetIconView.xib; sourceTree = "<group>"; };
+		09C860801A2C6146001C0A53 /* IUWidgetLibraryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IUWidgetLibraryView.xib; sourceTree = "<group>"; };
 		09CC1E2A1A15A03100E39599 /* IUJSCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUJSCompiler.h; path = Control/Compiler/IUJSCompiler.h; sourceTree = "<group>"; };
 		09CC1E2B1A15A03100E39599 /* IUJSCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUJSCompiler.m; path = Control/Compiler/IUJSCompiler.m; sourceTree = "<group>"; };
 		09D180781A0C5C40001B9D9B /* IUCSSCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUCSSCode.h; path = Control/Compiler/IUCSSCode.h; sourceTree = "<group>"; };
@@ -2486,6 +2492,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09C8607D1A2C6145001C0A53 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				09C8607E1A2C6146001C0A53 /* IUWidgetCellView.xib */,
+				09C8607F1A2C6146001C0A53 /* IUWidgetIconView.xib */,
+				09C860801A2C6146001C0A53 /* IUWidgetLibraryView.xib */,
+			);
+			name = XIB;
+			path = XIB/IUxib/XIB;
+			sourceTree = "<group>";
+		};
 		3D2EF34A19F751FF00BBBAE5 = {
 			isa = PBXGroup;
 			children = (
@@ -2515,6 +2532,7 @@
 				3D2EFC1419F7887100BBBAE5 /* Library */,
 				3D2EF3E919F7805B00BBBAE5 /* Control */,
 				3D2EF3A719F77C8500BBBAE5 /* Data */,
+				09C8607D1A2C6145001C0A53 /* XIB */,
 				3D2EF3A619F77C8000BBBAE5 /* UI */,
 				3D2EF3A419F77C3F00BBBAE5 /* Resource */,
 			);
@@ -4896,6 +4914,7 @@
 				3D2EFA0519F7869E00BBBAE5 /* import_on@2x.png in Resources */,
 				3D2EFA2219F7869E00BBBAE5 /* radius_icon_03.png in Resources */,
 				3D2EFA3319F7869E00BBBAE5 /* tab_appearance_on@2x.png in Resources */,
+				09C860811A2C6146001C0A53 /* IUWidgetCellView.xib in Resources */,
 				3DE462F419FA4A2600A75567 /* wpblog_mobile_01.png in Resources */,
 				3D2EF88419F7867700BBBAE5 /* stack_image.png in Resources */,
 				3DE462BE19FA4A2600A75567 /* cs_mobile_03.png in Resources */,
@@ -4974,6 +4993,7 @@
 				3D2EF8BE19F7867700BBBAE5 /* tool_html.png in Resources */,
 				3D2EFB5519F786C700BBBAE5 /* email-128.png in Resources */,
 				3D2EFCED19F7964400BBBAE5 /* webTemplate.html in Resources */,
+				09C860821A2C6146001C0A53 /* IUWidgetIconView.xib in Resources */,
 				3D2EFBBB19F786C700BBBAE5 /* windows_store_2.png in Resources */,
 				3D2EF6D919F784A400BBBAE5 /* LMPropertyWPCommentObjectVC.xib in Resources */,
 				3DE462E219FA4A2600A75567 /* pf_thumbnail.png in Resources */,
@@ -4998,6 +5018,7 @@
 				3D2EFBB019F786C700BBBAE5 /* Streamline-09-128.png in Resources */,
 				3D2EF57F19F782C700BBBAE5 /* LMStartNewDefaultVC.xib in Resources */,
 				3D2EF9C219F7869E00BBBAE5 /* align_full@2x.png in Resources */,
+				09C860831A2C6146001C0A53 /* IUWidgetLibraryView.xib in Resources */,
 				3D2EFB8819F786C700BBBAE5 /* MapMarker_Marker_Inside_Chartreuse.png in Resources */,
 				3D2EF58C19F782C700BBBAE5 /* LMStartPreviewWC.xib in Resources */,
 				3D2EF54419F7828000BBBAE5 /* LMWC.xib in Resources */,
