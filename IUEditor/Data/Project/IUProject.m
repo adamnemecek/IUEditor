@@ -692,9 +692,9 @@
     }
     
     
-    [[NSFileManager defaultManager] setDelegate:self];
+//    [[NSFileManager defaultManager] setDelegate:self];
 //    [[NSFileManager defaultManager] copyItemAtPath:_resourceGroup.absolutePath toPath:buildResourcePath error:error];
-    [[NSFileManager defaultManager] setDelegate:nil];
+//    [[NSFileManager defaultManager] setDelegate:nil];
     
     [self copyCSSJSResourceToBuildPath:buildResourcePath];
     

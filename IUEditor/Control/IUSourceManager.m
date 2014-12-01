@@ -320,7 +320,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     
     
     /* copy resource */
-    [[NSFileManager defaultManager] setDelegate:self];
+    //[[NSFileManager defaultManager] setDelegate:self];
     
     JDErrorLog(@"Currently, resource group does not copied");
 //    [[NSFileManager defaultManager] copyItemAtPath:_project.resourceGroup.absolutePath toPath:buildResourcePath error:error];

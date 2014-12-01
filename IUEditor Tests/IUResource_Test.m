@@ -28,12 +28,13 @@
 }
 
 - (void)test1_resource {
-    NSString *dir = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"rand%d", arc4random()/1000]];
+    NSString *dir = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"rand%d", rand()%100]];
     NSString *fileDir = [dir stringByAppendingPathComponent:@"images/jpeg"];
     NSError *err;
     [[NSFileManager defaultManager] createDirectoryAtPath:fileDir withIntermediateDirectories:YES attributes:0 error:&err];
     NSString *bundleJPEGPath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"jpg"];
-    [[NSFileManager defaultManager] copyItemAtPath:bundleJPEGPath toPath:[fileDir stringByAppendingPathComponent:@"sample.jpg"] error:&err];
+    NSString *destPath = [fileDir stringByAppendingPathComponent:@"sample.jpg"];
+    [[NSFileManager defaultManager] copyItemAtPath:bundleJPEGPath toPath:destPath error:nil];
     
     IUResourceRootItem *root = [[IUResourceRootItem alloc] init];
     [root loadFromPath:dir];
@@ -53,6 +54,8 @@
     
     NSArray *arr = [root imageResourceItems];
     XCTAssertEqual(sampleJPEGItem, arr[0]);
+    
+    XCTAssertTrue([[NSFileManager defaultManager] removeItemAtPath:dir error:nil]);
 }
 
 @end
