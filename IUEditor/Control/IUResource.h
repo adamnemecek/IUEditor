@@ -39,6 +39,8 @@ typedef enum _IUResourceType{
 
 
 @interface IUResourceGroupItem : IUResourceFileItem
+
+- (IUResourceFileItem *)resourceFileItemForName:(NSString *)name;
 - (void)refresh:(BOOL)recursive;
 - (NSArray *)children;
 /**
@@ -63,6 +65,5 @@ typedef enum _IUResourceType{
 @interface IUResourceRootItem : IUResourceGroupItem
 
 - (void)loadFromPath:(NSString *)path;
-
 
 @end

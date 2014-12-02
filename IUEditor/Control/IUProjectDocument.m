@@ -38,7 +38,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         _identifierManager = [[IUIdentifierManager alloc] init];
         
         //allocation resource root
-        _resource = [[IUResourceRootItem alloc] init];
+        _resourceRootItem = [[IUResourceRootItem alloc] init];
         
         //allocation metadata
         _metaDataDict = [NSMutableDictionary dictionary];
@@ -201,7 +201,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [self.undoManager disableUndoRegistration];
         _project.name = appName;
         _project.path = filePath;
-        [_resource loadFromPath:[filePath stringByAppendingPathComponents:@[@"resource"]]];
+        [_resourceRootItem loadFromPath:[filePath stringByAppendingPathComponents:@[@"resource"]]];
         
         [self.undoManager enableUndoRegistration];
         
@@ -317,7 +317,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         if(oldFileWrapper){
             [_imageFileWrapper removeFileWrapper:oldFileWrapper];
         }
-        [_resource refresh:YES];
+        [_resourceRootItem refresh:YES];
         return YES;
 
     }
@@ -325,7 +325,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         if(oldFileWrapper){
             [_videoFileWrapper removeFileWrapper:oldFileWrapper];
         }
-        [_resource refresh:YES];
+        [_resourceRootItem refresh:YES];
         return YES;
     }
     
@@ -348,7 +348,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         }
     }
     
-    [_resource refresh:YES];
+    [_resourceRootItem refresh:YES];
 }
 
 

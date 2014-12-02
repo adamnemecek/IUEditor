@@ -14,6 +14,8 @@
 #import "IUJSCompiler.h"
 #import "IUHTMLCompiler.h"
 
+#import "IUResource.h"
+
 
 #import "NSString+JDExtension.h"
 #import "IUSheet.h"
@@ -343,7 +345,7 @@
 }
 
 - (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
-    /*
+    
     NSString *imgSrc;
     
     if(imageName == nil || imageName.length==0){
@@ -364,7 +366,7 @@
         }
     }
     else {
-        IUResourceFile *file = [self.resourceManager resourceFileWithName:imageName];
+        IUResourceFileItem *file = [self.resourceRootItem resourceFileItemForName:imageName];
         if(file){
             if(_rule == IUCompileRuleDjango && target == IUTargetOutput){
                 imgSrc = [@"/" stringByAppendingString:[file relativePath]];
@@ -376,8 +378,11 @@
         
     }
     return imgSrc;
-     */
-    return nil;
+    
+}
+
+- (IUResourceRootItem *)resourceRootItem{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
 }
 
 - (BOOL)hasLink:(IUBox *)iu{

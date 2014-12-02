@@ -151,6 +151,30 @@
     }];
 }
 
+- (IUResourceFileItem *)resourceFileItemForName:(NSString *)name{
+    for(IUResourceFileItem *item in [self allChildren]){
+        if([item.name isEqualToString:name]){
+            return item;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSArray *)allChildren{
+    NSMutableArray *array = [NSMutableArray array];
+    for(IUResourceFileItem *item in _children){
+        if([item isMemberOfClass:[IUResourceGroupItem class]]){
+            [array addObjectsFromArray:[(IUResourceGroupItem *)item allChildren]];
+        }
+        else{
+            [array addObject:item];
+        }
+    }
+    
+    return [array copy];
+}
+
 - (NSArray *)children{
     return [_children copy];
 }

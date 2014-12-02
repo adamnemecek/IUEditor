@@ -10,6 +10,8 @@
 #import "IUDjangoProject.h"
 #import "IUWordpressProject.h"
 
+#import "IUResource.h"
+
 @interface LMProjectPropertyWC ()
 @property (weak)  IUProject *project;
 
@@ -61,7 +63,7 @@
     
     //project property
     [_authorTF bind:NSValueBinding toObject:self withKeyPath:@"project.author" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
-    [_faviconComboBox bind:NSContentBinding toObject:self withKeyPath:@"project.resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+    [_faviconComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     [_faviconComboBox bind:NSValueBinding toObject:self withKeyPath:@"project.favicon" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     [_enableMinWidthCheckBox bind:NSValueBinding toObject:self withKeyPath:@"project.enableMinWidth" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     [_buildPathTF bind:NSValueBinding toObject:self withKeyPath:@"project.buildPath" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
@@ -92,6 +94,10 @@
     
     [self setTableHeight];
     
+}
+
+- (IUResourceRootItem *)resourceRootItem{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
 }
 
 - (void)setTableHeight{

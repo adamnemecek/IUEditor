@@ -11,6 +11,8 @@
 #import "LMWC.h"
 #import "LMHelpWC.h"
 
+#import "IUResource.h"
+
 @interface LMBottomToolbarVC ()
 
 @property (weak) IBOutlet NSComboBox *ghostImageComboBox;
@@ -53,7 +55,7 @@
     [_ghostXTF bind:NSEnabledBinding toObject:[NSUserDefaults standardUserDefaults]  withKeyPath:@"showGhost" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     [_ghostYTF bind:NSEnabledBinding toObject:[NSUserDefaults standardUserDefaults]  withKeyPath:@"showGhost" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     
-//    [_ghostImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+    [_ghostImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     [_ghostXTF bind:NSValueBinding toObject:self withKeyPath:@"sheet.ghostX" options:IUBindingDictNumberAndNotRaisesApplicable];
     [_ghostYTF bind:NSValueBinding toObject:self withKeyPath:@"sheet.ghostY" options:IUBindingDictNumberAndNotRaisesApplicable];
     [_opacitySlider bind:NSValueBinding toObject:self withKeyPath:@"sheet.ghostOpacity" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
@@ -86,6 +88,10 @@
     [_zoomComboBox addItemsWithObjectValues:@[@(200), @(180), @(150), @(120), @(100), @(80), @(60), @(40)]];
     [_zoomComboBox bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"zoom" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     
+}
+
+- (IUResourceRootItem *)resourceRootItem{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
 }
 
 -(void) dealloc{

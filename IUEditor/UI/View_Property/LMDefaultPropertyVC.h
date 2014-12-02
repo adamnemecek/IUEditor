@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
+#import "IUResource.h"
 
 @interface LMDefaultPropertyVC : NSViewController
 
 @property (nonatomic, weak) IUController      *controller;
+
+//resource root
+- (IUResourceRootItem *)resourceRootItem;
 
 //dealloc
 - (void)prepareDealloc;

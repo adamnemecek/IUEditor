@@ -55,7 +55,7 @@
 #pragma mark - image
     _imageNameComboBox.delegate = self;
     
-//    [_imageNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
+    [_imageNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_imageNameComboBox bind:NSValueBinding property:@"imageName"];
     [self outlet:_imageNameComboBox bind:NSEnabledBinding cssTag:IUCSSTagBGGradient options:IUBindingNegationAndNotRaise];
 
@@ -184,9 +184,6 @@
 
 
 - (IBAction)performFitToImage:(id)sender { // Fit to Image button function
-    /*
-    NSAssert(_resourceManager, @"");
-
     //image filename
     NSString *filename = _imageNameComboBox.stringValue;
     if(filename == nil || filename.length == 0){
@@ -234,6 +231,7 @@
     NSArray *selectedObjects = self.controller.selectedObjects;
     
     for (IUBox *box in selectedObjects) {
+        /*
         [box startFrameMoveWithUndoManager];
         [box.css setValue:@(NO) forTag:IUCSSTagWidthUnitIsPercent];
         [box.css setValue:@(NO) forTag:IUCSSTagHeightUnitIsPercent];
@@ -241,8 +239,9 @@
         [box.css setValue:@(height) forTag:IUCSSTagPixelHeight];
         [box endFrameMoveWithUndoManager];
         [box updateCSS];
+         */
     }
-     */
+ 
 }
 
 @end

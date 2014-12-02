@@ -216,49 +216,6 @@
     return code;
 }
 
-// FIXME: 오래된 코드 참조
-/*
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
-    NSString *imgSrc;
-    
-    if(imageName == nil || imageName.length==0){
-        return nil;
-    }
-    
-    if ([imageName isHTTPURL]) {
-        return imageName;
-    }
-    //clipart
-    //path : clipart/arrow_right.png
-    else if([[imageName pathComponents][0] isEqualToString:@"clipArt"]){
-        if(target == IUTargetEditor){
-            imgSrc = [[NSBundle mainBundle] pathForImageResource:[imageName lastPathComponent]];
-        }
-        else{
-            if(self.compiler.rule == IUCompileRuleDjango){
-                imgSrc = [@"/resource/" stringByAppendingString:imageName];
-            }
-            else{
-                imgSrc = [@"resource/" stringByAppendingString:imageName];
-            }
-        }
-    }
-    else {
-        IUResourceFile *file = [self.compiler.resourceManager resourceFileWithName:imageName];
-        if(file){
-            if(self.compiler.rule == IUCompileRuleDjango && target == IUTargetOutput){
-                imgSrc = [@"/" stringByAppendingString:[file relativePath]];
-            }
-            else{
-                imgSrc = [file relativePath];
-            }
-        }
-        
-    }
-    return imgSrc;
-}
-
-*/
 /*
  
 to be removed : mqdata strucutre

@@ -16,7 +16,7 @@
 @interface IUProjectDocument : NSDocument
 
 @property IUProject *project;
-@property IUResourceRootItem *resource;
+@property IUResourceRootItem *resourceRootItem;
 
 /* manager */
 //source Manager

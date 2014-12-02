@@ -12,6 +12,9 @@
 #import "LMWindow.h"
 #import "JDLogUtil.h"
 #import "IUFrameDictionary.h"
+
+#import "IUResource.h"
+
 #import "IUBox.h"
 #import "IUCarousel.h"
 #import "IUCarouselItem.h"
@@ -273,16 +276,20 @@
 #pragma mark - notification from other Controllers
 
 - (void)ghostImageContextDidChange:(NSDictionary *)change{
-    /*
+    
     NSString *ghostImageName = _sheet.ghostImageName;
-    IUResourceFile *resourceNode = [_resourceManager resourceFileWithName:ghostImageName];
+    IUResourceFileItem *resourceNode = [self.resourceRootItem resourceFileItemForName:ghostImageName];
     NSImage *ghostImage = [[NSImage alloc] initWithContentsOfFile:resourceNode.absolutePath];
     [[self gridView] setGhostImage:ghostImage];
     
     NSPoint ghostPosition = NSMakePoint(_sheet.ghostX, _sheet.ghostY);
     [[self gridView] setGhostPosition:ghostPosition];
     [[self gridView] setGhostOpacity:_sheet.ghostOpacity];
-     */
+
+}
+
+- (IUResourceRootItem *)resourceRootItem{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
 }
 
 

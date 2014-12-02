@@ -35,6 +35,10 @@
     [_controller addObserver:self forKeyPath:@"selection" options:NSKeyValueObservingOptionNew context:nil];
 }
 
+- (IUResourceRootItem *)resourceRootItem{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
+}
+
 - (void)dealloc{
     if(_controller){
         [_controller removeObserver:self forKeyPath:@"selection"];
