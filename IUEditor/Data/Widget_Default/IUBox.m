@@ -42,13 +42,6 @@
     //for storage manager tuple dictionary
     NSMutableDictionary *storageManagersDict;
     
-    //for undo
-    NSMutableDictionary *undoFrameDict;
-    
-    //for draggin precisely
-    NSPoint originalPoint, originalPercentPoint __deprecated;
-    NSSize originalSize, originalPercentSize __deprecated;
-    
     NSRect origianlFrame;
     
     __weak IUProject *_tempProject;
@@ -723,6 +716,12 @@ e.g. 만약 css로 옮긴다면)
     }
 }
 
+- (void)setNeedsToUpdateStorage:(IUDataStorage *)storage{
+    //FIXME:
+    if(self.sourceManager){
+        [self updateHTML];
+    }
+}
 
 
 #pragma mark children
@@ -989,6 +988,14 @@ e.g. 만약 css로 옮긴다면)
     return YES;
 }
 - (BOOL)canChangeWidthUnitByUserInput{
+    return YES;
+}
+
+- (BOOL)canChangeWidthByDraggable{
+    return YES;
+}
+
+- (BOOL)canChangeHeightByDraggable{
     return YES;
 }
 

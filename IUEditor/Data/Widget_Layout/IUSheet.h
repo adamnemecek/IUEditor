@@ -25,18 +25,6 @@
  */
 @property BOOL hasEvent;
 
-#pragma mark editor source
--(NSString*)editorSource __deprecated;
-
-#pragma mark output Source
-- (NSString*)outputHTMLSource __deprecated;
-- (NSString*)outputCSSSource __deprecated;
-- (JDCode *)outputInitJSCode __deprecated;
-- (NSArray *)outputArrayClipArt __deprecated;
-
--(NSArray*)widthWithCSS;
-// Not using : commented on JD. 14.11.13
-//-(IUBox *)selectableIUAtPoint:(CGPoint)point;
 
 - (BOOL)containClass:(Class)class;
 - (NSDictionary *)eventVariableDict;

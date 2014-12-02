@@ -53,9 +53,6 @@ typedef enum _IUCompileRule{
 //meta source
 - (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project;
 
-//js source
-- (JDCode *)outputJSInitializeSource:(IUSheet *)document;
-
 //clip art source
 - (NSArray *)outputClipArtArray:(IUSheet *)document;
 
@@ -81,8 +78,6 @@ typedef enum _IUCompileRule{
 
 /* Will be saved as CSS file */
 - (NSString *)outputCSSSource_storage:(IUPage *)page;
-
-- (IUCSSCode *)editorCSSCode:(IUBox *)box viewPort:(NSInteger)viewPort;
 
 /* if IUTarget == IUTargetOutput, viewPort will be ignored */
 - (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(NSInteger)viewPort;

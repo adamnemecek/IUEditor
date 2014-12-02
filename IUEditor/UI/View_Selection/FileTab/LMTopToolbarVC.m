@@ -310,19 +310,4 @@
 }
 
 
-#pragma mark -
-#pragma mark build
-
-- (IBAction)showBPressed:(id)sender {
-    IUProject *project = _sheetController.project;
-    [project build:nil];
-
-    IUSheet *node = [[_sheetController selectedObjects] firstObject];
-    NSString *firstPath = [project.buildPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@.html",project.buildPath, [node.name lowercaseString]] ];
-    
-    [[NSWorkspace sharedWorkspace] openFile:firstPath];
-}
-
-
-
 @end

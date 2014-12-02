@@ -48,7 +48,7 @@ static NSString *IUPageGroupName = @"page";
 static NSString *IUClassGroupName = @"class";
 
 
-@interface IUProject : NSObject <NSCoding, JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
+@interface IUProject : NSObject <JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUServerInfo *_serverInfo;
@@ -79,6 +79,15 @@ static NSString *IUClassGroupName = @"class";
 
 
 
+#if DEBUG
+//test 를 위해서 setting 가능하게 해놓음.
+@property (nonatomic) id <IUSourceManagerProtocol> sourceManager;
+@property (nonatomic) IUIdentifierManager *identifierManager;
+#else
+- (id <IUSourceManagerProtocol>) sourceManager;
+- (IUIdentifierManager *) identifierManager;
+#endif
+
 
 
 
@@ -97,34 +106,16 @@ static NSString *IUClassGroupName = @"class";
 
 
 
-
-
-
-/**
- IUProject version control
- */
-@property  NSString *IUProjectVersion;
-
-
-
-
 //create project
 + (id)projectWithContentsOfPath:(NSString*)path __deprecated;
 + (NSString *)stringProjectType:(IUProjectType)type;
 
-/**
- @breif create project from other project (conversion)
- @param setting a dictionary which has IUProjectKeyAppName and IUProjectKeyDirectory
- */
--(id)initWithProject:(IUProject*)project options:(NSDictionary*)options error:(NSError**)error __deprecated;
 
-
-- (void)initializeResource;
 
 /**
  css, js filename array
  */
-- (NSArray *)defaultOutputCSSArray __deprecated;
+- (NSArray *)defaultOutputCSSArray;
 - (NSArray *)defaultEditorJSArray;
 - (NSArray *)defaultOutputJSArray;
 
@@ -144,8 +135,6 @@ static NSString *IUClassGroupName = @"class";
 
 //build
 - (IUProjectType)projectType;
-//- (IUCompiler *)compiler __deprecated_enum_msg("Will be removed at storage mode");
-- (BOOL)build:(NSError**)error __deprecated;
 
 //manager
 - (IUIdentifierManager*)identifierManager;

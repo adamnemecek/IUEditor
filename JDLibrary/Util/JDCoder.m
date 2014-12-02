@@ -13,7 +13,7 @@
 - (NSArray*)keysOfCurrentDecodingObject;
 - (NSString*)decodeStringForKey:(NSString*)key;
 - (void)setObject:(id)object forKey:(id<NSCopying>)aKey;
-- (id)decodeObjectInArrayAtIndex:(NSUInteger)index;
+//- (id)decodeObjectInArrayAtIndex:(NSUInteger)index;
 - (NSMutableDictionary*)dataDict;
 @end
 

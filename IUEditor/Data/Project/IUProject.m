@@ -138,6 +138,9 @@
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [self.identifierManager registerIUs:self.allSheets];
+    _pageGroup.parentFileItem = self;
+    _classGroup.parentFileItem = self;
+    
 }
 /*
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
@@ -475,10 +478,39 @@
 }
 
 
+#if DEBUG
+- (id <IUSourceManagerProtocol>)sourceManager{
+    if(self.isConnectedWithEditor == NO){
+        return nil;
+    }
+    
+    if(_sourceManager){
+        return _sourceManager;
+    }
+    else{
+        return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+    }
+}
+
+- (IUIdentifierManager *)identifierManager{
+    if(_identifierManager){
+        return _identifierManager;
+    }
+    else{
+        return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+        
+    }
+}
+
+#else
+- (id <IUSourceManagerProtocol>)sourceManager{
+    return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+}
 - (IUIdentifierManager *)identifierManager{
     return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
     
 }
+#endif
 
 
 #pragma mark - mq
@@ -622,135 +654,7 @@
     return YES;
 }
 
-- (BOOL)build:(NSError**)error{
-    /*
-     Note :
-     Do not delete build path. Instead, overwrite files.
-     If needed, remove all files (except hidden file started with '.'), due to issus of git, heroku and editer such as Coda.
-     NSFileManager's (BOOL)createFileAtPath:(NSString *)path contents:(NSData *)contents attributes:(NSDictionary *)attributes automatically overwrites file.
-     */
-    NSAssert(self.buildPath != nil, @"");
-    NSString *buildDirectoryPath = [self absoluteBuildPath];
-    NSString *buildResourcePath = [self absoluteBuildResourcePath];
-
-    if ([[NSFileManager defaultManager] fileExistsAtPath:buildDirectoryPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:buildDirectoryPath withIntermediateDirectories:YES attributes:nil error:error];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:buildResourcePath] == YES) {
-        [[NSFileManager defaultManager] removeItemAtPath:buildResourcePath error:nil];
-    }
-    
-    
-//    [[NSFileManager defaultManager] setDelegate:self];
-//    [[NSFileManager defaultManager] copyItemAtPath:_resourceGroup.absolutePath toPath:buildResourcePath error:error];
-//    [[NSFileManager defaultManager] setDelegate:nil];
-    
-    [self copyCSSJSResourceToBuildPath:buildResourcePath];
-    
-    NSString *resourceCSSPath = [buildResourcePath stringByAppendingPathComponent:@"css"];
-    NSString *resourceJSPath = [buildResourcePath stringByAppendingPathComponent:@"js"];
-
-    NSMutableArray *clipArtArray = [NSMutableArray array];
-    
-    
-    for (IUSheet *sheet in self.allSheets) {
-        
-        NSError *myError;
-
-        //clipart
-        [clipArtArray addObjectsFromArray:[sheet outputArrayClipArt]];
-        
-        //eventJS
-        //todo: optimize :(event variable 없을경우에는 안들어가게)
-        IUEventVariable *eventVariable = [[IUEventVariable alloc] init];
-        [eventVariable makeEventDictionary:sheet];
-
-        
-        //make event javascript file
-        NSString *eventFileName = [NSString stringWithFormat:@"%@-event", sheet.name];
-        NSString *eventJSFilePath = [[resourceJSPath stringByAppendingPathComponent:eventFileName] stringByAppendingPathExtension:@"js"];
-        [[NSFileManager defaultManager] removeItemAtPath:eventJSFilePath error:nil];
-        if([eventVariable hasEvent]){
-            NSString *eventJSString = [eventVariable outputEventJSSource];
-            sheet.hasEvent = YES;
-            if ([eventJSString writeToFile:eventJSFilePath atomically:YES encoding:NSUTF8StringEncoding error:error] == NO){
-                NSAssert(0, @"write fail");
-            }
-        }
-        else{
-            sheet.hasEvent = NO;
-        }
-        
-        //make initialize javascript file - init.js for sheet
-        JDCode *initJSCode = [sheet outputInitJSCode];
-        
-        NSString *initializeJSPath = [[resourceJSPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-init", sheet.name]] stringByAppendingPathExtension:@"js"];
-        if ([initJSCode.string writeToFile:initializeJSPath atomically:YES encoding:NSUTF8StringEncoding error:&myError] == NO){
-            NSAssert(0, @"write fail");
-        }
-
-        
-        //html
-        NSString *outputHTML = [sheet outputHTMLSource];
-        
-        //if compile mode is Presentation, add button
-        if (self.compiler.rule == IUCompileRulePresentation) {
-            if ([sheet isKindOfClass:[IUPage class]]) {
-                NSInteger indexOfSheet = [self.pageSheets indexOfObject:sheet];
-                NSString *prevSheetName = [sheet.name stringByAppendingString:@".html"];
-                NSString *nextSheetName = [sheet.name stringByAppendingString:@".html"];
-                if (indexOfSheet > 0) {
-                    prevSheetName = [[[self.pageSheets objectAtIndex:indexOfSheet-1] name] stringByAppendingString:@".html"];
-                }
-                if (indexOfSheet < [self.pageSheets count] -1 ) {
-                    nextSheetName = [[[self.pageSheets objectAtIndex:indexOfSheet+1] name] stringByAppendingString:@".html"];
-                }
-                
-                NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"iupresentationScript" ofType:@"txt"];
-                NSString *presentStr = [[[NSString stringWithContentsOfFile:scriptPath encoding:NSUTF8StringEncoding error:nil]  stringByReplacingOccurrencesOfString:@"IUPRESENTATION_NEXT_PAGE" withString:nextSheetName] stringByReplacingOccurrencesOfString:@"IUPRESENTATION_PREV_PAGE" withString:prevSheetName];
-                outputHTML = [outputHTML stringByAppendingString:presentStr];
-            }
-        }
-        
-        NSString *htmlPath = [self absoluteBuildPathForSheet:sheet];
-
-        //note : writeToFile: automatically overwrite
-        if ([outputHTML writeToFile:htmlPath atomically:YES encoding:NSUTF8StringEncoding error:&myError] == NO){
-            NSAssert(0, @"write fail");
-        }
-        
-        //css
-        if (self.compiler.rule != IUCompileRuleWordpress) {
-            NSString *outputCSS = [sheet outputCSSSource];
-            NSString *cssPath = [[resourceCSSPath stringByAppendingPathComponent:sheet.name] stringByAppendingPathExtension:@"css"];
-            
-            //note : writeToFile: automatically overwrite
-            if ([outputCSS writeToFile:cssPath atomically:YES encoding:NSUTF8StringEncoding error:&myError] == NO){
-                NSAssert(0, @"write fail");
-            }
-        }
-        
-        
-    }
-    //copy clipart to build directory
-    if (clipArtArray.count != 0) {
-        NSString *copyPath = [buildResourcePath stringByAppendingPathComponent:@"clipArt"];
-        [[NSFileManager defaultManager] createDirectoryAtPath:copyPath withIntermediateDirectories:YES attributes:nil error:error];
-        
-        for(NSString *imageName in clipArtArray){
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[buildResourcePath stringByAppendingPathComponent:imageName] isDirectory:NO] == NO) {
-                [[JDFileUtil util] copyBundleItem:[imageName lastPathComponent] toDirectory:copyPath];
-            }
-        }
-    }
-    
-    
-   
-    
-    [JDUIUtil hudAlert:@"Successfully Exported" second:2];
-    return YES;
-}
-
+#pragma mark - filemanager 
 
 - (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error copyingItemAtPath:(NSString *)srcPath toPath:(NSString *)dstPath{
     if ([error code] == NSFileWriteFileExistsError) //error code for: The operation couldn’t be completed. File exists
@@ -835,7 +739,7 @@
 }
 
 
-- (id)parent{
+- (id <IUFileItemProtocol>)parentFileItem{
     return nil;
 }
 
@@ -918,6 +822,8 @@
 - (IUProject *)project{
     return self;
 }
+
+
 
 
 @end

@@ -33,38 +33,12 @@
     return group;
 }
 
-
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self = [self init];
-    
-    [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
-    //TODO: load project
-    
-    return self;
-}
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    self = [super awakeAfterUsingCoder:aDecoder];
-    _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];    
-    return self;
-}
-
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeFromObject:self withProperties:[IUSheetGroup properties]];
-    [aCoder encodeObject:_children forKey:@"_children"];
-}
-
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [self init];
     if(self){
         [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
         _children = [[aDecoder decodeObjectForKey:@"_children"] mutableCopy];
-        
-        
-        //TODO: load project
-        
         
         [self.undoManager enableUndoRegistration];
     }

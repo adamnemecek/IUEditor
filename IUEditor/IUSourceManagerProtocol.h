@@ -30,6 +30,11 @@
 /* call js - common function */
 - (NSInteger)countOfLineWithIdentifier:(NSString *)identifier;
 - (NSRect)absolutePixelFrameWithIdentifier:(NSString *)identifier;
+
+
+/* compile type */
+@property NSString *compilerRule;
+
 @end
 
 

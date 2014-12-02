@@ -17,6 +17,8 @@
 
 #import "JDNetworkUtil.h"
 
+#import "IUSourceManager.h"
+
 @interface LMCommandVC ()
 @property (weak) IBOutlet NSButton *buildB;
 @property (weak) IBOutlet NSButton *stopServerB;
@@ -86,7 +88,7 @@
     }
     
     
-    [_compilerB bind:NSSelectedIndexBinding toObject:self withKeyPath:@"docController.project.compiler.rule" options:nil];
+    //[_compilerB bind:NSSelectedIndexBinding toObject:self withKeyPath:@"docController.project.compiler.rule" options:nil];
     
 }
 
@@ -113,11 +115,14 @@
 
 
 - (IBAction)build:(id)sender {
-    
-    IUCompileRule rule = _docController.project.compiler.rule;
-    if (rule == IUCompileRuleDefault || rule == IUCompileRuleWordpress || rule == IUCompileRulePresentation ) {
-        IUProject *project = _docController.project;
-        BOOL result = [project build:nil];
+    IUSourceManager *sourceManager = [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+
+    NSString *rule = sourceManager.compilerRule;
+    if ([rule isEqualToString:kIUCompileRuleHTML]
+        || [rule isEqualToString:kIUCompileRuleWordpress]
+        || [rule isEqualToString:kIUCompileRulePresentation] ) {
+        BOOL result = [sourceManager build:nil];
+
         if (result == NO) {
             NSAssert(0, @"");
         }
@@ -125,11 +130,11 @@
         if([doc isKindOfClass:[IUSheet class]] == NO){
             doc = _docController.project.pageSheets.firstObject;
         }
-        if (rule == IUCompileRuleDefault || rule == IUCompileRulePresentation) {
-            NSString *firstPath = [project.absoluteBuildPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[doc.name lowercaseString]]];
+        if ([rule isEqualToString:kIUCompileRuleHTML] || [rule isEqualToString:kIUCompileRulePresentation]) {
+            NSString *firstPath = [sourceManager absoluteBuildPathForSheet:doc];
             [[NSWorkspace sharedWorkspace] openFile:firstPath];
         }
-        else if(rule == IUCompileRuleWordpress){
+        else if([rule isEqualToString:kIUCompileRuleWordpress]){
             IUWordpressProject *wProject = (IUWordpressProject *) _docController.project;
             
             NSMutableString *path = [NSMutableString stringWithString:@"http://127.0.0.1"];
@@ -144,7 +149,7 @@
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:path]];
         }
     }
-    else if (rule == IUCompileRuleDjango){
+    else if ([rule isEqualToString:kIUCompileRuleDjango]){
         IUDjangoProject *project = (IUDjangoProject *)_docController.project;
         
         //get port
@@ -161,7 +166,7 @@
         [self refreshServerState];
         
         //compile
-        BOOL result = [project build:nil];
+        BOOL result = [sourceManager build:nil];
         if (result == NO) {
             NSAssert(0, @"compile failed");
         }
@@ -184,6 +189,7 @@
     
     //save document after build
     [[[[NSApp mainWindow] windowController] document] saveDocument:self];
+    
     
 }
 
@@ -268,6 +274,7 @@
 }
 
 - (IBAction)changeCompilerRule:(id)sender {
+#if 0
     _docController.project.compiler.rule = (int)[_compilerB indexOfSelectedItem];
     if (_docController.project.compiler.rule == IUCompileRuleDjango) {
         [self refreshServerState];
@@ -277,6 +284,7 @@
         self.serverState = nil;
         [self.stopServerB setEnabled:NO];
     }
+#endif
 }
 /*
  Remove Recording feature at v0.3

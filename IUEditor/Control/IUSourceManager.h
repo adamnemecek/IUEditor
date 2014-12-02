@@ -11,6 +11,16 @@
 #import "IUSourceManagerProtocol.h"
 #import "WebCanvasView.h"
 
+
+/**
+ Basic Compiler rules
+ */
+static NSString *kIUCompileRuleHTML = @"HTML";
+static NSString *kIUCompileRuleDjango = @"Django";
+static NSString *kIUCompileRulePresentation = @"Presentation";
+static NSString *kIUCompileRuleWordpress = @"wordpress";
+
+
 /**
  
  Bridge with IUBox and CanvasVC
@@ -97,6 +107,6 @@
 - (BOOL)build:(NSError **)error;
 - (BOOL)builtPath;
 
-
+- (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet;
 
 @end

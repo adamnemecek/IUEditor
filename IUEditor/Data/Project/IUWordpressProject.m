@@ -9,6 +9,7 @@
 #import "IUWordpressProject.h"
 #import "IUEventVariable.h"
 #import "JDShellUtil.h"
+#import "IUSourceManager.h"
 
 
 #import "IUPage.h"
@@ -33,33 +34,32 @@
 #pragma mark - init
 
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    
-    _port = [aDecoder decodeIntForKey:@"_port"];
-    _documentRoot = [aDecoder decodeObjectForKey:@"_documentRoot"];
-    
-    //theme meta property
-    _uri = [aDecoder decodeObjectForKey:@"_uri"];
-    _tags = [aDecoder decodeObjectForKey:@"_tags"];
-    _version = [aDecoder decodeObjectForKey:@"_version"];
-    _themeDescription = [aDecoder decodeObjectForKey:@"_themeDescription"];
-    
-//    _compiler.webTemplateFileName = @"wpWebTemplate";
-    
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super initWithJDCoder:aDecoder];
+    if(self){
+        _port = [aDecoder decodeIntegerForKey:@"_port"];
+        _documentRoot = [aDecoder decodeObjectForKey:@"_documentRoot"];
+        
+        //theme meta property
+        _uri = [aDecoder decodeObjectForKey:@"_uri"];
+        _tags = [aDecoder decodeObjectForKey:@"_tags"];
+        _version = [aDecoder decodeObjectForKey:@"_version"];
+        _themeDescription = [aDecoder decodeObjectForKey:@"_themeDescription"];
+        
+        //    _compiler.webTemplateFileName = @"wpWebTemplate";
+    }
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder{
-    [super encodeWithCoder:encoder];
-    [encoder encodeInteger:_port forKey:@"_port"];
-    [encoder encodeObject:_documentRoot forKey:@"_documentRoot"];
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeInteger:_port forKey:@"_port"];
+    [aCoder encodeObject:_documentRoot forKey:@"_documentRoot"];
     
-    [encoder encodeObject:_uri forKey:@"_uri"];
-    [encoder encodeObject:_tags forKey:@"_tags"];
-    [encoder encodeObject:_version forKey:@"_version"];
-    [encoder encodeObject:_themeDescription forKey:@"_themeDescription"];
-
+    [aCoder encodeObject:_uri forKey:@"_uri"];
+    [aCoder encodeObject:_tags forKey:@"_tags"];
+    [aCoder encodeObject:_version forKey:@"_version"];
+    [aCoder encodeObject:_themeDescription forKey:@"_themeDescription"];
 }
 
 /*
@@ -139,11 +139,14 @@
 }
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet{
-    NSString *extension = (self.compiler.rule == IUCompileRuleWordpress) ? @"php" : @"html";
+    NSString *extension = ([self.sourceManager.compilerRule isEqualToString:kIUCompileRuleWordpress]) ? @"php" : @"html";
     NSString *filePath = [[self.absoluteBuildPath stringByAppendingPathComponent:sheet.name ] stringByAppendingPathExtension:extension];
     return filePath;
 }
 
+#if 0
+//FIXME :
+//move source manager
 - (BOOL)build:(NSError *__autoreleasing *)error{
     BOOL result = [super build:error];
     if (result) {
@@ -185,6 +188,7 @@
     }
     return result;
 }
+#endif
 
 - (void)resetBuildPath{
     self.buildPath = @"$IUFileDirectory/$AppName";

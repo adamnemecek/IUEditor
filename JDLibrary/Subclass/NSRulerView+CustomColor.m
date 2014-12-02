@@ -183,6 +183,7 @@ static NSMutableDictionary *units = nil;
 /*
  * Class methods
  */
+#if 0
 + (void) initialize
 {
     if (self == [NSRulerView_CustomColor class])
@@ -542,6 +543,7 @@ static inline CGFloat GSRoundTowardsInfinity(CGFloat x)
         return 1 / [[stepCycle objectAtIndex: newindex] floatValue];
     }
 }
+#endif
 
 
 

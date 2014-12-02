@@ -14,13 +14,6 @@
 #import "IUEventVariable.h"
 #import "IUProject.h"
 
-/**
- Basic Compiler rules
- */
-static NSString *kIUCompileRuleHTML = @"HTML";
-static NSString *kIUCompileRuleDjango = @"Django";
-static NSString *kIUCompileRulePresentation = @"Presentation";
-static NSString *kIUCompileRuleWordpress = @"wordpress";
 
 
 @interface IUSourceManager () <NSFileManagerDelegate> // delegate copy item
@@ -38,6 +31,8 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     NSDictionary *CSSCodeCache; // key = box, value = CSSCode last generated
 }
 
+#pragma mark - initialize
+
 - (id)init{
     self = [super init];
     _viewPort = IUDefaultViewPort;
@@ -51,6 +46,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     NSAssert ( _webView, @"WebView IS NIL");
 }
 
+#pragma mark - JS
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
     return [_canvasVC callWebScriptMethod:function withArguments:args];
 }
@@ -81,8 +77,13 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     }
     return 0;
 }
+/*FIXME: get pixel frame*/
+- (NSRect)absolutePixelFrameWithIdentifier:(NSString *)identifier{
+    return NSZeroRect;
+}
 
 
+#pragma mark - default properties
 
 - (void)setDocumentBasePath:(NSString*)documentBasePath {
     _documentBasePath = [documentBasePath copy];
@@ -114,6 +115,16 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     return [[_webView mainFrame] DOMDocument];
 }
 
+- (void)setCompiler:(IUCompiler *)compiler{
+    _compiler = compiler;
+}
+
+- (NSArray *)availableCompilerRule{
+    return @[kIUCompileRuleHTML, kIUCompileRuleDjango, kIUCompileRulePresentation, kIUCompileRuleWordpress];
+}
+
+#pragma mark - manage obj
+
 - (void)removeIU:(id)obj{
     [_canvasVC IURemoved:obj];
 }
@@ -133,9 +144,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 }
 
 - (void)setNeedsUpdateCSS:(IUBox *)box withIdentifiers:(NSArray *)identifiers{
-    /* get css code from compiler */
-    //    IUCSSCode *code = [_compiler editorCSSCode:box viewPort:self.viewPort];
-    
+    /* get css code from compiler */    
     IUCSSCode *code = [_compiler cssCode:box target:IUTargetEditor viewPort:self.viewPort];
     
     /* insert css code to inline */
@@ -279,9 +288,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     
 }
 
-- (void)setCompiler:(IUCompiler *)compiler{
-    _compiler = compiler;
-}
+
 
 - (NSString *)source{
     DOMHTMLElement *element = (DOMHTMLElement*)[[self DOMDocument] documentElement];
@@ -416,7 +423,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
 }
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet{
-    NSString *filePath = [[_project.absoluteBuildPath stringByAppendingPathComponent:sheet.name ] stringByAppendingPathExtension:@"html"];
+    NSString *filePath = [[_project.absoluteBuildPath stringByAppendingPathComponent:[sheet.name lowercaseString]] stringByAppendingPathExtension:@"html"];
     return filePath;
 }
 
@@ -484,6 +491,7 @@ static NSString *kIUCompileRuleWordpress = @"wordpress";
     }
     return YES;
 }
+
 
 
 @end

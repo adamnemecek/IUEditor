@@ -11,6 +11,7 @@
 #import "IUSheet.h"
 #import "IUController.h"
 #import "IUCanvasController.h"
+#import "IUSourceManager.h"
 
 @class LMCanvasView;
 
@@ -18,7 +19,7 @@
  IUSourceDelegate : call by IU
  IUCanvasController : call by canvasview, webview, gridview
  */
-@interface LMCanvasVC : NSViewController <IUSourceDelegate, IUCanvasController>
+@interface LMCanvasVC : NSViewController <IUSourceManagerDelegate, IUSourceDelegate, IUCanvasController>
 
 
 - (void)prepareDealloc;

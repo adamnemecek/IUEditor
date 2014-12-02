@@ -327,6 +327,7 @@
         fileNaviVC.project = _project;
         widgetLibraryVC.project = _project;
         iuInspectorVC.project = _project;
+        [_sourceManager setProject:_project];
         
         //set ResourceManager
         //FIXME : resourceManager

@@ -17,10 +17,11 @@
 - (void)removeFileItem:(id <IUFileItemProtocol>) fileItem;
 - (void)changeFileItem:(id <IUFileItemProtocol>)fileItem toIndex:(NSInteger)index;
 
+- (void)setParentFileItem:(id <IUFileItemProtocol>) parentFileItem;
+
 @required
 - (IUProject *)project;
 - (NSString *)name;
-- (void)setParentFileItem:(id <IUFileItemProtocol>) parentFileItem;
 - (id <IUFileItemProtocol>)parentFileItem;
 - (BOOL)isFileItemGroup;
 @end

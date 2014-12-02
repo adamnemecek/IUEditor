@@ -13,7 +13,7 @@
 @class IUProject;
 @class IUSheet;
 
-@interface IUSheetGroup : IUFileItem < NSCoding, NSCopying, JDCoding>
+@interface IUSheetGroup : IUFileItem <NSCopying, JDCoding>
 
 
 /**
