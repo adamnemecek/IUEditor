@@ -16,18 +16,6 @@
 @implementation IUBackground __storage_deprecated
 
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    [aDecoder decodeToObject:self withProperties:[IUBackground properties]];
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[IUBackground properties]];
-}
-
-
 -(BOOL)shouldCompileX{
     return NO;
 }

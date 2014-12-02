@@ -45,7 +45,7 @@
     _version = [aDecoder decodeObjectForKey:@"_version"];
     _themeDescription = [aDecoder decodeObjectForKey:@"_themeDescription"];
     
-    _compiler.webTemplateFileName = @"wpWebTemplate";
+//    _compiler.webTemplateFileName = @"wpWebTemplate";
     
     return self;
 }
@@ -62,6 +62,8 @@
 
 }
 
+/*
+
 
 - (id)initWithCreation:(NSDictionary *)options error:(NSError *__autoreleasing *)error{
     
@@ -72,7 +74,6 @@
     _compiler = [[IUCompiler alloc] init];
     _compiler.webTemplateFileName = @"wpWebTemplate";
     
-    _compiler.resourceManager = _resourceManager;
     
     NSAssert(options[IUProjectKeyAppName], @"app Name");
     NSAssert(options[IUProjectKeyIUFilePath], @"path");
@@ -129,6 +130,7 @@
     _serverInfo.localPath = [self path];
     return self;
 }
+ */
 
 #pragma mark - build
 

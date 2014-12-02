@@ -16,7 +16,6 @@
 @class IUCSSCode;
 @class IUSheet;
 @class IUPage;
-@class IUResourceManager;
 @class IUWordpressProject;
 
 static NSString * IUCompilerTagOption = @"tag";
@@ -38,7 +37,6 @@ typedef enum _IUCompileRule{
 
 @interface IUCompiler : NSObject <IUCompilerProtocol>
 
-@property (weak, nonatomic) IUResourceManager *resourceManager;
 @property (nonatomic) IUCompileRule    rule;
 @property NSString *webTemplateFileName;
 

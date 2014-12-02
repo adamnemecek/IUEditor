@@ -265,12 +265,8 @@
                 [iu.parent removeIU:iu];
                 [self.sheet.project.identifierManager registerIUs:@[iu]];                
                 //we remove position tag. if not, iu will be invisible to new position
-                [iu.css eradicateTag:IUCSSTagPixelX];
-                [iu.css eradicateTag:IUCSSTagPixelY];
-
-                [iu.css setValue:@(0) forTag:IUCSSTagPixelX];
-                [iu.css setValue:@(0) forTag:IUCSSTagPixelY];
-                
+                [iu.currentPositionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
+                [iu.currentPositionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
                                 
                 [newParent insertIU:iu atIndex:newIndex error:nil];
             }
@@ -291,8 +287,9 @@
             if(newIndex < 0){
                 newIndex = 0 ;
             }
-            [newIU.css setValue:@(10) forTag:IUCSSTagPixelX];
-            [newIU.css setValue:@(10) forTag:IUCSSTagPixelY];
+            
+            [newIU.currentPositionStorage setX:@(10) unit:@(IUFrameUnitPixel)];
+            [newIU.currentPositionStorage setY:@(10) unit:@(IUFrameUnitPixel)];
 
             [newParent insertIU:newIU atIndex:newIndex error:nil];
             

@@ -30,6 +30,7 @@
     return self;
 }
 
+/*
 - (id)initWithCreation:(NSDictionary *)options error:(NSError *__autoreleasing *)error{
     self = [super initWithCreation:options error:error];
     if(self){
@@ -38,6 +39,7 @@
     }
     return self;
 }
+*/
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];

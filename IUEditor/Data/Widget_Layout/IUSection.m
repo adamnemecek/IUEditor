@@ -41,19 +41,6 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        [aDecoder decodeToObject:self withProperties:[[IUSection class] properties]];        
-    }
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUSection class] properties]];
-    
-}
-
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self =  [super initWithJDCoder:aDecoder];
     if(self){

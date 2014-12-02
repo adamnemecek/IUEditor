@@ -26,19 +26,6 @@
 
 #pragma mark - init
 
-
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        [aDecoder decodeToObject:self withProperties:[[PGForm class] properties]];
-    }
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[PGForm class] properties]];
-}
-
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [super awakeAfterUsingJDCoder:aDecoder];
     [self.undoManager disableUndoRegistration];

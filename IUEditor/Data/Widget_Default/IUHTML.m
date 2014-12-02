@@ -51,21 +51,6 @@
     [aCoder encodeFromObject:self withProperties:[[IUHTML class] properties]];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    
-    if(self){
-        [aDecoder decodeToObject:self withProperties:[[IUHTML class] properties]];
-    }
-    
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUHTML class] properties]];
-
-}
-
 - (id)copyWithZone:(NSZone *)zone{
     IUHTML *html = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];

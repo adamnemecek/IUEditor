@@ -40,22 +40,6 @@
     [aCoder encodeFromObject:self withProperties:[[IUMovie class] properties]];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        [self.undoManager disableUndoRegistration];
-        [aDecoder decodeToObject:self withProperties:[[IUMovie class] properties]];
-        [self.undoManager enableUndoRegistration];
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUMovie class] properties]];
-    
-}
-
 -(id)copyWithZone:(NSZone *)zone{
     IUMovie *movie = [super copyWithZone:zone];
     [self.undoManager disableUndoRegistration];

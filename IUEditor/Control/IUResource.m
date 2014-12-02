@@ -1,5 +1,5 @@
 //
-//  IUResourceManager.m
+//  IUResource.m
 //  IUEditor
 //
 //  Created by JD on 4/6/14.
@@ -158,7 +158,7 @@
 
 
 /**
- IUResourceManager is root file item in resource field
+ IUResource is root file item in resource field
  */
 @implementation IUResourceRootItem {
     NSString *_absolutePath;
@@ -193,6 +193,12 @@
 
 - (NSString *)relativePath{
     return @"/";
+}
+- (void)updateImageResourceItem{
+    
+}
+- (void)updateVideoResourceItem{
+    
 }
 
 

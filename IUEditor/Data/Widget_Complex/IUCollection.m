@@ -26,27 +26,6 @@
 
 #pragma mark - initialize
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        _collectionVariable = [aDecoder decodeObjectForKey:@"collectionVariable"];
-        _responsiveSetting = [aDecoder decodeObjectForKey:@"responsiveSetting"];
-        _responsiveSupport = [aDecoder decodeIntegerForKey:@"responsiveSupport"];
-        _defaultItemCount = [aDecoder decodeIntegerForKey:@"defaultItemCount"];
-    
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeObject:_collectionVariable forKey:@"collectionVariable"];
-    [aCoder encodeObject:_responsiveSetting forKey:@"responsiveSetting"];
-    [aCoder encodeInteger:_responsiveSupport forKey:@"responsiveSupport"];
-    [aCoder encodeInteger:_defaultItemCount forKey:@"defaultItemCount"];
-}
-
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){

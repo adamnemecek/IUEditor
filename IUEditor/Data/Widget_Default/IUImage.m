@@ -22,14 +22,6 @@
 
 #pragma mark - init
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        [aDecoder decodeToObject:self withProperties:[[IUImage class] properties]];
-    }
-    return self;
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){
@@ -43,12 +35,6 @@
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [super encodeWithJDCoder:aCoder];
     [aCoder encodeFromObject:self withProperties:[[IUImage class] properties]];
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-
-    [aCoder encodeFromObject:self withProperties:[[IUImage class] properties]];
-    
 }
 
 - (BOOL)shouldCompileImagePositionInfo{
@@ -66,8 +52,7 @@
     return image;
 }
 
-#pragma mark - 
-#pragma mark IUImage
+#pragma mark - IUImage
 
 - (BOOL)canAddIUByUserInput{
     return NO;

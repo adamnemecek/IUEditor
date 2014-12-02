@@ -78,25 +78,6 @@
 
 
 #pragma mark - init
-
-- (void)encodeWithCoder:(NSCoder *)encoder{
-    [encoder encodeObject:_mqSizes forKey:@"mqSizes"];
-    [encoder encodeObject:self.buildPath forKey:@"_buildPath"];
-    [encoder encodeObject:self.buildResourcePath forKey:@"_buildResourcePath"];
-    [encoder encodeObject:_pageGroup forKey:@"_pageGroup"];
-    [encoder encodeObject:_classGroup forKey:@"_classGroup"];
-    [encoder encodeObject:_name forKey:@"_name"];
-    [encoder encodeObject:_favicon forKey:@"_favicon"];
-    [encoder encodeObject:_author forKey:@"_author"];
-
-    //Do not encode server info. instead, save at NSUserDefault
-    //[encoder encodeObject:_serverInfo forKey:@"serverInfo"];
-    [encoder encodeBool:_enableMinWidth forKey:@"_enableMinWidth"];
-    
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [encoder encodeObject:version forKey:@"IUProjectVersion"];
-}
-
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:_mqSizes forKey:@"mqSizes"];
     [aCoder encodeObject:_buildPath forKey:@"_buildPath"];
@@ -118,35 +99,11 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self initWithCoder:(NSCoder*)aDecoder];
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
         
-        /* version control code */
-        //REVIEW : sync with project version
-        NSString *projectVersion = [aDecoder decodeObjectForKey:@"IUProjectVersion"];
-        if(projectVersion == nil || projectVersion.length ==0){
-            int IUEditorVersion = [aDecoder decodeIntForKey:@"IUEditorVersion"];
-            if (IUEditorVersion < 1) {
-                self.buildPath = @"$IUFileDirectory/$AppName_build";
-                self.buildResourcePath = @"$IUBuildPath/resource";
-            }
-            _IUProjectVersion = @"0.3";
-        }
-        else{
-            //REVIEW: save 할때 현재 build버전으로 바꿈
-            _IUProjectVersion = projectVersion;
-        }
+//        _compiler.webTemplateFileName = @"webTemplate";
         
-        
-        _compiler = [[IUCompiler alloc] init];
-        _compiler.webTemplateFileName = @"webTemplate";
-        
-        _compiler.resourceManager = _resourceManager;
         
         _mqSizes = [[aDecoder decodeObjectForKey:@"mqSizes"] mutableCopy];
         _classGroup = [aDecoder decodeObjectForKey:@"_classGroup"];
@@ -169,23 +126,26 @@
         
         //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
         //[self initializeCSSJSResource];
-
-//        [_resourceManager setResourceGroup:_resourceGroup];
+        
+        //        [_resourceManager setResourceGroup:_resourceGroup];
         
         _serverInfo = [[IUServerInfo alloc] init];
         
-      
+        
     }
     return self;
 }
 
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    [self.identifierManager registerIUs:self.allSheets];
+}
 /*
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
-
+    
     
     [self.identifierManager registerIUs:self.allSheets];
-
+    
     
     if( IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, _IUProjectVersion) ){
         [self makeDefaultClasses];
@@ -223,8 +183,8 @@
                 }
             }
             [page insertIU:header atIndex:0 error:nil];
-//            page.header = header;
-
+            //            page.header = header;
+            
             
             IUFooter *footer = [[IUFooter alloc] initWithPreset];
             footer.name = @"footer";
@@ -234,19 +194,20 @@
             [footerClass.css setValue:@(0) forTag:IUCSSTagPixelHeight forViewport:IUCSSDefaultViewPort];
             
             [page addIU:footer error:nil];
-//            page.footer = footer;
+            //            page.footer = footer;
             
             //register identifier
             [self.identifierManager registerIUs:@[header, footer]];
-
-
+            
+            
         }
-
+        
     }
     
     return self;
 }
-*/
+ */
+
 /**
  @brief
  It's for convert project
@@ -358,14 +319,6 @@
 
     /*
      FIXME : resourceManager
-
-    [self initializeResource];
-
-
-    
-    /*
-    
-    
     
     
     // create build directory
@@ -421,7 +374,6 @@
     class.htmlID = @"class";
     [self addItem:class toSheetGroup:_classGroup];
     
-    [self initializeResource];
     [_resourceManager setResourceGroup:_resourceGroup];
     [self.identifierManager registerIUs:self.allSheets];
     
@@ -489,7 +441,7 @@
             break;
     }
     
-    [self setCompileRule:rule];
+//    [self setCompileRule:rule];
     
     for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
@@ -528,9 +480,6 @@
     
 }
 
-- (IUResourceManager *)resourceManager{
-    return _resourceManager;
-}
 
 #pragma mark - mq
 
@@ -862,31 +811,6 @@
 - (NSArray *)childrenFiles{
     return @[_pageGroup, _classGroup];
 }
-
-
-/*
-- (void)initializeResource{
-    //remove resource node if exist
-    JDInfoLog(@"initilizeResource");
-    
-    _resourceGroup = [[IUResourceGroup alloc] init];
-    _resourceGroup.name = IUResourceGroupName;
-    _resourceGroup.parent = self;
-    
-    
-    IUResourceGroup *imageGroup = [[IUResourceGroup alloc] init];
-    imageGroup.name = IUImageResourceGroupName;
-    [_resourceGroup addResourceGroup:imageGroup];
-    
-    IUResourceGroup *videoGroup = [[IUResourceGroup alloc] init];
-    videoGroup.name = IUVideoResourceGroupName;
-    [_resourceGroup addResourceGroup:videoGroup];
-    
-    
-    //TODO:  css,js 파일은 내부에서그냥카피함. 따로 나중에 추가기능을 allow할때까지는 resource group으로 관리 안함.
-    [self initializeCSSJSResource];
-}
-*/
 
 - (NSArray*)allSheets{
     NSMutableArray *array = [NSMutableArray array];

@@ -48,17 +48,6 @@
     }
     return self;
 }
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    [aDecoder decodeToObject:self withProperties:[WPArticleBody properties]];
-    
-    return self;
-}
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[WPArticleBody properties]];
-}
-
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];

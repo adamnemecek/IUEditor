@@ -81,32 +81,6 @@
  */
 #pragma mark - initialize
 
-
--(id)initWithCoder:(NSCoder *)aDecoder __deprecated{
-    
-    self = [super init];
-    if (self) {
-
-        [aDecoder decodeToObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"delegate", @"linkCaller"]]];
-        
-        
-        _event = [aDecoder decodeObjectForKey:@"event"];
-        changedCSSWidths = [NSMutableSet set];
-        storageManagersDict = [NSMutableDictionary dictionary];
-        
-        if ([self.htmlID length] == 0) {
-            self.htmlID = [NSString randomStringWithLength:8];
-        }
-        
-
-        NSAssert([self.htmlID length] != 0 , @"");
-        
-
-    }
-    return self;
-}
-
-
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
@@ -149,12 +123,8 @@
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
     }
     
-
-    
     return self;
 }
-
-
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [self.undoManager disableUndoRegistration];
@@ -189,109 +159,6 @@
 
 -(id <IUProjectProtocol>)project{
     return self.sheet.project;
-}
-
-/**
- Review: _m_children의 decode는 순서가 꼬이기 때문에 initWithCoder가 아닌 awkaAfterUsingCoder로 하도록한다.
- (self가 다 할당되기전에 children이 먼저 할당 되면서 발생하는 문제 제거)
- */
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder __deprecated{
-    [super awakeAfterUsingCoder:aDecoder];
-    
-    _m_children = [aDecoder decodeObjectForKey:@"children"];
-    
-    
-    //version Control
-    if(self.project){
-        if(IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, self.project.IUProjectVersion)){
-            _enableHCenter = [aDecoder decodeInt32ForKey:@"enableCenter"];
-        }
-        
-        if(IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_FONTFIX, self.project.IUProjectVersion)){
-            NSDictionary *dict = _css.effectiveTagDictionary;
-            if(dict[IUCSSTagFontWeight]){
-                BOOL bold = [dict[IUCSSTagFontWeight] boolValue];
-                [_css eradicateTag:IUCSSTagFontWeight];
-                if(bold){
-                    [_css setValue:@"700" forTag:IUCSSTagFontWeight forViewport:IUCSSDefaultViewPort];
-                }
-                else{
-                    [_css setValue:@"400" forTag:IUCSSTagFontWeight forViewport:IUCSSDefaultViewPort];
-                }
-            }
-            
-            NSString *fontName = dict[IUCSSTagFontName];
-            if(fontName && [fontName containsString:@"Roboto"]){
-                [_css eradicateTag:IUCSSTagFontName];
-                [_css setValue:@"Roboto" forTag:IUCSSTagFontName forViewport:IUCSSDefaultViewPort];
-                if([fontName containsString:@"Light"] || [fontName containsString:@"Thin"]){
-                    [_css eradicateTag:IUCSSTagFontWeight];
-                    [_css setValue:@"300" forTag:IUCSSTagFontWeight forViewport:IUCSSDefaultViewPort];
-                }
-            }
-        }
-        
-        if(IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_STORAGE, self.project.IUProjectVersion)){
-            
-            
-            IUCSS *css = [aDecoder decodeObjectForKey:@"css"];
-            
-            //create storage
-            [self setStorageManager:[css convertToStyleStorageDefaultManager] forSelector:kIUStyleManager];
-            [self setStorageManager:[css convertToStyleStorageHoverManager] forSelector:kIUStyleHoverManager];
-            [self setStorageManager:[css convertToPositionStorageDefaultManager] forSelector:kIUPositionManager];
-            
-            IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
-            [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-            
-        
-            
-            NSString *text = [aDecoder decodeObjectForKey:@"text"];
-            if(text && text.length > 0){
-                NSString *innerHTML = [NSString stringWithFormat:@"<p>%@</p>", text];
-                innerHTML = [innerHTML stringByReplacingOccurrencesOfString:@"\n" withString:@"<br>"];
-                IUText *textIU = [[IUText alloc] initWithCoder:aDecoder];
-                ((IUPropertyStorage *)textIU.propertyManager.defaultStorage).innerHTML = innerHTML;
-                
-                //VERSION COMPABILITY: texttype decode int issue
-                IUTextType textType;
-                @try {
-                    textType = [aDecoder decodeInt32ForKey:@"textType"] ;
-                }
-                @catch (NSException *exception) {
-                    textType = IUTextTypeDefault;
-                }
-                
-                textIU.textType = textType;
-                
-                return textIU;
-            }
-           
-        }
-
-        
-        
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder __deprecated{
-    if ([self.htmlID length] == 0) {
-#ifdef DEBUG
-        NSAssert(0, @"");
-#endif 
-        self.htmlID = [NSString randomStringWithLength:8];
-    }
-#if DEBUG
-    [aCoder encodeFromObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"identifierManager", @"textController", @"linkCaller", @"cssManager", @"sourceManager"]]];
-#else
-    [aCoder encodeFromObject:self withProperties:[[IUBox class] propertiesWithOutProperties:@[@"identifierManager", @"textController", @"linkCaller", @"cssManager"]]];
-
-#endif
-    [aCoder encodeObject:_css forKey:@"css"];
-    [aCoder encodeObject:_event forKey:@"event"];
-    [aCoder encodeObject:_m_children forKey:@"children"];
-    
 }
 
 -(id)initWithPreset {
@@ -426,10 +293,6 @@
         [self disconnectWithEditor];
     }
 }
-#pragma mark - default box 
-
-
-
 
 #pragma mark - copy
 
@@ -493,12 +356,6 @@
 
     return box;
 }
-- (void)copyCSSFromIU:(IUBox *)box{
-    IUCSS *newCSS = [box.css copy];
-    _css = newCSS;
-    _css.delegate = self;
-}
-
 - (BOOL)canCopy{
     return YES;
 }
@@ -583,15 +440,6 @@
 
 #pragma mark - setXXX
 
-/*
--(void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
-    _canvasVC = canvasVC;
-    for (IUBox *obj in _m_children) {
-        [obj setCanvasVC:canvasVC];
-    }
-}
- */
-
 -(IUSheet*)sheet{
     if ([self isKindOfClass:[IUSheet class]]) {
         return (IUSheet*)self;
@@ -609,10 +457,6 @@
 
 - (void)setTempProject:(IUProject*)project{
     _tempProject = project;
-}
-
-- (void)setCss:(IUCSS *)css{
-    _css = css;
 }
 
 #pragma mark - Event
@@ -678,18 +522,18 @@
 
 - (void)setImageName:(NSString *)imageName{
  
-    NSString *currentImage = _css.effectiveTagDictionary[IUCSSTagImage];
+    NSString *currentImage = self.liveStyleStorage.imageName;
     if([currentImage isEqualToString:imageName] == NO){
         
-        [[[self undoManager] prepareWithInvocationTarget:self] setImageName:_css.effectiveTagDictionary[IUCSSTagImage]];
+        [[[self undoManager] prepareWithInvocationTarget:self] setImageName:currentImage];
         
         [self willChangeValueForKey:@"imageName"];
-        [_css setValue:imageName forTag:IUCSSTagImage];
+        self.currentStyleStorage.imageName = imageName;
         [self didChangeValueForKey:@"imageName"];
     }
 }
 - (NSString *)imageName{
-    return _css.effectiveTagDictionary[IUCSSTagImage];
+    return self.liveStyleStorage.imageName;
 }
 
 
@@ -729,7 +573,7 @@
         if(nextSize != maxSize){
             //media query 바로 위에 size를 copy함
             // 760이 있을때  750 size 를 copy
-            [_css copyCSSDictFrom:nextSize to:size];
+            //[_css copyCSSDictFrom:nextSize to:size];
         }
     }
 
@@ -738,19 +582,28 @@
     //1280으로 그냥 다옮겨가면서 960css 가 망가지게 됨.
     //방지하기 위한 용도
     if(size == maxSize){
-        [_css copyCSSMaxViewPortDictTo:oldMaxSize];
+        //[_css copyCSSMaxViewPortDictTo:oldMaxSize];
     }
     
-    [_css setMaxViewPort:maxSize];
+    //[_css setMaxViewPort:maxSize];
     
 }
 
 - (void)removeMQSize:(NSNotification *)notification{
     NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    [_css removeTagDictionaryForViewport:size];
-    [_css setMaxViewPort:maxSize];
-
+    NSInteger currentSize;
+    if(size == maxSize){
+        currentSize = IUDefaultViewPort;
+    }
+    else{
+        currentSize = maxSize;
+    }
+    
+    for(IUDataStorageManager *manager in storageManagersDict){
+        [manager removeStorageForViewPort:currentSize];
+    }
+    
 }
 
 
@@ -760,17 +613,20 @@
 
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+    NSInteger currentSize;
 
-    if (selectedSize == maxSize) {
-        [_css setEditViewPort:IUCSSDefaultViewPort];
+    if(selectedSize == maxSize){
+        currentSize = IUDefaultViewPort;
     }
-    else {
-        [_css setEditViewPort:selectedSize];
+    else{
+        currentSize = maxSize;
     }
-    [_css setMaxViewPort:maxSize];
+    
+    for(IUDataStorageManager *manager in [storageManagersDict allValues]){
+        [manager setCurrentViewPort:currentSize];
+    }
     
     [self didChangeValueForKey:@"canChangeHCenter"];
-        
     
 }
 
@@ -812,6 +668,7 @@
 
 
 - (void)updateCSSValuesBeforeUpdateEditor{
+    /*
     if(_lineHeightAuto){
         if(_css.effectiveTagDictionary[IUCSSTagPixelHeight]){
             
@@ -833,6 +690,7 @@
             [_css setValueWithoutUpdateCSS:@(lineheight) forTag:IUCSSTagLineHeight];
         }
     }
+     */
 }
 /*FIXME: Structre Error!!!
 
@@ -1097,7 +955,7 @@ e.g. 만약 css로 옮긴다면)
 }
 
 -(BOOL)shouldCompileY{
-    if (self.positionType == IUPositionTypeAbsoluteBottom) {
+    if ([self.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeAbsoluteBottom)]) {
         return NO;
     }
     return YES;
@@ -1133,41 +991,6 @@ e.g. 만약 css로 옮긴다면)
 - (BOOL)canChangeWidthUnitByUserInput{
     return YES;
 }
-
-#pragma mark setFrame
-
-- (void)setX:(float)x{
-    [_css setValueWithoutUpdateCSS:@(x) forTag:IUCSSTagPixelX];
-}
-
-- (void)setY:(float)y{
-    [_css setValueWithoutUpdateCSS:@(y) forTag:IUCSSTagPixelY];
-}
-
-- (void)setPercentFrame:(NSRect)frame{
-    CGFloat x = frame.origin.x;
-    CGFloat xExist =[_css.effectiveTagDictionary[IUCSSTagPercentX] floatValue];
-    if (x != xExist) {
-        [_css setValueWithoutUpdateCSS:@(frame.origin.x) forTag:IUCSSTagPercentX];
-    }
-    if (frame.origin.x != [_css.effectiveTagDictionary[IUCSSTagPercentY] floatValue]) {
-        [_css setValueWithoutUpdateCSS:@(frame.origin.y) forTag:IUCSSTagPercentY];
-    }
-    if (frame.origin.x != [_css.effectiveTagDictionary[IUCSSTagPercentHeight] floatValue]) {
-        [_css setValueWithoutUpdateCSS:@(frame.size.height) forTag:IUCSSTagPercentHeight];
-    }
-    if (frame.origin.x != [_css.effectiveTagDictionary[IUCSSTagPercentWidth] floatValue]) {
-        [_css setValueWithoutUpdateCSS:@(frame.size.width) forTag:IUCSSTagPercentWidth];
-    }
-}
-
-- (void)setPixelFrame:(NSRect)frame{
-    [_css setValueWithoutUpdateCSS:@(frame.origin.x) forTag:IUCSSTagPixelX];
-    [_css setValueWithoutUpdateCSS:@(frame.origin.y) forTag:IUCSSTagPixelY];
-    [_css setValueWithoutUpdateCSS:@(frame.size.height) forTag:IUCSSTagPixelHeight];
-    [_css setValueWithoutUpdateCSS:@(frame.size.width) forTag:IUCSSTagPixelWidth];
-}
-
 
 #pragma mark move by drag & drop
 
@@ -1396,16 +1219,20 @@ e.g. 만약 css로 옮긴다면)
 }
 
 - (BOOL)canChangeHCenter{
-    if(_positionType == IUPositionTypeFloatLeft || _positionType == IUPositionTypeFloatRight
-       || _css.editViewPort != IUCSSDefaultViewPort){
+//    if(_positionType == IUPositionTypeFloatLeft || _positionType == IUPositionTypeFloatRight
+//       || _css.editViewPort != IUCSSDefaultViewPort){
+    if([self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
+       || [self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]){
         return NO;
     }
     return YES;
 }
 
 - (BOOL)canChangeVCenter{
-    if(_positionType == IUPositionTypeAbsolute ||
-       _positionType == IUPositionTypeFixed){
+//    if(_positionType == IUPositionTypeAbsolute ||
+//       _positionType == IUPositionTypeFixed){
+    if([self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeAbsolute)]
+       || [self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFixed)]){
         return YES;
     }
     return NO;
@@ -1417,6 +1244,7 @@ e.g. 만약 css로 옮긴다면)
     return YES;
 }
 
+/*
 
 - (void)setPositionType:(IUPositionType)positionType{
     
@@ -1498,6 +1326,9 @@ e.g. 만약 css로 옮긴다면)
     }
 
 }
+ 
+ */
+
 - (void)setEnableHCenter:(BOOL)enableHCenter{
 
     if(_enableHCenter != enableHCenter){

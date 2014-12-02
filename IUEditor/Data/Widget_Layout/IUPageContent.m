@@ -19,20 +19,6 @@
 }
 
 #pragma mark - Initialize
-
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    //REVIEW: old file conversion - absolute포함되어있음
-    self.positionType = IUPositionTypeRelative;
-
-    return self;
-}
-
 - (id)initWithPreset{
     self  = [super initWithPreset];
     if(self){

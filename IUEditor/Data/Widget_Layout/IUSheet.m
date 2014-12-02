@@ -17,10 +17,6 @@
     return self;
 }
 
-- (BOOL)isFileItemGroup{
-    return NO;
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){
@@ -50,31 +46,6 @@
     [aCoder encodeByRefObject:_parentFileItem forKey:@"group"];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        
-        _ghostX = [aDecoder decodeFloatForKey:@"ghostX"];
-        _ghostY = [aDecoder decodeFloatForKey:@"ghostY"];
-        _ghostOpacity = [aDecoder decodeFloatForKey:@"ghostOpacity"];
-        _ghostImageName = [aDecoder decodeObjectForKey:@"ghostImageName"];
-        _parentFileItem = [aDecoder decodeObjectForKey:@"group"];
-
-
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFloat:_ghostX forKey:@"ghostX"];
-    [aCoder encodeFloat:_ghostY forKey:@"ghostY"];
-    [aCoder encodeFloat:_ghostOpacity forKey:@"ghostOpacity"];
-    [aCoder encodeObject:_ghostImageName forKey:@"ghostImageName"];
-    [aCoder encodeObject:_parentFileItem forKey:@"group"];
-}
-
-
 - (BOOL)containClass:(Class)class{
     for(IUBox *box in self.allChildren){
         if([box isKindOfClass:class]){
@@ -98,8 +69,9 @@
     return NO;
 }
 
-
-
+- (BOOL)isFileItemGroup{
+    return NO;
+}
 
 -(NSString*)editorSource{
     NSAssert(self.project.compiler, @"compiler");

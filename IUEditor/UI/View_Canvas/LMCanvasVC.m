@@ -186,8 +186,7 @@
     //not page class
     //page will be set reported values from javscript
     if([_sheet isKindOfClass:[IUClass class]]){
-        NSNumber *classHeight = [_sheet.css effectiveTagDictionary][IUCSSTagPixelHeight];
-        
+        NSNumber *classHeight = _sheet.liveStyleStorage.height;        
         if(classHeight){
             [[self canvasView] setHeightOfMainView:[classHeight floatValue]];
         }
@@ -324,10 +323,10 @@
     NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
     
     if ([newIU canChangeXByUserInput]) {
-        [newIU setPixelX:position.x percentX:0];
+        [newIU.currentPositionStorage setX:@(position.x) unit:@(IUFrameUnitPixel)];
     }
     if([newIU canChangeYByUserInput]){
-        [newIU setPixelY:position.y percentY:0];
+        [newIU.currentPositionStorage setY:@(position.y) unit:@(IUFrameUnitPixel)];
     }
     
     [parentIU addIU:newIU error:nil];
@@ -516,14 +515,24 @@
         if([moveObj canChangeXByUserInput]){
             CGFloat currentX = origianlLocation.x + totalPoint.x;
             CGFloat currentPercentX = [[currentValue valueForKey:@"left"] floatValue];
-            [moveObj setPixelX:currentX percentX:currentPercentX];
+            if([moveObj.currentPositionStorage.xUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+                [moveObj.currentPositionStorage setX:@(currentX) unit:@(IUFrameUnitPixel)];
+            }
+            else{
+                [moveObj.currentPositionStorage setX:@(currentPercentX) unit:@(IUFrameUnitPercent)];
+            }
         }
         
         if([moveObj canChangeYByUserInput]){
             CGFloat currentY = origianlLocation.y + totalPoint.y;
-            CGFloat currentPercentY = [[currentValue valueForKey:@"left"] floatValue];
-            [moveObj setPixelY:currentY percentY:currentPercentY];
-            
+            CGFloat currentPercentY = [[currentValue valueForKey:@"top"] floatValue];
+            if([moveObj.currentPositionStorage.yUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+                [moveObj.currentPositionStorage setY:@(currentY) unit:@(IUFrameUnitPixel)];
+            }
+            else{
+                [moveObj.currentPositionStorage setY:@(currentPercentY) unit:@(IUFrameUnitPercent)];
+            }
+                        
         }
 
         [moveObj updateCSS];
@@ -560,13 +569,24 @@
         if([moveObj canChangeWidthByDraggable]){
             CGFloat currentW = originalSize.width + totalSize.width;
             CGFloat currentPercentW = [[currentValue valueForKey:@"width"] floatValue];
-            [moveObj setPixelWidth:currentW percentWidth:currentPercentW];
+            if([moveObj.currentStyleStorage.widthUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+                [moveObj.currentStyleStorage setWidth:@(currentW) unit:@(IUFrameUnitPixel)];
+            }
+            else{
+                [moveObj.currentStyleStorage setWidth:@(currentPercentW) unit:@(IUFrameUnitPercent)];
+            }
         }
         
         if([moveObj canChangeHeightByDraggable]){
             CGFloat currentH = originalSize.height + totalSize.height;
             CGFloat currentPercentH = [[currentValue valueForKey:@"height"] floatValue];
-            [moveObj setPixelHeight:currentH percentHeight:currentPercentH];
+            
+            if([moveObj.currentStyleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+                [moveObj.currentStyleStorage setHeight:@(currentH) unit:@(IUFrameUnitPixel)];
+            }
+            else{
+                [moveObj.currentStyleStorage setHeight:@(currentPercentH) unit:@(IUFrameUnitPercent)];
+            }
             
         }
         

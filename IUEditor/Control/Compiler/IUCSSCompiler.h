@@ -11,7 +11,6 @@
 #import "IUCSSCode.h"
 
 @class IUCompiler;
-@class IUResourceManager;
 
 @interface IUCSSStorageCode : NSObject
 - (IUTarget)target;
@@ -21,7 +20,6 @@
 
 
 @interface IUCSSCompiler : NSObject
-- (void)setResourceManager:(IUResourceManager*)resourceManager;
 
 /* storage mode */
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;

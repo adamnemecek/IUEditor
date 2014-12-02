@@ -185,34 +185,6 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeObject:_pageContent forKey:@"pageContent"];
-    [aCoder encodeFromObject:self withProperties:[IUPage properties]];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        
-        [aDecoder decodeToObject:self withProperties:[IUPage properties]];
-        _pageContent = [aDecoder decodeObjectForKey:@"pageContent"];
-    }
-    return self;
-}
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [super awakeAfterUsingCoder:aDecoder];
-    if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_LAYOUT, self.project.IUProjectVersion) ){
-        [self addIU:_pageContent error:nil];
-    }
-    //default == absolute로
-    if(self.positionType == IUPositionTypeRelative){
-        self.positionType = IUPositionTypeAbsolute;
-    }
-    return self;
-}
-
 - (id)copyWithZone:(NSZone *)zone{
     [[self undoManager] disableUndoRegistration];
 

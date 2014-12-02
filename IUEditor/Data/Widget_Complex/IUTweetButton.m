@@ -52,21 +52,6 @@
     [super connectWithEditor];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        
-        [aDecoder decodeToObject:self withProperties:[[IUTweetButton class] properties]];
-        
-    }
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUTweetButton class] properties]];
-    
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){

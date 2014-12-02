@@ -41,7 +41,7 @@
 - (void)setController:(IUController *)controller{
     [super setController:controller];
     
-    [_fileNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.videoFiles" options:IUBindingDictNotRaisesApplicable];
+//    [_fileNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.videoFiles" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_altTextTF bind:NSValueBinding property:@"altText"];
     [self outlet:_controlBtn bind:NSValueBinding property:@"enableControl"];
     [self outlet:_loopBtn bind:NSValueBinding property:@"enableLoop"];

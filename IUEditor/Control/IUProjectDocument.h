@@ -8,11 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUProject.h"
+#import "IUResource.h"
+
 #import "LMWC.h"
+
 
 @interface IUProjectDocument : NSDocument
 
 @property IUProject *project;
+@property IUResourceRootItem *resource;
 
 /* manager */
 //source Manager
@@ -23,5 +27,9 @@
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
 - (LMWC *)lemonWindowController;
+
+- (BOOL)removeResourceFileItemName:(NSString *)fileItemName;
+- (void)addResourceFileItemPaths:(NSArray *)fileItemPaths;
+
 
 @end

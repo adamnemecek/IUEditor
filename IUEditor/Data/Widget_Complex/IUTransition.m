@@ -37,36 +37,6 @@
 
 #pragma mark - Initialize
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        
-        [aDecoder decodeToObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
-     
-        
-    }
-    return self;
-}
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [super awakeAfterUsingCoder:aDecoder];
-    
-    if(self.children.count > 1){
-        _firstItem = self.children[0];
-        _secondItem = self.children[1];
-    }
-    else{
-        assert(0);
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[IUTransition propertiesWithOutProperties:@[@"firstItem", @"secondItem"]]];
-}
-
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if (self){

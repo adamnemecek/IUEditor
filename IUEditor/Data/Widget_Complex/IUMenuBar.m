@@ -56,34 +56,6 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        
-        [aDecoder decodeToObject:self withProperties:[[IUMenuBar class] properties]];
-        
-    }
-    return self;
-}
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    
-    [super awakeAfterUsingCoder:aDecoder];
-    
-    if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
-
-        [self.css setValue:nil forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        
-    }
-    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUMenuBar class] properties]];
-    
-}
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];

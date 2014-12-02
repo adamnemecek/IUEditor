@@ -54,7 +54,6 @@ static NSString *IUClassGroupName = @"class";
     IUServerInfo *_serverInfo;
     
     IUCompiler *_compiler __deprecated;
-    IUResourceManager *_resourceManager __deprecated;
     
     NSString  *_path;
     NSMutableArray *_mqSizes;
@@ -114,12 +113,6 @@ static NSString *IUClassGroupName = @"class";
 + (NSString *)stringProjectType:(IUProjectType)type;
 
 /**
- @breif create project
- @param setting a dictionary which has IUProjectKeyAppName and IUProjectKeyDirectory
- */
--(id)initWithCreation:(NSDictionary*)options error:(NSError**)error __deprecated;
-
-/**
  @breif create project from other project (conversion)
  @param setting a dictionary which has IUProjectKeyAppName and IUProjectKeyDirectory
  */
@@ -156,7 +149,6 @@ static NSString *IUClassGroupName = @"class";
 
 //manager
 - (IUIdentifierManager*)identifierManager;
-- (IUResourceManager *)resourceManager;
 
 - (NSArray*)allSheets;
 - (NSArray*)pageSheets;

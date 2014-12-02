@@ -33,14 +33,14 @@ static LMFontController *gFontController = nil;
 
 - (void)copyCurrentFontToIUBox:(IUBox *)iu{
     
-    NSString *fontName = [iu.css effectiveValueForTag:IUCSSTagFontName forViewport:iu.css.editViewPort];
+    NSString *fontName = iu.liveStyleStorage.fontName;
     if(fontName == nil){
-        [iu.css setValue:_currentFontName forTag:IUCSSTagFontName];
+        iu.currentStyleStorage.fontName = _currentFontName;
     }
     
-    NSString *fontSize = [iu.css effectiveValueForTag:IUCSSTagFontSize forViewport:iu.css.editViewPort];
+    NSNumber *fontSize = iu.liveStyleStorage.fontSize;
     if(fontSize == nil){
-        [iu.css setValue:@(_currentFontSize) forTag:IUCSSTagFontSize];
+        iu.currentStyleStorage.fontSize = @(_currentFontSize);
     }    
 }
 

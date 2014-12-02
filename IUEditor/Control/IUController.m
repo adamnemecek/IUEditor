@@ -104,37 +104,37 @@
         IUBox *newBox = [box copy];
         newBox.name = newBox.htmlID;
         
-        for (NSNumber *width in newBox.css.allViewports) {
-            NSDictionary *tagDictionary;
+        for (NSNumber *width in newBox.positionManager.allViewPorts) {
+            IUPositionStorage *positionStorage;
             if (_pasteRepeatCount){
-                tagDictionary = [_lastPastedIU.css tagDictionaryForViewport:[width integerValue]];
+                positionStorage = (IUPositionStorage *)[_lastPastedIU.positionManager storageForViewPort:[width integerValue]];
             }
             else {
-                tagDictionary = [newBox.css tagDictionaryForViewport:[width integerValue]];
+                positionStorage = (IUPositionStorage *)[newBox.positionManager storageForViewPort:[width integerValue]];
             }
-            NSNumber *x = [tagDictionary valueForKey:IUCSSTagPixelX];
+            NSNumber *x = positionStorage.x;
             
             if (newBox.canChangeXByUserInput) {
                 if (x) {
                     if (pasteTargetIsParent) {
                         NSNumber *newX = [NSNumber numberWithInteger:([x integerValue] + 10)];
-                        [newBox.css setValue:newX forTag:IUCSSTagPixelX forViewport:[width integerValue]];
+                        ((IUPositionStorage *)[newBox.positionManager storageForViewPort:[width integerValue]]).x = newX;
                     }
                     else {
-                        [newBox.css setValue:@(10) forTag:IUCSSTagPixelX forViewport:[width integerValue]];
+                        ((IUPositionStorage *)[newBox.positionManager storageForViewPort:[width integerValue]]).x = @(10);
                     }
                 }
             }
             
             if (newBox.canChangeYByUserInput) {
-                NSNumber *y = [tagDictionary valueForKey:IUCSSTagPixelY];
+                NSNumber *y = positionStorage.y;
                 if (y) {
                     if (pasteTargetIsParent) {
                         NSNumber *newY = [NSNumber numberWithInteger:([y integerValue] + 10)];
-                        [newBox.css setValue:newY forTag:IUCSSTagPixelY forViewport:[width integerValue]];
+                        ((IUPositionStorage *)[newBox.positionManager storageForViewPort:[width integerValue]]).y = newY;
                     }
                     else {
-                        [newBox.css setValue:@(10) forTag:IUCSSTagPixelY forViewport:[width integerValue]];
+                        ((IUPositionStorage *)[newBox.positionManager storageForViewPort:[width integerValue]]).y = @(10);
                     }
                 }
             }

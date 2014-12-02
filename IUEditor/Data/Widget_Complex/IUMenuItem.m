@@ -43,16 +43,6 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if(self){
-        
-        [aDecoder decodeToObject:self withProperties:[[IUMenuItem class] propertiesWithOutProperties:@[@"isOpened"]]];
-        
-    }
-    return self;
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){
@@ -61,30 +51,6 @@
         [self.undoManager enableUndoRegistration];
     }
     return self;
-}
-
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [super awakeAfterUsingCoder:aDecoder];
-    if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
-
-        [self.css eradicateTag:IUCSSTagWidthUnitIsPercent];
-        [self.css setValue:@(0) forTag:IUCSSTagWidthUnitIsPercent forViewport:IUCSSDefaultViewPort];
-        [self.css setValue:@(130) forTag:IUCSSTagPixelWidth forViewport:IUCSSDefaultViewPort];
-        
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUMenuItem class]  propertiesWithOutProperties:@[@"isOpened"]]];
-
-}
-
-- (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [super encodeWithJDCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUMenuItem class]  propertiesWithOutProperties:@[@"isOpened"]]];
 }
 
 - (id)copyWithZone:(NSZone *)zone{

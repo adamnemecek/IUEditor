@@ -47,22 +47,6 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-
-    if(self){
-        
-        [aDecoder decodeToObject:self withProperties:[[PGTextView class] properties]];
-        
-    }
-
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[PGTextView class] properties]];
-    
-}
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self =  [super initWithJDCoder:aDecoder];

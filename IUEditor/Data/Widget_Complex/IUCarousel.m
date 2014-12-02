@@ -68,38 +68,6 @@
     [aCoder encodeFromObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-
-        [aDecoder decodeToObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
-        
-    }
-    return self;
-}
-
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUCarousel class] propertiesWithOutProperties:@[@"count"]]];
-    
-}
-
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    [super awakeAfterUsingCoder:aDecoder];
-    
-    if(self.project && IU_VERSION_V1_GREATER_THAN_V2(IU_VERSION_BETA2, self.project.IUProjectVersion)){
-        
-        BOOL disable = [[aDecoder decodeObjectForKey:@"disableArrowControl"] boolValue];
-        self.defaultPropertyStorage.carouselArrowDisable = @(disable);
-
-    }
-    
-    return self;
-}
-
-
-
 - (id)copyWithZone:(NSZone *)zone{
     IUCarousel *carousel = [super copyWithZone:zone];
     

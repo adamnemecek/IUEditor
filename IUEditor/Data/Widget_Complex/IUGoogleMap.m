@@ -47,16 +47,6 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-        [self.undoManager disableUndoRegistration];
-        [aDecoder decodeToObject:self withProperties:[[IUGoogleMap class] properties]];
-        [self.undoManager enableUndoRegistration];
-    }
-    return self;
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){
@@ -72,12 +62,6 @@
     [aCoder encodeFromObject:self withProperties:[[IUGoogleMap class] properties]];
 }
 
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeFromObject:self withProperties:[[IUGoogleMap class] properties]];
-    
-}
 
 -(id)copyWithZone:(NSZone *)zone{
     [self.undoManager disableUndoRegistration];
@@ -181,6 +165,7 @@
     return NSZeroSize;
 }
 
+/*
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
     [super setPixelWidth:pixelWidth percentWidth:percentWidth];
     [self updateHTML];
@@ -190,7 +175,8 @@
     [super setPixelHeight:pixelHeight percentHeight:percentHeight];
     [self updateHTML];
 }
-
+*/
+ 
 #pragma mark - color theme
 - (void)setThemeType:(IUGoogleMapThemeType)themeType{
     if(_themeType != themeType){

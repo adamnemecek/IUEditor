@@ -123,8 +123,8 @@
         JDErrorLog(@"objISNil");
     }
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
-    [pasteboard setData:data forType:kUTTypeIUType];
+//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+//    [pasteboard setData:data forType:kUTTypeIUType];
     
     /* note  ----------------------------------------------------
     /  please check obj.retainCount is <1> at current point     /

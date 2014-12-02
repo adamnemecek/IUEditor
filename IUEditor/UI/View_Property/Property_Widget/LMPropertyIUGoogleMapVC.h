@@ -12,7 +12,5 @@
 
 @interface LMPropertyIUGoogleMapVC : LMDefaultPropertyVC <NSComboBoxDelegate>
 
-@property (nonatomic, weak) IUResourceManager *resourceManager;
-
 
 @end

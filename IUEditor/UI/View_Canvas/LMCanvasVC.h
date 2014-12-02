@@ -25,7 +25,6 @@
 
 @property (nonatomic) _binding_ IUSheet  *sheet;
 @property (nonatomic) _binding_ NSString    *documentBasePath;
-@property (nonatomic, weak) IUResourceManager  *resourceManager;
 @property (nonatomic) IUController  *controller;
 @property (nonatomic) NSInteger selectedFrameWidth;
 @property NSInteger maxFrameWidth;

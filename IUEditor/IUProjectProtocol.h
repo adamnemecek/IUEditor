@@ -10,7 +10,6 @@
 #define IUEditor_IUProjectProtocol_h
 
 @class IUIdentifierManager;
-@class IUResourceManager;
 @class IUClass;
 @class IUCompiler;
 

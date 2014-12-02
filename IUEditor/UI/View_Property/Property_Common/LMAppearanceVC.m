@@ -53,7 +53,7 @@
         
         propertyBGImageVC = [[LMPropertyBGImageVC alloc] initWithNibName:@"LMPropertyBGImageVC" bundle:nil];
         [propertyBGImageVC bind:@"controller" toObject:self withKeyPath:@"controller" options:nil];
-        [propertyBGImageVC bind:@"resourceManager" toObject:self withKeyPath:@"resourceManager" options:nil];
+//        [propertyBGImageVC bind:@"resourceManager" toObject:self withKeyPath:@"resourceManager" options:nil];
         [propertyBGImageVC bind:@"jsManager" toObject:self withKeyPath:@"jsManager" options:nil];
 
         

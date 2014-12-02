@@ -310,9 +310,6 @@
         _project = document.project;
         NSAssert(_project.pageSheets, @"");
         
-        //FIXME: resource
-        NSAssert(_project.resourceManager, @"");
-        
 
         if (_project == nil) {
             return;

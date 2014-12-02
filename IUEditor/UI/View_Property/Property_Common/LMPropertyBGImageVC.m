@@ -55,7 +55,7 @@
 #pragma mark - image
     _imageNameComboBox.delegate = self;
     
-    [_imageNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
+//    [_imageNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_imageNameComboBox bind:NSValueBinding property:@"imageName"];
     [self outlet:_imageNameComboBox bind:NSEnabledBinding cssTag:IUCSSTagBGGradient options:IUBindingNegationAndNotRaise];
 

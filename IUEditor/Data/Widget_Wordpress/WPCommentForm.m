@@ -59,17 +59,6 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    [aDecoder decodeToObject:self withProperties:[WPCommentForm properties]];
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[WPCommentForm properties]];
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     [aDecoder decodeToObject:self withProperties:[WPCommentForm properties]];

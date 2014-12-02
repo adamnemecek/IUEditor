@@ -36,16 +36,7 @@
 
 
 @implementation IUCSSCompiler {
-    __weak IUResourceManager *_resourceManager;
 }
-
-
-
-- (void)setResourceManager:(IUResourceManager*)resourceManager{
-    _resourceManager = resourceManager;
-}
-
-
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu {
     IUCSSCode *code = [[IUCSSCode alloc] init];

@@ -43,20 +43,6 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[self class] properties]];
-}
-
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-
-    [aDecoder decodeToObject:self withProperties:[[self class] properties]];
-    _buttonMargin = 2;
-    
-    return self;
-}
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];

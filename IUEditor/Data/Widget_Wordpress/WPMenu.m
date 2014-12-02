@@ -61,18 +61,6 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[WPMenu class] properties]];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-
-    [aDecoder decodeToObject:self withProperties:[[WPMenu class] properties]];
-    
-    return self;
-}
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){

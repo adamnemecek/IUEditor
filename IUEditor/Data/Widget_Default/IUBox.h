@@ -8,16 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
-#import "IUCSS.h"
-#import "IUEvent.h"
+
 #import "IUIdentifierManager.h"
+#import "IUProjectProtocol.h"
+
+#import "IUEvent.h"
+
 #import "IUDataStorage.h"
 #import "IUStyleStorage.h"
 #import "IUPositionStorage.h"
 #import "IUPropertyStorage.h"
+
+
 #import "IUSourceDelegate.h"
-#import "IUProjectProtocol.h"
 #import "IUSourceManagerProtocol.h"
+
 #import "IUEvent2.h"
 
 typedef enum{
@@ -49,7 +54,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @class IUProject;
 
 
-@interface IUBox : NSObject <NSCoding, NSCopying, JDCoding, IUCSSDelegate, IUDataStorageManagerDelegate>{
+@interface IUBox : NSObject <NSCopying, JDCoding, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
     __weak id <IUSourceDelegate> _canvasVC __deprecated;
     
@@ -104,6 +109,9 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (BOOL)canChangeVCenter;
 - (BOOL)canMoveToOtherParent;
 
+- (BOOL)canChangeWidthByDraggable;
+- (BOOL)canChangeHeightByDraggable;
+
 
 @property BOOL removed; // iu is removed;
 
@@ -157,7 +165,17 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (NSUndoManager *)undoManager;
 
 
+//Position
+@property (nonatomic) BOOL enableHCenter, enableVCenter;
 
+
+//CSS
+- (NSArray *)cssIdentifierArray;
+- (void)updateCSS;
+- (void)updateCSSWithIdentifiers:(NSArray *)identifiers;
+
+//HTML
+- (void)updateHTML;
 
 
 
@@ -191,7 +209,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 - (void)confirmIdentifier;
 
-- (void)setCanvasVC:(id <IUSourceDelegate>) canvasVC __deprecated;
 
 
 - (IUTextInputType)textInputType;
@@ -213,18 +230,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property (nonatomic) NSString *pgVisibleConditionVariable;
 @property (nonatomic) NSString *pgContentVariable;
 
-
-//CSS
-@property (readonly) IUCSS *css __deprecated; //used by subclass
-- (NSArray *)cssIdentifierArray;
-- (void)updateCSS;
-- (void)updateCSSWithIdentifiers:(NSArray *)identifiers;
-//copy only css;
-- (void)copyCSSFromIU:(IUBox *)box;
-
-//HTML
-//-(NSString*)html; //DEPRECATED;
-- (void)updateHTML;
 
 //children
 - (NSArray*)children;
@@ -256,24 +261,10 @@ static NSString *kIUPropertyManager = @"propertyManager";
 //Frame
 //user interface status
 
-
-- (NSPoint)originalPoint __deprecated;
-- (NSSize)originalSize __deprecated;
-- (NSSize)currentSize __deprecated;
-- (NSSize)currentPercentSize __deprecated;
-
-- (BOOL)canChangeWidthByDraggable;
-- (BOOL)canChangeHeightByDraggable;
-
-- (void)setPixelX:(CGFloat)pixelX percentX:(CGFloat)percentX;
-- (void)setPixelY:(CGFloat)pixelY percentY:(CGFloat)percentY;
-- (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth;
-- (void)setPixelHeight:(CGFloat)pixelHeight percentHeight:(CGFloat)percentHeight;
+//- (BOOL)canChangeWidthByDraggable;
+//- (BOOL)canChangeHeightByDraggable;
 
 
-//Position
-@property (nonatomic) IUPositionType positionType __deprecated;
-@property (nonatomic) BOOL enableHCenter, enableVCenter;
 
 
 //Property

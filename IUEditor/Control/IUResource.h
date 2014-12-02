@@ -1,5 +1,5 @@
 //
-//  IUResourceManager.h
+//  IUResource.h
 //  IUEditor
 //
 //  Created by JD on 4/6/14.
@@ -41,30 +41,28 @@ typedef enum _IUResourceType{
 @interface IUResourceGroupItem : IUResourceFileItem
 - (void)refresh:(BOOL)recursive;
 - (NSArray *)children;
+/**
+ @breif Getting contents in image resource group
+ @return Array of IUResourceFile
+ @note Not KVO-compliance
+ */
 - (NSArray*)imageResourceItems;
+
+/**
+ @breif Getting contents in video resource group
+ @return Array of IUResourceFile
+ @note Not KVO-compliance
+ */
 - (NSArray*)videoResourceItems;
 @end
 
 
 /**
- IUResourceManager is root file item in resource field
+ IUResourceRootItem is root file item in resource field
  */
 @interface IUResourceRootItem : IUResourceGroupItem
 
 - (void)loadFromPath:(NSString *)path;
-/**
- @breif Getting contents in image resource group
- @return Array of IUResourceFile
- @note Not KVO-compliance
- */
-- (NSArray*)imageResourceItems;
-
-/**
- @breif Getting contents in image resource group
- @return Array of IUResourceFile
- @note Not KVO-compliance
- */
-- (NSArray*)videoResourceItems;
 
 
 @end

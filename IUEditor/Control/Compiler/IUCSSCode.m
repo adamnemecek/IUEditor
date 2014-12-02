@@ -330,7 +330,7 @@
     return allViewports;
 }
 
-- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(int)viewPort{
+- (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(NSInteger)viewPort{
     if (target == IUTargetEditor) {
         /* make live storage by inheritance */
         NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];

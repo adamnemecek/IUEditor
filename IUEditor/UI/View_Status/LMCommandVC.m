@@ -58,7 +58,7 @@
 }
 
 - (void)prepareDealloc{
-    [self removeObserver:self forKeyPath:@"docController.project.runnable"];
+//    [self removeObserver:self forKeyPath:@"docController.project.runnable"];
     [_compilerB unbind:NSSelectedIndexBinding];
 }
 
@@ -68,7 +68,7 @@
     }
     NSAssert(docController.project, @"Should have docController.project for KVO issue");
     _docController = docController;
-    [self addObserver:self forKeyPath:@"docController.project.runnable" options:NSKeyValueObservingOptionInitial context:nil];
+//    [self addObserver:self forKeyPath:@"docController.project.runnable" options:NSKeyValueObservingOptionInitial context:nil];
 #ifndef DEBUG
     //[_recordingB setHidden:YES];
 #endif

@@ -27,11 +27,6 @@
 
 #pragma mark - initialize
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[IUCollectionView properties]];
-}
-
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [super awakeAfterUsingJDCoder:aDecoder];
     [self.undoManager disableUndoRegistration];

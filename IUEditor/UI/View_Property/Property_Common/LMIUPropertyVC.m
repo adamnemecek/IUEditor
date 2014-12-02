@@ -264,11 +264,6 @@
     [propertyIUGoogleMapVC prepareDealloc];
 }
 
-- (void)setResourceManager:(IUResourceManager *)resourceManager{
-    _resourceManager = resourceManager;
-    propertyIUGoogleMapVC.resourceManager = resourceManager;
-}
-
 -(void)selectedObjectsDidChange:(NSDictionary *)change{
     //FIXME: FIX FOR MANY SELECTION that has different kinds of types
     if ([_controller isSelectionSameClass] == NO) {

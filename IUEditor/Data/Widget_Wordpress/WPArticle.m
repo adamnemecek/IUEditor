@@ -32,31 +32,6 @@
 
 #pragma mark - initialize
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    
-    @try {
-        _enableTitle = [aDecoder decodeBoolForKey:@"enableTitle"];
-        _enableBody = [aDecoder decodeBoolForKey:@"enableBody"];
-        _enableDate = [aDecoder decodeBoolForKey:@"enableDate"];
-        _enableComment = [aDecoder decodeBoolForKey:@"enableComment"];
-    }
-    @catch (NSException *exception) {
-    }
-    @finally {
-    }
-    
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeBool:_enableTitle forKey:@"enableTitle"];
-    [aCoder encodeBool:_enableBody forKey:@"enableBody"];
-    [aCoder encodeBool:_enableDate forKey:@"enableDate"];
-    [aCoder encodeBool:_enableComment forKey:@"enableComment"];
-}
-
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super initWithJDCoder:aDecoder];
     if(self){

@@ -48,6 +48,7 @@
     self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
 }
 
+/*
 - (void)setPixelWidth:(CGFloat)pixelWidth percentWidth:(CGFloat)percentWidth{
     [super setPixelWidth:pixelWidth percentWidth:percentWidth];
     CGFloat pageContentWidth = 100 - percentWidth;
@@ -60,6 +61,7 @@
     }
 
 }
+ */
 
 -(BOOL)canRemoveIUByUserInput{
     return NO;

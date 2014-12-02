@@ -9,6 +9,8 @@
 #import "IUProjectDocument.h"
 #import "IUProjectController.h"
 
+#import "JDFileUtil.h"
+
 static NSString *iuDataName = @"iuData";
 static NSString *projectJsonData = @"projectJsonData";
 
@@ -26,6 +28,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
 
 @implementation IUProjectDocument{
     BOOL isLoaded;
+    NSFileWrapper *_imageFileWrapper;
+    NSFileWrapper *_videoFileWrapper;
 }
 
 - (id)init{
@@ -33,6 +37,9 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     if(self){
         //allocation identifiermanager
         _identifierManager = [[IUIdentifierManager alloc] init];
+        
+        //allocation resource root
+        _resource = [[IUResourceRootItem alloc] init];
         
         //allocation metadata
         self.metaDataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -65,6 +72,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url{
     if ([option objectForKey:IUProjectKeyConversion]) {
+        /*
+         FIXME: converting
         IUProjectType projectType = [[option objectForKey:IUProjectKeyType] intValue];
         Class projectFactory = NSClassFromString([IUProject stringProjectType:projectType]);
         
@@ -75,6 +84,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         }
         _project = newProject;
         return YES;
+         */
+        return NO;
     }
     
     else {
@@ -189,6 +200,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         [self.undoManager disableUndoRegistration];
         _project.name = appName;
         _project.path = filePath;
+        [_resource loadFromPath:[filePath stringByAppendingPathComponents:@[@"resource"]]];
         
         [self.undoManager enableUndoRegistration];
         
@@ -258,7 +270,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
 
     }
 
-    //save resource files
+    //save resource folders
+    
     NSFileWrapper *resourceWrapper = [fileWrappers objectForKey:IUResourceGroupName];
     if (resourceWrapper== nil){
         resourceWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
@@ -275,25 +288,16 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         imageWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
         [imageWrapper setPreferredFilename:IUImageResourceGroupName];
         [resourceWrapper addFileWrapper:imageWrapper];
-
+        _imageFileWrapper = imageWrapper;
     }
     if(videoWrapper == nil){
         videoWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
         [videoWrapper setPreferredFilename:IUVideoResourceGroupName];
         [resourceWrapper addFileWrapper:videoWrapper];
-    }
-    
-/*
-    [self fileWrapper:imageWrapper removeFileNotInArray:[_project.resourceManager namesWithFiles:_project.resourceManager.imageFiles]];
-    for(IUResourceFile *resourceFile in _project.resourceManager.imageFiles){
-        [self fileWrapper:imageWrapper addResourceNode:resourceFile];
+        
+        _videoFileWrapper = videoWrapper;
     }
 
-    [self fileWrapper:videoWrapper removeFileNotInArray:[_project.resourceManager namesWithFiles:_project.resourceManager.videoFiles]];
-    for(IUResourceFile *resourceFile in _project.resourceManager.videoFiles){
-        [self fileWrapper:videoWrapper addResourceNode:resourceFile];
-    }
-*/
     //save metadata
     // write the new file wrapper for our meta data
     NSFileWrapper *metaDataFileWrapper = [[[self documentFileWrapper] fileWrappers] objectForKey:metaDataFileName];
@@ -318,50 +322,50 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
     
 }
 
-- (int)fileWrapper:(NSFileWrapper *)fileWrapper removeFileNotInArray:(NSArray *)array{
-    NSMutableArray *removeArray = [NSMutableArray array];
-    for(NSString *resourceName in [fileWrapper fileWrappers]){
-        if([array containsString:resourceName] == NO){
-            [removeArray addObject:resourceName];
+
+- (BOOL)removeResourceFileItemName:(NSString *)fileItemName{
+    
+    NSFileWrapper *oldFileWrapper = [[_imageFileWrapper fileWrappers] objectForKey:fileItemName];
+    NSString *extension =  [fileItemName pathExtension];
+    if([JDFileUtil isImageFileExtension:extension]){
+        if(oldFileWrapper){
+            [_imageFileWrapper removeFileWrapper:oldFileWrapper];
+        }
+        [_resource refresh:YES];
+        return YES;
+
+    }
+    else if([JDFileUtil isMovieFileExtension:extension]){
+        if(oldFileWrapper){
+            [_videoFileWrapper removeFileWrapper:oldFileWrapper];
+        }
+        [_resource refresh:YES];
+        return YES;
+    }
+    
+    return NO;
+    
+}
+- (void)addResourceFileItemPaths:(NSArray *)fileItemPaths{
+    for(NSString *filePath in fileItemPaths){
+        NSString *fileName = [filePath lastPathComponent];
+        NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:filePath] options:0 error:nil];
+        [resourceWrapper setPreferredFilename:fileName];
+//        resourceWrapper writeToURL:<#(NSURL *)#> options:<#(NSFileWrapperWritingOptions)#> originalContentsURL:<#(NSURL *)#> error:<#(NSError *__autoreleasing *)#>
+        
+        NSString *extension =  [fileName pathExtension];
+        if([JDFileUtil isImageFileExtension:extension]){
+            [_imageFileWrapper addFileWrapper:resourceWrapper];
+        }
+        else if([JDFileUtil isMovieFileExtension:extension]){
+            [_videoFileWrapper addFileWrapper:resourceWrapper];
         }
     }
-    int i=0;
-    for(NSString *resourceName in removeArray){
-        NSFileWrapper *resourceWrapper = [[fileWrapper fileWrappers] objectForKey:resourceName];
-        [fileWrapper removeFileWrapper:resourceWrapper];
-        i++;
-    }
-    return i;
-}
-/*
-- (NSString *)fileWrapper:(NSFileWrapper *)fileWrapper overwriteResourceNode:(IUResourceFile *)resource{
-    NSFileWrapper *oldFileWrapper = [[fileWrapper fileWrappers] objectForKey:resource.name];
-    if(oldFileWrapper){
-        NSString *fileName = [[oldFileWrapper preferredFilename] stringByDeletingPathExtension];
-        NSString *fileType = [[oldFileWrapper preferredFilename] pathExtension];
-        NSString *path =  [[NSBundle mainBundle] pathForResource:fileName ofType:fileType];
-        resource.originalFilePath = path;
-
-        [fileWrapper removeFileWrapper:oldFileWrapper];
-    }
-    return [self fileWrapper:fileWrapper addResourceNode:resource];
-
+    
+    [_resource refresh:YES];
 }
 
-- (NSString *)fileWrapper:(NSFileWrapper *)fileWrapper addResourceNode:(IUResourceFile *)resource{
-    if([[fileWrapper fileWrappers] objectForKey:resource.name] == nil){
-        if(resource.originalFilePath){
-            NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:resource.originalFilePath] options:0 error:nil];
-            [resourceWrapper setPreferredFilename:resource.name];
-            return [fileWrapper addFileWrapper:resourceWrapper];
-        }
-        else{
-            return nil;
-        }
-    }
-    return resource.name;
-}
-*/
+
 
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)fileWrapper ofType:(NSString *)typeName error:(NSError **)outError
 {
@@ -369,6 +373,30 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
 
     BOOL readSuccess= NO;
     NSDictionary *fileWrappers = [fileWrapper fileWrappers];
+    
+    
+    
+    // load resource folder wrapper
+    NSFileWrapper *resourceFileWrapper = [fileWrappers objectForKey:IUResourceGroupName];
+    if(resourceFileWrapper){
+        _imageFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUImageResourceGroupName];
+        _videoFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUVideoResourceGroupName];
+    }
+    
+    
+    // load the metaData file from it's wrapper
+    NSFileWrapper *metaDataFileWrapper = [fileWrappers objectForKey:metaDataFileName];
+    if (metaDataFileWrapper != nil)
+    {
+        // we have meta data in this document
+        //
+        NSData *metaData = [metaDataFileWrapper regularFileContents];
+        NSMutableDictionary *finalMetadata = [NSPropertyListSerialization propertyListWithData:metaData options:NSPropertyListImmutable format:NULL error:outError];
+        self.metaDataDict = finalMetadata;
+    }
+    
+    
+    
 
     /*FIXME : version Control*/
     /*
@@ -397,19 +425,8 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
             readSuccess = YES;
         }
     }
-        
-    
-    // load the metaData file from it's wrapper
-    NSFileWrapper *metaDataFileWrapper = [fileWrappers objectForKey:metaDataFileName];
-    if (metaDataFileWrapper != nil)
-    {
-        // we have meta data in this document
-        //
-        NSData *metaData = [metaDataFileWrapper regularFileContents];
-        NSMutableDictionary *finalMetadata = [NSPropertyListSerialization propertyListWithData:metaData options:NSPropertyListImmutable format:NULL error:outError];
-        self.metaDataDict = finalMetadata;
-    }
-    
+
+
     
     [self setDocumentFileWrapper:fileWrapper];
 

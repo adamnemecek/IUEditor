@@ -83,13 +83,6 @@
     return self;
 }
 
-
-- (void)setResourceManager:(IUResourceManager *)resourceManager{
-    _resourceManager = resourceManager;
-    [cssCompiler setResourceManager:resourceManager];
-    
-}
-
 - (void)setRule:(IUCompileRule)rule{
     _rule = rule;
 }
@@ -264,14 +257,18 @@
 -(JDCode *)webfontImportSourceForOutput:(IUPage *)page{
     NSMutableArray *fontArray = [NSMutableArray array];
 
-    for (IUBox *box in page.allChildren){        
-        NSString *fontName = box.css.effectiveTagDictionary[IUCSSTagFontName];
-        if(fontName && fontName.length >0 ){
-            if(box.css.effectiveTagDictionary[IUCSSTagFontWeight]){
-                [fontArray addObject:@{IUCSSTagFontName:fontName, IUCSSTagFontWeight:box.css.effectiveTagDictionary[IUCSSTagFontWeight]}];
-            }
-            else{
-                [fontArray addObject:@{IUCSSTagFontName:fontName}];
+    for (IUBox *box in page.allChildren){
+        
+        for(NSNumber *viewport in [box.defaultStyleManager allViewPorts]){
+            NSString *fontName = ((IUStyleStorage *)[box.defaultStyleManager storageForViewPort:[viewport integerValue]]).fontName;
+            if(fontName && fontName.length >0 ){
+                NSString *fontWeight = ((IUStyleStorage *)[box.defaultStyleManager storageForViewPort:[viewport integerValue]]).fontWeight;
+                if(fontWeight){
+                    [fontArray addObject:@{IUCSSTagFontName:fontName, IUCSSTagFontWeight:fontWeight}];
+                }
+                else{
+                    [fontArray addObject:@{IUCSSTagFontName:fontName}];
+                }
             }
         }
        
@@ -400,18 +397,18 @@
     if(isEdit){
         
         NSString *jqueryPath = [[NSBundle mainBundle] pathForResource:@"jquery-1.10.2" ofType:@"js"];
-        NSString *jqueryPathCode = [NSString stringWithFormat:@"<script src='%@'></script>", jqueryPath];
+        NSString *jqueryPathCode = [NSString stringWithFormat:@"<script src='file:%@'></script>", jqueryPath];
         [code addCodeLine:jqueryPathCode];
         
         
         NSString *jqueryUIPath = [[NSBundle mainBundle] pathForResource:@"jquery-ui-1.11.1.min" ofType:@"js"];
-        NSString *jqueryUIPathCode = [NSString stringWithFormat:@"<script src='%@'></script>", jqueryUIPath];
+        NSString *jqueryUIPathCode = [NSString stringWithFormat:@"<script src='file:%@'></script>", jqueryUIPath];
         [code addCodeLine:jqueryUIPathCode];
 
         
         for(NSString *filename in sheet.project.defaultEditorJSArray){
             NSString *jsPath = [[NSBundle mainBundle] pathForResource:[filename stringByDeletingPathExtension] ofType:[filename pathExtension]];
-            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@\"></script>", jsPath];
+            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"file:%@\"></script>", jsPath];
         }
         
         //text editor - tinymce
@@ -421,7 +418,7 @@
         [code addCodeLine:@"</script>"];
 
         NSString *mcePath = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponents:@[@"tinymce",@"tinymce"]] stringByAppendingPathExtension:@"js"];
-        [code addCodeLineWithFormat:@"<script src='%@'></script>", mcePath];
+        [code addCodeLineWithFormat:@"<script src='file:%@'></script>", mcePath];
      
     }
     else{

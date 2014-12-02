@@ -28,22 +28,11 @@
 
 #pragma mark - init
 
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    self = [super awakeAfterUsingCoder:aDecoder];
-    
-    if(self){
-        self.prototypeClass = [aDecoder decodeObjectForKey:@"_prototypeClass"];
-    }
-    
-    return self;
-
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
+    [aCoder encodeByRefObject:_prototypeClass forKey:@"_prototypeClass"];
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeObject:_prototypeClass forKey:@"_prototypeClass"];
-}
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     [super awakeAfterUsingJDCoder:aDecoder];
     [self.undoManager disableUndoRegistration];
@@ -53,10 +42,6 @@
     [self.undoManager enableUndoRegistration];
 }
 
-- (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [super encodeWithJDCoder:aCoder];
-    [aCoder encodeByRefObject:_prototypeClass forKey:@"_prototypeClass"];
-}
 
 - (id)copyWithZone:(NSZone *)zone{
     IUImport *iu = [super copyWithZone:zone];
@@ -158,11 +143,6 @@
         return importHTMLID;
     }
     return nil;
-}
-
-- (void)setCanvasVC:(id<IUSourceDelegate>)canvasVC{
-    [super setCanvasVC:canvasVC];
-    [_prototypeClass setCanvasVC:canvasVC];
 }
 
 - (NSArray*)children{

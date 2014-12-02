@@ -53,20 +53,6 @@
     }
     return self;
 }
--(id)initWithCoder:(NSCoder *)aDecoder{
-    self =  [super initWithCoder:aDecoder];
-    if(self){
-
-        [aDecoder decodeToObject:self withProperties:[[IUWebMovie class] properties]];
-        
-    }
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeFromObject:self withProperties:[[IUWebMovie class] properties]];
-    
-}
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
     self =  [super initWithJDCoder:aDecoder];
@@ -84,9 +70,6 @@
     [aCoder encodeFromObject:self withProperties:[[IUWebMovie class] properties]];
     
 }
-
-
-
 
 - (id)copyWithZone:(NSZone *)zone{
     IUWebMovie *webMovie = [super copyWithZone:zone];

@@ -112,27 +112,6 @@
     [aCoder encodeObject:_referenceImports forKey:@"referenceImport"];
 }
 
-- (id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
-    self =  [super awakeAfterUsingCoder:aDecoder];
-
-    _referenceImports = [[aDecoder decodeObjectForKey:@"referenceImport"] mutableCopy];
-    NSArray *copy = [_referenceImports copy];
-    NSInteger index = [copy count] - 1;
-    for (id object in [copy reverseObjectEnumerator]) {
-        if ([_referenceImports indexOfObject:object inRange:NSMakeRange(0, index)] != NSNotFound) {
-            [_referenceImports removeObjectAtIndex:index];
-        }
-        index--;
-    }
-
-    return self;
-}
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeObject:_referenceImports forKey:@"referenceImport"];
-}
-
-
 -(BOOL)canChangeWidthByUserInput{
     return YES;
 }
