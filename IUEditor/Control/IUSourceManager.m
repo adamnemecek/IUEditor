@@ -64,16 +64,7 @@
         DOMHTMLElement *element = (DOMHTMLElement *)[list item:0];
         DOMNodeList *pList  = [element getElementsByTagName:@"p"];
         return pList.length;
-        
-        /*
-         replace : 14.11.07 tinymce 에서 text를 p tag가 있는 상탤 동작하게 됨.
-         int count = brList.length;
-         DOMHTMLElement *lastElement = (DOMHTMLElement *)[element.childNodes item:element.childNodes.length-1];
-         if([lastElement isKindOfClass:[DOMHTMLBRElement class]]==NO){
-         count++;
-         }
-         return count;
-         */
+
     }
     return 0;
 }

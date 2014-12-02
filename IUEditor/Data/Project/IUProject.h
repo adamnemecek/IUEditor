@@ -141,8 +141,6 @@ static NSString *IUClassGroupName = @"class";
 - (IUIdentifierManager*)identifierManager;
 
 - (NSArray*)allSheets;
-- (NSArray*)pageSheets;
-- (NSArray*)classSheets;
 - (IUClass *)classWithName:(NSString *)name;
 
 /* get all IU in project */

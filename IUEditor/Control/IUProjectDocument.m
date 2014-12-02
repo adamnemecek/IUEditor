@@ -11,7 +11,6 @@
 
 #import "JDFileUtil.h"
 
-static NSString *iuDataName = @"iuData";
 static NSString *projectJsonData = @"projectJsonData";
 
 //set metadata
@@ -117,11 +116,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [projectDict setObject:appName forKey:IUProjectKeyAppName];
         
         
-        /*
-         FIXME : version Control
-         NSError *error;
-        IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initWithCreation:projectDict error:&error];
-         */
         
         IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initAtTemporaryDirectory];
         if(newProject){
@@ -243,24 +237,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
         NSFileWrapper *docfileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
         [self setDocumentFileWrapper:docfileWrapper];
     }
-    
     NSDictionary *fileWrappers = [[self documentFileWrapper] fileWrappers];
-    //save iudata
-    //FIXME : Version Control
-    /*
-    if( [fileWrappers objectForKey:iuDataName] != nil ){
-        NSFileWrapper *iuDataWrapper = [fileWrappers objectForKey:iuDataName];
-        [[self documentFileWrapper] removeFileWrapper:iuDataWrapper];
-    }
-    
-    if(_project){
-     
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_project];
-        NSFileWrapper *iuDataWrapper = [[NSFileWrapper alloc] initRegularFileWithContents:data];
-        [iuDataWrapper setPreferredFilename:iuDataName];
-        [[self documentFileWrapper] addFileWrapper:iuDataWrapper];
-    }
-    */
+
     //save Project
     if( [fileWrappers objectForKey:projectJsonData] != nil){
         NSFileWrapper *projectDataWrapper = [fileWrappers objectForKey:projectJsonData];
@@ -382,6 +360,11 @@ static NSString *metaDataIUVersion = @"IUVersion";
     BOOL readSuccess= NO;
     NSDictionary *fileWrappers = [fileWrapper fileWrappers];
     
+    if([fileWrappers objectForKey:@"iuData"]){
+        //alert to old version project (beta version 0.3.3.x)
+        //not supported and opened
+        return NO;
+    }
     
     
     // load resource folder wrapper
@@ -402,26 +385,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         NSMutableDictionary *finalMetadata = [NSPropertyListSerialization propertyListWithData:metaData options:NSPropertyListImmutable format:NULL error:outError];
         self.metaDataDict = finalMetadata;
     }
-    
-    
-    
 
-    /*FIXME : version Control*/
-    /*
-    NSFileWrapper *iuDataWrapper = [fileWrappers objectForKey:iuDataName];
-
-    if(iuDataWrapper){
-        NSData *iuData = [iuDataWrapper regularFileContents];
-        _project = [NSKeyedUnarchiver unarchiveObjectWithData:iuData];
-        
-        if(_project){
-            [self changeProjectPath:[self fileURL]];
-            readSuccess = YES;
-        }
-        
-
-    }
-     */
     
     NSFileWrapper *projectDataWarpper = [fileWrappers objectForKey:projectJsonData];
     if(projectDataWarpper){
@@ -433,7 +397,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
             readSuccess = YES;
         }
     }
-
 
     
     [self setDocumentFileWrapper:fileWrapper];

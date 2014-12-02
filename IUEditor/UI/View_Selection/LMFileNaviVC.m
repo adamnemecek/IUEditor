@@ -64,7 +64,7 @@
 
 -(void)selectFirstDocument{
     //find first document
-    [_documentController setSelectedObject:_project.pageSheets.firstObject];
+    [_documentController setSelectedObject:_project.pageGroup.childrenFileItems.firstObject];
 }
 
 - (void)reloadNavigation{

@@ -118,6 +118,9 @@
     IUSourceManager *sourceManager = [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
 
     NSString *rule = sourceManager.compilerRule;
+    //FIXME : temp
+    //rule = kIUCompileRuleHTML;
+    
     if ([rule isEqualToString:kIUCompileRuleHTML]
         || [rule isEqualToString:kIUCompileRuleWordpress]
         || [rule isEqualToString:kIUCompileRulePresentation] ) {
@@ -128,7 +131,7 @@
         }
         IUSheet *doc = [[_docController selectedObjects] firstObject];
         if([doc isKindOfClass:[IUSheet class]] == NO){
-            doc = _docController.project.pageSheets.firstObject;
+            doc = _docController.project.pageGroup.childrenFileItems.firstObject;
         }
         if ([rule isEqualToString:kIUCompileRuleHTML] || [rule isEqualToString:kIUCompileRulePresentation]) {
             NSString *firstPath = [sourceManager absoluteBuildPathForSheet:doc];
@@ -174,7 +177,7 @@
         //open page
         IUSheet *node = [[_docController selectedObjects] firstObject];
         if([node isKindOfClass:[IUSheet class]] == NO){
-            node = [project.pageSheets firstObject];
+            node = [project.pageGroup.childrenFileItems firstObject];
         }
         
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://127.0.0.1:%ld/%@", project.port, [node.name lowercaseString]]];

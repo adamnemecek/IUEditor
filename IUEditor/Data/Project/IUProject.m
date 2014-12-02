@@ -542,11 +542,6 @@
     return _compiler;
 }
 
-- (void)setCompileRule:(IUCompileRule)compileRule __deprecated{
-    //FIXME
-}
-
-
 
 - (IUProjectType)projectType{
     IUProjectType type;
@@ -722,22 +717,11 @@
 
 - (NSArray*)allSheets{
     NSMutableArray *array = [NSMutableArray array];
-    [array addObjectsFromArray:self.pageSheets];
-    [array addObjectsFromArray:self.classSheets];
+    [array addObjectsFromArray:self.pageGroup.childrenFileItems];
+    [array addObjectsFromArray:self.classGroup.childrenFileItems];
     return array;
 }
 
-- (NSArray*)pageSheets __deprecated{
-    //FIXME :
-    NSAssert(_pageGroup, @"pg");
-    return _pageGroup.childrenFileItems;
-    
-}
-- (NSArray*)classSheets __deprecated{
-    //FIXME :
-    return _classGroup.childrenFileItems;
-    
-}
 - (IUClass *)classWithName:(NSString *)name{
     return [_classGroup sheetWithHtmlID:name];
 }

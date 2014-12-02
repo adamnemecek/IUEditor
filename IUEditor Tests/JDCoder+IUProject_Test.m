@@ -54,7 +54,7 @@
 
 - (void)test3_saveLoadChild{
     project.name= @"sampleProject";
-    IUPage *page = project.pageSheets[0];
+    IUPage *page = project.pageGroup.childrenFileItems[0];
     page.name = @"hahaha";
     
     JDCoder *encoder = [[JDCoder alloc] init];
@@ -64,7 +64,7 @@
     
     JDCoder *decoder = [[JDCoder alloc] init];
     IUProject *decodeProject = [decoder decodeContentOfFilePath:filePath error:nil];
-    IUPage *decodedPage = decodeProject.pageSheets[0];
+    IUPage *decodedPage = decodeProject.pageGroup.childrenFileItems[0];
 
     XCTAssertEqualObjects(decodeProject.name, @"sampleProject");
     XCTAssertEqualObjects(decodedPage.name, @"hahaha");

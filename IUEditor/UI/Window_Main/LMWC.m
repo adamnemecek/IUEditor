@@ -308,7 +308,7 @@
         
         //project error check
         _project = document.project;
-        NSAssert(_project.pageSheets, @"");
+        NSAssert(_project.pageGroup.childrenFileItems, @"");
         
 
         if (_project == nil) {

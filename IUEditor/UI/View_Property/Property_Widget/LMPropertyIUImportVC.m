@@ -36,7 +36,7 @@
 - (void)structureChanged:(NSNotification*)noti{
     [_prototypeB removeAllItems];
     [_prototypeB addItemWithTitle:@"None"];
-    [_prototypeB addItemsWithTitles:[[_project classSheets] valueForKey:@"name"]];
+    [_prototypeB addItemsWithTitles:[[_project classGroup].childrenFileItems valueForKey:@"name"]];
 }
 
 
@@ -54,7 +54,7 @@
         [self setValue:nil forIUProperty:@"prototypeClass"];
     }
     else{
-        IUClass *class = [[_project classSheets] objectWithKey:@"name" value:sender.selectedItem.title];
+        IUClass *class = [_project.classGroup.childrenFileItems objectWithKey:@"name" value:sender.selectedItem.title];
         [self setValue:class forIUProperty:@"prototypeClass"];
     }
 }

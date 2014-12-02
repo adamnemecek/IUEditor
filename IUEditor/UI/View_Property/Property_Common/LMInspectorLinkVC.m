@@ -69,7 +69,7 @@
     [_pageLinkPopupButton removeAllItems];
     [_pageLinkPopupButton addItemWithTitle:@"None"];
     [_pageLinkPopupButton addItemWithTitle:@"Self"];
-    for (IUPage *page in [_project pageSheets]) {
+    for (IUPage *page in _project.pageGroup.childrenFileItems) {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:page.name action:nil keyEquivalent:@""];
         item.representedObject = page;
         [[_pageLinkPopupButton menu] addItem:item];
