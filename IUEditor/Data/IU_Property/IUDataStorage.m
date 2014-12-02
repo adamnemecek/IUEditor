@@ -253,13 +253,14 @@
     IUDataStorage *defaultStorage = [self newStorage];
     defaultStorage.manager = self;
     
-    [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];
+    self.maxViewPort = IUDefaultViewPort;
+    [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
 
     _defaultStorage = defaultStorage;
     _currentStorage = defaultStorage;
     
     [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-    self.currentViewPort = IUCSSDefaultViewPort;
+    self.currentViewPort = self.maxViewPort;
     _owners = [NSMutableArray array];
     return self;
 }
@@ -272,13 +273,16 @@
         IUDataStorage *defaultStorage = [self newStorage];
         defaultStorage.manager = self;
         
-        [self.workingStorages insertObject:defaultStorage forKey:@(IUDefaultViewPort) atIndex:0];
+        
+        self.maxViewPort = IUDefaultViewPort;
+        [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
+        
         
         _defaultStorage = defaultStorage;
         _currentStorage = defaultStorage;
         
         [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-        self.currentViewPort = IUCSSDefaultViewPort;
+        self.currentViewPort = self.maxViewPort;
         _owners = [NSMutableArray array];
     }
     
@@ -294,18 +298,20 @@
     self = [super init];
     if(self){
         _workingStorages = [aDecoder decodeObjectForKey:@"storages"];
-        self.currentViewPort = IUCSSDefaultViewPort;
-        
-        _defaultStorage =  [_workingStorages objectForKey:@(IUDefaultViewPort)];
+        _owners = [aDecoder decodeObjectForKey:@"owners"];
+        _maxViewPort = [aDecoder decodeIntegerForKey:@"maxViewPort"];
+        _currentViewPort = _maxViewPort;
+     
+        _defaultStorage =  [_workingStorages objectForKey:@(_maxViewPort)];
         _currentStorage = _defaultStorage;
 
-        _owners = [aDecoder decodeObjectForKey:@"owners"];
     }
     return self;
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-        
+    
+    
     for(IUDataStorage *storage in [_workingStorages allValues]){
         storage.manager = self;
     }
@@ -317,12 +323,13 @@
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:self.workingStorages forKey:@"storages"];
     [aCoder encodeObject:_owners forKey:@"owners"];
+    [aCoder encodeInteger:_maxViewPort forKey:@"maxViewPort"];
 }
 
 - (id)copyWithZone:(NSZone *)zone{
     IUDataStorageManager *manager = [[[self class] allocWithZone:zone] init];
     manager.workingStorages = [_workingStorages copy];
-    manager.defaultStorage = [manager.workingStorages objectForKey:@(IUDefaultViewPort)];
+    manager.defaultStorage = [manager.workingStorages objectForKey:@(self.maxViewPort)];
     manager.currentViewPort = _currentViewPort; //create live
     
     for(IUDataStorage *storage in [manager.workingStorages allValues]){
@@ -377,17 +384,22 @@
 
 - (void)setCurrentViewPort:(NSInteger)currentViewPort{
     
-    if ([self.workingStorages objectForKey:@(currentViewPort)] == nil) {
-        IUDataStorage *newStorage = [self newStorage];
-        newStorage.manager = self;
-        [self.workingStorages setObject:newStorage forKey:@(currentViewPort)];
-        [self.workingStorages reverseSortArrayWithDictKey];
-    }
+    [self createStorageForViewPort:currentViewPort];
+    
     self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
     self.liveStorage = [self createLiveStorage];
     
     _currentViewPort = currentViewPort;
 }
+
+- (void)copyDataStorageFrom:(NSInteger)from to:(NSInteger)to{
+    IUDataStorage *originalMaxStorage = [self storageForViewPort:from];
+    IUDataStorage *maxStorage = [originalMaxStorage copy];
+    maxStorage.manager = self;
+    [self.workingStorages setObject:maxStorage forKey:@(to)];
+    [self.workingStorages reverseSortArrayWithDictKey];
+}
+
 
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort{
     return [_workingStorages objectForKey:@(viewPort)];
@@ -397,6 +409,14 @@
     return [[self.workingStorages firstKeyForObject:storage] integerValue];
 }
 
+- (void)createStorageForViewPort:(NSInteger)viewPort{
+    if ([self.workingStorages objectForKey:@(viewPort)] == nil) {
+        IUDataStorage *newStorage = [self newStorage];
+        newStorage.manager = self;
+        [self.workingStorages setObject:newStorage forKey:@(viewPort)];
+        [self.workingStorages reverseSortArrayWithDictKey];
+    }
+}
 
 - (void)removeStorageForViewPort:(NSInteger)viewPort{
     [_workingStorages removeObjectForKey:@(viewPort)];

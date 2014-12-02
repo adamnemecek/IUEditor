@@ -21,13 +21,14 @@
     NSDictionary *convertTagDict;
 }
 
+#if 0
 
 -(id)init{
     self = [super init];
     _mqDictWithViewPort = [[NSMutableDictionary alloc] init];
     _effectiveTagDictionaryForEditWidth = [NSMutableDictionary dictionary];
     
-    self.editViewPort = IUCSSDefaultViewPort;
+    self.editViewPort = IUDefaultViewPort;
     
     return self;
 }
@@ -44,7 +45,7 @@
     self = [super init];
     
     _mqDictWithViewPort = [aDecoder decodeObjectForKey:@"mqDictWithViewPort"];
-    self.editViewPort = IUCSSDefaultViewPort;
+    self.editViewPort = IUDefaultViewPort;
     _effectiveTagDictionaryForEditWidth = [NSMutableDictionary dictionary];
     
     [self updateEffectiveTagDictionary];
@@ -57,7 +58,7 @@
     self = [super init];
     
     _mqDictWithViewPort = [aDecoder decodeObjectForKey:@"mqDictWithViewPort"];
-    self.editViewPort = IUCSSDefaultViewPort;
+    self.editViewPort = IUDefaultViewPort;
     _effectiveTagDictionaryForEditWidth = [NSMutableDictionary dictionary];
     [self updateEffectiveTagDictionary];
     
@@ -98,14 +99,14 @@
 -(void)updateEffectiveTagDictionary{
     
     //REVIEW: style sheet는 default만 적용됨
-    if(_mqDictWithViewPort[@(IUCSSDefaultViewPort)]){
-        [_effectiveTagDictionaryForEditWidth setDictionary:_mqDictWithViewPort[@(IUCSSDefaultViewPort)]];
+    if(_mqDictWithViewPort[@(IUDefaultViewPort)]){
+        [_effectiveTagDictionaryForEditWidth setDictionary:_mqDictWithViewPort[@(IUDefaultViewPort)]];
     }
     else{
         [_effectiveTagDictionaryForEditWidth removeAllObjects];
     }
     
-    if(_editViewPort != IUCSSDefaultViewPort && _mqDictWithViewPort[@(_editViewPort)]){
+    if(_editViewPort != IUDefaultViewPort && _mqDictWithViewPort[@(_editViewPort)]){
         [_effectiveTagDictionaryForEditWidth addEntriesFromDictionary:_mqDictWithViewPort[@(_editViewPort)]];
         
     }
@@ -192,7 +193,7 @@
         }
     }
     
-    id value = [_mqDictWithViewPort[Integer2Str(IUCSSDefaultViewPort)] objectForKey:tag];
+    id value = [_mqDictWithViewPort[Integer2Str(IUDefaultViewPort)] objectForKey:tag];
     return value;
 
 }
@@ -264,5 +265,6 @@
     return cssStorageManager;
 }
 
+#endif
 
 @end

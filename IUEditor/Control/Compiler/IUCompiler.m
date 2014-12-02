@@ -560,12 +560,10 @@
         NSAssert(0, @"cannot make output css source without project information");
     }
     
-    NSMutableArray *mqSizeArray = [sheet.project.mqSizes mutableCopy];
+    NSArray *mqSizeArray = sheet.project.mqSizes;
     
     //remove default size
     NSInteger largestWidth = [[mqSizeArray objectAtIndex:0] integerValue];
-    [mqSizeArray removeObjectAtIndex:0];
-    [mqSizeArray insertObject:@(IUCSSDefaultViewPort) atIndex:0];
     
     JDCode *code = [[JDCode alloc] init];
     NSInteger minCount = mqSizeArray.count-1;
@@ -576,7 +574,7 @@
         //REVIEW: word press rule은 header에 붙임, 나머지는 .css파일로 따로 뽑아냄.
         if(_rule == IUCompileRuleWordpress){
             
-            if(size == IUCSSDefaultViewPort){
+            if(size == sheet.project.maxViewPort){
                 [code addCodeLine:@"<style id=default>"];
             }
             else if(count < mqSizeArray.count-1){
@@ -589,7 +587,7 @@
             }
         }
         else{
-            if(size != IUCSSDefaultViewPort){
+            if(size != sheet.project.maxViewPort){
                 //build는 css파일로 따로 뽑아줌
                 if(count < mqSizeArray.count-1){
                     [code addCodeWithFormat:@"@media screen and (min-width:%dpx) and (max-width:%dpx){" , size, largestWidth-1];
@@ -604,7 +602,7 @@
         if(count==minCount && sheet.project.enableMinWidth){
             [code increaseIndentLevelForEdit];
             NSInteger minWidth;
-            if(size == IUCSSDefaultViewPort){
+            if(size == sheet.project.maxViewPort){
                 minWidth = largestWidth;
             }
             else{
@@ -649,7 +647,7 @@
         if(_rule == IUCompileRuleWordpress){
             [code addCodeLine:@"</style>"];
         }
-        else if(size != IUCSSDefaultViewPort){
+        else if(size != sheet.project.maxViewPort){
             [code addCodeLine:@"}"];
         }
         
@@ -660,25 +658,22 @@
 //to be deleted
 -(JDCode *)cssSource:(IUSheet *)sheet cssSizeArray:(NSArray *)cssSizeArray{
     
-    NSMutableArray *mqSizeArray = [cssSizeArray mutableCopy];
     //remove default size
-    NSInteger largestWidth = [[mqSizeArray objectAtIndex:0] integerValue];
-    [mqSizeArray removeObjectAtIndex:0];
-    [mqSizeArray insertObject:@(IUCSSDefaultViewPort) atIndex:0];
+    NSInteger largestWidth = [[cssSizeArray objectAtIndex:0] integerValue];
 
     JDCode *code = [[JDCode alloc] init];
-    NSInteger minCount = mqSizeArray.count-1;
+    NSInteger minCount = cssSizeArray.count-1;
     
-    for(int count=0; count<mqSizeArray.count; count++){
-        int size = [[mqSizeArray objectAtIndex:count] intValue];
+    for(int count=0; count<cssSizeArray.count; count++){
+        int size = [[cssSizeArray objectAtIndex:count] intValue];
         
         //REVIEW: word press rule은 header에 붙임, 나머지는 .css파일로 따로 뽑아냄.
         if(_rule == IUCompileRuleWordpress){
             
-            if(size == IUCSSDefaultViewPort){
+            if(size == sheet.project.maxViewPort){
                 [code addCodeLine:@"<style id=default>"];
             }
-            else if(count < mqSizeArray.count-1){
+            else if(count < cssSizeArray.count-1){
                 [code addCodeWithFormat:@"<style type=\"text/css\" media ='screen and (min-width:%dpx) and (max-width:%dpx)' id='style%d'>" , size, largestWidth-1, size];
                 largestWidth = size;
             }
@@ -688,9 +683,9 @@
             }
         }
         else{
-            if(size != IUCSSDefaultViewPort){
+            if(size != sheet.project.maxViewPort){
                 //build는 css파일로 따로 뽑아줌
-                if(count < mqSizeArray.count-1){
+                if(count < cssSizeArray.count-1){
                     [code addCodeWithFormat:@"@media screen and (min-width:%dpx) and (max-width:%dpx){" , size, largestWidth-1];
                     largestWidth = size;
                 }
@@ -703,7 +698,7 @@
         if(count==minCount && sheet.project.enableMinWidth){
             [code increaseIndentLevelForEdit];
             NSInteger minWidth;
-            if(size == IUCSSDefaultViewPort){
+            if(size == sheet.project.maxViewPort){
                 minWidth = largestWidth;
             }
             else{
@@ -748,7 +743,7 @@
         if(_rule == IUCompileRuleWordpress){
             [code addCodeLine:@"</style>"];
         }
-        else if(size != IUCSSDefaultViewPort){
+        else if(size != sheet.project.maxViewPort){
             [code addCodeLine:@"}"];
         }
         
@@ -805,7 +800,7 @@
         // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
         // - text editor를 불러올 수 있음.
         [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES viewPort:IUCSSDefaultViewPort]];
+        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES viewPort:sheet.project.maxViewPort]];
         [htmlCode addString:@"<div>"];
         [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
         

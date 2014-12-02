@@ -92,6 +92,7 @@ typedef enum IUFrameUnit{
 
 @property NSUndoManager *undoManager;
 @property (nonatomic) NSInteger currentViewPort;
+@property (nonatomic) NSInteger maxViewPort;
 
 - (NSArray*)allViewPorts;
 - (IUDataStorage*)storageForViewPort:(NSInteger)viewPort;
@@ -103,8 +104,10 @@ typedef enum IUFrameUnit{
 @property (readonly) id defaultStorage;
 @property (readonly) id liveStorage;
 
+- (void)createStorageForViewPort:(NSInteger)viewPort;
 - (void)removeStorageForViewPort:(NSInteger)viewPort;
 
+- (void)copyDataStorageFrom:(NSInteger)from to:(NSInteger)to;
 
 - (NSInteger)countOfValueForKey:(NSString *)key;
 - (NSDictionary *)dictionaryWithWidthForKey:(NSString *)key;

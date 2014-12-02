@@ -74,6 +74,7 @@ static NSString *IUClassGroupName = @"class";
 
 //project properties
 - (NSArray*)mqSizes;
+- (NSInteger)maxViewPort;
 
 
 

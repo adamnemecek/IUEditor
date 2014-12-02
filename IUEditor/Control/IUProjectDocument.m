@@ -16,7 +16,7 @@ static NSString *projectJsonData = @"projectJsonData";
 
 //set metadata
 static NSString *metaDataFileName = @"metaData.plist";
-static NSString *MetaDataKey = @"value2";            // special string value in MetaData.plist
+static NSString *metaDataIUVersion = @"IUVersion";
 
 
 @interface IUProjectDocument ()
@@ -42,13 +42,20 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         _resource = [[IUResourceRootItem alloc] init];
         
         //allocation metadata
-        self.metaDataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                             @"IUEditor", MetaDataKey,
-                             nil];
+        _metaDataDict = [NSMutableDictionary dictionary];
     
 
     }
     return self;
+}
+
+- (void)loadCurrentMetaDictionary{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [_metaDataDict setObject:version forKey:metaDataIUVersion];
+}
+
+- (NSString *)version{
+    return [self.metaDataDict objectForKey:metaDataIUVersion];
 }
 
 //open document
@@ -305,6 +312,7 @@ static NSString *MetaDataKey = @"value2";            // special string value in 
         [[self documentFileWrapper] removeFileWrapper:metaDataFileWrapper];
 
     NSError *plistError = nil;
+    [self loadCurrentMetaDictionary];
     NSData *propertyListData = [NSPropertyListSerialization dataWithPropertyList:self.metaDataDict format:NSPropertyListXMLFormat_v1_0 options:0 error:&plistError];
     if (propertyListData == nil || plistError != nil)
     {

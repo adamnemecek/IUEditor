@@ -10,9 +10,8 @@
 #define IUCanvas_IUDefinition_h
 
 //for makeing default size view size (initialize)
-#define defaultFrameWidth 960
-//for media-query default size(== maximum size는 default collection으로 분료)
-#define IUCSSDefaultViewPort 9999
+#define IUDefaultViewPort 960
+
 
 #define IUTabletSize 770
 #define IUMobileSize 650

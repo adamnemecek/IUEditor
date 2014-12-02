@@ -279,7 +279,7 @@
 - (id)initAtTemporaryDirectory {
     /* initialize at temp directory */
     self = [super init];
-    _mqSizes = [NSMutableArray arrayWithArray:@[@(defaultFrameWidth), @320]];
+    _mqSizes = [NSMutableArray arrayWithArray:@[@(IUDefaultViewPort), @320]];
     _serverInfo = [[IUServerInfo alloc] init];
     _enableMinWidth = YES;
     
@@ -530,6 +530,10 @@
 - (NSArray*)mqSizes{
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending: NO];
     return [_mqSizes sortedArrayUsingDescriptors:@[sortOrder]];
+}
+
+- (NSInteger)maxViewPort{
+    return [[self mqSizes][0] integerValue];
 }
 
 #pragma mark - compile

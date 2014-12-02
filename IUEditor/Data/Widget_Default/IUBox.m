@@ -44,7 +44,6 @@
     
     NSRect origianlFrame;
     
-    __weak IUProject *_tempProject;
     BOOL    _isConnectedWithEditor;
     
     NSMutableArray *_events;
@@ -245,11 +244,8 @@
 
 
 - (void)connectWithEditor{
-    /*
-     FIXME: self.project
-    NSAssert(self.project, @"");
-     */
     
+    NSAssert(self.project, @"");
     
     [[self undoManager] disableUndoRegistration];
     
@@ -257,10 +253,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-    /*
-     FIXME
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:self.project];
-     */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:nil];
 
     
@@ -448,9 +441,6 @@
     return [[super description] stringByAppendingFormat:@" %@", self.htmlID];
 }
 
-- (void)setTempProject:(IUProject*)project{
-    _tempProject = project;
-}
 
 #pragma mark - Event
 
@@ -536,7 +526,7 @@
 }
 
 - (void)confirmIdentifier{
-    [self.project.identifierManager confirm];
+    [self.identifierManager confirm];
 }
 
 
@@ -569,6 +559,11 @@
             //[_css copyCSSDictFrom:nextSize to:size];
         }
     }
+    if(oldMaxSize != maxSize){
+        for(IUDataStorageManager *manager in [storageManagersDict allValues]){
+            [manager setMaxViewPort:maxSize];
+        }
+    }
 
     //max size가 변하면 max css를 현재 css로 카피시킴.
     //960을만들고 1280을 나중에 만들면
@@ -585,16 +580,9 @@
 - (void)removeMQSize:(NSNotification *)notification{
     NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    NSInteger currentSize;
-    if(size == maxSize){
-        currentSize = IUDefaultViewPort;
-    }
-    else{
-        currentSize = maxSize;
-    }
     
     for(IUDataStorageManager *manager in storageManagersDict){
-        [manager removeStorageForViewPort:currentSize];
+        [manager removeStorageForViewPort:size];
     }
     
 }
@@ -606,17 +594,9 @@
 
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    NSInteger currentSize;
-
-    if(selectedSize == maxSize){
-        currentSize = IUDefaultViewPort;
-    }
-    else{
-        currentSize = maxSize;
-    }
     
     for(IUDataStorageManager *manager in [storageManagersDict allValues]){
-        [manager setCurrentViewPort:currentSize];
+        [manager setCurrentViewPort:selectedSize];
     }
     
     [self didChangeValueForKey:@"canChangeHCenter"];

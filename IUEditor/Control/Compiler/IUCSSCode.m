@@ -11,7 +11,7 @@
 
 @interface IUCSSCode() {
     IUTarget _currentTarget;
-    int _currentViewPort;
+    NSInteger _currentViewPort, _maxViewPort;
     NSArray *_currentIdentifiers;
     NSMutableDictionary *_editorCSSDictWithViewPort; // data = key:width
     NSMutableDictionary *_outputCSSDictWithViewPort; // data = key:width
@@ -41,8 +41,11 @@
     _currentTarget = target;
 }
 
-- (void)setInsertingViewPort:(int)viewport{
+- (void)setInsertingViewPort:(NSInteger)viewport{
     _currentViewPort = viewport;
+}
+- (void)setMaxViewPort:(NSInteger)viewport{
+    _maxViewPort = viewport;
 }
 
 - (void)setInsertingIdentifier:(NSString *)identifier{
@@ -77,7 +80,7 @@
     }
 }
 
-- (int)insertingViewPort{
+- (NSInteger)insertingViewPort{
     return _currentViewPort;
 }
 
@@ -270,7 +273,7 @@
     [self insertTag:tag string:stringValue];
 }
 
-- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(int)viewport target:(IUTarget)target{
+- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(NSInteger)viewport target:(IUTarget)target{
     
     NSString* valueForOutput = nil;
     NSString* valueForEditor = nil;
@@ -280,7 +283,7 @@
                 break;
             }
             if (_editorCSSDictWithViewPort[currentViewport][identifier][tag]) {
-                valueForEditor = _editorCSSDictWithViewPort[@(IUCSSDefaultViewPort)][identifier][tag];
+                valueForEditor = _editorCSSDictWithViewPort[@(_maxViewPort)][identifier][tag];
             }
         }
         return valueForEditor;
@@ -291,7 +294,7 @@
                 break;
             }
             if (_outputCSSDictWithViewPort[currentViewport][identifier][tag]) {
-                valueForOutput = _outputCSSDictWithViewPort[@(IUCSSDefaultViewPort)][identifier][tag];
+                valueForOutput = _outputCSSDictWithViewPort[@(_maxViewPort)][identifier][tag];
             }
         }
         return valueForOutput;
@@ -302,10 +305,10 @@
                 break;
             }
             if (_outputCSSDictWithViewPort[currentViewport][identifier][tag]) {
-                valueForOutput = _outputCSSDictWithViewPort[@(IUCSSDefaultViewPort)][identifier][tag];
+                valueForOutput = _outputCSSDictWithViewPort[@(_maxViewPort)][identifier][tag];
             }
             if (_editorCSSDictWithViewPort[currentViewport][identifier][tag]) {
-                valueForEditor = _editorCSSDictWithViewPort[@(IUCSSDefaultViewPort)][identifier][tag];
+                valueForEditor = _editorCSSDictWithViewPort[@(_maxViewPort)][identifier][tag];
             }
         }
         if ([valueForEditor isEqualToString:valueForOutput]) {
@@ -353,10 +356,10 @@
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport{
     NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
     NSDictionary *sourceDictWithViewPort = _editorCSSDictWithViewPort;
-    NSDictionary *sourceDictWithIdentifier = sourceDictWithViewPort[@(IUCSSDefaultViewPort)];
+    NSDictionary *sourceDictWithIdentifier = sourceDictWithViewPort[@(_maxViewPort)];
     
-    NSMutableSet *allKeys =  [NSMutableSet setWithArray:[sourceDictWithViewPort[@(IUCSSDefaultViewPort)] allKeys]];
-    if(viewport != IUCSSDefaultViewPort){
+    NSMutableSet *allKeys =  [NSMutableSet setWithArray:[sourceDictWithViewPort[@(_maxViewPort)] allKeys]];
+    if(viewport != _maxViewPort){
         [allKeys addObjectsFromArray:[sourceDictWithViewPort[@(viewport)] allKeys]];
     }
     
@@ -374,7 +377,7 @@
             tagDictForReturn[tag] = value;
         }
         
-        if(viewport != IUCSSDefaultViewPort){
+        if(viewport != _maxViewPort){
             //viewport css
             tagDict = [sourceDictWithViewPort[@(viewport)] objectForKey:identifier];
             for (NSString *tag in tagDict) {
@@ -405,7 +408,7 @@
     return nil;
 }
 
-- (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport{
+- (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(NSInteger)viewport{
     
     NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
     NSDictionary *sourceDictWithViewPort = _outputCSSDictWithViewPort;
@@ -420,8 +423,8 @@
             NSString *value = tagDict[tag];
             //Review:
             // style sheet가 min-max로 바뀌면서 defalut랑 다르면 무조건 들어가야함.
-            if(viewport != IUCSSDefaultViewPort){
-                NSString *defaultValue = [self valueForTag:tag identifier:identifier viewport:IUCSSDefaultViewPort target:IUTargetOutput];
+            if(viewport != _maxViewPort){
+                NSString *defaultValue = [self valueForTag:tag identifier:identifier viewport:_maxViewPort target:IUTargetOutput];
                 if ([value isEqualToString:defaultValue] == NO) {
                     tagDictForReturn[tag] = value;
                 }
@@ -454,7 +457,7 @@
     return returnDict;
 }
 
-- (NSString*)valueForTag:(NSString *)tag identifier:(NSString *)identifier viewport:(int)viewport target:(IUTarget)target{
+- (NSString*)valueForTag:(NSString *)tag identifier:(NSString *)identifier viewport:(NSInteger)viewport target:(IUTarget)target{
     NSAssert(target != IUTargetBoth, @"target cannot be both");
     if (target == IUTargetOutput) {
         return _outputCSSDictWithViewPort[@(viewport)][identifier][tag];

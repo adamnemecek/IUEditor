@@ -28,6 +28,7 @@
 
 
 @interface IUCSS : NSObject <NSCoding, JDCoding, NSCopying>
+#if 0
 
 @property (nonatomic)  NSInteger editViewPort;
 @property (nonatomic)  NSInteger maxViewPort;
@@ -67,4 +68,5 @@
 - (IUDataStorageManager *)convertToStyleStorageHoverManager;
 
 - (IUDataStorageManager *)convertToPositionStorageDefaultManager;
+#endif
 @end

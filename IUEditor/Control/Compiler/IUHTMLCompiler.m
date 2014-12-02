@@ -267,7 +267,7 @@
     [self checkBeforeBuildCode:iu target:target];
     
     JDCode *code = [[JDCode alloc] init];
-    [self htmlCode:iu target:target code:code withCSS:withCSS viewPort:IUCSSDefaultViewPort];
+    [self htmlCode:iu target:target code:code withCSS:withCSS viewPort:iu.project.maxViewPort];
     return code;
 }
 
@@ -527,7 +527,7 @@
     }
     if(textIU.propertyManager){
         if([textIU.propertyManager countOfValueForKey:@"innerHTML"] == 1){
-            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:IUCSSDefaultViewPort];
+            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:textIU.project.maxViewPort];
             if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
                 [code increaseIndentLevelForEdit];
                 [code addCodeLine:propertyStorage.innerHTML];

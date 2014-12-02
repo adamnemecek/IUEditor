@@ -10,6 +10,7 @@
 #import "LMFontController.h"
 #import "IUCSS.h"
 #import "IUProject.h"
+
 #import "IUSection.h"
 #import "IUHeader.h"
 #import "IUFooter.h"
@@ -40,6 +41,7 @@
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu {
     IUCSSCode *code = [[IUCSSCode alloc] init];
+    [code setMaxViewPort:iu.project.maxViewPort];
 
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
     for (NSString *className in classPedigree) {
@@ -580,7 +582,7 @@
                     leftTag = @"left"; break;
                 }
                 default:
-                    if (viewport == IUDefaultViewPort) {
+                    if (viewport == _iu.project.maxViewPort) {
                         NSAssert(0, @"cannot come here");
                     }
                     break;
@@ -607,7 +609,7 @@
             
         }
     }
-    else if (viewport == IUDefaultViewPort) {
+    else if (viewport == _iu.project.maxViewPort) {
         NSAssert(0, @"can not come to here");
     }
     
@@ -701,7 +703,7 @@
 
 - (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet{
     [code setInsertingTarget:IUTargetBoth];
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:pageLinkSet.project.maxViewPort];
     
     //ul class
     [code setInsertingIdentifier:pageLinkSet.clipIdentifier];
@@ -793,14 +795,13 @@
         
     }
 
-    [code removeTag:@"width" identifier:menuBar.cssIdentifier viewport:IUCSSDefaultViewPort];
+    [code removeTag:@"width" identifier:menuBar.cssIdentifier viewport:menuBar.project.maxViewPort];
     
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUMenuItem:(IUMenuItem*)menuItem{
 
     NSMutableArray *editWidths = [menuItem.project.mqSizes mutableCopy];
-    [editWidths replaceObjectAtIndex:0 withObject:@(IUCSSDefaultViewPort)];
     
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];
@@ -959,7 +960,7 @@
 
     }
     
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:menuItem.project.maxViewPort];
     [code setInsertingIdentifier:[menuItem cssIdentifier]];
     [code insertTag:@"box-sizing" string:@"border-box"];
     [code insertTag:@"-moz-box-sizing" string:@"border-box"];
@@ -981,7 +982,7 @@
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUCarousel:(IUCarousel*)carousel{
     
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:carousel.project.maxViewPort];
     if(carousel.deselectColor){
         [code setInsertingIdentifier:carousel.pagerID withType:IUCSSIdentifierTypeNonInline];
         [code insertTag:@"background-color" color:carousel.deselectColor];
@@ -1112,7 +1113,7 @@
 
 - (void)updateCSSCode:(IUCSSCode*)code asWPMenu:(WPMenu*)wpmenu{
     [code setInsertingTarget:IUTargetBoth];
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:wpmenu.project.maxViewPort];
     
     switch (wpmenu.align) {
         case IUAlignJustify:
@@ -1160,7 +1161,7 @@
 
 - (void)updateCSSCode:(IUCSSCode*)code asWPPageLinks:(WPPageLinks*)wpPageLinks{
     [code setInsertingTarget:IUTargetBoth];
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:wpPageLinks.project.maxViewPort];
     
     switch (wpPageLinks.align) {
         case IUAlignJustify:
@@ -1184,7 +1185,7 @@
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asWPPageLink:(WPPageLink *)_iu{
-    [code setInsertingViewPort:IUCSSDefaultViewPort];
+    [code setInsertingViewPort:_iu.project.maxViewPort];
     [code setInsertingTarget:IUTargetBoth];
 
     WPPageLinks *pageLinks = (WPPageLinks*)_iu.parent;

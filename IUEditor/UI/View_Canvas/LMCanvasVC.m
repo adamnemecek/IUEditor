@@ -217,13 +217,8 @@
     
     NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
     //mq가 바뀌기전에 현재 text를 현재 size에 저장한다.
-    if(oldSelectedSize == maxSize){
-        [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
-    }
-    else{
-        [self saveCurrentTextEditorForWidth:oldSelectedSize];
-    }
-    
+    [self saveCurrentTextEditorForWidth:oldSelectedSize];
+
     
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
@@ -701,12 +696,7 @@
 }
 
 - (void)saveCurrentTextEditor{
-    if(self.selectedFrameWidth == self.maxFrameWidth){
-        [self saveCurrentTextEditorForWidth:IUCSSDefaultViewPort];
-    }
-    else{
-        [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
-    }
+    [self saveCurrentTextEditorForWidth:self.selectedFrameWidth];
 }
 
 - (void)disableTextEditor{

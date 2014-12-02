@@ -13,7 +13,7 @@
 - (id)init{
     self = [super init];
     if(self){
-        _selectedFrameWidth = defaultFrameWidth;
+        _selectedFrameWidth = IUDefaultViewPort;
         
         self.fillRule = kCAFillRuleEvenOdd;
         self.fillColor = [[NSColor controlShadowColor] CGColor];

@@ -16,7 +16,7 @@ typedef enum{
 
 @interface IUCSSCode : NSObject
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
-- (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(int)viewport;
+- (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(NSInteger)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport;
 
 - (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(int)viewport;
@@ -43,9 +43,12 @@ typedef enum{
 
 @interface IUCSSCode(Generator)
 
+//set current max viewport of project, not iu's max viewport
+- (void)setMaxViewPort:(NSInteger)viewport;
+
 - (void)setInsertingTarget:(IUTarget)target;
-- (void)setInsertingViewPort:(int)viewport;
-- (int)insertingViewPort;
+- (void)setInsertingViewPort:(NSInteger)viewport;
+- (NSInteger)insertingViewPort;
 - (void)setInsertingIdentifier:(NSString *)identifier;
 - (void)setInsertingIdentifier:(NSString *)identifier withType:(IUCSSIdentifierType)type;
 - (void)setInsertingIdentifiers:(NSArray *)identifiers;
@@ -53,8 +56,8 @@ typedef enum{
 - (void)renameIdentifier:(NSString*)fromIdentifier to:(NSString*)toIdentifier;
 - (void)setMainIdentifier:(NSString *)identifier;
 
-- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(int)viewport target:(IUTarget)target;
-- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier viewport:(int)viewport target:(IUTarget)target;
+- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier largerThanViewport:(NSInteger)viewport target:(IUTarget)target;
+- (NSString*)valueForTag:(NSString*)tag identifier:(NSString*)identifier viewport:(NSInteger)viewport target:(IUTarget)target;
 
 /**
  insert css tag to receiver

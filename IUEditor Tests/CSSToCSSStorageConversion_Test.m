@@ -30,6 +30,9 @@
     [super tearDown];
 }
 
+#if 0
+//IUCSS is deprecated
+
 - (void)testBGColor {
     // This is an example of a functional test case.
     IUCSS *css = [[IUCSS alloc] init];
@@ -79,4 +82,5 @@
     XCTAssertEqualObjects(((IUStyleStorage *)storageManager.currentStorage).imageAttachment, @(YES));
 
 }
+#endif
 @end

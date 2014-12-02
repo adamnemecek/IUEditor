@@ -23,6 +23,8 @@
  */
 @interface IUMQData : NSObject <NSCoding, JDCoding, NSCopying>
 
+#if 0
+
 @property (nonatomic)  NSInteger editViewPort;
 @property (nonatomic)  NSInteger maxViewPort;
 @property (weak) id  <IUMQDataDelegate> delegate;
@@ -58,5 +60,7 @@
 
 /*convert to storageManager */
 - (IUDataStorageManager *)convertToPropertyStorageManager;
+
+#endif
 
 @end

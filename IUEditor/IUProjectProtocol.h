@@ -30,6 +30,7 @@ typedef enum {
 
 /* media query view ports */
 - (NSArray *)mqSizes;
+- (NSInteger)maxViewPort;
 
 /* support manager for IUBox */
 - (IUIdentifierManager*)identifierManager;

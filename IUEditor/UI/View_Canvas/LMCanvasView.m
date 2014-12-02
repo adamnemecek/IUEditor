@@ -48,7 +48,7 @@
     [self.mainView addSubviewFullFrame:self.gridView];
     
     [self.mainView setFrameOrigin:NSZeroPoint];
-    [self.mainView setFrameSize:NSMakeSize(defaultFrameWidth, self.mainScrollView.frame.size.height)];
+    [self.mainView setFrameSize:NSMakeSize(IUDefaultViewPort, self.mainScrollView.frame.size.height)];
     
     [self.mainView addObserver:self forKeyPath:@"frame" options:0 context:nil];
     

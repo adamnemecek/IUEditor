@@ -27,6 +27,9 @@
     [super tearDown];
 }
 
+#if 0 
+//IUMQData is deprecated
+
 
 - (void)test1_convert{
     // This is an example of a functional test case.
@@ -62,4 +65,5 @@
     XCTAssertEqual(dictionary[@(320)], @"hehehe");
 }
 
+#endif
 @end

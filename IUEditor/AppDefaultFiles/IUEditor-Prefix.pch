@@ -143,7 +143,6 @@
 
 #define __storage_deprecated
 
-#define IUDefaultViewPort 9999
 
 
 #define XCA_SHORTHAND

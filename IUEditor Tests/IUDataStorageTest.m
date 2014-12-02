@@ -36,13 +36,13 @@
     [super tearDown];
 }
 
-- (void)test1_IUDataStorage {
+- (void)test01_IUDataStorage {
     [storage setValue:@"value" forKey:@"key"];
     XCTAssert([[storage valueForKey:@"key"] isEqualToString:@"value"], @"Pass");
     XCTAssert([storage valueForKey:@"key2"] == nil, @"Pass");
 }
 
-- (void)test2_IUCSSDataStorage {
+- (void)test02_IUCSSDataStorage {
     storage.topBorderColor = [NSColor blackColor];
 
     storage.leftBorderColor = [NSColor blackColor];
@@ -54,7 +54,7 @@
 }
 
 
-- (void)test4_settingColor{
+- (void)test03_settingColor{
     storage.borderColor = [NSColor yellowColor];
     [storage setBorderColor:[NSColor redColor]];
     XCTAssert(storage.bottomBorderColor== [NSColor redColor] , @"Pass");
@@ -65,7 +65,7 @@
     [arr addObject:keyPath];
 }
 
-- (void)test5_IUStorageManager{
+- (void)test04_IUStorageManager{
     XCTAssert(storageManager.currentViewPort == IUDefaultViewPort , @"Pass");
     XCTAssertNotNil(storageManager.currentStorage);
     XCTAssertNotNil(storageManager.defaultStorage);
@@ -84,7 +84,7 @@
 }
 
 /*
-- (void)test6_IUStorageHover{
+- (void)test05_IUStorageHover{
     storageManager.selector = IUCSSSelectorHover;
     XCTAssertNotNil(storageManager.currentStorage);
     XCTAssertNotNil(storageManager.defaultStorage);
@@ -98,7 +98,7 @@
     
 }
 */
-- (void)test7_ViewPort{
+- (void)test06_ViewPort{
     IUDataStorage *storage_default = storageManager.currentStorage;
     [storageManager setCurrentViewPort:500];
     IUDataStorage *storage_500 = storageManager.currentStorage;
@@ -109,13 +109,13 @@
     XCTAssertNil([storageManager storageOfBiggerViewPortOfStorage:storage_default]);
 }
 
-- (void)test71_style {
+- (void)test07_style {
     JDCoder *coder = [[JDCoder alloc] init];
     IUStyleStorage *a = [[NSClassFromString(@"IUStyleStorage") alloc] initWithJDCoder:coder];
     a = nil;
 }
 
-- (void)test72_styleEncoding {
+- (void)test08_styleEncoding {
     IUStyleStorage *a = [[IUStyleStorage alloc] init];
     a.height = @(10);
     
@@ -127,7 +127,7 @@
     XCTAssertEqualObjects(bH, @(10.0));
 }
 
-- (void)test8_encoding{
+- (void)test09_encoding{
     [storageManager.currentStorage setValue:@"testValue" forKey:@"Key"];
     [storageManager.currentStorage setValue:@"testValue2" forKey:@"Key2"];
 
@@ -151,7 +151,7 @@
 }
 
 
-- (void)test9_transaction{
+- (void)test10_transaction{
     [storageManager.currentStorage beginTransaction:JD_CURRENT_FUNCTION];
     [storageManager.currentStorage setValue:@"abc" forKey:@"fontName"];
     XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 1 , @"Pass");
@@ -161,7 +161,7 @@
     XCTAssert([storageManager.currentStorage currentPropertyStackForTest].count == 0 , @"Pass");
 }
 
-- (void)test10_undo{
+- (void)test11_undo{
     
     NSUndoManager *undoManager = [[NSUndoManager alloc] init];
     [undoManager setLevelsOfUndo:4];
@@ -208,6 +208,28 @@
     XCTAssert(((IUStyleStorage *)storageManager.currentStorage).fontName == nil, @"Pass");
     XCTAssert(((IUStyleStorage *)storageManager.liveStorage).fontName == nil, @"Pass");
 
+}
+
+- (void)test12_maxViewPort{
+    
+    ((IUStyleStorage *)storageManager.currentStorage).fontName = @"old";
+    
+    //set max & copy 960
+    storageManager.maxViewPort = 1280;
+    [storageManager copyDataStorageFrom:IUDefaultViewPort to:storageManager.maxViewPort];
+    
+    //set current viewport as max
+    storageManager.currentViewPort = 1280;
+    ((IUStyleStorage *)storageManager.currentStorage).fontName = @"new";
+
+    
+    //set current viewport as old max
+    storageManager.currentViewPort = 960;
+    
+    XCTAssertEqual(((IUStyleStorage *)storageManager.currentStorage).fontName, @"old");
+    XCTAssertEqual(storageManager.maxViewPort, 1280);
+    XCTAssertEqual(((IUStyleStorage *)[storageManager storageForViewPort:storageManager.maxViewPort]).fontName, @"new");
+    
 }
 
 - (void)testPerformanceExample {
