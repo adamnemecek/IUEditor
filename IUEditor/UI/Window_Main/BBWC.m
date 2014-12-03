@@ -175,6 +175,9 @@
 - (IBAction)clickPropertyIconMatrix:(id)sender {
     
     BBPropertyTabType tabType = (int)[_propertyIconMatrix selectedRow];
+    if([_propertyIconMatrix selectedRow] < 0){
+        return;
+    }
     if(tabType == _currentTabType){
         [_propertyIconMatrix deselectAllCells];
         _currentTabType = BBPropertyTabTypeNone;
