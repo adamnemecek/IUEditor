@@ -75,6 +75,9 @@ static NSString *IUClassGroupName = @"class";
 + (NSArray *)compilerRules;
 + (NSString *)defaultCompilerRule;
 
++ (NSArray *)widgets;
+
+
 
 /**
  Make Project at Temporary directory.
