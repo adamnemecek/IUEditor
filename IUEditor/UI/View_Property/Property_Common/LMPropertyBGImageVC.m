@@ -203,7 +203,7 @@
     }
     else if(filename != nil){
     //getting path
-        IUResourceFile *file = [_resourceManager resourceFileWithName:filename];
+        IUResourceFileItem *file = [self.resourceRootItem resourceFileItemForName:filename];
         NSString *path = file.absolutePath;
 
         if (file == nil) {
@@ -231,15 +231,12 @@
     NSArray *selectedObjects = self.controller.selectedObjects;
     
     for (IUBox *box in selectedObjects) {
-        /*
-        [box startFrameMoveWithUndoManager];
-        [box.css setValue:@(NO) forTag:IUCSSTagWidthUnitIsPercent];
-        [box.css setValue:@(NO) forTag:IUCSSTagHeightUnitIsPercent];
-        [box.css setValue:@(width) forTag:IUCSSTagPixelWidth];
-        [box.css setValue:@(height) forTag:IUCSSTagPixelHeight];
-        [box endFrameMoveWithUndoManager];
+        
+        [box.currentStyleStorage beginTransaction:self];
+        [box.currentStyleStorage setWidth:@(width) unit:@(IUFrameUnitPixel)];
+        [box.currentStyleStorage setHeight:@(height) unit:@(IUFrameUnitPixel)];
+        [box.currentStyleStorage commitTransaction:self];
         [box updateCSS];
-         */
     }
  
 }

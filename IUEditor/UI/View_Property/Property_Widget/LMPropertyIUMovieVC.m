@@ -11,6 +11,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "IUImageUtil.h"
 
+#import "IUProjectDocument.h"
+
 
 @interface LMPropertyIUMovieVC ()
 @property (weak) IBOutlet NSComboBox *fileNameComboBox;
@@ -41,7 +43,7 @@
 - (void)setController:(IUController *)controller{
     [super setController:controller];
     
-//    [_fileNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.videoFiles" options:IUBindingDictNotRaisesApplicable];
+    [_fileNameComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.videoResourceItems" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_altTextTF bind:NSValueBinding property:@"altText"];
     [self outlet:_controlBtn bind:NSValueBinding property:@"enableControl"];
     [self outlet:_loopBtn bind:NSValueBinding property:@"enableLoop"];
@@ -102,8 +104,7 @@
     }
 }
 - (void)updateVideoFileName:(NSString *)videoFileName{
-    JDErrorLog(@"update video file name not working");
-    /*
+
     gettingInfo = YES;
     if(videoFileName.length == 0){
         [self setValue:nil forIUProperty:@"posterPath"];
@@ -119,7 +120,7 @@
             [self setValue:moviefileURL.absoluteString forIUProperty:@"videoPath"];
         }
         else{
-            IUResourceFile *videoFile = [self.resourceManager resourceFileWithName:videoFileName];
+            IUResourceFileItem *videoFile = [self.resourceRootItem resourceFileItemForName:videoFileName];
             if (videoFile == nil) {
                 
                 [self setValue:nil forIUProperty:@"videoPath"];
@@ -140,30 +141,23 @@
             NSString *imageTmpAbsolutePath = NSTemporaryDirectory();
 
             thumbFileName = [IUImageUtil writeToFile:thumbnail filePath:imageTmpAbsolutePath fileName:thumbFileName checkFileName:NO];
+            [self.document addResourceFileItemPaths:@[[imageTmpAbsolutePath stringByAppendingPathComponent:thumbFileName]]];
+
+            [self.resourceRootItem refresh:YES];
             
-            
-            IUResourceFile *thumbFile = [_resourceManager resourceFileWithName:thumbFileName];
-            if(thumbFile == nil){
-                //save image resourceNode
-                thumbFile = [_resourceManager insertResourceWithContentOfPath:[imageTmpAbsolutePath stringByAppendingPathComponent:thumbFileName]];
-            }
-            else{
-                //overwirte image
-                thumbFile = [_resourceManager overwriteResourceWithContentOfPath:[imageTmpAbsolutePath stringByAppendingPathComponent:thumbFileName]];
-                
-            }
-            
+            IUResourceFileItem *thumbFile = [self.resourceRootItem resourceFileItemForName:thumbFileName];
             [self setValue:thumbFile.relativePath forIUProperty:@"posterPath"];
-            
-            
-            
             
             [self setValue:@(thumbnail.size.width) forCSSTag:IUCSSTagPixelWidth];
             [self setValue:@(thumbnail.size.height) forCSSTag:IUCSSTagPixelHeight];
         }
         
     }
-    */
+
+}
+
+- (IUProjectDocument *)document{
+    return [[[NSApp mainWindow] windowController] document];
 }
 
 

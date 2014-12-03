@@ -329,16 +329,6 @@
         iuInspectorVC.project = _project;
         [_sourceManager setProject:_project];
         
-        //set ResourceManager
-        //FIXME : resourceManager
-        /*
-        canvasVC.resourceManager = _project.resourceManager;
-   //     resourceVC.manager = _project.resourceManager;
-        appearanceVC.resourceManager = _project.resourceManager;
-        iuInspectorVC.resourceManager = _project.resourceManager;
-        bottomToolbarVC.resourceManager = _project.resourceManager;
-        commandVC.docController = self.documentController;
-         */
         
         [document.undoManager disableUndoRegistration];
         

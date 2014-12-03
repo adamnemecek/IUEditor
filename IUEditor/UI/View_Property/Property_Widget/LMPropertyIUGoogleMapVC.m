@@ -62,7 +62,7 @@
     
     [self outlet:_markerIconComboBox bind:NSValueBinding property:@"enableMarkerIcon"];
     [self outlet:_markTitleTF bind:NSValueBinding property:@"markerTitle"];
-    [_markerIconComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
+    [_markerIconComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_markerIconComboBox bind:NSValueBinding property:@"markerIconName"];
     
     //style

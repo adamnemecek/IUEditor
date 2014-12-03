@@ -77,8 +77,8 @@
     [self outlet:_arrowControlMatrix bind:NSSelectedIndexBinding cssTag:IUCSSTagCarouselArrowDisable];
 
     //image
-//    [_leftImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
-//    [_rightImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceManager.imageFiles" options:IUBindingDictNotRaisesApplicable];
+    [_leftImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicable];
+    [_rightImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_leftImageComboBox bind:NSValueBinding property:@"leftArrowImage"];
     [self outlet:_rightImageComboBox bind:NSValueBinding property:@"rightArrowImage"];
    
