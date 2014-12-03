@@ -14,14 +14,21 @@
 
 #import "IUTestWC.h"
 
-@interface BBWidgetLibrary_Test : XCTestCase
+@interface BBWidgetLibrary_Test : XCTestCase <IUTestWCDelegate>
 
 @end
 
-@implementation BBWidgetLibrary_Test
+@implementation BBWidgetLibrary_Test {
+    BOOL _result;
+    IUTestWC *testWC;
+    BBWidgetLibraryVC *vc;
+    XCTestExpectation *expectation;
+}
 
 - (void)setUp {
     [super setUp];
+    expectation = [self expectationWithDescription:@"bbwidgettt"];
+
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -30,26 +37,32 @@
     [super tearDown];
 }
 
+- (void)testWCReturned:(BOOL)result {
+    _result = result;
+    [expectation fulfill];
+}
+
+
 - (void)test1 {
-    IUTestWC *testWC = [[IUTestWC alloc] initWithWindowNibName:@"IUTestWC"];
-    [self expectationWithDescription:@"load"];
+    testWC = [[IUTestWC alloc] initWithWindowNibName:@"IUTestWC"];
+    testWC.delegate = self;
 
     [testWC showWindow:nil];
 
-    BBWidgetLibraryVC *vc = [[BBWidgetLibraryVC alloc] initWithNibName:@"BBWidgetLibraryVC" bundle:nil];
+    vc = [[BBWidgetLibraryVC alloc] initWithNibName:@"BBWidgetLibraryVC" bundle:nil];
     [vc loadView];
     [[[testWC window] contentView] addSubview:vc.view];
     
-    NSPopUpButton *popupButton = vc.groupSelectPopupBtn;
     [vc setWidgets:[IUProject widgets]];
     
     XCTAssertEqualObjects([[vc.groupSelectPopupBtn selectedItem] title], @"Base");
-
-    [popupButton selectItemAtIndex:0];
-    NSLog([[vc widgetInfosInCurrentSelectedGroup] description], nil);
-        
-    [self waitForExpectationsWithTimeout:200 handler:^(NSError *error) {
-        XCTAssert(YES, @"Pass");
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        vc.selectedGroupIndex = 1;
+    });
+    
+    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+        XCTAssert(_result, @"Pass");
     }];
 
 }

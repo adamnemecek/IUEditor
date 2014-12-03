@@ -49,4 +49,14 @@ typedef enum _IUUnit{
     IUUnitPercent,
 } IUUnit;
 
+/******************************
+ 
+ Notification deifinition
+ 
+ *******************************/
+
+#define IUNoti_widgetSelectionChanged @"IUWidgetSelectionChanged" // called at widget library
+#define IUNotiKey_selectedWidget @"selectedWidget"
+ 
+
 #endif

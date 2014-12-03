@@ -258,5 +258,15 @@
         <customObject id="494" customClass="LMAppDelegate"/>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="yWN-Pf-Ogf" userLabel="IUProjectController" customClass="IUProjectController"/>
+        <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="0k1-1N-ATu">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="20"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <pathCell key="cell" controlSize="small" selectable="YES" editable="YES" alignment="left" id="JRy-Tj-ijc">
+                <font key="font" metaFont="smallSystem"/>
+                <url key="url" string="file:///Applications/"/>
+                <color key="backgroundColor" red="0.89803921568627454" green="0.92549019607843142" blue="0.97254901960784312" alpha="1" colorSpace="deviceRGB"/>
+            </pathCell>
+            <point key="canvasLocation" x="627" y="283"/>
+        </pathControl>
     </objects>
 </document>

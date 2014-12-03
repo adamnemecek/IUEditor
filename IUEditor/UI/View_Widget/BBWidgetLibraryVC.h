@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUBox.h"
+#import "IUDefinition.h"
 
 @interface BBWidgetLibraryVC : NSViewController
 
@@ -16,7 +17,7 @@
 
 /* for unit test only */
 @property (weak) IBOutlet NSPopUpButton *groupSelectPopupBtn;
-- (NSArray *)widgetInfosInCurrentSelectedGroup;
+@property (nonatomic) NSInteger selectedGroupIndex; // selected popup index
 
 @end
 

@@ -8,25 +8,48 @@
 
 #import "BBWidgetLibraryVC.h"
 
-@interface BBWidgetLibraryViewCell : NSTableCellView
+@class BBWidgetLibraryViewCell;
 
-@end
+@interface BBWidgetLibraryVC () <NSTableViewDataSource, NSTableViewDelegate>
 
-
-@interface BBWidgetLibraryVC () <NSTableViewDataSource, NSTableViewDelegate> {
-    NSArray *_widgets;
-    NSArray *_widgetInfosInCurrentSelectedGroup;
-}
 @property (weak) IBOutlet NSTableView *tableView;
-
-@property (nonatomic) NSInteger selectedGroupIndex; // selected popup index
 - (NSArray *)widgetInfosInCurrentSelectedGroup; // provide table cell contents
 - (NSArray *)namesOfWidgetGroups; //provides content in popupbutton
+
 @end
 
 
-@implementation BBWidgetLibraryVC
+@interface BBWidgetLibraryViewCell : NSTableCellView
+@property BOOL isSelected;
+@end
 
+@implementation BBWidgetLibraryViewCell
+
+@end
+
+
+@implementation BBWidgetLibraryVC {
+    NSArray *_widgets;
+    BBWidgetLibraryViewCell *_selectedCell;
+    NSArray *_widgetCells; /* should be saved for retain selection */
+}
+
+
+- (void)tableViewSelectionIsChanging:(NSNotification *)notification{
+    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
+    
+    if (cell == nil) { //clear selection
+        _selectedCell.isSelected = NO;
+        _selectedCell = nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNoti_widgetSelectionChanged object:self.view.window userInfo:nil];
+    }
+    else {
+        _selectedCell.isSelected = NO;
+        cell.isSelected = YES;
+        _selectedCell = cell;
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNoti_widgetSelectionChanged object:self.view.window userInfo:@{IUNotiKey_selectedWidget:cell.objectValue[@"name"]}];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,16 +58,18 @@
 - (void)setSelectedGroupIndex:(NSInteger)selectedGroupIndex{
     [self willChangeValueForKey:@"selectedGroupIndex"];
     _selectedGroupIndex = selectedGroupIndex;
-    [self updateWidgetInfosInCurrentSelectedGroup];
+    [self makeWidgetCells];
     [self.tableView reloadData];
+    [self tableViewSelectionIsChanging:nil]; // clear selection
     [self didChangeValueForKey:@"selectedGroupIndex"];
 }
 
 - (void)setWidgets:(NSArray *)widgets {
     [self willChangeValueForKey:@"namesOfWidgetGroups"];
     _widgets = [widgets copy];
-    [self updateWidgetInfosInCurrentSelectedGroup];
+    [self makeWidgetCells];
     [self.tableView reloadData];
+    [self tableViewSelectionIsChanging:nil]; // clear selection
     [self didChangeValueForKey:@"namesOfWidgetGroups"];
 }
 
@@ -52,7 +77,7 @@
     return [_widgets valueForKey:@"name"];
 }
 
-- (void)updateWidgetInfosInCurrentSelectedGroup {
+- (void)makeWidgetCells {
     NSArray *widgetList = _widgets[_selectedGroupIndex][@"widgets"];
     NSMutableArray *retArray = [NSMutableArray array];
     for (NSString *widgetName in widgetList) {
@@ -61,40 +86,21 @@
         NSString *name = widgetName;
         NSString *shortDesc = [c shortDescription];
         
-        [retArray addObject:@{@"name":name, @"image":widgetImage, @"shortDesc":shortDesc}];
+        NSArray *nibObjects;
+        [[NSBundle mainBundle] loadNibNamed:@"BBWidgetCellView" owner:self topLevelObjects:&nibObjects];
+        BBWidgetLibraryViewCell *cell = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
+        cell.objectValue = @{@"name":name, @"image":widgetImage, @"shortDesc":shortDesc};
+        [retArray addObject:cell];
     }
-    _widgetInfosInCurrentSelectedGroup = retArray;
-}
-
-- (NSArray *)widgetInfosInCurrentSelectedGroup{
-    return _widgetInfosInCurrentSelectedGroup;
+    _widgetCells = retArray;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return [_widgetInfosInCurrentSelectedGroup count];
+    return [_widgetCells count];
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *result = [tableView makeViewWithIdentifier:@"MyView" owner:self];
-    
-    // There is no existing cell to reuse so create a new one
-    if (result == nil) {
-        
-        // Create the new NSTextField with a frame of the {0,0} with the width of the table.
-        // Note that the height of the frame is not really relevant, because the row height will modify the height.
-        NSArray *nibObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"BBWidgetCellView" owner:self topLevelObjects:&nibObjects];
-        result = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
-        result.identifier = @"MyView";
-    }
-    
-    // result is now guaranteed to be valid, either as a reused cell
-    // or as a new cell, so set the stringValue of the cell to the
-    // nameArray value at row
-    // result.stringValue = [self.nameArray objectAtIndex:row];
-    result.objectValue = _widgetInfosInCurrentSelectedGroup[row];
-    // Return the result
-    return result;
+    return _widgetCells[row];
 }
 
 
