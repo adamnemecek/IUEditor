@@ -14,12 +14,21 @@
 #import "IUSheetController.h"
 
 
+/**
+ @brief BBComandVC manages build and open exported file by user interaction.
+ Also, if project is Django type, commandVC manages run server and stop server.
+ 
+ */
 @interface BBCommandVC : NSViewController <JDShellUtilPipeDelegate>
 
-@property (nonatomic, weak) IUSourceManager *sourceManager;
+@property (weak, nonatomic) IUSourceManager *sourceManager;
 @property (weak, nonatomic) IUSheetController      *docController;
 
 
+/**
+ @brief
+ build, StopServer called by it'w onw Button or WindowController(BBWC) 
+ */
 - (IBAction)build:(id)sender;
 - (IBAction)stopServer:(id)sender;
 

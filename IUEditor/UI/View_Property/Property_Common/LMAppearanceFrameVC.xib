@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
@@ -302,7 +302,7 @@
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FBR-6t-h4m" userLabel="WNilBtn">
                                 <rect key="frame" x="76" y="48" width="76" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Remove W" bezelStyle="roundedRect" image="8786A2DD-C11F-4B67-B92F-98B53BA5AF2E" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="qyq-zQ-Qxb">
+                                <buttonCell key="cell" type="roundRect" title="Remove W" bezelStyle="roundedRect" image="1FEB5DAF-FB85-40B6-9644-8E3BB69D2020" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="qyq-zQ-Qxb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
@@ -312,7 +312,7 @@
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gJL-39-G80" userLabel="HNilBtn">
                                 <rect key="frame" x="181" y="48" width="76" height="19"/>
-                                <buttonCell key="cell" type="roundRect" title="Remove H" bezelStyle="roundedRect" image="8786A2DD-C11F-4B67-B92F-98B53BA5AF2E" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="KWe-iG-5mF">
+                                <buttonCell key="cell" type="roundRect" title="Remove H" bezelStyle="roundedRect" image="1FEB5DAF-FB85-40B6-9644-8E3BB69D2020" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="KWe-iG-5mF">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
@@ -436,7 +436,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="8786A2DD-C11F-4B67-B92F-98B53BA5AF2E" width="1" height="1">
+        <image name="1FEB5DAF-FB85-40B6-9644-8E3BB69D2020" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

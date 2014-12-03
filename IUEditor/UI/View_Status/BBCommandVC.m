@@ -58,6 +58,7 @@
     if ([rule isEqualToString:kIUCompileRuleHTML]
         || [rule isEqualToString:kIUCompileRuleWordpress]
         || [rule isEqualToString:kIUCompileRulePresentation] ) {
+        
         BOOL result = [self.sourceManager build:nil];
         
         if (result == NO) {

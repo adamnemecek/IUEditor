@@ -9,6 +9,7 @@
 #import "BBWC.h"
 
 #import "BBDefaultVCs.h"
+#import "IUProjectDocument.h"
 
 @interface BBWC ()
 
@@ -49,10 +50,14 @@
 
 @implementation BBWC{
     //wc properties
+    IUProject *_project;
     BBPropertyTabType _currentTabType;
     
     //view controllers
     BBTopToolBarVC *_topToolBarVC;
+    
+    //property vcs
+    BBWidgetLibraryVC *_widgetLibraryVC;
     
 }
 
@@ -64,6 +69,8 @@
         
         //alloc VC
         _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC class].className bundle:nil];
+        
+        _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC class].className bundle:nil];
         
       
     }
@@ -84,49 +91,49 @@
     
     NSArray *matrixCellArray = [_propertyIconMatrix cells];
     for(int i=0; i<10; i++){
-        NSButtonCell *cell = [matrixCellArray objectAtIndex:i];
+        NSButtonCell *matrixCell = [matrixCellArray objectAtIndex:i];
         //0번재 cell은 다루지 않음.
         BBPropertyTabType currentType = i;
         switch (currentType) {
             case BBPropertyTabTypeWidget:
-                [cell setImage:[NSImage imageNamed:@"tab_01_widget_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_01_widget_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_01_widget_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_01_widget_on"]];
                 break;
             case BBPropertyTabTypeProperty:
-                [cell setImage:[NSImage imageNamed:@"tab_02_property_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_02_property_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_02_property_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_02_property_on"]];
                 break;
             case BBPropertyTabTypeImage:
-                [cell setImage:[NSImage imageNamed:@"tab_03_image_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_03_image_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_03_image_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_03_image_on"]];
                 break;
             case BBPropertyTabTypeStyle:
-                [cell setImage:[NSImage imageNamed:@"tab_04_style_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_04_style_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_04_style_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_04_style_on"]];
                 break;
             case BBPropertyTabTypeAction:
-                [cell setImage:[NSImage imageNamed:@"tab_05_action_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_05_action_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_05_action_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_05_action_on"]];
                 break;
             case BBPropertyTabTypeEvent:
-                [cell setImage:[NSImage imageNamed:@"tab_06_event_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_06_event_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_06_event_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_06_event_on"]];
                 break;
             case BBPropertyTabTypeLibrary:
-                [cell setImage:[NSImage imageNamed:@"tab_07_library_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_07_library_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_07_library_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_07_library_on"]];
                 break;
             case BBPropertyTabTypeTracing:
-                [cell setImage:[NSImage imageNamed:@"tab_08_tracing_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_08_tracing_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_08_tracing_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_08_tracing_on"]];
                 break;
             case BBPropertyTabTypeStructure:
-                [cell setImage:[NSImage imageNamed:@"tab_09_structure_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_09_structure_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_09_structure_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_09_structure_on"]];
                 break;
             case BBPropertyTabTypeBackEnd:
-                [cell setImage:[NSImage imageNamed:@"tab_10_backend_off"]];
-                [cell setAlternateImage:[NSImage imageNamed:@"tab_10_backend_on"]];
+                [matrixCell setImage:[NSImage imageNamed:@"tab_10_backend_off"]];
+                [matrixCell setAlternateImage:[NSImage imageNamed:@"tab_10_backend_on"]];
                 break;
             default:
                 break;
@@ -135,24 +142,48 @@
     [_propertyIconBox addSubviewTopHalfFullFrame:_propertyIconMatrix];
 
     //connect VCs
-    [_topBarView addSubviewFullFrame:_topToolBarVC.view];   
+    [_topBarView addSubviewFullFrame:_topToolBarVC.view];
+    
+    [_tabWidgetView addSubviewFullFrame:_widgetLibraryVC.view];
 
 }
+
+- (void)setDocument:(IUProjectDocument *)document{
+    [super setDocument:document];
+    if (document && document.project){
+        _project = document.project;
+        
+        //load properties when project is set
+        [_widgetLibraryVC setWidgets:[[_project class] widgets]];
+        
+        
+        //set iudata is connected
+        [document.undoManager disableUndoRegistration];
+        
+        [_project connectWithEditor];
+        [_project setIsConnectedWithEditor];
+        
+        [document.undoManager enableUndoRegistration];
+    }
+    
+    
+}
+
 
 #pragma mark - property Icon
 
 - (IBAction)clickPropertyIconMatrix:(id)sender {
     
-    BBPropertyTabType type = (int)[_propertyIconMatrix selectedRow];
-    if(type == _currentTabType){
+    BBPropertyTabType tabType = (int)[_propertyIconMatrix selectedRow];
+    if(tabType == _currentTabType){
         [_propertyIconMatrix deselectAllCells];
         _currentTabType = BBPropertyTabTypeNone;
         [self closePropertySettingTabView];
     }
     else{
-        [_propertyIconMatrix selectCellAtRow:type column:1];
-        _currentTabType = type;
-        [self openPropertySettingTabViewForIndex:type];
+        [_propertyIconMatrix selectCellAtRow:tabType column:1];
+        _currentTabType = tabType;
+        [self openPropertySettingTabViewForIndex:tabType];
     }
     
 }
@@ -164,5 +195,6 @@
 - (void)closePropertySettingTabView{
     [_propertySettingTabViewRightConstraint setConstant:(-241+38)];
 }
+
 
 @end

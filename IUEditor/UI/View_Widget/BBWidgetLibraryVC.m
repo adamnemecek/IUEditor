@@ -57,19 +57,23 @@
 
 - (void)setSelectedGroupIndex:(NSInteger)selectedGroupIndex{
     [self willChangeValueForKey:@"selectedGroupIndex"];
+    
     _selectedGroupIndex = selectedGroupIndex;
     [self makeWidgetCells];
     [self.tableView reloadData];
     [self tableViewSelectionIsChanging:nil]; // clear selection
+    
     [self didChangeValueForKey:@"selectedGroupIndex"];
 }
 
 - (void)setWidgets:(NSArray *)widgets {
     [self willChangeValueForKey:@"namesOfWidgetGroups"];
+    
     _widgets = [widgets copy];
     [self makeWidgetCells];
     [self.tableView reloadData];
     [self tableViewSelectionIsChanging:nil]; // clear selection
+    
     [self didChangeValueForKey:@"namesOfWidgetGroups"];
 }
 
@@ -79,20 +83,22 @@
 
 - (void)makeWidgetCells {
     NSArray *widgetList = _widgets[_selectedGroupIndex][@"widgets"];
-    NSMutableArray *retArray = [NSMutableArray array];
+    
+    NSMutableArray *widgetCellMutableArray = [NSMutableArray array];
     for (NSString *widgetName in widgetList) {
-        Class c = NSClassFromString(widgetName);
-        NSImage *widgetImage = [c classImage];
+        Class widgetClass = NSClassFromString(widgetName);
+        NSImage *widgetImage = [widgetClass classImage];
         NSString *name = widgetName;
-        NSString *shortDesc = [c shortDescription];
+        NSString *shortDesc = [widgetClass shortDescription];
         
         NSArray *nibObjects;
         [[NSBundle mainBundle] loadNibNamed:@"BBWidgetCellView" owner:self topLevelObjects:&nibObjects];
-        BBWidgetLibraryViewCell *cell = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
-        cell.objectValue = @{@"name":name, @"image":widgetImage, @"shortDesc":shortDesc};
-        [retArray addObject:cell];
+        BBWidgetLibraryViewCell *widgetViewCell = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
+        widgetViewCell.objectValue = @{@"name":name, @"image":widgetImage, @"shortDesc":shortDesc};
+        [widgetCellMutableArray addObject:widgetViewCell];
     }
-    _widgetCells = retArray;
+    
+    _widgetCells = [widgetCellMutableArray copy];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
