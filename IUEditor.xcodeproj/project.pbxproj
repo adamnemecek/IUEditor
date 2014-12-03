@@ -1004,6 +1004,8 @@
 		3D4DFF341A281BD600418CE0 /* IUCopy_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF331A281BD600418CE0 /* IUCopy_Test.m */; };
 		3D4DFF381A2EAD3200418CE0 /* BBCommandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF361A2EAD3200418CE0 /* BBCommandVC.m */; };
 		3D4DFF391A2EAD3200418CE0 /* BBCommandVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */; };
+		3D4DFF3D1A2ED7CA00418CE0 /* BBWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */; };
+		3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */; };
 		3D5250651A087AE4001712E4 /* rulermarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5250641A087AE4001712E4 /* rulermarker.png */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
@@ -2358,6 +2360,10 @@
 		3D4DFF351A2EAD3200418CE0 /* BBCommandVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBCommandVC.h; path = UI/View_Status/BBCommandVC.h; sourceTree = "<group>"; };
 		3D4DFF361A2EAD3200418CE0 /* BBCommandVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBCommandVC.m; path = UI/View_Status/BBCommandVC.m; sourceTree = "<group>"; };
 		3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBCommandVC.xib; path = UI/View_Status/BBCommandVC.xib; sourceTree = "<group>"; };
+		3D4DFF3A1A2ED7CA00418CE0 /* BBWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBWC.h; path = UI/Window_Main/BBWC.h; sourceTree = "<group>"; };
+		3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWC.m; path = UI/Window_Main/BBWC.m; sourceTree = "<group>"; };
+		3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWC.xib; path = UI/Window_Main/BBWC.xib; sourceTree = "<group>"; };
+		3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultVCs.h; path = UI/Window_Main/BBDefaultVCs.h; sourceTree = "<group>"; };
 		3D5250641A087AE4001712E4 /* rulermarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rulermarker.png; path = IUEditor/Resource/AppResource/image/ui/icon/rulermarker.png; sourceTree = "<group>"; };
 		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
 		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
@@ -2896,6 +2902,10 @@
 				3D2EF53C19F7828000BBBAE5 /* LMWC.xib */,
 				3D2EF53D19F7828000BBBAE5 /* LMWindow.h */,
 				3D2EF53E19F7828000BBBAE5 /* LMWindow.m */,
+				3D4DFF3A1A2ED7CA00418CE0 /* BBWC.h */,
+				3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */,
+				3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */,
+				3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */,
 			);
 			name = MainWindow;
 			sourceTree = "<group>";
@@ -4795,6 +4805,7 @@
 				3D2EF8AE19F7867700BBBAE5 /* stack_wpsidebar.png in Resources */,
 				3D5250651A087AE4001712E4 /* rulermarker.png in Resources */,
 				3D2EFC0919F7883700BBBAE5 /* jquery.easing.1.3.js in Resources */,
+				3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */,
 				3D2EFB5919F786C700BBBAE5 /* facebook46-128.png in Resources */,
 				3DE462BF19FA4A2600A75567 /* cs_pc_01.png in Resources */,
 				3D2EFB7419F786C700BBBAE5 /* live-help-128.png in Resources */,
@@ -5647,6 +5658,7 @@
 				3D2EF59119F782C700BBBAE5 /* LMStartWC.m in Sources */,
 				3D2EF42B19F7815B00BBBAE5 /* IUSheetGroup.m in Sources */,
 				3D2EF50C19F781FB00BBBAE5 /* WPArticleComment.m in Sources */,
+				3D4DFF3D1A2ED7CA00418CE0 /* BBWC.m in Sources */,
 				3D2EF6DE19F784A400BBBAE5 /* PGSubmitButtonVC.m in Sources */,
 				3D2EF5EA19F7836500BBBAE5 /* LMProjectPropertyWC.m in Sources */,
 				3D2EF62A19F7845500BBBAE5 /* LMCanvasView.m in Sources */,

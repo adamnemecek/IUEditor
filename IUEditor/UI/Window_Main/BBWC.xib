@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBWC">
+            <connections>
+                <outlet property="canvasView" destination="hiZ-5m-BMA" id="sNr-ir-uwJ"/>
+                <outlet property="pageTabView" destination="goD-BY-82H" id="83A-8R-B7e"/>
+                <outlet property="propertyIconView" destination="EMr-FR-JJZ" id="BKx-yI-aah"/>
+                <outlet property="propertySettingTabView" destination="hEQ-Kq-OCR" id="BVb-JR-e8Y"/>
+                <outlet property="structureView" destination="vCa-gX-gRh" id="WuE-pE-Laj"/>
+                <outlet property="tabActionView" destination="zrW-LQ-IW1" id="qBN-S0-dBE"/>
+                <outlet property="tabBackEndView" destination="KUl-Ah-aeZ" id="ACX-ae-P1a"/>
+                <outlet property="tabEventView" destination="cNh-A5-65C" id="m6P-Bz-Q5v"/>
+                <outlet property="tabImageView" destination="86H-Jo-xsn" id="QrJ-Ma-r3T"/>
+                <outlet property="tabLibraryView" destination="r1v-l7-PiU" id="ORf-q5-Dee"/>
+                <outlet property="tabPropertyView" destination="BRC-bd-jZt" id="fTK-mx-yHW"/>
+                <outlet property="tabStructureView" destination="Rre-4Q-0AW" id="WD1-yh-118"/>
+                <outlet property="tabStyleView" destination="Q8I-Xf-Qgy" id="J6j-bo-DUt"/>
+                <outlet property="tabTracingView" destination="5DB-h6-CsR" id="6pF-sP-hyZ"/>
+                <outlet property="tabWidgetView" destination="jnh-IH-TrI" id="bfT-1q-llQ"/>
+                <outlet property="toolBarView" destination="Z5R-Oh-T6u" id="HBq-S1-EFm"/>
+                <outlet property="topBarView" destination="aNS-8q-0SX" id="iN9-pp-Us8"/>
+                <outlet property="window" destination="Pug-OS-dSL" id="Ozw-fi-gSL"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="Pug-OS-dSL">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <rect key="contentRect" x="283" y="305" width="1260" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <value key="minSize" type="size" width="1200" height="600"/>
+            <view key="contentView" wantsLayer="YES" id="9KP-fn-t72">
+                <rect key="frame" x="0.0" y="0.0" width="1260" height="778"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-5m-BMA" userLabel="Canvas">
+                        <rect key="frame" x="-1" y="22" width="983" height="663"/>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z5R-Oh-T6u" userLabel="ToolBar">
+                        <rect key="frame" x="-1" y="684" width="983" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="w55-Z9-EDf"/>
+                        </constraints>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
+                        <rect key="frame" x="-1" y="715" width="983" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
+                        </constraints>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
+                        <rect key="frame" x="-2" y="739" width="1264" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
+                        </constraints>
+                    </customView>
+                    <tabView hidden="YES" type="noTabsNoBorder" initialItem="xkh-yf-hXy" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
+                        <rect key="frame" x="982" y="-2" width="241" height="741"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="241" id="jUI-7W-2fB"/>
+                        </constraints>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Widgets" identifier="1" id="NV3-JK-5Hs" userLabel="Widgets">
+                                <view key="view" id="jnh-IH-TrI">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Property" identifier="2" id="xkh-yf-hXy" userLabel="Property">
+                                <view key="view" id="BRC-bd-jZt">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Image" identifier="" id="ll7-hk-5q2" userLabel="Image">
+                                <view key="view" id="86H-Jo-xsn">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Style" identifier="" id="DBg-UP-iiv" userLabel="Style">
+                                <view key="view" id="Q8I-Xf-Qgy">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Action" identifier="" id="JZU-Nf-lS7" userLabel="Action">
+                                <view key="view" id="zrW-LQ-IW1">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Event" identifier="" id="n6e-Hl-Vqh" userLabel="Event">
+                                <view key="view" id="cNh-A5-65C">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="740"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Library" identifier="" id="VCf-fd-czJ" userLabel="Library">
+                                <view key="view" id="r1v-l7-PiU">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Tracing" identifier="" id="Haf-M3-7ZP" userLabel="Tracing">
+                                <view key="view" id="5DB-h6-CsR">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Structure" identifier="" id="8xI-ka-dVC" userLabel="Structure">
+                                <view key="view" id="Rre-4Q-0AW">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Back-End" identifier="" id="vzi-kF-FLE" userLabel="Back-End">
+                                <view key="view" id="KUl-Ah-aeZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="EMr-FR-JJZ" userLabel="propertyIcon">
+                        <rect key="frame" x="1222" y="-2" width="38" height="741"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="38" id="or9-6C-mfA"/>
+                        </constraints>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
+                        <rect key="frame" x="-1" y="-1" width="983" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="goD-BY-82H" secondAttribute="bottom" constant="-1" id="2Lp-MQ-on0"/>
+                    <constraint firstItem="EMr-FR-JJZ" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" id="6Tt-g2-prx"/>
+                    <constraint firstAttribute="bottom" secondItem="hEQ-Kq-OCR" secondAttribute="bottom" constant="-2" id="6c7-lJ-YUx"/>
+                    <constraint firstItem="hiZ-5m-BMA" firstAttribute="top" secondItem="vCa-gX-gRh" secondAttribute="bottom" constant="30" id="Bqr-Hu-b4d"/>
+                    <constraint firstItem="Z5R-Oh-T6u" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" constant="23" id="Iny-v0-Uo5"/>
+                    <constraint firstItem="goD-BY-82H" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="Rxl-Ry-OpP"/>
+                    <constraint firstItem="Z5R-Oh-T6u" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="UK6-8E-yi0"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="vCa-gX-gRh" secondAttribute="trailing" id="WLd-I4-aDS"/>
+                    <constraint firstItem="aNS-8q-0SX" firstAttribute="top" secondItem="9KP-fn-t72" secondAttribute="top" constant="-3" id="Woa-E4-PfJ"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="vCa-gX-gRh" secondAttribute="trailing" id="Z2A-gW-SNr"/>
+                    <constraint firstAttribute="bottom" secondItem="EMr-FR-JJZ" secondAttribute="bottom" constant="-2" id="aDK-eO-1uH"/>
+                    <constraint firstItem="hiZ-5m-BMA" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="b5u-EH-Nxw"/>
+                    <constraint firstItem="vCa-gX-gRh" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="b6g-kH-JfT"/>
+                    <constraint firstItem="aNS-8q-0SX" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-2" id="f1R-Un-oGZ"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" id="gaI-Yk-keI"/>
+                    <constraint firstAttribute="trailing" secondItem="hEQ-Kq-OCR" secondAttribute="trailing" constant="37" id="jJQ-bo-HGk"/>
+                    <constraint firstAttribute="trailing" secondItem="EMr-FR-JJZ" secondAttribute="trailing" id="jfd-wF-Hnl"/>
+                    <constraint firstItem="vCa-gX-gRh" firstAttribute="top" secondItem="9KP-fn-t72" secondAttribute="top" constant="38" id="mj5-zS-q5D"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="Z5R-Oh-T6u" secondAttribute="trailing" id="n7u-c4-wew"/>
+                    <constraint firstAttribute="bottom" secondItem="hiZ-5m-BMA" secondAttribute="bottom" constant="22" id="q1t-1Y-Hh0"/>
+                    <constraint firstAttribute="trailing" secondItem="aNS-8q-0SX" secondAttribute="trailing" constant="-2" id="sfw-YE-hQk"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="hiZ-5m-BMA" secondAttribute="trailing" id="wzS-Jf-2By"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="goD-BY-82H" secondAttribute="trailing" id="xB2-Fx-LWO"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="691" y="539"/>
+        </window>
+    </objects>
+</document>
