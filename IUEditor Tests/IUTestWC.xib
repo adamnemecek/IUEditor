@@ -74,7 +74,7 @@
                         </textFieldCell>
                     </textField>
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeN-QQ-udH">
-                        <rect key="frame" x="0.0" y="0.0" width="960" height="527"/>
+                        <rect key="frame" x="0.0" y="0.0" width="960" height="419"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
@@ -90,7 +90,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efv-vq-4f9">
-                        <rect key="frame" x="110" y="554" width="420" height="41"/>
+                        <rect key="frame" x="110" y="556" width="658" height="39"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="IUProject_Test" id="cQL-Ky-gr4">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -100,6 +100,17 @@
                             <binding destination="-2" name="value" keyPath="self.testModule" id="f9r-3k-rfQ"/>
                         </connections>
                     </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gUg-Zq-DHA">
+                        <rect key="frame" x="20" y="427" width="920" height="121"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="fBs-hf-m7K">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="self.log" id="O0r-45-tRU"/>
+                        </connections>
+                    </textField>
                 </subviews>
             </view>
             <connections>
@@ -107,5 +118,6 @@
             </connections>
             <point key="canvasLocation" x="495" y="337"/>
         </window>
+        <userDefaultsController representsSharedInstance="YES" id="Tkq-pV-blk"/>
     </objects>
 </document>

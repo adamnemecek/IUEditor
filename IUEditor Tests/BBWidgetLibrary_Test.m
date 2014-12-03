@@ -42,15 +42,26 @@
     [expectation fulfill];
 }
 
+- (void)listen:(NSNotification *)noti{
+    if (noti.userInfo[IUNotiKey_selectedWidget]) {
+        testWC.log = noti.userInfo[IUNotiKey_selectedWidget];
+    }
+    else {
+        testWC.log = @"Not selected";
+    }
+}
 
 - (void)test1 {
     testWC = [[IUTestWC alloc] initWithWindowNibName:@"IUTestWC"];
     testWC.delegate = self;
-
+    testWC.testModule = @"WidgetLibrary";
+    testWC.testNumber = 1;
     [testWC showWindow:nil];
 
     vc = [[BBWidgetLibraryVC alloc] initWithNibName:@"BBWidgetLibraryVC" bundle:nil];
     [vc loadView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUNoti_widgetSelectionChanged object:vc.view.window];
+
     [[[testWC window] contentView] addSubview:vc.view];
     
     [vc setWidgets:[IUProject widgets]];
@@ -61,7 +72,7 @@
         vc.selectedGroupIndex = 1;
     });
     
-    [self waitForExpectationsWithTimeout:10 handler:^(NSError *error) {
+    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
         XCTAssert(_result, @"Pass");
     }];
 

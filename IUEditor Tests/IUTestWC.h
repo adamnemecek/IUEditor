@@ -20,7 +20,7 @@
 
 @property NSString *testModule;
 @property int       testNumber;
-
+@property NSString *log;
 
 @property __weak id <IUTestWCDelegate>  delegate;
 @property (weak) IBOutlet WebView *webView;
