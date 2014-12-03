@@ -8,8 +8,10 @@
             <connections>
                 <outlet property="canvasView" destination="hiZ-5m-BMA" id="sNr-ir-uwJ"/>
                 <outlet property="pageTabView" destination="goD-BY-82H" id="83A-8R-B7e"/>
-                <outlet property="propertyIconView" destination="EMr-FR-JJZ" id="BKx-yI-aah"/>
+                <outlet property="propertyIconBox" destination="oir-pz-oba" id="I2S-3n-fFV"/>
+                <outlet property="propertyIconButtonCell" destination="eJg-uN-CL9" id="XIC-nS-3xg"/>
                 <outlet property="propertySettingTabView" destination="hEQ-Kq-OCR" id="BVb-JR-e8Y"/>
+                <outlet property="propertySettingTabViewRightConstraint" destination="jJQ-bo-HGk" id="AZh-2Z-fcr"/>
                 <outlet property="structureView" destination="vCa-gX-gRh" id="WuE-pE-Laj"/>
                 <outlet property="tabActionView" destination="zrW-LQ-IW1" id="qBN-S0-dBE"/>
                 <outlet property="tabBackEndView" destination="KUl-Ah-aeZ" id="ACX-ae-P1a"/>
@@ -23,7 +25,6 @@
                 <outlet property="tabWidgetView" destination="jnh-IH-TrI" id="bfT-1q-llQ"/>
                 <outlet property="toolBarView" destination="Z5R-Oh-T6u" id="HBq-S1-EFm"/>
                 <outlet property="topBarView" destination="aNS-8q-0SX" id="iN9-pp-Us8"/>
-                <outlet property="window" destination="Pug-OS-dSL" id="Ozw-fi-gSL"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -46,19 +47,13 @@
                             <constraint firstAttribute="height" constant="32" id="w55-Z9-EDf"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
-                        <rect key="frame" x="-1" y="715" width="983" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
-                        </constraints>
-                    </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
                         <rect key="frame" x="-2" y="739" width="1264" height="42"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
                         </constraints>
                     </customView>
-                    <tabView hidden="YES" type="noTabsNoBorder" initialItem="xkh-yf-hXy" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
+                    <tabView type="noTabsNoBorder" initialItem="NV3-JK-5Hs" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
                         <rect key="frame" x="982" y="-2" width="241" height="741"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="241" id="jUI-7W-2fB"/>
@@ -69,67 +64,185 @@
                                 <view key="view" id="jnh-IH-TrI">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FHE-42-MYH">
+                                            <rect key="frame" x="69" y="411" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="widget" id="ao9-6m-F58">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Property" identifier="2" id="xkh-yf-hXy" userLabel="Property">
                                 <view key="view" id="BRC-bd-jZt">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R04-2K-qKU">
+                                            <rect key="frame" x="101" y="466" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="property" id="Wkw-4V-DJz">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Image" identifier="" id="ll7-hk-5q2" userLabel="Image">
                                 <view key="view" id="86H-Jo-xsn">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reX-9j-kKn">
+                                            <rect key="frame" x="38" y="466" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Image" id="xgO-O0-PwO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Style" identifier="" id="DBg-UP-iiv" userLabel="Style">
                                 <view key="view" id="Q8I-Xf-Qgy">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7HE-Re-QuB">
+                                            <rect key="frame" x="90" y="463" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Style" id="eZ2-Dl-pzx">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Action" identifier="" id="JZU-Nf-lS7" userLabel="Action">
                                 <view key="view" id="zrW-LQ-IW1">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PKw-Zi-kaM">
+                                            <rect key="frame" x="117" y="477" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Action" id="6pa-J9-ivl">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Event" identifier="" id="n6e-Hl-Vqh" userLabel="Event">
                                 <view key="view" id="cNh-A5-65C">
-                                    <rect key="frame" x="0.0" y="0.0" width="241" height="740"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9QN-p8-Jx2">
+                                            <rect key="frame" x="48" y="510" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Event" id="gFO-aK-rgS">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Library" identifier="" id="VCf-fd-czJ" userLabel="Library">
                                 <view key="view" id="r1v-l7-PiU">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vce-gI-TQu">
+                                            <rect key="frame" x="110" y="478" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Library" id="jfD-Pr-Mov">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Tracing" identifier="" id="Haf-M3-7ZP" userLabel="Tracing">
                                 <view key="view" id="5DB-h6-CsR">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fvT-a0-ve4">
+                                            <rect key="frame" x="74" y="468" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Tracing" id="Kg4-XC-NVX">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Structure" identifier="" id="8xI-ka-dVC" userLabel="Structure">
                                 <view key="view" id="Rre-4Q-0AW">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n25-9A-eBv">
+                                            <rect key="frame" x="136" y="456" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Structure" id="LbK-LP-nUk">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Back-End" identifier="" id="vzi-kF-FLE" userLabel="Back-End">
                                 <view key="view" id="KUl-Ah-aeZ">
                                     <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xTW-Ha-6DA">
+                                            <rect key="frame" x="89" y="421" width="38" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="BackEnd" id="zUA-g7-Ee8">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="EMr-FR-JJZ" userLabel="propertyIcon">
                         <rect key="frame" x="1222" y="-2" width="38" height="741"/>
+                        <subviews>
+                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oir-pz-oba" userLabel="PropertyTab">
+                                <rect key="frame" x="0.0" y="0.0" width="38" height="741"/>
+                                <view key="contentView">
+                                    <rect key="frame" x="0.0" y="0.0" width="38" height="741"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="38" id="29Y-se-YMc"/>
+                                </constraints>
+                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                            </box>
+                        </subviews>
                         <constraints>
+                            <constraint firstItem="oir-pz-oba" firstAttribute="leading" secondItem="EMr-FR-JJZ" secondAttribute="leading" id="1fc-uw-71a"/>
+                            <constraint firstAttribute="bottom" secondItem="oir-pz-oba" secondAttribute="bottom" id="Ara-aa-SFA"/>
+                            <constraint firstAttribute="trailing" secondItem="oir-pz-oba" secondAttribute="trailing" id="WYO-JF-HsJ"/>
+                            <constraint firstItem="oir-pz-oba" firstAttribute="top" secondItem="EMr-FR-JJZ" secondAttribute="top" id="fH3-fO-Uf4"/>
                             <constraint firstAttribute="width" constant="38" id="or9-6C-mfA"/>
                         </constraints>
                     </customView>
@@ -137,6 +250,12 @@
                         <rect key="frame" x="-1" y="-1" width="983" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
+                        </constraints>
+                    </customView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
+                        <rect key="frame" x="-1" y="715" width="983" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
                         </constraints>
                     </customView>
                 </subviews>
@@ -168,5 +287,13 @@
             </view>
             <point key="canvasLocation" x="691" y="539"/>
         </window>
+        <buttonCell type="square" bezelStyle="shadowlessSquare" image="tab_01_widget_off" imagePosition="overlaps" alignment="left" alternateImage="tab_01_widget_on" inset="2" id="eJg-uN-CL9" userLabel="propertyIcon">
+            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+            <font key="font" metaFont="system"/>
+        </buttonCell>
     </objects>
+    <resources>
+        <image name="tab_01_widget_off" width="26" height="26"/>
+        <image name="tab_01_widget_on" width="26" height="26"/>
+    </resources>
 </document>

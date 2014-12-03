@@ -11,7 +11,7 @@
 #import "IUResource.h"
 
 #import "LMWC.h"
-
+#import "BBWC.h"
 
 @interface IUProjectDocument : NSDocument
 
@@ -27,6 +27,7 @@
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
 - (LMWC *)lemonWindowController;
+- (BBWC *)butterflyWindowController;
 
 - (BOOL)removeResourceFileItemName:(NSString *)fileItemName;
 - (void)addResourceFileItemPaths:(NSArray *)fileItemPaths;

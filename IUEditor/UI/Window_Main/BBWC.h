@@ -8,6 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum{
+    BBPropertyTabTypeWidget,
+    BBPropertyTabTypeProperty,
+    BBPropertyTabTypeImage,
+    BBPropertyTabTypeStyle,
+    BBPropertyTabTypeAction,
+    BBPropertyTabTypeEvent,
+    BBPropertyTabTypeLibrary,
+    BBPropertyTabTypeTracing,
+    BBPropertyTabTypeStructure,
+    BBPropertyTabTypeBackEnd,
+    BBPropertyTabTypeNone,
+    
+}BBPropertyTabType;
+
 @interface BBWC : NSWindowController
 
 @end

@@ -10,5 +10,6 @@
 #ifndef IUEditor_BBDefaultVCs_h
 #define IUEditor_BBDefaultVCs_h
 
+#import "BBTopToolBarVC.h"
 
 #endif

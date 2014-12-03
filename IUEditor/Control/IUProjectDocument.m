@@ -142,7 +142,14 @@ static NSString *metaDataIUVersion = @"IUVersion";
 #pragma mark -
 
 
-- (LMWC *)lemonWindowController{
+- (LMWC *)lemonWindowController __deprecated{
+    if([[self windowControllers] count] > 0){
+        return [[self windowControllers] objectAtIndex:0];
+    }
+    return nil;
+}
+
+- (BBWC *)butterflyWindowController{
     if([[self windowControllers] count] > 0){
         return [[self windowControllers] objectAtIndex:0];
     }
@@ -150,17 +157,19 @@ static NSString *metaDataIUVersion = @"IUVersion";
 }
 
 
+
+
 - (void)makeWindowControllers{
-    LMWC *wc = [[LMWC alloc] initWithWindowNibName:@"LMWC"];
+    BBWC *wc = [[BBWC alloc] initWithWindowNibName:@"BBWC"];
     [self addWindowController:wc];
     
 }
 
 - (void)removeWindowController:(NSWindowController *)windowController{
     
-    if([windowController isKindOfClass:[LMWC class]]){
-        LMWC *wc = (LMWC *)windowController;
-        [wc prepareDealloc];
+    if([windowController isKindOfClass:[BBWC class]]){
+        BBWC *wc = (BBWC *)windowController;
+//        [wc prepareDealloc];
     }
     [super removeWindowController:windowController];
 }
@@ -172,15 +181,15 @@ static NSString *metaDataIUVersion = @"IUVersion";
     [self showLemonSheet];
 }
 
-- (void)showLemonSheet{
+- (void)showLemonSheet __deprecated{
     [self.undoManager disableUndoRegistration];
     
-    if(isLoaded && [self lemonWindowController]){
-        [[self lemonWindowController] reloadNavigation];
-        [[self lemonWindowController] reloadCurrentDocument:self];
+    if(isLoaded && [self butterflyWindowController]){
+//        [[self butterflyWindowController] reloadNavigation];
+//        [[self butterflyWindowController] reloadCurrentDocument:self];
     }
-    else if([self lemonWindowController]){
-        [[self lemonWindowController] selectFirstDocument];
+    else if([self butterflyWindowController]){
+//        [[self butterflyWindowController] selectFirstDocument];
         isLoaded = YES;
     }
     

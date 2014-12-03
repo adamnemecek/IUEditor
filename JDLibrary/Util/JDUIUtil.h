@@ -81,9 +81,14 @@ BOOL   isNSRectContainsRect(NSRect rect, NSRect subrect);
 @end
 
 @interface NSView(JDExtenstion)
--(id)addSubviewFullFrame:(NSView*)subview;
--(id)addSubviewFullFrame:(NSView*)subview withIdentifier:(NSString *)identfier;
--(id)addSubviewFullFrame:(NSView*)subview atPosition:(NSWindowOrderingMode)place;
+- (id)addSubviewFullFrame:(NSView*)subview;
+- (id)addSubviewFullFrame:(NSView*)subview withIdentifier:(NSString *)identfier;
+- (id)addSubviewFullFrame:(NSView*)subview atPosition:(NSWindowOrderingMode)place;
+/*
+ top, left, right = constraint 0
+ no bottom constraint;
+ */
+- (id)addSubviewTopHalfFullFrame:(NSView *)subview;
 
 -(void)addSubviewFullFrame:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
 - (void)addSubviewLeftInFrameWithFrame:(NSView *)aView;
