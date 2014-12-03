@@ -31,6 +31,16 @@
     return defaultList;
 }
 
++ (NSArray *)compilerRules{
+    return @[kIUCompileRuleHTML, kIUCompileRulePresentation, kIUCompileRuleWordpress];
+}
+
++ (NSString *)defaultCompilerRule{
+    return kIUCompileRuleWordpress;
+}
+
+
+
 #pragma mark - init
 
 

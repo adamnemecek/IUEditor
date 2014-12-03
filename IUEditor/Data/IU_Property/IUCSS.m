@@ -9,6 +9,8 @@
 #import "IUCSS.h"
 #import "JDUIUtil.h"
 #import "IUProject.h"
+#if 0
+
 
 @interface IUCSS ()
 @property NSMutableDictionary *cssDictWithViewPort;
@@ -22,7 +24,6 @@
     NSDictionary *convertTagDict;
 }
 
-#if 0
 
 
 -(NSArray*)allViewports{
@@ -651,6 +652,7 @@
     return cssStorageManager;
 }
 
-#endif
 
 @end
+
+#endif

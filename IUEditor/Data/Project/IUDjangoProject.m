@@ -22,6 +22,13 @@
     return defaultList;
 }
 
++ (NSArray *)compilerRules{
+    return @[kIUCompileRuleHTML, kIUCompileRuleDjango, kIUCompileRulePresentation];
+}
++ (NSString *)defaultCompilerRule{
+    return kIUCompileRuleDjango;
+}
+
 #pragma mark - init
 
 

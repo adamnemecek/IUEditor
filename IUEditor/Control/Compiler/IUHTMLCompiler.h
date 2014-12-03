@@ -18,7 +18,7 @@
 @property IUCompiler *compiler;
 @property IUCSSCompiler *cssCompiler;
 
-- (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS __storage_deprecated;
+- (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS __deprecated;
 
 - (JDCode *)unitBoxHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort;
 

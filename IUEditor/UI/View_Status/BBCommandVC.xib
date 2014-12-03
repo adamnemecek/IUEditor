@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBCommandVC">
+            <connections>
+                <outlet property="buildTypePopupButton" destination="sp3-TT-7TL" id="FmK-Dr-rA7"/>
+                <outlet property="serverBox" destination="DLt-J7-TgW" id="aGu-0e-wKu"/>
+                <outlet property="serverStateImageView" destination="EPI-IL-QNC" id="sIq-FH-iyj"/>
+                <outlet property="serverStateTextField" destination="XT4-wb-oXa" id="n9J-9y-RRn"/>
+                <outlet property="serverStopMenuItem" destination="P9A-4N-0nD" id="wvs-Bd-FvU"/>
+                <outlet property="view" destination="rbk-cD-yVp" id="ps2-n1-DmS"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="rbk-cD-yVp" userLabel="Command">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="0.0" y="0.0" width="420" height="40"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9jf-j4-m5U" userLabel="Build">
+                        <rect key="frame" x="-1" y="-1" width="40" height="42"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="38" height="40"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QSF-vp-jtH">
+                                    <rect key="frame" x="4" y="5" width="30" height="30"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIColorMonochrome">
+                                            <configuration>
+                                                <ciColor key="inputColor" red="0.094226077198982239" green="0.75960695743560791" blue="1" alpha="1"/>
+                                                <null key="inputImage"/>
+                                                <real key="inputIntensity" value="1"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_build" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EyI-Hk-cNy">
+                                        <behavior key="behavior" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="build:" target="-2" id="794-VT-pcn"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="61z-JW-3tV"/>
+                            <constraint firstAttribute="centerX" secondItem="QSF-vp-jtH" secondAttribute="centerX" id="KDh-A4-T1E"/>
+                            <constraint firstAttribute="centerY" secondItem="QSF-vp-jtH" secondAttribute="centerY" id="Xvn-EH-5im"/>
+                        </constraints>
+                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" wantsLayer="YES" borderWidth="0.0" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ivA-4o-aS9" userLabel="Build Type">
+                        <rect key="frame" x="38" y="0.0" width="104" height="40"/>
+                        <view key="contentView">
+                            <rect key="frame" x="0.0" y="0.0" width="104" height="40"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="sp3-TT-7TL">
+                                    <rect key="frame" x="0.0" y="6" width="94" height="28"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="1" green="1" blue="1" alpha="1"/>
+                                                <ciColor key="inputColor1" red="1" green="0.89999997615814209" blue="0.80000001192092896" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <popUpButtonCell key="cell" type="bevel" title="Presentation" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="gCw-rS-MEE" id="Ux4-AA-Xwr">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <menu key="menu" id="jIA-Ic-4Ee">
+                                            <items>
+                                                <menuItem title="HTML" id="m7j-sP-cEX"/>
+                                                <menuItem title="Django" id="v0b-nC-FvE"/>
+                                                <menuItem title="Wordpress" id="TUh-kW-QQt"/>
+                                                <menuItem title="Presentation" state="on" id="gCw-rS-MEE">
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="clickBuildTypePopupButton:" target="-2" id="o86-VO-jfC"/>
+                                    </connections>
+                                </popUpButton>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstItem="sp3-TT-7TL" firstAttribute="leading" secondItem="ivA-4o-aS9" secondAttribute="leading" id="3GP-Ze-uB5"/>
+                            <constraint firstAttribute="width" constant="104" id="AVe-3W-feh"/>
+                            <constraint firstItem="sp3-TT-7TL" firstAttribute="top" secondItem="ivA-4o-aS9" secondAttribute="top" constant="6" id="PLe-2j-3e3"/>
+                            <constraint firstAttribute="height" constant="40" id="T25-1J-ur2"/>
+                            <constraint firstAttribute="trailing" secondItem="sp3-TT-7TL" secondAttribute="trailing" constant="10" id="YIx-jD-FaC"/>
+                            <constraint firstAttribute="bottom" secondItem="sp3-TT-7TL" secondAttribute="bottom" constant="6" id="b05-uf-i8n"/>
+                        </constraints>
+                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="DLt-J7-TgW" userLabel="Python">
+                        <rect key="frame" x="142" y="-1" width="279" height="42"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="277" height="40"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EPI-IL-QNC">
+                                    <rect key="frame" x="9" y="12" width="16" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="Mvn-xq-ZDg"/>
+                                        <constraint firstAttribute="width" constant="16" id="uJ7-Pr-SuJ"/>
+                                    </constraints>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="9pv-q2-IwZ"/>
+                                </imageView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XT4-wb-oXa">
+                                    <rect key="frame" x="27" y="12" width="132" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="MAr-35-24Y"/>
+                                    </constraints>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1"/>
+                                                <ciColor key="inputColor1" red="1" green="0.89999997615814209" blue="0.80000001192092896" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Python (2222) is running" id="bDt-P0-ZoF">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="5NR-qW-hyT">
+                                    <rect key="frame" x="160" y="0.0" width="16" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="16" id="ZMh-76-yyf"/>
+                                        <constraint firstAttribute="height" constant="40" id="qBV-WH-dwu"/>
+                                    </constraints>
+                                    <contentFilters>
+                                        <ciFilter name="CIColorInvert">
+                                            <configuration>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <popUpButtonCell key="cell" type="square" title="Stop" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="aQF-rl-ZN6" id="xue-Rq-Nnz">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" id="hZx-ku-paD">
+                                            <items>
+                                                <menuItem title="Stop" hidden="YES" id="P9A-4N-0nD">
+                                                    <connections>
+                                                        <action selector="stopServer:" target="-2" id="7YU-Ao-gHH"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Setting" id="aQF-rl-ZN6"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstItem="5NR-qW-hyT" firstAttribute="leading" secondItem="XT4-wb-oXa" secondAttribute="trailing" constant="3" id="5ke-JE-0a8"/>
+                            <constraint firstItem="XT4-wb-oXa" firstAttribute="leading" secondItem="EPI-IL-QNC" secondAttribute="trailing" constant="4" id="Gtn-Ux-W7i"/>
+                            <constraint firstAttribute="width" constant="279" id="Kbk-ny-jFA"/>
+                            <constraint firstItem="EPI-IL-QNC" firstAttribute="leading" secondItem="DLt-J7-TgW" secondAttribute="leading" constant="10" id="QDM-TX-Xfp"/>
+                            <constraint firstAttribute="centerY" secondItem="XT4-wb-oXa" secondAttribute="centerY" id="dJ8-va-bdM"/>
+                            <constraint firstAttribute="centerY" secondItem="EPI-IL-QNC" secondAttribute="centerY" id="j2E-7N-M0w"/>
+                            <constraint firstAttribute="centerY" secondItem="5NR-qW-hyT" secondAttribute="centerY" id="oEH-Oz-yNv"/>
+                        </constraints>
+                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                    </box>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="ivA-4o-aS9" firstAttribute="leading" secondItem="rbk-cD-yVp" secondAttribute="leading" constant="38" id="J6I-7A-puo"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="centerY" secondItem="ivA-4o-aS9" secondAttribute="centerY" id="Rax-gr-OMa"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="leading" secondItem="rbk-cD-yVp" secondAttribute="leading" constant="-1" id="XcX-gG-HRR"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="bottom" secondItem="DLt-J7-TgW" secondAttribute="bottom" id="bBf-U2-NwH"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="top" secondItem="DLt-J7-TgW" secondAttribute="top" id="lUf-3K-t5P"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="top" secondItem="rbk-cD-yVp" secondAttribute="top" constant="-1" id="sUV-RW-lub"/>
+                <constraint firstItem="DLt-J7-TgW" firstAttribute="leading" secondItem="ivA-4o-aS9" secondAttribute="trailing" id="uyE-7k-pEz"/>
+                <constraint firstItem="9jf-j4-m5U" firstAttribute="centerY" secondItem="rbk-cD-yVp" secondAttribute="centerY" id="xjy-8J-e9t"/>
+            </constraints>
+            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+            <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="370" y="265"/>
+        </box>
+    </objects>
+    <resources>
+        <image name="NSStatusNone" width="16" height="16"/>
+        <image name="btn_build" width="30" height="30"/>
+    </resources>
+</document>

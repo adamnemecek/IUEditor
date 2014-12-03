@@ -46,6 +46,9 @@
 #import "LMServerWC.h"
 #import "LMHerokuWC.h"
 
+//connect new VC
+#import "BBCommandVC.h"
+
 @interface LMWC ()
 //window toolbar
 @property (weak) IBOutlet NSBox *buildToolbarBox;
@@ -103,7 +106,7 @@
     //left
     LMFileNaviVC    *fileNaviVC;
     LMStackVC       *stackVC;
-    LMCommandVC     *commandVC;
+    BBCommandVC     *commandVC;
     
     //center
     LMTopToolbarVC  *topToolbarVC;
@@ -143,7 +146,7 @@
         //allocation
         stackVC = [[LMStackVC alloc] initWithNibName:@"LMStackVC" bundle:nil];
         fileNaviVC = [[LMFileNaviVC alloc] initWithNibName:@"LMFileNaviVC" bundle:nil];
-        commandVC = [[LMCommandVC alloc] initWithNibName:@"LMCommandVC" bundle:nil];
+        commandVC = [[BBCommandVC alloc] initWithNibName:[BBCommandVC class].className bundle:nil];
         canvasVC = [[LMCanvasVC alloc] initWithNibName:@"LMCanvasVC" bundle:nil];
         topToolbarVC = [[LMTopToolbarVC alloc] initWithNibName:@"LMTopToolbarVC" bundle:nil];
         bottomToolbarVC = [[LMBottomToolbarVC alloc] initWithNibName:@"LMBottomToolbarVC" bundle:nil];
@@ -161,6 +164,8 @@
         [self bind:@"IUController" toObject:stackVC withKeyPath:@"IUController" options:nil];
         [self bind:@"selectedNode" toObject:fileNaviVC withKeyPath:@"selection" options:nil];
         [self bind:@"documentController" toObject:fileNaviVC withKeyPath:@"documentController" options:nil];
+    
+        
         [canvasVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
         [self bind:@"selectedTextRange" toObject:self withKeyPath:@"selectedTextRange" options:nil];
         [widgetLibraryVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
@@ -168,17 +173,28 @@
         [iuInspectorVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
         [eventVC bind:@"controller" toObject:self withKeyPath:@"IUController" options:nil];
         [topToolbarVC bind:@"sheetController" toObject:fileNaviVC withKeyPath:@"documentController" options:nil];
+        [commandVC bind:@"docController" toObject:fileNaviVC withKeyPath:@"documentController" options:nil];
+
+        
         
         //allocation JSManger
         jsManager = [[LMJSManager alloc] init];
         [jsManager setDelegate:canvasVC];
         
+        //allocated jsmanager to VC (run js)
+        [appearanceVC setJsManager:jsManager];
+
+        
         //allocation sourcemanager
         _sourceManager = [[IUSourceManager alloc] init];
         [_sourceManager setCanvasVC:canvasVC];
         
-        //allocated jsmanager to VC (run js)
-        [appearanceVC setJsManager:jsManager];
+        
+        //source Manager setting
+        [commandVC setSourceManager:_sourceManager];
+
+        
+        
         
     }
     return self;
@@ -279,7 +295,7 @@
 
     ((LMWindow*)(self.window)).canvasView = nil;
     [canvasVC prepareDealloc];
-    [commandVC prepareDealloc];
+//    [commandVC prepareDealloc];
     [iuInspectorVC prepareDealloc];
     [appearanceVC prepareDealloc];
 }

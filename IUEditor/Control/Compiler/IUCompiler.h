@@ -42,7 +42,7 @@ typedef enum _IUCompileRule{
 
 
 //html source
-- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target;
+- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target __deprecated;
 - (NSString *)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 
 //css code

@@ -6,9 +6,13 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
+#if 0
+
+
 #import "IUMQData.h"
 #import "IUDataStorage.h"
 #import "IUPropertyStorage.h"
+
 
 @interface IUMQData ()
 @property NSMutableDictionary *mqDictWithViewPort;
@@ -20,8 +24,6 @@
     IUPropertyStorage *convertPropertyStorage;
     NSDictionary *convertTagDict;
 }
-
-#if 0
 
 -(id)init{
     self = [super init];
@@ -265,6 +267,8 @@
     return cssStorageManager;
 }
 
-#endif
+
 
 @end
+#endif
+

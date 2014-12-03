@@ -83,6 +83,9 @@
 - (void)setProject:(IUProject *)project{
     _project = project;
     _documentBasePath = project.path;
+    
+    //TODO: last opened compiler를 program status로 저장?
+    self.compilerRule = [[project class] defaultCompilerRule];
 }
 
 
@@ -111,7 +114,7 @@
 }
 
 - (NSArray *)availableCompilerRule{
-    return @[kIUCompileRuleHTML, kIUCompileRuleDjango, kIUCompileRulePresentation, kIUCompileRuleWordpress];
+    return [[_project class] compilerRules];
 }
 
 #pragma mark - manage obj

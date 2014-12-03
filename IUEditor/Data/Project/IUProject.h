@@ -21,6 +21,16 @@ typedef enum _IUGitType{
 } IUGitType;
 
 
+
+/**
+ Basic Compiler rules
+ */
+static NSString *kIUCompileRuleHTML = @"HTML";
+static NSString *kIUCompileRuleDjango = @"Django";
+static NSString *kIUCompileRulePresentation = @"Presentation";
+static NSString *kIUCompileRuleWordpress = @"wordpress";
+
+
 //setting
 static NSString * IUProjectKeyType = @"projectType";
 static NSString * IUProjectKeyGit = @"git";
@@ -62,7 +72,8 @@ static NSString *IUClassGroupName = @"class";
 
 //class properties
 + (NSArray *)widgetList;
-
++ (NSArray *)compilerRules;
++ (NSString *)defaultCompilerRule;
 
 
 /**

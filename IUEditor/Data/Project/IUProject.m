@@ -39,6 +39,18 @@
              ];
 }
 
++ (NSArray *)compilerRules{
+    return @[kIUCompileRuleHTML, kIUCompileRulePresentation];
+}
+
++ (NSString *)defaultCompilerRule{
+    return kIUCompileRuleHTML;
+}
+
+
+#pragma mark - 
+
+
 - (BOOL)isFileItemGroup{
     return YES;
 }

@@ -21,9 +21,10 @@
  This class for media query data, not css
  
  */
+#if 0
+
 @interface IUMQData : NSObject <NSCoding, JDCoding, NSCopying>
 
-#if 0
 
 @property (nonatomic)  NSInteger editViewPort;
 @property (nonatomic)  NSInteger maxViewPort;
@@ -61,6 +62,7 @@
 /*convert to storageManager */
 - (IUDataStorageManager *)convertToPropertyStorageManager;
 
-#endif
 
 @end
+#endif
+
