@@ -493,58 +493,11 @@
     }
 }
 
-- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort{
-    return [htmlCompiler unitBoxHTMLCode:iu target:target withCSS:withCSS viewPort:viewPort];
+- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target viewPort:(NSInteger)viewPort{
+    return [htmlCompiler unitBoxHTMLCode:iu target:target viewPort:viewPort];
 }
 
 #pragma mark - editor body source
-
--(NSString*)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray{
-    NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
-    if (templateFilePath == nil) {
-        NSAssert(0, @"Template file name wrong");
-        return nil;
-    }
-    
-    NSMutableString *sourceString = [NSMutableString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil];
-    
-    JDCode *sourceCode = [[JDCode alloc] initWithCodeString:sourceString];
-    
-    
-    JDCode *webFontCode = [[LMFontController sharedFontController] headerCodeForAllFont];
-    [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
-    
-    JDCode *jsCode = [self javascriptHeaderForSheet:document isEdit:YES];
-    [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
-        
-    
-    JDCode *iuCSS = [self cssHeaderForSheet:document isEdit:YES];
-    [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
-    
-    //add for hover css
-    [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
-
-    
-    //change html
-    JDCode *htmlCode = [[JDCode alloc] init];
-    //REVIEW : sheetouter의 width를 변경시키며 editor에서 media query가 서포트 되는것 처럼 보이게 함.
-    //webview의 사이즈를 바꾸지 않고 그대로 사용할 수 있다.
-    //장점
-    // - 페이지를 center로 보낼수있음
-    // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
-    // - text editor를 불러올 수 있음.
-    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor]];
-    [htmlCode addString:@"<div>"];
-    [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
-    
-
-    
-    JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
-
-    return sourceCode.string;
-}
-
 
 #pragma mark - cssSource
 
@@ -805,7 +758,7 @@
         // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
         // - text editor를 불러올 수 있음.
         [htmlCode addCodeLineWithFormat:@"<div id=\"%@\">", IUSheetOuterIdentifier];
-        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor withCSS:YES viewPort:sheet.project.maxViewPort]];
+        [htmlCode addCodeWithIndent: [self htmlCode:sheet target:IUTargetEditor viewPort:sheet.project.maxViewPort]];
         [htmlCode addString:@"<div>"];
         [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
         
@@ -868,12 +821,12 @@
 
 
 - (NSString* )editorHTMLString:(IUBox *)box viewPort:(NSInteger)viewPort{
-    return [htmlCompiler unitBoxHTMLCode:box target:IUTargetEditor withCSS:YES viewPort:viewPort].string;
+    return [htmlCompiler unitBoxHTMLCode:box target:IUTargetEditor viewPort:viewPort].string;
 }
 
 
 
-- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort frameWidth:(NSInteger)frameWidth{
+- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth{
     NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:self.webTemplateFileName ofType:@"html"];
     if (templateFilePath == nil) {
         NSAssert(0, @"Template file name wrong");
@@ -908,7 +861,7 @@
     // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
     // - text editor를 불러올 수 있음.
     [htmlCode addCodeLineWithFormat:@"<div id=\"%@\" style='width:%dpx'>", IUSheetOuterIdentifier, frameWidth];
-    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor withCSS:YES viewPort:viewPort]];
+    [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor viewPort:viewPort]];
     [htmlCode addString:@"<div>"];
     [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
     

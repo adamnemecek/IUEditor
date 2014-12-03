@@ -62,8 +62,9 @@
     import.htmlID = @"import";
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
-//    NSString *src = [compiler editorHTMLString:import viewPort:IUDefaultViewPort];
+    NSString *src = [compiler editorHTMLString:import viewPort:IUDefaultViewPort];
 
+    NSLog(src, nil);
     /*code not generated */
     XCTAssertFalse(YES);
 }

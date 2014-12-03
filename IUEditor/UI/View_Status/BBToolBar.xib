@@ -344,7 +344,7 @@
                                     </buttonCell>
                                 </button>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="odp-Id-lGs">
-                                    <rect key="frame" x="36" y="-38" width="5" height="96"/>
+                                    <rect key="frame" x="36" y="-38" width="4" height="96"/>
                                     <contentFilters>
                                         <ciFilter name="CIFalseColor">
                                             <configuration>
@@ -467,7 +467,7 @@
                                     </buttonCell>
                                 </button>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="xf1-hd-1lV">
-                                    <rect key="frame" x="36" y="-38" width="5" height="96"/>
+                                    <rect key="frame" x="36" y="-38" width="4" height="96"/>
                                     <contentFilters>
                                         <ciFilter name="CIFalseColor">
                                             <configuration>

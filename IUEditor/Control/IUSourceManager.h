@@ -74,7 +74,7 @@
 
 /* managing view port */
 @property NSInteger viewPort;
-@property NSInteger frameWidth;
+@property NSInteger canvasViewWidth;
 
 /* load a sheet */
 - (void)loadSheet:(IUSheet*)sheet;

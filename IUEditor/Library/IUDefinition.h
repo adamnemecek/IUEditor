@@ -35,7 +35,6 @@ static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 #define IUTextAddibleClass @"addible"
 
 
-
 typedef enum _IUTarget{
     IUTargetEditor = 1,
     IUTargetOutput = 2,
@@ -54,9 +53,8 @@ typedef enum _IUUnit{
  Notification deifinition
  
  *******************************/
-
-#define IUNoti_widgetSelectionChanged @"IUWidgetSelectionChanged" // called at widget library
-#define IUNotiKey_selectedWidget @"selectedWidget"
+extern NSString *const IUWidgetSelectionDidChangeNotification;  // called at widget library
+extern NSString *const IUWidgetKey;
  
 
 #endif

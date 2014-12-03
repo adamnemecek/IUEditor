@@ -20,7 +20,7 @@
 
 - (JDCode *)wholeHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS __deprecated;
 
-- (JDCode *)unitBoxHTMLCode:(IUBox *)iu target:(IUTarget)target withCSS:(BOOL)withCSS viewPort:(NSInteger)viewPort;
+- (JDCode *)unitBoxHTMLCode:(IUBox *)iu target:(IUTarget)target viewPort:(NSInteger)viewPort;
 
 
 @end

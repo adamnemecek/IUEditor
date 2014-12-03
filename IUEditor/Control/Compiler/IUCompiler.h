@@ -43,7 +43,6 @@ typedef enum _IUCompileRule{
 
 //html source
 - (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target __deprecated;
-- (NSString *)editorSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
 
 //css code
 - (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
@@ -70,7 +69,7 @@ typedef enum _IUCompileRule{
  WebSource = HTML + CSS
  */
 
-- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort frameWidth:(NSInteger)frameWidth;
+- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
 
 
 /* Will be saved as page file */

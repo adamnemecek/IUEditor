@@ -13,7 +13,6 @@
 @interface BBWidgetLibraryVC () <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
-- (NSArray *)widgetInfosInCurrentSelectedGroup; // provide table cell contents
 - (NSArray *)namesOfWidgetGroups; //provides content in popupbutton
 
 @end
@@ -41,13 +40,13 @@
     if (cell == nil) { //clear selection
         _selectedCell.isSelected = NO;
         _selectedCell = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNoti_widgetSelectionChanged object:self.view.window userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetSelectionDidChangeNotification object:self.view.window userInfo:nil];
     }
     else {
         _selectedCell.isSelected = NO;
         cell.isSelected = YES;
         _selectedCell = cell;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNoti_widgetSelectionChanged object:self.view.window userInfo:@{IUNotiKey_selectedWidget:cell.objectValue[@"name"]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetSelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetKey:cell.objectValue[@"name"]}];
     }
 }
 

@@ -24,6 +24,9 @@
 		094FA9EA1A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 094FA9E91A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m */; };
 		0965D1301A21C923000E400B /* IUEventCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0965D12F1A21C923000E400B /* IUEventCompiler.m */; };
 		0965D1321A21CED5000E400B /* IUEvent_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0965D1311A21CED5000E400B /* IUEvent_Test.m */; };
+		097DFEF61A2F075F004C1EAE /* BBToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097DFEF51A2F075F004C1EAE /* BBToolBar.xib */; };
+		097DFEF91A2F0840004C1EAE /* BBToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEF81A2F0840004C1EAE /* BBToolBar.m */; };
+		097DFEFB1A2F3E60004C1EAE /* IUDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09890A251A25B4C30015AF9A /* IUFileItem.m */; };
 		09C860891A2C7443001C0A53 /* BBWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */; };
@@ -758,6 +761,10 @@
 		0965D12E1A21C923000E400B /* IUEventCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUEventCompiler.h; path = Control/Compiler/IUEventCompiler.h; sourceTree = "<group>"; };
 		0965D12F1A21C923000E400B /* IUEventCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUEventCompiler.m; path = Control/Compiler/IUEventCompiler.m; sourceTree = "<group>"; };
 		0965D1311A21CED5000E400B /* IUEvent_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUEvent_Test.m; sourceTree = "<group>"; };
+		097DFEF51A2F075F004C1EAE /* BBToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBToolBar.xib; path = UI/View_Status/BBToolBar.xib; sourceTree = "<group>"; };
+		097DFEF71A2F0840004C1EAE /* BBToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBToolBar.h; path = UI/View_Status/BBToolBar.h; sourceTree = "<group>"; };
+		097DFEF81A2F0840004C1EAE /* BBToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBToolBar.m; path = UI/View_Status/BBToolBar.m; sourceTree = "<group>"; };
+		097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUDefinition.m; path = Library/IUDefinition.m; sourceTree = "<group>"; };
 		097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUEditor_Test.m"; sourceTree = "<group>"; };
 		097FD7101A105EA8008931A0 /* IUProjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUProjectProtocol.h; sourceTree = "<group>"; };
 		09890A241A25B4C30015AF9A /* IUFileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUFileItem.h; path = Data/Project/IUFileItem.h; sourceTree = "<group>"; };
@@ -2413,6 +2420,9 @@
 		3D2EF5F919F783D700BBBAE5 /* Status */ = {
 			isa = PBXGroup;
 			children = (
+				097DFEF51A2F075F004C1EAE /* BBToolBar.xib */,
+				097DFEF71A2F0840004C1EAE /* BBToolBar.h */,
+				097DFEF81A2F0840004C1EAE /* BBToolBar.m */,
 				3DE463121A0085C900A75567 /* LMMediaQueryVC.h */,
 				3DE463131A0085C900A75567 /* LMMediaQueryVC.m */,
 				3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */,
@@ -3191,6 +3201,7 @@
 				3D2EFC1B19F7888400BBBAE5 /* NSMutableDictionary+IUTag.m */,
 				3D2EFC1C19F7888400BBBAE5 /* NSString+IUTag.h */,
 				3D2EFC1D19F7888400BBBAE5 /* NSString+IUTag.m */,
+				097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */,
 			);
 			name = Library;
 			sourceTree = "<group>";
@@ -3677,6 +3688,14 @@
 				3D2EFBD219F7878800BBBAE5 /* iucarousel.js in Resources */,
 				3D2EF75F19F7856E00BBBAE5 /* index.php in Resources */,
 				3DE462BA19FA4A2600A75567 /* agency_thumbnail@2x.png in Resources */,
+				3D2EFA7819F7869E00BBBAE5 /* view_border.png in Resources */,
+				3D2EF9C419F7869E00BBBAE5 /* align_left@2x.png in Resources */,
+				097DFEF61A2F075F004C1EAE /* BBToolBar.xib in Resources */,
+				3D2EF89C19F7867700BBBAE5 /* stack_textview.png in Resources */,
+				3D2EF89219F7867700BBBAE5 /* stack_section.png in Resources */,
+				3D2EF86419F7867700BBBAE5 /* ic_css.png in Resources */,
+				3D2EF9C119F7869E00BBBAE5 /* align_full.png in Resources */,
+				3D2EFA1B19F7869E00BBBAE5 /* pause@2x.png in Resources */,
 				3D2EFB5C19F786C700BBBAE5 /* flat_icons-graficheria.it-02.png in Resources */,
 				3D2EF5F519F7837600BBBAE5 /* LMWordpressCreateFileWC.xib in Resources */,
 				3D2EFCBD19F78D1F00BBBAE5 /* LMPropertyIUImportVC.xib in Resources */,
@@ -4097,6 +4116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2EF48B19F781B700BBBAE5 /* IUPageContent.m in Sources */,
+				097DFEF91A2F0840004C1EAE /* BBToolBar.m in Sources */,
 				3D2EF51B19F781FB00BBBAE5 /* WPMenuItem.m in Sources */,
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,
 				3D2EF6FC19F784B500BBBAE5 /* LMEventVC.m in Sources */,
@@ -4261,6 +4281,7 @@
 				3DE463151A0085C900A75567 /* LMMediaQueryVC.m in Sources */,
 				3D2EF72719F784F600BBBAE5 /* LMTopToolbarVC.m in Sources */,
 				3D2EFC4A19F788BA00BBBAE5 /* JDCode.m in Sources */,
+				097DFEFB1A2F3E60004C1EAE /* IUDefinition.m in Sources */,
 				3D2EF40A19F780EA00BBBAE5 /* IUController.m in Sources */,
 				3D2EF51519F781FB00BBBAE5 /* WPCommentFormField.m in Sources */,
 				3D2EF48E19F781B700BBBAE5 /* IUSheet.m in Sources */,

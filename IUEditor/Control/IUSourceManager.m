@@ -92,7 +92,7 @@
 - (void)loadSheet:(IUSheet*)sheet {
     NSAssert(_compiler, @"compiler is nil");
     
-    NSString *code = [_compiler editorWebSource:sheet viewPort:_viewPort frameWidth:_frameWidth];
+    NSString *code = [_compiler editorWebSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];

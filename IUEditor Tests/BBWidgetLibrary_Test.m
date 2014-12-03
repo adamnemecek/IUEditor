@@ -43,8 +43,8 @@
 }
 
 - (void)listen:(NSNotification *)noti{
-    if (noti.userInfo[IUNotiKey_selectedWidget]) {
-        testWC.log = noti.userInfo[IUNotiKey_selectedWidget];
+    if (noti.userInfo[IUWidgetKey]) {
+        testWC.log = noti.userInfo[IUWidgetKey];
     }
     else {
         testWC.log = @"Not selected";
@@ -60,7 +60,7 @@
 
     vc = [[BBWidgetLibraryVC alloc] initWithNibName:@"BBWidgetLibraryVC" bundle:nil];
     [vc loadView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUNoti_widgetSelectionChanged object:vc.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUWidgetSelectionDidChangeNotification object:vc.view.window];
 
     [[[testWC window] contentView] addSubview:vc.view];
     
