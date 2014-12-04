@@ -12,6 +12,19 @@
 @implementation IUFileItem {
 }
 
+- (id)initWithJDCoder:(JDCoder *)aDecoder{
+    self = [super init];
+    if(self){
+        [aDecoder decodeToObject:self withProperties:[IUFileItem properties]];
+        
+    }
+    return self;
+}
+
+- (void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [aCoder encodeFromObject:self withProperties:[IUFileItem properties]];
+
+}
 - (IUProject *)project {
     if ([self isKindOfClass:[IUProject class]]) {
         return (IUProject *)self;
@@ -22,8 +35,8 @@
     return [self.parentFileItem project];
 }
 
-- (BOOL)isFileItemGroup {
-    return NO;
+- (BOOL)isLeaf {
+    return YES;
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "IUSourceManager.h"
+#import "IUSheetController.h"
+
 typedef enum{
     BBPropertyTabTypeWidget,
     BBPropertyTabTypeProperty,
@@ -24,5 +27,16 @@ typedef enum{
 }BBPropertyTabType;
 
 @interface BBWC : NSWindowController
+
+
+/**
+ @brief sourceManager connects between iubox(iudata) and canvasVC
+ @code
+ 
+ */
+@property IUSourceManager *sourceManager;
+@property IUSheetController *pageController;
+@property IUSheetController *classController;
+
 
 @end

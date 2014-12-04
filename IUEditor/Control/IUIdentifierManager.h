@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 JDLab. All rights reserved.
 //
 
+
+
 #import <Foundation/Foundation.h>
 
 
-@class IUBox __storage_deprecated;
-
-
+@class IUBox;
 @interface IUIdentifierManager : NSObject
 
 - (NSString *)createIdentifierWithKey:(NSString *)key;
@@ -21,9 +21,6 @@
 - (void)commit;
 - (void)rollback;
 
-@end
-
-@interface IUIdentifierManager( OLD ) __storage_deprecated
 
 /**************
  
@@ -56,5 +53,6 @@
  */
 -(IUBox*)IUWithIdentifier:(NSString*)identifier __storage_deprecated;
 
-
 @end
+
+

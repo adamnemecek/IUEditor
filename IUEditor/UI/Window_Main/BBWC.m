@@ -55,9 +55,11 @@
     
     //view controllers
     BBTopToolBarVC *_topToolBarVC;
+    LMCanvasVC *_canvasVC;
     
     //property vcs
     BBWidgetLibraryVC *_widgetLibraryVC;
+    BBProjectStructureVC *_projectStructureVC;
     
 }
 
@@ -67,10 +69,23 @@
         //initailize property
         _currentTabType = BBPropertyTabTypeWidget;
         
+        
         //alloc VC
         _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC class].className bundle:nil];
+        _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC class].className bundle:nil];
+
         
         _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC class].className bundle:nil];
+        _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC class].className bundle:nil];
+        
+        
+        //alloc manager & controller
+        _sourceManager = [[IUSourceManager alloc] init];
+        [_sourceManager setCanvasVC:_canvasVC];
+        
+        
+        //initailize manager
+        [_topToolBarVC setSourceManager:_sourceManager];
         
       
     }
@@ -92,7 +107,6 @@
     NSArray *matrixCellArray = [_propertyIconMatrix cells];
     for(int i=0; i<10; i++){
         NSButtonCell *matrixCell = [matrixCellArray objectAtIndex:i];
-        //0번재 cell은 다루지 않음.
         BBPropertyTabType currentType = i;
         switch (currentType) {
             case BBPropertyTabTypeWidget:
@@ -143,9 +157,18 @@
 
     //connect VCs
     [_topBarView addSubviewFullFrame:_topToolBarVC.view];
+    [_canvasView addSubviewFullFrame:_canvasVC.view];
     
     [_tabWidgetView addSubviewFullFrame:_widgetLibraryVC.view];
+    [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
+    
+    //add observers
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
 
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setDocument:(IUProjectDocument *)document{
@@ -153,8 +176,20 @@
     if (document && document.project){
         _project = document.project;
         
+        //allocation when project is set
+        _pageController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
+        _classController = [[IUSheetController alloc] initWithSheetGroup:_project.classGroup];
+        
         //load properties when project is set
+        //view part
+        [_canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
         [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
+        
+        [_projectStructureVC setPageController:_pageController];
+        [_projectStructureVC setClassController:_classController];
+        
+        //manager part
+        [_sourceManager setProject:_project];
         
         
         //set iudata is connected
@@ -164,6 +199,8 @@
         [_project setIsConnectedWithEditor];
         
         [document.undoManager enableUndoRegistration];
+        
+        
     }
     
     
@@ -197,6 +234,20 @@
 }
 - (void)closePropertySettingTabView{
     [_propertySettingTabViewRightConstraint setConstant:(-241+38)];
+}
+
+#pragma mark - manage Sheets
+- (void)changeSheetSelection:(NSNotification *)notification{
+    
+    id selectedObject = [[notification.userInfo objectForKey:@"selectedObject"] firstObject];
+    if ([selectedObject isKindOfClass:[IUSheet class]] ){
+        IUSheet *sheet = selectedObject;
+        [self.sourceManager loadSheet:sheet];
+        [_canvasVC setSheet:sheet];
+        
+    }
+    
+    
 }
 
 

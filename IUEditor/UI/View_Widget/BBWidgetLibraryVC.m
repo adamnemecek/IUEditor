@@ -52,7 +52,7 @@
 
 
 - (void)tableViewSelectionIsChanging:(NSNotification *)notification{
-    BBWidgetLibraryViewCell *cell = _tableView.selectedCell;
+    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
     
     if (cell == nil) { //clear selection
         _selectedCell.isSelected = NO;

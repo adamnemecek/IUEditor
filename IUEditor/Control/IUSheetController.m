@@ -10,53 +10,67 @@
 
 @implementation IUSheetController
 
--(id)initWithSheet:(IUSheet*)sheet{
-    NSAssert(sheet!=nil, @"document is nil");
+- (id)initWithSheetGroup:(IUSheetGroup *)sheetGroup{
     self = [super init];
-    if (self) {
-        [self setChildrenKeyPath:@"children"];
-        [self setObjectClass:[IUBox class]];
-        [self setContent:sheet];
+    if(self){
+        [self setChildrenKeyPath:@"childrenFileItems"];
+        [self setLeafKeyPath:@"isLeaf"];
+        [self setContent:sheetGroup];
+        [self setObjectClass:[NSObject class]];
+        
     }
     return self;
 }
 
--(IUSheet*)sheet{
-    NSAssert(self.content != nil, @"content is nil");
-    return [self.content objectAtIndex:0];
+- (BOOL)canAddChild{
+    return NO;
+}
+
+- (BOOL)canInsertChild{
+    return NO;
 }
 
 -(IUProject*)project{
-    return [self.content firstObject];
+    return ((IUSheetGroup *)[self.content firstObject]).project;
 }
 
 
 -(void)setContent:(id)content{
-    [self willChangeValueForKey:@"sheet"];
-    [self willChangeValueForKey:@"project"];
     [super setContent:content];
-    [self didChangeValueForKey:@"project"];
-    [self didChangeValueForKey:@"sheet"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:nil];
 }
 
-- (void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"IUSheetController"];
-    for (IUSheet *sheet in self.project.allSheets) {
-        [sheet disconnectWithEditor];
-    }
-}
+
 - (BOOL)setSelectionIndexPaths:(NSArray *)indexPaths{
     
-    return [self setUndoSelectionIndexPath:indexPaths[0]];
+    BOOL result = YES;
+    [self.undoManager beginUndoGrouping];
+    
+    for(NSIndexPath *aIndexPath in indexPaths){
+        BOOL partialResult  = [self setSelectionIndexPath:aIndexPath];
+        if(partialResult == NO){
+            result = NO;
+        }
+    }
+    
+    [self.undoManager endUndoGrouping];
+    return result;
 }
 
-- (BOOL)setUndoSelectionIndexPath:(NSIndexPath *)indexPath{
+- (BOOL)setSelectionIndexPath:(NSIndexPath *)indexPath{
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": self.selectedObjects}];
+    
     NSIndexPath *currentIndexPath = [self selectionIndexPath];
     if(currentIndexPath){
-        [[self.undoManager prepareWithInvocationTarget:self] setUndoSelectionIndexPath:currentIndexPath];
+        [(IUSheetController *)[self.undoManager prepareWithInvocationTarget:self] setSelectionIndexPath:currentIndexPath];
     }
-    return [super setSelectionIndexPaths:@[indexPath]];
+    BOOL result = [super setSelectionIndexPaths:@[indexPath]];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": self.selectedObjects}];
+
+    return result;
 }
+
 
 #pragma mark - Undo Manager
 - (NSUndoManager *)undoManager{

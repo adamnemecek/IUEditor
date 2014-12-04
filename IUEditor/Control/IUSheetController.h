@@ -13,12 +13,8 @@
 
 @interface IUSheetController : NSTreeController
 
--(id)initWithSheet:(IUSheet*)document;
+- (id)initWithSheetGroup:(IUSheetGroup *)sheetGroup;
 
-/* conform KVO */
--(IUSheet*)sheet;
-
-/* conform KVO */
 -(IUProject *)project;
 
 

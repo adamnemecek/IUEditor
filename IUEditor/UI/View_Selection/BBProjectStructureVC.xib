@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBProjectStructureVC">
+            <connections>
+                <outlet property="compositionsNavigationView" destination="pp4-L8-EHW" id="WNS-Ol-ihM"/>
+                <outlet property="pageStuructureView" destination="79P-hA-od8" id="e8G-JO-E1B"/>
+                <outlet property="pagesNavigationView" destination="2BD-Dz-PDh" id="iWG-4c-gbo"/>
+                <outlet property="strucutreSearchField" destination="KCt-DJ-oxl" id="PwS-iK-cp3"/>
+                <outlet property="view" destination="S9c-S8-SVM" id="hia-bf-lyM"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="S9c-S8-SVM" userLabel="Project Structure">
+            <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="1" y="1" width="239" height="739"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <splitView dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="rxm-bF-cgR">
+                        <rect key="frame" x="-1" y="24" width="241" height="716"/>
+                        <subviews>
+                            <customView fixedFrame="YES" id="79P-hA-od8" userLabel="Page Structure">
+                                <rect key="frame" x="0.0" y="0.0" width="241" height="454"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                            <customView fixedFrame="YES" id="2BD-Dz-PDh" userLabel="Pages">
+                                <rect key="frame" x="0.0" y="455" width="241" height="146"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                            <customView fixedFrame="YES" id="pp4-L8-EHW" userLabel="Compositions">
+                                <rect key="frame" x="0.0" y="602" width="241" height="114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="241" id="Rgv-5L-KTo"/>
+                        </constraints>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UHw-rn-Ffo" userLabel="Search Box">
+                        <rect key="frame" x="-1" y="-1" width="241" height="25"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="239" height="23"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KCt-DJ-oxl">
+                                    <rect key="frame" x="-1" y="4" width="240" height="16"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIColorInvert">
+                                            <configuration>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" drawsBackground="YES" usesSingleLineMode="YES" id="To4-tb-3ZH">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                    </searchFieldCell>
+                                </searchField>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Fv5-N8-SIj"/>
+                            <constraint firstAttribute="width" constant="241" id="bDf-06-y7z"/>
+                        </constraints>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UHw-rn-Ffo" secondAttribute="bottom" id="9tw-2G-gD9"/>
+                <constraint firstItem="UHw-rn-Ffo" firstAttribute="top" secondItem="rxm-bF-cgR" secondAttribute="bottom" id="JUa-0w-wbX"/>
+                <constraint firstItem="rxm-bF-cgR" firstAttribute="leading" secondItem="S9c-S8-SVM" secondAttribute="leading" id="UbE-gA-SVU"/>
+                <constraint firstAttribute="trailing" secondItem="UHw-rn-Ffo" secondAttribute="trailing" id="a8T-2j-CXy"/>
+                <constraint firstItem="rxm-bF-cgR" firstAttribute="top" secondItem="S9c-S8-SVM" secondAttribute="top" id="f4Q-tO-Rw2"/>
+                <constraint firstItem="UHw-rn-Ffo" firstAttribute="leading" secondItem="S9c-S8-SVM" secondAttribute="leading" id="kcq-by-mSD"/>
+                <constraint firstAttribute="trailing" secondItem="rxm-bF-cgR" secondAttribute="trailing" id="uXi-uW-iBV"/>
+                <constraint firstItem="UHw-rn-Ffo" firstAttribute="top" secondItem="rxm-bF-cgR" secondAttribute="bottom" id="z7i-fd-Fvt"/>
+            </constraints>
+            <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="246.5" y="-780.5"/>
+        </box>
+    </objects>
+</document>

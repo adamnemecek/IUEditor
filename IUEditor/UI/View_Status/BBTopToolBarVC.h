@@ -10,4 +10,10 @@
 
 @interface BBTopToolBarVC : NSViewController
 
+
+/**
+ @brief connection between BBWC's sourceManager & BBTopToolBarVC's children VCs
+ */
+- (void)setSourceManager:(id)sourceManager;
+
 @end

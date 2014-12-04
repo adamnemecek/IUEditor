@@ -242,7 +242,7 @@
 
 
 #pragma mark - cell specivfic action (add, name editing)
-
+#if 0
 - (void)makeNewPageWithlayoutCode:(IUPageLayout)layoutCode{
  
     [[self.project identifierManager] resetUnconfirmedIUs];
@@ -326,6 +326,7 @@
     }
     
 }
+#endif
 
 #pragma mark - name change
 - (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor{
@@ -337,7 +338,7 @@
     
     return YES;
 }
-
+#if 0
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor{
     NSAssert(_project.identifierManager, @"");
     
@@ -408,6 +409,7 @@
     }
     return NO;
 }
+#endif
 
 #pragma mark -
 #pragma mark drag and drop

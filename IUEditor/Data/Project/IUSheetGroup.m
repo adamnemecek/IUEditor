@@ -20,8 +20,8 @@
     return self;
 }
 
-- (BOOL)isFileItemGroup{
-    return YES;
+- (BOOL)isLeaf{
+    return NO;
 }
 
 - (id)copyWithZone:(NSZone *)zone{
@@ -34,7 +34,7 @@
 }
 
 -(id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self init];
+    self = [super initWithJDCoder:aDecoder];
     if(self){
         [self.undoManager disableUndoRegistration];
         [aDecoder decodeToObject:self withProperties:[IUSheetGroup properties]];
@@ -47,6 +47,7 @@
 
 
 -(void)encodeWithJDCoder:(JDCoder *)aCoder{
+    [super encodeWithJDCoder:aCoder];
     [aCoder encodeFromObject:self withProperties:[IUSheetGroup properties]];
     [aCoder encodeObject:_children forKey:@"_children"];
 }

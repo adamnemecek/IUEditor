@@ -13,8 +13,10 @@
 
 #import "BBTopToolBarVC.h"
 
+#import "LMCanvasVC.h"
 
 //property VCs
 #import "BBWidgetLibraryVC.h"
+#import "BBProjectStructureVC.h"
 
 #endif

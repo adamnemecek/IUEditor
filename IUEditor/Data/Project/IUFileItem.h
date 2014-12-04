@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JDCoder.h"
 
 @class IUProject;
 @protocol IUFileItemProtocol <NSObject>
@@ -23,7 +24,7 @@
 - (IUProject *)project;
 - (NSString *)name;
 - (id <IUFileItemProtocol>)parentFileItem;
-- (BOOL)isFileItemGroup;
+- (BOOL)isLeaf;
 @end
 
 
@@ -31,9 +32,10 @@
  IUFileItem. You should not use this class. 
  Use IUProject, IUSheet or IUSheetGroup instead
  */
-@interface IUFileItem : NSObject <IUFileItemProtocol>
+@interface IUFileItem : NSObject <IUFileItemProtocol, JDCoding>
 - (IUProject *)project;
 @property NSString *name;
 @property (weak) id <IUFileItemProtocol> parentFileItem;
+
 
 @end

@@ -69,8 +69,8 @@
     return NO;
 }
 
-- (BOOL)isFileItemGroup{
-    return NO;
+- (BOOL)isLeaf{
+    return YES;
 }
 
 /*

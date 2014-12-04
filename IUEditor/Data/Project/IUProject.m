@@ -50,8 +50,8 @@
 #pragma mark - 
 
 
-- (BOOL)isFileItemGroup{
-    return YES;
+- (BOOL)isLeaf{
+    return NO;
 }
 
 - (NSArray *)childrenFileItems{

@@ -84,18 +84,19 @@
 
 #define IUNotificationSelectionWillChange @"IUNotificationSelectionWillChange" //called when selection is changed
 #define IUNotificationSelectionDidChange @"IUNotificationSelectionDidChange" //called when selection is changed
-
-
 #define IUNotificationStructureDidChange @"IUNotificationStructureDidChange" //called when IUstructure changed, usually occured by addItem, removeItem, addIU, removeIU or changeIUIndex, renaming
 
-// followings are IUNotificationStructureDidChange notification userInfo
-#define IUNotificationStructureChangeType @"ChangeType"  
+// notification for Sheet Conroller
+#define IUNotificationSheetSelectionWillChange @"IUNotificationSheetSelectionWillChange"
+#define IUNotificationSheetSelectionDidChange @"IUNotificationSheetSelectionDidChange"
+#define IUNotificationSheetStructureDidChange @"IUNotificationSheetStructureDidChange"
+
+// followings are IUNotificationStructureDidChange/IUNotificationSheetStructureDidChange notification userInfo
+#define IUNotificationStructureChangeType @"ChangeType"
 #define IUNotificationStructureAdding @"Add"
 #define IUNotificationStructureChangeRemoving @"Remove"
 #define IUNotificationStructureChangeReindexing @"Reindex"
 #define IUNotificationStructureChangeTypeRenaming @"Rename"
-
-
 #define IUNotificationStructureChangedIU @"ChangedIU"
 
 
@@ -141,7 +142,7 @@
 #define IUKeyCodeArrowDown 125
 #define IUKeyCodeArrowUp 126
 
-#define __storage_deprecated
+#define __storage_deprecated __deprecated
 
 
 

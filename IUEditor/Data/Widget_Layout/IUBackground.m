@@ -13,7 +13,7 @@
 @end
 
 
-@implementation IUBackground __storage_deprecated
+@implementation IUBackground 
 
 
 -(BOOL)shouldCompileX{

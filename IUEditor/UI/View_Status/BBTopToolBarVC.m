@@ -35,10 +35,15 @@
     return self;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [_commandView addSubviewFullFrame:_commandVC.view];
+}
+
+- (void)setSourceManager:(id)sourceManager{
+    [_commandVC setSourceManager:sourceManager];
 }
 
 @end
