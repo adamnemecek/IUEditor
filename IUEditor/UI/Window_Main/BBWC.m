@@ -83,9 +83,11 @@
         _sourceManager = [[IUSourceManager alloc] init];
         [_sourceManager setCanvasVC:_canvasVC];
         
+        _iuController = [[IUController alloc] init];
         
         //initailize manager
         [_topToolBarVC setSourceManager:_sourceManager];
+        [_projectStructureVC setIuController:_iuController];
         
       
     }
@@ -237,17 +239,18 @@
 }
 
 #pragma mark - manage Sheets
+
 - (void)changeSheetSelection:(NSNotification *)notification{
     
-    id selectedObject = [[notification.userInfo objectForKey:@"selectedObject"] firstObject];
+    id selectedObject = [notification.userInfo objectForKey:@"selectedObject"];
     if ([selectedObject isKindOfClass:[IUSheet class]] ){
         IUSheet *sheet = selectedObject;
+        [_iuController setContent:sheet];
         [self.sourceManager loadSheet:sheet];
         [_canvasVC setSheet:sheet];
         
     }
-    
-    
+
 }
 
 

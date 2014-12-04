@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUSheetController.h"
+#import "IUController.h"
 
 @interface BBProjectStructureVC : NSViewController
 
 //Controllers
 @property (nonatomic) IUSheetController *pageController;
 @property (nonatomic) IUSheetController *classController;
-
+@property (nonatomic) IUController *iuController;
 
 @end

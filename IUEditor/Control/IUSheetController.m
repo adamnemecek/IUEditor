@@ -58,7 +58,7 @@
 }
 
 - (BOOL)setSelectionIndexPath:(NSIndexPath *)indexPath{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
     
     NSIndexPath *currentIndexPath = [self selectionIndexPath];
     if(currentIndexPath){
@@ -66,7 +66,7 @@
     }
     BOOL result = [super setSelectionIndexPaths:@[indexPath]];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
 
     return result;
 }

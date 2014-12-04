@@ -239,6 +239,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 //children
 - (NSArray*)children;
+- (BOOL)hasChildren;
 - (NSMutableArray*)allChildren;
 - (NSMutableArray *)allIdentifierChildren;
 

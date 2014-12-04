@@ -10,6 +10,7 @@
 
 #import "IUSourceManager.h"
 #import "IUSheetController.h"
+#import "IUController.h"
 
 typedef enum{
     BBPropertyTabTypeWidget,
@@ -37,6 +38,6 @@ typedef enum{
 @property IUSourceManager *sourceManager;
 @property IUSheetController *pageController;
 @property IUSheetController *classController;
-
+@property IUController *iuController;
 
 @end

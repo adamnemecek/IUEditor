@@ -733,6 +733,12 @@ e.g. 만약 css로 옮긴다면)
 -(NSArray*)children{
     return [_m_children copy];
 }
+- (BOOL)hasChildren{
+    if (self.children.count > 0){
+        return YES;
+    }
+    return NO;
+}
 
 #pragma mark should
 

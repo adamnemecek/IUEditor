@@ -69,6 +69,8 @@
 		3D082F881A30544100B653B1 /* BBNavigationOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D082F871A30544100B653B1 /* BBNavigationOutlineView.m */; };
 		3D082F8C1A30652000B653B1 /* BBClassNavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D082F8A1A30652000B653B1 /* BBClassNavigationVC.m */; };
 		3D082F8D1A30652000B653B1 /* BBClassNavigationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D082F8B1A30652000B653B1 /* BBClassNavigationVC.xib */; };
+		3D082F911A306C3D00B653B1 /* BBPageStructureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D082F8F1A306C3D00B653B1 /* BBPageStructureVC.m */; };
+		3D082F921A306C3D00B653B1 /* BBPageStructureVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D082F901A306C3D00B653B1 /* BBPageStructureVC.xib */; };
 		3D2EF37D19F7526400BBBAE5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */; };
 		3D2EF37F19F7526B00BBBAE5 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */; };
 		3D2EF38119F7527000BBBAE5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38019F7527000BBBAE5 /* AVKit.framework */; };
@@ -830,6 +832,9 @@
 		3D082F891A30652000B653B1 /* BBClassNavigationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBClassNavigationVC.h; path = UI/View_Selection/BBClassNavigationVC.h; sourceTree = "<group>"; };
 		3D082F8A1A30652000B653B1 /* BBClassNavigationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBClassNavigationVC.m; path = UI/View_Selection/BBClassNavigationVC.m; sourceTree = "<group>"; };
 		3D082F8B1A30652000B653B1 /* BBClassNavigationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBClassNavigationVC.xib; path = UI/View_Selection/BBClassNavigationVC.xib; sourceTree = "<group>"; };
+		3D082F8E1A306C3D00B653B1 /* BBPageStructureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPageStructureVC.h; path = UI/View_Selection/BBPageStructureVC.h; sourceTree = "<group>"; };
+		3D082F8F1A306C3D00B653B1 /* BBPageStructureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPageStructureVC.m; path = UI/View_Selection/BBPageStructureVC.m; sourceTree = "<group>"; };
+		3D082F901A306C3D00B653B1 /* BBPageStructureVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPageStructureVC.xib; path = UI/View_Selection/BBPageStructureVC.xib; sourceTree = "<group>"; };
 		3D2EF35319F751FF00BBBAE5 /* IUEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D2EF37C19F7526400BBBAE5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3D2EF37E19F7526B00BBBAE5 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -2439,6 +2444,9 @@
 				3D082F631A30359000B653B1 /* BBProjectStructureVC.h */,
 				3D082F641A30359000B653B1 /* BBProjectStructureVC.m */,
 				3D082F651A30359000B653B1 /* BBProjectStructureVC.xib */,
+				3D082F8E1A306C3D00B653B1 /* BBPageStructureVC.h */,
+				3D082F8F1A306C3D00B653B1 /* BBPageStructureVC.m */,
+				3D082F901A306C3D00B653B1 /* BBPageStructureVC.xib */,
 				3D082F681A30372A00B653B1 /* BBPageNavigationVC.h */,
 				3D082F691A30372A00B653B1 /* BBPageNavigationVC.m */,
 				3D082F6A1A30372A00B653B1 /* BBPageNavigationVC.xib */,
@@ -3710,6 +3718,7 @@
 				3D2EFC0919F7883700BBBAE5 /* jquery.easing.1.3.js in Resources */,
 				3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */,
 				3D2EFB5919F786C700BBBAE5 /* facebook46-128.png in Resources */,
+				3D082F921A306C3D00B653B1 /* BBPageStructureVC.xib in Resources */,
 				3DE462BF19FA4A2600A75567 /* cs_pc_01.png in Resources */,
 				3D2EFB7419F786C700BBBAE5 /* live-help-128.png in Resources */,
 				3D2EFB3A19F786C700BBBAE5 /* Check_Mark.png in Resources */,
@@ -4357,6 +4366,7 @@
 				3D2EF58F19F782C700BBBAE5 /* LMStartTemplateVC.m in Sources */,
 				3D2EFC4F19F788BA00BBBAE5 /* JDFileUtil.m in Sources */,
 				3D2EF51819F781FB00BBBAE5 /* WPCommentObject.m in Sources */,
+				3D082F911A306C3D00B653B1 /* BBPageStructureVC.m in Sources */,
 				3D2EF5AD19F7830100BBBAE5 /* LMHelpLargeVideoPopoverVC.m in Sources */,
 				3D2EFC2119F7888400BBBAE5 /* NSString+IUTag.m in Sources */,
 				3D2EF65C19F7848F00BBBAE5 /* LMAppearanceColorVC.m in Sources */,
