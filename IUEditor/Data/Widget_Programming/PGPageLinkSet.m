@@ -20,8 +20,8 @@
     return [NSImage imageNamed:@"stack_page_nav"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypePG;
++ (NSString *)widgetType{
+    return kIUWidgetTypeProgramming;
 }
 
 

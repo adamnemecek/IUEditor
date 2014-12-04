@@ -20,8 +20,8 @@
     return [NSImage imageNamed:@"stack_textview"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypePG;
++ (NSString *)widgetType{
+    return kIUWidgetTypeProgramming;
 }
 
 #pragma mark - Initialize

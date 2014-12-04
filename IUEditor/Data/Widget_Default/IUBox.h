@@ -32,6 +32,12 @@ typedef enum{
     IUWidgetTypeWP,
 }IUWidgetType;
 
+/* widget type */
+static NSString *kIUWidgetTypePrimary = @"Primary";
+static NSString *kIUWidgetTypeSecondary = @"Secondary";
+static NSString *kIUWidgetTypeProgramming = @"Programming";
+static NSString *kIUWidgetTypeWordpress = @"Wordpress";
+
 
 typedef enum{
     IUTextInputTypeNone,
@@ -65,7 +71,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 + (NSImage *)classImage;
 + (NSImage *)navigationImage;
 + (NSString *)shortDescription;
-+ (IUWidgetType)widgetType;
++ (NSString *)widgetType;
 
 -(id)initWithPreset;
 

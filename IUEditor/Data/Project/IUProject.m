@@ -30,12 +30,6 @@
 }
 
 #pragma mark - class attributes
-+ (NSArray *)widgets {
-    return @[@{@"name":@"Base", @"image":@"sample.jpeg", @"widgets":@[@"IUBox", @"IUText", @"IUImage", @"IUHTML"]},
-             @{@"name":@"Composite", @"image":@"sample.jpeg", @"widgets":@[@"IUFBLike", @"IUWebMovie", @"IUGoogleMap"]},
-             ];
-}
-
 + (NSArray *)widgetList{
     return @[
              @"IUBox", @"IUText", @"IUCenterBox", @"IUImage", @"PGSubmitButton", @"PGForm", @"IUImport",

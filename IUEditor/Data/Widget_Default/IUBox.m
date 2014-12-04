@@ -64,8 +64,8 @@
     return NSLocalizedStringFromTable(key, @"description", @"iubox short description");
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypePrimary;
++ (NSString *)widgetType{
+    return kIUWidgetTypePrimary;
 }
 
 /* Note

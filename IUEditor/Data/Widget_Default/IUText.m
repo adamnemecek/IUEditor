@@ -10,8 +10,8 @@
 
 @implementation IUText
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypePrimary;
++ (NSString *)widgetType{
+    return kIUWidgetTypePrimary;
 }
 + (NSImage *)classImage{
     return [NSImage imageNamed:@"tool_text"];

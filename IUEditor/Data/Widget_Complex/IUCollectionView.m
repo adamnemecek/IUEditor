@@ -20,8 +20,8 @@
     return [NSImage imageNamed:@"stack_collection"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 

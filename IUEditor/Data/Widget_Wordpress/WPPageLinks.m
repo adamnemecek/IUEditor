@@ -21,9 +21,10 @@
     return [NSImage imageNamed:@"stack_page_nav"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
+
 
 
 #pragma mark - initialize

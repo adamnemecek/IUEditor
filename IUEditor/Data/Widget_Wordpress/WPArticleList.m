@@ -29,8 +29,8 @@
     return [NSImage imageNamed:@"stack_wparticlelist"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
 
 

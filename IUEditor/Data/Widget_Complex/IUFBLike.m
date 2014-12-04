@@ -26,8 +26,8 @@
     return [NSImage imageNamed:@"stack_fblike"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 #pragma mark - Initialize

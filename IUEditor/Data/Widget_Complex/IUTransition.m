@@ -30,8 +30,8 @@
     return [NSImage imageNamed:@"stack_transition"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 

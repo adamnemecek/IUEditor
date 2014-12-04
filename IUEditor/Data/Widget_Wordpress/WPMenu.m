@@ -18,9 +18,10 @@
     return [NSImage imageNamed:@"stack_wpmenu"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
+
 
 
 #pragma mark - initialize

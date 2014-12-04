@@ -154,7 +154,7 @@
         _project = document.project;
         
         //load properties when project is set
-        [_widgetLibraryVC setWidgets:[[_project class] widgets]];
+        [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
         
         
         //set iudata is connected

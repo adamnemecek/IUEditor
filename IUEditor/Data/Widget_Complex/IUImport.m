@@ -22,8 +22,8 @@
     return [NSImage imageNamed:@"stack_render"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 #pragma mark - init

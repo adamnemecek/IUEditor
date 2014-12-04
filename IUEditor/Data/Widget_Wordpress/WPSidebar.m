@@ -22,8 +22,8 @@
     return [NSImage imageNamed:@"stack_wpsidebar"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
 
 

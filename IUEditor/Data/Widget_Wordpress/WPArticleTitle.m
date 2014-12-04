@@ -16,8 +16,8 @@
     return [NSImage imageNamed:@"stack_wpsitetitle"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
 
 

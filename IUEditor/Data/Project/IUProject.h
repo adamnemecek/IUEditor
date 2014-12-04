@@ -75,8 +75,6 @@ static NSString *IUClassGroupName = @"class";
 + (NSArray *)compilerRules;
 + (NSString *)defaultCompilerRule;
 
-+ (NSArray *)widgets;
-
 
 
 /**

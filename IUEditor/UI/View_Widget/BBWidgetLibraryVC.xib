@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBWidgetLibraryVC">
             <connections>
-                <outlet property="groupSelectPopupBtn" destination="zyy-t6-dWe" id="R2r-92-PXi"/>
                 <outlet property="tableView" destination="Gze-79-YqO" id="VQL-Or-FHH"/>
                 <outlet property="view" destination="qdd-Qf-01f" id="z1Q-jg-kzD"/>
+                <outlet property="widgetTypePopUpButton" destination="zyy-t6-dWe" id="BnJ-Jv-mOl"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -65,13 +65,9 @@
                                                         <menuItem title="Wordpress" id="Qhv-eC-4yN"/>
                                                     </items>
                                                 </menu>
-                                                <connections>
-                                                    <binding destination="-2" name="content" keyPath="self.namesOfWidgetGroups" id="285-Lf-e8C"/>
-                                                    <binding destination="-2" name="selectedIndex" keyPath="self.selectedGroupIndex" previousBinding="285-Lf-e8C" id="uco-lp-cji"/>
-                                                </connections>
                                             </popUpButtonCell>
                                             <connections>
-                                                <binding destination="-2" name="selectedIndex" keyPath="self.selectedGroupIndex" id="AH3-Fc-wYl"/>
+                                                <action selector="clickWidgetTypeButton:" target="-2" id="rgj-4g-34f"/>
                                             </connections>
                                         </popUpButton>
                                         <button translatesAutoresizingMaskIntoConstraints="NO" id="1C3-NK-eyy" userLabel="View Button">

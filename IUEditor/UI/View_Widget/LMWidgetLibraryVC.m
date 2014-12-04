@@ -65,6 +65,7 @@
         object.image = [iuclass classImage];
         object.shortDesc = [iuclass shortDescription];
         
+        /*
         switch ([iuclass widgetType]) {
             case IUWidgetTypePrimary:
                 [_primaryWidgets addObject:object];
@@ -82,6 +83,7 @@
             default:
                 break;
         }
+         */
     }
     
     

@@ -24,8 +24,8 @@
     return [NSImage imageNamed:@"stack_carousel"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 

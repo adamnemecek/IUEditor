@@ -64,12 +64,12 @@
 
     [[[testWC window] contentView] addSubview:vc.view];
     
-    [vc setWidgets:[IUProject widgets]];
+    [vc setWidgetNameList:[IUProject widgetList]];
     
-    XCTAssertEqualObjects([[vc.groupSelectPopupBtn selectedItem] title], @"Base");
+//    XCTAssertEqualObjects([[vc.groupSelectPopupBtn selectedItem] title], @"Base");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        vc.selectedGroupIndex = 1;
+//        vc.selectedGroupIndex = 1;
     });
     
     [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {

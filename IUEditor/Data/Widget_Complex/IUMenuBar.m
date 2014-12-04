@@ -22,8 +22,8 @@
     return [NSImage imageNamed:@"stack_navi"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 

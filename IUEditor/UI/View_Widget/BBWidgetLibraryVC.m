@@ -13,8 +13,10 @@
 @interface BBWidgetLibraryVC () <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (weak) IBOutlet NSTableView *tableView;
-- (NSArray *)namesOfWidgetGroups; //provides content in popupbutton
+@property (weak) IBOutlet NSPopUpButton *widgetTypePopUpButton;
 
+
+- (NSArray *)namesOfWidgetTypes; //provides content in popupbutton
 @end
 
 
@@ -28,14 +30,29 @@
 
 
 @implementation BBWidgetLibraryVC {
-    NSArray *_widgets;
+    NSDictionary *_widgets;
     BBWidgetLibraryViewCell *_selectedCell;
     NSArray *_widgetCells; /* should be saved for retain selection */
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [_widgetTypePopUpButton bind:NSContentBinding toObject:self withKeyPath:@"namesOfWidgetTypes" options:IUBindingDictNotRaisesApplicable];
+    [_widgetTypePopUpButton selectItemWithTitle:@"All"];
+    [self reloadWidgets];
+
+}
+
+- (void)reloadWidgets{
+    [self makeWidgetCells];
+    [self.tableView reloadData];
+    [self.tableView deselectAll:self];
+}
+
 
 - (void)tableViewSelectionIsChanging:(NSNotification *)notification{
-    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
+    BBWidgetLibraryViewCell *cell = _tableView.selectedCell;
     
     if (cell == nil) { //clear selection
         _selectedCell.isSelected = NO;
@@ -50,38 +67,45 @@
     }
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (IBAction)clickWidgetTypeButton:(id)sender {
+    [self reloadWidgets];
 }
 
-- (void)setSelectedGroupIndex:(NSInteger)selectedGroupIndex{
-    [self willChangeValueForKey:@"selectedGroupIndex"];
+- (void)setWidgetNameList:(NSArray *)widgetNameList {
+    [self willChangeValueForKey:@"namesOfWidgetTypes"];
     
-    _selectedGroupIndex = selectedGroupIndex;
-    [self makeWidgetCells];
-    [self.tableView reloadData];
-    [self tableViewSelectionIsChanging:nil]; // clear selection
+    NSMutableDictionary *widgetTypeDictionary = [NSMutableDictionary dictionary];
     
-    [self didChangeValueForKey:@"selectedGroupIndex"];
+    [widgetTypeDictionary setObject:widgetNameList forKey:@"All"];
+
+    
+    for(NSString *className in widgetNameList){
+        Class widgetClass = NSClassFromString(className);
+        NSString *widgetType = [widgetClass widgetType];
+        NSMutableArray *widgetTypeList = [widgetTypeDictionary objectForKey:widgetType];
+        if(widgetTypeList == nil){
+            widgetTypeList = [NSMutableArray array];
+            [widgetTypeDictionary setObject:widgetTypeList forKey:widgetType];
+        }
+        
+        [widgetTypeList addObject:className];
+        
+    }
+    
+    _widgets = [widgetTypeDictionary copy];
+    
+    [self didChangeValueForKey:@"namesOfWidgetTypes"];
+    
+    [self reloadWidgets];
 }
 
-- (void)setWidgets:(NSArray *)widgets {
-    [self willChangeValueForKey:@"namesOfWidgetGroups"];
-    
-    _widgets = [widgets copy];
-    [self makeWidgetCells];
-    [self.tableView reloadData];
-    [self tableViewSelectionIsChanging:nil]; // clear selection
-    
-    [self didChangeValueForKey:@"namesOfWidgetGroups"];
-}
 
-- (NSArray *)namesOfWidgetGroups{
-    return [_widgets valueForKey:@"name"];
+- (NSArray *)namesOfWidgetTypes{
+    return [_widgets allKeys];
 }
 
 - (void)makeWidgetCells {
-    NSArray *widgetList = _widgets[_selectedGroupIndex][@"widgets"];
+    NSArray *widgetList = _widgets[[_widgetTypePopUpButton titleOfSelectedItem]];
     
     NSMutableArray *widgetCellMutableArray = [NSMutableArray array];
     for (NSString *widgetName in widgetList) {

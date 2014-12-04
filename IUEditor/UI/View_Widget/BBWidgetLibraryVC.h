@@ -21,16 +21,10 @@
 
 /**
  set widgets in vc
- @param widgets: NSArray which contains NSDictionary which contains {@"name": group name, @"image": a group image, @"widgets": an array of nsstrings, which are widget-names}
+ @param widgets: NSArray which contains widget's class name
  */
-- (void)setWidgets:(NSArray *)widgets;
+- (void)setWidgetNameList:(NSArray *)widgetNameList;
 
 
-//////////////////////////////////////////////////
-// for unit test only
-
-@property (weak) IBOutlet NSPopUpButton *groupSelectPopupBtn;
-@property (nonatomic) NSInteger selectedGroupIndex; // selected popup index
-//////////////////////////////////////////////////
 
 @end

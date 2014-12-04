@@ -25,8 +25,8 @@
     return [NSImage imageNamed:@"stack_twitter"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 #pragma mark - init

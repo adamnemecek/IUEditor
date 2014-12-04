@@ -20,8 +20,8 @@
     return [NSImage imageNamed:@"stack_wpsitedesc"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeWP;
++ (NSString *)widgetType{
+    return kIUWidgetTypeWordpress;
 }
 
 

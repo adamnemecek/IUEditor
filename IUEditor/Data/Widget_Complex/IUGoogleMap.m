@@ -22,8 +22,8 @@
     return [NSImage imageNamed:@"stack_map"];
 }
 
-+ (IUWidgetType)widgetType{
-    return IUWidgetTypeSecondary;
++ (NSString *)widgetType{
+    return kIUWidgetTypeSecondary;
 }
 
 #pragma mark - Initialize
