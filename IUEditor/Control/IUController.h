@@ -42,6 +42,7 @@
 - (BOOL)isSelectionSameClass;
 - (NSString *)selectionClassName;
 
+
 @property NSUndoManager *undoManager;
 
 @end

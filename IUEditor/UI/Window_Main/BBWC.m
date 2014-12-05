@@ -109,6 +109,7 @@
         //initailize manager
         [_topToolBarVC setSourceManager:_sourceManager];
         [_projectStructureVC setIuController:_iuController];
+        [_structureToolBarVC setIuController:_iuController];
         
 #if DEBUG
         _debugWC = [[LMDebugSourceWC alloc] initWithWindowNibName:@"LMDebugSourceWC"];

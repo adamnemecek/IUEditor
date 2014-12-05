@@ -7,7 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUController.h"
 
-@interface BBStructureToolBarVC : NSViewController
+@interface BBStructureToolBarVC : NSViewController <NSPathControlDelegate>
+
+@property (nonatomic) IUController *iuController;
 
 @end
+

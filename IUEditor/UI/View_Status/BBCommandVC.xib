@@ -75,7 +75,7 @@
                                             </configuration>
                                         </ciFilter>
                                     </contentFilters>
-                                    <popUpButtonCell key="cell" type="bevel" title="Presentation" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="gCw-rS-MEE" id="Ux4-AA-Xwr">
+                                    <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Ux4-AA-Xwr">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" id="jIA-Ic-4Ee">
@@ -83,7 +83,7 @@
                                                 <menuItem title="HTML" id="m7j-sP-cEX"/>
                                                 <menuItem title="Django" id="v0b-nC-FvE"/>
                                                 <menuItem title="Wordpress" id="TUh-kW-QQt"/>
-                                                <menuItem title="Presentation" state="on" id="gCw-rS-MEE">
+                                                <menuItem title="Presentation" id="gCw-rS-MEE">
                                                     <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>

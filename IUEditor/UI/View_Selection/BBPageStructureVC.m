@@ -75,6 +75,9 @@
         newSection.htmlID = [self.identifierManager createIdentifierWithPrefix:newSection.className];
         newSection.name = newSection.htmlID;
         [self.identifierManager addObject:newSection];
+        [self.identifierManager commit];
+        
+        [self testaddIu:newSection];
         
         //add section to pageContent
         IUPage *currentPage = [_iuController.content firstObject];
@@ -84,6 +87,25 @@
         [self.iuController rearrangeObjects];
         [self.iuController setSelectedObject:newSection];
     }
+}
+
+- (void)testaddIu:(IUBox *)iu{
+    
+    IUBox *parent = iu;
+    for(int i=0; i< 10; i++){
+        IUBox *newIU = [[IUBox alloc] initWithPreset];
+        newIU.htmlID = [self.identifierManager createIdentifierWithPrefix:newIU.className];
+        newIU.name = newIU.htmlID;
+        
+        [self.identifierManager addObject:newIU];
+        [self.identifierManager commit];
+
+        
+        [parent addIU:newIU error:nil];
+        parent = newIU;
+    }
+    
+    
 }
 
 - (IUIdentifierManager *)identifierManager{

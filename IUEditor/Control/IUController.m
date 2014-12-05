@@ -170,8 +170,13 @@
 - (BOOL)setSelectionIndexPaths:(NSArray *)indexPaths{
     //paste repeat count zero
     _pasteRepeatCount = 0;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
+
 
     BOOL result = [super setSelectionIndexPaths:indexPaths];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
 
     return result;
 }
@@ -420,7 +425,6 @@
     }
     return YES;
 }
-
 /**
  @return selection className
  if selected objects are differen class, return iubox
