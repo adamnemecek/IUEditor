@@ -20,69 +20,25 @@
 
 static NSString * IUCompilerTagOption = @"tag";
 
-typedef enum _IUCompileRule{
-    IUCompileRuleDefault,
-    IUCompileRuleDjango,
-    IUCompileRuleWordpress,
-    IUCompileRulePresentation,
-}IUCompileRule;
-
 @protocol IUCompilerProtocol <NSObject>
 - (BOOL)hasLink:(IUBox *)iu;
-
 @end
-
-
 
 
 @interface IUCompiler : NSObject <IUCompilerProtocol>
 
-@property (nonatomic) IUCompileRule    rule;
-@property NSString *webTemplateFileName;
-
-
-//html source
-- (JDCode *)htmlCode:(IUBox *)iu target:(IUTarget)target __deprecated;
-
-//css code
-- (NSString *)outputCSSSource:(IUSheet*)document mqSizeArray:(NSArray *)mqSizeArray;
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
-
-
-//meta source
-- (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project;
-
-//clip art source
-- (NSArray *)outputClipArtArray:(IUSheet *)document;
-
-
-//default function
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target;
-
-/////////////////////////////////////////
-//
-//  storage mode
-//
+@property (nonatomic, copy) NSString    *rule;
 
 /**
  Return whole web source of sheet;
  WebSource = HTML + CSS
  */
 
-- (NSString *)editorWebSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
+- (NSString *)editorSheetSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
+- (BOOL)editorIUSource:(IUBox *)box viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
+- (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort ;
 
-
-/* Will be saved as page file */
-- (NSString *)outputHTMLSource:(IUPage *)document;
-
-/* Will be saved as CSS file */
-- (NSString *)outputCSSSource_storage:(IUPage *)page;
-
-/* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (IUCSSCode *)cssCode:(IUBox *)box target:(IUTarget)target viewPort:(NSInteger)viewPort;
-
-/* if IUTarget == IUTargetOutput, viewPort will be ignored */
-- (NSString* )editorHTMLString:(IUBox *)box viewPort:(NSInteger)viewPort;
+- (BOOL)outputHTMLSource:(IUPage *)document html:(NSString **)html css:(NSString **)css;
 
 - (NSString *)jsEventFileName:(IUPage *)document;
 - (NSString *)jsEventSource:(IUPage*)document;
@@ -93,5 +49,15 @@ typedef enum _IUCompileRule{
 - (void)setJSBasePath:(NSString*)urlPath;
 - (void)setCSSBasePath:(NSString*)urlPath;
 - (void)setResourceBasePath:(NSString *)urlPath;
+
+//meta source
+- (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project;
+
+//clip art source
+- (NSArray *)outputClipArtArray:(IUSheet *)document;
+
+
+//default function
+- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target;
 
 @end

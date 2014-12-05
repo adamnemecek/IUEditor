@@ -43,8 +43,8 @@
     [box addEvent:event];
     [box2 addEventCalledByOtherIU:event];
     
-    IUEventCompiler *compiler = [[IUEventCompiler alloc] init];
-    NSDictionary *rule = [compiler unitEventRuleCode:box];
+//    IUEventCompiler *compiler = [[IUEventCompiler alloc] init];
+//    NSDictionary *rule = [compiler unitEventRuleCode:box];
     
     XCTAssertFalse(@"error");
 }

@@ -15,11 +15,11 @@ typedef enum{
 }IUCSSIdentifierType;
 
 @interface IUCSSCode : NSObject
-- (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport;
+- (NSDictionary*)stringTagDictionaryWithIdentifier:(NSInteger)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(NSInteger)viewport;
-- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport;
+- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(NSInteger)viewport;
 
-- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(int)viewport;
+- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(NSInteger)viewport;
 
 
 - (NSArray*)allViewports;

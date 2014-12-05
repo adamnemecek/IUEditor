@@ -60,7 +60,7 @@
     return code;
 }
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu target:(IUTarget)target viewPort:(int)viewPort{
+- (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
     //FIXME: Not Coded
     return [self cssCodeForIU:iu];
 }
@@ -69,6 +69,10 @@
 - (void)updateLinkCSSCode:(IUCSSCode *)code asIUBox:(IUBox *)iu{
     //REVIEW: a tag는 밑으로 들어감. 상위에 있을 경우에 %사이즈를 먹어버림.
     //밑에 child 혹은 p tag 가 없을 경우에는 a tag의 사이즈가 0이 되기 때문에 size를 만들어줌
+    return;
+    NSAssert(0, @"not yet coded");
+    
+    /*
     if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
         if(iu.textInputType == IUTextInputTypeEditable){
             [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
@@ -79,7 +83,7 @@
             [code insertTag:@"height" string:@"100%"];
         }
     }
-    
+     */
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu{
@@ -127,6 +131,7 @@
     
     IUStyleStorage *hoverStorage = (IUStyleStorage *)[_iu.hoverStyleManager storageForViewPort:viewport];
     if (hoverStorage) {
+        [code setInsertingTarget:IUTargetBoth];
         
         //css has color or image
         if(hoverStorage.imageX || hoverStorage.imageY){
@@ -149,6 +154,7 @@
             
             [code setInsertingTarget:IUTargetEditor];
             [code insertTag:@"background-color" string:editorColor];
+            [code setInsertingTarget:IUTargetBoth];
             
             if(hoverStorage.bgColorDuration){
                 [code setInsertingIdentifier:_iu.cssIdentifier];
@@ -220,7 +226,7 @@
         if(styleStorage.fontLineHeight){
             [code insertTag:@"line-height" number:styleStorage.fontLineHeight unit:IUUnitNone];
         }
-        
+        /*
         if(_compiler.rule == IUCompileRuleDjango){
             if(styleStorage.fontEllipsis){
                 [code setInsertingTarget:IUTargetOutput];
@@ -240,7 +246,7 @@
                 }
             }
         }
-        
+        */
     }
     
 }
@@ -423,7 +429,12 @@
         }
         
         /* background - image */
+#if 0
         if(styleStorage.imageName){
+            if (styleStorage.imageName) {
+                <#statements#>
+            }
+            NSAssert(0, @"not yet coded");
             NSString *imgSrc = [[_compiler imagePathWithImageName:styleStorage.imageName target:IUTargetEditor] CSSURLString];
             if(imgSrc){
                 [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
@@ -503,10 +514,9 @@
                 }
             }
         }
+#endif
+
     }
-    
-    
-    
 }
 
 
@@ -981,7 +991,8 @@
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUCarousel:(IUCarousel*)carousel{
-    
+#if 0
+
     [code setInsertingViewPort:carousel.project.maxViewPort];
     if(carousel.deselectColor){
         [code setInsertingIdentifier:carousel.pagerID withType:IUCSSIdentifierTypeNonInline];
@@ -1029,7 +1040,6 @@
     if(imageName){
         [code insertTag:@"left" number:@(carousel.leftX) unit:IUUnitPixel];
         [code insertTag:@"top" number:@(carousel.leftY) unit:IUUnitPixel];
-        
         NSString *imgSrc = [_compiler imagePathWithImageName:imageName target:IUTargetEditor];
         if(imgSrc){
             [code insertTag:@"background" string:[imgSrc CSSURLString] target:IUTargetEditor];
@@ -1054,6 +1064,7 @@
             [code insertTag:@"height" number:@(arrowImage.size.height) unit:IUCSSUnitPixel];
             [code insertTag:@"width" number:@(arrowImage.size.width) unit:IUCSSUnitPixel];
         }
+
     }
     
     [code setInsertingIdentifier:carousel.nextID withType:IUCSSIdentifierTypeNonInline];
@@ -1106,6 +1117,7 @@
             [code insertTag:@"display" string:@"inherit"];
         }
     }
+#endif
 
 }
 

@@ -222,7 +222,7 @@
         if(identifier){
             IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
             if(iu){
-                [iu setImageName:imageName];
+//                [iu setImageName:imageName];
                 [self.window makeFirstResponder:self];
                 return YES;
             }

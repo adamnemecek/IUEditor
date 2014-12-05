@@ -55,6 +55,12 @@ typedef enum _IUUnit{
  *******************************/
 extern NSString *const IUWidgetSelectionDidChangeNotification;  // called at widget library
 extern NSString *const IUWidgetKey;
- 
+
+extern NSString *const IUKey;
+extern NSString *const IUValue;
+
+extern NSString *const IUCompleTypeHTML;
+extern NSString *const IUCompleTypeDjango;
+
 
 #endif

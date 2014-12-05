@@ -77,7 +77,7 @@
     [storageManager.liveStorage setValue:@"testValue2" forKey:@"Key2"];
     XCTAssertEqual([storageManager.currentStorage valueForKey:@"Key"], @"testValue");
     
-    storageManager.currentViewPort = 1000;
+    storageManager.currentViewPort = 500;
     XCTAssertEqual([storageManager.liveStorage valueForKey:@"Key"], @"testValue");
     XCTAssertNil([storageManager.currentStorage valueForKey:@"Key"]);
     XCTAssertEqual([storageManager.defaultStorage valueForKey:@"Key"], @"testValue");
@@ -138,7 +138,7 @@
     [coder encodeRootObject:storageManager];
     
     IUDataStorageManager *decodedStorageManager = [coder decodeRootObject];
-    XCTAssertEqual(decodedStorageManager.currentViewPort,9999);
+    XCTAssertEqual(decodedStorageManager.currentViewPort,IUDefaultViewPort);
     
     IUStyleStorage *decodedStorageDefault = (IUStyleStorage *)decodedStorageManager.currentStorage;
     XCTAssertNotNil(decodedStorageDefault);

@@ -280,10 +280,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (BOOL)canSelectedWhenOpenProject;
 @property (nonatomic) IUOverflowType overflowType __deprecated;
 @property (nonatomic) BOOL lineHeightAuto;
-
-- (void)setImageName:(NSString *)imageName;
-- (NSString *)imageName;
-
 @property (nonatomic) id link;
 @property (nonatomic, weak) id divLink;
 @property BOOL linkTarget;

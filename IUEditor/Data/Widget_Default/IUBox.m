@@ -503,22 +503,6 @@
     _divLink = divLink;
 }
 
-- (void)setImageName:(NSString *)imageName{
- 
-    NSString *currentImage = self.liveStyleStorage.imageName;
-    if([currentImage isEqualToString:imageName] == NO){
-        
-        [[[self undoManager] prepareWithInvocationTarget:self] setImageName:currentImage];
-        
-        [self willChangeValueForKey:@"imageName"];
-        self.currentStyleStorage.imageName = imageName;
-        [self didChangeValueForKey:@"imageName"];
-    }
-}
-- (NSString *)imageName{
-    return self.liveStyleStorage.imageName;
-}
-
 
 //iucontroller & inspectorVC sync가 안맞는듯.
 - (id)valueForUndefinedKey:(NSString *)key{

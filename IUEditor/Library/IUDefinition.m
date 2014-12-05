@@ -9,3 +9,9 @@
 
 NSString *const IUWidgetSelectionDidChangeNotification = @"IUWidgetSelectionDidChangeNotification";
 NSString *const IUWidgetKey = @"selectedWidget";
+
+NSString *const IUKey = @"key";
+NSString *const IUValue = @"value";
+
+NSString *const IUCompleTypeHTML = @"HTML";
+NSString *const IUCompileTypeDjango = @"DJANGO";

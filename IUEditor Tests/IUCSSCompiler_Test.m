@@ -122,6 +122,8 @@
     
 }
 
+/*
+
 - (void)test6_bg{
     box.liveStyleStorage.imageName = @"hihihi.jpg";
     box.liveStyleStorage.imageSizeType = @(IUBGSizeTypeStretch);
@@ -207,6 +209,6 @@
 
 
 }
-
+*/
 
 @end

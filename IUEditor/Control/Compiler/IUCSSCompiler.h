@@ -12,20 +12,14 @@
 
 @class IUCompiler;
 
-@interface IUCSSStorageCode : NSObject
-- (IUTarget)target;
-- (NSInteger)viewPort;
-- (NSArray *)allIdentifiers;
-@end
-
 
 @interface IUCSSCompiler : NSObject
 
 /* storage mode */
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu target:(IUTarget)target viewPort:(int)viewPort;
+- (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
 
-@property IUCompiler *compiler;
+//@property IUCompiler *compiler;
 
 @end
 

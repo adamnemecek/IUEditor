@@ -436,7 +436,7 @@
 - (void)connectWithEditor{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-    
+    /*
     IUProjectType type = [self projectType];
     IUCompileRule rule;
     switch (type) {
@@ -456,7 +456,7 @@
     }
     
 //    [self setCompileRule:rule];
-    
+    */
     for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
     }

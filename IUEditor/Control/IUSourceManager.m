@@ -22,7 +22,7 @@
 
 @implementation IUSourceManager {
     __weak  id <IUSourceManagerDelegate> _canvasVC;
-    __weak  IUCompiler *_compiler;
+    IUCompiler *_compiler;
     __weak WebCanvasView *_webView;
     __weak IUProject *_project;
     
@@ -92,7 +92,7 @@
 - (void)loadSheet:(IUSheet*)sheet {
     NSAssert(_compiler, @"compiler is nil");
     
-    NSString *code = [_compiler editorWebSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
+    NSString *code = [_compiler editorSheetSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
@@ -126,54 +126,38 @@
 - (void)setNeedsUpdateHTML:(IUBox *)box{
     DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:box.htmlID];
     NSAssert(element, @"element should not nil");
-    NSString *code = [_compiler editorHTMLString:box viewPort:self.viewPort];
-    [element setOuterHTML:code];
+    NSString *htmlCode;
+    [_compiler editorIUSource:box viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    [element setOuterHTML:htmlCode];
 }
 
-- (void)setNeedsUpdateCSS:(IUBox*)box{
-    [JDLogUtil log:IULogSource key:@"updateCSS" string:box.htmlID];
-    
-    [self setNeedsUpdateCSS:box withIdentifiers:nil];
-    
-}
 
-- (void)setNeedsUpdateCSS:(IUBox *)box withIdentifiers:(NSArray *)identifiers{
-    /* get css code from compiler */    
-    IUCSSCode *code = [_compiler cssCode:box target:IUTargetEditor viewPort:self.viewPort];
-    
-    /* insert css code to inline */
+
+- (void)setNeedsUpdateCSS:(IUBox *)box{
+    /* get css code from compiler */
+    IUCSSCode *code = [_compiler editorIUCSSSource:box viewPort:_viewPort];
     NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];
+    /* insert css code to inline */
     [inlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
-        BOOL isUpdate = NO;
-        if(identifiers == nil || [identifiers containsString:selector]){
-            isUpdate = YES;
-        }
-        if(isUpdate){
-            DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
-            int length= list.length;
-            for(int i=0; i<length; i++){
-                DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
-                DOMCSSStyleDeclaration *style = element.style;
-                style.cssText = cssString;
-            }
+        DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
+        int length= list.length;
+        for(int i=0; i<length; i++){
+            DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
+            DOMCSSStyleDeclaration *style = element.style;
+            style.cssText = cssString;
         }
     }];
     
-    /* insert non-inline css : hover or css */
+
     NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewPort];
-    
+
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
-        BOOL isUpdate = NO;
-        if(identifiers == nil || [identifiers containsString:selector]){
-            isUpdate = YES;
-        }
-        if(isUpdate){
-            [self updateNonInlineCSSText:cssString withSelector:selector];
-        }
+        [self updateNonInlineCSSText:cssString withSelector:selector];
     }];
-    
-    /* remove unnecessary IUCSSCode */
+
 }
+
+
 
 -(void)updateNonInlineCSSText:(NSString *)css withSelector:(NSString *)selector{
     [JDLogUtil log:IULogSource key:@"css source" string:css];
@@ -298,6 +282,8 @@
  */
 
 - (BOOL)build:(NSError **)error {
+    JDErrorLog(@"build not coded");
+#if 0
     /*
      Note :
      Do not delete build path. Instead, overwrite files.
@@ -413,6 +399,7 @@
         }
         
     }//end of all sheet forloop
+#endif
     return YES;
 }
 

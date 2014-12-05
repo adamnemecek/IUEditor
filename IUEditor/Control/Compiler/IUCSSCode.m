@@ -556,9 +556,18 @@
     return _mainIdentifier;
 }
 
-- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(int)viewport{
+- (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(NSInteger)viewport{
     if (target == IUTargetEditor) {
-        return _editorCSSDictWithViewPort[@(viewport)][self.mainIdentifier];
+        NSDictionary *cssDict = _editorCSSDictWithViewPort[@(viewport)][self.mainIdentifier];
+        if ([cssDict count] == 0) {
+            return nil;
+        }
+        NSMutableString *returnString = [NSMutableString string];
+        for (NSString *key in cssDict) {
+            [returnString appendFormat:@"%@:%@; ", key, cssDict[key]];
+        }
+        [returnString trim];
+        return returnString;
     }
     else {
         return _outputCSSDictWithViewPort[@(viewport)][self.mainIdentifier];

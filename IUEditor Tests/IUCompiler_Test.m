@@ -48,11 +48,28 @@
     
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
-    NSString *htmlCode = [compiler editorHTMLString:box viewPort:IUDefaultViewPort];
-    XCTAssertNotNil(htmlCode);
-    XCTAssertTrue([htmlCode containsString:@"left: 50px;"]);
+    NSString *htmlCode;
+    [compiler editorIUSource:box viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    XCTAssertTrue([htmlCode containsString:@"left:50px;"]);
 }
 
+- (void)test2_BOX_COMPLEX{
+    IUBox *box = [[IUBox alloc] init];
+    box.htmlID = @"Box1";
+
+    IUBox *box2 = [[IUBox alloc] init];
+    box2.htmlID = @"Box2";
+    
+    [box addIU:box2 error:nil];
+
+    
+    IUCompiler *compiler = [[IUCompiler alloc] init];
+    NSString *htmlCode;
+    [compiler editorIUSource:box viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    XCTAssertTrue([htmlCode containsString:@"Box2"]);
+}
+
+#if 0
 - (void)test2_Import {
     /* How to use class-import */
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
@@ -68,7 +85,7 @@
     /*code not generated */
     XCTAssertFalse(YES);
 }
-
+#endif
 
 
 @end
