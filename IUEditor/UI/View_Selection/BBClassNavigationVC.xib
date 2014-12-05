@@ -42,6 +42,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickNewCompositionButton:" target="-2" id="LdO-9R-La9"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -64,6 +67,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickNewCompositionGroupButton:" target="-2" id="IcL-yP-gqu"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>

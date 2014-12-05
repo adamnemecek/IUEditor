@@ -21,15 +21,19 @@
     
     [_iuPathControl setDoubleAction:@selector(doubleClickIUPathControl:)];
     
+    //change path control when iuselection is changed
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChanged:) name:IUNotificationSelectionDidChange object:nil];
 
 }
 
 - (void)iuSelectionChanged:(NSNotificationCenter *)notification{
-    [self.iuPathControl setPathComponentCells:[self pathComponentArray]];
+    if(self.iuController.selectedObjects.count > 0){
+        [self.iuPathControl setPathComponentCells:[self pathComponentArray]];
+    }
 }
 
-#pragma mark - PathControl delegate
+#pragma mark - PathControl action
+
 - (IBAction)clickIUPathControl:(id)sender {
     NSEvent *currentEvent = [NSApp currentEvent];
     NSPoint eventPoint = [currentEvent locationInWindow];

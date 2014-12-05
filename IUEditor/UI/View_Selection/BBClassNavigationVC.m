@@ -8,6 +8,9 @@
 
 #import "BBClassNavigationVC.h"
 
+#import "IUIdentifierManager.h"
+#import "IUClass.h"
+
 @interface BBClassNavigationVC ()
 
 @property (weak) IBOutlet NSOutlineView *classOutlineView;
@@ -40,5 +43,35 @@
 }
 
 #pragma mark - manage buttons
+
+- (IBAction)clickNewCompositionButton:(id)sender {
+    if(self.classController.selectedObjects.count > 0){
+        IUClass *newClass = [[IUClass alloc] initWithPreset];
+        newClass.htmlID = [self.identifierManager createIdentifierWithPrefix:[IUClass className]];
+        newClass.name = newClass.htmlID;
+        
+        [self.identifierManager addObject:newClass];
+        [self.identifierManager commit];
+        
+        [self.classController addObject:newClass];
+
+    }
+}
+- (IBAction)clickNewCompositionGroupButton:(id)sender {
+    
+    if(self.classController.selectedObjects.count > 0){
+        IUSheetGroup *newSheetGroup = [[IUSheetGroup alloc] init];
+        newSheetGroup.name = @"Group";
+        
+        [self.classController addObject:newSheetGroup];
+        
+    }
+}
+
+- (IUIdentifierManager *)identifierManager{
+    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+}
+
+
 
 @end

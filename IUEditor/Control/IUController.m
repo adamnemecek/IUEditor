@@ -23,12 +23,9 @@
     if(self){
         [self setObjectClass:[IUBox class]];
         [self setChildrenKeyPath:@"children"];
-//        [self setLeafKeyPath:@"hasChildren"];
     }
     return self;
 }
-
-
 
 - (id)selection{
     if ([self.selectedObjects count] == 1) {
@@ -438,7 +435,7 @@
     else{
         for(IUBox *iu in [self selectedObjects]){
             if([className isEqualToString:[iu className]] ==NO){
-                return [IUBox class].className;
+                return [IUBox className];
             }
         }
         

@@ -17,9 +17,21 @@
         [self setLeafKeyPath:@"isLeaf"];
         [self setContent:sheetGroup];
         [self setObjectClass:[NSObject class]];
+        [self setAvoidsEmptySelection:NO];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionWillChange object:nil];
     }
     return self;
+}
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)sheetSelectionChange:(NSNotification *)notification{
+    id controller = notification.object;
+    if([self isNotEqualTo:controller]){
+        [self setSelectedObject:[[self content] firstObject]];
+    }
 }
 
 - (BOOL)canAddChild{
@@ -43,6 +55,16 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:nil];
 }
 
+- (void)addObject:(id <IUFileItemProtocol>)object{
+    id <IUFileItemProtocol> currentSelection = [self.selectedObjects firstObject];
+    if([currentSelection isKindOfClass:[IUSheetGroup class]]){
+        [currentSelection addFileItem:object];
+    }
+    else{
+        [currentSelection.parentFileItem addFileItem:object];
+    }
+    [self rearrangeObjects];
+}
 
 - (BOOL)setSelectionIndexPaths:(NSArray *)indexPaths{
     
@@ -60,8 +82,15 @@
     return result;
 }
 
+
 - (BOOL)setSelectionIndexPath:(NSIndexPath *)indexPath{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+    BOOL isSendNotification = NO;
+    if([[self objectAtIndexPath:indexPath] isKindOfClass:[IUSheet class]]){
+        isSendNotification = YES;
+    }
+    if(isSendNotification){
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+    }
     
     NSIndexPath *currentIndexPath = [self selectionIndexPath];
     if(currentIndexPath){
@@ -69,7 +98,9 @@
     }
     BOOL result = [super setSelectionIndexPaths:@[indexPath]];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+    if(isSendNotification){
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+    }
 
     return result;
 }

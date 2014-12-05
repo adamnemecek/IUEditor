@@ -189,8 +189,10 @@ static NSString *metaDataIUVersion = @"IUVersion";
     [self.undoManager disableUndoRegistration];
     
     if(isLoaded && [self butterflyWindowController]){
+        
     }
     else if([self butterflyWindowController]){
+//        [[self butterflyWindowController] selectFirstPage];
         isLoaded = YES;
     }
     

@@ -59,7 +59,7 @@
         [NSApp activateIgnoringOtherApps:YES];
         
         //import warning
-        warnWC =  [[LMAppWarningWC alloc] initWithWindowNibName:[LMAppWarningWC class].className];
+        warnWC =  [[LMAppWarningWC alloc] initWithWindowNibName:[LMAppWarningWC className]];
         [warnWC showWindow:self];
         [warnWC.window center];
         [warnWC.window makeKeyAndOrderFront:self];

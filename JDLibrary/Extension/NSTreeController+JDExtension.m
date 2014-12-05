@@ -28,6 +28,11 @@
 {
     return [self indexPathOfObject:anObject inNodes:[[self arrangedObjects] childNodes]];
 }
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath{
+    id node = [[self arrangedObjects] descendantNodeAtIndexPath:indexPath];
+    return [node representedObject];
+}
+
 
 - (NSArray*)indexPathsOfObject:(id)anObject
 {

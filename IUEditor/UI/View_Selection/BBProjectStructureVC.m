@@ -32,9 +32,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        _pageNavigationVC = [[BBPageNavigationVC alloc] initWithNibName:[BBPageNavigationVC class].className bundle:nil];
-        _classNavigationVC = [[BBClassNavigationVC alloc] initWithNibName:[BBClassNavigationVC class].className bundle:nil];
-        _pageStructureVC = [[BBPageStructureVC alloc] initWithNibName:[BBPageStructureVC class].className bundle:nil];
+        _pageNavigationVC = [[BBPageNavigationVC alloc] initWithNibName:[BBPageNavigationVC className] bundle:nil];
+        _classNavigationVC = [[BBClassNavigationVC alloc] initWithNibName:[BBClassNavigationVC className] bundle:nil];
+        _pageStructureVC = [[BBPageStructureVC alloc] initWithNibName:[BBPageStructureVC className] bundle:nil];
     }
     return self;
 }

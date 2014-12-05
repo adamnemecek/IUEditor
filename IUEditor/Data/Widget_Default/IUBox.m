@@ -202,7 +202,7 @@
     //create storage
     storageManagersDict = [NSMutableDictionary dictionary];
     
-    IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage className]];
     [self setStorageManager:styleManager forSelector:kIUStyleManager];
     if (self.defaultStyleManager) {
         [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
@@ -210,7 +210,7 @@
         [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
     }
     
-    IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage class].className];
+    IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage className]];
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
     if(self.positionManager){
         [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
@@ -219,10 +219,10 @@
         
     }
     
-    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage class].className];
+    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage className]];
     [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
     
-    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage className]];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
     if(self.propertyManager){
         [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];

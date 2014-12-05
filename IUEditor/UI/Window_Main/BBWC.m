@@ -89,15 +89,15 @@
         
         
         //alloc VC
-        _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC class].className bundle:nil];
-        _structureToolBarVC = [[BBStructureToolBarVC alloc] initWithNibName:[BBStructureToolBarVC class].className bundle:nil];
-        _propertyToolBarVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC class].className bundle:nil];
+        _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC className] bundle:nil];
+        _structureToolBarVC = [[BBStructureToolBarVC alloc] initWithNibName:[BBStructureToolBarVC className] bundle:nil];
+        _propertyToolBarVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
         
-        _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC class].className bundle:nil];
+        _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC className] bundle:nil];
 
         
-        _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC class].className bundle:nil];
-        _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC class].className bundle:nil];
+        _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC className] bundle:nil];
+        _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC className] bundle:nil];
         
         
         //alloc manager & controller
@@ -205,6 +205,9 @@
     
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
+    
+    [self loadFirstPage];
+    
 
 }
 
@@ -242,12 +245,22 @@
         
         [document.undoManager enableUndoRegistration];
         
+        [self loadFirstPage];
         
     }
     
-    
 }
 
+/**
+ load first page (mostly, index page)
+ called twice by setDocument and viewDidLoad
+ restoreDocument, makeNewDocument process is different
+ restoreDocument : setDocument -> viewDidLoad
+ makeNewDocument : viewDidLoad -> setDocument
+ */
+- (void)loadFirstPage{
+    [_pageController setSelectedObject:_pageController.firstSheet];
+}
 
 #pragma mark - property Icon
 
@@ -286,6 +299,7 @@
     if ([selectedObject isKindOfClass:[IUSheet class]] ){
         IUSheet *sheet = selectedObject;
         [_iuController setContent:sheet];
+        [_iuController setSelectedObject:_iuController.firstDeepestBox];
         [self.sourceManager loadSheet:sheet];
         [_canvasVC setSheet:sheet];
         

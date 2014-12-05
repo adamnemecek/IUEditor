@@ -14,6 +14,7 @@
 
 @optional
 - (NSArray *)childrenFileItems;
+- (NSArray *)allChildrenFileItems;
 - (void)addFileItem:(id <IUFileItemProtocol>) fileItem;
 - (void)removeFileItem:(id <IUFileItemProtocol>) fileItem;
 - (void)changeFileItem:(id <IUFileItemProtocol>)fileItem toIndex:(NSInteger)index;

@@ -726,11 +726,27 @@
     return @[_pageGroup, _classGroup];
 }
 
-- (NSArray*)allSheets{
+- (NSArray *)allChildrenFileItems{
     NSMutableArray *array = [NSMutableArray array];
-    [array addObjectsFromArray:self.pageGroup.childrenFileItems];
-    [array addObjectsFromArray:self.classGroup.childrenFileItems];
+    [array addObjectsFromArray:self.pageGroup.allChildrenFileItems];
+    [array addObjectsFromArray:self.classGroup.allChildrenFileItems];
     return array;
+}
+
+- (NSArray*)allSheets{
+    NSMutableArray *allSheets = [NSMutableArray array];
+    [allSheets addObjectsFromArray:self.pageGroup.allChildrenFileItems];
+    [allSheets addObjectsFromArray:self.classGroup.allChildrenFileItems];
+    
+    
+    NSArray *allFileItems = [allSheets copy];
+    for(id<IUFileItemProtocol> child in allFileItems){
+        if(child.isLeaf == NO){
+            [allSheets removeObject:child];
+        }
+    }
+    
+    return allSheets;
 }
 
 - (IUClass *)classWithName:(NSString *)name{
@@ -749,7 +765,7 @@
     return _classGroup;
 }
 
-- (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup{
+- (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup __deprecated{
     /*FIXME : group 구조 바꿔야함. 동작테스트를 위해서 우선 옛날 구조 사용함 */
 
     if([sheetGroup isEqualTo:_pageGroup]){

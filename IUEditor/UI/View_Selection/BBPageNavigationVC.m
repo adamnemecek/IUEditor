@@ -36,4 +36,15 @@
     return cellView;
 }
 
+- (IBAction)clickNewPageButton:(id)sender {
+}
+- (IBAction)clickNewPageGroupButton:(id)sender {
+    
+    if(self.pageController.selectedObjects.count > 0){
+        IUSheetGroup *newSheetGroup = [[IUSheetGroup alloc] init];
+        newSheetGroup.name = @"Group";
+        [self.pageController addObject:newSheetGroup];
+    }
+}
+
 @end

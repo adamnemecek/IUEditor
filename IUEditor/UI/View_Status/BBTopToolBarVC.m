@@ -34,8 +34,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        _commandVC = [[BBCommandVC alloc] initWithNibName:[BBCommandVC class].className bundle:nil];
-        _quickWidgetVC = [[BBQuickWidgetVC alloc] initWithNibName:[BBQuickWidgetVC class].className bundle:nil];
+        _commandVC = [[BBCommandVC alloc] initWithNibName:[BBCommandVC className] bundle:nil];
+        _quickWidgetVC = [[BBQuickWidgetVC alloc] initWithNibName:[BBQuickWidgetVC className] bundle:nil];
     }
     
     return self;

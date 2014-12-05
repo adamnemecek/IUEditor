@@ -18,4 +18,6 @@
 - (IUProject *)project;
 - (IUSheet *)firstSheet;
 
+- (void)addObject:(id <IUFileItemProtocol>)object;
+
 @end

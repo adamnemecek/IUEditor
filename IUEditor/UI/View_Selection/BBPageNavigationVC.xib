@@ -194,11 +194,11 @@
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
-                    <scroller key="horizontalScroller" appearanceType="vibrantLight" verticalHuggingPriority="750" horizontal="YES" id="uhr-XV-xXt">
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="uhr-XV-xXt">
                         <rect key="frame" x="1" y="119" width="238" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" appearanceType="vibrantLight" verticalHuggingPriority="750" horizontal="NO" id="Tnh-zG-3ai">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="Tnh-zG-3ai">
                         <rect key="frame" x="224" y="17" width="15" height="102"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -229,6 +229,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickNewPageButton:" target="-2" id="vAO-fu-nLx"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -251,6 +254,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickNewPageGroupButton:" target="-2" id="VlZ-tH-6zy"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
