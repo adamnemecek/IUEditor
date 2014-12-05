@@ -56,19 +56,41 @@
     NSMutableArray *pathComponentArray = [[NSMutableArray alloc] init];
     
     IUBox *box = self.iuController.selectedObjects[0];
-    [pathComponentArray addObject:[self componentCellForIU:box]];
+    [pathComponentArray addObject:[self componentCellForIU:box isSelected:YES]];
+    
+    //add ancestor
     IUBox *parent = box.parent;
     while (parent != nil) {
-        [pathComponentArray insertObject:[self componentCellForIU:parent] atIndex:0];
+        [pathComponentArray insertObject:[self componentCellForIU:parent isSelected:NO] atIndex:0];
         parent  = parent.parent;
+    }
+    
+    //add descendant
+    if(box.children.count > 0){
+        IUBox *child = [box.children objectAtIndex:0];
+        while (child != nil) {
+            [pathComponentArray addObject:[self componentCellForIU:child isSelected:NO]];
+            if(child.children.count > 0){
+                child = [child.children objectAtIndex:0];
+            }
+            else{
+                child = nil;
+            }
+        }
     }
     
     return [pathComponentArray copy];
 }
 
-- (NSPathComponentCell *)componentCellForIU:(IUBox *)iu{
+- (NSPathComponentCell *)componentCellForIU:(IUBox *)iu isSelected:(BOOL)isSelected{
     NSPathComponentCell *componentCell = [[NSPathComponentCell alloc] init];
-    [componentCell setTextColor:[NSColor whiteColor]];
+    if(isSelected){
+        [componentCell setTextColor:[NSColor rgbColorRed:20 green:140 blue:210 alpha:1.0]];
+    }
+    else{
+        [componentCell setTextColor:[NSColor grayColor]];
+    }
+
 
     [componentCell setImage:[[iu class] navigationImage]];
 #if DEBUG
@@ -96,6 +118,7 @@
             [menuItem setRepresentedObject:child];
             [popupMenu addItem:menuItem];
         }
+        
         return popupMenu;
         
     }
