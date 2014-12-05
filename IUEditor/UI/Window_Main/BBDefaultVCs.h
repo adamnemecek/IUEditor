@@ -12,6 +12,8 @@
 
 
 #import "BBTopToolBarVC.h"
+#import "BBStructureToolBarVC.h"
+#import "BBPropertyToolBarVC.h"
 
 #import "LMCanvasVC.h"
 

@@ -31,8 +31,8 @@
 - (void)test1_BOX {
     IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
     IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
-    [identifierManager addObject:box withIdentifier:box.htmlID];
+    box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
+    [identifierManager addObject:box];
     [identifierManager commit];
     
     XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);

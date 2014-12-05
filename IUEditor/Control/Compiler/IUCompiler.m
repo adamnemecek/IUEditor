@@ -860,7 +860,7 @@
     // - 페이지를 center로 보낼수있음
     // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
     // - text editor를 불러올 수 있음.
-    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\" style='width:%dpx'>", IUSheetOuterIdentifier, frameWidth];
+    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\" style='width:%dpx'>", IUSheetOuterIdentifier, viewPort];
     [htmlCode addCodeWithIndent: [self htmlCode:document target:IUTargetEditor viewPort:viewPort]];
     [htmlCode addString:@"<div>"];
     [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];

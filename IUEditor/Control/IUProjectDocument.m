@@ -36,6 +36,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
     if(self){
         //allocation identifiermanager
         _identifierManager = [[IUIdentifierManager alloc] init];
+        _identifierManager.identifierKeyPath = @"htmlID";
+        _identifierManager.childrenKeyPath = @"children";
         
         //allocation resource root
         _resourceRootItem = [[IUResourceRootItem alloc] init];
@@ -119,8 +121,10 @@ static NSString *metaDataIUVersion = @"IUVersion";
         
         IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initAtTemporaryDirectory];
         if(newProject){
+
             _project = newProject;
-            [self.identifierManager registerIUs:_project.allSheets];
+            [self.identifierManager addObjects:_project.allSheets];
+            [self.identifierManager commit];
             
             return YES;
         }
@@ -178,7 +182,19 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 - (void)showWindows{
     [super showWindows];
-    [self showLemonSheet];
+    [self showButterflyWindow];
+}
+
+- (void)showButterflyWindow{
+    [self.undoManager disableUndoRegistration];
+    
+    if(isLoaded && [self butterflyWindowController]){
+    }
+    else if([self butterflyWindowController]){
+        isLoaded = YES;
+    }
+    
+    [self.undoManager enableUndoRegistration];
 }
 
 - (void)showLemonSheet __deprecated{
@@ -214,7 +230,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         
         [self.undoManager enableUndoRegistration];
         
-        [self showLemonSheet];
+        [self showButterflyWindow];
         
     }
 

@@ -190,10 +190,6 @@
         [_sourceManager setCanvasVC:canvasVC];
         
         
-        //source Manager setting
-        [commandVC setSourceManager:_sourceManager];
-
-        
         
         
     }

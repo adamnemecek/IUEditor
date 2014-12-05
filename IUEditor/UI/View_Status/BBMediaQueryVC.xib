@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
+            <connections>
+                <outlet property="view" destination="gZc-Fl-9XZ" id="rRB-8U-lNl"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="gZc-Fl-9XZ" userLabel="Mediaquery">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ohP-ce-NP7">
+                        <rect key="frame" x="17" y="2" width="25" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="L9k-P9-Ugx"/>
+                            <constraint firstAttribute="width" constant="25" id="q55-q0-7eh"/>
+                        </constraints>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_mediaquery" id="auP-lW-LNx"/>
+                    </imageView>
+                    <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="7Pe-4n-Xdb">
+                        <rect key="frame" x="38" y="2" width="70" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="chy-0E-emG"/>
+                            <constraint firstAttribute="height" constant="40" id="iLv-yW-Aqw"/>
+                        </constraints>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <popUpButtonCell key="cell" type="square" title="960 px" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="KXR-0L-u3s" id="gX0-8S-Vbn">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <menu key="menu" id="1P7-lY-TnT">
+                                <items>
+                                    <menuItem title="960 px" state="on" id="KXR-0L-u3s"/>
+                                    <menuItem title="768 px" id="Iw4-Rg-7Rv"/>
+                                    <menuItem title="320 px" id="hkI-qo-hi6"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="wfw-AQ-bYO" userLabel="Setting">
+                        <rect key="frame" x="108" y="2" width="26" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="B17-fU-uNp"/>
+                            <constraint firstAttribute="width" constant="26" id="yj2-fI-ait"/>
+                        </constraints>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="aeO-2R-nqp" id="WIZ-gv-KOE">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="3t7-yS-vvk">
+                                <items>
+                                    <menuItem state="on" image="NSSmartBadgeTemplate" hidden="YES" id="aeO-2R-nqp"/>
+                                    <menuItem title="Add new size" id="MvS-bL-DUM"/>
+                                    <menuItem title="Edit" id="wSS-Yc-BFy"/>
+                                    <menuItem title="Delete" id="MHd-J5-j9Q"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="7Pe-4n-Xdb" firstAttribute="top" secondItem="gZc-Fl-9XZ" secondAttribute="top" constant="-2" id="3Dd-Ue-rnp"/>
+                <constraint firstItem="ohP-ce-NP7" firstAttribute="leading" secondItem="gZc-Fl-9XZ" secondAttribute="leading" constant="17" id="59f-4p-HJS"/>
+                <constraint firstItem="wfw-AQ-bYO" firstAttribute="top" secondItem="gZc-Fl-9XZ" secondAttribute="top" constant="-2" id="6Yu-cE-Zso"/>
+                <constraint firstItem="wfw-AQ-bYO" firstAttribute="bottom" secondItem="ohP-ce-NP7" secondAttribute="bottom" id="7om-H0-tm5"/>
+                <constraint firstAttribute="trailing" secondItem="wfw-AQ-bYO" secondAttribute="trailing" constant="6" id="GkX-RI-4gm"/>
+                <constraint firstItem="wfw-AQ-bYO" firstAttribute="leading" secondItem="7Pe-4n-Xdb" secondAttribute="trailing" id="hUr-Vn-2Rj"/>
+                <constraint firstItem="wfw-AQ-bYO" firstAttribute="bottom" secondItem="7Pe-4n-Xdb" secondAttribute="bottom" id="qBS-Vt-PmB"/>
+                <constraint firstItem="ohP-ce-NP7" firstAttribute="top" secondItem="gZc-Fl-9XZ" secondAttribute="top" id="zk2-x8-ohb"/>
+            </constraints>
+            <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="1235" y="265"/>
+        </box>
+    </objects>
+    <resources>
+        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
+        <image name="ic_mediaquery" width="25" height="13"/>
+    </resources>
+</document>

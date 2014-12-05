@@ -7,7 +7,10 @@
 //
 
 #import "BBTopToolBarVC.h"
+
 #import "BBCommandVC.h"
+#import "BBQuickWidgetVC.h"
+#import "BBMediaQueryVC.h"
 
 @interface BBTopToolBarVC ()
 
@@ -24,12 +27,15 @@
 
 @implementation BBTopToolBarVC{
     BBCommandVC *_commandVC;
+    BBQuickWidgetVC *_quickWidgetVC;
+    BBMediaQueryVC *_mediaQueryVC;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
         _commandVC = [[BBCommandVC alloc] initWithNibName:[BBCommandVC class].className bundle:nil];
+        _quickWidgetVC = [[BBQuickWidgetVC alloc] initWithNibName:[BBQuickWidgetVC class].className bundle:nil];
     }
     
     return self;
@@ -40,6 +46,8 @@
     [super viewDidLoad];
 
     [_commandView addSubviewFullFrame:_commandVC.view];
+    [_quickWidgetView addSubviewFullFrame:_quickWidgetVC.view];
+    [_mediaQueryView addSubviewFullFrame:_mediaQueryVC.view];
 }
 
 - (void)setSourceManager:(id)sourceManager{

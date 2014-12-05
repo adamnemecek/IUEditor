@@ -77,7 +77,7 @@
     
     _htmlID = [aDecoder decodeObjectForKey:@"htmlID"];
     _name = [aDecoder decodeObjectForKey:@"name"];
-    _m_children = [aDecoder decodeObjectForKey:@"children"];
+    _m_children = [[aDecoder decodeObjectForKey:@"children"] mutableCopy];
     
     _linkTarget = [aDecoder decodeBoolForKey:@"linkTarget"];
     

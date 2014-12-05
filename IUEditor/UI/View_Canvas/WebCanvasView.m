@@ -138,8 +138,12 @@
     if(progress > 98){
         progress = 98;
     }
+    
+    /**
+     FIXME:
     LMWC *wc = (LMWC *)[[self window] windowController];
     [wc setProgressBarValue:progress];
+     */
     
 }
 
@@ -150,8 +154,11 @@
     //FIXME: 동시에 두개 켜지면서 하나가 로딩이 덜된것이 신호가 같이 가는 것 같음. 
     isStartVC = YES;
     [self.controller webViewdidFinishLoadFrame];
+    /**
+     FIXME:
     LMWC *wc = (LMWC *)[[self window] windowController];
     [wc stopProgressBar:self];
+     */
     [progressTimer invalidate];
 }
 

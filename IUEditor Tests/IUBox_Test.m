@@ -35,8 +35,8 @@
 - (void)test1_boxCreation {
     IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
     IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
-    [identifierManager addObject:box withIdentifier:box.htmlID];
+    box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
+    [identifierManager addObject:box];
     [identifierManager commit];
         
     XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
@@ -48,17 +48,17 @@
     IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
     
     IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createIdentifierWithKey:box.className];
-    [identifierManager addObject:box withIdentifier:box.htmlID];
+    box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
+    [identifierManager addObject:box];
     
     IUClass *class = [[IUClass alloc] initWithPreset];
-    class.htmlID = [identifierManager createIdentifierWithKey:class.className];
-    [identifierManager addObject:class withIdentifier:class.htmlID];
+    class.htmlID = [identifierManager createIdentifierWithPrefix:class.className];
+    [identifierManager addObject:class];
     [class.livePositionStorage setX:@(2000)];
 
     IUImport *import = [[IUImport alloc] initWithPreset:class];
-    import.htmlID = [identifierManager createIdentifierWithKey:import.className];
-    [identifierManager addObject:import withIdentifier:import.htmlID];
+    import.htmlID = [identifierManager createIdentifierWithPrefix:import.className];
+    [identifierManager addObject:import];
     
     [box addIU:import error:nil];
     [identifierManager commit];

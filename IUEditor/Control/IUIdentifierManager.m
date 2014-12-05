@@ -131,14 +131,15 @@
  Storage Conversion
  */
 
-- (NSString *)createIdentifierWithKey:(NSString *)key{
+
+- (NSString *)createIdentifierWithPrefix:(NSString *)prefix{
     int i=0;
     while (1) {
         i++;
-        if ([[key substringToIndex:2] isEqualTo:@"IU"]) {
-            key = [key substringFromIndex:2];
+        if ([[prefix substringToIndex:2] isEqualTo:@"IU"]) {
+            prefix = [prefix substringFromIndex:2];
         }
-        NSString *newIdentifier = [NSString stringWithFormat:@"%@%d",key, i];
+        NSString *newIdentifier = [NSString stringWithFormat:@"%@%d",prefix, i];
         if (confirmed[newIdentifier] == nil && unconfirmed[newIdentifier] == nil ) {
             return newIdentifier;
         }
@@ -152,8 +153,20 @@
     return nil;
 }
 
-- (void)addObject:(id)obj withIdentifier:(NSString *)identifier{
+- (void)addObject:(id)obj{
+    NSString *identifier = [obj valueForKeyPath:_identifierKeyPath];
     unconfirmed[identifier] = obj;
+    
+    for(id child in [obj valueForKeyPath:_childrenKeyPath]){
+        [self addObject:child];
+    }
+}
+
+
+- (void)addObjects:(id)objs{
+    for(id obj in objs){
+        [self addObject:obj];
+    }
 }
 
 - (id)objectForIdentifier:(NSString*)identifier{

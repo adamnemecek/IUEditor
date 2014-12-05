@@ -40,6 +40,12 @@
       nil]];
     
 }
+
+- (void)showCurrentSource:(id)sender{
+    NSString *htmlSource =  [(DOMHTMLElement *)[[[[_canvasVC webView] mainFrame] DOMDocument] documentElement] outerHTML];
+    [self setCurrentSource:htmlSource];
+    [self showWindow:sender];
+}
 - (void)setCurrentSource:(NSString *)source{
     [_codeTextView setString:source];
 }

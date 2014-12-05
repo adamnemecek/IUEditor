@@ -15,10 +15,13 @@
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
     self = [super init];
     if(self){
-        [aDecoder decodeToObject:self withProperties:[IUFileItem properties]];
-        
+        _name = [aDecoder decodeObjectForKey:@"name"];
     }
     return self;
+}
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+    _parentFileItem = [aDecoder decodeObjectForKey:@"parentFileItem"];
+    
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{

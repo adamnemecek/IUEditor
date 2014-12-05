@@ -11,9 +11,9 @@
 
 @interface LMDebugSourceWC : NSWindowController
 
-@property LMCanvasVC *canvasVC;
+@property (weak) LMCanvasVC *canvasVC;
 
 
-- (void)setCurrentSource:(NSString *)source;
+- (void)showCurrentSource:(id)sender;
 
 @end

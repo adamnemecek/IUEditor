@@ -26,7 +26,7 @@
 
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
-- (LMWC *)lemonWindowController;
+- (LMWC *)lemonWindowController __deprecated;
 - (BBWC *)butterflyWindowController;
 
 - (BOOL)removeResourceFileItemName:(NSString *)fileItemName;

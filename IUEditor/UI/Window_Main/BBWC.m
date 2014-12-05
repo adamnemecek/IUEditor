@@ -11,13 +11,19 @@
 #import "BBDefaultVCs.h"
 #import "IUProjectDocument.h"
 
+#if DEBUG
+
+#import "LMDebugSourceWC.h"
+
+#endif
+
 @interface BBWC ()
 
 
 //top tool bar
-@property (weak) IBOutlet NSView *topBarView;
-@property (weak) IBOutlet NSView *structureView;
-@property (weak) IBOutlet NSView *toolBarView;
+@property (weak) IBOutlet NSView *topToolBarView;
+@property (weak) IBOutlet NSView *structureToolBarView;
+@property (weak) IBOutlet NSView *propertyToolBarView;
 
 //canvas
 @property (weak) IBOutlet NSView *canvasView;
@@ -46,6 +52,9 @@
 //bottom view
 @property (weak) IBOutlet NSView *pageTabView;
 
+//debug
+@property (weak) IBOutlet NSButton *debugButton;
+
 @end
 
 @implementation BBWC{
@@ -55,11 +64,20 @@
     
     //view controllers
     BBTopToolBarVC *_topToolBarVC;
+    BBStructureToolBarVC *_structureToolBarVC;
+    BBPropertyToolBarVC *_propertyToolBarVC;
+    
     LMCanvasVC *_canvasVC;
     
     //property vcs
     BBWidgetLibraryVC *_widgetLibraryVC;
     BBProjectStructureVC *_projectStructureVC;
+    
+    
+#if DEBUG
+    LMDebugSourceWC *_debugWC;
+
+#endif
     
 }
 
@@ -72,6 +90,9 @@
         
         //alloc VC
         _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC class].className bundle:nil];
+        _structureToolBarVC = [[BBStructureToolBarVC alloc] initWithNibName:[BBStructureToolBarVC class].className bundle:nil];
+        _propertyToolBarVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC class].className bundle:nil];
+        
         _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC class].className bundle:nil];
 
         
@@ -89,6 +110,11 @@
         [_topToolBarVC setSourceManager:_sourceManager];
         [_projectStructureVC setIuController:_iuController];
         
+#if DEBUG
+        _debugWC = [[LMDebugSourceWC alloc] initWithWindowNibName:@"LMDebugSourceWC"];
+        _debugWC.canvasVC = _canvasVC;
+#endif
+        
       
     }
     return self;
@@ -96,6 +122,12 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    
+#if DEBUG
+    [_debugButton setHidden:NO];
+#else
+    [_debugButton setHidden:YES];
+#endif
     
     
     //allocation property icon matrix
@@ -158,9 +190,15 @@
     [_propertyIconBox addSubviewTopHalfFullFrame:_propertyIconMatrix];
 
     //connect VCs
-    [_topBarView addSubviewFullFrame:_topToolBarVC.view];
+    //toolbar
+    [_topToolBarView addSubviewFullFrame:_topToolBarVC.view];
+    [_structureToolBarView addSubviewFullFrame:_structureToolBarVC.view];
+    [_propertyToolBarView addSubviewFullFrame:_propertyToolBarVC.view];
+    
+    //canvas
     [_canvasView addSubviewFullFrame:_canvasVC.view];
     
+    //tab
     [_tabWidgetView addSubviewFullFrame:_widgetLibraryVC.view];
     [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
     
@@ -189,6 +227,7 @@
         
         [_projectStructureVC setPageController:_pageController];
         [_projectStructureVC setClassController:_classController];
+        
         
         //manager part
         [_sourceManager setProject:_project];
@@ -252,6 +291,15 @@
     }
 
 }
+
+#pragma mark - debug
+#if DEBUG
+
+- (IBAction)clickDebugButton:(id)sender {
+    [_debugWC showCurrentSource:self];
+}
+
+#endif
 
 
 @end

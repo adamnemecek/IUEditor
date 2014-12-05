@@ -34,6 +34,9 @@
     return ((IUSheetGroup *)[self.content firstObject]).project;
 }
 
+- (IUSheet *)firstSheet{
+    return (IUSheet *)[((IUSheetGroup *)[self.content firstObject]).childrenFileItems firstObject];
+}
 
 -(void)setContent:(id)content{
     [super setContent:content];

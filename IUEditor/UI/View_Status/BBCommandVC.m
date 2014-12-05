@@ -39,8 +39,8 @@
     [super viewDidLoad];
     
     //binding
-    [_buildTypePopupButton bind:NSContentBinding toObject:self withKeyPath:@"sourceManager.availableCompilerRule" options:IUBindingDictNotRaisesApplicable];
-    [_buildTypePopupButton bind:NSSelectedValueBinding toObject:self withKeyPath:@"sourceManager.compilerRule" options:IUBindingDictNotRaisesApplicable];
+    [_buildTypePopupButton bind:NSContentBinding toObject:self.sourceManager withKeyPath:@"availableCompilerRule" options:IUBindingDictNotRaisesApplicable];
+    [_buildTypePopupButton bind:NSSelectedValueBinding toObject:self.sourceManager withKeyPath:@"compilerRule" options:IUBindingDictNotRaisesApplicable];
     [_serverStateTextField bind:NSValueBinding toObject:self withKeyPath:@"serverState" options:IUBindingDictNotRaisesApplicable];
     
     

@@ -291,16 +291,16 @@
 - (void)htmlCode:(IUBox *)iu target:(IUTarget)target code:(JDCode *)code viewPort:(NSInteger)viewPort option:(NSDictionary *)option{
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]];
     for (NSString *className in classPedigree) {
-        NSString *str = [NSString stringWithFormat:@"htmlCodeAs%@:target:attributeDict:viewPort:", className];
+        NSString *str = [NSString stringWithFormat:@"htmlCodeAs%@:target:attributeDict:viewPort:option:", className];
         SEL selector = NSSelectorFromString(str);
         if ([self respondsToSelector:selector]) {
             
             //call widget html
             IMP imp = [self methodForSelector:selector];
-            JDCode *(*func)(id, SEL, id, IUTarget, NSDictionary *, NSInteger) = (void *)imp;
+            JDCode *(*func)(id, SEL, id, IUTarget, NSDictionary *, NSInteger, NSDictionary *) = (void *)imp;
             NSMutableDictionary *attributeDict = [self htmlAttributeForIU:iu target:target viewport:viewPort option:nil];
             
-            [code addCodeWithIndent:(JDCode *)func(self, selector, iu, target, attributeDict, viewPort)];
+            [code addCodeWithIndent:(JDCode *)func(self, selector, iu, target, attributeDict, viewPort, nil)];
             
             //add link
             if(target == IUTargetOutput){

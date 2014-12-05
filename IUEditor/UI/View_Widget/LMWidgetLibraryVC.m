@@ -111,13 +111,13 @@
 #pragma mark collectionview -drag
 - (BOOL)collectionView:(NSCollectionView *)collectionView writeItemsAtIndexes:(NSIndexSet *)indexes toPasteboard:(NSPasteboard *)pasteboard{
     NSAssert(_project, @"");
-    [_project.identifierManager resetUnconfirmedIUs];
+//    [_project.identifierManager resetUnconfirmedIUs];
     NSUInteger index = [indexes firstIndex];
     LMGeneralObject *object = [[collectionView itemAtIndex:index] representedObject];
     
     IUBox *obj = [[NSClassFromString(object.title) alloc] initWithPreset];
-    obj.htmlID = [[self identifierManager] createIdentifierWithKey:obj.className];
-    [[self identifierManager] addObject:obj withIdentifier:obj.htmlID];
+    obj.htmlID = [[self identifierManager] createIdentifierWithPrefix:obj.className];
+//    [[self identifierManager] addObject:obj withIdentifier:obj.htmlID];
     [[self identifierManager] commit];
 
     if (obj == nil) {

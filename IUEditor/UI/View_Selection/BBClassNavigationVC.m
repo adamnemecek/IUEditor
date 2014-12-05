@@ -25,6 +25,7 @@
     
 }
 
+#pragma mark - outline view delegate
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode*)item {
     NSString *cellIentifier;
@@ -37,5 +38,7 @@
     id cellView = [outlineView makeViewWithIdentifier:cellIentifier owner:self];
     return cellView;
 }
+
+#pragma mark - manage buttons
 
 @end

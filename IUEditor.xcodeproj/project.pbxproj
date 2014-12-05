@@ -24,8 +24,6 @@
 		094FA9EA1A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 094FA9E91A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m */; };
 		0965D1301A21C923000E400B /* IUEventCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 0965D12F1A21C923000E400B /* IUEventCompiler.m */; };
 		0965D1321A21CED5000E400B /* IUEvent_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 0965D1311A21CED5000E400B /* IUEvent_Test.m */; };
-		097DFEF61A2F075F004C1EAE /* BBToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097DFEF51A2F075F004C1EAE /* BBToolBar.xib */; };
-		097DFEF91A2F0840004C1EAE /* BBToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEF81A2F0840004C1EAE /* BBToolBar.m */; };
 		097DFEFB1A2F3E60004C1EAE /* IUDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09890A251A25B4C30015AF9A /* IUFileItem.m */; };
@@ -658,6 +656,14 @@
 		3D4DFF391A2EAD3200418CE0 /* BBCommandVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */; };
 		3D4DFF3D1A2ED7CA00418CE0 /* BBWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */; };
 		3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */; };
+		3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */; };
+		3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */; };
+		3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */; };
+		3DD19C7C1A316C6D00A5198E /* BBMediaQueryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C7A1A316C6D00A5198E /* BBMediaQueryVC.xib */; };
+		3DD19C811A316D7200A5198E /* BBStructureToolBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C7F1A316D7200A5198E /* BBStructureToolBarVC.m */; };
+		3DD19C821A316D7200A5198E /* BBStructureToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C801A316D7200A5198E /* BBStructureToolBarVC.xib */; };
+		3DD19C861A316E1500A5198E /* BBPropertyToolBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */; };
+		3DD19C871A316E1500A5198E /* BBPropertyToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
@@ -772,9 +778,6 @@
 		0965D12E1A21C923000E400B /* IUEventCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUEventCompiler.h; path = Control/Compiler/IUEventCompiler.h; sourceTree = "<group>"; };
 		0965D12F1A21C923000E400B /* IUEventCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUEventCompiler.m; path = Control/Compiler/IUEventCompiler.m; sourceTree = "<group>"; };
 		0965D1311A21CED5000E400B /* IUEvent_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUEvent_Test.m; sourceTree = "<group>"; };
-		097DFEF51A2F075F004C1EAE /* BBToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBToolBar.xib; path = UI/View_Status/BBToolBar.xib; sourceTree = "<group>"; };
-		097DFEF71A2F0840004C1EAE /* BBToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBToolBar.h; path = UI/View_Status/BBToolBar.h; sourceTree = "<group>"; };
-		097DFEF81A2F0840004C1EAE /* BBToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBToolBar.m; path = UI/View_Status/BBToolBar.m; sourceTree = "<group>"; };
 		097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUDefinition.m; path = Library/IUDefinition.m; sourceTree = "<group>"; };
 		097F70FE19FDD92100C01ECA /* JDCoder+IUEditor_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUEditor_Test.m"; sourceTree = "<group>"; };
 		097FD7101A105EA8008931A0 /* IUProjectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUProjectProtocol.h; sourceTree = "<group>"; };
@@ -1670,6 +1673,18 @@
 		3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWC.m; path = UI/Window_Main/BBWC.m; sourceTree = "<group>"; };
 		3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWC.xib; path = UI/Window_Main/BBWC.xib; sourceTree = "<group>"; };
 		3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultVCs.h; path = UI/Window_Main/BBDefaultVCs.h; sourceTree = "<group>"; };
+		3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBQuickWidgetVC.h; path = UI/View_Status/BBQuickWidgetVC.h; sourceTree = "<group>"; };
+		3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBQuickWidgetVC.m; path = UI/View_Status/BBQuickWidgetVC.m; sourceTree = "<group>"; };
+		3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBQuickWidgetVC.xib; path = UI/View_Status/BBQuickWidgetVC.xib; sourceTree = "<group>"; };
+		3DD19C781A316C6D00A5198E /* BBMediaQueryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBMediaQueryVC.h; path = UI/View_Status/BBMediaQueryVC.h; sourceTree = "<group>"; };
+		3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBMediaQueryVC.m; path = UI/View_Status/BBMediaQueryVC.m; sourceTree = "<group>"; };
+		3DD19C7A1A316C6D00A5198E /* BBMediaQueryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBMediaQueryVC.xib; path = UI/View_Status/BBMediaQueryVC.xib; sourceTree = "<group>"; };
+		3DD19C7E1A316D7200A5198E /* BBStructureToolBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBStructureToolBarVC.h; path = UI/View_Status/BBStructureToolBarVC.h; sourceTree = "<group>"; };
+		3DD19C7F1A316D7200A5198E /* BBStructureToolBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBStructureToolBarVC.m; path = UI/View_Status/BBStructureToolBarVC.m; sourceTree = "<group>"; };
+		3DD19C801A316D7200A5198E /* BBStructureToolBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBStructureToolBarVC.xib; path = UI/View_Status/BBStructureToolBarVC.xib; sourceTree = "<group>"; };
+		3DD19C831A316E1500A5198E /* BBPropertyToolBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPropertyToolBarVC.h; path = UI/View_Status/BBPropertyToolBarVC.h; sourceTree = "<group>"; };
+		3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPropertyToolBarVC.m; path = UI/View_Status/BBPropertyToolBarVC.m; sourceTree = "<group>"; };
+		3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPropertyToolBarVC.xib; path = UI/View_Status/BBPropertyToolBarVC.xib; sourceTree = "<group>"; };
 		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
 		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
 		3DD731C81A11D9DD00BD833F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/description.strings; sourceTree = "<group>"; };
@@ -1807,14 +1822,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		09C8607D1A2C6145001C0A53 /* XIB */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = XIB;
-			path = XIB/IUxib/XIB;
-			sourceTree = "<group>";
-		};
 		3D2EF34A19F751FF00BBBAE5 = {
 			isa = PBXGroup;
 			children = (
@@ -1845,7 +1852,6 @@
 				3D2EFC1419F7887100BBBAE5 /* Library */,
 				3D2EF3E919F7805B00BBBAE5 /* Control */,
 				3D2EF3A719F77C8500BBBAE5 /* Data */,
-				09C8607D1A2C6145001C0A53 /* XIB */,
 				3D2EF3A619F77C8000BBBAE5 /* UI */,
 				3D2EF3A419F77C3F00BBBAE5 /* Resource */,
 			);
@@ -2227,7 +2233,7 @@
 			children = (
 				3D2EF5FC19F783F700BBBAE5 /* Property */,
 				3D2EF5FA19F783DF00BBBAE5 /* Widget */,
-				3D2EF5F919F783D700BBBAE5 /* Status */,
+				3D2EF5F919F783D700BBBAE5 /* ToolBar */,
 				3D2EF5F819F783A600BBBAE5 /* Selection */,
 				3D2EF5F619F7839500BBBAE5 /* Canvas */,
 			);
@@ -2461,12 +2467,19 @@
 			name = Selection;
 			sourceTree = "<group>";
 		};
-		3D2EF5F919F783D700BBBAE5 /* Status */ = {
+		3D2EF5F919F783D700BBBAE5 /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
-				097DFEF51A2F075F004C1EAE /* BBToolBar.xib */,
-				097DFEF71A2F0840004C1EAE /* BBToolBar.h */,
-				097DFEF81A2F0840004C1EAE /* BBToolBar.m */,
+				3D3ABB6E1A2F0F2700E22E27 /* BBTopToolBarVC.h */,
+				3D3ABB6F1A2F0F2700E22E27 /* BBTopToolBarVC.m */,
+				3D3ABB701A2F0F2700E22E27 /* BBTopToolBarVC.xib */,
+				3DD19C7E1A316D7200A5198E /* BBStructureToolBarVC.h */,
+				3DD19C7F1A316D7200A5198E /* BBStructureToolBarVC.m */,
+				3DD19C801A316D7200A5198E /* BBStructureToolBarVC.xib */,
+				3DD19C831A316E1500A5198E /* BBPropertyToolBarVC.h */,
+				3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */,
+				3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */,
+				3DD19C7D1A316D4400A5198E /* FirstToolbar */,
 				3DE463121A0085C900A75567 /* LMMediaQueryVC.h */,
 				3DE463131A0085C900A75567 /* LMMediaQueryVC.m */,
 				3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */,
@@ -2479,14 +2492,8 @@
 				3D2EF71619F784E300BBBAE5 /* LMConsoleVC.h */,
 				3D2EF71719F784E300BBBAE5 /* LMConsoleVC.m */,
 				3D2EF71819F784E300BBBAE5 /* LMConsoleVC.xib */,
-				3D4DFF351A2EAD3200418CE0 /* BBCommandVC.h */,
-				3D4DFF361A2EAD3200418CE0 /* BBCommandVC.m */,
-				3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */,
-				3D3ABB6E1A2F0F2700E22E27 /* BBTopToolBarVC.h */,
-				3D3ABB6F1A2F0F2700E22E27 /* BBTopToolBarVC.m */,
-				3D3ABB701A2F0F2700E22E27 /* BBTopToolBarVC.xib */,
 			);
-			name = Status;
+			name = ToolBar;
 			sourceTree = "<group>";
 		};
 		3D2EF5FA19F783DF00BBBAE5 /* Widget */ = {
@@ -3368,6 +3375,22 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		3DD19C7D1A316D4400A5198E /* FirstToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				3D4DFF351A2EAD3200418CE0 /* BBCommandVC.h */,
+				3D4DFF361A2EAD3200418CE0 /* BBCommandVC.m */,
+				3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */,
+				3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */,
+				3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */,
+				3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */,
+				3DD19C781A316C6D00A5198E /* BBMediaQueryVC.h */,
+				3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */,
+				3DD19C7A1A316C6D00A5198E /* BBMediaQueryVC.xib */,
+			);
+			name = FirstToolbar;
+			sourceTree = "<group>";
+		};
 		3DD731C41A11D43E00BD833F /* strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -3735,10 +3758,10 @@
 				3D2EFBD219F7878800BBBAE5 /* iucarousel.js in Resources */,
 				3D2EF75F19F7856E00BBBAE5 /* index.php in Resources */,
 				3DE462BA19FA4A2600A75567 /* agency_thumbnail@2x.png in Resources */,
-				097DFEF61A2F075F004C1EAE /* BBToolBar.xib in Resources */,
 				3D2EFB5C19F786C700BBBAE5 /* flat_icons-graficheria.it-02.png in Resources */,
 				3D2EF5F519F7837600BBBAE5 /* LMWordpressCreateFileWC.xib in Resources */,
 				3D2EFCBD19F78D1F00BBBAE5 /* LMPropertyIUImportVC.xib in Resources */,
+				3DD19C821A316D7200A5198E /* BBStructureToolBarVC.xib in Resources */,
 				3D2EF6BE19F784A400BBBAE5 /* LMPropertyIUMovieVC.xib in Resources */,
 				3DE462C519FA4A2600A75567 /* cs_thumbnail.png in Resources */,
 				3D2EFB4119F786C700BBBAE5 /* circle_back_arrow-128.png in Resources */,
@@ -3834,6 +3857,7 @@
 				3D2EFBA819F786C700BBBAE5 /* refresh154-128.png in Resources */,
 				3D2EFB5519F786C700BBBAE5 /* email-128.png in Resources */,
 				3D2EFCED19F7964400BBBAE5 /* webTemplate.html in Resources */,
+				3DD19C7C1A316C6D00A5198E /* BBMediaQueryVC.xib in Resources */,
 				3D2EFBBB19F786C700BBBAE5 /* windows_store_2.png in Resources */,
 				3D2EF6D919F784A400BBBAE5 /* LMPropertyWPCommentObjectVC.xib in Resources */,
 				3DE462E219FA4A2600A75567 /* pf_thumbnail.png in Resources */,
@@ -4036,6 +4060,7 @@
 				3DE462B819FA4A2600A75567 /* agency_preview_mobile03.png in Resources */,
 				3D2EF54019F7828000BBBAE5 /* LMAppWarningWC.xib in Resources */,
 				3D2EFB3919F786C700BBBAE5 /* Camera-128.png in Resources */,
+				3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */,
 				3D2EFBA019F786C700BBBAE5 /* question_yellow.png in Resources */,
 				3D2EF76419F7856E00BBBAE5 /* wordpress.zip in Resources */,
 				3D2EFC0D19F7883700BBBAE5 /* jquery.scrollto.js in Resources */,
@@ -4078,6 +4103,7 @@
 				3D2EFB2319F786C700BBBAE5 /* appstore2.png in Resources */,
 				3D2EFB9519F786C700BBBAE5 /* Noun_Project_100Icon_10px_grid-06-128.png in Resources */,
 				3D2EF77619F7857E00BBBAE5 /* help.plist in Resources */,
+				3DD19C871A316E1500A5198E /* BBPropertyToolBarVC.xib in Resources */,
 				3D2EFBD819F787B600BBBAE5 /* iueditor.css in Resources */,
 				3D2EFB8F19F786C700BBBAE5 /* MapMarker_PushPin_Right_Azure.png in Resources */,
 				3DE4625D19F8A63A00A75567 /* tinymce in Resources */,
@@ -4158,8 +4184,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2EF48B19F781B700BBBAE5 /* IUPageContent.m in Sources */,
-				097DFEF91A2F0840004C1EAE /* BBToolBar.m in Sources */,
 				3D2EF51B19F781FB00BBBAE5 /* WPMenuItem.m in Sources */,
+				3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */,
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,
 				3D2EF6FC19F784B500BBBAE5 /* LMEventVC.m in Sources */,
 				3D2EF52319F781FB00BBBAE5 /* WPWidgetTitle.m in Sources */,
@@ -4255,6 +4281,7 @@
 				3D2EF6C319F784A400BBBAE5 /* LMPropertyIUSection.m in Sources */,
 				3D2EF48519F781B700BBBAE5 /* IUBackground.m in Sources */,
 				3D2EF66019F7848F00BBBAE5 /* LMAppearanceVC.m in Sources */,
+				3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */,
 				09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */,
 				3D2EFC5219F788BA00BBBAE5 /* JDHerokuUtil.m in Sources */,
 				3D2EF49D19F781C400BBBAE5 /* IUImage.m in Sources */,
@@ -4281,6 +4308,7 @@
 				3D2EF67219F7848F00BBBAE5 /* LMPropertyProgrammingType1VC.m in Sources */,
 				3D2EFC9F19F788D100BBBAE5 /* NSCoder+JDExtension.m in Sources */,
 				3D2EF54519F7828000BBBAE5 /* LMWindow.m in Sources */,
+				3DD19C861A316E1500A5198E /* BBPropertyToolBarVC.m in Sources */,
 				3D2EF65E19F7848F00BBBAE5 /* LMAppearanceFrameVC.m in Sources */,
 				3D2EF4BD19F781D300BBBAE5 /* IUFBLike.m in Sources */,
 				3D2EF51A19F781FB00BBBAE5 /* WPMenu.m in Sources */,
@@ -4357,6 +4385,7 @@
 				3D2EF50F19F781FB00BBBAE5 /* WPArticleTitle.m in Sources */,
 				3D2EF50B19F781FB00BBBAE5 /* WPArticleBody.m in Sources */,
 				3DE4630219FDFC0700A75567 /* MQShadowLayer.m in Sources */,
+				3DD19C811A316D7200A5198E /* BBStructureToolBarVC.m in Sources */,
 				3D2EF48C19F781B700BBBAE5 /* IUResponsiveSection.m in Sources */,
 				3D2EFC4D19F788BA00BBBAE5 /* JDDateTimeUtil.m in Sources */,
 				3D2EF50A19F781FB00BBBAE5 /* WPArticle.m in Sources */,

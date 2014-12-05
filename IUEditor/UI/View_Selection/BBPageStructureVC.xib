@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="BBPageStructureVC">
             <connections>
                 <outlet property="iuOutlineView" destination="50O-Vm-YUR" id="3PK-he-HU2"/>
+                <outlet property="sectionButton" destination="PUX-TT-vej" id="r4p-Yj-URY"/>
                 <outlet property="view" destination="6db-pJ-yAa" id="qNX-ev-1fa"/>
             </connections>
         </customObject>
@@ -306,6 +307,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickAddSectionButton:" target="-2" id="yDz-Np-3wA"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>

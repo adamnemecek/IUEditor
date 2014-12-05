@@ -10,12 +10,16 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class IUBox;
 @interface IUIdentifierManager : NSObject
 
-- (NSString *)createIdentifierWithKey:(NSString *)key;
-- (void)addObject:(id)obj withIdentifier:(NSString *)identifier;
+@property NSString *identifierKeyPath; // keyPath to identifier
+@property NSString *childrenKeyPath; //keyPath to children
+
+
+- (NSString *)createIdentifierWithPrefix:(NSString *)prefix;
+- (void)addObject:(id)obj;
+- (void)addObjects:(id)objs;
 - (id)objectForIdentifier:(NSString*)identifier;
 - (void)removeIdentifier:(NSString *)identifier;
 - (void)commit;

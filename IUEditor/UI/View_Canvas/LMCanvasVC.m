@@ -27,23 +27,11 @@
 #import "LMHelpWC.h"
 #import "LMFontController.h"
 
-#pragma mark - debug
-#if DEBUG
-#import "LMDebugSourceWC.h"
-
-#endif
 
 #import "IUPage.h"
 #import "IUBackground.h"
 
 @interface LMCanvasVC ()
-
-#pragma mark - debug window
-@property (weak) IBOutlet NSButton *debugBtn;
-#if DEBUG
-@property LMDebugSourceWC *debugWC;
-
-#endif
 
 @end
 
@@ -82,25 +70,13 @@
                                          @"sheet.ghostY",
                                          @"sheet.ghostOpacity"]
               options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"ghostImage"];
-        
     
-#if DEBUG
-    
-    _debugWC = [[LMDebugSourceWC alloc] initWithWindowNibName:@"LMDebugSourceWC"];
-    _debugWC.canvasVC = self;
-    [_debugBtn setHidden:NO];
-#else
-    [_debugBtn setHidden:YES];
-#endif
     
 
     
 }
 
 - (void)prepareDealloc{
-#if DEBUG
-    _debugWC.canvasVC = nil;
-#endif
     self.webView.controller = nil;
     self.gridView.controller = nil;
     self.canvasView.controller = nil;
@@ -1110,7 +1086,7 @@
 
 
 #pragma mark - debug
-#if DEBUG
+#if 0
 
 - (void)applyHtmlString:(NSString *)html{
     [[[self webView] mainFrame] loadHTMLString:html baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
@@ -1118,12 +1094,6 @@
 
 - (void)reloadOriginalDocument{
     [self setSheet:_sheet];
-}
-
-- (IBAction)showCurrentSource:(id)sender {
-    NSString *htmlSource =  [(DOMHTMLElement *)[[[[self webView] mainFrame] DOMDocument] documentElement] outerHTML];
-    [_debugWC showWindow:self];
-    [_debugWC setCurrentSource:htmlSource];
 }
 
 #endif

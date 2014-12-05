@@ -7,12 +7,14 @@
         <customObject id="-2" userLabel="File's Owner" customClass="BBWC">
             <connections>
                 <outlet property="canvasView" destination="hiZ-5m-BMA" id="sNr-ir-uwJ"/>
+                <outlet property="debugButton" destination="eMd-vE-f42" id="QBV-9I-AQj"/>
                 <outlet property="pageTabView" destination="goD-BY-82H" id="83A-8R-B7e"/>
                 <outlet property="propertyIconBox" destination="oir-pz-oba" id="I2S-3n-fFV"/>
                 <outlet property="propertyIconButtonCell" destination="eJg-uN-CL9" id="XIC-nS-3xg"/>
                 <outlet property="propertySettingTabView" destination="hEQ-Kq-OCR" id="BVb-JR-e8Y"/>
                 <outlet property="propertySettingTabViewRightConstraint" destination="jJQ-bo-HGk" id="AZh-2Z-fcr"/>
-                <outlet property="structureView" destination="vCa-gX-gRh" id="WuE-pE-Laj"/>
+                <outlet property="propertyToolBarView" destination="Z5R-Oh-T6u" id="1Gm-uq-MDr"/>
+                <outlet property="structureToolBarView" destination="vCa-gX-gRh" id="aSo-bf-TB3"/>
                 <outlet property="tabActionView" destination="zrW-LQ-IW1" id="qBN-S0-dBE"/>
                 <outlet property="tabBackEndView" destination="KUl-Ah-aeZ" id="ACX-ae-P1a"/>
                 <outlet property="tabEventView" destination="cNh-A5-65C" id="m6P-Bz-Q5v"/>
@@ -23,8 +25,8 @@
                 <outlet property="tabStyleView" destination="Q8I-Xf-Qgy" id="J6j-bo-DUt"/>
                 <outlet property="tabTracingView" destination="5DB-h6-CsR" id="6pF-sP-hyZ"/>
                 <outlet property="tabWidgetView" destination="jnh-IH-TrI" id="bfT-1q-llQ"/>
-                <outlet property="toolBarView" destination="Z5R-Oh-T6u" id="HBq-S1-EFm"/>
-                <outlet property="topBarView" destination="aNS-8q-0SX" id="iN9-pp-Us8"/>
+                <outlet property="topToolBarView" destination="aNS-8q-0SX" id="Xkg-1I-ljK"/>
+                <outlet property="window" destination="Pug-OS-dSL" id="TDt-3A-QNP"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -220,6 +222,18 @@
                                 <view key="contentView">
                                     <rect key="frame" x="0.0" y="0.0" width="38" height="741"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMd-vE-f42" userLabel="DebugButton">
+                                            <rect key="frame" x="1" y="10" width="40" height="32"/>
+                                            <buttonCell key="cell" type="push" title="D" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ITb-PP-k5i">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="clickDebugButton:" target="-2" id="AsX-yB-FCn"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="38" id="29Y-se-YMc"/>

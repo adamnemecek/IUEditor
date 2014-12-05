@@ -15,7 +15,7 @@
 
 - (id)initWithSheetGroup:(IUSheetGroup *)sheetGroup;
 
--(IUProject *)project;
-
+- (IUProject *)project;
+- (IUSheet *)firstSheet;
 
 @end

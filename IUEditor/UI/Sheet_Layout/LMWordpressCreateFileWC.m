@@ -108,7 +108,7 @@
     
     [[self.project identifierManager] resetUnconfirmedIUs];
     [self.project addItem:newSheet toSheetGroup:self.project.pageGroup];
-    [self.project.identifierManager registerIUs:@[newSheet]];
+    [self.project.identifierManager addObjects:@[newSheet]];
     [newSheet connectWithEditor];
     [newSheet setIsConnectedWithEditor];
     [[self.project identifierManager] confirm];
