@@ -20,6 +20,9 @@
 
 @interface IUHTMLCompiler : NSObject
 
+@property (copy) NSString *editorResourcePrefix;
+@property (copy) NSString *outputResourcePrefix;
+
 /**
  @brief DOM에 insert/replace 할 수 있는 HTML Code 를 생성한다.
  @note IUCSSCode 가 style(CSSCode의 MainIdentifier)를 받지 않고 바로 IUCSSCode를 바로 받는 이유는 IUMenuBar등 어떻게 관리해야할지 불명확한 객체들을
