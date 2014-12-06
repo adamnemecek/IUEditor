@@ -8,6 +8,9 @@
 
 #import "IUBox.h"
 
+/**
+ IUHTML cannot have children. It draws HTML directly. 
+ */
 @interface IUHTML : IUBox
 
 @property (nonatomic) NSString *innerHTML;
