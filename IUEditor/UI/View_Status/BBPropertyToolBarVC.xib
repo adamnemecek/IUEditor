@@ -64,7 +64,7 @@
                                         </ciFilter>
                                     </contentFilters>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="100" placeholderString="" drawsBackground="YES" id="Mzf-GO-5fQ">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
@@ -127,7 +127,7 @@
                                         </ciFilter>
                                     </contentFilters>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="100" placeholderString="" drawsBackground="YES" id="5dt-Ed-Owz">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
@@ -204,7 +204,7 @@
                                         </ciFilter>
                                     </contentFilters>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="100" placeholderString="" drawsBackground="YES" id="riA-5j-5pQ">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
@@ -229,7 +229,7 @@
                                     </connections>
                                 </button>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ErY-hT-cmI">
-                                    <rect key="frame" x="36" y="-38" width="4" height="96"/>
+                                    <rect key="frame" x="36" y="-38" width="5" height="96"/>
                                     <contentFilters>
                                         <ciFilter name="CIFalseColor">
                                             <configuration>
@@ -282,7 +282,7 @@
                                         </ciFilter>
                                     </contentFilters>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="100" placeholderString="" drawsBackground="YES" id="2dq-2e-3a6">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
@@ -496,7 +496,7 @@
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-1W-hMj">
                                     <rect key="frame" x="0.0" y="-2" width="141" height="24"/>
                                     <comboBoxCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Roboto Condensed" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="jbD-Re-ibT">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <objectValues>
@@ -524,7 +524,7 @@
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nw-eu-Dan">
                                     <rect key="frame" x="-1" y="-2" width="73" height="24"/>
                                     <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Normal" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="RLE-2F-Rlt">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <objectValues>
@@ -552,7 +552,7 @@
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yrT-JY-2UB">
                                     <rect key="frame" x="-1" y="-2" width="63" height="24"/>
                                     <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="12 pt" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="ZxW-CW-8bj">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <objectValues>

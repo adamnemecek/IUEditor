@@ -20,5 +20,6 @@
 //property VCs
 #import "BBWidgetLibraryVC.h"
 #import "BBProjectStructureVC.h"
+#import "BBStylePropertyVC.h"
 
 #endif

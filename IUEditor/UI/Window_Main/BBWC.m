@@ -72,6 +72,7 @@
     //property vcs
     BBWidgetLibraryVC *_widgetLibraryVC;
     BBProjectStructureVC *_projectStructureVC;
+    BBStylePropertyVC *_stylePropertyVC;
     
     
 #if DEBUG
@@ -89,15 +90,20 @@
         
         
         //alloc VC
+        //toolbar
         _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC className] bundle:nil];
         _structureToolBarVC = [[BBStructureToolBarVC alloc] initWithNibName:[BBStructureToolBarVC className] bundle:nil];
         _propertyToolBarVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
         
+        //canvas
         _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC className] bundle:nil];
 
         
+        //property
         _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC className] bundle:nil];
         _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC className] bundle:nil];
+        _stylePropertyVC = [[BBStylePropertyVC alloc] initWithNibName:[BBStylePropertyVC className] bundle:nil];
+        
         
         
         //alloc manager & controller
@@ -202,6 +208,7 @@
     //tab
     [_tabWidgetView addSubviewFullFrame:_widgetLibraryVC.view];
     [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
+    [_tabStyleView addSubviewFullFrame:_stylePropertyVC.view];
     
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];

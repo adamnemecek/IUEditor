@@ -69,7 +69,8 @@
     return [@"self.controller.selection." stringByAppendingString:property];
 }
 
-#pragma mark - storage
+#pragma mark - storage 
+
 - (IUStyleStorage *)liveStyleStorage{
     return [self valueForKeyPath:@"self.controller.selection.liveStyleStorage"];
 }

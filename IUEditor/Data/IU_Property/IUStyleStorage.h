@@ -98,6 +98,8 @@ typedef enum{
 @property (nonatomic) NSColor* bgColor;
 @property (nonatomic) NSColor* bgGradientStartColor;
 @property (nonatomic) NSColor* bgGradientEndColor;
+
+/* only for use hover bgColor */
 @property (nonatomic) NSNumber* bgColorDuration;
 
 

@@ -666,6 +666,9 @@
 		3DD19C871A316E1500A5198E /* BBPropertyToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */; };
 		3DD19CA61A3543CF00A5198E /* BBDefaultPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */; };
 		3DD19CA91A35480300A5198E /* BBDefaultBindingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */; };
+		3DD19CAE1A3569A500A5198E /* BBStylePropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CAC1A3569A500A5198E /* BBStylePropertyVC.m */; };
+		3DD19CAF1A3569A500A5198E /* BBStylePropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19CAD1A3569A500A5198E /* BBStylePropertyVC.xib */; };
+		3DD19CB21A356F0800A5198E /* BBExpandableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CB11A356F0800A5198E /* BBExpandableView.m */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
@@ -1690,6 +1693,11 @@
 		3DD19CA41A3543CF00A5198E /* BBDefaultPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultPropertyVC.h; path = UI/View_Property/BBDefaultPropertyVC.h; sourceTree = "<group>"; };
 		3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBDefaultPropertyVC.m; path = UI/View_Property/BBDefaultPropertyVC.m; sourceTree = "<group>"; };
 		3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDefaultBindingVC.m; sourceTree = "<group>"; };
+		3DD19CAB1A3569A500A5198E /* BBStylePropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBStylePropertyVC.h; path = UI/View_Property/BBStylePropertyVC.h; sourceTree = "<group>"; };
+		3DD19CAC1A3569A500A5198E /* BBStylePropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBStylePropertyVC.m; path = UI/View_Property/BBStylePropertyVC.m; sourceTree = "<group>"; };
+		3DD19CAD1A3569A500A5198E /* BBStylePropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBStylePropertyVC.xib; path = UI/View_Property/BBStylePropertyVC.xib; sourceTree = "<group>"; };
+		3DD19CB01A356F0800A5198E /* BBExpandableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBExpandableView.h; path = UI/View_Property/BBExpandableView.h; sourceTree = "<group>"; };
+		3DD19CB11A356F0800A5198E /* BBExpandableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBExpandableView.m; path = UI/View_Property/BBExpandableView.m; sourceTree = "<group>"; };
 		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
 		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
 		3DD731C81A11D9DD00BD833F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/description.strings; sourceTree = "<group>"; };
@@ -2243,6 +2251,8 @@
 				3D2EF5F619F7839500BBBAE5 /* Canvas */,
 				3DD19CA41A3543CF00A5198E /* BBDefaultPropertyVC.h */,
 				3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */,
+				3DD19CB01A356F0800A5198E /* BBExpandableView.h */,
+				3DD19CB11A356F0800A5198E /* BBExpandableView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2527,11 +2537,10 @@
 		3D2EF5FC19F783F700BBBAE5 /* Property */ = {
 			isa = PBXGroup;
 			children = (
-				3D2EF6FE19F784C100BBBAE5 /* LMDefaultPropertyVC.h */,
-				3D2EF6FF19F784C100BBBAE5 /* LMDefaultPropertyVC.m */,
-				3D2EF62C19F7846400BBBAE5 /* Common Property */,
-				3D2EF62D19F7847000BBBAE5 /* Widget Property */,
-				3D2EF62E19F7847800BBBAE5 /* Event Property */,
+				3DD19CAA1A35697800A5198E /* OldVersion */,
+				3DD19CAB1A3569A500A5198E /* BBStylePropertyVC.h */,
+				3DD19CAC1A3569A500A5198E /* BBStylePropertyVC.m */,
+				3DD19CAD1A3569A500A5198E /* BBStylePropertyVC.xib */,
 			);
 			name = Property;
 			sourceTree = "<group>";
@@ -3398,6 +3407,18 @@
 			name = TopToolBarChildrenVCs;
 			sourceTree = "<group>";
 		};
+		3DD19CAA1A35697800A5198E /* OldVersion */ = {
+			isa = PBXGroup;
+			children = (
+				3D2EF6FE19F784C100BBBAE5 /* LMDefaultPropertyVC.h */,
+				3D2EF6FF19F784C100BBBAE5 /* LMDefaultPropertyVC.m */,
+				3D2EF62C19F7846400BBBAE5 /* Common Property */,
+				3D2EF62D19F7847000BBBAE5 /* Widget Property */,
+				3D2EF62E19F7847800BBBAE5 /* Event Property */,
+			);
+			name = OldVersion;
+			sourceTree = "<group>";
+		};
 		3DD731C41A11D43E00BD833F /* strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -3997,6 +4018,7 @@
 				3D2EFB7B19F786C700BBBAE5 /* map_location_pin_map-marker_-128.png in Resources */,
 				3D2EFB4B19F786C700BBBAE5 /* Cloud_Arrow_Up-128.png in Resources */,
 				3D2EFBA919F786C700BBBAE5 /* Search-128.png in Resources */,
+				3DD19CAF1A3569A500A5198E /* BBStylePropertyVC.xib in Resources */,
 				3D2EF6F719F784B500BBBAE5 /* LMEventVariableReceiverFrameVC.xib in Resources */,
 				3DE462F219FA4A2600A75567 /* wp_thumbnail.png in Resources */,
 				3D2EFBB719F786C700BBBAE5 /* twitter3-128.png in Resources */,
@@ -4379,6 +4401,7 @@
 				3D2EF6C519F784A400BBBAE5 /* LMPropertyIUSubmitButtonVC.m in Sources */,
 				3D2EFC5919F788BA00BBBAE5 /* JDTransformer.m in Sources */,
 				3D2EF5B219F7830100BBBAE5 /* LMHelpVideoPopoverVC.m in Sources */,
+				3DD19CB21A356F0800A5198E /* BBExpandableView.m in Sources */,
 				3D2EF4C419F781D300BBBAE5 /* IUTweetButton.m in Sources */,
 				3D2EF59A19F782F100BBBAE5 /* LMTutorialManager.m in Sources */,
 				3D2EF3F519F780E000BBBAE5 /* IUEventVariable.m in Sources */,
@@ -4451,6 +4474,7 @@
 				3D082F8C1A30652000B653B1 /* BBClassNavigationVC.m in Sources */,
 				3D2EF55719F782B800BBBAE5 /* LMNotiManager.m in Sources */,
 				3D2EF5E819F7836500BBBAE5 /* LMProjectConvertWC.m in Sources */,
+				3DD19CAE1A3569A500A5198E /* BBStylePropertyVC.m in Sources */,
 				3D2EF48819F781B700BBBAE5 /* IUHeader.m in Sources */,
 				3D2EFCCB19F78D7A00BBBAE5 /* LMPropertyIUGoogleMapVC.m in Sources */,
 				3D2EF4C519F781D300BBBAE5 /* IUWebMovie.m in Sources */,
