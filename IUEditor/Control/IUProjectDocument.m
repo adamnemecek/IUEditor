@@ -145,14 +145,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 #pragma mark -
 
-
-- (LMWC *)lemonWindowController __deprecated{
-    if([[self windowControllers] count] > 0){
-        return [[self windowControllers] objectAtIndex:0];
-    }
-    return nil;
-}
-
 - (BBWC *)butterflyWindowController{
     if([[self windowControllers] count] > 0){
         return [[self windowControllers] objectAtIndex:0];

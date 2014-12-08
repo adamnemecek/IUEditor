@@ -8,6 +8,8 @@
 
 #import "BBPageStructureVC.h"
 
+#import "IUDocumentProtocol.h"
+
 #import "IUBoxes.h"
 #import "IUIdentifierManager.h"
 
@@ -109,7 +111,7 @@
 }
 
 - (IUIdentifierManager *)identifierManager{
-    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) identifierManager];
 }
 
 @end

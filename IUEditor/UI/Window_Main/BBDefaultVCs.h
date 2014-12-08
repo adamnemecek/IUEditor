@@ -19,7 +19,14 @@
 
 //property VCs
 #import "BBWidgetLibraryVC.h"
-#import "BBProjectStructureVC.h"
+#import "BBWidgetPropertyVC.h"
 #import "BBStylePropertyVC.h"
+#import "BBImagePropertyVC.h"
+#import "BBActionPropertyVC.h"
+#import "BBEventPropertyVC.h"
+#import "BBResourceLibraryVC.h"
+#import "BBTracingPropertyVC.h"
+#import "BBProjectStructureVC.h"
+#import "BBBackEndPropertyVC.h"
 
 #endif

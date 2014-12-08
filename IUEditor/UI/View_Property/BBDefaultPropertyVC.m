@@ -7,6 +7,7 @@
 //
 
 #import "BBDefaultPropertyVC.h"
+#import "IUDocumentProtocol.h"
 
 @interface BBDefaultPropertyVC ()
 
@@ -20,7 +21,7 @@
 }
 
 - (IUResourceRootItem *)resourceRootItem{
-    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
+    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) resourceRootItem];
 }
 
 #pragma mark - binding

@@ -8,6 +8,10 @@
 
 #import "BBDefaultPropertyVC.h"
 
+/**
+ @brief BBStylePropertyVC manages IUBox's CSS as below:
+        color, radius, border, shadow property
+ */
 @interface BBStylePropertyVC : BBDefaultPropertyVC <NSTableViewDelegate, NSTableViewDataSource>
 
 

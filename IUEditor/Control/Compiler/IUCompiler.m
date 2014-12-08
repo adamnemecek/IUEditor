@@ -6,9 +6,11 @@
 //  Copyright (c) 2014 JDLab. All rights reserved.
 //
 
+#import "IUDocumentProtocol.h"
+#import "IUProtocols.h"
+
 #import "IUCompiler.h"
 #import "IUCSSCompiler.h"
-#import "IUProtocols.h"
 #import "IUCSSCompiler.h"
 #import "IUCSSWPCompiler.h"
 #import "IUJSCompiler.h"
@@ -16,45 +18,16 @@
 
 #import "IUResource.h"
 
-
 #import "NSString+JDExtension.h"
-#import "IUSheet.h"
 #import "NSDictionary+JDExtension.h"
-#import "JDUIUtil.h"
-#import "IUPage.h"
-#import "IUHeader.h"
-#import "IUPageContent.h"
-#import "IUClass.h"
-#import "IUBackground.h"
-#import "PGTextView.h"
-
-#import "IUHTML.h"
-#import "IUImage.h"
-#import "IUWebMovie.h"
-#import "IUCarousel.h"
-#import "IUItem.h"
-#import "IUCarouselItem.h"
-#import "IUCollection.h"
-#import "PGSubmitButton.h"
-#import "PGForm.h"
-#import "PGPageLinkSet.h"
-#import "IUTransition.h"
-#import "JDCode.h"
-#import "IUProject.h"
-#import "IUMenuBar.h"
-#import "IUMenuItem.h"
-#import "IUTweetButton.h"
-#import "IUGoogleMap.h"
-#import "IUWordpressProject.h"
-#import "IUCollectionView.h"
-
-
-#import "WPPageLink.h"
-#import "WPPageLinks.h"
-
-
 #import "LMFontController.h"
-#import "WPArticle.h"
+
+#import "IUProject.h"
+#import "IUWordpressProject.h"
+
+#import "IUBoxes.h"
+#import "JDUIUtil.h"
+
 
 @implementation IUCompiler{
     IUCSSCompiler *cssCompiler;
@@ -382,7 +355,7 @@
 }
 
 - (IUResourceRootItem *)resourceRootItem{
-    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(resourceRootItem)];
+    return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] resourceRootItem];
 }
 
 

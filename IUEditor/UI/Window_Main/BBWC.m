@@ -71,8 +71,15 @@
     
     //property vcs
     BBWidgetLibraryVC *_widgetLibraryVC;
-    BBProjectStructureVC *_projectStructureVC;
+    BBWidgetPropertyVC *_widgetPropertyVC;
     BBStylePropertyVC *_stylePropertyVC;
+    BBImagePropertyVC *_imagePropertyVC;
+    BBActionPropertyVC *_actionPropertyVC;
+    BBEventPropertyVC *_eventPropertyVC;
+    BBResourceLibraryVC *_resourceLibraryVC;
+    BBTracingPropertyVC *_tracingPropertyVC;
+    BBProjectStructureVC *_projectStructureVC;
+    BBBackEndPropertyVC *_backEndPropertyVC;
     
     
 #if DEBUG
@@ -101,8 +108,16 @@
         
         //property
         _widgetLibraryVC = [[BBWidgetLibraryVC alloc] initWithNibName:[BBWidgetLibraryVC className] bundle:nil];
-        _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC className] bundle:nil];
+        _widgetPropertyVC = [[BBWidgetPropertyVC alloc] initWithNibName:[BBWidgetPropertyVC className] bundle:nil];
         _stylePropertyVC = [[BBStylePropertyVC alloc] initWithNibName:[BBStylePropertyVC className] bundle:nil];
+        _imagePropertyVC = [[BBImagePropertyVC alloc] initWithNibName:[BBImagePropertyVC className] bundle:nil];
+        _actionPropertyVC = [[BBActionPropertyVC alloc] initWithNibName:[BBActionPropertyVC className] bundle:nil];
+        _eventPropertyVC = [[BBEventPropertyVC alloc] initWithNibName:[BBEventPropertyVC className] bundle:nil];
+        _resourceLibraryVC = [[BBResourceLibraryVC alloc] initWithNibName:[BBResourceLibraryVC className] bundle:nil];
+        _tracingPropertyVC = [[BBTracingPropertyVC alloc] initWithNibName:[BBTracingPropertyVC className] bundle:nil];
+        _projectStructureVC = [[BBProjectStructureVC alloc] initWithNibName:[BBProjectStructureVC className] bundle:nil];
+        _backEndPropertyVC = [[BBBackEndPropertyVC alloc] initWithNibName:[BBBackEndPropertyVC className] bundle:nil];
+
         
         
         
@@ -207,8 +222,15 @@
     
     //tab
     [_tabWidgetView addSubviewFullFrame:_widgetLibraryVC.view];
-    [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
+    [_tabPropertyView addSubviewFullFrame:_widgetPropertyVC.view];
     [_tabStyleView addSubviewFullFrame:_stylePropertyVC.view];
+    [_tabImageView addSubviewFullFrame:_imagePropertyVC.view];
+    [_tabActionView addSubviewFullFrame:_actionPropertyVC.view];
+    [_tabEventView addSubviewFullFrame:_eventPropertyVC.view];
+    [_tabLibraryView addSubviewFullFrame:_resourceLibraryVC.view];
+    [_tabTracingView addSubviewFullFrame:_tracingPropertyVC.view];
+    [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
+    [_tabBackEndView addSubviewFullFrame:_backEndPropertyVC.view];
     
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];

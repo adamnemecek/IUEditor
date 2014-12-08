@@ -8,9 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "IUSourceManager.h"
-#import "IUSheetController.h"
-#import "IUController.h"
+#import "BBWindowProtocol.h"
 
 typedef enum{
     BBPropertyTabTypeWidget,
@@ -27,7 +25,7 @@ typedef enum{
     
 }BBPropertyTabType;
 
-@interface BBWC : NSWindowController
+@interface BBWC : NSWindowController <BBWindowProtocol>
 
 
 /**

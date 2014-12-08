@@ -7,26 +7,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUDocumentProtocol.h"
+
 #import "IUProject.h"
 #import "IUResource.h"
 
-#import "LMWC.h"
 #import "BBWC.h"
 
-@interface IUProjectDocument : NSDocument
+@interface IUProjectDocument : NSDocument <IUDocumentProtocol>
 
 @property IUProject *project;
-@property IUResourceRootItem *resourceRootItem;
 
-/* manager */
-//source Manager
+/* IUDocumentProtocol */
+@property IUResourceRootItem *resourceRootItem;
 @property IUSourceManager *sourceManager;
-//identifier Manager
 @property IUIdentifierManager *identifierManager;
 
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
-- (LMWC *)lemonWindowController __deprecated;
 - (BBWC *)butterflyWindowController;
 
 - (BOOL)removeResourceFileItemName:(NSString *)fileItemName;

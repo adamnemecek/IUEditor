@@ -168,12 +168,12 @@
     //paste repeat count zero
     _pasteRepeatCount = 0;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
 
 
     BOOL result = [super setSelectionIndexPaths:indexPaths];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
 
     return result;
 }
@@ -182,11 +182,11 @@
     //paste repeat count zero
     _pasteRepeatCount = 0;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
     
     BOOL result = [super setSelectionIndexPath:indexPath];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
     return result;
 }
 

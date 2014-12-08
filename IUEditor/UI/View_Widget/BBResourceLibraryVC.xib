@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBResourceLibraryVC">
+            <connections>
+                <outlet property="view" destination="RD9-SL-Arq" id="P4W-It-tUv"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="RD9-SL-Arq" userLabel="Library">
+            <rect key="frame" x="0.0" y="0.0" width="241" height="745"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="1" y="1" width="239" height="743"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <box autoresizesSubviews="NO" borderWidth="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="AM2-pN-veu" userLabel="Import">
+                        <rect key="frame" x="-2" y="680" width="243" height="41"/>
+                        <view key="contentView">
+                            <rect key="frame" x="2" y="2" width="239" height="37"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sDT-1r-ZHY">
+                                    <rect key="frame" x="38" y="10" width="100" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Import Resource" id="0ds-6y-qvK">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="X78-2M-o4m" userLabel="btn_Import">
+                                    <rect key="frame" x="8" y="-1" width="233" height="40"/>
+                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="tab_07_library_on" imagePosition="left" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="Y6g-2f-AzR">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="sDT-1r-ZHY" secondAttribute="bottom" constant="12" id="4MG-z2-Bpj"/>
+                            <constraint firstAttribute="trailing" secondItem="sDT-1r-ZHY" secondAttribute="trailing" constant="105" id="J5e-Gq-iP7"/>
+                            <constraint firstAttribute="width" constant="243" id="MM5-67-6Fw"/>
+                            <constraint firstItem="X78-2M-o4m" firstAttribute="top" secondItem="AM2-pN-veu" secondAttribute="top" id="Nqx-VC-ihF"/>
+                            <constraint firstItem="sDT-1r-ZHY" firstAttribute="leading" secondItem="AM2-pN-veu" secondAttribute="leading" constant="42" id="Otz-FR-vhc"/>
+                            <constraint firstAttribute="height" constant="41" id="UGK-3N-SB8"/>
+                            <constraint firstItem="sDT-1r-ZHY" firstAttribute="top" secondItem="AM2-pN-veu" secondAttribute="top" constant="12" id="dRo-vq-NcW"/>
+                            <constraint firstItem="X78-2M-o4m" firstAttribute="leading" secondItem="AM2-pN-veu" secondAttribute="leading" constant="10" id="eUa-gh-mXc"/>
+                            <constraint firstAttribute="trailing" secondItem="X78-2M-o4m" secondAttribute="trailing" id="evJ-Wo-50K"/>
+                            <constraint firstAttribute="bottom" secondItem="X78-2M-o4m" secondAttribute="bottom" constant="1" id="pbP-7N-W2T"/>
+                        </constraints>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.1764705882" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vRv-Oc-7Rb" userLabel="TitleBar">
+                        <rect key="frame" x="-1" y="719" width="241" height="25"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="239" height="23"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="W2G-ET-gR4">
+                                    <rect key="frame" x="108" y="-1" width="25" height="25"/>
+                                    <view key="contentView">
+                                        <rect key="frame" x="1" y="1" width="23" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="hxg-QJ-WbL" userLabel="View Button">
+                                                <rect key="frame" x="-1" y="-1" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="Xob-xG-gt5"/>
+                                                    <constraint firstAttribute="height" constant="25" id="mom-zZ-Seo"/>
+                                                </constraints>
+                                                <contentFilters>
+                                                    <ciFilter name="CIColorInvert">
+                                                        <configuration>
+                                                            <null key="inputImage"/>
+                                                        </configuration>
+                                                    </ciFilter>
+                                                </contentFilters>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSIconViewTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSListViewTemplate" imageScaling="proportionallyDown" inset="2" id="5Ha-F7-hmK">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstItem="hxg-QJ-WbL" firstAttribute="centerX" secondItem="W2G-ET-gR4" secondAttribute="centerX" id="10P-vd-hbk"/>
+                                        <constraint firstAttribute="width" constant="25" id="SXp-hn-dLP"/>
+                                        <constraint firstAttribute="height" constant="25" id="ZsC-7G-OK0"/>
+                                        <constraint firstItem="hxg-QJ-WbL" firstAttribute="centerY" secondItem="W2G-ET-gR4" secondAttribute="centerY" id="wC6-2N-tEm"/>
+                                    </constraints>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
+                                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ljr-Az-rw1">
+                                    <rect key="frame" x="132" y="-1" width="84" height="25"/>
+                                    <view key="contentView">
+                                        <rect key="frame" x="1" y="1" width="82" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <popUpButton verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="GbM-QD-1E0" userLabel="Collection">
+                                                <rect key="frame" x="-2" y="4" width="80" height="17"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="80" id="1qD-TP-AKd"/>
+                                                </constraints>
+                                                <contentFilters>
+                                                    <ciFilter name="CIColorInvert">
+                                                        <configuration>
+                                                            <null key="inputImage"/>
+                                                        </configuration>
+                                                    </ciFilter>
+                                                </contentFilters>
+                                                <popUpButtonCell key="cell" type="square" title="All Files" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="h1X-ol-Pki" id="pt4-Wx-PAs">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="titleBar" size="12"/>
+                                                    <menu key="menu" id="Ywa-4c-GJ7">
+                                                        <items>
+                                                            <menuItem title="All Files" state="on" id="h1X-ol-Pki" userLabel="All Widgets"/>
+                                                            <menuItem title="Image" id="9RW-7Y-l8U"/>
+                                                            <menuItem title="Video" id="1T6-2V-rLr"/>
+                                                        </items>
+                                                    </menu>
+                                                </popUpButtonCell>
+                                            </popUpButton>
+                                        </subviews>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstItem="GbM-QD-1E0" firstAttribute="top" secondItem="ljr-Az-rw1" secondAttribute="top" constant="3" id="51X-g6-zsL"/>
+                                        <constraint firstAttribute="height" constant="25" id="Cqx-W7-dgD"/>
+                                        <constraint firstItem="GbM-QD-1E0" firstAttribute="leading" secondItem="ljr-Az-rw1" secondAttribute="leading" constant="-1" id="Feg-Y2-yfL"/>
+                                        <constraint firstAttribute="bottom" secondItem="GbM-QD-1E0" secondAttribute="bottom" constant="5" id="ruQ-Nj-grY"/>
+                                        <constraint firstAttribute="width" constant="84" id="s6i-Wv-hcT"/>
+                                    </constraints>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
+                                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Nb5-r7-yrn">
+                                    <rect key="frame" x="215" y="-1" width="25" height="25"/>
+                                    <view key="contentView">
+                                        <rect key="frame" x="1" y="1" width="23" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <button translatesAutoresizingMaskIntoConstraints="NO" id="SPN-yq-jng" userLabel="View Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="H3b-HG-lXZ"/>
+                                                    <constraint firstAttribute="width" constant="25" id="Zgm-bL-MDo"/>
+                                                </constraints>
+                                                <contentFilters>
+                                                    <ciFilter name="CIColorInvert">
+                                                        <configuration>
+                                                            <null key="inputImage"/>
+                                                        </configuration>
+                                                    </ciFilter>
+                                                </contentFilters>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_close" imagePosition="overlaps" alignment="center" alternateImage="NSListViewTemplate" imageScaling="proportionallyDown" inset="2" id="aqz-ka-RcC">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="Jik-N1-J0q"/>
+                                        <constraint firstAttribute="width" constant="25" id="WBZ-3H-aKv"/>
+                                        <constraint firstItem="SPN-yq-jng" firstAttribute="leading" secondItem="Nb5-r7-yrn" secondAttribute="leading" constant="1" id="nEf-zK-JW4"/>
+                                        <constraint firstItem="SPN-yq-jng" firstAttribute="top" secondItem="Nb5-r7-yrn" secondAttribute="top" constant="-1" id="vTx-F8-ZsF"/>
+                                    </constraints>
+                                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </box>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WkX-V0-4Gb">
+                                    <rect key="frame" x="13" y="4" width="55" height="14"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="LIBRARY" id="1LD-Ew-QlD">
+                                        <font key="font" metaFont="smallSystemBold"/>
+                                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Nb5-r7-yrn" secondAttribute="trailing" id="2wF-2R-27y"/>
+                            <constraint firstAttribute="bottom" secondItem="Nb5-r7-yrn" secondAttribute="bottom" id="O4S-Jk-G7R"/>
+                            <constraint firstItem="Nb5-r7-yrn" firstAttribute="leading" secondItem="W2G-ET-gR4" secondAttribute="trailing" constant="82" id="QqA-Bo-Y5j"/>
+                            <constraint firstAttribute="trailing" secondItem="ljr-Az-rw1" secondAttribute="trailing" constant="24" id="T4U-2U-itB"/>
+                            <constraint firstAttribute="bottom" secondItem="W2G-ET-gR4" secondAttribute="bottom" id="TCY-WY-ngb"/>
+                            <constraint firstItem="Nb5-r7-yrn" firstAttribute="top" secondItem="vRv-Oc-7Rb" secondAttribute="top" id="XmS-sY-0Au"/>
+                            <constraint firstAttribute="bottom" secondItem="ljr-Az-rw1" secondAttribute="bottom" id="h1r-04-tKs"/>
+                            <constraint firstItem="ljr-Az-rw1" firstAttribute="top" secondItem="vRv-Oc-7Rb" secondAttribute="top" id="l1U-SI-Jiq"/>
+                            <constraint firstItem="W2G-ET-gR4" firstAttribute="top" secondItem="vRv-Oc-7Rb" secondAttribute="top" id="sHp-lr-wEF"/>
+                        </constraints>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="dQS-re-Ljh" userLabel="SearchBox">
+                        <rect key="frame" x="-1" y="-1" width="241" height="25"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="239" height="23"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GY4-9q-3hX">
+                                    <rect key="frame" x="-1" y="4" width="240" height="16"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIColorInvert">
+                                            <configuration>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" drawsBackground="YES" usesSingleLineMode="YES" id="vWZ-dO-Ds4">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="0.0" colorSpace="calibratedRGB"/>
+                                    </searchFieldCell>
+                                </searchField>
+                            </subviews>
+                        </view>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="241" id="103-t5-BtG"/>
+                            <constraint firstItem="GY4-9q-3hX" firstAttribute="leading" secondItem="dQS-re-Ljh" secondAttribute="leading" id="4my-c0-AEQ"/>
+                            <constraint firstAttribute="trailing" secondItem="GY4-9q-3hX" secondAttribute="trailing" constant="1" id="EmS-Hk-A4S"/>
+                            <constraint firstAttribute="bottom" secondItem="GY4-9q-3hX" secondAttribute="bottom" constant="5" id="H9w-7j-3UY"/>
+                            <constraint firstItem="GY4-9q-3hX" firstAttribute="top" secondItem="dQS-re-Ljh" secondAttribute="top" constant="4" id="pzP-DM-sWY"/>
+                            <constraint firstAttribute="height" constant="25" id="sUv-88-GX9"/>
+                        </constraints>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="4ga-Zv-j1A">
+                        <rect key="frame" x="-1" y="24" width="241" height="656"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="Tab" identifier="1" id="836-Cr-w3B" userLabel="List">
+                                <view key="view" id="KIC-40-okx">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="656"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="View" identifier="2" id="AIK-1j-hkU" userLabel="Icon">
+                                <view key="view" id="Wkw-4P-TLQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="656"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="AM2-pN-veu" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" constant="23" id="6Cq-Hj-fT3"/>
+                <constraint firstItem="vRv-Oc-7Rb" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" id="7BY-TC-DxZ"/>
+                <constraint firstItem="4ga-Zv-j1A" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" id="B4r-i6-TIA"/>
+                <constraint firstItem="vRv-Oc-7Rb" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" id="Htg-cd-E6z"/>
+                <constraint firstItem="vRv-Oc-7Rb" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" id="QXT-Jb-yLt"/>
+                <constraint firstItem="dQS-re-Ljh" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" id="R2z-gN-JCT"/>
+                <constraint firstAttribute="trailing" secondItem="vRv-Oc-7Rb" secondAttribute="trailing" id="VC6-BC-ir0"/>
+                <constraint firstItem="dQS-re-Ljh" firstAttribute="top" secondItem="4ga-Zv-j1A" secondAttribute="bottom" id="gN1-WL-6EA"/>
+                <constraint firstAttribute="trailing" secondItem="4ga-Zv-j1A" secondAttribute="trailing" id="jdq-wv-uQh"/>
+                <constraint firstItem="vRv-Oc-7Rb" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" id="kGu-CI-IBU"/>
+                <constraint firstAttribute="trailing" secondItem="vRv-Oc-7Rb" secondAttribute="trailing" id="nMf-ik-pmd"/>
+                <constraint firstAttribute="bottom" secondItem="dQS-re-Ljh" secondAttribute="bottom" id="sMU-hn-YXh"/>
+                <constraint firstItem="4ga-Zv-j1A" firstAttribute="top" secondItem="AM2-pN-veu" secondAttribute="bottom" id="sSN-0u-Clh"/>
+                <constraint firstItem="AM2-pN-veu" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" constant="-1" id="vAD-9E-h9g"/>
+                <constraint firstAttribute="trailing" secondItem="dQS-re-Ljh" secondAttribute="trailing" id="vdG-nN-VQW"/>
+                <constraint firstAttribute="trailing" secondItem="AM2-pN-veu" secondAttribute="trailing" constant="-1" id="xWt-pF-K3l"/>
+            </constraints>
+            <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="502.5" y="108.5"/>
+        </box>
+    </objects>
+    <resources>
+        <image name="NSIconViewTemplate" width="10" height="10"/>
+        <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="btn_close" width="10" height="10"/>
+        <image name="tab_07_library_on" width="26" height="26"/>
+    </resources>
+</document>

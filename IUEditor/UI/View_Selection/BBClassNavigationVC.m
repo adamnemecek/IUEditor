@@ -8,6 +8,7 @@
 
 #import "BBClassNavigationVC.h"
 
+#import "IUDocumentProtocol.h"
 #import "IUIdentifierManager.h"
 #import "IUClass.h"
 
@@ -69,7 +70,7 @@
 }
 
 - (IUIdentifierManager *)identifierManager{
-    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) identifierManager];
 }
 
 

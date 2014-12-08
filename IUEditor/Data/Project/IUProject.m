@@ -19,6 +19,9 @@
 #import "IUDjangoProject.h"
 #import "IUWordpressProject.h"
 
+#import "BBWindowProtocol.h"
+#import "IUDocumentProtocol.h"
+
 @interface IUProject()
 
 @end
@@ -501,7 +504,7 @@
         return _sourceManager;
     }
     else{
-        return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+        return [(id<BBWindowProtocol>)[[NSApp mainWindow] windowController] sourceManager];
     }
 }
 
@@ -510,17 +513,17 @@
         return _identifierManager;
     }
     else{
-        return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+        return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] identifierManager];
         
     }
 }
 
 #else
 - (id <IUSourceManagerProtocol>)sourceManager{
-    return [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
+    return [(id<BBWindowProtocol>)[[NSApp mainWindow] windowController] sourceManager];
 }
 - (IUIdentifierManager *)identifierManager{
-    return [[[[NSApp mainWindow] windowController] document] performSelector:@selector(identifierManager)];
+    return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] identifierManager];
     
 }
 #endif
