@@ -157,13 +157,13 @@
 
 - (void)test7_IUImage{
     IUImage *iu = [[IUImage alloc] initWithPreset];
-    iu.imageName = @"a.jpg";
+    iu.imagePath = @"a.jpg";
     
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:iu];
     
     IUImage *decodeIU = [coder decodeRootObject];
-    XCTAssertEqual(decodeIU.imageName,@"a.jpg");
+    XCTAssertEqual(decodeIU.imagePath,@"a.jpg");
 }
 
 - (void)test8_IUMovie{

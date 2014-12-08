@@ -45,7 +45,7 @@
     [self.undoManager disableUndoRegistration];
     
     IUImage *image = [super copyWithZone:zone];
-    image.imageName = [_imageName copy];
+    image.imagePath = [_imagePath copy];
     image.altText = [_altText copy];
     
     [self.undoManager enableUndoRegistration];
@@ -59,16 +59,17 @@
 }
 
 
-- (void)setImageName:(NSString *)imageName{
-    
-    if([imageName isEqualToString:_imageName]){
+- (void)setImagePath:(NSString *)imagePath{
+    if([imagePath isEqualToString:_imagePath]){
         return;
     }
-    [[[self undoManager] prepareWithInvocationTarget:self] setImageName:_imageName];
-    _imageName = imageName;
+    [[[self undoManager] prepareWithInvocationTarget:self] setImagePath:_imagePath];
+    _imagePath = imagePath;
     
     [self updateHTML];
+    
 }
+
 
 - (void)setAltText:(NSString *)altText{
     if([altText isEqualToString:_altText]){

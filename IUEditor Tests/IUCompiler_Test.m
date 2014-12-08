@@ -11,6 +11,7 @@
 #import "IUProject.h"
 #import "IUCompiler.h"
 #import "IUBoxes.h"
+#import "IUResource.h"
 
 @interface IUCompiler_Test : XCTestCase
 
@@ -67,6 +68,16 @@
     NSString *htmlCode;
     [compiler editorIUSource:box viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
     XCTAssertTrue([htmlCode containsString:@"Box2"]);
+}
+
+- (void)test3_Image {
+    IUImage *image = [[IUImage alloc] init];
+    image.imagePath = @"image.jpg";
+    IUCompiler *compiler = [[IUCompiler alloc] init];
+
+    NSString *htmlCode;
+    [compiler editorIUSource:image viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    XCTAssertTrue([htmlCode containsString:@"img"]);
 }
 
 #if 0

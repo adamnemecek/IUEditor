@@ -10,7 +10,7 @@
 
 @interface IUImage : IUBox
 
-@property (nonatomic) NSString *altText;
-@property (nonatomic) NSString *imageName;
+@property (nonatomic, copy) NSString *altText;
+@property (nonatomic, copy) NSString *imagePath;
 
 @end

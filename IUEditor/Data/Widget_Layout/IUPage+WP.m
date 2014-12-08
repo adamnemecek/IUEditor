@@ -89,7 +89,7 @@
     IUImage *image = [[IUImage alloc] initWithPreset];
     image.htmlID = @"image404";
     image.name = @"image404";
-    image.imageName = @"clipArt/warning.png";
+    image.filePath = @"clipArt/warning.png";
     image.enableHCenter = YES;
     
     image.defaultPositionStorage.y = @(110);

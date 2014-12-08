@@ -251,7 +251,7 @@ static     IUTestWC *testWC;
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
-        iu.imageName = @"http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg";
+        iu.imagePath = @"http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg";
         [manager setNeedsUpdateHTML:iu];
         
     }];

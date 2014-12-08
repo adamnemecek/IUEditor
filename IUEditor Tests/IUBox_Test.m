@@ -34,6 +34,9 @@
 /* this explain how to create box, and how  to use */
 - (void)test1_boxCreation {
     IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
+    identifierManager.identifierKeyPath = @"htmlID";
+    identifierManager.childrenKeyPath = @"children";
+    
     IUBox *box = [[IUBox alloc] initWithPreset];
     box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
     [identifierManager addObject:box];

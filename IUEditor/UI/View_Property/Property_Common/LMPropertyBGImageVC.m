@@ -166,7 +166,7 @@
     for (IUImage *image in self.controller.selectedObjects) {
         if ([image isKindOfClass:[IUImage class]]) {
             id value = [_imageNameComboBox stringValue];
-            [image setImageName:value];
+            [image setImagePath:value];
         }
     }
 }
@@ -175,7 +175,7 @@
     for (IUImage *image in self.controller.selectedObjects) {
         if ([image isKindOfClass:[IUImage class]]) {
             id value = [_imageNameComboBox objectValueOfSelectedItem];
-            [image setImageName:value];
+            [image setImagePath:value];
         }
     }
 }
