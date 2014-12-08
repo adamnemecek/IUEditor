@@ -67,6 +67,7 @@
         
         if( url ){
             [(IUProjectDocument *)document makeNewProjectWithOption:newDocumentOption URL:url];
+            
             newDocumentOption = nil;
             [document saveToURL:url ofType:typeName forSaveOperation:NSSaveOperation delegate:self didSaveSelector:@selector(newDocument:didSave:contextInfo:) contextInfo:(__bridge void *)([NSNumber numberWithBool:YES])];
         }

@@ -27,8 +27,6 @@
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
 - (BBWC *)butterflyWindowController;
 
-- (BOOL)removeResourceFileItemName:(NSString *)fileItemName;
-- (void)addResourceFileItemPaths:(NSArray *)fileItemPaths;
 
 
 @end

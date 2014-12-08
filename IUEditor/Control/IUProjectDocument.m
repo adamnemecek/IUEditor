@@ -27,6 +27,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 @implementation IUProjectDocument{
     BOOL isLoaded;
+    NSFileWrapper *_resourceFileWrapper;
     NSFileWrapper *_imageFileWrapper;
     NSFileWrapper *_videoFileWrapper;
 }
@@ -123,6 +124,22 @@ static NSString *metaDataIUVersion = @"IUVersion";
         if(newProject){
 
             _project = newProject;
+            
+            //re-check htmlID (IUBox can not access to identifier manager while initializing
+            for(IUSheet *sheet in _project.allSheets){
+                for(IUBox *iu in sheet.allChildren){
+                    if(iu.htmlID == nil){
+                        iu.htmlID = [self.identifierManager createIdentifierWithPrefix:[iu className]];
+                        iu.name = iu.htmlID;
+                    }
+                }
+                
+                if(sheet.htmlID == nil){
+                    sheet.htmlID = [self.identifierManager createIdentifierWithPrefix:[sheet className]];
+                    sheet.name = sheet.htmlID;
+                }
+            }
+            
             [self.identifierManager addObjects:_project.allSheets];
             [self.identifierManager commit];
             
@@ -281,7 +298,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         resourceWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
         [resourceWrapper setPreferredFilename:IUResourceGroupName];
         [[self documentFileWrapper] addFileWrapper:resourceWrapper];
-
+        _resourceFileWrapper = resourceWrapper;
     }
     
     NSFileWrapper *imageWrapper = [[resourceWrapper fileWrappers] objectForKey:IUImageResourceGroupName];
@@ -356,7 +373,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
         NSString *fileName = [filePath lastPathComponent];
         NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:filePath] options:0 error:nil];
         [resourceWrapper setPreferredFilename:fileName];
-//        resourceWrapper writeToURL:<#(NSURL *)#> options:<#(NSFileWrapperWritingOptions)#> originalContentsURL:<#(NSURL *)#> error:<#(NSError *__autoreleasing *)#>
         
         NSString *extension =  [fileName pathExtension];
         if([JDFileUtil isImageFileExtension:extension]){
@@ -367,6 +383,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         }
     }
     
+    [_resourceFileWrapper writeToURL:[NSURL fileURLWithPath:_resourceRootItem.absolutePath] options:NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:nil];
     [_resourceRootItem refresh:YES];
 }
 
@@ -389,6 +406,10 @@ static NSString *metaDataIUVersion = @"IUVersion";
     // load resource folder wrapper
     NSFileWrapper *resourceFileWrapper = [fileWrappers objectForKey:IUResourceGroupName];
     if(resourceFileWrapper){
+        _resourceFileWrapper = resourceFileWrapper;
+
+        [self.resourceRootItem refresh:YES];
+
         _imageFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUImageResourceGroupName];
         _videoFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUVideoResourceGroupName];
     }

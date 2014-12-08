@@ -21,6 +21,10 @@
 //resource rootItem
 @property IUResourceRootItem *resourceRootItem;
 
+- (BOOL)removeResourceFileItemName:(NSString *)fileItemName;
+- (void)addResourceFileItemPaths:(NSArray *)fileItemPaths;
+
+
 @end
 
 #endif
