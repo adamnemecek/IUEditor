@@ -128,20 +128,17 @@
             [self removeIUAtIndex:[self.children count]-1];
         }
     }
-    else if(count > self.children.count) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
-        
+    else if(count > self.children.count) {        
 
         for(NSInteger i=self.children.count; i <count; i++){
             IUCarouselItem *item = [[IUCarouselItem alloc] initWithPreset];
+            item.htmlID = [self.identifierManager createIdentifierWithPrefix:[item className]];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }
         
         if (self.isConnectedWithEditor) {
-            [self.project.identifierManager confirm];
+            [self.identifierManager commit];
         }
     }
 

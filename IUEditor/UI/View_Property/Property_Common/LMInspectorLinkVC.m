@@ -168,11 +168,13 @@
         return;
     }
     if(_project){
+        /* FIXME:
         IUBox *box = [_project.identifierManager IUWithIdentifier:link];
         if(box){
             [self setValue:box forIUProperty:@"link"];
             [self updateDivLink:(IUPage *)box isClassLink:NO];
         }
+         */
         
     }
     

@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BBDefaultPropertyVC.h"
 
-@interface BBPropertyToolBarVC : NSViewController
+@interface BBPropertyToolBarVC : BBDefaultPropertyVC
 
 @end

@@ -148,7 +148,8 @@
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    [self.identifierManager registerIUs:self.allSheets];
+    [self.identifierManager addObjects:self.allSheets];
+    [self.identifierManager commit];
     _pageGroup.parentFileItem = self;
     _classGroup.parentFileItem = self;
     
@@ -409,7 +410,7 @@
         header.name = @"header";
         header.htmlID = @"header";
         [self addItem:header toSheetGroup:_classGroup];
-        [self.identifierManager registerIUs:@[header]];
+        [self.identifierManager addObject:header];
     }
     
     IUClass *footer = [self classWithName:@"footer"];
@@ -418,7 +419,7 @@
         footer.name = @"footer";
         footer.htmlID = @"footer";
         [self addItem:footer toSheetGroup:_classGroup];
-        [self.identifierManager registerIUs:@[footer]];
+        [self.identifierManager addObject:footer];
     }
     
     IUClass *sidebar = [self classWithName:@"sidebar"];
@@ -427,9 +428,10 @@
         sidebar.name = @"sidebar";
         sidebar.htmlID = @"sidebar";
         [self addItem:sidebar toSheetGroup:_classGroup];
-        [self.identifierManager registerIUs:@[sidebar]];
+        [self.identifierManager addObject:sidebar];
 
     }
+    [self.identifierManager commit];
 }
 
 

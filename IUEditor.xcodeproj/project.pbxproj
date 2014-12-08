@@ -664,6 +664,8 @@
 		3DD19C821A316D7200A5198E /* BBStructureToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C801A316D7200A5198E /* BBStructureToolBarVC.xib */; };
 		3DD19C861A316E1500A5198E /* BBPropertyToolBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */; };
 		3DD19C871A316E1500A5198E /* BBPropertyToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */; };
+		3DD19CA61A3543CF00A5198E /* BBDefaultPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */; };
+		3DD19CA91A35480300A5198E /* BBDefaultBindingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */; };
 		3DD731C31A11B46100BD833F /* NSRulerView+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */; };
 		3DD731C71A11D9DD00BD833F /* description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DD731C91A11D9DD00BD833F /* description.strings */; };
 		3DE4625D19F8A63A00A75567 /* tinymce in Resources */ = {isa = PBXBuildFile; fileRef = 3DE4625C19F8A63A00A75567 /* tinymce */; };
@@ -1685,6 +1687,9 @@
 		3DD19C831A316E1500A5198E /* BBPropertyToolBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPropertyToolBarVC.h; path = UI/View_Status/BBPropertyToolBarVC.h; sourceTree = "<group>"; };
 		3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPropertyToolBarVC.m; path = UI/View_Status/BBPropertyToolBarVC.m; sourceTree = "<group>"; };
 		3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPropertyToolBarVC.xib; path = UI/View_Status/BBPropertyToolBarVC.xib; sourceTree = "<group>"; };
+		3DD19CA41A3543CF00A5198E /* BBDefaultPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultPropertyVC.h; path = UI/View_Property/BBDefaultPropertyVC.h; sourceTree = "<group>"; };
+		3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBDefaultPropertyVC.m; path = UI/View_Property/BBDefaultPropertyVC.m; sourceTree = "<group>"; };
+		3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDefaultBindingVC.m; sourceTree = "<group>"; };
 		3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRulerView+CustomColor.h"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.h"; sourceTree = "<group>"; };
 		3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRulerView+CustomColor.m"; path = "JDLibrary/Subclass/NSRulerView+CustomColor.m"; sourceTree = "<group>"; };
 		3DD731C81A11D9DD00BD833F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/description.strings; sourceTree = "<group>"; };
@@ -2236,6 +2241,8 @@
 				3D2EF5F919F783D700BBBAE5 /* ToolBar */,
 				3D2EF5F819F783A600BBBAE5 /* Selection */,
 				3D2EF5F619F7839500BBBAE5 /* Canvas */,
+				3DD19CA41A3543CF00A5198E /* BBDefaultPropertyVC.h */,
+				3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3402,6 +3409,7 @@
 		3DE45F5D19F7BFB200A75567 /* IUEditor Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */,
 				3D082F611A30226E00B653B1 /* IUSheetController_Test.m */,
 				3D4DFF331A281BD600418CE0 /* IUCopy_Test.m */,
 				3D0499A61A1C7C5C0084632B /* IUPropertyStorage_Test.m */,
@@ -4166,6 +4174,7 @@
 			files = (
 				09D647D61A16274500634434 /* IUSourceManager_UITest.m in Sources */,
 				09D647BA1A161EF600634434 /* IUCSSCompiler_Test.m in Sources */,
+				3DD19CA91A35480300A5198E /* BBDefaultBindingVC.m in Sources */,
 				09D647BB1A161EF600634434 /* JDCoder+IUProject_Test.m in Sources */,
 				09D647BC1A161EF600634434 /* IUSourceManager_Test.m in Sources */,
 				09D647BD1A161EF600634434 /* JDCoder+IUEditor_Test.m in Sources */,
@@ -4189,6 +4198,7 @@
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,
 				3D2EF6FC19F784B500BBBAE5 /* LMEventVC.m in Sources */,
 				3D2EF52319F781FB00BBBAE5 /* WPWidgetTitle.m in Sources */,
+				3DD19CA61A3543CF00A5198E /* BBDefaultPropertyVC.m in Sources */,
 				3D2EF51719F781FB00BBBAE5 /* WPCommentFormSubmitBtn.m in Sources */,
 				3D2EF51F19F781FB00BBBAE5 /* WPSiteDescription.m in Sources */,
 				3D2EF61719F7843800BBBAE5 /* SelectionBorderLayer.m in Sources */,

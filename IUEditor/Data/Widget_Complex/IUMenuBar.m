@@ -171,18 +171,15 @@
     }
     else if(count > self.children.count) {
         
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
-        
         for(NSInteger i=self.children.count; i <count; i++){
             IUMenuItem *item = [[IUMenuItem alloc] initWithPreset];
+            item.htmlID = [self.identifierManager createIdentifierWithPrefix:[item className]];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }
         
         if (self.isConnectedWithEditor) {
-            [self.project.identifierManager confirm];
+            [self.identifierManager commit];
         }
     }
     

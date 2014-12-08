@@ -106,12 +106,11 @@
     }
     IUPage *newSheet = [[IUPage alloc] initWithPreset];
     
-    [[self.project identifierManager] resetUnconfirmedIUs];
     [self.project addItem:newSheet toSheetGroup:self.project.pageGroup];
     [self.project.identifierManager addObjects:@[newSheet]];
+    [self.project.identifierManager commit];
     [newSheet connectWithEditor];
     [newSheet setIsConnectedWithEditor];
-    [[self.project identifierManager] confirm];
 
     [self.sheetController rearrangeObjects];
     [self.sheetController setSelectedObject:newSheet];

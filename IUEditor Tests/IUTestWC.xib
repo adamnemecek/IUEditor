@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IUTestWC">
             <connections>
+                <outlet property="testView" destination="Peh-Jl-G6R" id="30F-bk-noA"/>
                 <outlet property="webView" destination="ZeN-QQ-udH" id="YMq-yJ-KCY"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -16,14 +17,14 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="960" height="630"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="contentRect" x="196" y="240" width="960" height="1164"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="960" height="630"/>
+                <rect key="frame" x="0.0" y="0.0" width="960" height="1164"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAM-N4-ky1">
-                        <rect key="frame" x="879" y="549" width="62" height="32"/>
+                        <rect key="frame" x="879" y="1083" width="62" height="32"/>
                         <buttonCell key="cell" type="push" title="Fail" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ivN-NK-k6b">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -33,7 +34,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ulQ-GF-s5q">
-                        <rect key="frame" x="803" y="549" width="70" height="32"/>
+                        <rect key="frame" x="803" y="1083" width="70" height="32"/>
                         <buttonCell key="cell" type="push" title="Pass" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4uD-R6-4EQ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -43,7 +44,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AsK-HW-5NL">
-                        <rect key="frame" x="18" y="580" width="79" height="17"/>
+                        <rect key="frame" x="18" y="1114" width="79" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Test Module" id="9w6-GR-G7Y">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -51,7 +52,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9li-Sm-kJO">
-                        <rect key="frame" x="110" y="603" width="103" height="17"/>
+                        <rect key="frame" x="110" y="1137" width="103" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="27" id="Wm7-Ea-iwy">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -66,7 +67,7 @@
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gpE-uA-RTr">
-                        <rect key="frame" x="18" y="603" width="88" height="17"/>
+                        <rect key="frame" x="18" y="1137" width="88" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Test Number" id="ygm-VD-z3a">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -74,13 +75,13 @@
                         </textFieldCell>
                     </textField>
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeN-QQ-udH">
-                        <rect key="frame" x="0.0" y="0.0" width="960" height="419"/>
+                        <rect key="frame" x="0.0" y="534" width="960" height="419"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>
                         </webPreferences>
                     </webView>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91r-rT-4r4">
-                        <rect key="frame" x="803" y="582" width="143" height="32"/>
+                        <rect key="frame" x="803" y="1116" width="143" height="32"/>
                         <buttonCell key="cell" type="push" title="Open in Browser" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5Tl-cG-vRk">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -90,7 +91,7 @@
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efv-vq-4f9">
-                        <rect key="frame" x="110" y="556" width="658" height="39"/>
+                        <rect key="frame" x="110" y="1090" width="658" height="39"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="IUProject_Test" id="cQL-Ky-gr4">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -101,7 +102,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gUg-Zq-DHA">
-                        <rect key="frame" x="20" y="427" width="920" height="121"/>
+                        <rect key="frame" x="32" y="380" width="920" height="121"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="fBs-hf-m7K">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -111,12 +112,15 @@
                             <binding destination="-2" name="value" keyPath="self.log" id="O0r-45-tRU"/>
                         </connections>
                     </textField>
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Peh-Jl-G6R">
+                        <rect key="frame" x="0.0" y="974" width="960" height="96"/>
+                    </customView>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="495" y="337"/>
+            <point key="canvasLocation" x="342" y="604"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="Tkq-pV-blk"/>
     </objects>

@@ -84,14 +84,14 @@
 - (void)setEnableTitle:(BOOL)enableTitle{
     _enableTitle = enableTitle;
     if (enableTitle) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
 
         WPArticleTitle *title = [[WPArticleTitle alloc] initWithPreset];
+        title.htmlID = [self.identifierManager createIdentifierWithPrefix:[title className]];
+        title.name = title.htmlID;
+
         [self addIU:title error:nil];
         if (self.isConnectedWithEditor) {
-            [title confirmIdentifier];
+            [self.identifierManager commit];
         }
     }
     else {
@@ -106,13 +106,12 @@
 - (void)setEnableDate:(BOOL)enableDate{
     _enableDate = enableDate;
     if (enableDate) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
         WPArticleDate *date = [[WPArticleDate alloc] initWithPreset];
+        date.htmlID = [self.identifierManager createIdentifierWithPrefix:[date className]];
+        date.name = date.htmlID;
         [self addIU:date error:nil];
         if (self.isConnectedWithEditor) {
-            [date confirmIdentifier];
+            [self.identifierManager commit];
         }
     }
     else {
@@ -127,13 +126,13 @@
 - (void)setEnableCommentForm:(BOOL)enableCommentForm{
     _enableCommentForm = enableCommentForm;
     if (enableCommentForm) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
         WPCommentFormCollection *formCollection = [[WPCommentFormCollection alloc] initWithPreset];
+        formCollection.htmlID = [self.identifierManager createIdentifierWithPrefix:[formCollection className]];
+        formCollection.name = formCollection.htmlID;
+
         [self addIU:formCollection error:nil];
         if (self.isConnectedWithEditor) {
-            [formCollection confirmIdentifier];
+            [self.identifierManager commit];
         }
     }
     else {
@@ -148,13 +147,13 @@
 - (void)setEnableBody:(BOOL)enableBody{
     _enableBody = enableBody;
     if (enableBody) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
         WPArticleBody *body = [[WPArticleBody alloc] initWithPreset];
+        body.htmlID = [self.identifierManager createIdentifierWithPrefix:[body className]];
+        body.name = body.htmlID;
+
         [self addIU:body error:nil];
         if (self.isConnectedWithEditor) {
-            [self.project.identifierManager confirm];
+            [self.identifierManager commit];
         }
     }
     else {
@@ -170,13 +169,13 @@
 - (void)setEnableComment:(BOOL)enableComment{
     _enableComment = enableComment;
     if (enableComment) {
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
         WPCommentCollection *comment = [[WPCommentCollection alloc] initWithPreset];
+        comment.htmlID = [self.identifierManager createIdentifierWithPrefix:[comment className]];
+        comment.name = comment.htmlID;
+
         [self addIU:comment error:nil];
         if (self.isConnectedWithEditor) {
-            [self.project.identifierManager confirm];
+            [self.identifierManager commit];
         }
     }
     else {

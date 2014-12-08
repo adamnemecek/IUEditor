@@ -59,7 +59,8 @@ typedef enum IUFrameUnit{
 @optional
 
 @required
-- (void)setNeedsToUpdateStorage:(IUDataStorage*)storage;
+
+- (void)setNeedsToUpdateStorage:(IUDataStorage*)storage keys:(NSArray *)keys;
 //js
 - (NSRect)currentPercentFrame;
 - (NSRect)currentPixelFrame;

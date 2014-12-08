@@ -89,7 +89,7 @@
 }
 
 - (void)updatePageComboBox:(NSString *)target {
-    
+/*
     if(_project){
         IUBox *box = [_project.identifierManager IUWithIdentifier:target];
         if(box){
@@ -99,7 +99,7 @@
             [self setValue:target forIUProperty:@"target"];
         }
     }
-    
+  */
 }
 
 

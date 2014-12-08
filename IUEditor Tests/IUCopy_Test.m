@@ -75,7 +75,7 @@
 - (void)test3_IUBox{
     IUBox *iu = [[IUBox alloc] initWithPreset];
     iu.htmlID = @"test1";
-    [_identifierManager registerIUs:@[iu]];
+    [_identifierManager addObject:iu];
     iu.identifierManager = _identifierManager;
     
     
@@ -103,7 +103,7 @@
     IUBox *child = [[IUBox alloc] initWithPreset];
     [iu addIU:child error:nil];
     
-    [_identifierManager registerIUs:@[iu]];
+    [_identifierManager addObject:iu];
     
     IUBox *copyIU = [iu copy];
 

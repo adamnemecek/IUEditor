@@ -67,10 +67,13 @@
         return;
     }
     if(_project){
+        /*
+         FIXME
         IUBox *box = [_project.identifierManager IUWithIdentifier:selectedItem];
         if(box){
             [self setValue:box forIUProperty:@"collection"];
         }
+         */
         
     }
 }

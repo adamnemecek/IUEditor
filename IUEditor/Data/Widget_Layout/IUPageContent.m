@@ -29,6 +29,8 @@
         IUSection *section = [[IUSection alloc] initWithPreset];
         section.defaultStyleStorage.bgColor = nil;
         section.defaultStyleStorage.height = @(720);
+        section.htmlID  = [self.identifierManager createIdentifierWithPrefix:[section className]];
+        section.name = section.htmlID;
         
         [self addIU:section error:nil];
         
@@ -48,6 +50,10 @@
         
         titleBox.enableHCenter = YES;
         
+        titleBox.htmlID  = [self.identifierManager createIdentifierWithPrefix:[titleBox className]];
+        titleBox.name = titleBox.htmlID;
+
+        
         [section addIU:titleBox error:nil];
         
         
@@ -66,6 +72,11 @@
         contentBox.defaultPropertyStorage.innerHTML = @"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right.";
         
         contentBox.enableHCenter = YES;
+        
+        
+        contentBox.htmlID  = [self.identifierManager createIdentifierWithPrefix:[contentBox className]];
+        contentBox.name = contentBox.htmlID;
+
         
         [section addIU:contentBox error:nil];
 

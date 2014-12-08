@@ -54,6 +54,10 @@
     _pageContent = [[IUPageContent alloc] initWithPreset];
     _layout = IUPageLayoutDefault;
     
+    _pageContent.htmlID  = [self.identifierManager createIdentifierWithPrefix:[_pageContent className]];
+    _pageContent.name = _pageContent.htmlID;
+
+    
     [self addIU:_pageContent error:nil];
     
     return self;
@@ -103,6 +107,22 @@
 
 -(IUPageContent *)pageContent{
     return _pageContent;
+}
+
+- (NSArray *)children{
+    NSMutableArray *childrenArray = [ NSMutableArray array];
+    [childrenArray addObject:_pageContent];
+    if(_header){
+        [childrenArray addObject:_header];
+    }
+    if(_footer){
+        [childrenArray addObject:_footer];
+    }
+    if(_sidebar){
+        [childrenArray addObject:_sidebar];
+    }
+    
+    return [childrenArray copy];
 }
 
 - (void)loadPreset_makeCSS{

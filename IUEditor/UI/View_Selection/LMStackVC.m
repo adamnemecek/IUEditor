@@ -263,7 +263,7 @@
                     newIndex = 0 ;
                 }
                 [iu.parent removeIU:iu];
-                [self.sheet.project.identifierManager registerIUs:@[iu]];                
+//                [self.sheet.project.identifierManager registerIUs:@[iu]];
                 //we remove position tag. if not, iu will be invisible to new position
                 [iu.currentPositionStorage setX:@(0) unit:@(IUFrameUnitPixel)];
                 [iu.currentPositionStorage setY:@(0) unit:@(IUFrameUnitPixel)];
@@ -328,9 +328,9 @@
         return;
     }
 
-    [_sheet.identifierManager resetUnconfirmedIUs];
+//    [_sheet.identifierManager resetUnconfirmedIUs];
     IUSection *newIU = [[IUSection alloc]  initWithPreset];
-    [_sheet.identifierManager confirm];
+//    [_sheet.identifierManager confirm];
     if (newIU == nil) {
         NSAssert(0, @"");
     }

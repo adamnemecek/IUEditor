@@ -509,10 +509,6 @@
     return nil;
 }
 
-- (void)confirmIdentifier{
-    [self.identifierManager confirm];
-}
-
 
 #pragma mark - noti
 - (CalledByNoti)structureChanged:(NSNotification*)noti{
@@ -680,8 +676,8 @@ e.g. 만약 css로 옮긴다면)
     }
 }
 
-- (void)setNeedsToUpdateStorage:(IUDataStorage *)storage{
-    //FIXME:
+- (void)setNeedsToUpdateStorage:(IUDataStorage*)storage keys:(NSArray *)keys{
+    //FIXME: 현재 바뀐 property값을 key로 받아서 updateHTML/updateCSS 에 맞게 호출
     if(self.sourceManager){
         [self updateHTML];
     }

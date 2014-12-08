@@ -146,19 +146,18 @@
     }
     else if(count > self.children.count) {
         
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager resetUnconfirmedIUs];
-        }
+     
         
         for(NSInteger i=self.children.count; i <count; i++){
             IUMenuItem *subMenu = [[IUMenuItem alloc] initWithPreset];
+            subMenu.htmlID  = [self.identifierManager createIdentifierWithPrefix:[subMenu className]];
             subMenu.name = subMenu.htmlID;
+            [self.identifierManager commit];
+            
             [self addIU:subMenu error:nil];
         }
         
-        if (self.isConnectedWithEditor) {
-            [self.project.identifierManager confirm];
-        }
+       
     }
     
     

@@ -21,6 +21,7 @@
 @property NSString *testModule;
 @property int       testNumber;
 @property NSString *log;
+@property (weak) IBOutlet NSView *testView;
 
 @property __weak id <IUTestWCDelegate>  delegate;
 @property (weak) IBOutlet WebView *webView;
