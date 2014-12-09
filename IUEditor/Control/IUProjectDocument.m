@@ -335,13 +335,26 @@ static NSString *metaDataIUVersion = @"IUVersion";
     NSFileWrapper *currentFileWrapper = _resourceFileWrapper;
     NSDictionary *childFileWrappers =  [_resourceFileWrapper fileWrappers];
     for(NSString *name in component){
+        if(name.length ==0 ){
+            continue;
+        }
         parentFileWrapper = currentFileWrapper;
         currentFileWrapper = [childFileWrappers objectForKey:name];
-        childFileWrappers = [currentFileWrapper fileWrappers];
+        if([currentFileWrapper isDirectory]){
+            childFileWrappers = [currentFileWrapper fileWrappers];
+        }
+        else{
+            break;
+        }
     }
     
     if([parentFileWrapper isNotEqualTo:currentFileWrapper]){
         [parentFileWrapper removeFileWrapper:currentFileWrapper];
+        
+        NSURL *resourceURL = [NSURL fileURLWithPath:[fileItem.absolutePath stringByDeletingLastPathComponent]];
+        NSError *saveError;
+        [parentFileWrapper writeToURL:resourceURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&saveError];
+
         [_resourceRootItem refresh:YES];
         return YES;
     }

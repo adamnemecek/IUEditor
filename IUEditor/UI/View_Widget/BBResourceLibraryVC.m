@@ -11,6 +11,8 @@
 
 @interface BBResourceLibraryVC ()
 
+@property (strong) IBOutlet NSTreeController *resourceTreeController;
+
 
 @end
 
@@ -59,7 +61,16 @@
     return [[[NSApp mainWindow] windowController] document];
 }
 
+#pragma mark - ibaction
+
+- (IBAction)clickRemoveResourceFileItem:(id)sender {
+    for(IUResourceFileItem * fileItem in [_resourceTreeController selectedObjects]){
+        [[self iuProjectDocument] removeResourceFileItem:fileItem];
+    }
+}
+
 #pragma mark - outlineView delegate
+
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item{
     
     IUResourceFileItem *resourceFile = [item representedObject];

@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBResourceLibraryVC">
             <connections>
+                <outlet property="resourceTreeController" destination="Oyu-4w-Hp5" id="29x-Fl-7tL"/>
                 <outlet property="view" destination="RD9-SL-Arq" id="P4W-It-tUv"/>
             </connections>
         </customObject>
@@ -165,6 +166,9 @@
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="clickRemoveResourceFileItem:" target="-2" id="vV1-5M-rdq"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </view>
@@ -379,6 +383,7 @@
                                                         </tableColumns>
                                                         <connections>
                                                             <binding destination="Oyu-4w-Hp5" name="content" keyPath="arrangedObjects" id="zrf-Ru-Q5X"/>
+                                                            <binding destination="Oyu-4w-Hp5" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="zrf-Ru-Q5X" id="Dhd-WM-uTO"/>
                                                             <outlet property="delegate" destination="-2" id="gQI-24-fy7"/>
                                                         </connections>
                                                     </outlineView>

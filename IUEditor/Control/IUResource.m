@@ -118,6 +118,7 @@
 }
 
 - (void)refresh:(BOOL)recursive {
+    
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:self.absolutePath]
                                     includingPropertiesForKeys:[NSArray arrayWithObject:NSURLNameKey]
                                                        options:NSDirectoryEnumerationSkipsHiddenFiles
@@ -219,6 +220,26 @@
 
 - (void)sendKVONoti_endUpdateVideoResourceItem {
     [self didChangeValueForKey:@"videoResourceItems"];
+}
+
+- (void)sendKVONoti_startUpdateAllResourceItem{
+    [self willChangeValueForKey:@"children"];
+}
+
+- (void)sendKVONoti_endUpdateAllResourceItem{
+    [self didChangeValueForKey:@"children"];
+}
+
+- (void)refresh:(BOOL)recursive{
+    [self sendKVONoti_startUpdateAllResourceItem];
+    [self sendKVONoti_startUpdateImageResourceItem];
+    [self sendKVONoti_startUpdateVideoResourceItem];
+    
+    [super refresh:recursive];
+    
+    [self sendKVONoti_endUpdateVideoResourceItem];
+    [self sendKVONoti_endUpdateImageResourceItem];
+    [self sendKVONoti_endUpdateAllResourceItem];
 }
 
 - (void)loadFromPath:(NSString *)path{
