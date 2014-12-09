@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) IUController      *controller;
 //resource root
-- (IUResourceRootItem *)resourceRootItem;
+@property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
 
 
 //binding to liveStorageProperty or default property of selected iubox

@@ -148,6 +148,9 @@
                                         <string>300%</string>
                                     </objectValues>
                                 </comboBoxCell>
+                                <connections>
+                                    <binding destination="o5e-3h-Vmu" name="content" keyPath="arrangedObjects.name" id="Zht-dk-487"/>
+                                </connections>
                             </comboBox>
                         </subviews>
                     </view>
@@ -303,6 +306,9 @@
                                         <string>300%</string>
                                     </objectValues>
                                 </comboBoxCell>
+                                <connections>
+                                    <binding destination="o5e-3h-Vmu" name="content" keyPath="arrangedObjects.name" id="E10-2q-6IU"/>
+                                </connections>
                             </comboBox>
                         </subviews>
                     </view>
@@ -899,6 +905,12 @@
             </constraints>
             <point key="canvasLocation" x="390.5" y="-792"/>
         </customView>
+        <arrayController objectClassName="IUResourceFileItem" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="o5e-3h-Vmu" userLabel="ImageController">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.resourceRootItem.imageResourceItems" id="GLT-jW-seq"/>
+            </connections>
+        </arrayController>
+        <userDefaultsController representsSharedInstance="YES" id="IaK-UR-24M"/>
     </objects>
     <resources>
         <image name="bg_contain" width="14" height="10"/>

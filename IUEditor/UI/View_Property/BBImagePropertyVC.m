@@ -44,12 +44,12 @@
     
     //binding
     //image
-    [_imageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+    //content binding through imageArrayController in xib
     [self outlet:_imageComboBox bind:NSValueBinding property:@"imagePath"];
     [self outlet:_imageAltText bind:NSValueBinding property:@"altText"];
     
     //background Image
-    [_bgImageComboBox bind:NSContentBinding toObject:self withKeyPath:@"resourceRootItem.imageResourceItems" options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+    //content binding through imageArrayController in xib
     [self outlet:_bgImageComboBox bind:NSValueBinding liveStyleStorageProperty:@"imageName"];
     [self outlet:_bgImageSizeSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageSizeType"];
     [self outlet:_bgImageRepeatPopupButton bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageRepeat"];

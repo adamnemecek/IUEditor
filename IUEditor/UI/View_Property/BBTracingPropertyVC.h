@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUResource.h"
 
 @interface BBTracingPropertyVC : NSViewController
+
+@property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
 
 @end

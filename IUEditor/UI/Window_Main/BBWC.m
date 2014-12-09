@@ -262,7 +262,9 @@
         [_projectStructureVC setClassController:_classController];
         
         //resource
+        [_imagePropertyVC setResourceRootItem:document.resourceRootItem];
         [_resourceLibraryVC setResourceRootItem:document.resourceRootItem];
+        [_tracingPropertyVC setResourceRootItem:document.resourceRootItem];
         
         //manager part
         [_sourceManager setProject:_project];

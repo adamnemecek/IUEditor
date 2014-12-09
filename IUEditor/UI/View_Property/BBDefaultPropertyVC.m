@@ -20,10 +20,6 @@
     // Do view setup here.
 }
 
-- (IUResourceRootItem *)resourceRootItem{
-    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) resourceRootItem];
-}
-
 #pragma mark - binding
 
 - (void)outlet:(id)outlet bind:(NSString *)binding liveStyleStorageProperty:(NSString *)property{
