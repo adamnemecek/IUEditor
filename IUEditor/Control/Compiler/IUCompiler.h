@@ -35,7 +35,7 @@ static NSString * IUCompilerTagOption = @"tag";
  */
 
 - (NSString *)editorSheetSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
-- (BOOL)editorIUSource:(IUBox *)box viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
+- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
 - (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort ;
 
 - (BOOL)outputHTMLSource:(IUPage *)document html:(NSString **)html css:(NSString **)css;

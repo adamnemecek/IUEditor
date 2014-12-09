@@ -51,15 +51,6 @@
 
 #pragma mark - property
 
-- (void)setPrototypeClass:(IUClass *)prototypeClass{
-    [super setPrototypeClass:prototypeClass];
-    
-    //for version converting for document befor IU_VERSION_LAYOUT
-    if(self.isConnectedWithEditor && prototypeClass == nil){
-        [_m_children removeAllObjects];
-    }
-}
-
 - (NSArray*)children{
     if (self.prototypeClass == nil) {
         //for version converting for document befor IU_VERSION_LAYOUT

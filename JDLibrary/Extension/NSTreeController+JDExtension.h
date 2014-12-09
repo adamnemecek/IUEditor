@@ -10,12 +10,12 @@
 
 @interface NSTreeController (JDExtension)
 
-- (NSIndexPath*)indexPathOfObject:(id)anObject;
+- (NSIndexPath*)firstIndexPathOfObject:(id)anObject;
 - (NSArray*)indexPathsOfObject:(id)anObject;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)setSelectedObject:(id)object;
-- (void)_setSelectedObjects:(NSArray*)objects;
+- (void)setSelectedObjects:(NSArray*)objects;
 
 @end

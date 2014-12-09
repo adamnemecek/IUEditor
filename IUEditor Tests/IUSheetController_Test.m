@@ -55,7 +55,7 @@
     
     [_project.pageGroup addFileItem:sheetGroup];
     
-    NSIndexPath *indexPath = [_pagesController indexPathOfObject:sheetGroup];
+    NSIndexPath *indexPath = [_pagesController firstIndexPathOfObject:sheetGroup];
     
     XCTAssert(indexPath);
     

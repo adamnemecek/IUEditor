@@ -25,7 +25,7 @@
 @class IUSheet;
 @class IUCompiler;
 @class IUProject;
-
+@class IUController;
 
 @protocol IUSourceManagerDelegate <NSObject> // = canvasVC
 
@@ -100,4 +100,5 @@
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet;
 
+@property (weak) IUController *iuController;
 @end

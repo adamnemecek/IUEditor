@@ -62,6 +62,8 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 @interface IUBox : NSObject <NSCopying, JDCoding, IUDataStorageManagerDelegate>{
     NSMutableArray *_m_children;
+    NSMutableDictionary *_m_storageManagerDict;
+    
     __weak id <IUSourceDelegate> _canvasVC __deprecated;
     
     IUStyleStorage *_liveStyleStorage;
@@ -142,7 +144,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (IUDataStorageManager *)hoverStyleManager;
 - (IUDataStorageManager *)positionManager;
 - (IUDataStorageManager *)propertyManager;
-//- (IUEventStorageManager *)eventManager;
 
 - (NSArray *)events;
 - (NSArray *)eventsCalledByOtherIU:(IUEvent2 *)event;
@@ -239,7 +240,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 //children
 - (NSArray*)children;
-- (BOOL)hasChildren;
+
 - (NSMutableArray*)allChildren;
 - (NSMutableArray *)allIdentifierChildren;
 
@@ -295,7 +296,5 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (NSString*)cssHoverClass;
 - (NSString*)cssActiveClass;
 - (NSString*)cssClassStringForHTML;
-
-
 
 @end

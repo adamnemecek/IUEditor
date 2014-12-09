@@ -33,7 +33,7 @@
  @param rule const NSString형태의 컴파일 룰이다. HTMLCompiler에서는 기본적으로 default 가 들어오게 될 것이며,
  향후에 subclassing에 따라 Django에 대응하는 const NSString *이 들어올 수 있다.
  */
-- (JDCode *)editorHTMLCode:(IUBox *)iu rule:(NSString *)rule viewPort:(NSInteger)viewPort cssCodes:(NSDictionary *)codes;
+- (JDCode *)editorHTMLCode:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix rule:(NSString *)rule viewPort:(NSInteger)viewPort cssCodes:(NSDictionary *)codes;
 
 
 /**
@@ -44,6 +44,6 @@
  향후에 subclassing에 따라 Django에 대응하는 const NSString *이 들어올 수 있다.
 
  */
-- (JDCode *)outputHTMLCode:(IUBox *)iu rule:(NSString *)rule cssCodes:(NSDictionary *)codes;
+- (JDCode *)outputHTMLCode:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix rule:(NSString *)rule cssCodes:(NSDictionary *)codes;
 
 @end

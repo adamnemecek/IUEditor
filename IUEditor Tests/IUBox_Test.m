@@ -48,28 +48,15 @@
 
 /* this explain how to use import */
 - (void)test2_import {
-    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
-    
-    IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
-    [identifierManager addObject:box];
-    
-    IUClass *class = [[IUClass alloc] initWithPreset];
-    class.htmlID = [identifierManager createIdentifierWithPrefix:class.className];
-    [identifierManager addObject:class];
-    [class.livePositionStorage setX:@(2000)];
+    IUClass *class = [[IUClass alloc] init];
+    class.htmlID = @"Class1";
 
-    IUImport *import = [[IUImport alloc] initWithPreset:class];
-    import.htmlID = [identifierManager createIdentifierWithPrefix:import.className];
-    [identifierManager addObject:import];
+    IUImport *import = [[IUImport alloc] init];
+    import.htmlID = @"Import1";
+    import.prototypeClass = class;
     
-    [box addIU:import error:nil];
-    [identifierManager commit];
-
     XCTAssertEqual(import.prototypeClass, class);
-    XCTAssertEqual(import.livePositionStorage.x, @(2000));
     XCTAssertEqual(import.liveStyleStorage, class.liveStyleStorage);
-    XCTAssertEqual(box, import.parent);
 }
 
 /* make page and check every value is in */

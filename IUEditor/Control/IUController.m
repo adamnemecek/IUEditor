@@ -136,7 +136,7 @@
         NSAssert(result, @"Add");
         
     }
-    [self _setSelectedObjects:copiedArray];
+    [self setSelectedObjects:copiedArray];
     _pasteRepeatCount ++;
 }
 
@@ -233,7 +233,7 @@
             [indexPaths addObjectsFromArray:[self indexPathsOfObject:selectedIU]];
         }
         
-        NSIndexPath *importPath = [self indexPathOfObject:import];
+        NSIndexPath *importPath = [self firstIndexPathOfObject:import];
         NSPredicate *selectIndexPathPredicate = [NSPredicate predicateWithBlock:^BOOL(NSIndexPath *path, NSDictionary *bindings) {
             if ([path containsIndexPath:importPath]) {
                 return YES;
@@ -267,7 +267,7 @@
             }
         }
          */
-        [self _setSelectedObjects:selectedChildren];
+        [self setSelectedObjects:selectedChildren];
     }
 }
 
@@ -287,7 +287,7 @@
         return NO;
     }];
     NSArray *selectedChildren = [allChildren filteredArrayUsingPredicate:predicate];
-    [self _setSelectedObjects:selectedChildren];
+    [self setSelectedObjects:selectedChildren];
 }
 
 -(NSArray*)selectedIdentifiers{
@@ -443,5 +443,26 @@
     }
 }
 
+- (NSArray *)allHTMLIDsWithIU:(IUBox *)IU {
+    NSMutableArray *retArray = [NSMutableArray array];
+    NSArray *indexPaths = [self indexPathsOfObject:IU];
+    IUBox *box = [self objectAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
+    for (NSIndexPath *path in indexPaths) {
+        [retArray addObject:[self htmlIDForIU:box withIndexPath:path]];
+    }
+    return retArray;
+}
 
+- (NSString *)htmlIDForIU:(IUBox *)box withIndexPath:(NSIndexPath *)path {
+    NSMutableString *str;
+    for (int i=0; i<path.length; i++) {
+        NSUInteger index = [path indexAtPosition:i];
+        box = [[box children] objectAtIndex:index];
+        if ([box isKindOfClass:[IUImport class]]) {
+            [str appendString:[box.htmlID stringByAppendingString:@"_I_"]];
+        }
+    }
+    return str;
+    
+}
 @end

@@ -667,7 +667,7 @@
     return [cssCompiler cssCodeForIU:iu rule:_rule target:IUTargetEditor viewPort:viewPort option:nil];
 }
 
-- (BOOL)editorIUSource:(IUBox *)box viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS {
+- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS {
     NSMutableDictionary *cssDict = [NSMutableDictionary dictionary];
     NSMutableDictionary *nonInlineCSSDict = [NSMutableDictionary dictionary];
     NSMutableArray *arr = [NSMutableArray arrayWithObject:box];
@@ -682,7 +682,7 @@
             nonInlineCSSDict[selector] = style;
         }
     }
-    JDCode *htmlCode = [htmlCompiler editorHTMLCode:box rule:_rule viewPort:viewPort cssCodes:cssDict];
+    JDCode *htmlCode = [htmlCompiler editorHTMLCode:box htmlIDPrefix:htmlIDPrefix rule:_rule viewPort:viewPort cssCodes:cssDict];
     if (html) {
         *html = htmlCode.string;
     }
@@ -720,7 +720,7 @@
     
     NSDictionary *cssCodes;
     NSString *sheetHTMLCode;
-    [self editorIUSource:document viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
+    [self editorIUSource:document htmlIDPrefix:nil viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
     
     [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
     JDErrorLog(@"css should be updated");

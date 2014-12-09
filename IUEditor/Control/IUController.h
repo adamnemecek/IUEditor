@@ -42,6 +42,11 @@
 - (BOOL)isSelectionSameClass;
 - (NSString *)selectionClassName;
 
+/**
+ @description return all iu id, including id modified for class-import structure
+ */
+- (NSArray *)allHTMLIDsWithIU:(IUBox *)IU;
+- (NSString *)htmlIDForIU:(IUBox *)box withIndexPath:(NSIndexPath *)path;
 
 @property NSUndoManager *undoManager;
 

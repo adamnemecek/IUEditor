@@ -42,7 +42,6 @@
     NSMutableSet *changedCSSWidths;
     
     //for storage manager tuple dictionary
-    NSMutableDictionary *storageManagersDict;
     
     NSRect origianlFrame;
     
@@ -89,7 +88,7 @@
     IUDataStorageManager *propertyManager = [aDecoder decodeObjectForKey:@"propertyManager"];
     IUDataStorageManager *hoverManager = [aDecoder decodeObjectForKey:@"hoverStyleManager"];
     
-    storageManagersDict = [NSMutableDictionary dictionary];
+    _m_storageManagerDict = [NSMutableDictionary dictionary];
     
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
     [self setStorageManager:styleManager forSelector:kIUStyleManager];
@@ -97,7 +96,11 @@
     [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
     
     
-    //binding
+    [self bindStorages];
+    return self;
+}
+
+- (void)bindStorages {
     if (self.defaultStyleManager) {
         [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
@@ -116,8 +119,20 @@
         [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
     }
+}
+
+- (void)unbindStorages {
+    [self unbind:@"liveStyleStorage"];
+    [self unbind:@"currentStyleStorage"];
+    [self unbind:@"defaultStyleStorage"];
+
+    [self unbind:@"currentPositionStorage"];
+    [self unbind:@"livePositionStorage"];
+    [self unbind:@"defaultPositionStorage"];
     
-    return self;
+    [self unbind:@"currentPropertyStorage"];
+    [self unbind:@"livePropertyStorage"];
+    [self unbind:@"defaultPropertyStorage"];
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
@@ -162,6 +177,7 @@
         
         [self setDefaultProperties];
         [self createDefaultStorages];
+        [self bindStorages];
 
         //setting for css
         self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
@@ -178,8 +194,7 @@
 
         [self setDefaultProperties];
         [self createDefaultStorages];
-        
-        
+        [self bindStorages];
         
         [self.undoManager enableUndoRegistration];
     }
@@ -202,35 +217,16 @@
 
 - (void)createDefaultStorages{
     //create storage
-    storageManagersDict = [NSMutableDictionary dictionary];
+    _m_storageManagerDict = [NSMutableDictionary dictionary];
     
     IUDataStorageManager *styleManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage className]];
     [self setStorageManager:styleManager forSelector:kIUStyleManager];
-    if (self.defaultStyleManager) {
-        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
-    }
-    
     IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage className]];
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
-    if(self.positionManager){
-        [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
-        
-    }
-    
     IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage className]];
     [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
-    
     IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage className]];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-    if(self.propertyManager){
-        [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
-        [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
-    }
 
     [self.defaultPositionStorage setPosition:@(IUPositionTypeAbsolute)];
     [self.defaultPositionStorage setX:nil unit:@(IUFrameUnitPixel)];
@@ -238,7 +234,9 @@
     
     [self.defaultStyleStorage setWidth:nil unit:@(IUFrameUnitPixel)];
     [self.defaultStyleStorage setHeight:nil unit:@(IUFrameUnitPixel)];
-    self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden);
+
+//  commented by JD. 14.12.09
+//  self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden); can manage at iu.css
 
     [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
     [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
@@ -315,8 +313,8 @@
         box.divLink = _linkCaller;
         
         //handle storage manager
-        for(NSString *managerKey in [storageManagersDict allKeys]){
-            IUDataStorageManager *copiedManager = [[storageManagersDict objectForKey:managerKey] copy];
+        for(NSString *managerKey in [_m_storageManagerDict allKeys]){
+            IUDataStorageManager *copiedManager = [[_m_storageManagerDict objectForKey:managerKey] copy];
             [box setStorageManager:copiedManager forSelector:managerKey];
         }
         //binding
@@ -355,35 +353,33 @@
 /* css manager */
 
 - (NSArray *)allCSSSelectors{
-    return [storageManagersDict allKeys];
+    return [_m_storageManagerDict allKeys];
 }
 
 
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector{
     
-    if(storageManagersDict == nil){
-        storageManagersDict = [NSMutableDictionary dictionary];
+    if(_m_storageManagerDict == nil){
+        _m_storageManagerDict = [NSMutableDictionary dictionary];
     }
-    storageManagersDict[selector] = cssManager;
+    _m_storageManagerDict[selector] = cssManager;
 }
 
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector{
-    return storageManagersDict[selector];
+    return _m_storageManagerDict[selector];
 }
 - (IUDataStorageManager *)defaultStyleManager{
-    return storageManagersDict[kIUStyleManager];
+    return _m_storageManagerDict[kIUStyleManager];
 }
 - (IUDataStorageManager *)hoverStyleManager{
-    return storageManagersDict[kIUStyleHoverManager];
+    return _m_storageManagerDict[kIUStyleHoverManager];
 }
 - (IUDataStorageManager *)positionManager{
-    return storageManagersDict[kIUPositionManager];
+    return _m_storageManagerDict[kIUPositionManager];
 }
 - (IUDataStorageManager *)propertyManager{
-    return storageManagersDict[kIUPropertyManager];
+    return _m_storageManagerDict[kIUPropertyManager];
 }
-
-
 
 
 #pragma mark - Core Manager
@@ -542,7 +538,7 @@
         }
     }
     if(oldMaxSize != maxSize){
-        for(IUDataStorageManager *manager in [storageManagersDict allValues]){
+        for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
             [manager setMaxViewPort:maxSize];
         }
     }
@@ -563,7 +559,7 @@
     NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
-    for(IUDataStorageManager *manager in storageManagersDict){
+    for(IUDataStorageManager *manager in _m_storageManagerDict){
         [manager removeStorageForViewPort:size];
     }
     
@@ -577,7 +573,7 @@
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
-    for(IUDataStorageManager *manager in [storageManagersDict allValues]){
+    for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
         [manager setCurrentViewPort:selectedSize];
     }
     
@@ -713,16 +709,21 @@ e.g. 만약 css로 옮긴다면)
 }
 
 -(NSArray*)children{
-    return [_m_children copy];
-}
-- (BOOL)hasChildren{
-    if (self.children.count > 0){
-        return YES;
+    if ([_m_children count]) {
+        return [_m_children copy];
     }
-    return NO;
+    else {
+        return nil;
+    }
 }
 
-#pragma mark should
+- (NSMutableArray *)_m_children{
+    return _m_children;
+}
+
+- (NSMutableDictionary *)_m_storageManagerDict{
+    return _m_storageManagerDict;
+}
 
 -(BOOL)canAddIUByUserInput{
     if(self.pgContentVariable && self.pgContentVariable.length > 0){

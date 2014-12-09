@@ -270,7 +270,7 @@
                                 
                 [newParent insertIU:iu atIndex:newIndex error:nil];
             }
-            [_IUController _setSelectedObjects:selections];
+            [_IUController setSelectedObjects:selections];
         }
         [_IUController rearrangeObjects];
         return YES;

@@ -30,13 +30,7 @@
 }
 
 - (void)test1_BOX {
-    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
     IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createIdentifierWithPrefix:box.className];
-    [identifierManager addObject:box];
-    [identifierManager commit];
-    
-    XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
     XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
     
     
@@ -50,7 +44,7 @@
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
     NSString *htmlCode;
-    [compiler editorIUSource:box viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    [compiler editorIUSource:box htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
     XCTAssertTrue([htmlCode containsString:@"left:50px;"]);
 }
 
@@ -66,7 +60,7 @@
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
     NSString *htmlCode;
-    [compiler editorIUSource:box viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    [compiler editorIUSource:box htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
     XCTAssertTrue([htmlCode containsString:@"Box2"]);
 }
 
@@ -76,27 +70,27 @@
     IUCompiler *compiler = [[IUCompiler alloc] init];
 
     NSString *htmlCode;
-    [compiler editorIUSource:image viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    [compiler editorIUSource:image htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
     XCTAssertTrue([htmlCode containsString:@"img"]);
 }
 
-#if 0
 - (void)test2_Import {
     /* How to use class-import */
-    IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
-    class.htmlID = @"class";
+    IUClass *classObj = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    classObj.htmlID = @"class";
     
-    IUImport *import = [[IUImport alloc] initWithPreset:class];
+    IUImport *import = [[IUImport alloc] initWithPreset:classObj];
     import.htmlID = @"import";
+    import.prototypeClass = classObj;
+    XCTAssertEqual(import.livePropertyStorage, classObj.livePropertyStorage);
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
-    NSString *src = [compiler editorHTMLString:import viewPort:IUDefaultViewPort];
+    NSString *htmlCode;
+    [compiler editorIUSource:import htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
 
-    NSLog(src, nil);
     /*code not generated */
     XCTAssertFalse(YES);
 }
-#endif
 
 
 @end

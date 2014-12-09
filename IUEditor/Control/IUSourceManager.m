@@ -13,7 +13,7 @@
 #import "IUPage.h"
 #import "IUEventVariable.h"
 #import "IUProject.h"
-
+#import "IUController.h"
 
 
 @interface IUSourceManager () <NSFileManagerDelegate> // delegate copy item
@@ -124,17 +124,36 @@
 }
 
 - (void)setNeedsUpdateHTML:(IUBox *)box{
-    DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:box.htmlID];
-    NSAssert(element, @"element should not nil");
-    NSString *htmlCode;
-    [_compiler editorIUSource:box viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
-    [element setOuterHTML:htmlCode];
+    /*
+     현재까지 transaction을 지원하지 않는다.
+     */
+    /* update IUBox 가 불리면, IUController에서 동일한 Path들을 모두 가져온다. 이 Path들 정보로 html ID를 가져온다 */
+    if (_iuController) {
+        NSArray *htmlIDs = [_iuController allHTMLIDsWithIU:box];
+        for (NSString *htmlID in htmlIDs) {
+            DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:htmlID];
+            NSAssert(element, @"element should not nil");
+            NSString *htmlCode;
+            [_compiler editorIUSource:box htmlIDPrefix:htmlID viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+            [element setOuterHTML:htmlCode];
+        }
+    }
+    else {
+        DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:box.htmlID];
+        NSAssert(element, @"element should not nil");
+        NSString *htmlCode;
+        [_compiler editorIUSource:box htmlIDPrefix:nil viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+        [element setOuterHTML:htmlCode];
+    }
 }
 
 
 
 - (void)setNeedsUpdateCSS:(IUBox *)box{
     /* get css code from compiler */
+    /*
+     현재까지 transaction을 지원하지 않는다.
+     */
     IUCSSCode *code = [_compiler editorIUCSSSource:box viewPort:_viewPort];
     NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];
     /* insert css code to inline */

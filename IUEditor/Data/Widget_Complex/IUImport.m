@@ -9,6 +9,7 @@
 #import "IUImport.h"
 #import "IUBox.h"
 #import "IUClass.h"
+#import "IUBox+Subclass.h"
 
 @implementation IUImport
 
@@ -87,49 +88,29 @@
     return self;
 }
 
-- (void)setPrototypeClass:(IUClass *)prototypeClass{
-    
+- (void)setPrototypeClass:(IUClass *)prototypeClass {
     if(prototypeClass && [prototypeClass isEqualTo:_prototypeClass]){
         return;
     }
-    
     //FIXME: remove IU
     [[self.undoManager prepareWithInvocationTarget:self] setPrototypeClass:_prototypeClass];
-
     [self willChangeValueForKey:@"children"];
     
     [_prototypeClass removeReference:self];
-    
-    if(prototypeClass == nil && _prototypeClass != nil){
-        //remove layers
-        for(IUBox *box in _prototypeClass.allChildren){
-//            NSString *currentID = [self modifieldHtmlIDOfChild:box];
-            [self.sourceManager removeIU:box];
-//            [_canvasVC IURemoved:currentID];
-        }
-        
-        [self.sourceManager removeIU:_prototypeClass];
-//        [_canvasVC IURemoved:[self modifieldHtmlIDOfChild:_prototypeClass]];
-
-    }
-    
     _prototypeClass = prototypeClass;
+
+    [_prototypeClass addReference:self];
+    _m_children = prototypeClass._m_children;
     
-    if(_prototypeClass){
-//        [_prototypeClass setCanvasVC:  _canvasVC];
-        [_prototypeClass addReference:self];
-    }
+    /* manage storage */
+    /* check _m_storageManagerDict : it is not "weak" object! */
+    
+    _m_children = prototypeClass._m_children;
+    [self unbindStorages];
+    _m_storageManagerDict = prototypeClass._m_storageManagerDict;
+    [self bindStorages];
     
     [self updateHTML];
-    
-    /*
-    if (_canvasVC && _prototypeClass) {
-        for (IUBox *iu in [prototypeClass.allChildren arrayByAddingObject:prototypeClass]) {
-            [iu updateCSS];
-        }
-        
-    }
-     */
     [self didChangeValueForKey:@"children"];
 }
 

@@ -794,6 +794,7 @@
 		092605B51A1C1078008C40FC /* IUBoxes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUBoxes.h; sourceTree = "<group>"; };
 		092605B61A1C2B19008C40FC /* IUSourceManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUSourceManagerProtocol.h; sourceTree = "<group>"; };
 		094FA9E91A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBWidgetLibrary_Test.m; sourceTree = "<group>"; };
+		09592D231A3754D7008F498B /* IUBox+Subclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IUBox+Subclass.h"; sourceTree = "<group>"; };
 		0965D12E1A21C923000E400B /* IUEventCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUEventCompiler.h; path = Control/Compiler/IUEventCompiler.h; sourceTree = "<group>"; };
 		0965D12F1A21C923000E400B /* IUEventCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUEventCompiler.m; path = Control/Compiler/IUEventCompiler.m; sourceTree = "<group>"; };
 		0965D1311A21CED5000E400B /* IUEvent_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUEvent_Test.m; sourceTree = "<group>"; };
@@ -2131,6 +2132,7 @@
 				3D2EF49919F781C400BBBAE5 /* IUMovie.m */,
 				3D4DFF2E1A248BC600418CE0 /* IUText.h */,
 				3D4DFF2F1A248BC600418CE0 /* IUText.m */,
+				09592D231A3754D7008F498B /* IUBox+Subclass.h */,
 			);
 			name = Default;
 			sourceTree = "<group>";

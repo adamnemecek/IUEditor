@@ -19,6 +19,6 @@
  @brief ImportedBy_importID_iu.htmlID
  */
 - (NSString *)modifieldHtmlIDOfChild:(IUBox *)iu;
-
 - (id)initWithPreset:(IUClass*)aClass;
+
 @end
