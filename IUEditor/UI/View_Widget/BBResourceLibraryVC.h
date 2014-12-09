@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUResource.h"
 
-@interface BBResourceLibraryVC : NSViewController
+@interface BBResourceLibraryVC : NSViewController <NSOutlineViewDelegate>
+
+@property (nonatomic) IUResourceRootItem *resourceRootItem;
 
 @end

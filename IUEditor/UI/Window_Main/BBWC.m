@@ -261,6 +261,8 @@
         [_projectStructureVC setPageController:_pageController];
         [_projectStructureVC setClassController:_classController];
         
+        //resource
+        [_resourceLibraryVC setResourceRootItem:document.resourceRootItem];
         
         //manager part
         [_sourceManager setProject:_project];

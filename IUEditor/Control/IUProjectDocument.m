@@ -26,10 +26,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
 @end
 
 @implementation IUProjectDocument{
-    BOOL isLoaded;
+    BOOL _isLoaded;
     NSFileWrapper *_resourceFileWrapper;
-    NSFileWrapper *_imageFileWrapper;
-    NSFileWrapper *_videoFileWrapper;
 }
 
 - (id)init{
@@ -118,6 +116,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [projectDict setObject:filePath forKey:IUProjectKeyIUFilePath];
         [projectDict setObject:appName forKey:IUProjectKeyAppName];
         
+        NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         
         
         IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initAtTemporaryDirectory];
@@ -142,6 +141,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
             
             [self.identifierManager addObjects:_project.allSheets];
             [self.identifierManager commit];
+        
             
             return YES;
         }
@@ -197,12 +197,12 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)showButterflyWindow{
     [self.undoManager disableUndoRegistration];
     
-    if(isLoaded && [self butterflyWindowController]){
+    if(_isLoaded && [self butterflyWindowController]){
         
     }
     else if([self butterflyWindowController]){
 //        [[self butterflyWindowController] selectFirstPage];
-        isLoaded = YES;
+        _isLoaded = YES;
     }
     
     [self.undoManager enableUndoRegistration];
@@ -211,13 +211,13 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)showLemonSheet __deprecated{
     [self.undoManager disableUndoRegistration];
     
-    if(isLoaded && [self butterflyWindowController]){
+    if(_isLoaded && [self butterflyWindowController]){
 //        [[self butterflyWindowController] reloadNavigation];
 //        [[self butterflyWindowController] reloadCurrentDocument:self];
     }
     else if([self butterflyWindowController]){
 //        [[self butterflyWindowController] selectFirstDocument];
-        isLoaded = YES;
+        _isLoaded = YES;
     }
     
     [self.undoManager enableUndoRegistration];
@@ -300,24 +300,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [[self documentFileWrapper] addFileWrapper:resourceWrapper];
         _resourceFileWrapper = resourceWrapper;
     }
-    
-    NSFileWrapper *imageWrapper = [[resourceWrapper fileWrappers] objectForKey:IUImageResourceGroupName];
-    NSFileWrapper *videoWrapper = [[resourceWrapper fileWrappers] objectForKey:IUVideoResourceGroupName];
-
-
-    if(imageWrapper == nil){
-        imageWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
-        [imageWrapper setPreferredFilename:IUImageResourceGroupName];
-        [resourceWrapper addFileWrapper:imageWrapper];
-        _imageFileWrapper = imageWrapper;
-    }
-    if(videoWrapper == nil){
-        videoWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
-        [videoWrapper setPreferredFilename:IUVideoResourceGroupName];
-        [resourceWrapper addFileWrapper:videoWrapper];
-        
-        _videoFileWrapper = videoWrapper;
-    }
 
     //save metadata
     // write the new file wrapper for our meta data
@@ -345,22 +327,21 @@ static NSString *metaDataIUVersion = @"IUVersion";
 }
 
 
-- (BOOL)removeResourceFileItemName:(NSString *)fileItemName{
+- (BOOL)removeResourceFileItem:(IUResourceFileItem *)fileItem{
     
-    NSFileWrapper *oldFileWrapper = [[_imageFileWrapper fileWrappers] objectForKey:fileItemName];
-    NSString *extension =  [fileItemName pathExtension];
-    if([JDFileUtil isImageFileExtension:extension]){
-        if(oldFileWrapper){
-            [_imageFileWrapper removeFileWrapper:oldFileWrapper];
-        }
-        [_resourceRootItem refresh:YES];
-        return YES;
-
+    NSArray *component = [fileItem.relativePath componentsSeparatedByString:@"/"];
+    
+    NSFileWrapper *parentFileWrapper = _resourceFileWrapper;
+    NSFileWrapper *currentFileWrapper = _resourceFileWrapper;
+    NSDictionary *childFileWrappers =  [_resourceFileWrapper fileWrappers];
+    for(NSString *name in component){
+        parentFileWrapper = currentFileWrapper;
+        currentFileWrapper = [childFileWrappers objectForKey:name];
+        childFileWrappers = [currentFileWrapper fileWrappers];
     }
-    else if([JDFileUtil isMovieFileExtension:extension]){
-        if(oldFileWrapper){
-            [_videoFileWrapper removeFileWrapper:oldFileWrapper];
-        }
+    
+    if([parentFileWrapper isNotEqualTo:currentFileWrapper]){
+        [parentFileWrapper removeFileWrapper:currentFileWrapper];
         [_resourceRootItem refresh:YES];
         return YES;
     }
@@ -371,22 +352,58 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)addResourceFileItemPaths:(NSArray *)fileItemPaths{
     for(NSString *filePath in fileItemPaths){
         NSString *fileName = [filePath lastPathComponent];
-        NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:filePath] options:0 error:nil];
-        [resourceWrapper setPreferredFilename:fileName];
+        NSFileWrapper *resourceWrapper = [self makeNewResourceFileWrapperAtPath:filePath];
         
-        NSString *extension =  [fileName pathExtension];
-        if([JDFileUtil isImageFileExtension:extension]){
-            [_imageFileWrapper addFileWrapper:resourceWrapper];
-        }
-        else if([JDFileUtil isMovieFileExtension:extension]){
-            [_videoFileWrapper addFileWrapper:resourceWrapper];
-        }
+        NSURL *resourceURL = [NSURL fileURLWithPath:[_project.path stringByAppendingPathComponents:@[@"resource", fileName]]];
+        NSError *saveError;
+        [resourceWrapper writeToURL:resourceURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&saveError];
+
     }
     
-    [_resourceFileWrapper writeToURL:[NSURL fileURLWithPath:_resourceRootItem.absolutePath] options:NSFileWrapperWritingWithNameUpdating originalContentsURL:nil error:nil];
     [_resourceRootItem refresh:YES];
 }
 
+- (NSFileWrapper *)makeNewResourceFileWrapperAtPath:(NSString *)filePath{
+    
+    
+    
+    //check directory
+    NSNumber *isDirectory;
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+    BOOL success = [fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+    if (success && [isDirectory boolValue]) {
+        
+        NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
+        NSString *fileName = [filePath lastPathComponent];
+        [resourceWrapper setPreferredFilename:fileName];
+
+        
+        
+        NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:filePath]
+                                                       includingPropertiesForKeys:[NSArray arrayWithObject:NSURLNameKey]
+                                                                          options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                            error:nil];
+        [files enumerateObjectsUsingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
+            //directory
+            NSString *extension = [url pathExtension];
+            if([JDFileUtil isImageFileExtension:extension] || [JDFileUtil isMovieFileExtension:extension]){
+                NSFileWrapper *childWrapper = [self makeNewResourceFileWrapperAtPath:[url path]];
+                [resourceWrapper addFileWrapper:childWrapper];
+            }
+            
+        }];
+        
+        return resourceWrapper;
+    }
+    else{
+        NSFileWrapper *resourceWrapper = [[NSFileWrapper alloc] initWithURL:[NSURL fileURLWithPath:filePath] options:0 error:nil];
+        NSString *fileName = [filePath lastPathComponent];
+        [resourceWrapper setPreferredFilename:fileName];
+        return resourceWrapper;
+    }
+
+   
+}
 
 
 - (BOOL)readFromFileWrapper:(NSFileWrapper *)fileWrapper ofType:(NSString *)typeName error:(NSError **)outError
@@ -407,11 +424,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
     NSFileWrapper *resourceFileWrapper = [fileWrappers objectForKey:IUResourceGroupName];
     if(resourceFileWrapper){
         _resourceFileWrapper = resourceFileWrapper;
-
-        [self.resourceRootItem refresh:YES];
-
-        _imageFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUImageResourceGroupName];
-        _videoFileWrapper = [[resourceFileWrapper fileWrappers] objectForKey:IUVideoResourceGroupName];
     }
     
     
@@ -434,6 +446,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
         _project =  [coder decodeContentOfData:jsonData error:nil];
         if(_project){
             [self changeProjectPath:[self fileURL]];
+            [self.resourceRootItem loadFromPath:[_project.path stringByAppendingPathComponent:@"resource"]];
+
             readSuccess = YES;
         }
     }

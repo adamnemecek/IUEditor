@@ -48,10 +48,6 @@ static NSString * IUProjectKeyConversion = @"conversion";
 
 //resource groupname
 static NSString *IUResourceGroupName = @"resource";
-static NSString *IUJSResourceGroupName = @"js";
-static NSString *IUImageResourceGroupName = @"image";
-static NSString *IUVideoResourceGroupName = @"video";
-static NSString *IUCSSResourceGroupName = @"css";
 
 //iupage groupname
 static NSString *IUPageGroupName = @"page";

@@ -67,6 +67,13 @@
     }
     return IUResourceTypeNone;
 }
+- (BOOL)isLeaf{
+    return YES;
+}
+- (NSArray *)children{
+    return nil;
+}
+
 
 @end
 
@@ -79,6 +86,9 @@
     self = [super init];
     _children = [[NSMutableArray alloc] init];
     return self;
+}
+- (BOOL)isLeaf{
+    return NO;
 }
 
 - (NSArray*)imageResourceItems {
@@ -118,6 +128,7 @@
     [files enumerateObjectsUsingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
         NSString *name = [url lastPathComponent];
 
+        //check for removed children
         for (IUResourceFileItem *item in _children) {
             if ([item.name isEqualToString:name]) {
                 [childrenTemp removeObject:item];
@@ -125,24 +136,28 @@
             }
         }
         
-        if ([currentChildrenNames containsObject:name] == NO) {
-            NSNumber *isDirectory;
-            BOOL success = [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
-            if (success && [isDirectory boolValue]) {
+        NSNumber *isDirectory;
+        BOOL success = [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+        if (success && [isDirectory boolValue]) {
+            if([currentChildrenNames containsObject:name] == NO){
                 IUResourceGroupItem *item = [[IUResourceGroupItem alloc] init];
                 item.name = name;
                 item.parent = self;
                 [_children addObject:item];
-                if (recursive) {
-                    [item refresh:YES];
-                }
-            } else {
-                IUResourceFileItem *item = [[IUResourceFileItem alloc] init];
-                item.name = name;
-                item.parent = self;
-                [_children addObject:item];
+                [item refresh:YES];
             }
+            if (recursive) {
+                IUResourceGroupItem *item = (IUResourceGroupItem *)[self resourceFileItemForName:name];
+                [item refresh:YES];
+            }
+        } else if ([currentChildrenNames containsObject:name] == NO) {
+            
+            IUResourceFileItem *item = [[IUResourceFileItem alloc] init];
+            item.name = name;
+            item.parent = self;
+            [_children addObject:item];
         }
+        
     }];
     /* 남은 파일을 삭제 */
     [childrenTemp enumerateObjectsUsingBlock:^(IUResourceFileItem *item, NSUInteger idx, BOOL *stop) {
@@ -198,12 +213,12 @@
 }
 
 - (void)sendKVONoti_startUpdateVideoResourceItem {
-    [self willChangeValueForKey:@"imageResourceItems"];
+    [self willChangeValueForKey:@"videoResourceItems"];
     
 }
 
 - (void)sendKVONoti_endUpdateVideoResourceItem {
-    [self didChangeValueForKey:@"imageResourceItems"];
+    [self didChangeValueForKey:@"videoResourceItems"];
 }
 
 - (void)loadFromPath:(NSString *)path{

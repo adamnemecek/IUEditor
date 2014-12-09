@@ -11,6 +11,7 @@
 
 @interface BBResourceLibraryVC ()
 
+
 @end
 
 @implementation BBResourceLibraryVC
@@ -18,13 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
 }
 
 #pragma mark - button action
+
 - (IBAction)clickImportResourceButton:(id)sender {
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseFiles:YES];
-    [openDlg setCanChooseDirectories:NO];
+    [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:YES];
 
     if([openDlg runModal]){
@@ -54,6 +57,27 @@
 
 - (id<IUDocumentProtocol>)iuProjectDocument{
     return [[[NSApp mainWindow] windowController] document];
+}
+
+#pragma mark - outlineView delegate
+- (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item{
+    
+    IUResourceFileItem *resourceFile = [item representedObject];
+    
+    if([resourceFile isKindOfClass:[IUResourceGroupItem class]]){
+        NSTableCellView *groupView = [outlineView makeViewWithIdentifier:@"resourceFolder" owner:self];
+        if(resourceFile.name){
+            [groupView.textField setStringValue:resourceFile.name];
+        }
+        return groupView;
+    }
+    else{
+        NSTableCellView *imageView = [outlineView makeViewWithIdentifier:@"resourceImage" owner:self];
+        [imageView.textField setStringValue:resourceFile.name];
+        return imageView;
+        
+    }
+    
 }
 
 @end

@@ -29,6 +29,8 @@ typedef enum _IUResourceType{
 @class  IUResourceGroupItem;
 @interface IUResourceFileItem : NSObject
 
+- (NSArray *)children;
+- (BOOL)isLeaf;
 - (IUResourceGroupItem *)parent;
 - (NSString *)name;
 - (NSString*)absolutePath;
@@ -42,7 +44,6 @@ typedef enum _IUResourceType{
 
 - (IUResourceFileItem *)resourceFileItemForName:(NSString *)name;
 - (void)refresh:(BOOL)recursive;
-- (NSArray *)children;
 /**
  @breif Getting contents in image resource group
  @return Array of IUResourceFile

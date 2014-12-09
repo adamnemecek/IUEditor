@@ -21,7 +21,7 @@
 //resource rootItem
 @property IUResourceRootItem *resourceRootItem;
 
-- (BOOL)removeResourceFileItemName:(NSString *)fileItemName;
+- (BOOL)removeResourceFileItem:(IUResourceFileItem *)fileItem;
 - (void)addResourceFileItemPaths:(NSArray *)fileItemPaths;
 
 
