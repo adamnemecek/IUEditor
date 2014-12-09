@@ -30,9 +30,7 @@
 }
 
 - (void)test1_BOX {
-    IUBox *box = [[IUBox alloc] initWithPreset];
-    XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
-    
+    IUBox *box = [[IUBox alloc] init];
     
     XCTAssertNotNil(box.liveStyleStorage);
     [box.livePositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
