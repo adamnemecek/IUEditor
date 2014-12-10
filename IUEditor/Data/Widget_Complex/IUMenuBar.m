@@ -174,13 +174,13 @@
         
         for(NSInteger i=self.children.count; i <count; i++){
             IUMenuItem *item = [[IUMenuItem alloc] initWithPreset];
-            item.htmlID = [self.identifierManager createIdentifierWithPrefix:[item className]];
+     //       item.htmlID = [self.identifierManager createIdentifierWithPrefix:[item className]];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }
         
         if (self.isConnectedWithEditor) {
-            [self.identifierManager commit];
+      //      [self.identifierManager commit];
         }
     }
     

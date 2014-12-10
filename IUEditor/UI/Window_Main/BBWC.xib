@@ -41,22 +41,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="1260" height="778"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-5m-BMA" userLabel="Canvas">
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-5m-BMA" userLabel="Canvas">
                         <rect key="frame" x="-1" y="22" width="982" height="663"/>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z5R-Oh-T6u" userLabel="ToolBar">
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z5R-Oh-T6u" userLabel="ToolBar">
                         <rect key="frame" x="-1" y="684" width="983" height="32"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="w55-Z9-EDf"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
                         <rect key="frame" x="-1" y="715" width="983" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
                         </constraints>
                     </customView>
-                    <tabView type="noTabsNoBorder" initialItem="NV3-JK-5Hs" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
+                    <tabView wantsLayer="YES" type="noTabsNoBorder" initialItem="NV3-JK-5Hs" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
                         <rect key="frame" x="981" y="-2" width="241" height="742"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="241" id="jUI-7W-2fB"/>
@@ -125,17 +125,29 @@
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="EMr-FR-JJZ" userLabel="propertyIcon">
-                        <rect key="frame" x="1222" y="-2" width="38" height="741"/>
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
+                        <rect key="frame" x="-2" y="739" width="1264" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
+                        </constraints>
+                    </customView>
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
+                        <rect key="frame" x="-1" y="-1" width="982" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
+                        </constraints>
+                    </customView>
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EMr-FR-JJZ" userLabel="propertyIcon">
+                        <rect key="frame" x="1221" y="-2" width="40" height="741"/>
                         <subviews>
-                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oir-pz-oba" userLabel="PropertyTab">
-                                <rect key="frame" x="0.0" y="0.0" width="38" height="741"/>
+                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="oir-pz-oba" userLabel="PropertyTab">
+                                <rect key="frame" x="0.0" y="0.0" width="41" height="742"/>
                                 <view key="contentView">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="741"/>
+                                    <rect key="frame" x="1" y="1" width="39" height="740"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMd-vE-f42" userLabel="DebugButton">
-                                            <rect key="frame" x="1" y="10" width="40" height="32"/>
+                                            <rect key="frame" x="1" y="9" width="40" height="32"/>
                                             <buttonCell key="cell" type="push" title="D" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ITb-PP-k5i">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -146,31 +158,16 @@
                                         </button>
                                     </subviews>
                                 </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="38" id="29Y-se-YMc"/>
-                                </constraints>
-                                <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                <color key="borderColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="oir-pz-oba" firstAttribute="leading" secondItem="EMr-FR-JJZ" secondAttribute="leading" id="1fc-uw-71a"/>
                             <constraint firstAttribute="bottom" secondItem="oir-pz-oba" secondAttribute="bottom" id="Ara-aa-SFA"/>
-                            <constraint firstAttribute="trailing" secondItem="oir-pz-oba" secondAttribute="trailing" id="WYO-JF-HsJ"/>
-                            <constraint firstItem="oir-pz-oba" firstAttribute="top" secondItem="EMr-FR-JJZ" secondAttribute="top" id="fH3-fO-Uf4"/>
-                            <constraint firstAttribute="width" constant="38" id="or9-6C-mfA"/>
-                        </constraints>
-                    </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
-                        <rect key="frame" x="-2" y="739" width="1264" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
-                        </constraints>
-                    </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
-                        <rect key="frame" x="-1" y="-1" width="982" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
+                            <constraint firstAttribute="trailing" secondItem="oir-pz-oba" secondAttribute="trailing" constant="-1" id="WYO-JF-HsJ"/>
+                            <constraint firstItem="oir-pz-oba" firstAttribute="leading" secondItem="EMr-FR-JJZ" secondAttribute="leading" id="XFK-sC-Xd2"/>
+                            <constraint firstItem="oir-pz-oba" firstAttribute="top" secondItem="EMr-FR-JJZ" secondAttribute="top" constant="-1" id="fH3-fO-Uf4"/>
+                            <constraint firstAttribute="width" constant="40" id="or9-6C-mfA"/>
                         </constraints>
                     </customView>
                 </subviews>
@@ -190,7 +187,7 @@
                     <constraint firstItem="aNS-8q-0SX" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-2" id="f1R-Un-oGZ"/>
                     <constraint firstItem="hEQ-Kq-OCR" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" constant="-1" id="gaI-Yk-keI"/>
                     <constraint firstAttribute="trailing" secondItem="hEQ-Kq-OCR" secondAttribute="trailing" constant="38" id="jJQ-bo-HGk"/>
-                    <constraint firstAttribute="trailing" secondItem="EMr-FR-JJZ" secondAttribute="trailing" id="jfd-wF-Hnl"/>
+                    <constraint firstAttribute="trailing" secondItem="EMr-FR-JJZ" secondAttribute="trailing" constant="-1" id="jfd-wF-Hnl"/>
                     <constraint firstItem="vCa-gX-gRh" firstAttribute="top" secondItem="9KP-fn-t72" secondAttribute="top" constant="38" id="mj5-zS-q5D"/>
                     <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="Z5R-Oh-T6u" secondAttribute="trailing" constant="-1" id="n7u-c4-wew"/>
                     <constraint firstAttribute="bottom" secondItem="hiZ-5m-BMA" secondAttribute="bottom" constant="22" id="q1t-1Y-Hh0"/>

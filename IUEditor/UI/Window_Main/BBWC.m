@@ -160,7 +160,8 @@
     //allocation property icon matrix
     //xib에서 만들면 warning이 생김. - matrix만 code로 구현.
     _propertyIconMatrix  = [[NSMatrix alloc] initWithFrame:NSZeroRect mode:NSRadioModeMatrix prototype:_propertyIconButtonCell numberOfRows:10 numberOfColumns:1];
-    _propertyIconMatrix.cellSize = NSMakeSize(38, 42);
+    _propertyIconMatrix.cellSize = NSMakeSize(39, 34);
+    _propertyIconMatrix.intercellSpacing = NSMakeSize(0, 8);
     [_propertyIconMatrix setAllowsEmptySelection:YES];
     [_propertyIconMatrix setTarget:self];
     [_propertyIconMatrix setAction:@selector(clickPropertyIconMatrix:)];

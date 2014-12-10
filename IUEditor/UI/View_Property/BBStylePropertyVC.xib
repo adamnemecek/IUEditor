@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
@@ -70,16 +70,14 @@
                 <rect key="frame" x="1" y="1" width="239" height="743"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="hTu-4r-dzi" userLabel="TitleBar">
-                        <rect key="frame" x="-1" y="717" width="241" height="27"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hTu-4r-dzi" userLabel="TitleBar">
+                        <rect key="frame" x="-1" y="719" width="241" height="25"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="239" height="25"/>
+                            <rect key="frame" x="1" y="1" width="239" height="23"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="QYj-fu-dOw">
-                                    <rect key="frame" x="6" y="6" width="41" height="14"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QYj-fu-dOw">
+                                    <rect key="frame" x="5" y="5" width="41" height="14"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="STYLE" id="jSX-IW-uXK">
                                         <font key="font" metaFont="smallSystemBold"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -91,17 +89,16 @@
                         <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="lge-Q8-gq6">
-                        <rect key="frame" x="-1" y="-1" width="241" height="718"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
+                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="lge-Q8-gq6">
+                        <rect key="frame" x="-1" y="-1" width="241" height="720"/>
+                        <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="nkM-XT-Ivh">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="0.0" height="2"/>
-                                    <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="gridColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <tableColumns>
                                         <tableColumn width="241" minWidth="241" maxWidth="241" id="7Wq-R9-sRm">
@@ -121,9 +118,8 @@
                                                     <rect key="frame" x="1" y="1" width="241" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="A8E-bd-I6T">
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A8E-bd-I6T">
                                                             <rect key="frame" x="0.0" y="0.0" width="241" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ste-JF-CHn">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -157,7 +153,7 @@
                     </scrollView>
                 </subviews>
             </view>
-            <color key="borderColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="borderColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="230.5" y="-796.5"/>
         </box>
@@ -165,25 +161,22 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="133"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="Lvx-dc-zQs" userLabel="Color">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Lvx-dc-zQs" userLabel="Color">
                     <rect key="frame" x="0.0" y="60" width="241" height="73"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="73"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="OWl-ID-Qg3">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWl-ID-Qg3">
                                 <rect key="frame" x="13" y="45" width="214" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Color" id="ANT-Ft-DGI">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button id="phM-WA-cEI" userLabel="Disclosure">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="phM-WA-cEI" userLabel="Disclosure">
                                 <rect key="frame" x="207" y="45" width="14" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="ic_disclosure_open" imagePosition="overlaps" alignment="center" alternateImage="ic_disclosure_close" state="on" imageScaling="proportionallyDown" inset="2" id="acA-Sy-xol">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -192,23 +185,20 @@
                                     <action selector="clickExpandableButton:" target="aSO-Gg-TJx" id="f8Q-M9-y7B"/>
                                 </connections>
                             </button>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="0We-QN-F3Y" userLabel="Color Well">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0We-QN-F3Y" userLabel="Color Well">
                                 <rect key="frame" x="15" y="14" width="100" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="98" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="7pQ-7G-AQb" userLabel="Container">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7pQ-7G-AQb" userLabel="Container">
                                             <rect key="frame" x="3" y="3" width="92" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="90" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="v9s-o2-w0y">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9s-o2-w0y">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -221,23 +211,20 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="cgu-20-uye" userLabel="Transparent">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cgu-20-uye" userLabel="Transparent">
                                 <rect key="frame" x="125" y="14" width="100" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="98" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="UVm-iM-8GQ" userLabel="Container">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UVm-iM-8GQ" userLabel="Container">
                                             <rect key="frame" x="3" y="3" width="92" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="90" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button id="laL-sX-anL">
+                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="laL-sX-anL">
                                                         <rect key="frame" x="-1" y="-2" width="92" height="14"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove_color_large" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="hZI-Wc-z2w">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -261,25 +248,22 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="GsJ-J1-3xM" userLabel="Gradient">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="GsJ-J1-3xM" userLabel="Gradient">
                     <rect key="frame" x="0.0" y="1" width="241" height="59"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="59"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="pgI-7p-YfM">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgI-7p-YfM">
                                 <rect key="frame" x="13" y="43" width="214" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Use Gradient Color" id="eCy-TK-FFb">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button id="Pm4-5V-sor" userLabel="- Check Box">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pm4-5V-sor" userLabel="- Check Box">
                                 <rect key="frame" x="13" y="40" width="214" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="a65-u0-rha">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="titleBar" size="12"/>
@@ -288,23 +272,20 @@
                                     <action selector="clickGradientEnableButton:" target="-2" id="Xfx-ke-jBx"/>
                                 </connections>
                             </button>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="aI0-2x-sHU" userLabel="Color Well">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="aI0-2x-sHU" userLabel="Color Well">
                                 <rect key="frame" x="15" y="14" width="100" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="98" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="SW2-ly-Nob" userLabel="From">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="SW2-ly-Nob" userLabel="From">
                                             <rect key="frame" x="3" y="3" width="47" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="45" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="E6z-Oi-ND7">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Oi-ND7">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -312,16 +293,14 @@
                                             <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
                                             <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </box>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="Zpa-b0-8VW" userLabel="To">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Zpa-b0-8VW" userLabel="To">
                                             <rect key="frame" x="49" y="3" width="46" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="44" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="Lnu-Tw-cS3">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnu-Tw-cS3">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.0" green="0.30196078430000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -334,16 +313,14 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="9y2-kX-qKQ" userLabel="Direction">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9y2-kX-qKQ" userLabel="Direction">
                                 <rect key="frame" x="125" y="14" width="100" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="98" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <segmentedControl verticalHuggingPriority="750" id="Odf-E9-CBS" userLabel="Segment">
+                                        <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odf-E9-CBS" userLabel="Segment">
                                             <rect key="frame" x="-1" y="-3" width="101" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -381,9 +358,8 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="wzG-VV-34q">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wzG-VV-34q">
                     <rect key="frame" x="0.0" y="-2" width="241" height="9"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -401,25 +377,22 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="188"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="uCR-8E-9gv" userLabel="Radius">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="uCR-8E-9gv" userLabel="Radius">
                     <rect key="frame" x="0.0" y="115" width="241" height="73"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="73"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jU5-b0-YUz">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jU5-b0-YUz">
                                 <rect key="frame" x="13" y="45" width="214" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Radius" id="AdG-aI-EC7">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button id="OJh-4C-1aV" userLabel="Disclosure">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OJh-4C-1aV" userLabel="Disclosure">
                                 <rect key="frame" x="207" y="45" width="14" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="ic_disclosure_open" imagePosition="overlaps" alignment="center" alternateImage="ic_disclosure_close" state="on" imageScaling="proportionallyDown" inset="2" id="BLc-0m-NFM">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -428,26 +401,22 @@
                                     <action selector="clickExpandableButton:" target="pxy-4r-ZfB" id="W9A-1B-jQ8"/>
                                 </connections>
                             </button>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="X3e-uD-B6a" userLabel="ic_radius">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X3e-uD-B6a" userLabel="ic_radius">
                                 <rect key="frame" x="17" y="14" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_radius" id="JAk-f8-HBx"/>
                             </imageView>
-                            <slider verticalHuggingPriority="750" id="Xg0-9C-m8e">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xg0-9C-m8e">
                                 <rect key="frame" x="40" y="15" width="105" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="hbY-pc-pOf"/>
                             </slider>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="IwP-uu-ARJ" userLabel="Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="IwP-uu-ARJ" userLabel="Size">
                                 <rect key="frame" x="151" y="12" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="5sw-Hf-hsL" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5sw-Hf-hsL" userLabel="- Text Field">
                                             <rect key="frame" x="-1" y="-1" width="61" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -468,9 +437,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="Znl-MU-6Xq">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-MU-6Xq">
                                 <rect key="frame" x="212" y="12" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -487,16 +455,14 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="7ye-m4-Wcx" userLabel="- detail">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7ye-m4-Wcx" userLabel="- detail">
                     <rect key="frame" x="0.0" y="1" width="241" height="114"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="114"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="w76-sL-Kck" userLabel="dotted line">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w76-sL-Kck" userLabel="dotted line">
                                 <rect key="frame" x="15" y="112" width="210" height="3"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -508,21 +474,18 @@
                                 </contentFilters>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="dotline" id="935-AX-Bc7"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xg2-nD-Hze" userLabel="ic_LT">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xg2-nD-Hze" userLabel="ic_LT">
                                 <rect key="frame" x="17" y="80" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_radius_left_top" id="L72-AW-82B"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="Njo-4C-cuh" userLabel="Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Njo-4C-cuh" userLabel="Size">
                                 <rect key="frame" x="42" y="78" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="Ij8-WI-uBY" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ij8-WI-uBY" userLabel="- Text Field">
                                             <rect key="frame" x="-1" y="-1" width="61" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -543,9 +506,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="5iT-Df-Gce">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5iT-Df-Gce">
                                 <rect key="frame" x="103" y="78" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -557,26 +519,22 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="FzH-If-Txj"/>
                             </stepper>
-                            <slider verticalHuggingPriority="750" id="gf2-hU-3g8">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gf2-hU-3g8">
                                 <rect key="frame" x="16" y="59" width="100" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Im0-w0-wXd"/>
                             </slider>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="wSq-XD-IQw" userLabel="ic_RT">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wSq-XD-IQw" userLabel="ic_RT">
                                 <rect key="frame" x="126" y="80" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_radius_right_top" id="EUU-ge-958"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="FtW-Km-yiW" userLabel="Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="FtW-Km-yiW" userLabel="Size">
                                 <rect key="frame" x="151" y="78" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="95r-ra-0Jw" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="95r-ra-0Jw" userLabel="- Text Field">
                                             <rect key="frame" x="-1" y="-1" width="61" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -597,9 +555,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="F2Q-NF-x3w">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2Q-NF-x3w">
                                 <rect key="frame" x="212" y="78" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -611,26 +568,22 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="Nlc-KQ-O0d"/>
                             </stepper>
-                            <slider verticalHuggingPriority="750" id="mYv-Hl-DAQ">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYv-Hl-DAQ">
                                 <rect key="frame" x="125" y="59" width="100" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="mW0-nX-ljW"/>
                             </slider>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dSV-QW-lEV" userLabel="ic_LB">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dSV-QW-lEV" userLabel="ic_LB">
                                 <rect key="frame" x="17" y="32" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_radius_left_bottom" id="Vnr-4T-Inr"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="ZqO-Co-oSC" userLabel="Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ZqO-Co-oSC" userLabel="Size">
                                 <rect key="frame" x="42" y="30" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="WrR-m1-uLn" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WrR-m1-uLn" userLabel="- Text Field">
                                             <rect key="frame" x="-1" y="-1" width="61" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -651,9 +604,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="VwV-7x-zvn">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VwV-7x-zvn">
                                 <rect key="frame" x="103" y="30" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -665,26 +617,22 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="tWV-Lv-Kaj"/>
                             </stepper>
-                            <slider verticalHuggingPriority="750" id="oeY-Ie-imh">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeY-Ie-imh">
                                 <rect key="frame" x="16" y="11" width="100" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="9YG-X2-BBS"/>
                             </slider>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5Oe-B9-ygC" userLabel="ic_RB">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Oe-B9-ygC" userLabel="ic_RB">
                                 <rect key="frame" x="126" y="32" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_radius_right_bottom" id="88n-oi-uwr"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="ogy-Ix-9yw" userLabel="Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-Ix-9yw" userLabel="Size">
                                 <rect key="frame" x="151" y="30" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="Veo-uN-JlR" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Veo-uN-JlR" userLabel="- Text Field">
                                             <rect key="frame" x="-1" y="-1" width="61" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -705,9 +653,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="H5B-J2-RJk">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5B-J2-RJk">
                                 <rect key="frame" x="212" y="30" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -719,9 +666,8 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="Kz4-DX-Zk2"/>
                             </stepper>
-                            <slider verticalHuggingPriority="750" id="cf6-bA-kf8">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cf6-bA-kf8">
                                 <rect key="frame" x="125" y="15" width="100" height="15"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="bQP-gB-o69"/>
                             </slider>
                         </subviews>
@@ -729,9 +675,8 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="d3w-D5-Jhg">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="d3w-D5-Jhg">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -749,25 +694,22 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="156"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="2b8-Ex-8Tv" userLabel="Border">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2b8-Ex-8Tv" userLabel="Border">
                     <rect key="frame" x="0.0" y="82" width="241" height="74"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="74"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jXG-Y9-fbh">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXG-Y9-fbh">
                                 <rect key="frame" x="13" y="46" width="214" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Border" id="nIL-wR-cdU">
                                     <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button id="KxP-If-qSg" userLabel="Disclosure">
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KxP-If-qSg" userLabel="Disclosure">
                                 <rect key="frame" x="207" y="46" width="14" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="ic_disclosure_open" imagePosition="overlaps" alignment="center" alternateImage="ic_disclosure_close" state="on" imageScaling="proportionallyDown" inset="2" id="9AK-KA-rAE">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -776,21 +718,18 @@
                                     <action selector="clickExpandableButton:" target="171-if-kci" id="Utz-S7-UKd"/>
                                 </connections>
                             </button>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="kwo-4V-948" userLabel="ic_border">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kwo-4V-948" userLabel="ic_border">
                                 <rect key="frame" x="16" y="15" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_border" id="1Ih-cO-Qyn"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="qzs-wX-Xzg" userLabel="Border-Style">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qzs-wX-Xzg" userLabel="Border-Style">
                                 <rect key="frame" x="40" y="13" width="105" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="103" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <popUpButton id="9uF-E7-vCo">
+                                        <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9uF-E7-vCo">
                                             <rect key="frame" x="-5" y="1" width="105" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="bevel" title="Dashed" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="i4m-8D-qZs" id="dTe-li-K30">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
@@ -808,23 +747,20 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="Mjl-7D-WEF" userLabel="Border-Color/Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Mjl-7D-WEF" userLabel="Border-Color/Size">
                                 <rect key="frame" x="151" y="13" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="ess-I4-een" userLabel="Color Well">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ess-I4-een" userLabel="Color Well">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="GKj-B4-cKm">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-B4-cKm">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -832,9 +768,8 @@
                                             <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
                                             <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </box>
-                                        <textField verticalHuggingPriority="750" id="Gm3-VB-XaP" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gm3-VB-XaP" userLabel="- Text Field">
                                             <rect key="frame" x="20" y="-1" width="40" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -855,9 +790,8 @@
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="A9q-Zu-3HD">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A9q-Zu-3HD">
                                 <rect key="frame" x="212" y="12" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -874,16 +808,14 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.0" green="0.0" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="W85-78-iCZ" userLabel="- detail">
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="W85-78-iCZ" userLabel="- detail">
                     <rect key="frame" x="0.0" y="3" width="241" height="79"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="0.0" y="0.0" width="241" height="79"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="k17-rA-0Py" userLabel="Dotted Line">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k17-rA-0Py" userLabel="Dotted Line">
                                 <rect key="frame" x="15" y="76" width="210" height="3"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -895,21 +827,18 @@
                                 </contentFilters>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="dotline" id="aZw-gy-X8d"/>
                             </imageView>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="FFG-pC-Kie" userLabel="ic_Top">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFG-pC-Kie" userLabel="ic_Top">
                                 <rect key="frame" x="16" y="46" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_border_top" id="f6U-qY-whZ"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="L5Y-2r-xOU" userLabel="Color/Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="L5Y-2r-xOU" userLabel="Color/Size">
                                 <rect key="frame" x="40" y="44" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="Xi7-rG-MGt" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xi7-rG-MGt" userLabel="- Text Field">
                                             <rect key="frame" x="20" y="-1" width="40" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -925,16 +854,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="FYf-Af-hpt">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="FYf-Af-hpt">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="0Nc-mt-xpZ">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nc-mt-xpZ">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -947,9 +874,8 @@
                                 <color key="borderColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="jFd-yJ-jzW">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFd-yJ-jzW">
                                 <rect key="frame" x="101" y="43" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -961,21 +887,18 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="D1F-B8-i3M"/>
                             </stepper>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ntT-Tr-6Dg" userLabel="ic_Left">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ntT-Tr-6Dg" userLabel="ic_Left">
                                 <rect key="frame" x="127" y="46" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_border_left" id="mlU-1L-S2L"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="DP7-dS-Oeb" userLabel="Color/Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="DP7-dS-Oeb" userLabel="Color/Size">
                                 <rect key="frame" x="151" y="44" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="vYB-E9-zly" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYB-E9-zly" userLabel="- Text Field">
                                             <rect key="frame" x="20" y="-1" width="40" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -991,16 +914,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="44c-nM-9CI">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="44c-nM-9CI">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="XD6-7v-Uzu">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XD6-7v-Uzu">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -1013,9 +934,8 @@
                                 <color key="borderColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="7Rj-Ta-9zI">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Rj-Ta-9zI">
                                 <rect key="frame" x="212" y="43" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1027,21 +947,18 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="rnM-t3-yd5"/>
                             </stepper>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="CXU-sa-ZUa" userLabel="ic_Bottom">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CXU-sa-ZUa" userLabel="ic_Bottom">
                                 <rect key="frame" x="16" y="16" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_border_bottom" id="mQm-ij-TQC"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="GUB-l0-q4N" userLabel="Color/Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="GUB-l0-q4N" userLabel="Color/Size">
                                 <rect key="frame" x="40" y="14" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="xPF-gL-ws4" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPF-gL-ws4" userLabel="- Text Field">
                                             <rect key="frame" x="20" y="-1" width="40" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -1057,16 +974,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="TbH-4a-nXM">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TbH-4a-nXM">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="LTT-pG-hC3">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTT-pG-hC3">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -1079,9 +994,8 @@
                                 <color key="borderColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="ba8-2R-EIJ">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ba8-2R-EIJ">
                                 <rect key="frame" x="101" y="13" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1093,21 +1007,18 @@
                                 </contentFilters>
                                 <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="5xN-37-WcC"/>
                             </stepper>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ySd-wK-sCC" userLabel="ic_Right">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySd-wK-sCC" userLabel="ic_Right">
                                 <rect key="frame" x="127" y="16" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_border_right" id="RqZ-gX-lE3"/>
                             </imageView>
-                            <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="kdW-Oo-RVt" userLabel="Color/Size">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="kdW-Oo-RVt" userLabel="Color/Size">
                                 <rect key="frame" x="151" y="14" width="61" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="59" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textField verticalHuggingPriority="750" id="OFM-Ks-r6i" userLabel="- Text Field">
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFM-Ks-r6i" userLabel="- Text Field">
                                             <rect key="frame" x="20" y="-1" width="40" height="22"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <contentFilters>
                                                 <ciFilter name="CIFalseColor">
                                                     <configuration>
@@ -1123,16 +1034,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="jqa-QC-agd">
+                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jqa-QC-agd">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell id="Jjo-1p-j6N">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjo-1p-j6N">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
                                                     </colorWell>
                                                 </subviews>
@@ -1145,9 +1054,8 @@
                                 <color key="borderColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="ZLd-sx-6sz">
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLd-sx-6sz">
                                 <rect key="frame" x="212" y="13" width="15" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1164,9 +1072,8 @@
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" red="0.55635751720000004" green="0.45606755459999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="6sW-uV-SRA">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="6sW-uV-SRA">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1186,39 +1093,34 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="174"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="Eqt-zy-2CY">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Eqt-zy-2CY">
                     <rect key="frame" x="0.0" y="-1" width="241" height="4"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
                 </box>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="FUj-Cd-LZG">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FUj-Cd-LZG">
                     <rect key="frame" x="13" y="146" width="104" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Shadow" id="Pg4-yo-YxY">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="uet-8l-Hg0">
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="uet-8l-Hg0">
                     <rect key="frame" x="125" y="142" width="100" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="98" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="veQ-W9-2K0">
+                            <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="veQ-W9-2K0">
                                 <rect key="frame" x="3" y="3" width="92" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView">
                                     <rect key="frame" x="1" y="1" width="90" height="12"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <colorWell id="OEY-8e-Ps3">
+                                        <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-8e-Ps3">
                                             <rect key="frame" x="-6" y="-16" width="156" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <color key="color" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </colorWell>
                                     </subviews>
@@ -1231,16 +1133,14 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="jjL-Am-qUG" userLabel="Mediaquery">
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jjL-Am-qUG" userLabel="Mediaquery">
                     <rect key="frame" x="172" y="107" width="40" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="38" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" id="QK9-h5-J9u" userLabel="- Text Field">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QK9-h5-J9u" userLabel="- Text Field">
                                 <rect key="frame" x="-1" y="-1" width="40" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1261,9 +1161,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="zXL-rJ-rGr">
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zXL-rJ-rGr">
                     <rect key="frame" x="212" y="106" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
                             <configuration>
@@ -1275,30 +1174,26 @@
                     </contentFilters>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="coX-fT-vxe"/>
                 </stepper>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="IiB-1U-LQW">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IiB-1U-LQW">
                     <rect key="frame" x="14" y="109" width="58" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Vertical" id="zM7-zV-Loc">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider verticalHuggingPriority="750" id="7iJ-yT-OcE">
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7iJ-yT-OcE">
                     <rect key="frame" x="75" y="110" width="90" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="pma-hA-Tx5"/>
                 </slider>
-                <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="luI-Cn-Frk" userLabel="Mediaquery">
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="luI-Cn-Frk" userLabel="Mediaquery">
                     <rect key="frame" x="172" y="77" width="40" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="38" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" id="vWz-SF-TCz" userLabel="- Text Field">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWz-SF-TCz" userLabel="- Text Field">
                                 <rect key="frame" x="-1" y="-1" width="40" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1319,9 +1214,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="7RN-O2-3nr">
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7RN-O2-3nr">
                     <rect key="frame" x="212" y="76" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
                             <configuration>
@@ -1333,30 +1227,26 @@
                     </contentFilters>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="egM-l6-Zlx"/>
                 </stepper>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0o2-R7-jdm">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0o2-R7-jdm">
                     <rect key="frame" x="14" y="79" width="58" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Horizontal" id="e3r-99-Aef">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider verticalHuggingPriority="750" id="RTf-uc-u1v">
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RTf-uc-u1v">
                     <rect key="frame" x="75" y="80" width="90" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="Qis-wT-5Tr"/>
                 </slider>
-                <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="2UT-6Q-okK" userLabel="Mediaquery">
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2UT-6Q-okK" userLabel="Mediaquery">
                     <rect key="frame" x="172" y="47" width="40" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="38" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" id="RB5-80-UKD" userLabel="- Text Field">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RB5-80-UKD" userLabel="- Text Field">
                                 <rect key="frame" x="-1" y="-1" width="40" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1377,9 +1267,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="2Wx-XK-8PP">
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Wx-XK-8PP">
                     <rect key="frame" x="212" y="46" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
                             <configuration>
@@ -1391,30 +1280,26 @@
                     </contentFilters>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="AQp-TO-O0R"/>
                 </stepper>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="2Om-XY-YWG">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Om-XY-YWG">
                     <rect key="frame" x="14" y="49" width="58" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Spread" id="FcM-3h-CH3">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider verticalHuggingPriority="750" id="ciz-rb-Evd">
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ciz-rb-Evd">
                     <rect key="frame" x="75" y="50" width="90" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="8ip-Uh-XJK"/>
                 </slider>
-                <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="jts-2l-7CA" userLabel="Mediaquery">
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jts-2l-7CA" userLabel="Mediaquery">
                     <rect key="frame" x="172" y="17" width="40" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="38" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" id="dEH-nw-Ucf" userLabel="- Text Field">
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEH-nw-Ucf" userLabel="- Text Field">
                                 <rect key="frame" x="-1" y="-1" width="40" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
@@ -1435,9 +1320,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="Xjx-dY-Grh">
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xjx-dY-Grh">
                     <rect key="frame" x="212" y="16" width="15" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <contentFilters>
                         <ciFilter name="CIFalseColor">
                             <configuration>
@@ -1449,18 +1333,16 @@
                     </contentFilters>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="hpu-Gg-m3A"/>
                 </stepper>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="RVX-VV-Mqu">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RVX-VV-Mqu">
                     <rect key="frame" x="14" y="19" width="58" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Blur" id="0I5-9V-AGg">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <slider verticalHuggingPriority="750" id="sTP-I9-KKg">
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sTP-I9-KKg">
                     <rect key="frame" x="75" y="20" width="90" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="1iI-gD-JqO"/>
                 </slider>
             </subviews>

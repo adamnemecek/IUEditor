@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="241" height="145"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smc-NG-cjh">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smc-NG-cjh">
                     <rect key="frame" x="0.0" y="-1" width="241" height="121"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="9Uf-rg-5Xp">
                         <rect key="frame" x="1" y="1" width="148" height="398"/>
@@ -24,7 +24,6 @@
                         <subviews>
                             <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" viewBased="YES" indentationPerLevel="8" outlineTableColumn="syT-OA-tZZ" id="OAA-xG-zDz">
                                 <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="2" height="3"/>
                                 <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableViewGridLines key="gridStyleMask" dashed="YES"/>
                                 <color key="gridColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
@@ -187,7 +186,7 @@
                         </subviews>
                         <nil key="backgroundColor"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="uhr-XV-xXt">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="uhr-XV-xXt">
                         <rect key="frame" x="1" y="119" width="238" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
