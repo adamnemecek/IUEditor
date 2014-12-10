@@ -100,10 +100,11 @@ typedef enum IUFrameUnit{
 @property (nonatomic) NSInteger maxViewPort;
 
 - (NSArray*)allViewPorts;
-- (IUDataStorage*)storageForViewPort:(NSInteger)viewPort;
+- (IUDataStorage *)storageForViewPort:(NSInteger)viewPort;
 - (NSInteger)viewPortOfStorage:(IUDataStorage*)storage;
 - (IUDataStorage *)storageOfSmallerViewPortOfStorage:(IUDataStorage*)storage;
 - (IUDataStorage *)storageOfBiggerViewPortOfStorage:(IUDataStorage*)storage;
+- (IUDataStorage *)liveStorageForViewPort:(NSInteger)viewPort;
 
 @property (readonly) id currentStorage;
 @property (readonly) id defaultStorage;

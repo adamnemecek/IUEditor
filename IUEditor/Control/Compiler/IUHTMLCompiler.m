@@ -315,7 +315,7 @@
 - (JDCode *)htmlCodeAsIUSidebar:(IUSidebar *)iu htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option {
     
     [attributeDict addAttribute:@"sidebarType" value:[@(iu.type) stringValue]];
-    JDCode *code = [self htmlCodeAsIUImport:iu htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort attributeDict:attributeDict cssCodes:cssCodes option:option];
+    JDCode *code = [self htmlCodeAsIUBox:iu htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort attributeDict:attributeDict cssCodes:cssCodes option:option];
     return code;
 }
 
@@ -908,8 +908,10 @@
     return nil;
 }
 
-
+#if 0
 - (JDCode *)htmlCodeAsIUImport:(IUImport *)import htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option{
+    
+    
     return nil;
 #if 0
     if(target == IUTargetOutput){
@@ -935,6 +937,7 @@
     return code;
 #endif
 }
+#endif
 
 
 - (JDCode *)htmlCodeAsIUGoogleMap:(IUGoogleMap *)map htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option{

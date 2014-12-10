@@ -33,6 +33,7 @@
     IUBox *box = [[IUBox alloc] init];
     
     XCTAssertNotNil(box.liveStyleStorage);
+    [box.livePositionStorage setPosition:@(IUPositionTypeAbsolute)];
     [box.livePositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
     XCTAssertTrue([box.livePositionStorage.x isEqualToNumber:@(50)]);
 
@@ -84,7 +85,7 @@
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
     NSString *htmlCode;
-    [compiler editorIUSource:import htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+    [compiler editorIUSource:import htmlIDPrefix:nil viewPort:import.maxViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
 
     /*code not generated */
     XCTAssertFalse(YES);

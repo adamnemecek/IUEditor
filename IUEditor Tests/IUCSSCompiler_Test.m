@@ -32,12 +32,6 @@
 }
 
 
-- (void)test1_XUnit {
-    box.livePositionStorage.x = @(30);
-    XCTAssertEqualObjects(box.currentPositionStorage.x, @(30));
-    XCTAssertEqualObjects(box.currentPositionStorage.xUnit, @(IUFrameUnitPixel));
-}
-
 - (void)test2_frameCode {
 
 //    box.cssLiveStorage.x = @(30);

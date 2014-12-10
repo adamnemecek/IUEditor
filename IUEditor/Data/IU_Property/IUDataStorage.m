@@ -40,6 +40,9 @@
 //static NSArray *storageProperties_cache;
 //subclass 불가능
 
+- (NSString *)description {
+    return [[super description] stringByAppendingString:[_storage description]];
+}
 +(NSArray *)observingList{
     return nil;
 }
@@ -382,20 +385,9 @@
 
 
 
-- (void)currentViewPortDidChange:(NSDictionary*)change{
-    if ([self.workingStorages objectForKey:@(_currentViewPort)] == nil) {
-        IUDataStorage *newStorage = [self newStorage];
-        newStorage.manager = self;
-        [self.workingStorages setObject:newStorage forKey:@(_currentViewPort)];
-        [self.workingStorages reverseSortArrayWithDictKey];
-    }
-    self.currentStorage = [self.workingStorages objectForKey:@(_currentViewPort)];
-    self.liveStorage = [self createLiveStorage];
-}
-
-- (IUDataStorage*)createLiveStorage{
+- (IUDataStorage*)liveStorageForViewPort:(NSInteger)viewPort{
     /* does not send information to manager */
-    IUDataStorage *liveStorage = [self.currentStorage copy];
+    IUDataStorage *liveStorage = [[self storageForViewPort:viewPort] copy];
     [liveStorage disableUpdate:self];
     /*
      get overwrite all data
@@ -409,13 +401,16 @@
 }
 
 - (void)setCurrentViewPort:(NSInteger)currentViewPort{
-    
-    [self createStorageForViewPort:currentViewPort];
+    [self willChangeValueForKey:@"currentViewPort"];
+    if ([self.workingStorages objectForKey:@(currentViewPort)] == nil) {
+        [self createStorageForViewPort:currentViewPort];
+    }
     
     self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
-    self.liveStorage = [self createLiveStorage];
+    self.liveStorage = [self liveStorageForViewPort:currentViewPort];
     
     _currentViewPort = currentViewPort;
+    [self didChangeValueForKey:@"currentViewPort"];
 }
 
 - (void)copyDataStorageFrom:(NSInteger)from to:(NSInteger)to{
@@ -436,12 +431,10 @@
 }
 
 - (void)createStorageForViewPort:(NSInteger)viewPort{
-    if ([self.workingStorages objectForKey:@(viewPort)] == nil) {
-        IUDataStorage *newStorage = [self newStorage];
-        newStorage.manager = self;
-        [self.workingStorages setObject:newStorage forKey:@(viewPort)];
-        [self.workingStorages reverseSortArrayWithDictKey];
-    }
+    IUDataStorage *newStorage = [self newStorage];
+    newStorage.manager = self;
+    [self.workingStorages setObject:newStorage forKey:@(viewPort)];
+    [self.workingStorages reverseSortArrayWithDictKey];
 }
 
 - (void)removeStorageForViewPort:(NSInteger)viewPort{
