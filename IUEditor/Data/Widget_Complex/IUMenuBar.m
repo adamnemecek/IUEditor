@@ -160,6 +160,7 @@
 
 #pragma mark - count
 - (void)setCount:(NSInteger)count{
+#if 0
     if (count <= 1 || count > 20 || count == self.children.count ) {
         return;
     }
@@ -184,7 +185,7 @@
     }
     
     [self updateHTML];
-
+#endif
 }
 
 - (NSInteger)count{

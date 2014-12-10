@@ -215,7 +215,6 @@
     ////////////////center view/////////////////////////
     [_centerV addSubviewFullFrame:canvasVC.view];
     
-    ((LMWindow*)(self.window)).canvasView =  (LMCanvasView *)canvasVC.view;
     
     [_topToolbarV addSubviewFullFrame:topToolbarVC.view];
     [_bottomToolbarV addSubviewFullFrame:bottomToolbarVC.view];
@@ -289,7 +288,6 @@
     [iuInspectorVC unbind:@"controller"];
     [topToolbarVC unbind:@"sheetController"];
 
-    ((LMWindow*)(self.window)).canvasView = nil;
     [canvasVC prepareDealloc];
 //    [commandVC prepareDealloc];
     [iuInspectorVC prepareDealloc];

@@ -8,6 +8,8 @@
 
 #import "LMWindow.h"
 #import "BBWC.h"
+#import "LMCanvasView.h"
+
 #import "JDUIUtil.h"
 #import "JDLogUtil.h"
 #import "LMCloseWC.h"
@@ -54,10 +56,10 @@
     BOOL callSuper = YES;
     
     if([self isMouseEvent:theEvent]){
-        [self.canvasView receiveMouseEvent:theEvent];
+        [(LMCanvasView *)self.canvasVC.view receiveMouseEvent:theEvent];
     }
     if([self isKeyEvent:theEvent]){
-        callSuper = [self.canvasView receiveKeyEvent:theEvent];
+        callSuper = [(LMCanvasView *)self.canvasVC.view receiveKeyEvent:theEvent];
     }
     
     if(callSuper){

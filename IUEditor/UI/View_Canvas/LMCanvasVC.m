@@ -10,26 +10,17 @@
 
 #import "BBWC.h"
 #import "LMWindow.h"
+#import "LMCanvasView.h"
+
 #import "JDLogUtil.h"
 #import "IUFrameDictionary.h"
 
 #import "IUResource.h"
 
-#import "IUBox.h"
-#import "IUCarousel.h"
-#import "IUCarouselItem.h"
-#import "InnerSizeBox.h"
-#import "IUSection.h"
-#import "IUImport.h"
-#import "IUMenuItem.h"
-#import "IUText.h"
+#import "IUBoxes.h"
 
 #import "LMHelpWC.h"
 #import "LMFontController.h"
-
-
-#import "IUPage.h"
-#import "IUBackground.h"
 
 @interface LMCanvasVC ()
 
@@ -99,7 +90,7 @@
 - (void)setSheet:(IUSheet *)sheet{
 
     [[self gridView] clearAllLayer];
-    [self.canvasView loadDefaultZoom];
+    [[self canvasView] loadDefaultZoom];
     [self updateClassHeight];
 }
 
@@ -393,7 +384,7 @@
 
 - (void)startFrameMoveWithTransaction:(id)sender{
     if([sender isKindOfClass:[GridView class]]){
-        [((LMCanvasView *)[self view]) startDraggingFromGridView];
+        [[self canvasView] startDraggingFromGridView];
     }
     for(IUBox *obj in self.controller.selectedObjects){
         if([self shouldMoveParent:obj] || [self shouldExtendParent:obj]){

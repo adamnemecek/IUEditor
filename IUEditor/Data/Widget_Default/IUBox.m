@@ -100,6 +100,7 @@
     return self;
 }
 
+
 - (void)bindStorages {
     if (self.defaultStyleManager) {
         [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
@@ -247,6 +248,10 @@
     NSAssert(self.project, @"");
     
     [[self undoManager] disableUndoRegistration];
+    
+    for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
+        [manager addOwner:self];
+    }
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];

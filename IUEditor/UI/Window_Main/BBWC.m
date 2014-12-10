@@ -21,6 +21,8 @@
 
 @interface BBWC ()
 
+@property (strong) IBOutlet LMWindow *mainWindow;
+
 //top tool bar
 @property (weak) IBOutlet NSView *topToolBarView;
 @property (weak) IBOutlet NSView *structureToolBarView;
@@ -235,6 +237,10 @@
     [_tabStructureView addSubviewFullFrame:_projectStructureVC.view];
     [_tabBackEndView addSubviewFullFrame:_backEndPropertyVC.view];
     
+    
+    //connect main window
+    [_mainWindow setCanvasVC:_canvasVC];
+    
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
     
@@ -275,8 +281,8 @@
         [_resourceLibraryVC setResourceRootItem:document.resourceRootItem];
         [_tracingPropertyVC setResourceRootItem:document.resourceRootItem];
         
-        
-        
+        //iucontroller
+        [_canvasVC setController:_iuController];
         
         
         //set iudata is connected

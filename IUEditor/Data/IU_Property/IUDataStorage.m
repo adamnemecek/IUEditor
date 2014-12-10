@@ -145,6 +145,10 @@
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    if([key isEqualToString:@"binding"]){
+        return;
+    }
+    
     [self willChangeValueForKey:key];
     id oldValue = [self valueForKey:key];
     if ([oldValue isEqualTo:value]) {
@@ -181,11 +185,32 @@
     return [_storage valueForKey:key];
 }
 
+- (id)valueForKeyPath:(NSString *)keyPath{
+    if ([keyPath containsString:@"binding"]) {
+        NSString *originalKeyPath = [keyPath substringFromIndex:@"binding.".length];
+        return [super valueForKeyPath:originalKeyPath];
+    }
+    else{
+        return [super valueForKeyPath:keyPath];
+    }
+}
+
+- (void)setValue:(id)value forKeyPath:(NSString *)keyPath{
+    if ([keyPath containsString:@"binding"]) {
+        //connect directly with outlet :  binding.property
+        NSString *originalKeyPath = [keyPath substringFromIndex:@"binding.".length];
+        [self beginTransaction:self];
+        [super setValue:value forKeyPath:originalKeyPath];
+        [self commitTransaction:self];
+    }
+    else{
+        [super setValue:value forKeyPath:keyPath];
+    }
+}
+
 - (NSDictionary*)dictionary{
     return [_storage copy];
 }
-
-
 
 - (void)overwritingDataStorageForNilValue:(IUDataStorage*)aStorage{
     for (NSString *key in aStorage.storage) {
@@ -305,6 +330,7 @@
         _storageClassName = [aDecoder decodeObjectForKey:@"storageClassName"];
         _defaultStorage =  [_workingStorages objectForKey:@(_maxViewPort)];
         _currentStorage = _defaultStorage;
+        _liveStorage = _currentStorage;
 
     }
     return self;
@@ -465,8 +491,10 @@
  Manage new value of liveStorage = currentStroage
  */
 - (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes{
+    NSMutableArray *changedKeys = [NSMutableArray array];
     for(NSDictionary *changeDict in changes){
         NSString *key = changeDict[@"key"];
+        [changedKeys addObject:key];
         
         //   there are "newValue" and "oldValue" in dictionary, but not using in here
         //    id newValue = change[@"newValue"];
@@ -485,6 +513,10 @@
         else {
             NSAssert(0, @"Only current storage and live storage is updatable");
         }
+    }
+    
+    for(id <IUDataStorageManagerDelegate> box in _owners){
+        [box setNeedsToUpdateStorage:storage keys:[changedKeys copy]];
     }
 }
 

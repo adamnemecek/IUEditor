@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "LMCanvasView.h"
+#import "LMCanvasVC.h"
 
 
 @interface LMWindow : NSWindow
 
-@property (weak) LMCanvasView *canvasView;
+@property (weak) LMCanvasVC *canvasVC;
 
 @end

@@ -54,13 +54,13 @@
 #pragma mark - keyPath
 
 - (NSString *)pathForLiveStyleStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.liveStyleStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.liveStyleStorage.binding." stringByAppendingString:property];
 }
 - (NSString *)pathForLivePositionStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.livePositionStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.livePositionStorage.binding." stringByAppendingString:property];
 }
 - (NSString *)pathForLivePropertyStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.livePropertyStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.livePropertyStorage.binding." stringByAppendingString:property];
 }
 - (NSString *)pathForProperty:(NSString *)property{
     return [@"self.iuController.selection." stringByAppendingString:property];
