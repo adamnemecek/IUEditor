@@ -39,6 +39,7 @@ typedef enum{
 @property IUController *iuController;
 
 
-- (void)realodCurrentSheet:(id)sender;
+- (void)reloadCurrentSheet:(id)sender;
+- (NSString *)projectName;
 
 @end

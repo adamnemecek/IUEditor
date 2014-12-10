@@ -389,6 +389,10 @@
     return NO;
 }
 
+-(void)mouseDown:(NSEvent *)theEvent{
+    
+}
+
 
 -(void)receiveMouseEvent:(NSEvent *)theEvent{
     NSPoint originalPoint = [theEvent locationInWindow];

@@ -131,16 +131,5 @@
     }
 }
 
-- (IBAction)applyCurrentSource:(id)sender {
-#if DEBUG
-    NSString *html = [_codeTextView string];
-    [_canvasVC applyHtmlString:html];
-#endif
-}
-- (IBAction)reloadOriginalSource:(id)sender {
-#if DEBUG
-    [_canvasVC reloadOriginalDocument];
-#endif
-}
 
 @end

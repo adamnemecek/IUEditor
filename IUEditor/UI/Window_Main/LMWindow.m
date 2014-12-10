@@ -7,7 +7,7 @@
 //
 
 #import "LMWindow.h"
-#import "LMWC.h"
+#import "BBWC.h"
 #import "JDUIUtil.h"
 #import "JDLogUtil.h"
 #import "LMCloseWC.h"
@@ -71,12 +71,12 @@
 
 - (void)performClose:(id)sender{
 
-    if([[(LMWC *)self.delegate document] isDocumentEdited] == NO){
+    if([[self.windowController document] isDocumentEdited] == NO){
         [self close];
         return;
     }
     
-    [closeWC setProjectName:[(LMWC *)[self windowController] projectName]];
+    [closeWC setProjectName:[(BBWC *)[self windowController] projectName]];
     
     [self setAlphaValue:0.9];
     [self setIgnoresMouseEvents:YES];

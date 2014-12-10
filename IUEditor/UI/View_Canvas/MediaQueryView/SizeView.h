@@ -10,6 +10,8 @@
 #import "InnerSizeBox.h"
 #import "IUCanvasController.h"
 
+#if 0
+
 /**
  @brief Deprecated 141029
  */
@@ -56,4 +58,7 @@ __attribute__((deprecated))
 @property NSMutableArray *sizeArray;
 - (NSArray *)sortedArray;
 
+
 @end
+
+#endif

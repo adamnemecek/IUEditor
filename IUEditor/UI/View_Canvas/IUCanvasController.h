@@ -58,9 +58,6 @@
 -(NSUInteger)countOfSelectedIUs;
 
 //call by mqvc
-- (void)disableUpdateCSS:(id)sender;
-- (void)enableUpdateCSS:(id)sender;
-- (BOOL)isUpdateCSSEnabled;
 - (void)enableUpdateJS:(id)sender;
 - (void)disableUpdateJS:(id)sender;
 - (BOOL)isUpdateJSEnabled;

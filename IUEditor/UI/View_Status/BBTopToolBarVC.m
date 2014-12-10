@@ -62,6 +62,6 @@
 
 #pragma mark - IBAction
 - (IBAction)clickReloadSheetButton:(id)sender {
-    [(BBWC *)[[NSApp mainWindow] windowController] realodCurrentSheet:self];
+    [(BBWC *)[[NSApp mainWindow] windowController] reloadCurrentSheet:self];
 }
 @end

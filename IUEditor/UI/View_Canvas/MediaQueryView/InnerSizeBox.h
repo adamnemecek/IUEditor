@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+
+#if 0
+
 /**
 @brief Deprecated 141029
  */
@@ -25,3 +28,6 @@ __attribute__((deprecated))
 
 
 @end
+
+#endif
+

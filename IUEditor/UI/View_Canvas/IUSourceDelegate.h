@@ -12,20 +12,11 @@
 @protocol IUSourceDelegate <NSObject>
 @required
 
-//enable, disable update
-- (void)enableUpdateAll:(id)sender;
-- (void)disableUpdateAll:(id)sender;
-
 #pragma mark - css
 //update inline-css
 -(void)IUClassIdentifier:(NSString *)identifier CSSUpdated:(NSString*)css;
 //rempve style-sheet css (hover, active class)
 -(void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier;
-
-- (void)enableUpdateCSS:(id)sender;
-- (void)disableUpdateCSS:(id)sender;
-- (BOOL)isUpdateCSSEnabled;
-
 
 
 #pragma mark - JS
@@ -49,9 +40,6 @@
 -(void)IUHTMLIdentifier:(NSString *)identifier HTML:(NSString *)html;
 -(void)IURemoved:(NSString*)identifier;
 
-- (void)enableUpdateHTML:(id)sender;
-- (void)disableUpdateHTML:(id)sender;
-- (BOOL)isUpdateHTMLEnabled;
 
 
 - (NSRect)absoluteIUFrame:(NSString *)identifier;

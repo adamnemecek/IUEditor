@@ -10,6 +10,8 @@
 #import "JDUIUtil.h"
 #import "SizeView.h"
 
+#if 0
+
 @implementation InnerSizeBox{
     NSInteger width;
     NSBox *selectedBox;
@@ -125,3 +127,5 @@
 }
 
 @end
+#endif
+

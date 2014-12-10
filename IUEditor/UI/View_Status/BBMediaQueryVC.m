@@ -24,6 +24,12 @@
     [_mediaQueryPopupButton bind:NSContentBinding toObject:self withKeyPath:@"project.mqSizes" options:IUBindingDictNotRaisesApplicable];
     
 }
+- (void)setProject:(IUProject *)project{
+    _project = project;
+    
+    //init with mediaquery
+    [self selectMediaQueryWidth:_project.maxViewPort];
+}
 
 - (NSWindowController *)currentWC{
     return [[self.view window] windowController];

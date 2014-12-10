@@ -11,6 +11,7 @@
 
 
 @interface LMWindow : NSWindow
-@property  LMCanvasView *canvasView;
+
+@property (weak) LMCanvasView *canvasView;
 
 @end

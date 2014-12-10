@@ -237,6 +237,9 @@
     return WebDragDestinationActionNone;
 }
 
+- (void)mouseDown:(NSEvent *)theEvent{
+    
+}
 
 
 

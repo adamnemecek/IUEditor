@@ -302,6 +302,7 @@
         _maxViewPort = [aDecoder decodeIntegerForKey:@"maxViewPort"];
         _currentViewPort = _maxViewPort;
      
+        _storageClassName = [aDecoder decodeObjectForKey:@"storageClassName"];
         _defaultStorage =  [_workingStorages objectForKey:@(_maxViewPort)];
         _currentStorage = _defaultStorage;
 
@@ -324,6 +325,7 @@
     [aCoder encodeObject:self.workingStorages forKey:@"storages"];
     [aCoder encodeObject:_owners forKey:@"owners"];
     [aCoder encodeInteger:_maxViewPort forKey:@"maxViewPort"];
+    [aCoder encodeObject:_storageClassName forKey:@"storageClassName"];
 }
 
 - (id)copyWithZone:(NSZone *)zone{

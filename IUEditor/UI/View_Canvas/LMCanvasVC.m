@@ -38,10 +38,9 @@
 @implementation LMCanvasVC{
     IUFrameDictionary *frameDict;
     LMHelpWC *helpWC;
-    int levelForUpdateCSS;
     int levelForUpdateJS;
-    int levelForUpdateHTML;
     BOOL isEnableText;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,15 +49,13 @@
     if (self) {
         frameDict = [[IUFrameDictionary alloc] init];;
         _maxFrameWidth = 0;
-        levelForUpdateCSS = 0;
         levelForUpdateJS =0;
-        levelForUpdateHTML= 0;
         isEnableText = NO;
     }
     return self;
 }
 
--(void)awakeFromNib{
+-(void)viewDidLoad{
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[[self.view window] windowController]];
     
@@ -100,28 +97,15 @@
 }
 
 - (void)setSheet:(IUSheet *)sheet{
-    NSAssert(self.documentBasePath != nil, @"resourcePath is nil");
-    if (self.documentBasePath == nil) {
-        return;
-    }
-    JDSectionInfoLog( IULogSource, @"resourcePath  : %@", self.documentBasePath);
-    [[self gridView] clearAllLayer];  
-//    [_sheet setCanvasVC:nil];
-    _sheet = sheet;
-//    [_sheet setCanvasVC:self];
-    
+
+    [[self gridView] clearAllLayer];
     [self.canvasView loadDefaultZoom];
-    
-//    NSString *editorSrc = [sheet.editorSource copy];
-//    NSString *editorHtmlSrc =
-//    [[[self webView] mainFrame] loadHTMLString:editorHtmlSrc baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
-    
     [self updateClassHeight];
 }
 
 
 - (void)reloadSheet{
-    [(BBWC *)[[NSApp mainWindow] windowController] realodCurrentSheet:self];
+    [(BBWC *)[[NSApp mainWindow] windowController] reloadCurrentSheet:self];
 }
 
 
@@ -201,6 +185,8 @@
     
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
+    [self updateWebViewWidth];
+    
     [self reloadSheet];
     
     [[self canvasView] updateMainViewOrigin];
@@ -228,21 +214,6 @@
 #pragma mark - IUCanvasController Protocol
 
 - (void)webViewdidFinishLoadFrame{
-    
-    /*
-    [self disableUpdateJS:self];
-    
-    [_sheet updateCSS];
-    for(IUBox *box in _sheet.allChildren){
-        [box updateCSS];
-    }
-    
-    [self enableUpdateJS:self];
-    
-    NSString *htmlSource =  [(DOMHTMLElement *)[[self webDocument] documentElement] outerHTML];
-    JDTraceLog(@"%@", htmlSource);
-
-    */
     [self updateWebViewWidth];
     [self updateJS];
 }
@@ -770,20 +741,79 @@
         }
     }
 }
+#pragma mark - call web view 
 
-
-#pragma mark - JS
-
-- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
-    return [[self webView] callWebScriptMethod:function withArguments:args];
+-(void)IUClassIdentifier:(NSString*)identifier CSSUpdated:(NSString*)css{
+    
+    
+    [self updateCSS:css selector:identifier];
+    
+    if([self isSheetHeightChanged:identifier]){
+        //CLASS에서 WEBCANVASVIEW의 높이 변화를 위해서
+        [self updateClassHeight];
+    }
+    
+    
 }
+
+- (BOOL)isSheetHeightChanged:(NSString *)identifier{
+    if([identifier isEqualToString:[_sheet cssIdentifier]]
+       && [_sheet isKindOfClass:[IUClass class]]){
+        return YES;
+    }
+    return NO;
+}
+
+-(void)updateCSS:(NSString *)css selector:(NSString *)selector{
+    DOMNodeList *list = [self.webDocument querySelectorAll:selector];
+    int length= list.length;
+    for(int i=0; i<length; i++){
+        DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
+        DOMCSSStyleDeclaration *style = element.style;
+        style.cssText = css;
+    }
+}
+
 - (id)evaluateWebScript:(NSString *)script{
     return [[self webView] evaluateWebScript:script];
 }
+
 - (void)updateJS{
-    if( [self isUpdateJSEnabled]==YES){
-        [[self webView] runJSAfterRefreshCSS];
+    [[self webView] runJSAfterRefreshCSS];
+}
+
+
+- (void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier{
+    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
+    NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withID:identifier];
+    [sheetElement setInnerHTML:newCSSText];
+}
+
+- (NSString *)removeCSSText:(NSString *)innerCSSText withID:(NSString *)identifier
+{
+    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
+    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
+    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
+    
+    for(NSString *rule in cssRuleList){
+        if(rule.length == 0){
+            continue;
+        }
+        NSString *ruleID = [self cssIDInCSSRule:rule];
+        NSString *modifiedIdentifier = [identifier stringByTrim];
+        if([ruleID isEqualToString:modifiedIdentifier] == NO){
+            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
+        }
     }
+    
+    return innerCSSHTML;
+}
+-(NSString *)cssIDInCSSRule:(NSString *)cssrule{
+    
+    NSString *css = [cssrule stringByTrim];
+    NSArray *cssItems = [css componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
+    
+    return [cssItems[0] stringByTrim];
 }
 
 #pragma mark - frame
@@ -833,246 +863,6 @@
 }
 
 
-
-#pragma mark - Manage DOMNode
-#pragma mark - HTML
-
--(void)IUHTMLIdentifier:(NSString*)identifier HTML:(NSString *)html{
-    
-    //element를 바꾸기 전에 현재 text editor를 disable시켜야지 text editor가 제대로 동작함.
-    //editor remove가 제대로 돌아가야 함.
-    [self disableTextEditor];
-    
-    DOMHTMLElement *currentElement = (DOMHTMLElement *)[self.webDocument getElementById:identifier];
-    if(currentElement){
-        //change html text
-        [currentElement setOuterHTML:html];
-    }
-}
-
-
-#pragma mark - CSS
-
-/**
- @brief get element line count by only selected iu
- */
--(NSInteger)countOfLineWithIdentifier:(NSString *)identifier{
-    DOMNodeList *list = [self.webDocument getElementsByClassName:identifier];
-    if(list.length > 0){
-        DOMHTMLElement *element = (DOMHTMLElement *)[list item:0];
-        DOMNodeList *pList  = [element getElementsByTagName:@"p"];
-        return pList.length;
-        
-        /*
-         replace : 14.11.07 tinymce 에서 text를 p tag가 있는 상탤 동작하게 됨.
-        int count = brList.length;
-        DOMHTMLElement *lastElement = (DOMHTMLElement *)[element.childNodes item:element.childNodes.length-1];
-        if([lastElement isKindOfClass:[DOMHTMLBRElement class]]==NO){
-            count++;
-        }
-        return count;
-         */
-    }
-    return 0;
-}
-
-
--(void)IUClassIdentifier:(NSString*)identifier CSSUpdated:(NSString*)css{
-    
-    if([self isUpdateCSSEnabled]){
-        if([identifier containsString:@":hover"]){
-            [self updateHoverCSS:css identifier:identifier];
-        }
-        else{
-            [self updateCSS:css selector:identifier];
-        }
-        
-        if([self isSheetHeightChanged:identifier]){
-            //CLASS에서 WEBCANVASVIEW의 높이 변화를 위해서
-            [self updateClassHeight];
-        }
-    }
-   
-}
-
-- (BOOL)isSheetHeightChanged:(NSString *)identifier{
-    if([identifier isEqualToString:[_sheet cssIdentifier]]
-       && [_sheet isKindOfClass:[IUClass class]]){
-        return YES;
-    }
-    return NO;
-}
-
-/**
- @brief update css - inline attribute : style
- */
--(void)updateCSS:(NSString *)css selector:(NSString *)selector{
-    DOMNodeList *list = [self.webDocument querySelectorAll:selector];
-    int length= list.length;
-    for(int i=0; i<length; i++){
-        DOMHTMLElement *element = (DOMHTMLElement *)[list item:i];
-        DOMCSSStyleDeclaration *style = element.style;
-        style.cssText = css;
-    }
-}
-/**
- @brief update css - style sheet
- */
-
--(void)updateHoverCSS:(NSString *)css identifier:(NSString *)identifier{
-    [JDLogUtil log:IULogSource key:@"css source" string:css];
-    
-    if(css.length == 0){
-        //nothing to do
-        [self removeCSSTextInDefaultSheetWithIdentifier:identifier];
-    }else{
-        NSString *cssText = [NSString stringWithFormat:@"%@{%@}", identifier, css];
-        //default setting
-        [self setIUStyle:cssText withID:identifier];
-    }
-}
-
-- (void)setIUStyle:(NSString *)cssText withID:(NSString *)iuID{
-    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
-    NSString *newCSSText = [self innerCSSText:sheetElement.innerHTML byAddingCSSText:cssText withID:iuID];
-    [sheetElement setInnerHTML:newCSSText];
-    
-}
-
--(NSString *)cssIDInCSSRule:(NSString *)cssrule{
-    
-    NSString *css = [cssrule stringByTrim];
-    NSArray *cssItems = [css componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"{}"]];
-    
-    return [cssItems[0] stringByTrim];
-}
-
-- (NSString *)innerCSSText:(NSString *)innerCSSText byAddingCSSText:(NSString *)cssText withID:(NSString *)identifier
-{
-    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
-    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
-    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
-    
-    for(NSString *rule in cssRuleList){
-        if(rule.length == 0){
-            continue;
-        }
-        NSString *ruleID = [self cssIDInCSSRule:rule];
-        NSString *modifyidentifier = [identifier stringByTrim];
-        if([ruleID isEqualToString:modifyidentifier] == NO){
-            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
-        }
-    }
-    
-    [innerCSSHTML appendString:cssText];
-    [innerCSSHTML appendString:@"\n"];
-    
-    return innerCSSHTML;
-}
-
-
-- (void)removeCSSTextInDefaultSheetWithIdentifier:(NSString *)identifier{
-    DOMHTMLStyleElement *sheetElement = (DOMHTMLStyleElement *)[[self webDocument] getElementById:@"default"];
-    NSString *newCSSText = [self removeCSSText:sheetElement.innerHTML withID:identifier];
-    [sheetElement setInnerHTML:newCSSText];
-}
-
-- (NSString *)removeCSSText:(NSString *)innerCSSText withID:(NSString *)identifier
-{
-    NSMutableString *innerCSSHTML = [NSMutableString stringWithString:@"\n"];
-    NSString *trimmedInnerCSSHTML = [innerCSSText  stringByTrim];
-    NSArray *cssRuleList = [trimmedInnerCSSHTML componentsSeparatedByString:@"\n"];
-    
-    for(NSString *rule in cssRuleList){
-        if(rule.length == 0){
-            continue;
-        }
-        NSString *ruleID = [self cssIDInCSSRule:rule];
-        NSString *modifiedIdentifier = [identifier stringByTrim];
-        if([ruleID isEqualToString:modifiedIdentifier] == NO){
-            [innerCSSHTML appendString:[NSString stringWithFormat:@"\t%@\n", [rule stringByTrim]]];
-        }
-    }
-    
-    return innerCSSHTML;
-}
-
-
-#pragma mark - enable, disable
-
-- (void)enableUpdateAll:(id)sender{
-    [self enableUpdateHTML:sender];
-    [self enableUpdateCSS:sender];
-    [self enableUpdateJS:sender];
-}
-- (void)disableUpdateAll:(id)sender{
-    [self disableUpdateHTML:sender];
-    [self disableUpdateCSS:sender];
-    [self disableUpdateJS:sender];
-}
-
-- (void)enableUpdateCSS:(id)sender{
-    levelForUpdateCSS++;
-}
-- (void)disableUpdateCSS:(id)sender{
-    levelForUpdateCSS--;
-    
-    if(levelForUpdateCSS > 0){
-        JDFatalLog(@"disableUpdateCSS is not pair, more than enableUpdate");
-        assert(0);
-    }
-}
--(BOOL)isUpdateCSSEnabled{
-    if(levelForUpdateCSS==0){
-        return YES;
-    }
-    else{
-        return NO;
-    }
-}
-
--(void)enableUpdateJS:(id)sender{
-    levelForUpdateJS++;
-}
--(void)disableUpdateJS:(id)sender{
-    levelForUpdateJS--;
-    
-    if(levelForUpdateJS > 0){
-        JDFatalLog(@"levelForUpdateJS is not pair, more than enableUpdate");
-        assert(0);
-    }
-}
--(BOOL)isUpdateJSEnabled{
-    if(levelForUpdateJS==0){
-        return YES;
-    }
-    else{
-        return NO;
-    }
-}
-
-- (void)enableUpdateHTML:(id)sender{
-    levelForUpdateHTML++;
-}
-
--(void)disableUpdateHTML:(id)sender{
-    levelForUpdateHTML--;
-    
-    if(levelForUpdateHTML > 0){
-        JDFatalLog(@"enableUpdateHTML is not pair, more than enableUpdate");
-        assert(0);
-    }
-}
-
--(BOOL)isUpdateHTMLEnabled{
-    if(levelForUpdateHTML==0){
-        return YES;
-    }
-    else{
-        return NO;
-    }
-}
-
 #pragma mark - copy&paste
 
 - (void)copy:(id)sender{
@@ -1082,22 +872,6 @@
 - (void)paste:(id)sender{
     [self.controller pasteToSelectedIU:self];
 }
-
-
-
-#pragma mark - debug
-#if 0
-
-- (void)applyHtmlString:(NSString *)html{
-    [[[self webView] mainFrame] loadHTMLString:html baseURL:[NSURL fileURLWithPath:self.documentBasePath]];
-}
-
-- (void)reloadOriginalDocument{
-    [self setSheet:_sheet];
-}
-
-#endif
-
 
 
 @end

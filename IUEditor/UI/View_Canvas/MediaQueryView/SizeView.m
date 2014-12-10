@@ -11,6 +11,7 @@
 #import "LMCanvasVC.h"
 #import "LMRulerView.h"
 #import "LMWC.h"
+#if 0
 
 @implementation SizeImageView : NSImageView
 -(id)init{
@@ -335,4 +336,8 @@
 
 
 
+
 @end
+
+#endif
+

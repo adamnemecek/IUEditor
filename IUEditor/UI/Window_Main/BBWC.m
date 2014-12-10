@@ -8,6 +8,8 @@
 
 #import "BBWC.h"
 
+#import "LMWindow.h"
+
 #import "BBDefaultVCs.h"
 #import "IUProjectDocument.h"
 
@@ -18,7 +20,6 @@
 #endif
 
 @interface BBWC ()
-
 
 //top tool bar
 @property (weak) IBOutlet NSView *topToolBarView;
@@ -212,7 +213,7 @@
         }
     }
     [_propertyIconBox addSubviewTopHalfFullFrame:_propertyIconMatrix];
-
+    
     //connect VCs
     //toolbar
     [_topToolBarView addSubviewFullFrame:_topToolBarVC.view];
@@ -257,7 +258,6 @@
         
         //load properties when project is set
         //view part
-        [_canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
         [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
         
         //project
@@ -350,9 +350,14 @@
 
 }
 
-- (void)realodCurrentSheet:(id)sender{
+- (void)reloadCurrentSheet:(id)sender{
     [self.sourceManager loadSheet:_currentSheet];
     [_canvasVC setSheet:_currentSheet];
+}
+
+#pragma mark -
+- (NSString *)projectName{
+    return _project.name;
 }
 
 #pragma mark - debug

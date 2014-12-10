@@ -11,7 +11,7 @@
 #import "IUSheet.h"
 #import "IUController.h"
 #import "IUCanvasController.h"
-#import "IUSourceManager.h"
+#import "WebCanvasView.h"
 
 @class LMCanvasView;
 
@@ -19,13 +19,12 @@
  IUSourceDelegate : call by IU
  IUCanvasController : call by canvasview, webview, gridview
  */
-@interface LMCanvasVC : NSViewController <IUSourceManagerDelegate, IUSourceDelegate, IUCanvasController>
+@interface LMCanvasVC : NSViewController <IUCanvasController>
 
 
 - (void)prepareDealloc;
 
-@property (nonatomic) _binding_ IUSheet  *sheet;
-@property (nonatomic) _binding_ NSString    *documentBasePath;
+@property (nonatomic) IUSheet  *sheet;
 @property (nonatomic) IUController  *controller;
 @property (nonatomic) NSInteger selectedFrameWidth;
 @property NSInteger maxFrameWidth;
@@ -33,16 +32,12 @@
 
 //call by wc
 - (void)windowDidResize:(NSNotification *)notification;
-- (void)setSheet:(IUSheet *)sheet;
 
 - (void)zoomIn;
 - (void)zoomOut;
 
-
 #if DEBUG
-- (void)applyHtmlString:(NSString *)html;
-- (void)reloadOriginalDocument;
-- (IBAction)showCurrentSource:(id)sender;
+- (WebCanvasView *)webView;
 #endif
 
 @end

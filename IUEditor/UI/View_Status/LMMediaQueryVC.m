@@ -70,14 +70,10 @@
     }
     NSInteger oldSelectedWidth = mqWidth;
     mqWidth = width;
-    [self.controller disableUpdateCSS:self];
-    [self.controller disableUpdateJS:self];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth)}];
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelectedWithInfo object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
     
-    [self.controller enableUpdateJS:self];
-    [self.controller enableUpdateCSS:self];
 }
 
 
