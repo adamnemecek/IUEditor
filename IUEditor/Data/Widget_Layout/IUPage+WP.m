@@ -70,7 +70,8 @@
     [self.pageContent addIU:footer error:nil];
     
     [self.undoManager enableUndoRegistration];
-    [self.project.identifierManager addObjects:@[section, centerBox, sidebar, list, links, footer, copyright]];
+    //FIXME: identifiermanager?
+//    [self.project.identifierManager addObjects:@[section, centerBox, sidebar, list, links, footer, copyright]];
 }
 
 -(void)WPInitializeAs404{
@@ -138,7 +139,9 @@
     [self.pageContent addIU:footer error:nil];
     
     [self.undoManager enableUndoRegistration];
-    [self.project.identifierManager addObjects:@[section, image, text404, footer, copyright]];
+    
+    //FIXME : identifier manager
+    //[self.project.identifierManager addObjects:@[section, image, text404, footer, copyright]];
 }
 
 -(void)WPInitializeAsIndex{

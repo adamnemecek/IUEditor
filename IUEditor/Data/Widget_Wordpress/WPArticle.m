@@ -86,12 +86,13 @@
     if (enableTitle) {
 
         WPArticleTitle *title = [[WPArticleTitle alloc] initWithPreset];
-        title.htmlID = [self.identifierManager createIdentifierWithPrefix:[title className]];
+//FIXME;
+//        title.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:title];
         title.name = title.htmlID;
 
         [self addIU:title error:nil];
         if (self.isConnectedWithEditor) {
-            [self.identifierManager commit];
+//            [self.identifierManager commit];
         }
     }
     else {
@@ -104,6 +105,7 @@
 }
 
 - (void)setEnableDate:(BOOL)enableDate{
+    /*
     _enableDate = enableDate;
     if (enableDate) {
         WPArticleDate *date = [[WPArticleDate alloc] initWithPreset];
@@ -121,7 +123,9 @@
             }
         }
     }
+     */
 }
+#if 0
 
 - (void)setEnableCommentForm:(BOOL)enableCommentForm{
     _enableCommentForm = enableCommentForm;
@@ -188,6 +192,7 @@
 
     
 }
+#endif
 
 #pragma mark - should XXX
 

@@ -22,8 +22,6 @@
 - (void)setUp {
     [super setUp];
     _identifierManager = [[IUIdentifierManager alloc] init];
-    _identifierManager.identifierKey = @"htmlID";
-    _identifierManager.childrenKey = @"children";
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -77,7 +75,7 @@
 - (void)test3_IUBox{
     IUBox *iu = [[IUBox alloc] initWithPreset];
     iu.htmlID = @"test1";
-    [_identifierManager addObject:iu];
+    [_identifierManager registerIdentifier:iu.htmlID withObject:iu];
     iu.identifierManager = _identifierManager;
     
     
@@ -102,10 +100,12 @@
     iu.htmlID = @"test1";
     iu.identifierManager = _identifierManager;
     
+    [_identifierManager registerIdentifier:iu.htmlID withObject:iu];
+    
     IUBox *child = [[IUBox alloc] initWithPreset];
     [iu addIU:child error:nil];
+    [_identifierManager createAndRegisterIdentifierWithObject:iu];
     
-    [_identifierManager addObject:iu];
     
     IUBox *copyIU = [iu copy];
 

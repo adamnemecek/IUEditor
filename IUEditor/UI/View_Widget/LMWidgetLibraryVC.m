@@ -116,9 +116,7 @@
     LMGeneralObject *object = [[collectionView itemAtIndex:index] representedObject];
     
     IUBox *obj = [[NSClassFromString(object.title) alloc] initWithPreset];
-    obj.htmlID = [[self identifierManager] createIdentifierWithPrefix:obj.className];
-//    [[self identifierManager] addObject:obj withIdentifier:obj.htmlID];
-    [[self identifierManager] commit];
+    obj.htmlID = [[self identifierManager] createAndRegisterIdentifierWithObject:obj];
 
     if (obj == nil) {
     //    NSAssert(0, @"");

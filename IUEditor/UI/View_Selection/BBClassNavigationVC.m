@@ -48,12 +48,9 @@
 - (IBAction)clickNewCompositionButton:(id)sender {
     if(self.classController.selectedObjects.count > 0){
         IUClass *newClass = [[IUClass alloc] initWithPreset];
-        newClass.htmlID = [self.identifierManager createIdentifierWithPrefix:[IUClass className]];
+        newClass.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newClass];
         newClass.name = newClass.htmlID;
-        
-        [self.identifierManager addObject:newClass];
-        [self.identifierManager commit];
-        
+                
         [self.classController addObject:newClass];
 
     }

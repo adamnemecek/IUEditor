@@ -74,10 +74,8 @@
     if([[_iuController.content firstObject] isKindOfClass:[IUPage class]]){
         //allocation new section
         IUSection *newSection = [[IUSection alloc] initWithPreset];
-        newSection.htmlID = [self.identifierManager createIdentifierWithPrefix:newSection.className];
+        newSection.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newSection];
         newSection.name = newSection.htmlID;
-        [self.identifierManager addObject:newSection];
-        [self.identifierManager commit];
         
         [self testaddIu:newSection];
         
@@ -96,13 +94,9 @@
     IUBox *parent = iu;
     for(int i=0; i< 10; i++){
         IUBox *newIU = [[IUBox alloc] initWithPreset];
-        newIU.htmlID = [self.identifierManager createIdentifierWithPrefix:newIU.className];
+        newIU.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newIU];
         newIU.name = newIU.htmlID;
-        
-        [self.identifierManager addObject:newIU];
-        [self.identifierManager commit];
-
-        
+                
         [parent addIU:newIU error:nil];
         parent = newIU;
     }

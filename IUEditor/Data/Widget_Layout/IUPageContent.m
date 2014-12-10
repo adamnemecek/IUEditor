@@ -47,7 +47,7 @@
         titleBox.livePropertyStorage.innerHTML = @"Content Area";
         
         titleBox.enableHCenter = YES;
-                
+        
         [section addIU:titleBox error:nil];
         
         

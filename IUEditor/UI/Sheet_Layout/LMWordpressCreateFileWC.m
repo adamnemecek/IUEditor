@@ -107,8 +107,7 @@
     IUPage *newSheet = [[IUPage alloc] initWithPreset];
     
     [self.project addItem:newSheet toSheetGroup:self.project.pageGroup];
-    [self.project.identifierManager addObjects:@[newSheet]];
-    [self.project.identifierManager commit];
+    //FIXME: create htmlID
     [newSheet connectWithEditor];
     [newSheet setIsConnectedWithEditor];
 

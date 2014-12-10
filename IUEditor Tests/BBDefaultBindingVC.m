@@ -84,14 +84,12 @@ static     IUTestWC *testWC;
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
-    page.htmlID = [identifierManager createIdentifierWithPrefix:[IUPage className]];
+    page.htmlID = [identifierManager createAndRegisterIdentifierWithObject:page];
     page.name = page.htmlID;
-    [identifierManager addObject:page];
     
     for( IUBox *box in page.allChildren){
-        box.htmlID = [identifierManager createIdentifierWithPrefix:[box className]];
+        box.htmlID = [identifierManager createAndRegisterIdentifierWithObject:box];
         box.name = box.htmlID;
-        [identifierManager addObject:box];
     }
     
     

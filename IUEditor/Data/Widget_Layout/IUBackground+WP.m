@@ -25,7 +25,6 @@
     title.enableHCenter = YES;
 
     [self.header addIU:title error:nil];
-    [self.identifierManager addObject:title];
     
     WPSiteDescription *desc = [[WPSiteDescription alloc] initWithPreset];
     desc.htmlID = @"SiteDescription";
@@ -33,7 +32,6 @@
     desc.livePositionStorage.y = @(110);
     
     [self.header addIU:desc error:nil];
-    [self.identifierManager addObject:desc];
 
 
     WPMenu *menu = [[WPMenu alloc] initWithPreset];
@@ -41,12 +39,10 @@
     menu.name = @"Menu";
     
     [self.header addIU:menu error:nil];
-    [self.identifierManager addObject:menu];
     
     self.header.liveStyleStorage.height = @(200);
     self.header.liveStyleStorage.bgColor = nil;
-    
-    [self.identifierManager commit];
+
     
 }
 

@@ -132,14 +132,12 @@
 
         for(NSInteger i=self.children.count; i <count; i++){
             IUCarouselItem *item = [[IUCarouselItem alloc] initWithPreset];
-            item.htmlID = [self.identifierManager createIdentifierWithPrefix:[item className]];
+//FIXME:
+//            item.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:item];
             item.name = item.htmlID;
             [self addIU:item error:nil];
         }
         
-        if (self.isConnectedWithEditor) {
-            [self.identifierManager commit];
-        }
     }
 
     

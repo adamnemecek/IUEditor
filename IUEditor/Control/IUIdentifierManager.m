@@ -11,13 +11,11 @@
 
 @implementation IUIdentifierManager{
     NSMutableDictionary *confirmed;
-    NSMutableDictionary *unconfirmed;
 }
 
 -(id)init{
     self = [super init];
     confirmed = [NSMutableDictionary dictionary];
-    unconfirmed = [NSMutableDictionary dictionary];
     return self;
 }
 
@@ -33,16 +31,17 @@
  */
 
  
-- (NSString *)createIdentifierWithPrefix:(NSString *)prefix{
+- (NSString *)createAndRegisterIdentifierWithObject:(id)object{
     int i=0;
-    NSString *modifiedPrefix = prefix;
+    NSString *prefix = [object className];
     if ([[prefix substringToIndex:2] isEqualTo:@"IU"]) {
-        modifiedPrefix = [prefix substringFromIndex:2];
+        prefix = [prefix substringFromIndex:2];
     }
     while (1) {
         i++;
-        NSString *newIdentifier = [NSString stringWithFormat:@"%@%d", modifiedPrefix, i];
-        if (confirmed[newIdentifier] == nil && unconfirmed[newIdentifier] == nil ) {
+        NSString *newIdentifier = [NSString stringWithFormat:@"%@%d", prefix, i];
+        if (confirmed[newIdentifier] == nil) {
+            confirmed[newIdentifier] = object;
             return newIdentifier;
         }
         
@@ -54,44 +53,37 @@
     }
     return nil;
 }
-
-
-- (void)addObject:(id)obj{
-    NSString *identifier = [obj valueForKey:_identifierKey];
-    unconfirmed[identifier] = obj;
-    
-    for(id child in [obj valueForKey:_childrenKey]){
-        [self addObject:child];
-    }
+- (void)registerIdentifier:(NSString *)identifier withObject:(id)object{
+    confirmed[identifier] = object;
 }
 
 
-- (void)addObjects:(id)objs{
-    for(id obj in objs){
-        [self addObject:obj];
+- (NSString *)identifierForObject:(id)object{
+    NSArray *keys = [confirmed allKeysForObject:object];
+    NSAssert(keys.count > 0, @"key is not identical");
+    if(keys.count == 1){
+        return keys[0];
     }
+    return nil;
 }
+
 
 - (id)objectForIdentifier:(NSString*)identifier{
-    if (unconfirmed[identifier]){
-        return unconfirmed[identifier];
-    }
     return confirmed[identifier];
 }
 
 - (void)removeIdentifier:(NSString *)identifier{
-    [unconfirmed removeObjectForKey:identifier];
     [confirmed removeObjectForKey:identifier];
 }
 
-- (void)commit {
-    [unconfirmed enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        confirmed[key] = obj;
-    }];
-    [unconfirmed removeAllObjects];
-}
-- (void)rollback{
-    [unconfirmed removeAllObjects];
+- (BOOL)replaceFromIdentifier:(NSString *)from toIdentifier:(NSString *)to{
+    id object = confirmed[from];
+    if(object){
+        [self removeIdentifier:object];
+        confirmed[to] = object;
+        return YES;
+    }
+    return NO;
 }
 
 @end

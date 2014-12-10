@@ -54,10 +54,6 @@
     _pageContent = [[IUPageContent alloc] initWithPreset];
     _layout = IUPageLayoutDefault;
     
-    _pageContent.htmlID  = [self.identifierManager createIdentifierWithPrefix:[_pageContent className]];
-    _pageContent.name = _pageContent.htmlID;
-
-    
     [self addIU:_pageContent error:nil];
     
     return self;

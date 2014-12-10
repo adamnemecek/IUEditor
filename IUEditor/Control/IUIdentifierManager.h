@@ -12,21 +12,16 @@
 
 @interface IUIdentifierManager : NSObject
 
-@property NSString *identifierKey; // keyPath to identifier
-@property NSString *childrenKey; //keyPath to children
-
 /**
- @description create identifier key for object
- @note prefix 'IU' will be automatically deleted at prefix
+ @description create identifier key for object by prefix as object class name. New identifier key is registered to identifier manager
+ @note prefix 'IU' will be automatically deleted
+ @return (NSString *)identifier : new identifier for object
  */
-- (NSString *)createIdentifierWithPrefix:(NSString *)prefix;
-
-- (void)addObject:(id)obj;
-- (void)addObjects:(id)objs;
+- (NSString *)createAndRegisterIdentifierWithObject:(id)object;
+- (void)registerIdentifier:(NSString *)identifier withObject:(id)object;
+- (NSString *)identifierForObject:(id)object;
 - (id)objectForIdentifier:(NSString*)identifier;
 - (void)removeIdentifier:(NSString *)identifier;
-- (void)commit;
-- (void)rollback;
-
+- (BOOL)replaceFromIdentifier:(NSString *)from toIdentifier:(NSString *)to;
 
 @end

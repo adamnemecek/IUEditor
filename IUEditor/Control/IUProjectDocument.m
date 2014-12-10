@@ -35,8 +35,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
     if(self){
         //allocation identifiermanager
         _identifierManager = [[IUIdentifierManager alloc] init];
-        _identifierManager.identifierKey = @"htmlID";
-        _identifierManager.childrenKey = @"children";
         
         //allocation resource root
         _resourceRootItem = [[IUResourceRootItem alloc] init];
@@ -128,20 +126,17 @@ static NSString *metaDataIUVersion = @"IUVersion";
             for(IUSheet *sheet in _project.allSheets){
                 for(IUBox *iu in sheet.allChildren){
                     if(iu.htmlID == nil){
-                        iu.htmlID = [self.identifierManager createIdentifierWithPrefix:[iu className]];
+                        iu.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:iu];
                         iu.name = iu.htmlID;
                     }
                 }
                 
                 if(sheet.htmlID == nil){
-                    sheet.htmlID = [self.identifierManager createIdentifierWithPrefix:[sheet className]];
+                    sheet.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:sheet];
                     sheet.name = sheet.htmlID;
                 }
             }
             
-            [self.identifierManager addObjects:_project.allSheets];
-            [self.identifierManager commit];
-        
             
             return YES;
         }
