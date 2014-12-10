@@ -31,7 +31,7 @@
     LMHelpWC *helpWC;
     int levelForUpdateJS;
     BOOL isEnableText;
-
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,12 +60,12 @@
               options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"ghostImage"];
     
     
-
+    
     
 }
 
 - (void)prepareDealloc{
-    self.webCanvasView.controller = nil;
+    self.webView.controller = nil;
     self.gridView.controller = nil;
     self.canvasView.controller = nil;
 }
@@ -88,7 +88,7 @@
 }
 
 - (void)setSheet:(IUSheet *)sheet{
-
+    
     [[self gridView] clearAllLayer];
     [[self canvasView] loadDefaultZoom];
     [self updateClassHeight];
@@ -108,11 +108,11 @@
 - (GridView *)gridView{
     return [[self canvasView] gridView];
 }
-- (WebCanvasView *)webCanvasView{
+- (WebCanvasView *)webView{
     return [[self canvasView] webView];
 }
 - (DOMDocument *)webDocument{
-    return [[[self webCanvasView] mainFrame] DOMDocument];
+    return [[[self webView] mainFrame] DOMDocument];
 }
 
 
@@ -126,7 +126,7 @@
 }
 
 - (void)windowDidResize:(NSNotification *)notification{
-    [[self webCanvasView] resizePageContent];
+    [[self webView] resizePageContent];
     [[self canvasView] windowDidResize:notification];
     [self updateWebViewWidth];
 }
@@ -140,7 +140,7 @@
     //not page class
     //page will be set reported values from javscript
     if([_sheet isKindOfClass:[IUClass class]]){
-        NSNumber *classHeight = _sheet.liveStyleStorage.height;        
+        NSNumber *classHeight = _sheet.liveStyleStorage.height;
         if(classHeight){
             [[self canvasView] setHeightOfMainView:[classHeight floatValue]];
         }
@@ -172,7 +172,7 @@
     NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
     //mq가 바뀌기전에 현재 text를 현재 size에 저장한다.
     [self saveCurrentTextEditorForWidth:oldSelectedSize];
-
+    
     
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
@@ -182,9 +182,9 @@
     
     [[self canvasView] updateMainViewOrigin];
     [[self gridView] setSelectedFrameWidth:_selectedFrameWidth];
-
     
-    [[self webCanvasView] updateFrameDict];
+    
+    [[self webView] updateFrameDict];
 }
 
 
@@ -198,7 +198,7 @@
     [self setSelectedFrameWidth:selectedSize];
     
     
-    [[self webCanvasView] updateFrameDict];
+    [[self webView] updateFrameDict];
     
 }
 
@@ -223,7 +223,7 @@
     NSPoint ghostPosition = NSMakePoint(_sheet.ghostX, _sheet.ghostY);
     [[self gridView] setGhostPosition:ghostPosition];
     [[self gridView] setGhostOpacity:_sheet.ghostOpacity];
-
+    
 }
 
 - (IUResourceRootItem *)resourceRootItem{
@@ -442,13 +442,13 @@
             currentIdentifier = moveObj.htmlID;
         }
         [JDLogUtil timeLogStart:@"getpercent"];
-
+        
         
         NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
-        id currentValue = [self.webCanvasView evaluateWebScript:frameJS];
-
+        id currentValue = [self.webView evaluateWebScript:frameJS];
+        
         [JDLogUtil timeLogEnd:@"getpercent"];
-
+        
         
         NSPoint origianlLocation = [moveObj originalFrame].origin;
         
@@ -472,9 +472,9 @@
             else{
                 [moveObj.currentPositionStorage setY:@(currentPercentY) unit:@(IUFrameUnitPercent)];
             }
-                        
+            
         }
-
+        
         [moveObj updateCSS];
         
     }
@@ -501,7 +501,7 @@
             currentIdentifier = moveObj.htmlID;
         }
         NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
-        id currentValue = [self.webCanvasView evaluateWebScript:frameJS];
+        id currentValue = [self.webView evaluateWebScript:frameJS];
         
         
         NSSize originalSize = [moveObj originalFrame].size;
@@ -536,7 +536,7 @@
     }
     
     [JDLogUtil timeLogEnd:@"extendIU"];
-
+    
 }
 
 
@@ -613,9 +613,9 @@
         DOMHTMLElement *node = (DOMHTMLElement*)[list item:i];
         //save current text
         [self saveElementText:node forIdnetifier:node.idName];
-    
+        
     }
-
+    
     list = [self.webDocument.documentElement getElementsByClassName:IUTextEditableClass];
     for (int i=0; i<list.length; i++) {
         //find editor
@@ -627,7 +627,7 @@
 - (void)saveElementText:(DOMHTMLElement *)element forIdnetifier:(NSString *)identifier{
     IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
     if(iu){
-
+        
         if(element.innerText && [element.innerText stringByTrim].length > 0){
             [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
             iu.livePropertyStorage.innerHTML = element.innerHTML;
@@ -635,7 +635,7 @@
         else{
             iu.livePropertyStorage.innerHTML = nil;
         }
- 
+        
     }
     [iu updateCSS];
 }
@@ -659,7 +659,7 @@
         //remove current editor
         NSString *removeMCE = [NSString stringWithFormat:@"tinyMCE.execCommand('mceRemoveEditor', true, '%@');", identifier];
         [self evaluateWebScript:removeMCE];
-
+        
     }
     
     list = [self.webDocument.documentElement getElementsByClassName:IUTextEditableClass];
@@ -677,7 +677,7 @@
     }
     
     isEnableText = NO;
-
+    
 }
 - (BOOL)isEnableTextEditor{
     return isEnableText;
@@ -689,7 +689,7 @@
     }
     
     IUBox *iu = [self.controller.selectedObjects firstObject];
- 
+    
     
     IUTextInputType inputType = [iu textInputType];
     NSString *className, *fnName;
@@ -715,7 +715,7 @@
     NSString *reloadMCE =[NSString stringWithFormat:@"tinyMCE.execCommand('%@', true, '%@');",fnName, identifer];
     [self evaluateWebScript:reloadMCE];
     isEnableText = YES;
-
+    
     
 }
 
@@ -732,9 +732,11 @@
         }
     }
 }
-#pragma mark - call web view 
+#pragma mark - call web view
 
 -(void)IUClassIdentifier:(NSString*)identifier CSSUpdated:(NSString*)css{
+    
+    
     [self updateCSS:css selector:identifier];
     
     if([self isSheetHeightChanged:identifier]){
@@ -810,7 +812,7 @@
 - (void)updateGridFrameDictionary:(NSMutableDictionary *)gridFrameDict{
     
     [JDLogUtil timeLogStart:@"updateGridFrame"];
-
+    
     [[self gridView] updateLayerRect:gridFrameDict];
     
     NSArray *keys = [gridFrameDict allKeys];
@@ -833,7 +835,7 @@
     }
     
     [JDLogUtil timeLogEnd:@"updateGridFrame"];
-
+    
     
 }
 
@@ -843,7 +845,7 @@
 }
 
 - (NSPoint)distanceFromIUIdentifier:(NSString *)identifier toPointFromWebView:(NSPoint)point{
-
+    
     
     NSRect iuframe = [self absoluteIUFrame:identifier];
     NSPoint distance = NSMakePoint(point.x-iuframe.origin.x,

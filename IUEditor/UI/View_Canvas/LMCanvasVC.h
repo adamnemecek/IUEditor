@@ -37,7 +37,7 @@
 - (void)zoomOut;
 
 #if DEBUG
-- (WebCanvasView *)webView;
+- (WebCanvasView *)webCanvasView;
 #endif
 
 @end
