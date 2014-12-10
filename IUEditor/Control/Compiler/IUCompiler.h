@@ -38,7 +38,7 @@ static NSString * IUCompilerTagOption = @"tag";
 - (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
 - (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort ;
 
-- (BOOL)outputHTMLSource:(IUPage *)document html:(NSString **)html css:(NSString **)css;
+- (BOOL)outputHTMLSource:(IUPage *)document resourcePrefix:(NSString *)resourcePrefix html:(NSString **)html css:(NSString **)css;
 
 - (NSString *)jsEventFileName:(IUPage *)document;
 - (NSString *)jsEventSource:(IUPage*)document;
@@ -52,12 +52,5 @@ static NSString * IUCompilerTagOption = @"tag";
 
 //meta source
 - (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project;
-
-//clip art source
-- (NSArray *)outputClipArtArray:(IUSheet *)document;
-
-
-//default function
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target;
 
 @end

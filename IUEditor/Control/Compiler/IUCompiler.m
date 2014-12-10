@@ -99,7 +99,7 @@
  
  */
 
--(JDCode *)metadataSource:(IUPage *)page{
+-(JDCode *)metadataSource:(IUPage *)page resourcePrefix:(NSString *)resourcePrefix{
 
     JDCode *code = [[JDCode alloc] init];
     //for google
@@ -126,7 +126,7 @@
 
     }
     if(page.metaImage && page.metaImage.length !=0){
-        NSString *imgSrc = [self imagePathWithImageName:page.metaImage target:IUTargetOutput];
+        NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
         [code addCodeLineWithFormat:@"<meta property=\"og:image\" content=\"%@\" />", imgSrc];
         [code addCodeLineWithFormat:@"<meta name=\"twitter:image\" content=\"%@\">", imgSrc];
         [code addCodeLineWithFormat:@"<meta itemprop=\"image\" content=\"%@\">", imgSrc];
@@ -136,7 +136,7 @@
 
         NSString *type = [page.project.favicon faviconType];
         if(type){
-            NSString *imgSrc = [self imagePathWithImageName:page.project.favicon target:IUTargetOutput];
+            NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
             [code addCodeLineWithFormat:@"<link rel=\"icon\" type=\"image/%@\" href=\"%@\">",type, imgSrc];
             
         }
@@ -253,46 +253,7 @@
     return [fontController headerCodeForFont:fontArray];
 }
 
-- (NSArray *)outputClipArtArray:(IUSheet *)document{
-    /*
-    NSMutableArray *array = [NSMutableArray array];
-    for (IUBox *box in document.allChildren){
-        NSMutableArray *imageNames = [NSMutableArray array];
-        if(box.imageName){
-            [imageNames addObject:box.imageName];
-        }
-        
-        if([box isKindOfClass:[IUCarousel class]]){
-            IUCarousel *carousel = (IUCarousel *)box;
-            if(carousel.leftArrowImage){
-                [imageNames addObject:carousel.leftArrowImage];
-            }
-            if(carousel.rightArrowImage){
-                [imageNames addObject:carousel.rightArrowImage];
-            }
-        }
-        
-        if(imageNames.count >0){
-            for(NSString *imageName in imageNames){
-                if(imageName && imageName.length > 0 && [[imageName pathComponents][0] isEqualToString:@"clipArt"]){
-                    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"clipArtList" ofType:@"plist"];
-                    NSDictionary *clipArtDict = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-                    
-                    if([clipArtDict objectForKey:[imageName lastPathComponent]] != nil){
-                        [array addObject:imageName];
-                    }
-                }
-            }
-        }
-        
-    }
-
-    return array;
-     */
-    return nil;
-}
-
-#pragma mark default function 
+#pragma mark default function
 
 - (NSString *)resourcePathForTarget:(IUTarget)target{
     if(target == IUTargetEditor){
@@ -315,44 +276,6 @@
     }
 }
 
-- (NSString *)imagePathWithImageName:(NSString *)imageName target:(IUTarget)target{
-    
-    NSString *imgSrc;
-    
-    if(imageName == nil || imageName.length==0){
-        return nil;
-    }
-    
-    if ([imageName isHTTPURL]) {
-        return imageName;
-    }
-    //clipart
-    //path : clipart/arrow_right.png
-    else if([[imageName pathComponents][0] isEqualToString:@"clipArt"]){
-        if(target == IUTargetEditor){
-            imgSrc = [[NSBundle mainBundle] pathForImageResource:[imageName lastPathComponent]];
-        }
-        else{
-            imgSrc = [[self resourcePathForTarget:target] stringByAppendingPathComponent:imageName];
-        }
-    }
-    else {
-        /*
-        IUResourceFileItem *file = [self.resourceRootItem resourceFileItemForName:imageName];
-        if(file){
-            if(_rule == IUCompileRuleDjango && target == IUTargetOutput){
-                imgSrc = [@"/" stringByAppendingString:[file relativePath]];
-            }
-            else{
-                imgSrc = [file relativePath];
-            }
-        }
-         */
-        
-    }
-    return imgSrc;
-    
-}
 
 - (IUResourceRootItem *)resourceRootItem{
     return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] resourceRootItem];
@@ -746,7 +669,7 @@
 }
 
 
-- (BOOL)outputHTMLSource:(IUPage *)document html:(NSString **)html css:(NSString **)css {
+- (BOOL)outputHTMLSource:(IUPage *)document resourcePrefix:(NSString *)resourcePrefix html:(NSString **)html css:(NSString **)css {
 #if 0
 
     if ([sheet isKindOfClass:[IUClass class]]) {
