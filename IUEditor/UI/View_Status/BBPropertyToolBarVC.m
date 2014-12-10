@@ -7,6 +7,7 @@
 //
 
 #import "BBPropertyToolBarVC.h"
+#import "LMFontController.h"
 
 @interface BBPropertyToolBarVC ()
 
@@ -35,9 +36,21 @@
 @property (weak) IBOutlet NSColorWell *fontColorWell;
 @property (weak) IBOutlet NSSegmentedControl *fontAlignSegmentedControl;
 
+//font controller
+@property (weak) LMFontController *fontController;
+
+
 @end
 
 @implementation BBPropertyToolBarVC
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if(self){
+        _fontController = [LMFontController sharedFontController];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,6 +90,11 @@
     }
 }
 
+- (IBAction)clickNilBgColorButton:(id)sender {
+    [self.liveStyleStorage beginTransaction:self];
+    self.liveStyleStorage.bgColor = nil;
+    [self.liveStyleStorage commitTransaction:self];
+}
 
 
 

@@ -22,6 +22,10 @@ typedef enum IUFrameUnit{
 }IUFrameUnit;
 
 
+/**
+ @note IUDataStorage의 property와 VC를 binding을 할때는 keypath에 .binding을 덧붙이면, transaction으로 동작해서 manager로 update신호를 보내게 한다.
+ e.g.)original property : storage.property -(transation binding)-> storage.binding.property
+ */
 @interface IUDataStorage : NSObject <JDCoding, NSCopying>
 
 /**

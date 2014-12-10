@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPropertyToolBarVC">
@@ -307,7 +307,7 @@
                                     </connections>
                                 </button>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="grT-6a-o1x">
-                                    <rect key="frame" x="36" y="-38" width="5" height="96"/>
+                                    <rect key="frame" x="36" y="-38" width="4" height="96"/>
                                     <contentFilters>
                                         <ciFilter name="CIFalseColor">
                                             <configuration>
@@ -460,6 +460,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNilBgColorButton:" target="-2" id="4bV-5i-BVz"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -713,6 +716,7 @@
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="581.5" y="340"/>
         </box>
+        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="9LK-VW-xRy" userLabel="fontDictionaryController"/>
     </objects>
     <resources>
         <image name="btn_ac_h" width="26" height="26"/>
