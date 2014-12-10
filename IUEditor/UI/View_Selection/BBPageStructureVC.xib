@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
@@ -302,7 +302,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUX-TT-vej">
-                                            <rect key="frame" x="4" y="0.0" width="15" height="25"/>
+                                            <rect key="frame" x="-1" y="0.0" width="25" height="25"/>
                                             <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="ic_section" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="L65-0T-BmQ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
@@ -327,15 +327,8 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g8I-xR-7MC">
-                                            <rect key="frame" x="0.0" y="2" width="25" height="25"/>
-                                            <contentFilters>
-                                                <ciFilter name="CIColorInvert">
-                                                    <configuration>
-                                                        <null key="inputImage"/>
-                                                    </configuration>
-                                                </ciFilter>
-                                            </contentFilters>
-                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="btn_close" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="1zm-ie-aK5">
+                                            <rect key="frame" x="-1" y="0.0" width="25" height="25"/>
+                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="btn_delete" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="1zm-ie-aK5">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -380,7 +373,7 @@
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
-        <image name="btn_close" width="10" height="10"/>
+        <image name="btn_delete" width="14" height="16"/>
         <image name="ic_page" width="16" height="16"/>
         <image name="ic_section" width="16" height="16"/>
     </resources>

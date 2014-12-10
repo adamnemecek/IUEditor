@@ -3,12 +3,12 @@
     {
       "idiom" : "mac",
       "scale" : "1x",
-      "filename" : "ic_page.png"
+      "filename" : "btn_delete.png"
     },
     {
       "idiom" : "mac",
       "scale" : "2x",
-      "filename" : "ic_page@2x.png"
+      "filename" : "btn_delete@2x.png"
     }
   ],
   "info" : {
