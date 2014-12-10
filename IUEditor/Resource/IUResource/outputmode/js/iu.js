@@ -129,7 +129,7 @@ function activateDivLink(){
 	
 	var dict={};
 	$('[iudivlink]').each(function(){
-		var pos = $(this).position().top;
+		var pos = $(this).offset().top;
 		var caller = $(this).attr('linkcaller');
 		dict[caller] = pos;
 	});
