@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
@@ -41,7 +41,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="hiZ-5m-BMA" userLabel="Canvas">
-                        <rect key="frame" x="-1" y="22" width="983" height="663"/>
+                        <rect key="frame" x="-1" y="22" width="982" height="663"/>
                     </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z5R-Oh-T6u" userLabel="ToolBar">
                         <rect key="frame" x="-1" y="684" width="983" height="32"/>
@@ -49,14 +49,14 @@
                             <constraint firstAttribute="height" constant="32" id="w55-Z9-EDf"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
-                        <rect key="frame" x="-2" y="739" width="1264" height="42"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
+                        <rect key="frame" x="-1" y="715" width="983" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
+                            <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
                         </constraints>
                     </customView>
                     <tabView type="noTabsNoBorder" initialItem="NV3-JK-5Hs" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
-                        <rect key="frame" x="982" y="-2" width="241" height="741"/>
+                        <rect key="frame" x="981" y="-2" width="241" height="742"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="241" id="jUI-7W-2fB"/>
                         </constraints>
@@ -64,7 +64,7 @@
                         <tabViewItems>
                             <tabViewItem label="Widgets" identifier="1" id="NV3-JK-5Hs" userLabel="Widgets">
                                 <view key="view" id="jnh-IH-TrI">
-                                    <rect key="frame" x="0.0" y="0.0" width="241" height="741"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="742"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
@@ -160,16 +160,16 @@
                             <constraint firstAttribute="width" constant="38" id="or9-6C-mfA"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
-                        <rect key="frame" x="-1" y="-1" width="983" height="24"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="aNS-8q-0SX" userLabel="TobBar">
+                        <rect key="frame" x="-2" y="739" width="1264" height="42"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
+                            <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="vCa-gX-gRh" userLabel="StructureBar">
-                        <rect key="frame" x="-1" y="715" width="983" height="25"/>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
+                        <rect key="frame" x="-1" y="-1" width="982" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
+                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
                         </constraints>
                     </customView>
                 </subviews>
@@ -181,18 +181,17 @@
                     <constraint firstItem="Z5R-Oh-T6u" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" constant="23" id="Iny-v0-Uo5"/>
                     <constraint firstItem="goD-BY-82H" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="Rxl-Ry-OpP"/>
                     <constraint firstItem="Z5R-Oh-T6u" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="UK6-8E-yi0"/>
-                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="vCa-gX-gRh" secondAttribute="trailing" id="WLd-I4-aDS"/>
                     <constraint firstItem="aNS-8q-0SX" firstAttribute="top" secondItem="9KP-fn-t72" secondAttribute="top" constant="-3" id="Woa-E4-PfJ"/>
-                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="vCa-gX-gRh" secondAttribute="trailing" id="Z2A-gW-SNr"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="vCa-gX-gRh" secondAttribute="trailing" constant="-1" id="Z2A-gW-SNr"/>
                     <constraint firstAttribute="bottom" secondItem="EMr-FR-JJZ" secondAttribute="bottom" constant="-2" id="aDK-eO-1uH"/>
                     <constraint firstItem="hiZ-5m-BMA" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="b5u-EH-Nxw"/>
                     <constraint firstItem="vCa-gX-gRh" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-1" id="b6g-kH-JfT"/>
                     <constraint firstItem="aNS-8q-0SX" firstAttribute="leading" secondItem="9KP-fn-t72" secondAttribute="leading" constant="-2" id="f1R-Un-oGZ"/>
-                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" id="gaI-Yk-keI"/>
-                    <constraint firstAttribute="trailing" secondItem="hEQ-Kq-OCR" secondAttribute="trailing" constant="37" id="jJQ-bo-HGk"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="top" secondItem="aNS-8q-0SX" secondAttribute="bottom" constant="-1" id="gaI-Yk-keI"/>
+                    <constraint firstAttribute="trailing" secondItem="hEQ-Kq-OCR" secondAttribute="trailing" constant="38" id="jJQ-bo-HGk"/>
                     <constraint firstAttribute="trailing" secondItem="EMr-FR-JJZ" secondAttribute="trailing" id="jfd-wF-Hnl"/>
                     <constraint firstItem="vCa-gX-gRh" firstAttribute="top" secondItem="9KP-fn-t72" secondAttribute="top" constant="38" id="mj5-zS-q5D"/>
-                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="Z5R-Oh-T6u" secondAttribute="trailing" id="n7u-c4-wew"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="Z5R-Oh-T6u" secondAttribute="trailing" constant="-1" id="n7u-c4-wew"/>
                     <constraint firstAttribute="bottom" secondItem="hiZ-5m-BMA" secondAttribute="bottom" constant="22" id="q1t-1Y-Hh0"/>
                     <constraint firstAttribute="trailing" secondItem="aNS-8q-0SX" secondAttribute="trailing" constant="-2" id="sfw-YE-hQk"/>
                     <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="hiZ-5m-BMA" secondAttribute="trailing" id="wzS-Jf-2By"/>
