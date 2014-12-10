@@ -26,6 +26,10 @@ typedef enum{
 }LMFontBoldType;
 
 @interface LMFontController : NSObject
+#pragma mark - default font setting
+
+- (NSArray *)fontSizeArray;
+- (NSArray *)fontLetterSpacingArray;
 
 #pragma mark - current font
 @property NSString *currentFontName;

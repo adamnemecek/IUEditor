@@ -184,7 +184,9 @@
     if(styleStorage){
         if(styleStorage.fontName){
             NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:styleStorage.fontName];
-            [code insertTag:@"font-family" string:fontFamily];
+            if(fontFamily){
+                [code insertTag:@"font-family" string:fontFamily];
+            }
         }
         
         if(styleStorage.fontSize){

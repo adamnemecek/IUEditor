@@ -11,7 +11,6 @@
                 <outlet property="fontColorWell" destination="5ms-4s-DQl" id="TDx-Ey-Xb8"/>
                 <outlet property="fontNameComboBox" destination="JyG-1W-hMj" id="ezM-0f-on4"/>
                 <outlet property="fontSizeComboBox" destination="yrT-JY-2UB" id="ZY1-Yd-TIJ"/>
-                <outlet property="fontWeightComboBox" destination="0Nw-eu-Dan" id="7Jl-09-anp"/>
                 <outlet property="hTextField" destination="Vhr-rD-eTs" id="Hu3-0s-JGq"/>
                 <outlet property="hUnitButton" destination="WQy-d3-dnM" id="qfb-rJ-Zbz"/>
                 <outlet property="horizontalCenterButton" destination="vIh-s9-xdu" id="ckd-Az-Hx2"/>
@@ -498,16 +497,18 @@
                             <subviews>
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-1W-hMj">
                                     <rect key="frame" x="0.0" y="-2" width="141" height="24"/>
-                                    <comboBoxCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Roboto Condensed" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="jbD-Re-ibT">
+                                    <comboBoxCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" title="Roboto Condensed" buttonBordered="NO" numberOfVisibleItems="5" id="jbD-Re-ibT">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <objectValues>
                                             <string>Helvetica Neue</string>
-                                            <string>200%</string>
-                                            <string>300%</string>
                                         </objectValues>
                                     </comboBoxCell>
+                                    <connections>
+                                        <action selector="clickFontNameComboBox:" target="-2" id="RH1-Rn-3WH"/>
+                                        <binding destination="9LK-VW-xRy" name="content" keyPath="arrangedObjects.key" id="PR1-h5-ppo"/>
+                                    </connections>
                                 </comboBox>
                             </subviews>
                         </view>
@@ -523,21 +524,6 @@
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="68" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nw-eu-Dan">
-                                    <rect key="frame" x="-1" y="-2" width="73" height="24"/>
-                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Normal" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="RLE-2F-Rlt">
-                                        <font key="font" metaFont="cellTitle"/>
-                                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <objectValues>
-                                            <string>Light</string>
-                                            <string>Normal</string>
-                                            <string>Bold</string>
-                                        </objectValues>
-                                    </comboBoxCell>
-                                </comboBox>
-                            </subviews>
                         </view>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="sl1-ML-d8E"/>
@@ -558,12 +544,10 @@
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <objectValues>
-                                            <string>10 pt</string>
-                                            <string>11 pt</string>
-                                            <string>12 pt</string>
-                                        </objectValues>
                                     </comboBoxCell>
+                                    <connections>
+                                        <binding destination="-2" name="content" keyPath="self.fontController.fontSizeArray" id="Pi2-LE-Eok"/>
+                                    </connections>
                                 </comboBox>
                             </subviews>
                         </view>
@@ -716,7 +700,15 @@
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="581.5" y="340"/>
         </box>
-        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="9LK-VW-xRy" userLabel="fontDictionaryController"/>
+        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="9LK-VW-xRy" userLabel="fontDictionaryController">
+            <connections>
+                <binding destination="-2" name="contentDictionary" keyPath="self.fontController.fontDict" id="xL4-Op-nzj"/>
+            </connections>
+        </dictionaryController>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'pt'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="300" id="TN6-jc-ItC" userLabel="pt formatter">
+            <real key="minimum" value="0.0"/>
+        </numberFormatter>
+        <userDefaultsController representsSharedInstance="YES" id="Mlt-Ni-DBX"/>
     </objects>
     <resources>
         <image name="btn_ac_h" width="26" height="26"/>

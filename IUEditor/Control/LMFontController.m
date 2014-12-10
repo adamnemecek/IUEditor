@@ -28,6 +28,15 @@ static LMFontController *gFontController = nil;
     }
     return self;
 }
+#pragma mark - default setting for font
+- (NSArray *)fontSizeArray{
+    return  @[@(6), @(8), @(9), @(10), @(11), @(12),
+              @(14), @(18), @(21), @(24), @(30), @(36), @(48), @(60), @(72)];
+}
+- (NSArray *)fontLetterSpacingArray{
+    return @[@(0), @(-2.0), @(-1.0), @(0.5), @(1.0), @(2.0)];
+}
+
 
 #pragma mark - current font
 

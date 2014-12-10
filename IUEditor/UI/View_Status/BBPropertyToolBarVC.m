@@ -31,14 +31,13 @@
 
 //iutext property
 @property (weak) IBOutlet NSComboBox *fontNameComboBox;
-@property (weak) IBOutlet NSComboBox *fontWeightComboBox;
+@property (weak) IBOutlet NSPopUpButton *fontWeightPopUpButton;
 @property (weak) IBOutlet NSComboBox *fontSizeComboBox;
 @property (weak) IBOutlet NSColorWell *fontColorWell;
 @property (weak) IBOutlet NSSegmentedControl *fontAlignSegmentedControl;
 
 //font controller
 @property (weak) LMFontController *fontController;
-
 
 @end
 
@@ -59,8 +58,8 @@
     //frame
     [self outlet:_xTextField bind:NSValueBinding livePositionStorageProperty:@"x"];
     [self outlet:_yTextField bind:NSValueBinding livePositionStorageProperty:@"y"];
-    [self outlet:_wTextField bind:NSValueBinding liveStyleStorageProperty:@"w"];
-    [self outlet:_hTextField bind:NSValueBinding liveStyleStorageProperty:@"h"];
+    [self outlet:_wTextField bind:NSValueBinding liveStyleStorageProperty:@"width"];
+    [self outlet:_hTextField bind:NSValueBinding liveStyleStorageProperty:@"height"];
     
     [self outlet:_verticalCenterButton bind:NSValueBinding property:@"enableVCenter"];
     [self outlet:_horizontalCenterButton bind:NSValueBinding property:@"enableHCenter"];
@@ -70,7 +69,8 @@
     
     //text binding
     [self outlet:_fontNameComboBox bind:NSValueBinding liveStyleStorageProperty:@"fontName"];
-    [self outlet:_fontWeightComboBox bind:NSValueBinding liveStyleStorageProperty:@"fontWeight"];
+//    [self outlet:_fontWeightPopUpButton bind:NSValueBinding liveStyleStorageProperty:@"fontWeight"];
+
     [self outlet:_fontSizeComboBox bind:NSValueBinding liveStyleStorageProperty:@"fontSize"];
     [self outlet:_fontColorWell bind:NSValueBinding liveStyleStorageProperty:@"fontColor"];
     [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"fontAlign"];
@@ -96,6 +96,13 @@
     [self.liveStyleStorage commitTransaction:self];
 }
 
+- (IBAction)clickFontNameComboBox:(id)sender {
+    //TODO: update fontWeight
+}
+
+- (void)updateFontWeigtComboBox{
+    
+}
 
 
 @end

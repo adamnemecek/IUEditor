@@ -105,11 +105,6 @@
     return returnObject;
 }
 
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
-    manager = [aDecoder decodeByRefObjectForKey:@"manager"];
-    
-}
-
 
 - (void)storagePropertyContextDidChange:(NSDictionary*)change{
     if (_disableUpdateLevel == NO) {
@@ -281,12 +276,8 @@
     self.maxViewPort = IUDefaultViewPort;
     [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
 
-    _defaultStorage = defaultStorage;
-    _currentStorage = defaultStorage;
-    
-    [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-    self.currentViewPort = self.maxViewPort;
-    _owners = [NSMutableArray array];
+    [self setDefaultProperties];
+
     return self;
 }
 
@@ -302,13 +293,8 @@
         self.maxViewPort = IUDefaultViewPort;
         [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
         
-        
-        _defaultStorage = defaultStorage;
-        _currentStorage = defaultStorage;
-        
-        [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-        self.currentViewPort = self.maxViewPort;
-        _owners = [NSMutableArray array];
+        [self setDefaultProperties];
+
     }
     
     return self;
@@ -320,24 +306,37 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [super init];
+    self = [self init];
     if(self){
+        
+        //decoder
         _workingStorages = [aDecoder decodeObjectForKey:@"storages"];
-        _owners = [aDecoder decodeObjectForKey:@"owners"];
         _maxViewPort = [aDecoder decodeIntegerForKey:@"maxViewPort"];
-        _currentViewPort = _maxViewPort;
      
         _storageClassName = [aDecoder decodeObjectForKey:@"storageClassName"];
         _defaultStorage =  [_workingStorages objectForKey:@(_maxViewPort)];
-        _currentStorage = _defaultStorage;
-        _liveStorage = _currentStorage;
+        
+        [self setDefaultProperties];
 
     }
     return self;
 }
 
-- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
+/**
+@brief set default properties after calling initialize process (init/initWithStorageClassName/initWithJDCoder)
+ */
+- (void)setDefaultProperties{
+
+    _currentStorage = _defaultStorage;
+    _liveStorage = _currentStorage;
+    _currentViewPort = _maxViewPort;
+    _owners = [NSMutableArray array];
     
+    [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
+
+}
+
+- (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     
     for(IUDataStorage *storage in [_workingStorages allValues]){
         storage.manager = self;
@@ -349,7 +348,6 @@
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [aCoder encodeObject:self.workingStorages forKey:@"storages"];
-    [aCoder encodeObject:_owners forKey:@"owners"];
     [aCoder encodeInteger:_maxViewPort forKey:@"maxViewPort"];
     [aCoder encodeObject:_storageClassName forKey:@"storageClassName"];
 }
