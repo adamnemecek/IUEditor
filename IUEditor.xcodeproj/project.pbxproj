@@ -1693,6 +1693,7 @@
 		3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWC.m; path = UI/Window_Main/BBWC.m; sourceTree = "<group>"; };
 		3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWC.xib; path = UI/Window_Main/BBWC.xib; sourceTree = "<group>"; };
 		3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultVCs.h; path = UI/Window_Main/BBDefaultVCs.h; sourceTree = "<group>"; };
+		3DC616AC1A385BC800B94A4C /* BBJSManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBJSManagerProtocol.h; path = UI/View_Canvas/BBJSManagerProtocol.h; sourceTree = "<group>"; };
 		3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBQuickWidgetVC.h; path = UI/View_Status/BBQuickWidgetVC.h; sourceTree = "<group>"; };
 		3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBQuickWidgetVC.m; path = UI/View_Status/BBQuickWidgetVC.m; sourceTree = "<group>"; };
 		3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBQuickWidgetVC.xib; path = UI/View_Status/BBQuickWidgetVC.xib; sourceTree = "<group>"; };
@@ -2295,6 +2296,7 @@
 				3DD19CA51A3543CF00A5198E /* BBDefaultPropertyVC.m */,
 				3DD19CB01A356F0800A5198E /* BBExpandableView.h */,
 				3DD19CB11A356F0800A5198E /* BBExpandableView.m */,
+				3DC616AC1A385BC800B94A4C /* BBJSManagerProtocol.h */,
 			);
 			name = View;
 			sourceTree = "<group>";

@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "BBDefaultPropertyVC.h"
+#import "BBJSManagerProtocol.h"
 
 @interface BBPropertyToolBarVC : BBDefaultPropertyVC
+
+@property (weak) id<BBJSManagerProtocol> jsManager;
 
 @end

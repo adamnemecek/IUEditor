@@ -77,12 +77,46 @@
     
 }
 
+- (NSRect)percentFrameForIU:(IUBox *)iu{
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", iu.htmlID];
+    id currentValue = [self.jsManager evaluateWebScript:frameJS];
+    NSRect percentFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                     [[currentValue valueForKey:@"top"] floatValue],
+                                     [[currentValue valueForKey:@"width"] floatValue],
+                                     [[currentValue valueForKey:@"height"] floatValue]
+                                     );
+    
+    
+    return percentFrame;
+}
+
 - (IBAction)clickUnitButton:(id)sender {
     NSButton *clickedUnitButton = sender;
     //change from pixel to percent
     if([clickedUnitButton state] == NSOnState){
-        //FIXME
-        //connect to JSManager and get percent frame
+        
+        for(IUBox *box in self.iuController.selectedObjects){
+            NSRect percentFrame = [self percentFrameForIU:box];
+            [box.livePositionStorage beginTransaction:self];
+            [box.liveStyleStorage commitTransaction:self];
+
+
+            if([sender isEqualTo:_xUnitButton]){
+                [box.livePositionStorage setX:@(percentFrame.origin.x) unit:@(IUFrameUnitPercent)];
+            }
+            else if([sender isEqualTo:_yUnitButton]){
+                [box.livePositionStorage setY:@(percentFrame.origin.y) unit:@(IUFrameUnitPercent)];
+            }
+            else if([sender isEqualTo:_wUnitButton]){
+                [box.liveStyleStorage setWidth:@(percentFrame.size.width) unit:@(IUFrameUnitPercent)];
+            }
+            else if([sender isEqualTo:_hUnitButton]){
+                [box.liveStyleStorage setHeight:@(percentFrame.size.height) unit:@(IUFrameUnitPercent)];
+            }
+            
+            [box.liveStyleStorage commitTransaction:self];
+            [box.livePositionStorage commitTransaction:self];
+        }
     }
     //change from percent to pixel
     else{

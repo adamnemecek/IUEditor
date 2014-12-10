@@ -13,14 +13,16 @@
 #import "IUCanvasController.h"
 #import "WebCanvasView.h"
 #import "IUSourceManager.h"
+#import "BBJSManagerProtocol.h"
 
 @class LMCanvasView;
 
 /**
- IUSourceDelegate : call by IU
+ IUSourceManagerDelegate : call by sourceManager through IU
+ BBJSManagerProtocol : call by VCs to run javascript
  IUCanvasController : call by canvasview, webview, gridview
  */
-@interface LMCanvasVC : NSViewController <IUCanvasController, IUSourceManagerDelegate>
+@interface LMCanvasVC : NSViewController <IUCanvasController, IUSourceManagerDelegate, BBJSManagerProtocol>
 
 
 - (void)prepareDealloc;

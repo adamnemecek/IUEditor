@@ -239,8 +239,9 @@
     [_tabBackEndView addSubviewFullFrame:_backEndPropertyVC.view];
     
     
-    //connect main window
+    //set CanvasVC
     [_mainWindow setCanvasVC:_canvasVC];
+    [_propertyToolBarVC setJsManager:_canvasVC];
     
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
