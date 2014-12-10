@@ -65,7 +65,7 @@
 }
 
 - (void)prepareDealloc{
-    self.webView.controller = nil;
+    self.webCanvasView.controller = nil;
     self.gridView.controller = nil;
     self.canvasView.controller = nil;
 }
@@ -108,11 +108,11 @@
 - (GridView *)gridView{
     return [[self canvasView] gridView];
 }
-- (WebCanvasView *)webView{
+- (WebCanvasView *)webCanvasView{
     return [[self canvasView] webView];
 }
 - (DOMDocument *)webDocument{
-    return [[[self webView] mainFrame] DOMDocument];
+    return [[[self webCanvasView] mainFrame] DOMDocument];
 }
 
 
@@ -126,7 +126,7 @@
 }
 
 - (void)windowDidResize:(NSNotification *)notification{
-    [[self webView] resizePageContent];
+    [[self webCanvasView] resizePageContent];
     [[self canvasView] windowDidResize:notification];
     [self updateWebViewWidth];
 }
@@ -184,7 +184,7 @@
     [[self gridView] setSelectedFrameWidth:_selectedFrameWidth];
 
     
-    [[self webView] updateFrameDict];
+    [[self webCanvasView] updateFrameDict];
 }
 
 
@@ -198,7 +198,7 @@
     [self setSelectedFrameWidth:selectedSize];
     
     
-    [[self webView] updateFrameDict];
+    [[self webCanvasView] updateFrameDict];
     
 }
 
@@ -445,7 +445,7 @@
 
         
         NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
-        id currentValue = [self.webView evaluateWebScript:frameJS];
+        id currentValue = [self.webCanvasView evaluateWebScript:frameJS];
 
         [JDLogUtil timeLogEnd:@"getpercent"];
 
@@ -501,7 +501,7 @@
             currentIdentifier = moveObj.htmlID;
         }
         NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
-        id currentValue = [self.webView evaluateWebScript:frameJS];
+        id currentValue = [self.webCanvasView evaluateWebScript:frameJS];
         
         
         NSSize originalSize = [moveObj originalFrame].size;
@@ -735,8 +735,6 @@
 #pragma mark - call web view 
 
 -(void)IUClassIdentifier:(NSString*)identifier CSSUpdated:(NSString*)css{
-    
-    
     [self updateCSS:css selector:identifier];
     
     if([self isSheetHeightChanged:identifier]){

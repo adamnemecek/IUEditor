@@ -21,7 +21,7 @@
 
 @implementation IUSourceManager_Test {
     /* delegation source */
-    WebView *_webView;
+    WebCanvasView *_webView;
 
     
     IUSourceManager *manager;
@@ -38,7 +38,7 @@
                                      styleMask:NSClosableWindowMask
                                        backing:NSBackingStoreBuffered
                                          defer:NO];
-    _webView = [[WebView alloc] init];
+    _webView = [[WebCanvasView alloc] init];
     [_webView setFrame:CGRectMake(0, 0, 500, 500)];
     [_webView setFrameLoadDelegate:self];
     [[w contentView] addSubview:_webView];
@@ -53,7 +53,7 @@
     [manager setCompiler:[[IUCompiler alloc] init]];
 }
 
-- (WebView *)webView{
+- (WebView *)webCanvasView{
     return _webView;
 }
 
@@ -90,7 +90,7 @@
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMDocument *dom =  [[[self webCanvasView] mainFrame] DOMDocument];
         DOMElement *pageElement = [dom getElementById:page.htmlID];
         XCTAssertTrue([pageElement.style.cssText containsString:@"background-color"]);
     }];
@@ -113,7 +113,7 @@
         
         [manager setNeedsUpdateCSS:box];
         
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMDocument *dom =  [[[self webCanvasView] mainFrame] DOMDocument];
         DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:box.htmlID];
         NSLog(@"%@", boxElement.style.cssText);
         XCTAssertTrue([boxElement.style.cssText containsString:@"100px"]);
@@ -137,7 +137,7 @@
         
         [manager setNeedsUpdateCSS:box];
         
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMDocument *dom =  [[[self webCanvasView] mainFrame] DOMDocument];
         DOMHTMLStyleElement *styleElement = (DOMHTMLStyleElement *)[dom getElementById:@"default"];
         NSLog(@"%@", styleElement.innerHTML);
         XCTAssertTrue([styleElement.innerHTML containsString:@"background-color"]);
@@ -180,7 +180,7 @@
         
         [manager setNeedsUpdateHTML:child];
         
-        DOMDocument *dom =  [[[self webView] mainFrame] DOMDocument];
+        DOMDocument *dom =  [[[self webCanvasView] mainFrame] DOMDocument];
         DOMHTMLElement *boxElement = (DOMHTMLElement *)[dom getElementById:child.htmlID];
         XCTAssertTrue([boxElement.innerHTML containsString:@"hihi"]);
         

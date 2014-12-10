@@ -31,7 +31,7 @@
 
 @required
 /* get WebView. We Manage source of it */
-- (WebCanvasView *)webView;
+- (WebCanvasView *)webCanvasView;
 
 @optional
 /* prepare update. for example, text editor enable/disable */

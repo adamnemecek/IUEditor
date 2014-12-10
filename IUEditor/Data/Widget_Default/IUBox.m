@@ -215,6 +215,16 @@
     changedCSSWidths = [NSMutableSet set];
 }
 
+- (NSInteger)maxViewPort {
+    if (self.project) {
+        return self.project.maxViewPort;
+    }
+    else {
+        return MAX(self.positionManager.maxViewPort, self.defaultStyleManager.maxViewPort);
+    }
+}
+
+
 - (void)createDefaultStorages{
     //create storage
     _m_storageManagerDict = [NSMutableDictionary dictionary];

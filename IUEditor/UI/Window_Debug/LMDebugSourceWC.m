@@ -42,7 +42,7 @@
 }
 
 - (void)showCurrentSource:(id)sender{
-    NSString *htmlSource =  [(DOMHTMLElement *)[[[[_canvasVC webView] mainFrame] DOMDocument] documentElement] outerHTML];
+    NSString *htmlSource =  [(DOMHTMLElement *)[[[[_canvasVC webCanvasView] mainFrame] DOMDocument] documentElement] outerHTML];
     [self setCurrentSource:htmlSource];
     [self showWindow:sender];
 }

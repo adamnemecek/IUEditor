@@ -29,9 +29,6 @@
 - (void)setUp {
     [super setUp];
     
-    expectation = [self expectationWithDescription:@"sheetController"];
-
-    
     _project = [[IUProject alloc] initAtTemporaryDirectory];
     _pagesController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
     _classesController = [[IUSheetController alloc] initWithSheetGroup:_project.classGroup];
@@ -46,7 +43,7 @@
 
 - (void)test1_alloc{
 
-    XCTAssertEqual(_pagesController.project, _project);
+    XCTAssertEqualObjects(_pagesController.project, _project);
 }
 
 - (void)test2_addandSelection{
@@ -65,10 +62,12 @@
 }
 
 - (void)test3_notification{
+    expectation = [self expectationWithDescription:@"sheetController"];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUNotificationSheetSelectionDidChange object:nil];
     
     
-    [_pagesController setSelectedObject:_project.pageGroup];
+    [_pagesController setSelectedObject:[_project.pageGroup.childrenFileItems firstObject]];
     
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
@@ -76,6 +75,7 @@
     }];
 
 }
+
 
 - (void)listen:(NSNotification *)noti{
     [expectation fulfill];

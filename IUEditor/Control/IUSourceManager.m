@@ -23,7 +23,7 @@
 @implementation IUSourceManager {
     __weak  id <IUSourceManagerDelegate> _canvasVC;
     IUCompiler *_compiler;
-    __weak WebCanvasView *_webView;
+    __weak WebCanvasView *_webCanvasView;
     __weak IUProject *_project;
     
     NSString *_documentBasePath;
@@ -42,8 +42,8 @@
 
 - (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC{
     _canvasVC = canvasVC;
-    _webView = canvasVC.webView;
-    NSAssert ( _webView, @"WebView IS NIL");
+    _webCanvasView = canvasVC.webCanvasView;
+    NSAssert ( _webCanvasView, @"WebView IS NIL");
 }
 
 #pragma mark - JS
@@ -95,20 +95,20 @@
     NSString *code = [_compiler editorSheetSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
-        [[_webView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
+        [[_webCanvasView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
     }
 #if DEBUG
     else {
-        [[_webView mainFrame] loadHTMLString:code baseURL:nil];
+        [[_webCanvasView mainFrame] loadHTMLString:code baseURL:nil];
     }
 #endif
     
-    [_webView runJSAfterRefreshCSS];
+    [_webCanvasView runJSAfterRefreshCSS];
         
 }
 
 - (DOMDocument *)DOMDocument{
-    return [[_webView mainFrame] DOMDocument];
+    return [[_webCanvasView mainFrame] DOMDocument];
 }
 
 - (void)setCompiler:(IUCompiler *)compiler{
