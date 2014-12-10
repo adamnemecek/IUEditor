@@ -258,6 +258,7 @@
         [_canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
         [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
         
+        [_actionPropertyVC setPageController:_pageController];
         [_projectStructureVC setPageController:_pageController];
         [_projectStructureVC setClassController:_classController];
         

@@ -41,6 +41,7 @@
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu {
     IUCSSCode *code = [[IUCSSCode alloc] init];
+    NSAssert(iu.project == nil, @"iu is connected with project");
     [code setMaxViewPort:iu.project.maxViewPort];
 
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
