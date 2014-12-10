@@ -908,37 +908,6 @@
     return nil;
 }
 
-#if 0
-- (JDCode *)htmlCodeAsIUImport:(IUImport *)import htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option{
-    
-    
-    return nil;
-#if 0
-    if(target == IUTargetOutput){
-        NSAssert(0, @"안짬 ㅋ");
-        for (IUBox *child in import.children) {
-            [self htmlCode:child target:target code:nil  viewPort:viewPort option:nil];
-        }
-    }
-    else if(target == IUTargetEditor){
-        JDCode *code = [[JDCode alloc] init];
-
-        /* frame storage, id, class 를 option 으로 넣음 */
-        
-        JDCode *importCode = [[JDCode alloc] init];
-        NSDictionary *options = @{@"positionStorage":[import.positionManager storageForviewPort:viewPort], @"id":import.htmlID};
-        [self htmlCode:import.prototypeClass target:target code:importCode viewPort:viewPort option:option];
-        NSString *idReplacementString = [NSString stringWithFormat:@" id=\"%@%@_",kIUImportEditorPrefix, import.htmlID];
-        
-        [importCode replaceCodeString:@" id=\"" toCodeString:idReplacementString];
-        [code addCodeWithIndent:importCode];
-    }
-    
-    return code;
-#endif
-}
-#endif
-
 
 - (JDCode *)htmlCodeAsIUGoogleMap:(IUGoogleMap *)map htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option{
     /*

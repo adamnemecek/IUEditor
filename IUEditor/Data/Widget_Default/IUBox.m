@@ -698,18 +698,6 @@ e.g. 만약 css로 옮긴다면)
 
 #pragma mark children
 
-- (NSMutableArray *)allIdentifierChildren{
-    if (self.children) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (IUBox *iu in self.children) {
-            [array addObject:iu];
-            [array addObjectsFromArray:iu.allIdentifierChildren];
-        }
-        return array;
-    }
-    return nil;}
-
-
 -(NSMutableArray*)allChildren{
     if (self.children) {
         NSMutableArray *array = [NSMutableArray array];

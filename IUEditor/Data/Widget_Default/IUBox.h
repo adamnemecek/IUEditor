@@ -243,7 +243,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (NSArray*)children;
 
 - (NSMutableArray*)allChildren;
-- (NSMutableArray *)allIdentifierChildren;
 
 
 -(BOOL)canAddIUByUserInput;

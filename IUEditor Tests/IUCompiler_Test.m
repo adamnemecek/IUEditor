@@ -75,8 +75,12 @@
 
 - (void)test2_Import {
     /* How to use class-import */
-    IUClass *classObj = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
+    IUBox *box = [[IUBox alloc] init];
+    box.htmlID = @"box1";
+    
+    IUClass *classObj = [[IUClass alloc] init];
     classObj.htmlID = @"class";
+    [classObj addIU:box error:nil];
     
     IUImport *import = [[IUImport alloc] initWithPreset:classObj];
     import.htmlID = @"import";
@@ -88,7 +92,7 @@
     [compiler editorIUSource:import htmlIDPrefix:nil viewPort:import.maxViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
 
     /*code not generated */
-    XCTAssertFalse(YES);
+    XCTAssertTrue([htmlCode containsString:@"box1"]);
 }
 
 

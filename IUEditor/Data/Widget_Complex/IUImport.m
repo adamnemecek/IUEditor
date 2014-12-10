@@ -126,26 +126,8 @@
     return nil;
 }
 
-- (NSArray*)children{
-    if (_prototypeClass == nil) {
-        return [NSArray array];
-    }
-    return @[_prototypeClass];
-}
-
 - (BOOL)canAddIUByUserInput{
     return NO;
 }
-
-
-- (NSMutableArray *)allIdentifierChildren{
-    NSMutableArray *array =  [self allChildren];
-    if(_prototypeClass){
-        [array removeObject:_prototypeClass];
-        [array removeObjectsInArray:[_prototypeClass allChildren]];
-    }
-    return array;
-}
-
 
 @end
