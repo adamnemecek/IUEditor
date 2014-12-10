@@ -38,4 +38,7 @@ typedef enum{
 @property IUSheetController *classController;
 @property IUController *iuController;
 
+
+- (void)realodCurrentSheet:(id)sender;
+
 @end

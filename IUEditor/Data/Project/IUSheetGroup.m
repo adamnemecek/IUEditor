@@ -82,6 +82,20 @@
     return [childrenFileItems copy];
 }
 
+- (NSArray *)allLeafChildrenFileItems{
+    NSMutableArray *childrenFileItems = [NSMutableArray array];
+    for(id<IUFileItemProtocol> child in _children){
+        if(child.isLeaf == NO){
+            [childrenFileItems addObjectsFromArray:[child allLeafChildrenFileItems]];
+        }
+        else{
+            [childrenFileItems addObject:child];
+        }
+    }
+    return [childrenFileItems copy];
+}
+
+
 - (void)addFileItem:(id<IUFileItemProtocol>)fileItem{
     fileItem.parentFileItem = self;
     [_children addObject:fileItem];

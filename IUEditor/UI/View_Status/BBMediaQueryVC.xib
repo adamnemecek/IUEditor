@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
             <connections>
+                <outlet property="mediaQueryPopupButton" destination="7Pe-4n-Xdb" id="7zP-VQ-qrG"/>
                 <outlet property="view" destination="gZc-Fl-9XZ" id="rRB-8U-lNl"/>
             </connections>
         </customObject>
@@ -59,6 +60,9 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="clickMediaQueryPopupButton:" target="-2" id="cQo-q1-HgA"/>
+                        </connections>
                     </popUpButton>
                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="wfw-AQ-bYO" userLabel="Setting">
                         <rect key="frame" x="108" y="2" width="26" height="40"/>
@@ -85,6 +89,9 @@
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="clickMediaQuerySettingButton:" target="-2" id="ivz-qY-Ndc"/>
+                        </connections>
                     </popUpButton>
                 </subviews>
             </view>

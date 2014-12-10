@@ -7,14 +7,14 @@
 //
 
 #import "BBDefaultPropertyVC.h"
-#import "IUSheetController.h"
+#import "IUProject.h"
 
 /**
  @brief BBActionPropertyVC manages link, mouseover property
  */
 @interface BBActionPropertyVC : BBDefaultPropertyVC <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (nonatomic, weak) IUSheetController *pageController;
+@property (nonatomic, weak) IUProject *project;
 
 
 @end

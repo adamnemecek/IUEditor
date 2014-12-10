@@ -86,12 +86,15 @@ static     IUTestWC *testWC;
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     page.htmlID = [identifierManager createIdentifierWithPrefix:[IUPage className]];
     page.name = page.htmlID;
+    [identifierManager addObject:page];
     
     for( IUBox *box in page.allChildren){
         box.htmlID = [identifierManager createIdentifierWithPrefix:[box className]];
         box.name = box.htmlID;
-
+        [identifierManager addObject:box];
     }
+    
+    
     
     [iuController setContent:page];
     [iuController setSelectedObject:page];
@@ -99,7 +102,7 @@ static     IUTestWC *testWC;
     [manager loadSheet:page];
     
     BBPropertyToolBarVC *defaultPropertyVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
-    defaultPropertyVC.controller = iuController;
+    defaultPropertyVC.iuController = iuController;
     
     [testWC.testView addSubview:defaultPropertyVC.view];
     

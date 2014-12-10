@@ -102,6 +102,8 @@
         [[_webView mainFrame] loadHTMLString:code baseURL:nil];
     }
 #endif
+    
+    [_webView runJSAfterRefreshCSS];
         
 }
 

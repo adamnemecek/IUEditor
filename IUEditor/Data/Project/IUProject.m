@@ -735,7 +735,13 @@
     NSMutableArray *array = [NSMutableArray array];
     [array addObjectsFromArray:self.pageGroup.allChildrenFileItems];
     [array addObjectsFromArray:self.classGroup.allChildrenFileItems];
-    return array;
+    return [array copy];
+}
+- (NSArray *)allLeafChildrenFileItems{
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObjectsFromArray:self.pageGroup.allLeafChildrenFileItems];
+    [array addObjectsFromArray:self.classGroup.allLeafChildrenFileItems];
+    return [array copy];
 }
 
 - (NSArray*)allSheets{

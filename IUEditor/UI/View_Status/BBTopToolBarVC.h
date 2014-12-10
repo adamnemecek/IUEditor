@@ -15,5 +15,6 @@
  @brief connection between BBWC's sourceManager & BBTopToolBarVC's children VCs
  */
 - (void)setSourceManager:(id)sourceManager;
+- (void)setProject:(id)project;
 
 @end

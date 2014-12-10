@@ -103,6 +103,9 @@
                                                 <behavior key="behavior" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="clickReloadSheetButton:" target="-2" id="pCF-Vg-lmx"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>

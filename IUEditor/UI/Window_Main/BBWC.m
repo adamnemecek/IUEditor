@@ -61,6 +61,7 @@
     //wc properties
     IUProject *_project;
     BBPropertyTabType _currentTabType;
+    IUSheet *_currentSheet;
     
     //view controllers
     BBTopToolBarVC *_topToolBarVC;
@@ -131,6 +132,7 @@
         [_topToolBarVC setSourceManager:_sourceManager];
         [_projectStructureVC setIuController:_iuController];
         [_structureToolBarVC setIuController:_iuController];
+        [_propertyToolBarVC setIuController:_iuController];
         
 #if DEBUG
         _debugWC = [[LMDebugSourceWC alloc] initWithWindowNibName:@"LMDebugSourceWC"];
@@ -258,7 +260,13 @@
         [_canvasVC bind:@"documentBasePath" toObject:self withKeyPath:@"document.project.path" options:nil];
         [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
         
-        [_actionPropertyVC setPageController:_pageController];
+        //project
+        [_sourceManager setProject:_project];
+        
+        [_topToolBarVC setProject:_project];
+        [_actionPropertyVC setProject:_project];
+        
+        //sheet controllers
         [_projectStructureVC setPageController:_pageController];
         [_projectStructureVC setClassController:_classController];
         
@@ -267,8 +275,8 @@
         [_resourceLibraryVC setResourceRootItem:document.resourceRootItem];
         [_tracingPropertyVC setResourceRootItem:document.resourceRootItem];
         
-        //manager part
-        [_sourceManager setProject:_project];
+        
+        
         
         
         //set iudata is connected
@@ -337,8 +345,14 @@
         [self.sourceManager loadSheet:sheet];
         [_canvasVC setSheet:sheet];
         
+        _currentSheet = sheet;
     }
 
+}
+
+- (void)realodCurrentSheet:(id)sender{
+    [self.sourceManager loadSheet:_currentSheet];
+    [_canvasVC setSheet:_currentSheet];
 }
 
 #pragma mark - debug

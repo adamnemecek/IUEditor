@@ -8,7 +8,7 @@
 
 #import "LMCanvasVC.h"
 
-#import "LMWC.h"
+#import "BBWC.h"
 #import "LMWindow.h"
 #import "JDLogUtil.h"
 #import "IUFrameDictionary.h"
@@ -121,7 +121,7 @@
 
 
 - (void)reloadSheet{
-    [(LMWC *)[[NSApp mainWindow] windowController] reloadCurrentDocument:self];
+    [(BBWC *)[[NSApp mainWindow] windowController] realodCurrentSheet:self];
 }
 
 

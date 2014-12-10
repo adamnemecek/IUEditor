@@ -214,7 +214,6 @@
     changedCSSWidths = [NSMutableSet set];
 }
 
-
 - (void)createDefaultStorages{
     //create storage
     _m_storageManagerDict = [NSMutableDictionary dictionary];

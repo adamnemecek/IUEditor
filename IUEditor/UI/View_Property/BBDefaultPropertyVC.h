@@ -12,7 +12,7 @@
 
 @interface BBDefaultPropertyVC : NSViewController
 
-@property (nonatomic, weak) IUController      *controller;
+@property (nonatomic, weak) IUController      *iuController;
 //resource root
 @property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
 

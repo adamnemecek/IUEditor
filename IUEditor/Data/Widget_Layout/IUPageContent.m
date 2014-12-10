@@ -29,7 +29,6 @@
         IUSection *section = [[IUSection alloc] initWithPreset];
         section.defaultStyleStorage.bgColor = nil;
         section.defaultStyleStorage.height = @(720);
-        section.name = section.htmlID;
         
         [self addIU:section error:nil];
         
@@ -48,10 +47,7 @@
         titleBox.livePropertyStorage.innerHTML = @"Content Area";
         
         titleBox.enableHCenter = YES;
-        
-        titleBox.name = titleBox.htmlID;
-
-        
+                
         [section addIU:titleBox error:nil];
         
         
@@ -71,10 +67,6 @@
         
         contentBox.enableHCenter = YES;
         
-        
-        contentBox.htmlID  = [self.identifierManager createIdentifierWithPrefix:[contentBox className]];
-        contentBox.name = contentBox.htmlID;
-
         
         [section addIU:contentBox error:nil];
 

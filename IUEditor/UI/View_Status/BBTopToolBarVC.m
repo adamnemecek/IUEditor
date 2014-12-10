@@ -12,6 +12,8 @@
 #import "BBQuickWidgetVC.h"
 #import "BBMediaQueryVC.h"
 
+#import "BBWC.h"
+
 @interface BBTopToolBarVC ()
 
 @property (weak) IBOutlet NSView *commandView;
@@ -36,6 +38,7 @@
     if(self){
         _commandVC = [[BBCommandVC alloc] initWithNibName:[BBCommandVC className] bundle:nil];
         _quickWidgetVC = [[BBQuickWidgetVC alloc] initWithNibName:[BBQuickWidgetVC className] bundle:nil];
+        _mediaQueryVC = [[BBMediaQueryVC alloc] initWithNibName:[BBMediaQueryVC className] bundle:nil];
     }
     
     return self;
@@ -53,5 +56,12 @@
 - (void)setSourceManager:(id)sourceManager{
     [_commandVC setSourceManager:sourceManager];
 }
+- (void)setProject:(id)project{
+    [_mediaQueryVC setProject:project];
+}
 
+#pragma mark - IBAction
+- (IBAction)clickReloadSheetButton:(id)sender {
+    [(BBWC *)[[NSApp mainWindow] windowController] realodCurrentSheet:self];
+}
 @end

@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUProject.h"
 
 @interface BBMediaQueryVC : NSViewController
+
+@property (nonatomic, weak) IUProject *project;
 
 @end

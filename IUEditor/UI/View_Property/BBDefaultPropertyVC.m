@@ -54,28 +54,28 @@
 #pragma mark - keyPath
 
 - (NSString *)pathForLiveStyleStorageProperty:(NSString *)property{
-    return [@"self.controller.selection.liveStyleStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.liveStyleStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForLivePositionStorageProperty:(NSString *)property{
-    return [@"self.controller.selection.livePositionStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.livePositionStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForLivePropertyStorageProperty:(NSString *)property{
-    return [@"self.controller.selection.livePropertyStorage." stringByAppendingString:property];
+    return [@"self.iuController.selection.livePropertyStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForProperty:(NSString *)property{
-    return [@"self.controller.selection." stringByAppendingString:property];
+    return [@"self.iuController.selection." stringByAppendingString:property];
 }
 
 #pragma mark - storage 
 
 - (IUStyleStorage *)liveStyleStorage{
-    return [self valueForKeyPath:@"self.controller.selection.liveStyleStorage"];
+    return [self valueForKeyPath:@"self.iuController.selection.liveStyleStorage"];
 }
 - (IUPositionStorage *)livePositionStorage{
-    return [self valueForKeyPath:@"self.controller.selection.livePositionStorage"];
+    return [self valueForKeyPath:@"self.iuController.selection.livePositionStorage"];
 }
 - (IUPropertyStorage *)livePropertyStorage{
-     return [self valueForKeyPath:@"self.controller.selection.livePropertyStorage"];
+     return [self valueForKeyPath:@"self.iuController.selection.livePropertyStorage"];
 }
 
 
