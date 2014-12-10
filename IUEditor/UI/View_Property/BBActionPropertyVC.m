@@ -21,6 +21,10 @@
 @property (weak) IBOutlet NSTextField *linkURLTextField;
 
 /* mouse over view outlet */
+/* this property cannot be changed */
+@property (weak) IBOutlet NSColorWell *selectedBgColorWell;
+@property (weak) IBOutlet NSColorWell *selectedTextColorWell;
+
 @property (weak) IBOutlet NSColorWell *hoverBGColorWell;
 @property (weak) IBOutlet NSTextField *hoverTimeTextField;
 @property (weak) IBOutlet NSColorWell *hoverTextColorWell;
@@ -37,7 +41,16 @@
     [super viewDidLoad];
     
     _childrenViewArray = @[_linkView, _mouseOverView];
-    //TODO : Binding
+    
+    //binding
+    /* link */
+    
+    
+    /* mouse hover */
+    [self outlet:_selectedBgColorWell bind:NSValueBinding liveStyleStorageProperty:@"bgColor"];
+    [self outlet:_selectedTextColorWell bind:NSValueBinding liveStyleStorageProperty:@"fontColor"];
+    
+
 }
 
 #pragma mark - table view

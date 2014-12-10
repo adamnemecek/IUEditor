@@ -16,6 +16,8 @@
                 <outlet property="linkURLTextField" destination="1AM-PB-pyE" id="bSL-K0-i78"/>
                 <outlet property="linkView" destination="o4n-qC-faP" id="sTX-a7-NUD"/>
                 <outlet property="mouseOverView" destination="CLd-uM-gb7" id="hQF-AY-JiK"/>
+                <outlet property="selectedBgColorWell" destination="0Oq-BS-2le" id="hMs-Ga-IM9"/>
+                <outlet property="selectedTextColorWell" destination="8RC-yE-omY" id="9f0-qR-mrL"/>
                 <outlet property="view" destination="Y0o-bK-DAb" id="3nG-5g-8Cx"/>
             </connections>
         </customObject>
@@ -146,6 +148,9 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <binding destination="yfO-1T-iid" name="content" keyPath="arrangedObjects.name" id="dBw-qB-3pS"/>
+                                </connections>
                             </popUpButton>
                         </subviews>
                     </view>
@@ -889,6 +894,12 @@
             </constraints>
             <point key="canvasLocation" x="524.5" y="-789.5"/>
         </customView>
+        <arrayController objectClassName="IUSheet" avoidsEmptySelection="NO" id="yfO-1T-iid" userLabel="pagesArrayController">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.project.pageGroup.allLeafChildrenFileItems" id="Yen-ae-Hwe"/>
+            </connections>
+        </arrayController>
+        <userDefaultsController representsSharedInstance="YES" id="bi3-G4-Y3p"/>
     </objects>
     <resources>
         <image name="NSRightFacingTriangleTemplate" width="9" height="12"/>
