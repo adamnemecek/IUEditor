@@ -10,14 +10,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class IUBox;
 @interface IUIdentifierManager : NSObject
 
-@property NSString *identifierKeyPath; // keyPath to identifier
-@property NSString *childrenKeyPath; //keyPath to children
+@property NSString *identifierKey; // keyPath to identifier
+@property NSString *childrenKey; //keyPath to children
 
-
+/**
+ @description create identifier key for object
+ @note prefix 'IU' will be automatically deleted at prefix
+ */
 - (NSString *)createIdentifierWithPrefix:(NSString *)prefix;
+
 - (void)addObject:(id)obj;
 - (void)addObjects:(id)objs;
 - (id)objectForIdentifier:(NSString*)identifier;
@@ -27,5 +30,3 @@
 
 
 @end
-
-

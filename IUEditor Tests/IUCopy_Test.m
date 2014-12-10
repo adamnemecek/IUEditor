@@ -22,6 +22,8 @@
 - (void)setUp {
     [super setUp];
     _identifierManager = [[IUIdentifierManager alloc] init];
+    _identifierManager.identifierKey = @"htmlID";
+    _identifierManager.childrenKey = @"children";
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 

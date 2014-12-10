@@ -35,8 +35,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
     if(self){
         //allocation identifiermanager
         _identifierManager = [[IUIdentifierManager alloc] init];
-        _identifierManager.identifierKeyPath = @"htmlID";
-        _identifierManager.childrenKeyPath = @"children";
+        _identifierManager.identifierKey = @"htmlID";
+        _identifierManager.childrenKey = @"children";
         
         //allocation resource root
         _resourceRootItem = [[IUResourceRootItem alloc] init];
