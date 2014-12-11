@@ -181,13 +181,14 @@
     if(self){
         [self.undoManager disableUndoRegistration];
         
-        [self setDefaultProperties];
+        [self initialize];
         [self createDefaultStorages];
         [self bindStorages];
         self.currentViewPort = IUDefaultViewPort;
 
         //setting for css
         self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
+        self.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
 
         [self.undoManager enableUndoRegistration];
     }
@@ -199,7 +200,7 @@
     if (self) {
         [self.undoManager disableUndoRegistration];
 
-        [self setDefaultProperties];
+        [self initialize];
         [self createDefaultStorages];
         [self bindStorages];
         self.currentViewPort = IUDefaultViewPort;
@@ -209,8 +210,8 @@
     return self;
 }
 
-- (void)setDefaultProperties{
-    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()];
+- (void)initialize{
+    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()/100];
     _name = _htmlID;
     
     _event = [[IUEvent alloc] init];
