@@ -31,15 +31,14 @@ typedef enum{
 
 + (LMFontController *)sharedFontController;
 
-
 - (NSArray *)fontSizeArray;
 - (NSArray *)fontLetterSpacingArray;
 
 #pragma mark - current font
-@property NSString *currentFontName;
-@property NSUInteger currentFontSize;
+@property NSString *lastUsedFontName;
+@property NSUInteger lastUsedFontSize;
 
-- (void)setCurrentFontToIUBox:(IUBox *)iu;
+- (void)setLastUsedFontToIUBox:(IUBox *)iu;
 
 #pragma mark - font list
 /**
@@ -48,10 +47,7 @@ typedef enum{
  */
 @property (readonly) NSMutableDictionary *fontDict;
 
-
-- (void)loadFontList;
-- (void)saveFontList;
-
+//FIXME: 아래 사항들 인풋/아웃풋 명시하여 헤더에 삽입!!!!
 - (NSString *)cssForFontName:(NSString *)fontName;
 - (NSString *)fontNameForFontCSS:(NSString *)css;
 - (BOOL)hasLight:(NSString *)fontName;
@@ -63,5 +59,10 @@ typedef enum{
 
 - (JDCode *)headerCodeForAllFont;
 - (JDCode *)headerCodeForFont:(NSArray *)fontArray;
+
+/*
+ - (void)loadFontList;
+ - (void)saveFontList;
+ */
 
 @end

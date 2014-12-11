@@ -145,7 +145,7 @@
 
         //set current value
         for(IUBox *box in self.controller.selectedObjects){
-            [_fontController setCurrentFontToIUBox:box];
+            [_fontController setLastUsedFontToIUBox:box];
         }
         
         //set font name
@@ -279,7 +279,7 @@
 }
 
 - (IBAction)selectFontWeightMatrix:(id)sender {
-    [self checkFontWeight:[_fontController currentFontName]];
+    [self checkFontWeight:[_fontController lastUsedFontName]];
     
     switch ([_fontWeightMatrix selectedColumn]) {
         case 0:
@@ -298,7 +298,7 @@
 }
 
 - (void)updateFontName:(NSString *)fontName{
-    [_fontController setCurrentFontName:fontName];
+    [_fontController setLastUsedFontName:fontName];
     [self setValue:fontName forCSSTag:IUCSSTagFontName];
     [self checkFontWeight:fontName];
 }
@@ -324,7 +324,7 @@
 }
 
 - (void)updateFontSize:(NSInteger)fontSize{
-    [_fontController setCurrentFontSize:fontSize];
+    [_fontController setLastUsedFontSize:fontSize];
     [self setValue:@(fontSize) forCSSTag:IUCSSTagFontSize];
 }
 

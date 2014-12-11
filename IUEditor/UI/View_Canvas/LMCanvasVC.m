@@ -660,7 +660,7 @@
     if(iu){
         
         if(element.innerText && [element.innerText stringByTrim].length > 0){
-            [[LMFontController sharedFontController] setCurrentFontToIUBox:iu];
+            [[LMFontController sharedFontController] setLastUsedFontToIUBox:iu];
             iu.livePropertyStorage.innerHTML = element.innerHTML;
         }
         else{

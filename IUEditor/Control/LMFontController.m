@@ -23,8 +23,8 @@ static LMFontController *gFontController = nil;
 - (id)init{
     self = [super init];
     if(self){
-        _currentFontName = @"Helvetica";
-        _currentFontSize = 12;
+        _lastUsedFontName = @"Helvetica";
+        _lastUsedFontSize = 12;
     }
     return self;
 }
@@ -40,16 +40,16 @@ static LMFontController *gFontController = nil;
 
 #pragma mark - current font
 
-- (void)setCurrentFontToIUBox:(IUBox *)iu{
+- (void)setLastUsedFontToIUBox:(IUBox *)iu{
     
     NSString *fontName = iu.liveStyleStorage.fontName;
     if(fontName == nil){
-        iu.currentStyleStorage.fontName = _currentFontName;
+        iu.currentStyleStorage.fontName = _lastUsedFontName;
     }
     
     NSNumber *fontSize = iu.liveStyleStorage.fontSize;
     if(fontSize == nil){
-        iu.currentStyleStorage.fontSize = @(_currentFontSize);
+        iu.currentStyleStorage.fontSize = @(_lastUsedFontSize);
     }    
 }
 
