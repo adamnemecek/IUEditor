@@ -152,10 +152,7 @@
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
     for(IUSheet *sheet in self.allSheets){
-        [self.identifierManager registerIdentifier:sheet.htmlID withObject:sheet];
-        for(IUBox *box in sheet.allChildren){
-            [self.identifierManager registerIdentifier:box.htmlID withObject:box];
-        }
+        [[IUIdentifierManager managerForMainWindow] registerObjectRecusively:sheet withIdentifierKey:@"htmlID" childrenKey:@"children"];
     }
     _pageGroup.parentFileItem = self;
     _classGroup.parentFileItem = self;
@@ -493,16 +490,6 @@
     }
     else{
         return [(id<BBWindowProtocol>)[[NSApp mainWindow] windowController] sourceManager];
-    }
-}
-
-- (IUIdentifierManager *)identifierManager{
-    if(_identifierManager){
-        return _identifierManager;
-    }
-    else{
-        return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] identifierManager];
-        
     }
 }
 

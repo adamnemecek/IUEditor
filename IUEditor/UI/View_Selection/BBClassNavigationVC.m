@@ -48,8 +48,6 @@
 - (IBAction)clickNewCompositionButton:(id)sender {
     if(self.classController.selectedObjects.count > 0){
         IUClass *newClass = [[IUClass alloc] initWithPreset];
-        newClass.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newClass];
-        newClass.name = newClass.htmlID;
                 
         [self.classController addObject:newClass];
 
@@ -65,11 +63,5 @@
         
     }
 }
-
-- (IUIdentifierManager *)identifierManager{
-    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) identifierManager];
-}
-
-
 
 @end

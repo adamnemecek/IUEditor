@@ -150,9 +150,6 @@
         
         for(NSInteger i=self.children.count; i <count; i++){
             IUMenuItem *subMenu = [[IUMenuItem alloc] initWithPreset];
-            subMenu.htmlID  = [self.identifierManager createAndRegisterIdentifierWithObject:subMenu];
-            subMenu.name = subMenu.htmlID;
-            
             [self addIU:subMenu error:nil];
         }
         

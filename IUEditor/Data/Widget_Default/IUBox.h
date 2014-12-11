@@ -157,7 +157,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 #if DEBUG
 //test 를 위해서 setting 가능하게 해놓음.
 @property (nonatomic) id <IUSourceManagerProtocol> sourceManager;
-@property (nonatomic) IUIdentifierManager *identifierManager;
 #else
 - (id <IUSourceManagerProtocol>) sourceManager;
 - (IUIdentifierManager *) identifierManager;

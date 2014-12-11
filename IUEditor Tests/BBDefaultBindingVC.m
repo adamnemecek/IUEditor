@@ -32,7 +32,6 @@ static     IUTestWC *testWC;
     XCTestExpectation *webViewLoadingExpectation;
     XCTestExpectation *passBtnExpectation;
     IUSourceManager *manager;
-    IUIdentifierManager *identifierManager;
     IUController *iuController;
 }
 
@@ -52,8 +51,6 @@ static     IUTestWC *testWC;
     manager = [[IUSourceManager alloc] init];
     manager.viewPort = IUDefaultViewPort;
     manager.canvasViewWidth = 960;
-    
-    identifierManager = [[IUIdentifierManager alloc] init];
     
     iuController = [[IUController alloc] init];
     
@@ -84,14 +81,7 @@ static     IUTestWC *testWC;
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
-    page.htmlID = [identifierManager createAndRegisterIdentifierWithObject:page];
-    page.name = page.htmlID;
-    
-    for( IUBox *box in page.allChildren){
-        box.htmlID = [identifierManager createAndRegisterIdentifierWithObject:box];
-        box.name = box.htmlID;
-    }
-    
+        
     
     
     [iuController setContent:page];

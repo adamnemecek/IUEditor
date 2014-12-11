@@ -12,6 +12,9 @@
 
 @interface IUIdentifierManager : NSObject
 
++ (IUIdentifierManager *)managerForMainWindow;
+- (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey;
+
 /**
  @description create identifier key for object by prefix as object class name. New identifier key is registered to identifier manager
  @note prefix 'IU' will be automatically deleted

@@ -33,12 +33,9 @@
 
 /* this explain how to create box, and how  to use */
 - (void)test1_boxCreation {
-    IUIdentifierManager *identifierManager = [[IUIdentifierManager alloc] init];
-    
     IUBox *box = [[IUBox alloc] initWithPreset];
-    box.htmlID = [identifierManager createAndRegisterIdentifierWithObject:box];
-        
-    XCTAssertEqual([identifierManager objectForIdentifier:box.htmlID], box);
+    
+    XCTAssertEqual([[IUIdentifierManager managerForMainWindow] objectForIdentifier:box.htmlID], box);
     XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
 }
 

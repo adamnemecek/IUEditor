@@ -8,9 +8,33 @@
 
 #import "IUIdentifierManager.h"
 
+static NSMutableDictionary *identifierManagerDictionary;
+static IUIdentifierManager *identifierForNilWindow;
 
 @implementation IUIdentifierManager{
     NSMutableDictionary *confirmed;
+}
+
++ (IUIdentifierManager *)managerForMainWindow {
+    if ([NSApp mainWindow] == nil) {
+        if (identifierForNilWindow == nil) {
+            identifierForNilWindow = [[IUIdentifierManager alloc] init];
+        }
+        return identifierForNilWindow;
+    }
+    else {
+        if (identifierManagerDictionary == nil) {
+            identifierManagerDictionary = [NSMutableDictionary dictionary];
+        }
+
+        NSInteger windowNum = [[NSApp mainWindow] windowNumber];
+        IUIdentifierManager *manager = identifierManagerDictionary[@(windowNum)];
+        if (manager == nil) {
+            manager = [[IUIdentifierManager alloc] init];
+            identifierManagerDictionary[@(windowNum)] = manager;
+        }
+        return manager;
+    }
 }
 
 -(id)init{
@@ -24,6 +48,20 @@
 - (void)dealloc{
     [JDLogUtil log:IULogDealloc string:@"IUIdentifierManager"];
 }
+
+
+
+- (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey {
+    confirmed[[object valueForKey:identifierKey]] = object;
+    if ([object respondsToSelector:NSSelectorFromString(childrenKey)]) {
+        NSArray *children = [object valueForKey:childrenKey];
+        for (id child in children) {
+            [self registerObjectRecusively:child withIdentifierKey:identifierKey childrenKey:childrenKey];
+        }
+    }
+}
+
+
 
 
 /*

@@ -16,8 +16,6 @@
 @required
 //source Manager
 @property IUSourceManager *sourceManager;
-//identifier Manager
-@property IUIdentifierManager *identifierManager;
 //resource rootItem
 @property IUResourceRootItem *resourceRootItem;
 

@@ -249,9 +249,6 @@
 
 #pragma mark - Manage IUs
 
-- (IUIdentifierManager *)identifierManager{
-    return [((id<IUDocumentProtocol>)[[[self.view window] windowController] document]) identifierManager];
-}
 
 - (void)makeNewIUWithClassName:(NSString *)className atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
     //Distance
@@ -265,8 +262,6 @@
     
     //postion을 먼저 정한 후에 add 함
     IUBox *newIU = [[NSClassFromString(className) alloc] initWithPreset];
-    newIU.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newIU];
-    newIU.name = newIU.htmlID;
     
     NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
     

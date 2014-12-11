@@ -211,7 +211,7 @@
 }
 
 - (void)initialize{
-    _htmlID = [NSString stringWithFormat:@"%@%d",self.className, rand()/100];
+    _htmlID = [[IUIdentifierManager managerForMainWindow] createAndRegisterIdentifierWithObject:self];
     _name = _htmlID;
     
     _event = [[IUEvent alloc] init];
@@ -424,23 +424,9 @@
     }
 }
 
-- (IUIdentifierManager *)identifierManager{
-    if(_identifierManager){
-        return _identifierManager;
-    }
-    else{
-        return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) identifierManager];
-
-    }
-}
-
 #else
 - (id <IUSourceManagerProtocol>)sourceManager{
     return [(id<BBWindowProtocol>)[[NSApp mainWindow] windowController] sourceManager];
-}
-- (IUIdentifierManager *)identifierManager{
-    return [((id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document]) identifierManager];
-
 }
 #endif
 
@@ -799,9 +785,6 @@ e.g. 만약 css로 옮긴다면)
         [iu setIsConnectedWithEditor];
     }
     
-    
-    [iu bind:@"identifierManager" toObject:self withKeyPath:@"identifierManager" options:nil];
-
     if (self.isConnectedWithEditor) {
         
         if ([self.sheet isKindOfClass:[IUClass class]]) {
