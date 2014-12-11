@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import "IUSourceManager.h"
+#import "WebCanvasView.h"
 
 @protocol IUTestWCDelegate <NSObject>
 
@@ -24,7 +25,7 @@
 @property (weak) IBOutlet NSView *testView;
 
 @property __weak id <IUTestWCDelegate>  delegate;
-@property (weak) IBOutlet WebView *webView;
+@property (weak) IBOutlet WebCanvasView *webCanvasView;
 - (IUSourceManager *)sourceManager;
 
 @end

@@ -270,6 +270,7 @@
         
         self.maxViewPort = IUDefaultViewPort;
         [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
+        _defaultStorage = defaultStorage;
         
         [self setDefaultProperties];
 

@@ -29,7 +29,7 @@
 }
 
 - (IBAction)performOpenInBrowser:(id)sender {
-    DOMHTMLElement *element = (DOMHTMLElement *)[[[self.webView mainFrame] DOMDocument] documentElement];
+    DOMHTMLElement *element = (DOMHTMLElement *)[[[self.webCanvasView mainFrame] DOMDocument] documentElement];
     NSString *src = [element innerHTML];
     NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:@"test.html"];
     [src writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IUTestWC">
             <connections>
                 <outlet property="testView" destination="Peh-Jl-G6R" id="30F-bk-noA"/>
-                <outlet property="webView" destination="ZeN-QQ-udH" id="YMq-yJ-KCY"/>
+                <outlet property="webCanvasView" destination="ZeN-QQ-udH" id="zvv-q0-Tq5"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -74,7 +74,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeN-QQ-udH">
+                    <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZeN-QQ-udH" customClass="WebCanvasView">
                         <rect key="frame" x="0.0" y="534" width="960" height="419"/>
                         <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                             <nil key="identifier"/>

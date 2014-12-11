@@ -60,7 +60,7 @@ static     IUTestWC *testWC;
     [manager setCanvasVC:testWC];
     [manager setCompiler:[[IUCompiler alloc] init]];
     
-    webView = testWC.webView;
+    webView = testWC.webCanvasView;
     [webView setFrameLoadDelegate:self];
     [webView setResourceLoadDelegate:self];
 
