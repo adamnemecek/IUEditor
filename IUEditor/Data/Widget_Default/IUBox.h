@@ -138,6 +138,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 - (NSArray *)allCSSSelectors;
 - (NSInteger)maxViewPort;
+@property NSInteger currentViewPort;
 
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector;
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;

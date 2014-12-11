@@ -50,6 +50,29 @@
     return copyright;
 }
 
+- (id)init {
+    self = [super init];
+    [self addObserver:self forKeyPath:@"text" options:0 context:nil];
+    [self bind:@"text" toObject:self withKeyPath:@"self.currentPropertyStorage.innerHTML" options:nil];
+    return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"text"]) {
+        [self setValue:_text forKeyPath:@"self.currentPropertyStorage.innerHTML"];
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+
+
+- (id)initWithPreset{
+    self = [super initWithPreset];
+    [self bind:@"text" toObject:self withKeyPath:@"currentPropertyStorage.innerHTML" options:nil];
+    return self;
+}
+
+
 #pragma mark - initialize
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
@@ -59,6 +82,7 @@
         [aDecoder decodeToObject:self withProperties:[[IUText class] properties]];
         [self.undoManager enableUndoRegistration];
     }
+    [self bind:@"text" toObject:self withKeyPath:@"currentPropertyStorage.innerHTML" options:nil];
     return self;
 }
 
@@ -84,7 +108,7 @@
 }
 
 - (IUTextInputType)textInputType{
-    if(self.pgContentVariable && self.pgContentVariable.length > 0){
+     if(self.pgContentVariable && self.pgContentVariable.length > 0){
         return IUTextInputTypeAddible;
     }
     return IUTextInputTypeEditable;

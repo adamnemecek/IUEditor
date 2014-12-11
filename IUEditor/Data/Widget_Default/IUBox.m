@@ -97,6 +97,7 @@
     
     
     [self bindStorages];
+    self.currentViewPort = IUDefaultViewPort;
     return self;
 }
 
@@ -119,6 +120,10 @@
         [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];
         [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
+    }
+    for (id key in _m_storageManagerDict ) {
+        IUDataStorageManager *manager = _m_storageManagerDict[key];
+        [manager bind:@"currentViewPort" toObject:self withKeyPath:@"currentViewPort" options:nil];
     }
 }
 
@@ -179,6 +184,7 @@
         [self setDefaultProperties];
         [self createDefaultStorages];
         [self bindStorages];
+        self.currentViewPort = IUDefaultViewPort;
 
         //setting for css
         self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
@@ -196,6 +202,7 @@
         [self setDefaultProperties];
         [self createDefaultStorages];
         [self bindStorages];
+        self.currentViewPort = IUDefaultViewPort;
         
         [self.undoManager enableUndoRegistration];
     }

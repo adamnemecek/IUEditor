@@ -519,16 +519,25 @@
         }
     }
     if(textIU.propertyManager){
+        /*
+         IU has only one innerHTML
+         */
         if([textIU.propertyManager countOfValueForKey:@"innerHTML"] == 1){
-            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:textIU.project.maxViewPort];
+            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:viewPort];
             if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
                 [code increaseIndentLevelForEdit];
                 [code addCodeLine:propertyStorage.innerHTML];
                 [code decreaseIndentLevelForEdit];
             }
         }
+        /*
+         if IU has multiple inner html, this goes to javascript
+         */
         else if(target == IUTargetEditor){
-            if(textIU.currentPropertyStorage.innerHTML && textIU.currentPropertyStorage.innerHTML.length > 0){
+            /* following code assumes propertyManager.currentViewPort should be equal parameter viewPort */
+            NSAssert(viewPort == textIU.propertyManager.currentViewPort, @"not equal");
+            
+            if(textIU.livePropertyStorage.innerHTML && textIU.livePropertyStorage.innerHTML.length > 0){
                 [code increaseIndentLevelForEdit];
                 [code addCodeLine:textIU.currentPropertyStorage.innerHTML];
                 [code decreaseIndentLevelForEdit];

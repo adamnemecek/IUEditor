@@ -14,6 +14,9 @@ typedef enum{
     IUTextTypeH2,
 }IUTextType;
 
+/**
+ @description IUText Widget is text-only object. It cannot have children.
+ */
 
 @interface IUText : IUBox
 
@@ -22,5 +25,11 @@ typedef enum{
 
 //0 for default, 1 for H1, 2 for H2
 @property IUTextType textType;
+
+/**
+ @description text is equivalent with currentPropertyStorage.innerHTML
+ @note it is bound with currentPropertyStorage.innerHTML
+ */
+@property NSString *text;
 
 @end

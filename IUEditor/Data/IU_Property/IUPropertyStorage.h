@@ -19,7 +19,7 @@
  */
 @interface IUPropertyStorage : IUDataStorage
 
-@property (nonatomic, copy) NSString* innerHTML;
+@property (nonatomic) NSString* innerHTML;
 @property (nonatomic) NSNumber* collectionCount;
 @property (nonatomic) NSNumber* carouselArrowDisable;
 /*

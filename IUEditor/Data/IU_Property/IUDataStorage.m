@@ -252,6 +252,8 @@
     defaultStorage.manager = self;
     
     self.maxViewPort = IUDefaultViewPort;
+    self.currentViewPort = IUDefaultViewPort;
+    
     [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
 
     [self setDefaultProperties];
@@ -269,6 +271,8 @@
         
         
         self.maxViewPort = IUDefaultViewPort;
+        self.currentViewPort = IUDefaultViewPort;
+        
         [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
         _defaultStorage = defaultStorage;
         
@@ -377,6 +381,9 @@
 }
 
 - (void)setCurrentViewPort:(NSInteger)currentViewPort{
+    if (_currentViewPort == currentViewPort) {
+        return;
+    }
     [self willChangeValueForKey:@"currentViewPort"];
     if ([self.workingStorages objectForKey:@(currentViewPort)] == nil) {
         [self createStorageForViewPort:currentViewPort];
