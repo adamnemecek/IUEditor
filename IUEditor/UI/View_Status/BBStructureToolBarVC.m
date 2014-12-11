@@ -32,6 +32,10 @@
     }
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - PathControl action
 
 - (IBAction)clickIUPathControl:(id)sender {

@@ -656,6 +656,7 @@
 		3D4DFF391A2EAD3200418CE0 /* BBCommandVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF371A2EAD3200418CE0 /* BBCommandVC.xib */; };
 		3D4DFF3D1A2ED7CA00418CE0 /* BBWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */; };
 		3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */; };
+		3DC616B01A398B9A00B94A4C /* IUController_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616AF1A398B9A00B94A4C /* IUController_Test.m */; };
 		3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */; };
 		3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */; };
 		3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */; };
@@ -1694,6 +1695,7 @@
 		3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWC.xib; path = UI/Window_Main/BBWC.xib; sourceTree = "<group>"; };
 		3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultVCs.h; path = UI/Window_Main/BBDefaultVCs.h; sourceTree = "<group>"; };
 		3DC616AC1A385BC800B94A4C /* BBJSManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBJSManagerProtocol.h; path = UI/View_Canvas/BBJSManagerProtocol.h; sourceTree = "<group>"; };
+		3DC616AF1A398B9A00B94A4C /* IUController_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUController_Test.m; sourceTree = "<group>"; };
 		3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBQuickWidgetVC.h; path = UI/View_Status/BBQuickWidgetVC.h; sourceTree = "<group>"; };
 		3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBQuickWidgetVC.m; path = UI/View_Status/BBQuickWidgetVC.m; sourceTree = "<group>"; };
 		3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBQuickWidgetVC.xib; path = UI/View_Status/BBQuickWidgetVC.xib; sourceTree = "<group>"; };
@@ -3502,6 +3504,7 @@
 		3DE45F5D19F7BFB200A75567 /* IUEditor Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3DC616AF1A398B9A00B94A4C /* IUController_Test.m */,
 				3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */,
 				3D082F611A30226E00B653B1 /* IUSheetController_Test.m */,
 				3D4DFF331A281BD600418CE0 /* IUCopy_Test.m */,
@@ -4591,6 +4594,7 @@
 				092605B11A1A54E5008C40FC /* IUBox_Test.m in Sources */,
 				0965D1321A21CED5000E400B /* IUEvent_Test.m in Sources */,
 				09F473791A2AE3D300EB0BCC /* IUResource_Test.m in Sources */,
+				3DC616B01A398B9A00B94A4C /* IUController_Test.m in Sources */,
 				092605B21A1A54E5008C40FC /* IUCompiler_Test.m in Sources */,
 				092605B31A1A54E5008C40FC /* IUProject_Test.m in Sources */,
 				3D0499A71A1C7C5C0084632B /* IUPropertyStorage_Test.m in Sources */,

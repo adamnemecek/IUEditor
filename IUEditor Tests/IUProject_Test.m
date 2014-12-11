@@ -29,9 +29,8 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
-
 - (void)test_build {
-    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    IUProject *project = [[IUProject alloc] initForUntitledDocument];
     IUSourceManager *sManager = [[IUSourceManager alloc] init];
     [sManager setProject:project];
     [sManager setCompiler:[[IUCompiler alloc] init]];
@@ -46,7 +45,7 @@
 }
 
 - (void)test_fileItem {
-    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    IUProject *project = [[IUProject alloc] initForUntitledDocument];
     
     XCTAssertNotNil(project.pageGroup);
     IUSheetGroup *anotherGroup = [[IUSheetGroup alloc] init];
@@ -58,7 +57,7 @@
 
 
 - (void)test_boxProject {
-    IUProject *project = [[IUProject alloc] initAtTemporaryDirectory];
+    IUProject *project = [[IUProject alloc] initForUntitledDocument];
     IUSheet *sheet = [[IUSheet alloc] init];
     [project.pageGroup addFileItem:sheet];
     XCTAssertEqual(sheet.project, project);

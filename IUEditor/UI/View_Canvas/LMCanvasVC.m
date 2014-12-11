@@ -265,7 +265,8 @@
     
     //postion을 먼저 정한 후에 add 함
     IUBox *newIU = [[NSClassFromString(className) alloc] initWithPreset];
-    [self.identifierManager createAndRegisterIdentifierWithObject:newIU];
+    newIU.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:newIU];
+    newIU.name = newIU.htmlID;
     
     NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
     
@@ -278,6 +279,7 @@
     
     [parentIU addIU:newIU error:nil];
     
+    [self.controller rearrangeObjects];
     [self.controller setSelectedObject:newIU];
     
     JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);

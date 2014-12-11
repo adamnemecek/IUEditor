@@ -74,11 +74,10 @@ static NSString *IUClassGroupName = @"class";
 
 
 /**
- Make Project at Temporary directory.
- Use Untitled document
- @brief create project at temporary directory
+ Make Project for untitled document
  */
-- (id)initAtTemporaryDirectory;
+- (id)initForUntitledDocument;
+
 
 //project properties
 - (NSArray*)mqSizes;

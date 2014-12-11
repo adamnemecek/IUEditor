@@ -13,7 +13,6 @@
 #import "LMAppDelegate.h"
 #import "LMWC.h"
 #import "JDLogUtil.h"
-#import "LMStartWC.h"
 
 #import "IUDjangoProject.h"
 #import "IUWordpressProject.h"
@@ -26,7 +25,6 @@
 #import "LMAppWarningWC.h"
 
 @implementation LMAppDelegate{
-    LMStartWC *startWC;
     LMPreferenceWC *preferenceWC;
     LMNotiManager *notiManager;
     LMAppWarningWC *warnWC;
@@ -123,24 +121,7 @@
 }
 
 
-- (IBAction)showStartDefault:(id)sender{
-    startWC = [LMStartWC sharedStartWindow];
-    [startWC showWindow:self];
-    [startWC selectStartViewOfType:LMStartWCTypeDefault];
-}
 
-- (IBAction)showStartTemplate:(id)sender{
-    startWC = [LMStartWC sharedStartWindow];
-    [startWC showWindow:self];
-    [startWC selectStartViewOfType:LMStartWCTypeTemplate];
-    
-}
-- (IBAction)showRecentFiles:(id)sender{
-    startWC = [LMStartWC sharedStartWindow];
-    [startWC showWindow:self];
-    [startWC selectStartViewOfType:LMStartWCTypeRecent];
-    
-}
 
 - (IBAction)openPreference:(id)sender {
      preferenceWC = [[LMPreferenceWC alloc] initWithWindowNibName:@"LMPreferenceWC"];
@@ -195,7 +176,7 @@
 #pragma mark - application delegate
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender{
-    return NO;
+    return YES;
 }
 
 

@@ -18,7 +18,7 @@
     [super newDocument:sender];
 }
 
-- (void)newDocument:(id)sender withOption:(NSDictionary *)option{
+- (void)newDocument:(id)sender withOption:(NSDictionary *)option __deprecated{
     newDocumentOption = option;
     [self newDocument:sender];
 }
@@ -26,7 +26,7 @@
 - (void)openDocument:(id)sender{
     [super openDocument:sender];
 }
-
+/*
 
 - (id)openUntitledDocumentAndDisplay:(BOOL)displayDocument error:(NSError *__autoreleasing *)outError{
     id document = [self makeUntitledDocumentOfType:[self defaultType] error:outError];
@@ -48,7 +48,8 @@
     [self removeDocument:document];
     
 }
-
+*/
+/*
 - (id)makeUntitledDocumentOfType:(NSString *)typeName error:(NSError *__autoreleasing *)outError{
     id document = [super makeUntitledDocumentOfType:typeName error:outError];
     
@@ -57,6 +58,7 @@
         [[document undoManager] disableUndoRegistration];
         
         //option으로 url이 넘어옴.
+ 
         NSURL *url;
         if ([newDocumentOption objectForKey:IUProjectKeyIUFilePath]) {
             url = [NSURL fileURLWithPath:[newDocumentOption objectForKey:IUProjectKeyIUFilePath]];
@@ -64,7 +66,8 @@
         else {
             url = [self fileURLForNewDocumentOfType:typeName];
         }
-        
+         */
+        /*
         if( url ){
             [(IUProjectDocument *)document makeNewProjectWithOption:newDocumentOption URL:url];
             
@@ -78,6 +81,7 @@
     return document;
     
 }
+*/
 
 - (NSURL *)fileURLForNewDocumentOfType:(NSString *)typeName{
     int i=0;
@@ -99,22 +103,21 @@
     
 }
 
-
+/*
 - (void)openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument *, BOOL, NSError *))completionHandler{
     if(url){
         [super openDocumentWithContentsOfURL:url display:displayDocument completionHandler:completionHandler];
     }
 }
+*/
 
-
+/*
 - (void)reopenDocumentForURL:(NSURL *)urlOrNil withContentsOfURL:(NSURL *)contentsURL display:(BOOL)displayDocument completionHandler:(void (^)(NSDocument *, BOOL, NSError *))completionHandler{
     if(urlOrNil){
         [super reopenDocumentForURL:urlOrNil withContentsOfURL:contentsURL display:displayDocument completionHandler:completionHandler];
     }
     
 }
-
-
-
+*/
 
 @end

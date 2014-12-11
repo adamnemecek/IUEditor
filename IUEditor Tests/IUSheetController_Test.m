@@ -29,7 +29,7 @@
 - (void)setUp {
     [super setUp];
     
-    _project = [[IUProject alloc] initAtTemporaryDirectory];
+    _project = [[IUProject alloc] initForUntitledDocument];
     _pagesController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
     _classesController = [[IUSheetController alloc] initWithSheetGroup:_project.classGroup];
     

@@ -23,7 +23,7 @@
 - (void)setUp {
     [super setUp];
     filePath = [NSString stringWithFormat:@"%@/sampleProject.iuml", NSTemporaryDirectory()];
-    project = [[IUProject alloc] initAtTemporaryDirectory];
+    project = [[IUProject alloc] initForUntitledDocument];
 }
 
 - (void)tearDown {

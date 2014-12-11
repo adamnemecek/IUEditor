@@ -589,11 +589,17 @@
     return code;
      */
     if (target == IUTargetEditor) {
-        if (_editorResourcePrefix) {
-            [attributeDict addAttribute:@"src" value:[_editorResourcePrefix stringByAppendingPathComponent:image.imagePath]];
+        if(image.imagePath){
+            if (_editorResourcePrefix) {
+                [attributeDict addAttribute:@"src" value:[_editorResourcePrefix stringByAppendingPathComponent:image.imagePath]];
+            }
+            else {
+                [attributeDict addAttribute:@"src" value:image.imagePath];
+            }
         }
-        else {
-            [attributeDict addAttribute:@"src" value:image.imagePath];
+        else{
+            NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"image_default" ofType:@"png"];
+            [attributeDict addAttribute:@"src" value:imagePath];
         }
     }
     else {
@@ -604,6 +610,10 @@
             [attributeDict addAttribute:@"src" value:image.imagePath];
         }
     }
+    if(image.altText){
+        [attributeDict addAttribute:@"alt" value:image.altText];
+    }
+    
     JDCode *code = [[JDCode alloc] initWithCodeString:[NSString stringWithFormat:@"<img %@>", attributeDict.attributeStringValue]];
     return code;
 }

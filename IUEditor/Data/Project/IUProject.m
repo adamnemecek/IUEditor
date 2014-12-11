@@ -295,24 +295,12 @@
 /* 그냥 initWithCreation:nil] 하면
     NSAssert에 걸리므로 임시로 이렇게 처리 */
 
-- (id)initAtTemporaryDirectory {
+- (id)initForUntitledDocument{
     /* initialize at temp directory */
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(IUDefaultViewPort), @320]];
     _serverInfo = [[IUServerInfo alloc] init];
     _enableMinWidth = YES;
-    
-    self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.iu", self.className]];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:self.path]) {
-        int i = 2;
-        while (1) {
-            self.path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%d.iu", self.className, i]];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:self.path] == NO) {
-                break;
-            }
-        }
-    }
     
     self.name = [[[self.path lastPathComponent] lastPathComponent] stringByDeletingPathExtension];
     self.buildPath = @"$IUFileDirectory/$AppName_build";

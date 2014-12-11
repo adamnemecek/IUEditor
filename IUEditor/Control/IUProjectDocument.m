@@ -38,6 +38,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
         
         //allocation resource root
         _resourceRootItem = [[IUResourceRootItem alloc] init];
+        _resourceFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
+        [_resourceFileWrapper setPreferredFilename:IUResourceGroupName];
         
         //allocation metadata
         _metaDataDict = [NSMutableDictionary dictionary];
@@ -63,6 +65,11 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 //open autosaving document
 - (id)initForURL:(NSURL *)urlOrNil withContentsOfURL:(NSURL *)contentsURL ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError{
+    
+    NSString *resourceTempPath = [self resourceTemporaryPath];
+    [[NSFileManager defaultManager] createDirectoryAtPath:resourceTempPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [_resourceRootItem loadFromPath:resourceTempPath];
+    
     return [super initForURL:urlOrNil withContentsOfURL:contentsURL ofType:typeName error:outError];
 }
 
@@ -71,11 +78,53 @@ static NSString *metaDataIUVersion = @"IUVersion";
     self = [super initWithType:typeName error:outError];
     if(self){
 
+        
+        //FIXME:
+        //projectType은 nsuserdefault로 넘겨받아야함.
+        
+        IUProject *newProject = [[NSClassFromString(@"IUProject") alloc] initForUntitledDocument];
+        if(newProject){
+            
+            _project = newProject;
+            
+            //re-check htmlID (IUBox can not access to identifier manager while initializing
+            for(IUSheet *sheet in _project.allSheets){
+                for(IUBox *iu in sheet.allChildren){
+                    iu.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:iu];
+                    iu.name = iu.htmlID;
+                    
+                }
+                
+                [self.identifierManager registerIdentifier:sheet.htmlID withObject:sheet];
+                sheet.name = sheet.htmlID;
+            }
+            
+        }
+        //get document path:NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *resourceTempPath = [self resourceTemporaryPath];
+        [[NSFileManager defaultManager] createDirectoryAtPath:resourceTempPath withIntermediateDirectories:YES attributes:nil error:nil];
+        [_resourceRootItem loadFromPath:resourceTempPath];
     }
     return self;
 }
 
-- (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url{
+- (NSString *)resourceTemporaryPath{
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_resource", self.className]];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:tempPath]) {
+        int i = 0;
+        while (1) {
+            tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%d_resource", self.className, i]];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:tempPath] == NO) {
+                break;
+            }
+            i++;
+        }
+    }
+    return tempPath;
+}
+
+- (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url __deprecated{
     if ([option objectForKey:IUProjectKeyConversion]) {
         /*
          FIXME: converting
@@ -115,9 +164,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [projectDict setObject:appName forKey:IUProjectKeyAppName];
         
         NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        
-        
-        IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initAtTemporaryDirectory];
+        IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initForUntitledDocument];
         if(newProject){
 
             _project = newProject;
@@ -125,16 +172,13 @@ static NSString *metaDataIUVersion = @"IUVersion";
             //re-check htmlID (IUBox can not access to identifier manager while initializing
             for(IUSheet *sheet in _project.allSheets){
                 for(IUBox *iu in sheet.allChildren){
-                    if(iu.htmlID == nil){
-                        iu.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:iu];
-                        iu.name = iu.htmlID;
-                    }
+                    iu.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:iu];
+                    iu.name = iu.htmlID;
+                    
                 }
                 
-                if(sheet.htmlID == nil){
-                    sheet.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:sheet];
-                    sheet.name = sheet.htmlID;
-                }
+                [self.identifierManager registerIdentifier:sheet.htmlID withObject:sheet];
+                sheet.name = sheet.htmlID;
             }
             
             
@@ -220,7 +264,12 @@ static NSString *metaDataIUVersion = @"IUVersion";
 }
 
 - (NSString *)displayName{
-    return [NSString stringWithFormat:@"%@ - %@.iu", NSStringFromClass([_project class]), _project.name];
+    if([self fileURL]){
+        return [NSString stringWithFormat:@"%@ - %@.iu", NSStringFromClass([_project class]), _project.name];
+    }
+    else{
+        return  [NSString stringWithFormat:@"%@ - %@", NSStringFromClass([_project class]), [self defaultDraftName]];
+    }
 }
 
 - (void)changeProjectPath:(NSURL *)fileURL{
@@ -245,11 +294,12 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)setFileURL:(NSURL *)fileURL{
     if(fileURL != nil){
         [self changeProjectPath:fileURL];
-        [super setFileURL:fileURL];
     }
     else{
-        JDFatalLog(@"fileURL nil");
+        JDTraceLog(@"untitled document opened");
     }
+    [super setFileURL:fileURL];
+
 }
 
 
@@ -285,17 +335,14 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [[self documentFileWrapper] addFileWrapper:projectWrapper];
 
     }
-
-    //save resource folders
     
+    
+    //save resource
     NSFileWrapper *resourceWrapper = [fileWrappers objectForKey:IUResourceGroupName];
     if (resourceWrapper== nil){
-        resourceWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
-        [resourceWrapper setPreferredFilename:IUResourceGroupName];
-        [[self documentFileWrapper] addFileWrapper:resourceWrapper];
-        _resourceFileWrapper = resourceWrapper;
+        [[self documentFileWrapper] addFileWrapper:_resourceFileWrapper];
     }
-
+    
     //save metadata
     // write the new file wrapper for our meta data
     NSFileWrapper *metaDataFileWrapper = [[[self documentFileWrapper] fileWrappers] objectForKey:metaDataFileName];
@@ -360,11 +407,12 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)addResourceFileItemPaths:(NSArray *)fileItemPaths{
     for(NSString *filePath in fileItemPaths){
         NSString *fileName = [filePath lastPathComponent];
-        NSFileWrapper *resourceWrapper = [self makeNewResourceFileWrapperAtPath:filePath];
+        NSFileWrapper *newResourceWrapper = [self makeNewResourceFileWrapperAtPath:filePath];
         
-        NSURL *resourceURL = [NSURL fileURLWithPath:[_project.path stringByAppendingPathComponents:@[@"resource", fileName]]];
+        NSURL *resourceURL = [NSURL fileURLWithPath:[[_resourceRootItem absolutePath] stringByAppendingPathComponent:fileName]];
         NSError *saveError;
-        [resourceWrapper writeToURL:resourceURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&saveError];
+        [newResourceWrapper writeToURL:resourceURL options:NSFileWrapperWritingAtomic originalContentsURL:nil error:&saveError];
+        [_resourceFileWrapper addFileWrapper:newResourceWrapper];
 
     }
     
@@ -452,7 +500,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         NSData *jsonData = [projectDataWarpper regularFileContents];
         JDCoder *coder = [[JDCoder alloc] init];
         _project =  [coder decodeContentOfData:jsonData error:nil];
-        if(_project){
+        if(_project && [self fileURL]){
             [self changeProjectPath:[self fileURL]];
             [self.resourceRootItem loadFromPath:[_project.path stringByAppendingPathComponent:@"resource"]];
 
