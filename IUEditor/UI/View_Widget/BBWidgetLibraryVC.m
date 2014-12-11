@@ -50,11 +50,14 @@
     [self.tableView deselectAll:self];
 }
 
-
-- (void)tableViewSelectionIsChanging:(NSNotification *)notification{
-    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
+- (IBAction)clickWidgetLibraryTableView:(id)sender {
     
-    if (cell == nil) { //clear selection
+    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
+
+    if (cell == nil || [cell isEqualTo:_selectedCell]) { //clear selection
+        if([cell isEqualTo:_selectedCell]){
+            [_tableView deselectAll:self];
+        }
         _selectedCell.isSelected = NO;
         _selectedCell = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:nil];
@@ -70,6 +73,8 @@
 - (IBAction)clickWidgetTypeButton:(id)sender {
     [self reloadWidgets];
 }
+
+#pragma mark - load widgets
 
 - (void)setWidgetNameList:(NSArray *)widgetNameList {
     [self willChangeValueForKey:@"namesOfWidgetTypes"];
@@ -122,6 +127,8 @@
     
     _widgetCells = [widgetCellMutableArray copy];
 }
+
+#pragma mark - tableView
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [_widgetCells count];

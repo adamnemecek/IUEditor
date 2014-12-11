@@ -60,33 +60,11 @@
     for(NSString *className in array){
         LMGeneralObject *object = [[LMGeneralObject alloc] init];
         object.title = className;
-        
         Class iuclass = NSClassFromString(className);
         object.image = [iuclass classImage];
         object.shortDesc = [iuclass shortDescription];
-        
-        /*
-        switch ([iuclass widgetType]) {
-            case IUWidgetTypePrimary:
-                [_primaryWidgets addObject:object];
-                break;
-            case IUWidgetTypeSecondary:
-                [_secondaryWidgets addObject:object];
-                break;
-            case IUWidgetTypePG:
-                [_PGWidgets addObject:object];
-                break;
-            case IUWidgetTypeWP:
-                [_WPWidgets addObject:object];
-                break;
-                
-            default:
-                break;
-        }
-         */
     }
-    
-    
+
 }
 
 - (void)setProject:(IUProject *)project{
