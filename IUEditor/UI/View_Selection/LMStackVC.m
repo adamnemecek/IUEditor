@@ -19,7 +19,7 @@
 #import "IUImport.h"
 
 @implementation LMStackOutlineView
-
+#if 0
 - (void)keyDown:(NSEvent *)theEvent{
     unichar key = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
     if(key == NSDeleteCharacter && self.delegate)
@@ -44,8 +44,7 @@
     }
 }
 
-
-
+#endif
 @end
 
 
@@ -59,6 +58,7 @@
     NSArray *_draggingIndexPaths;
     id _lastClickedItem;
 }
+#if 0
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -413,6 +413,6 @@
     }
     return NO;
 }
-
+#endif
 
 @end

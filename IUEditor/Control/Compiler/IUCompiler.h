@@ -33,10 +33,10 @@ static NSString * IUCompilerTagOption = @"tag";
  Return whole web source of sheet;
  WebSource = HTML + CSS
  */
+- (NSString *)editorSource:(IUBox *)box viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
 
-- (NSString *)editorSheetSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
-- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
 - (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort ;
+- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;
 
 - (BOOL)outputHTMLSource:(IUPage *)document resourcePrefix:(NSString *)resourcePrefix html:(NSString **)html css:(NSString **)css;
 

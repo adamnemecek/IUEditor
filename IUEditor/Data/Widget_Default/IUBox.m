@@ -461,6 +461,16 @@
 }
 
 
+- (BOOL)containClass:(Class)class{
+    for(IUBox *box in self.allChildren){
+        if([box isKindOfClass:class]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 #pragma mark - Event
 
 - (void)setEvent:(IUEvent *)event{

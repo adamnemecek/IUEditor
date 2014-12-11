@@ -297,5 +297,5 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (NSString*)cssHoverClass;
 - (NSString*)cssActiveClass;
 - (NSString*)cssClassStringForHTML;
-
+- (BOOL)containClass:(Class)class;
 @end

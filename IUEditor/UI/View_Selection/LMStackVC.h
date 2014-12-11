@@ -14,7 +14,7 @@
 @end
 
 @interface LMStackVC : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, NSControlTextEditingDelegate>
-
+#if 0
 @property (weak)  IUSheet    *sheet; //set by lmwc
 @property (strong) IBOutlet IUController *IUController;
 @property (weak) id notificationSender;
@@ -22,5 +22,5 @@
 - (IBAction)copy:(id)sender;
 - (IBAction)paste:(id)sender;
 - (void)connectWithEditor;
-
+#endif
 @end

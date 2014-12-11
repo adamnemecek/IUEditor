@@ -77,7 +77,7 @@
 @property NSInteger canvasViewWidth;
 
 /* load a sheet */
-- (void)loadSheet:(IUSheet*)sheet;
+- (void)loadIU:(IUBox*)box;
 
 /* called by box */
 - (void)setNeedsUpdateHTML:(IUBox*)box;

@@ -89,10 +89,10 @@
 }
 
 
-- (void)loadSheet:(IUSheet*)sheet {
+- (void)loadIU:(IUBox*)box {
     NSAssert(_compiler, @"compiler is nil");
     
-    NSString *code = [_compiler editorSheetSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
+    NSString *code = [_compiler editorSource:box viewPort:_viewPort canvasWidth:_canvasViewWidth];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webCanvasView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];

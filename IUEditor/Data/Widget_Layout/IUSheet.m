@@ -46,15 +46,6 @@
     [aCoder encodeByRefObject:_parentFileItem forKey:@"group"];
 }
 
-- (BOOL)containClass:(Class)class{
-    for(IUBox *box in self.allChildren){
-        if([box isKindOfClass:class]){
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (BOOL)canChangeXByUserInput{
     return NO;
 }

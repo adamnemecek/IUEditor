@@ -20,13 +20,6 @@
 @property CGFloat ghostX, ghostY, ghostOpacity;
 @property NSString *ghostImageName;
 
-/**
- It is for build option, not saved
- */
-@property BOOL hasEvent;
-
-
-- (BOOL)containClass:(Class)class;
 - (NSDictionary *)eventVariableDict;
 
 @property (weak) id <IUFileItemProtocol, JDCoding> parentFileItem;

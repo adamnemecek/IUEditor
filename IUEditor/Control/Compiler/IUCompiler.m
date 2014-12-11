@@ -284,7 +284,7 @@
 
 #pragma mark - html header
 
-- (JDCode *)javascriptHeaderForSheet:(IUSheet *)sheet isEdit:(BOOL)isEdit{
+- (JDCode *)javascriptHeader:(IUBox *)sheet isEdit:(BOOL)isEdit{
     JDCode *code = [[JDCode alloc] init];
     if(isEdit){
         
@@ -323,9 +323,12 @@
             [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@\"></script>", currentResourcePath, filename];
         }
         //each js for sheet
+        /*
+         no js event now
         if(sheet.hasEvent){
             [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-event.js\"></script>",currentResourcePath, sheet.name];
         }
+         */
         [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-init.js\"></script>",currentResourcePath, sheet.name];
 
         if([sheet containClass:[IUGoogleMap class]]){
@@ -349,7 +352,7 @@
     return code;
 }
 
-- (JDCode *)cssHeaderForSheet:(IUSheet *)sheet isEdit:(BOOL)isEdit{
+- (JDCode *)cssHeader:(IUBox *)box isEdit:(BOOL)isEdit{
     JDCode *code = [[JDCode alloc] init];
     if(isEdit){
         NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
@@ -361,9 +364,7 @@
         NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/reset.css\">", currentResourcePath];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/iu.css\">", currentResourcePath];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",currentResourcePath, sheet.name];
-
-
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",currentResourcePath, box.name];
     }
     return code;
 }
@@ -617,7 +618,7 @@
 
 
 
-- (NSString *)editorSheetSource:(IUSheet *)document viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth {
+- (NSString *)editorSource:(IUBox *)iu viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth {
     NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:@"webTemplate" ofType:@"html"];
     if (templateFilePath == nil) {
         NSAssert(0, @"Template file name wrong");
@@ -632,18 +633,18 @@
     JDCode *webFontCode = [[LMFontController sharedFontController] headerCodeForAllFont];
     [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
     
-    JDCode *jsCode = [self javascriptHeaderForSheet:document isEdit:YES];
+    JDCode *jsCode = [self javascriptHeader:iu isEdit:YES];
     [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
     
     
-    JDCode *iuCSS = [self cssHeaderForSheet:document isEdit:YES];
+    JDCode *iuCSS = [self cssHeader:iu isEdit:YES];
     [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
     
     //add for hover css
     
     NSDictionary *cssCodes;
     NSString *sheetHTMLCode;
-    [self editorIUSource:document htmlIDPrefix:nil viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
+    [self editorIUSource:iu htmlIDPrefix:nil viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
     
     [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
     JDErrorLog(@"css should be updated");

@@ -265,8 +265,8 @@
     [[_serverView mainFrame] loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://server.iueditor.org/log.html"]]];
 #endif
     
-    [stackVC setNotificationSender:_project];
-    [stackVC connectWithEditor];
+//    [stackVC setNotificationSender:_project];
+//    [stackVC connectWithEditor];
     
     //load mq
     [mqVC loadWithMQWidths:_project.mqSizes];
@@ -425,9 +425,9 @@
     _selectedNode = (IUSheet*) selectedNode;
     if ([selectedNode isKindOfClass:[IUSheet class]]) {
         
-        [self.sourceManager loadSheet:(IUSheet *)selectedNode];
+        [self.sourceManager loadIU:(IUSheet *)selectedNode];
         
-        [stackVC setSheet:_selectedNode];
+//        [stackVC setSheet:_selectedNode];
         [canvasVC setSheet:_selectedNode];
         [bottomToolbarVC setSheet:_selectedNode];
         [topToolbarVC setSheet:_selectedNode];
@@ -451,7 +451,7 @@
 }
 
 - (IBAction)reloadCurrentDocument:(id)sender{
-    [self.sourceManager loadSheet:(IUSheet *)_selectedNode];
+    [self.sourceManager loadIU:(IUSheet *)_selectedNode];
 }
 
 

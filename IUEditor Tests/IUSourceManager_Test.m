@@ -69,7 +69,7 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test1"];
     
     IUPage *page = [[IUPage alloc] initWithPreset];
-    [manager loadSheet:page];
+    [manager loadIU:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
         DOMDocument *dom =  [[_webView mainFrame] DOMDocument];
@@ -87,7 +87,7 @@
     IUPage *page = [[IUPage alloc] initWithPreset];
 
     ((IUStyleStorage *)page.liveStyleStorage).bgColor = [NSColor greenColor];
-    [manager loadSheet:page];
+    [manager loadIU:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
         DOMDocument *dom =  [[[self webCanvasView] mainFrame] DOMDocument];
@@ -101,7 +101,7 @@
     IUPage *page = [[IUPage alloc] initWithPreset];
     [page.livePositionStorage setX:@(50)];
     
-    [manager loadSheet:page];
+    [manager loadIU:page];
     
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -125,7 +125,7 @@
     webViewLoadingExpectation = [self expectationWithDescription:@"test5"];
     IUPage *page = [[IUPage alloc] initWithPreset];
     
-    [manager loadSheet:page];
+    [manager loadIU:page];
     
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -155,7 +155,7 @@
     XCTAssertNotNil(header.htmlID);
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadIU:page];
 
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         DOMDocument *dom =  [[_webView mainFrame] DOMDocument];

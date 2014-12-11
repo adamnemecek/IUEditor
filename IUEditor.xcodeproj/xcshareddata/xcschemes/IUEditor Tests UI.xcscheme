@@ -21,7 +21,7 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
@@ -56,6 +56,9 @@
                   Identifier = "CSSToCSSStorageConversion_Test">
                </Test>
                <Test
+                  Identifier = "IUBoxCoder_Test">
+               </Test>
+               <Test
                   Identifier = "IUBox_Test">
                </Test>
                <Test
@@ -88,15 +91,6 @@
             </SkippedTests>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "092605931A1A5481008C40FC"
-            BuildableName = "IUEditor Tests copy.xctest"
-            BlueprintName = "JDLib Tests"
-            ReferencedContainer = "container:IUEditor.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
