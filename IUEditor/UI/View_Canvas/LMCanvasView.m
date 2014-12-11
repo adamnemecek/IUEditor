@@ -16,6 +16,7 @@
     NSPoint startDragPoint, middleDragPoint, endDragPoint;
     NSUInteger keyModifierFlags;
     CGFloat zoomFactor, oldLeft;
+    NSString *_selectedWidgetClassName;
     
 }
 
@@ -68,14 +69,15 @@
     [self setZoom:1.0];
     //zoom observer
     [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"zoom" options:NSKeyValueObservingOptionInitial context:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeWidgetSelection:) name:IUWidgetLibrarySelectionDidChangeNotification object:self.window];
     
 
 }
 
 -(void) dealloc{
     [self.mainView removeObserver:self forKeyPath:@"frame"];
-    
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"zoom"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (BOOL)isFlipped{
     return YES;
@@ -389,10 +391,6 @@
     return NO;
 }
 
--(void)mouseDown:(NSEvent *)theEvent{
-    
-}
-
 
 -(void)receiveMouseEvent:(NSEvent *)theEvent{
     NSPoint originalPoint = [theEvent locationInWindow];
@@ -425,9 +423,6 @@
                 
                 if (theEvent.clickCount == 1){
                     if( [theEvent modifierFlags] & NSCommandKeyMask ){
-                        //여러개 select 하는 순간 editing mode out
-                        //[[self webView] setEditable:NO];
-                        
                         //이미 select되어 있으면 deselect
                         if( [self.controller containsIdentifier:clickedIdentifier] ){
                             [self.controller deselectedIdentifier:clickedIdentifier];
@@ -443,8 +438,16 @@
                             
                         }
                         
-                        if([self.controller containsIdentifier:clickedIdentifier] == NO || [self.controller countOfSelectedIUs] == 1){
-                            [self.controller setSelectedIdentifier:clickedIdentifier];
+                        //현재 셀렉된 위젯 라이브러리가 있으면, 새로운 iu를 만들어냄
+                        if(_selectedWidgetClassName){
+                            IUBox *parentIU = [self parentIUWithClickedIdentifier:clickedIdentifier];
+                            [self.controller makeNewIUWithClassName:_selectedWidgetClassName atPoint:centerConvertedPoint atParentIU:parentIU];
+                        }
+                        //셀력된 위젯 라이브러리가 없으면, iu selection으로 받아들임
+                        else{
+                            if([self.controller containsIdentifier:clickedIdentifier] == NO || [self.controller countOfSelectedIUs] == 1){
+                                [self.controller setSelectedIdentifier:clickedIdentifier];
+                            }
                         }
                     }
                     
@@ -453,9 +456,7 @@
                     if(clickedIdentifier && [self.controller isEnableTextEditor]){
                         isMouseDownForMoveIU = NO;
                     }
-                    else{
-                        [self.controller startFrameMoveWithTransaction:self];
-                    }
+                    
                     
                     startDragPoint = centerConvertedPoint;
                     middleDragPoint = startDragPoint;
@@ -501,10 +502,14 @@
 
 - (void)startDraggingFromGridView{
     //turn off canvas view dragging.
-    isMouseDownForMoveIU = NO;
+    [self clearMouseMovement];
 }
 
 - (void)moveIUByDragging:(NSEvent *)theEvent{
+    if(isMouseDragForIU == NO){
+        //처음 스타트할때 tansaction 시작
+        [self.controller startFrameMoveWithTransaction:self];
+    }
     isMouseDragForIU = YES;
     NSPoint totalPoint = NSMakePoint(endDragPoint.x-startDragPoint.x, endDragPoint.y-startDragPoint.y);
     NSPoint diffPoint = NSMakePoint(endDragPoint.x-middleDragPoint.x, endDragPoint.y-middleDragPoint.y);
@@ -538,21 +543,52 @@
     
     if(isMouseDownForMoveIU){
         isMouseDownForMoveIU = NO;
-        [self.controller endFrameMoveWithTransaction:self];
     }
     if(isMouseDragForIU){
         isMouseDragForIU = NO;
+        [self.controller endFrameMoveWithTransaction:self];
     }
     if(isDragForMultipleSelection){
         isDragForMultipleSelection = NO;
         [NSCursor pop];
         [self.gridView resetSelectionLayer];
     }
-    
-
 
 }
 
+#pragma mark - make new IU
+/**
+ receive widget notification
+ */
+- (void)changeWidgetSelection:(NSNotification *)notification{
+    _selectedWidgetClassName = [notification.userInfo objectForKey:IUWidgetLibraryKey];
+}
+
+- (IUBox *)parentIUWithClickedIdentifier:(NSString *)identifier{
+    IUBox *parentIU = [self.controller tryIUBoxByIdentifier:identifier];
+    
+    int safeIndex =0;
+    if(parentIU){
+        while(1){
+            //safe code
+            if(safeIndex > 10000){
+                JDFatalLog(@"can't find parent iu more than 10000 times");
+                return nil;
+            }
+            safeIndex++;
+            
+            //find iu's parent
+            if([parentIU canAddIUByUserInput]){
+                return parentIU;
+            }
+            else{
+                parentIU = parentIU.parent;
+            }
+        }
+    }
+    return nil;
+
+}
 
 
 

@@ -10,23 +10,27 @@
 #import "JDCode.h"
 #import "IUBox.h"
 
-static NSString *LMFontName = @"name";
-static NSString *LMFontCheckGoogleAPI = @"isGoogleFonts";
-static NSString *LMFontGoogleAPIFamilyName = @"googleApiFamily";
-static NSString *LMFontLightType = @"hasLight";
-static NSString *LMFontBoldTypeTag = @"boldType";
-static NSString *LMFontHeaderLink = @"link";
-static NSString *LMFontFamilyName = @"font-family";
-static NSString *LMFontNeedLoad = @"isLoadable";
-static NSString *LMFontEditable = @"editalbe";
+static NSString *const LMFontName = @"name";
+static NSString *const LMFontCheckGoogleAPI = @"isGoogleFonts";
+static NSString *const LMFontGoogleAPIFamilyName = @"googleApiFamily";
+static NSString *const LMFontLightType = @"hasLight";
+static NSString *const LMFontBoldTypeTag = @"boldType";
+static NSString *const LMFontHeaderLink = @"link";
+static NSString *const LMFontFamilyName = @"font-family";
+static NSString *const LMFontNeedLoad = @"isLoadable";
+static NSString *const LMFontEditable = @"editalbe";
 
 typedef enum{
     LMFontBoldTypeDefault,
     LMFontBoldTypeWebFont,
 }LMFontBoldType;
 
+
 @interface LMFontController : NSObject
 #pragma mark - default font setting
+
++ (LMFontController *)sharedFontController;
+
 
 - (NSArray *)fontSizeArray;
 - (NSArray *)fontLetterSpacingArray;
@@ -35,12 +39,16 @@ typedef enum{
 @property NSString *currentFontName;
 @property NSUInteger currentFontSize;
 
-- (void)copyCurrentFontToIUBox:(IUBox *)iu;
+- (void)setCurrentFontToIUBox:(IUBox *)iu;
 
 #pragma mark - font list
-@property NSMutableDictionary *fontDict;
+/**
+ key : font name
+ value : css
+ */
+@property (readonly) NSMutableDictionary *fontDict;
 
-+ (LMFontController *)sharedFontController;
+
 - (void)loadFontList;
 - (void)saveFontList;
 
@@ -48,6 +56,9 @@ typedef enum{
 - (NSString *)fontNameForFontCSS:(NSString *)css;
 - (BOOL)hasLight:(NSString *)fontName;
 
+/**
+ used for tiny mce
+ */
 - (NSString *)mceFontList;
 
 - (JDCode *)headerCodeForAllFont;

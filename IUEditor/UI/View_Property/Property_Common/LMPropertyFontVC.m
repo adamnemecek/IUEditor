@@ -145,7 +145,7 @@
 
         //set current value
         for(IUBox *box in self.controller.selectedObjects){
-            [_fontController copyCurrentFontToIUBox:box];
+            [_fontController setCurrentFontToIUBox:box];
         }
         
         //set font name

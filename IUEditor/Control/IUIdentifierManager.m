@@ -76,7 +76,7 @@
     [confirmed removeObjectForKey:identifier];
 }
 
-- (BOOL)replaceFromIdentifier:(NSString *)from toIdentifier:(NSString *)to{
+- (BOOL)replaceIdentifier:(NSString *)from withIdentifier:(NSString *)to{
     id object = confirmed[from];
     if(object){
         [self removeIdentifier:object];

@@ -57,13 +57,13 @@
     if (cell == nil) { //clear selection
         _selectedCell.isSelected = NO;
         _selectedCell = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetSelectionDidChangeNotification object:self.view.window userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:nil];
     }
     else {
         _selectedCell.isSelected = NO;
         cell.isSelected = YES;
         _selectedCell = cell;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetSelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetKey:cell.objectValue[@"name"]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetLibraryKey:cell.objectValue[@"className"]}];
     }
 }
 
@@ -111,13 +111,12 @@
     for (NSString *widgetName in widgetList) {
         Class widgetClass = NSClassFromString(widgetName);
         NSImage *widgetImage = [widgetClass classImage];
-        NSString *name = widgetName;
         NSString *shortDesc = [widgetClass shortDescription];
         
         NSArray *nibObjects;
         [[NSBundle mainBundle] loadNibNamed:@"BBWidgetCellView" owner:self topLevelObjects:&nibObjects];
         BBWidgetLibraryViewCell *widgetViewCell = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
-        widgetViewCell.objectValue = @{@"name":name, @"image":widgetImage, @"shortDesc":shortDesc};
+        widgetViewCell.objectValue = @{@"className":widgetName, @"image":widgetImage, @"shortDesc":shortDesc};
         [widgetCellMutableArray addObject:widgetViewCell];
     }
     

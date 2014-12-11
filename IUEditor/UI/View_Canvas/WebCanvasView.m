@@ -180,41 +180,7 @@
     NSPoint dragPoint = sender.draggingLocation;
     NSPoint convertedPoint = [self convertPoint:dragPoint fromView:nil];
     
-    //type1) newIU
-    NSData *iuData = [pBoard dataForType:(id)kUTTypeIUType];
-    if(iuData){
-        LMWC *lmWC = [NSApp mainWindow].windowController;
-        IUBox *newIU = lmWC.pastedNewIU;
-        if(newIU){
-            NSString *parentIdentifier = [self IdentifierAtPoint:convertedPoint];
-            if(parentIdentifier){//check nil identifier (not html rect)
-                IUBox *parentIU = [self.controller tryIUBoxByIdentifier:parentIdentifier];
-                while(1){
-                    if (parentIU == nil) {
-                        [JDUIUtil hudAlert:@"No parent" second:2];
-                        return NO;
-                    }
-                    if ([parentIU canAddIUByUserInput]) {
-                        break;
-                    }
-                    parentIU = parentIU.parent;
-                }
-                if(parentIU){
-                    NSPoint rountPoint = NSPointMake(round(convertedPoint.x), round(convertedPoint.y));
-                    if ([self.controller makeNewIUByDragAndDrop:newIU atPoint:rountPoint atParentIU:parentIU]){
-                        JDTraceLog( @"[IU:%@], dragPoint(%.1f, %.1f)", newIU.htmlID, dragPoint.x, dragPoint.y);
-                        [self.window makeFirstResponder:self];
-                        return YES;
-                    }
-                }
-                else {
-                    [JDUIUtil hudAlert:@"No parent" second:2];
-                    return NO;
-                }
-            }
-        }
-        return NO;
-    }
+    
     //type2) resourceImage
     NSString *imageName = [pBoard stringForType:(id)kUTTypeIUImageResource];
     if(imageName){

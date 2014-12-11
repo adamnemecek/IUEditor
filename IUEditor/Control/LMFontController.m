@@ -40,7 +40,7 @@ static LMFontController *gFontController = nil;
 
 #pragma mark - current font
 
-- (void)copyCurrentFontToIUBox:(IUBox *)iu{
+- (void)setCurrentFontToIUBox:(IUBox *)iu{
     
     NSString *fontName = iu.liveStyleStorage.fontName;
     if(fontName == nil){

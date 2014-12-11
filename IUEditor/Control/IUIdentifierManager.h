@@ -22,6 +22,6 @@
 - (NSString *)identifierForObject:(id)object;
 - (id)objectForIdentifier:(NSString*)identifier;
 - (void)removeIdentifier:(NSString *)identifier;
-- (BOOL)replaceFromIdentifier:(NSString *)from toIdentifier:(NSString *)to;
+- (BOOL)replaceIdentifier:(NSString *)from withIdentifier:(NSString *)to;
 
 @end

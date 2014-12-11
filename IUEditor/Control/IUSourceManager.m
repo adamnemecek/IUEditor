@@ -147,6 +147,8 @@
         [_compiler editorIUSource:box htmlIDPrefix:nil viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
         [element setOuterHTML:htmlCode];
     }
+    
+    [_webCanvasView runJSAfterRefreshCSS];
 }
 
 
@@ -175,6 +177,8 @@
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         [self updateNonInlineCSSText:cssString withSelector:selector];
     }];
+    
+    [_webCanvasView runJSAfterRefreshCSS];
 
 }
 

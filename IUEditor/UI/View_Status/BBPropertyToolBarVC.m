@@ -55,10 +55,14 @@
     [super viewDidLoad];
 
     //default binding
+    
+    
     //frame
     [self outlet:_xTextField bind:NSValueBinding livePositionStorageProperty:@"x"];
     [self outlet:_yTextField bind:NSValueBinding livePositionStorageProperty:@"y"];
     [self outlet:_wTextField bind:NSValueBinding liveStyleStorageProperty:@"width"];
+    
+//    [_wTextField bind:NSValueBinding toObject:self withKeyPath:@"iuController.selection.liveStyleStorage.width" options:IUBindingDictNotRaisesApplicable];
     [self outlet:_hTextField bind:NSValueBinding liveStyleStorageProperty:@"height"];
     
     [self outlet:_verticalCenterButton bind:NSValueBinding property:@"enableVCenter"];
@@ -88,6 +92,19 @@
     
     
     return percentFrame;
+}
+
+- (NSRect)pixelFrameForIU:(IUBox *)iu{
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", iu.htmlID];
+    id currentValue = [self.jsManager evaluateWebScript:frameJS];
+    NSRect pixelFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                   [[currentValue valueForKey:@"top"] floatValue],
+                                   [[currentValue valueForKey:@"width"] floatValue],
+                                   [[currentValue valueForKey:@"height"] floatValue]
+                                   );
+    
+    
+    return pixelFrame;
 }
 
 - (IBAction)clickUnitButton:(id)sender {
@@ -120,7 +137,28 @@
     }
     //change from percent to pixel
     else{
-        
+        for(IUBox *box in self.iuController.selectedObjects){
+            NSRect pixelFrame = [self pixelFrameForIU:box];
+            [box.livePositionStorage beginTransaction:self];
+            [box.liveStyleStorage commitTransaction:self];
+            
+            
+            if([sender isEqualTo:_xUnitButton]){
+                [box.livePositionStorage setX:@(pixelFrame.origin.x) unit:@(IUFrameUnitPixel)];
+            }
+            else if([sender isEqualTo:_yUnitButton]){
+                [box.livePositionStorage setY:@(pixelFrame.origin.y) unit:@(IUFrameUnitPixel)];
+            }
+            else if([sender isEqualTo:_wUnitButton]){
+                [box.liveStyleStorage setWidth:@(pixelFrame.size.width) unit:@(IUFrameUnitPixel)];
+            }
+            else if([sender isEqualTo:_hUnitButton]){
+                [box.liveStyleStorage setHeight:@(pixelFrame.size.height) unit:@(IUFrameUnitPixel)];
+            }
+            
+            [box.liveStyleStorage commitTransaction:self];
+            [box.livePositionStorage commitTransaction:self];
+        }
     }
 }
 

@@ -143,10 +143,6 @@
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
-    if([key isEqualToString:@"binding"]){
-        return;
-    }
-    
     [self willChangeValueForKey:key];
     id oldValue = [self valueForKey:key];
     if ([oldValue isEqualTo:value]) {
@@ -183,29 +179,6 @@
     return [_storage valueForKey:key];
 }
 
-- (id)valueForKeyPath:(NSString *)keyPath{
-    if ([keyPath containsString:@"binding"]) {
-        NSString *originalKeyPath = [keyPath substringFromIndex:@"binding.".length];
-        return [super valueForKeyPath:originalKeyPath];
-    }
-    else{
-        return [super valueForKeyPath:keyPath];
-    }
-}
-
-- (void)setValue:(id)value forKeyPath:(NSString *)keyPath{
-    if ([keyPath containsString:@"binding"]) {
-        //connect directly with outlet :  binding.property
-        NSString *originalKeyPath = [keyPath substringFromIndex:@"binding.".length];
-        [self beginTransaction:self];
-        [super setValue:value forKeyPath:originalKeyPath];
-        [self commitTransaction:self];
-    }
-    else{
-        [super setValue:value forKeyPath:keyPath];
-    }
-}
-
 - (NSDictionary*)dictionary{
     return [_storage copy];
 }
@@ -224,6 +197,8 @@
 
 - (void)commitTransaction:(id)sender{
     _transactionLevel--;
+    
+    NSAssert(_transactionLevel >= 0, @"transactionLevel is smaller than 0");
     
     if(_transactionLevel == 0){
         [self.manager.undoManager beginUndoGrouping];

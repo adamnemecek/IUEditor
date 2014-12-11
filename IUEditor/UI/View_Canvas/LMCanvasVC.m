@@ -21,6 +21,7 @@
 
 #import "LMHelpWC.h"
 #import "LMFontController.h"
+#import "IUDocumentProtocol.h"
 
 @interface LMCanvasVC ()
 
@@ -248,6 +249,40 @@
 
 #pragma mark - Manage IUs
 
+- (IUIdentifierManager *)identifierManager{
+    return [((id<IUDocumentProtocol>)[[[self.view window] windowController] document]) identifierManager];
+}
+
+- (void)makeNewIUWithClassName:(NSString *)className atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
+    //Distance
+    NSString *currentIdentifier;
+    if (self.controller.importIUInSelectionChain){
+        currentIdentifier =  [self.controller.importIUInSelectionChain modifieldHtmlIDOfChild:parentIU];
+    }
+    else{
+        currentIdentifier = parentIU.htmlID;
+    }
+    
+    //postion을 먼저 정한 후에 add 함
+    IUBox *newIU = [[NSClassFromString(className) alloc] initWithPreset];
+    [self.identifierManager createAndRegisterIdentifierWithObject:newIU];
+    
+    NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
+    
+    if ([newIU canChangeXByUserInput]) {
+        [newIU.currentPositionStorage setX:@(position.x) unit:@(IUFrameUnitPixel)];
+    }
+    if([newIU canChangeYByUserInput]){
+        [newIU.currentPositionStorage setY:@(position.y) unit:@(IUFrameUnitPixel)];
+    }
+    
+    [parentIU addIU:newIU error:nil];
+    
+    [self.controller setSelectedObject:newIU];
+    
+    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);
+}
+
 - (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
     
     //Distance
@@ -270,7 +305,6 @@
     }
     
     [parentIU addIU:newIU error:nil];
-    [newIU confirmIdentifier];
     
     [self.controller setSelectedObject:newIU];
     
@@ -629,7 +663,7 @@
     if(iu){
         
         if(element.innerText && [element.innerText stringByTrim].length > 0){
-            [[LMFontController sharedFontController] copyCurrentFontToIUBox:iu];
+            [[LMFontController sharedFontController] setCurrentFontToIUBox:iu];
             iu.livePropertyStorage.innerHTML = element.innerHTML;
         }
         else{

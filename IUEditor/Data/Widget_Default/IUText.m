@@ -79,6 +79,10 @@
 
 #pragma mark - properties
 
+- (BOOL)canAddIUByUserInput{
+    return NO;
+}
+
 - (IUTextInputType)textInputType{
     if(self.pgContentVariable && self.pgContentVariable.length > 0){
         return IUTextInputTypeAddible;

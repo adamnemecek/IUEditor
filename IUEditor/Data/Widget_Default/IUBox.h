@@ -215,7 +215,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 #pragma mark - IU Setting
 
-- (void)confirmIdentifier;
+- (void)confirmIdentifier __deprecated;
 
 
 

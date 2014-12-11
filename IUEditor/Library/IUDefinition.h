@@ -50,17 +50,18 @@ typedef enum _IUUnit{
 
 /******************************
  
- Notification deifinition
+ Notification definition
  
  *******************************/
-extern NSString *const IUWidgetSelectionDidChangeNotification;  // called at widget library
-extern NSString *const IUWidgetKey;
+extern NSString *const IUWidgetLibrarySelectionDidChangeNotification;  // called at widget library
+extern NSString *const IUWidgetLibraryKey;
 
 extern NSString *const IUKey;
 extern NSString *const IUValue;
 
 extern NSString *const IUCompleTypeHTML;
 extern NSString *const IUCompleTypeDjango;
+
 
 
 #endif

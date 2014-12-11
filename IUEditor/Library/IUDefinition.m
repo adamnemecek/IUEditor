@@ -7,8 +7,8 @@
 //
 
 
-NSString *const IUWidgetSelectionDidChangeNotification = @"IUWidgetSelectionDidChangeNotification";
-NSString *const IUWidgetKey = @"selectedWidget";
+NSString *const IUWidgetLibrarySelectionDidChangeNotification = @"IUWidgetSelectionDidChangeNotification";
+NSString *const IUWidgetLibraryKey = @"selectedWidget";
 
 NSString *const IUKey = @"key";
 NSString *const IUValue = @"value";
