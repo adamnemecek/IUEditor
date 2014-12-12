@@ -58,6 +58,7 @@
 }
 
 - (void)dealloc {
+    [self unbind:@"text"];
     [self removeObserver:self forKeyPath:@"text"];
 }
 
