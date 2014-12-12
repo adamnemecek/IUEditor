@@ -27,7 +27,7 @@
 #pragma mark - class attributes
 
 + (NSImage *)navigationImage{
-    return [NSImage imageNamed:@"ic_background"];
+    return [NSImage imageNamed:@"ic_page"];
 }
 
 

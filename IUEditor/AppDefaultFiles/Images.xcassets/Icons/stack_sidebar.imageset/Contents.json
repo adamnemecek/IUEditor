@@ -3,16 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_section.png"
+      "filename" : "stack_sidebar.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_section@2x.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "stack_sidebar@2x.png"
     }
   ],
   "info" : {
