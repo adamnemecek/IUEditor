@@ -26,27 +26,16 @@
                                 <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="fillColor" red="0.23529411759999999" green="0.47058823529999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                             </box>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" alphaValue="0.60000000000000009" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-fX-Qnf" userLabel="WidgetIcon">
-                                <rect key="frame" x="14" y="13" width="30" height="22"/>
-                                <contentFilters>
-                                    <ciFilter name="CIFalseColor">
-                                        <configuration>
-                                            <ciColor key="inputColor0" red="1" green="1" blue="1" alpha="1"/>
-                                            <ciColor key="inputColor1" red="1" green="1" blue="1" alpha="1"/>
-                                            <null key="inputImage"/>
-                                        </configuration>
-                                    </ciFilter>
-                                </contentFilters>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-fX-Qnf" userLabel="WidgetIcon">
+                                <rect key="frame" x="5" y="1" width="48" height="48"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="tool_view" id="fzl-l5-9Zt"/>
                             </imageView>
                         </subviews>
                     </view>
                     <constraints>
                         <constraint firstItem="Mzd-4i-GdP" firstAttribute="leading" secondItem="o9O-2a-otp" secondAttribute="leading" id="3Lq-7Y-eVe"/>
-                        <constraint firstItem="UZW-fX-Qnf" firstAttribute="centerX" secondItem="o9O-2a-otp" secondAttribute="centerX" id="55A-Is-T07"/>
                         <constraint firstAttribute="trailing" secondItem="Mzd-4i-GdP" secondAttribute="trailing" id="8dC-a8-h1r"/>
                         <constraint firstAttribute="bottom" secondItem="Mzd-4i-GdP" secondAttribute="bottom" id="8g3-8v-5gJ"/>
-                        <constraint firstItem="UZW-fX-Qnf" firstAttribute="centerY" secondItem="o9O-2a-otp" secondAttribute="centerY" id="eH1-Ti-6Wp"/>
                         <constraint firstItem="Mzd-4i-GdP" firstAttribute="top" secondItem="o9O-2a-otp" secondAttribute="top" id="sBx-MW-M0t"/>
                     </constraints>
                     <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,6 +52,6 @@
         </tableCellView>
     </objects>
     <resources>
-        <image name="tool_view" width="30" height="22"/>
+        <image name="tool_view" width="34" height="34"/>
     </resources>
 </document>
