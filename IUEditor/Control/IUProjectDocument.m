@@ -32,10 +32,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 - (id)init{
     self = [super init];
-    if(self){
-        //allocation identifiermanager
-        _identifierManager = [[IUIdentifierManager alloc] init];
-        
+    if(self){        
         //allocation resource root
         _resourceRootItem = [[IUResourceRootItem alloc] init];
         _resourceFileWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil];
@@ -79,9 +76,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
     if(self){
         //FIXME:
         //projectType은 nsuserdefault로 넘겨받아야함.
-        IUProject *newProject = [[NSClassFromString(@"IUProject") alloc] initForUntitledDocument];
-        _project = newProject;
-        
+        _project = [[NSClassFromString(@"IUProject") alloc] initForUntitledDocument];
         NSString *resourceTempPath = [self resourceTemporaryPath];
         [[NSFileManager defaultManager] createDirectoryAtPath:resourceTempPath withIntermediateDirectories:YES attributes:nil error:nil];
         [_resourceRootItem loadFromPath:resourceTempPath];

@@ -252,9 +252,10 @@
     defaultStorage.manager = self;
     
     self.maxViewPort = IUDefaultViewPort;
+    [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
+    
     self.currentViewPort = IUDefaultViewPort;
     
-    [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
 
     [self setDefaultProperties];
 
@@ -269,11 +270,11 @@
         IUDataStorage *defaultStorage = [self newStorage];
         defaultStorage.manager = self;
         
-        
         self.maxViewPort = IUDefaultViewPort;
+        [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
+        
         self.currentViewPort = IUDefaultViewPort;
         
-        [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
         _defaultStorage = defaultStorage;
         
         [self setDefaultProperties];

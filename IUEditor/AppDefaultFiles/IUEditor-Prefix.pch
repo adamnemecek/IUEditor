@@ -100,7 +100,7 @@
 #define IUNotificationStructureChangedIU @"ChangedIU"
 
 
-
+#define IUNotificationNewIUCreatedByCanvas @"IUNotificationNewIUCreatedByCanvas"
 #define IUNotificationDoubleClickCanvas @"IUNotificationDoubleClickCanvas"
 
 //called when media query is changed, usually occured by addsize, removesize, selectsize

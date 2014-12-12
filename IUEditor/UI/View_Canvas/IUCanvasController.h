@@ -31,7 +31,7 @@
 
 //call by webView
 - (void)webViewdidFinishLoadFrame;
-- (void)makeNewIUWithClassName:(NSString *)className atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU;
+- (BOOL)makeNewIUWithClassName:(NSString *)className withFrame:(NSRect)frame atParentIU:(IUBox *)parentIU;
 - (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU __deprecated;
 -(void)changeIUPageHeight:(CGFloat)pageHeight;
 - (CGFloat)heightOfCanvas;

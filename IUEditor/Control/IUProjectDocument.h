@@ -21,7 +21,6 @@
 /* IUDocumentProtocol */
 @property IUResourceRootItem *resourceRootItem;
 @property IUSourceManager *sourceManager;
-@property IUIdentifierManager *identifierManager;
 
 - (BBWC *)butterflyWindowController;
 

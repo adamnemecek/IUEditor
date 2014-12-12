@@ -41,13 +41,27 @@
     [_widgetTypePopUpButton bind:NSContentBinding toObject:self withKeyPath:@"namesOfWidgetTypes" options:IUBindingDictNotRaisesApplicable];
     [_widgetTypePopUpButton selectItemWithTitle:@"All"];
     [self reloadWidgets];
+    
+    //add observer
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deselectCurrentWidget:) name:IUNotificationNewIUCreatedByCanvas object:self.view.window];
 
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)reloadWidgets{
     [self makeWidgetCells];
     [self.tableView reloadData];
     [self.tableView deselectAll:self];
+}
+
+/* notification called by canvas after make iu*/
+- (void)deselectCurrentWidget:(NSNotification *)notification{
+    [_tableView deselectAll:self];
+    _selectedCell.isSelected = NO;
+    _selectedCell = nil;
 }
 
 - (IBAction)clickWidgetLibraryTableView:(id)sender {

@@ -183,7 +183,6 @@
         self.currentViewPort = IUDefaultViewPort;
 
         //setting for css
-        self.defaultStyleStorage.bgColor = [NSColor randomLightMonoColor];
         self.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
 
         [self.undoManager enableUndoRegistration];

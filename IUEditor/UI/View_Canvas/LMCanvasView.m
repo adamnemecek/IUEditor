@@ -12,7 +12,7 @@
 
 @implementation LMCanvasView{
     /* current state of mouse + current state of iu (extend or move)*/
-    BOOL isMouseDragForIU, isDragForMultipleSelection, isMouseDownForMoveIU;
+    BOOL _isMouseDragForIU, _isDragForMultipleSelection, _isMouseDownForMoveIU, _isMouseDownForNewIU;
     NSPoint startDragPoint, middleDragPoint, endDragPoint;
     NSUInteger keyModifierFlags;
     CGFloat zoomFactor, oldLeft;
@@ -391,8 +391,22 @@
     return NO;
 }
 
+- (NSString *)identifierAtPoint:(NSPoint)point{
+    NSString *identifier = [self.webView IdentifierAtPoint:point];
+    
+    //webview에서 발견 못하면 gridView에서 한번더 체크
+    //media query 에서 보이지 않는 iu를 위해서 체크함.
+    if(identifier == nil){
+        identifier = [self.gridView identifierAtPoint:point];
+    }
+    return identifier;
+}
+
+
+
 
 -(void)receiveMouseEvent:(NSEvent *)theEvent{
+    //make current position
     NSPoint originalPoint = [theEvent locationInWindow];
     NSPoint filpConvertedPoint = [self.mainView convertPoint:originalPoint fromView:nil];
     CGFloat zoom = self.gridView.layer.affineTransform.a;
@@ -402,67 +416,30 @@
     NSPoint convertedScrollPoint = [self.mainScrollView convertPoint:originalPoint fromView:nil];
     NSView *hitView = [self.gridView hitTest:filpConvertedPoint];
     
+  
+    /*
+     if hitView is gridview, resize iu
+     else, LMCanvasView manage move, make newIU, select ius, enable/disable text mode
+     */
     if([hitView isKindOfClass:[GridView class]] == NO){
         if( [self pointInScrollView:convertedScrollPoint]){
-            if ( theEvent.type == NSLeftMouseDown
-                && ([self.webView isTextEditorAtPoint:centerConvertedPoint] == NO)){
+            
+            /* mouse down */
+            if ( theEvent.type == NSLeftMouseDown && ([self.webView isTextEditorAtPoint:centerConvertedPoint] == NO)){
                 JDTraceLog( @"mouse down");
-                
-                isMouseDownForMoveIU = YES;
-                NSString *clickedIdentifier = [self.webView IdentifierAtPoint:centerConvertedPoint];
-                
-                //webview에서 발견 못하면 gridView에서 한번더 체크
-                //media query 에서 보이지 않는 iu를 위해서 체크함.
-                if(clickedIdentifier == nil){
-                    clickedIdentifier = [self.gridView identifierAtPoint:centerConvertedPoint];
-                }
-                
+                NSString *clickedIdentifier = [self identifierAtPoint:centerConvertedPoint];
                 if(clickedIdentifier == nil){
                     return;
                 }
                 
                 if (theEvent.clickCount == 1){
-                    if( [theEvent modifierFlags] & NSCommandKeyMask ){
-                        //이미 select되어 있으면 deselect
-                        if( [self.controller containsIdentifier:clickedIdentifier] ){
-                            [self.controller deselectedIdentifier:clickedIdentifier];
-                        }
-                        else{
-                            [self.controller addSelectedIdentifier:clickedIdentifier];
-                        }
-                    }
-                    else{
-                        //다른 iu를 선택하는 순간 editing mode out
-                        if([self isDifferentIdentifier:clickedIdentifier]){
-                            [self.controller disableTextEditor];
-                            
-                        }
-                        
-                        //현재 셀렉된 위젯 라이브러리가 있으면, 새로운 iu를 만들어냄
-                        if(_selectedWidgetClassName){
-                            IUBox *parentIU = [self parentIUWithClickedIdentifier:clickedIdentifier];
-                            [self.controller makeNewIUWithClassName:_selectedWidgetClassName atPoint:centerConvertedPoint atParentIU:parentIU];
-                        }
-                        //셀력된 위젯 라이브러리가 없으면, iu selection으로 받아들임
-                        else{
-                            if([self.controller containsIdentifier:clickedIdentifier] == NO || [self.controller countOfSelectedIUs] == 1){
-                                [self.controller setSelectedIdentifier:clickedIdentifier];
-                            }
-                        }
-                    }
-                    
-                    
-                    //if mouse down on text, it assumes for text selection
-                    if(clickedIdentifier && [self.controller isEnableTextEditor]){
-                        isMouseDownForMoveIU = NO;
-                    }
-                    
-                    
+                    [self mouseDownAtOnce:theEvent withClickedIdentifier:clickedIdentifier];
                     startDragPoint = centerConvertedPoint;
                     middleDragPoint = startDragPoint;
                 }
+                
                 //change editable mode
-                if(theEvent.clickCount ==2){
+                if(theEvent.clickCount == 2){
                     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationDoubleClickCanvas object:self.window];
                     [self.controller enableTextEditorForSelectedIU];
                 }
@@ -473,11 +450,12 @@
             JDTraceLog( @"mouse dragged");
             endDragPoint = centerConvertedPoint;
             
-            if([theEvent modifierFlags] & NSCommandKeyMask ){
+            //multiple select or draw new IU
+            if(([theEvent modifierFlags] & NSCommandKeyMask )|| _isMouseDownForNewIU){
                 [self selectWithDrawRect];
-                isMouseDownForMoveIU = NO;
+                _isMouseDownForMoveIU = NO;
             }
-            if(isMouseDownForMoveIU){
+            if(_isMouseDownForMoveIU){
                 [self moveIUByDragging:theEvent];
             }
             
@@ -486,31 +464,92 @@
         /* mouse up */
         else if ( theEvent.type == NSLeftMouseUp ){
             JDTraceLog( @"NSLeftMouseUp");
-            [self clearMouseMovement];
-            
+            [self mouseUp:theEvent withConvertedPoint:centerConvertedPoint];
         }
     }
     
-    if(isDragForMultipleSelection){
+    if(_isDragForMultipleSelection || _isMouseDownForNewIU){
         [[NSCursor crosshairCursor] push];
     }
+
 }
 
 
 #pragma mark -
 #pragma mark handle mouse event
 
+- (void)selectMultipleIUWithClieckedIdentifier:(NSString *)identifier{
+    //이미 select되어 있으면 deselect
+    if( [self.controller containsIdentifier:identifier] ){
+        [self.controller deselectedIdentifier:identifier];
+    }
+    else{
+        [self.controller addSelectedIdentifier:identifier];
+    }
+}
+
+- (void)mouseDownAtOnce:(NSEvent *)theEvent withClickedIdentifier:(NSString *)clickedIdentifier{
+    //multiple selection
+    if( [theEvent modifierFlags] & NSShiftKeyMask ){
+        [self selectMultipleIUWithClieckedIdentifier:clickedIdentifier];
+    }
+    else{
+        //다른 iu를 선택하는 순간 editing mode out
+        if([self isDifferentIdentifier:clickedIdentifier]){
+            [self.controller disableTextEditor];
+            
+        }
+        
+        //현재 셀렉된 위젯 라이브러리가 있으면, 새로운 iu를 만들어냄
+        if(_selectedWidgetClassName){
+            _isMouseDownForNewIU = YES;
+        }
+        //셀력된 위젯 라이브러리가 없으면, iu selection으로 받아들임
+        else{
+            if([self.controller containsIdentifier:clickedIdentifier] == NO || [self.controller countOfSelectedIUs] == 1){
+                [self.controller setSelectedIdentifier:clickedIdentifier];
+            }
+            _isMouseDownForMoveIU = YES;
+        }
+    }
+    
+    //double check : if mouse down on text, it assumes for text selection
+    if(clickedIdentifier && [self.controller isEnableTextEditor]){
+        _isMouseDownForMoveIU = NO;
+    }
+}
+
+/* mouse Up */
+- (void)mouseUp:(NSEvent *)theEvent withConvertedPoint:(NSPoint)centerConvertedPoint{
+    if(_isMouseDownForNewIU){
+        NSString *identifier = [self identifierAtPoint:centerConvertedPoint];
+        IUBox *parentIU = [self parentIUWithIdentifier:identifier];
+        NSSize size = NSMakeSize(centerConvertedPoint.x - startDragPoint.x, centerConvertedPoint.y - startDragPoint.y);
+        BOOL result =  [self.controller makeNewIUWithClassName:_selectedWidgetClassName withFrame:NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height) atParentIU:parentIU];
+        
+        if(result){
+            _selectedWidgetClassName = nil;
+            [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationNewIUCreatedByCanvas object:self.window];
+            
+        }
+    }
+    [self clearMouseMovement];
+}
+
+/** 
+ dragging start from grid view turn off canvas view dragging.
+ prevent racing condition
+ */
 - (void)startDraggingFromGridView{
-    //turn off canvas view dragging.
     [self clearMouseMovement];
 }
 
 - (void)moveIUByDragging:(NSEvent *)theEvent{
-    if(isMouseDragForIU == NO){
+    if(_isMouseDragForIU == NO){
         //처음 스타트할때 tansaction 시작
         [self.controller startFrameMoveWithTransaction:self];
     }
-    isMouseDragForIU = YES;
+    _isMouseDragForIU = YES;
     NSPoint totalPoint = NSMakePoint(endDragPoint.x-startDragPoint.x, endDragPoint.y-startDragPoint.y);
     NSPoint diffPoint = NSMakePoint(endDragPoint.x-middleDragPoint.x, endDragPoint.y-middleDragPoint.y);
     
@@ -529,31 +568,40 @@
 }
 
 - (void)selectWithDrawRect{
-    isDragForMultipleSelection = YES;
+    if(_selectedWidgetClassName){
+        _isMouseDownForNewIU = YES;
+    }
+    else{
+        _isDragForMultipleSelection = YES;
+    }
     
     NSSize size = NSMakeSize(endDragPoint.x-startDragPoint.x, endDragPoint.y-startDragPoint.y);
     NSRect selectFrame = NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height);
     
     [self.gridView drawSelectionLayer:selectFrame];
-    [self.controller setSelectIUsInRect:selectFrame];
+    
+    if(_isDragForMultipleSelection){
+        [self.controller setSelectIUsInRect:selectFrame];
+    }
 }
 
 - (void)clearMouseMovement{
     [self.gridView clearGuideLine];
     
-    if(isMouseDownForMoveIU){
-        isMouseDownForMoveIU = NO;
+    if(_isMouseDownForMoveIU){
+        _isMouseDownForMoveIU = NO;
     }
-    if(isMouseDragForIU){
-        isMouseDragForIU = NO;
+    if(_isMouseDragForIU){
+        _isMouseDragForIU = NO;
         [self.controller endFrameMoveWithTransaction:self];
     }
-    if(isDragForMultipleSelection){
-        isDragForMultipleSelection = NO;
+    if(_isDragForMultipleSelection || _isMouseDownForNewIU){
+        _isDragForMultipleSelection = NO;
+        _isMouseDownForNewIU = NO;
+        
         [NSCursor pop];
         [self.gridView resetSelectionLayer];
     }
-
 }
 
 #pragma mark - make new IU
@@ -564,7 +612,7 @@
     _selectedWidgetClassName = [notification.userInfo objectForKey:IUWidgetLibraryKey];
 }
 
-- (IUBox *)parentIUWithClickedIdentifier:(NSString *)identifier{
+- (IUBox *)parentIUWithIdentifier:(NSString *)identifier{
     IUBox *parentIU = [self.controller tryIUBoxByIdentifier:identifier];
     
     int safeIndex =0;

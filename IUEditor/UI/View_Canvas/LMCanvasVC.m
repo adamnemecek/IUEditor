@@ -250,7 +250,7 @@
 #pragma mark - Manage IUs
 
 
-- (void)makeNewIUWithClassName:(NSString *)className atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
+- (BOOL)makeNewIUWithClassName:(NSString *)className withFrame:(NSRect)frame atParentIU:(IUBox *)parentIU{
     //Distance
     NSString *currentIdentifier;
     if (self.controller.importIUInSelectionChain){
@@ -263,21 +263,30 @@
     //postion을 먼저 정한 후에 add 함
     IUBox *newIU = [[NSClassFromString(className) alloc] initWithPreset];
     
-    NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:point];
+    NSPoint position = [self distanceFromIUIdentifier:currentIdentifier toPointFromWebView:frame.origin];
     
     if ([newIU canChangeXByUserInput]) {
-        [newIU.currentPositionStorage setX:@(position.x) unit:@(IUFrameUnitPixel)];
+        [newIU.defaultPositionStorage setX:@(position.x) unit:@(IUFrameUnitPixel)];
     }
     if([newIU canChangeYByUserInput]){
-        [newIU.currentPositionStorage setY:@(position.y) unit:@(IUFrameUnitPixel)];
+        [newIU.defaultPositionStorage setY:@(position.y) unit:@(IUFrameUnitPixel)];
     }
     
-    [parentIU addIU:newIU error:nil];
+    if([newIU canChangeWidthByUserInput]){
+        [newIU.defaultStyleStorage setWidth:@(frame.size.width) unit:@(IUFrameUnitPixel)];
+    }
+    if([newIU canChangeHeightByUserInput]){
+        [newIU.defaultStyleStorage setHeight:@(frame.size.height) unit:@(IUFrameUnitPixel)];
+    }
+    
+    BOOL result = [parentIU addIU:newIU error:nil];
     
     [self.controller rearrangeObjects];
     [self.controller setSelectedObject:newIU];
     
-    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, point.x, point.y, parentIU.htmlID);
+    JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, position.x, position.y, parentIU.htmlID);
+    
+    return result;
 }
 
 - (BOOL)makeNewIUByDragAndDrop:(IUBox *)newIU atPoint:(NSPoint)point atParentIU:(IUBox *)parentIU{
