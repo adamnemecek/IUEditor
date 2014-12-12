@@ -242,6 +242,8 @@
     //set CanvasVC
     [_mainWindow setCanvasVC:_canvasVC];
     [_propertyToolBarVC setJsManager:_canvasVC];
+    [_imagePropertyVC setJsManager:_canvasVC];
+    
     
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];

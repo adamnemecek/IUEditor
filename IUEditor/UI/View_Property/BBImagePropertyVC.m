@@ -7,6 +7,7 @@
 //
 
 #import "BBImagePropertyVC.h"
+#import "IUImage.h"
 
 @interface BBImagePropertyVC ()
 
@@ -84,16 +85,36 @@
     [self.liveStyleStorage commitTransaction:self];
 }
 
+- (NSSize)getImageSizeAtPath:(NSString *)path{
+    NSString *frameJS = [NSString stringWithFormat:@"getImageSize('%@')", path];
+    id currentValue = [self.jsManager evaluateWebScript:frameJS];
+    NSSize imageSize = NSMakeSize([[currentValue valueForKey:@"width"] floatValue],
+                                   [[currentValue valueForKey:@"height"] floatValue]
+                                   );
+    
+    
+    return imageSize;
+}
+
+
 - (IBAction)clickFitToImageButton:(id)sender {
     
-    //FIXME : connect to js manager
-    NSSize currentImageSize = NSZeroSize;
-    [self.liveStyleStorage beginTransaction:self];
+    for(IUBox *box in self.iuController.selectedObjects){
+        NSString *imagePath;
+        if([box isKindOfClass:[IUImage class]]){
+            imagePath = ((IUImage *)box).imagePath;
+        }
+        else{
+            imagePath = box.liveStyleStorage.imageName;
+        }
+        NSSize currentImageSize = [self getImageSizeAtPath:imagePath];
+        [self.liveStyleStorage beginTransaction:self];
     
-    [self.liveStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];
-    [self.liveStyleStorage setHeight:@(currentImageSize.height) unit:@(IUFrameUnitPixel)];
+        [self.liveStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];
+        [self.liveStyleStorage setHeight:@(currentImageSize.height) unit:@(IUFrameUnitPixel)];
     
-    [self.liveStyleStorage commitTransaction:self];
+        [self.liveStyleStorage commitTransaction:self];
+    }
     
     
 }

@@ -280,17 +280,6 @@ function remakeCollection(){
 	});
 }
 
-
-
-function getImageHeight(imageSrc){
-	var theImage = new Image();
-	theImage.src = imageSrc;
-    
-	// Get accurate measurements from that.
-	var imageHeight = theImage.height;
-	return imageHeight;
-}
-
 function getImageWidth(imageSrc){
 	var theImage = new Image();
 	theImage.src = imageSrc;
@@ -298,6 +287,13 @@ function getImageWidth(imageSrc){
 	// Get accurate measurements from that.
 	var imageWidth = theImage.width;
 	return imageWidth;
+}
+
+function getImageSize(imageSrc){
+    var theImage = new Image();
+    theImage.src = imageSrc;
+    
+    return { width: theImage.width, height: theImage.height};
 }
 
 function getCurrentFrameValue(identifier, frameType){

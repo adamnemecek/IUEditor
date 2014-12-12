@@ -7,10 +7,13 @@
 //
 
 #import "BBDefaultPropertyVC.h"
+#import "BBJSManagerProtocol.h"
 
 /**
  @brief BBImagePropertyVC manages image or background image
  */
 @interface BBImagePropertyVC : BBDefaultPropertyVC <NSTableViewDataSource, NSTableViewDelegate>
+
+@property (weak) id<BBJSManagerProtocol> jsManager;
 
 @end
