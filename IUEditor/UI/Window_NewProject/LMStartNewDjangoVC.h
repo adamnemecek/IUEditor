@@ -10,6 +10,7 @@
 
 @class LMStartNewVC;
 
+__attribute__((deprecated))
 @interface LMStartNewDjangoVC : NSViewController
 @property (weak) NSButton *nextB;
 @property (weak) NSButton *prevB;

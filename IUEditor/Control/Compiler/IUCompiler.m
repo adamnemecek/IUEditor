@@ -781,6 +781,18 @@
     return [jsCompiler jsEventSource:document];
 }
 
+#pragma mark - IUCompilerProtocol
+
+- (BOOL)hasLink:(IUBox *)iu{
+    if([iu isKindOfClass:[PGPageLinkSet class]]
+       || [iu isKindOfClass:[IUMenuBar class]]
+       || [iu isKindOfClass:[IUMenuItem class]]){
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 
 @end

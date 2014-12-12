@@ -10,6 +10,7 @@
 
 #import "IUProject.h"
 
+__attribute__((deprecated))
 @interface LMProjectConvertWC : NSWindowController
 
 

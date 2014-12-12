@@ -23,10 +23,6 @@
 @property IUSourceManager *sourceManager;
 @property IUIdentifierManager *identifierManager;
 
-
-- (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url;
 - (BBWC *)butterflyWindowController;
-
-
 
 @end

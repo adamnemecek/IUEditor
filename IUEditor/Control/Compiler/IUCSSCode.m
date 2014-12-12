@@ -353,7 +353,7 @@
     return nil;
 }
 
-- (NSDictionary*)stringTagDictionaryWithIdentifier:(int)viewport{
+- (NSDictionary*)stringTagDictionaryWithIdentifier:(NSInteger)viewport{
     NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
     NSDictionary *sourceDictWithViewPort = _editorCSSDictWithViewPort;
     NSDictionary *sourceDictWithIdentifier = sourceDictWithViewPort[@(_maxViewPort)];
@@ -403,7 +403,7 @@
     return returnDict;
 }
 
-- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(int)viewport{
+- (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(NSInteger)viewport{
     NSAssert(0, @"not yet coded");
     return nil;
 }

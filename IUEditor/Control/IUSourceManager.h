@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+
 #import "IUSourceManagerProtocol.h"
 #import "WebCanvasView.h"
 
@@ -65,7 +66,6 @@
  Document base path can be replaced by setting project
  */
 - (void)setDocumentBasePath:(NSString*)documentBasePath;
-- (void)setDefaultViewPort:(NSString*)defaultViewPort;
 
 /**
  @Note: setting project will replace document base path
@@ -77,11 +77,12 @@
 @property NSInteger canvasViewWidth;
 
 /* load a sheet */
-- (void)loadIU:(IUBox*)box;
+- (void)loadSheet:(IUSheet *)sheet;
 
 /* called by box */
 - (void)setNeedsUpdateHTML:(IUBox*)box;
 - (void)setNeedsUpdateCSS:(IUBox*)box;
+/* called js by box */
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 - (id)evaluateWebScript:(NSString *)script;
 
@@ -96,7 +97,6 @@
 
 /* build */
 - (BOOL)build:(NSError **)error;
-- (BOOL)builtPath;
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet;
 

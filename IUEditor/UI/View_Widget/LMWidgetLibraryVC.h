@@ -11,6 +11,7 @@
 #import "IUIdentifierManager.h"
 
 @class IUProject;
+__attribute__((deprecated))
 @interface LMWidgetLibraryVC : NSViewController
 
 @property (nonatomic, weak) _binding_ IUController *controller;

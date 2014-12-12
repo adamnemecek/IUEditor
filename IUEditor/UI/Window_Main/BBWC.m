@@ -350,7 +350,7 @@
         IUSheet *sheet = selectedObject;
         [_iuController setContent:sheet];
         [_iuController setSelectedObject:_iuController.firstDeepestBox];
-        [self.sourceManager loadIU:sheet];
+        [self.sourceManager loadSheet:sheet];
         [_canvasVC setSheet:sheet];
         
         _currentSheet = sheet;
@@ -359,7 +359,7 @@
 }
 
 - (void)reloadCurrentSheet:(id)sender{
-    [self.sourceManager loadIU:_currentSheet];
+    [self.sourceManager loadSheet:_currentSheet];
     [_canvasVC setSheet:_currentSheet];
 }
 

@@ -425,7 +425,7 @@
     _selectedNode = (IUSheet*) selectedNode;
     if ([selectedNode isKindOfClass:[IUSheet class]]) {
         
-        [self.sourceManager loadIU:(IUSheet *)selectedNode];
+        [self.sourceManager loadSheet:(IUSheet *)selectedNode];
         
 //        [stackVC setSheet:_selectedNode];
         [canvasVC setSheet:_selectedNode];
@@ -451,7 +451,7 @@
 }
 
 - (IBAction)reloadCurrentDocument:(id)sender{
-    [self.sourceManager loadIU:(IUSheet *)_selectedNode];
+    [self.sourceManager loadSheet:(IUSheet *)_selectedNode];
 }
 
 

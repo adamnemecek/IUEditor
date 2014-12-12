@@ -8,17 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "IUBox.h"
-#import "IUCarousel.h"
 #import "JDCode.h"
-#import "IUCSSCompiler.h"
-#import "IUDefinition.h"
 
 @class IUCSSCode;
 @class IUSheet;
 @class IUPage;
 @class IUWordpressProject;
 
-static NSString * IUCompilerTagOption = @"tag";
+static NSString * const IUCompilerTagOption = @"tag";
 
 @protocol IUCompilerProtocol <NSObject>
 - (BOOL)hasLink:(IUBox *)iu;

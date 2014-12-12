@@ -18,6 +18,7 @@
 
 @class LMWindow;
 
+__attribute__((deprecated))
 @interface LMWC : NSWindowController <NSWindowDelegate, LMFileNaviDelegate>
 
 @property (nonatomic, weak) _binding_ IUSheet *selectedNode;

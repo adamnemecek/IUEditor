@@ -61,11 +61,11 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 
 @interface IUBox : NSObject <NSCopying, JDCoding, IUDataStorageManagerDelegate>{
+    /* children */
     NSMutableArray *_m_children;
+    
+    /* data storage */
     NSMutableDictionary *_m_storageManagerDict;
-    
-    __weak id <IUSourceDelegate> _canvasVC __deprecated;
-    
     IUStyleStorage *_liveStyleStorage;
     IUStyleStorage *_currentStyleStorage;
 }
@@ -214,11 +214,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 
 #pragma mark - IU Setting
-
-- (void)confirmIdentifier __deprecated;
-
-
-
 - (IUTextInputType)textInputType;
 
 

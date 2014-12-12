@@ -10,6 +10,8 @@
 
 @class LMStartNewVC;
 
+
+__attribute__((deprecated))
 @interface LMStartNewWPVC : NSViewController
 @property (weak) NSButton *nextB;
 @property (weak) NSButton *prevB;

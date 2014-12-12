@@ -58,10 +58,6 @@
 
 -(NSUInteger)countOfSelectedIUs;
 
-//call by mqvc
-- (void)enableUpdateJS:(id)sender;
-- (void)disableUpdateJS:(id)sender;
-- (BOOL)isUpdateJSEnabled;
 
 @end
 

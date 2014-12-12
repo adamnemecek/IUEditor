@@ -14,6 +14,7 @@ typedef enum{
     LMStartWCTypeRecent,
 }LMStartWCType;
 
+__attribute__((deprecated))
 @interface LMStartWC : NSWindowController
 
 + (LMStartWC *)sharedStartWindow;

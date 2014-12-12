@@ -7,12 +7,7 @@
 //
 
 #import "IUJSCompiler.h"
-#import "IUSheet.h"
-#import "IUTransition.h"
-#import "IUGoogleMap.h"
-#import "IUCollectionView.h"
-#import "IUPage.h"
-#import "IUMenuBar.h"
+#import "IUBoxes.h"
 
 #import "JDCode.h"
 

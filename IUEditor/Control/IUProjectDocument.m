@@ -123,11 +123,12 @@ static NSString *metaDataIUVersion = @"IUVersion";
     }
     return tempPath;
 }
+/*
 
 - (BOOL)makeNewProjectWithOption:(NSDictionary *)option URL:(NSURL *)url __deprecated{
     if ([option objectForKey:IUProjectKeyConversion]) {
-        /*
-         FIXME: converting
+ 
+        // FIXME: converting
         IUProjectType projectType = [[option objectForKey:IUProjectKeyType] intValue];
         Class projectFactory = NSClassFromString([IUProject stringProjectType:projectType]);
         
@@ -138,7 +139,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         }
         _project = newProject;
         return YES;
-         */
+ 
         return NO;
     }
     
@@ -163,7 +164,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         [projectDict setObject:filePath forKey:IUProjectKeyIUFilePath];
         [projectDict setObject:appName forKey:IUProjectKeyAppName];
         
-        NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        //NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         IUProject *newProject = [[NSClassFromString([IUProject stringProjectType:projectType]) alloc] initForUntitledDocument];
         if(newProject){
 
@@ -187,7 +188,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
         return NO;
     }
 }
-
+*/
 #pragma mark - menu
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem{
@@ -220,7 +221,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)removeWindowController:(NSWindowController *)windowController{
     
     if([windowController isKindOfClass:[BBWC class]]){
-        BBWC *wc = (BBWC *)windowController;
+//        BBWC *wc = (BBWC *)windowController;
 //        [wc prepareDealloc];
     }
     [super removeWindowController:windowController];

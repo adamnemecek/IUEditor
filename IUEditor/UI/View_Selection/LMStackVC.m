@@ -277,6 +277,7 @@
     }
         
     //type1) newIU
+    /*
     NSData *iuData = [pBoard dataForType:(id)kUTTypeIUType];
     if(iuData){
         LMWC *lmWC = [NSApp mainWindow].windowController;
@@ -301,6 +302,7 @@
             return YES;
         }
     }
+     */
     return NO;
     
 }

@@ -13,6 +13,7 @@
 
 @end
 
+__attribute__((deprecated))
 @interface LMStackVC : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, NSControlTextEditingDelegate>
 #if 0
 @property (weak)  IUSheet    *sheet; //set by lmwc

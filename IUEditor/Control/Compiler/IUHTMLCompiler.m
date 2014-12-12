@@ -203,16 +203,6 @@
 
 
 
-- (BOOL)hasLink:(IUBox *)iu{
-    if([iu isKindOfClass:[PGPageLinkSet class]]
-       || [iu isKindOfClass:[IUMenuBar class]]
-       || [iu isKindOfClass:[IUMenuItem class]]){
-        return NO;
-    }
-    
-    return YES;
-}
-
 
 
 #pragma mark - general function

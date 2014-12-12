@@ -99,6 +99,7 @@
 }
 
 - (void)performNext{
+
     if (self.themeDirectory == nil) {
         [JDLogUtil alert:@"Please fill data" title:@"Error"];
         return;
@@ -115,6 +116,7 @@
     
     [(IUProjectController*)[NSDocumentController sharedDocumentController] newDocument:nil withOption:options];
     [self.view.window close];
+
 }
 
 

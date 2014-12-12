@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "IUBox.h"
 #import "IUCSSCode.h"
-
-@class IUCompiler;
-
+#import "IUCompiler.h"
 
 @interface IUCSSCompiler : NSObject
 
@@ -19,7 +17,10 @@
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
 
-//@property IUCompiler *compiler;
+/**
+compiler has common functions to compile iubox
+ */
+@property (nonatomic) id<IUCompilerProtocol> compiler;
 
 @end
 

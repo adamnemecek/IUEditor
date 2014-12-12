@@ -543,7 +543,7 @@
 
 - (void)addMQSize:(NSNotification *)notification{
     
-    NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
+    //NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
     NSInteger oldMaxSize = [[notification.userInfo valueForKey:IUNotificationMQOldMaxSize] integerValue];
     NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
@@ -560,6 +560,7 @@
             [manager setMaxViewPort:maxSize];
         }
     }
+    /*
 
     //max size가 변하면 max css를 현재 css로 카피시킴.
     //960을만들고 1280을 나중에 만들면
@@ -570,12 +571,13 @@
     }
     
     //[_css setMaxViewPort:maxSize];
+     */
     
 }
 
 - (void)removeMQSize:(NSNotification *)notification{
     NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+//    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
     for(IUDataStorageManager *manager in _m_storageManagerDict){
         [manager removeStorageForViewPort:size];
@@ -589,7 +591,7 @@
     [self willChangeValueForKey:@"canChangeHCenter"];
 
     NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+//    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
     
     for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
         [manager setCurrentViewPort:selectedSize];

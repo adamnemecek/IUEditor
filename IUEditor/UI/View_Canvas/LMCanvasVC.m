@@ -795,6 +795,9 @@
         style.cssText = css;
     }
 }
+- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
+    return [[self webCanvasView] callWebScriptMethod:function withArguments:args];
+}
 
 - (id)evaluateWebScript:(NSString *)script{
     return [[self webCanvasView] evaluateWebScript:script];

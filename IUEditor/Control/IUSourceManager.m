@@ -14,6 +14,7 @@
 #import "IUEventVariable.h"
 #import "IUProject.h"
 #import "IUController.h"
+#import "IUCSSCode.h"
 
 
 @interface IUSourceManager () <NSFileManagerDelegate> // delegate copy item
@@ -89,10 +90,10 @@
 }
 
 
-- (void)loadIU:(IUBox*)box {
+- (void)loadSheet:(IUSheet *)sheet{
     NSAssert(_compiler, @"compiler is nil");
     
-    NSString *code = [_compiler editorSource:box viewPort:_viewPort canvasWidth:_canvasViewWidth];
+    NSString *code = [_compiler editorSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webCanvasView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
@@ -180,6 +181,10 @@
     
     [_webCanvasView runJSAfterRefreshCSS];
 
+}
+
+- (void)setNeedsUpdateCSS:(IUBox *)box withIdentifiers:(NSArray *)identifiers{
+    //TODO: 겸치는 set만 동작하게
 }
 
 

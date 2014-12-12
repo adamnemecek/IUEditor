@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+__attribute__((deprecated))
 @interface LMStartNewVC : NSViewController
 - (void)show;
 @end

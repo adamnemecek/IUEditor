@@ -87,7 +87,7 @@ static     IUTestWC *testWC;
     [iuController setContent:page];
     [iuController setSelectedObject:page];
     
-    [manager loadIU:page];
+    [manager loadSheet:page];
     
     BBPropertyToolBarVC *defaultPropertyVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
     defaultPropertyVC.iuController = iuController;

@@ -46,4 +46,9 @@
  */
 - (JDCode *)outputHTMLCode:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix rule:(NSString *)rule cssCodes:(NSDictionary *)codes;
 
+/**
+ compiler has common functions to compile iubox
+ */
+@property (nonatomic) id<IUCompilerProtocol> compiler;
+
 @end
