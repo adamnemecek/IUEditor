@@ -12,6 +12,7 @@
 #import "IUProject.h"
 #import "IUSourceManager.h"
 #import "IUBoxes.h"
+#import "IUProjectDocument.h"
 
 
 @interface IUProject_Test : XCTestCase
@@ -29,19 +30,16 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
 - (void)test_build {
     IUProject *project = [[IUProject alloc] initForUntitledDocument];
+    project.buildPath = [NSTemporaryDirectory() stringByAppendingString:@"testBuild"];
+    
     IUSourceManager *sManager = [[IUSourceManager alloc] init];
     [sManager setProject:project];
     [sManager setCompiler:[[IUCompiler alloc] init]];
     BOOL result = [sManager build:nil];
     XCTAssertTrue(result);
-    
-    /* have every file? */
-    NSString *builtPath = [project absoluteBuildPath];
-    BOOL isDirectory;
-    XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:builtPath isDirectory:&isDirectory]);
-    XCTAssertTrue(isDirectory);
 }
 
 - (void)test_fileItem {
