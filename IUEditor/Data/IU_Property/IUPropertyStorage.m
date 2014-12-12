@@ -11,7 +11,7 @@
 @implementation IUPropertyStorage
 
 
-+ (NSArray *)observingList{
++ (NSArray *)iuDataList{
     return [IUPropertyStorage properties];
 }
 

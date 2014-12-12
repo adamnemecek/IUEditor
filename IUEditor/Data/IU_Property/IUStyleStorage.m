@@ -18,7 +18,7 @@
 @implementation IUStyleStorage {
 }
 
-+ (NSArray *)observingList{
++ (NSArray *)iuDataList{
     return [IUStyleStorage properties];
 }
 

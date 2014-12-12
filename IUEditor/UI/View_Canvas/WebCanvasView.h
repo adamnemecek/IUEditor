@@ -25,6 +25,12 @@
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 - (id)evaluateWebScript:(NSString *)script;
 
+/**
+ update grid frame dictionary after move iu
+ @param array of moved iu's identfier
+ */
+- (void)updateFrameDictionaryWithIdentifiers:(NSArray *)identifiers;
+
 #pragma mark -
 - (NSString *)IdentifierAtPoint:(NSPoint)point;
 - (BOOL)isTextEditorAtPoint:(NSPoint)point;

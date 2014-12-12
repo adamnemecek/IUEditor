@@ -363,6 +363,24 @@
     JDTraceLog( @"reportSharedFrameDict");
 }
 
+
+- (NSRect)gridFrameWithIdentfier:(NSString *)identifier{
+    DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:identifier];
+    NSRect frame = NSMakeRect(element.offsetLeft, element.offsetTop, element.offsetWidth, element.offsetHeight);
+    return frame;
+}
+
+- (void)updateFrameDictionaryWithIdentifiers:(NSArray *)identifiers{
+    NSMutableDictionary *gridFrameDict = [NSMutableDictionary dictionary];
+    
+    for(NSString *identifier in identifiers){
+        NSRect frame = [self gridFrameWithIdentfier:identifier];
+        [gridFrameDict setObject:[NSValue valueWithRect:frame] forKey:identifier];
+    }
+    
+    [self.controller updateGridFrameDictionary:gridFrameDict];
+}
+
 - (void)updateFrameDict{
     //reportFrameDict(after call setIUCSSStyle)
     [self stringByEvaluatingJavaScriptFromString:@"getIUUpdatedFrameThread()"];

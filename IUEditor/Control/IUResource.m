@@ -126,7 +126,7 @@
     NSMutableArray *childrenTemp = [_children mutableCopy];
     NSArray *currentChildrenNames = [_children valueForKey:@"name"];
     
-    [files enumerateObjectsUsingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
+    for(NSURL *url in files){
         NSString *name = [url lastPathComponent];
 
         //check for removed children
@@ -159,12 +159,12 @@
             [_children addObject:item];
         }
         
-    }];
+    };
     /* 남은 파일을 삭제 */
-    [childrenTemp enumerateObjectsUsingBlock:^(IUResourceFileItem *item, NSUInteger idx, BOOL *stop) {
+    for(IUResourceFileItem *item in childrenTemp){
         [[NSFileManager defaultManager] removeItemAtPath:item.absolutePath error:nil];
         [_children removeObject:item];
-    }];
+    };
 }
 
 - (IUResourceFileItem *)resourceFileItemForName:(NSString *)name{

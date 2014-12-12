@@ -419,7 +419,8 @@ static NSString *metaDataIUVersion = @"IUVersion";
                                                        includingPropertiesForKeys:[NSArray arrayWithObject:NSURLNameKey]
                                                                           options:NSDirectoryEnumerationSkipsHiddenFiles
                                                                             error:nil];
-        [files enumerateObjectsUsingBlock:^(NSURL *url, NSUInteger idx, BOOL *stop) {
+
+        for(NSURL *url in files){
             //directory
             NSString *extension = [url pathExtension];
             if([JDFileUtil isImageFileExtension:extension] || [JDFileUtil isMovieFileExtension:extension]){
@@ -427,7 +428,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
                 [resourceWrapper addFileWrapper:childWrapper];
             }
             
-        }];
+        };
         
         return resourceWrapper;
     }

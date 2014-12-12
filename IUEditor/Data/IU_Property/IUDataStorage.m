@@ -43,7 +43,10 @@
 - (NSString *)description {
     return [[super description] stringByAppendingString:[_storage description]];
 }
-+(NSArray *)observingList{
+/**
+@brief iubox에서 사용하는 property list (datastorage 자체의 property와 구분하기 위해서 사용)
+ */
++(NSArray *)iuDataList{
     return nil;
 }
 
@@ -71,8 +74,8 @@
         [self addObserver:self forKeyPaths:storageProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
     }
      */
-    if([[self class] observingList]){
-        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
+    if([[self class] iuDataList]){
+        NSArray *keyPaths = [[[self class] iuDataList] valueForKey:@"name"];
         [self addObserver:self forKeyPaths:keyPaths options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
     }
     
@@ -83,8 +86,8 @@
 
 
 - (void)dealloc{
-    if([[self class] observingList]){
-        NSArray *keyPaths = [[[self class] observingList] valueForKey:@"name"];
+    if([[self class] iuDataList]){
+        NSArray *keyPaths = [[[self class] iuDataList] valueForKey:@"name"];
         for (NSString *keyPath in keyPaths) {
             [self removeObserver:self forKeyPath:keyPath];
         }
@@ -187,6 +190,16 @@
     for (NSString *key in aStorage.storage) {
         if (self.storage[key] == nil) {
             self.storage[key] = aStorage.storage[key];
+        }
+    }
+    
+    NSArray *keyArray = [[[self class] iuDataList] valueForKey:@"name"];
+    for (NSString *key in keyArray){
+        if([self valueForKey:key] == nil){
+            id value = [aStorage valueForKey:key];
+            if(value){
+                [self setValue:value forKey:key];
+            }
         }
     }
 }
