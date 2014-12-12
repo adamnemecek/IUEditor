@@ -66,7 +66,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
     
     /* data storage */
     NSMutableDictionary *_m_storageManagerDict;
-    IUStyleStorage *_liveStyleStorage;
+    IUStyleStorage *_cascadingStyleStorage;
     IUStyleStorage *_currentStyleStorage;
 }
 
@@ -124,21 +124,21 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property BOOL removed; // iu is removed;
 
 @property (readonly) IUStyleStorage *defaultStyleStorage;
-@property (readonly) IUStyleStorage *liveStyleStorage;
+@property (readonly) IUStyleStorage *cascadingStyleStorage;
 @property (readonly) IUStyleStorage *currentStyleStorage;
 
 @property (readonly) IUPositionStorage *defaultPositionStorage;
-@property (readonly) IUPositionStorage *livePositionStorage;
+@property (readonly) IUPositionStorage *cascadingPositionStorage;
 @property (readonly) IUPositionStorage *currentPositionStorage;
 
 @property (readonly) IUPropertyStorage *defaultPropertyStorage;
-@property (readonly) IUPropertyStorage *livePropertyStorage;
+@property (readonly) IUPropertyStorage *cascadingPropertyStorage;
 @property (readonly) IUPropertyStorage *currentPropertyStorage;
 
 
 - (NSArray *)allCSSSelectors;
 - (NSInteger)maxViewPort;
-@property NSInteger currentViewPort;
+@property (nonatomic) NSInteger currentViewPort;
 
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector;
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;

@@ -104,40 +104,36 @@
 
 - (void)bindStorages {
     if (self.defaultStyleManager) {
-        [self bind:@"liveStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cascadingStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"cascadingStorage" options:nil];
         [self bind:@"currentStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
         [self bind:@"defaultStyleStorage" toObject:self.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
     }
     
     if(self.positionManager){
         [self bind:@"currentPositionStorage" toObject:self.positionManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"livePositionStorage" toObject:self.positionManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cascadingPositionStorage" toObject:self.positionManager withKeyPath:@"cascadingStorage" options:nil];
         [self bind:@"defaultPositionStorage" toObject:self.positionManager withKeyPath:@"defaultStorage" options:nil];
         
     }
     
     if(self.propertyManager){
         [self bind:@"currentPropertyStorage" toObject:self.propertyManager withKeyPath:@"currentStorage" options:nil];
-        [self bind:@"livePropertyStorage" toObject:self.propertyManager withKeyPath:@"liveStorage" options:nil];
+        [self bind:@"cascadingPropertyStorage" toObject:self.propertyManager withKeyPath:@"cascadingStorage" options:nil];
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
-    }
-    for (id key in _m_storageManagerDict ) {
-        IUDataStorageManager *manager = _m_storageManagerDict[key];
-        [manager bind:@"currentViewPort" toObject:self withKeyPath:@"currentViewPort" options:nil];
     }
 }
 
 - (void)unbindStorages {
-    [self unbind:@"liveStyleStorage"];
+    [self unbind:@"cascadingStyleStorage"];
     [self unbind:@"currentStyleStorage"];
     [self unbind:@"defaultStyleStorage"];
 
     [self unbind:@"currentPositionStorage"];
-    [self unbind:@"livePositionStorage"];
+    [self unbind:@"cascadingPositionStorage"];
     [self unbind:@"defaultPositionStorage"];
     
     [self unbind:@"currentPropertyStorage"];
-    [self unbind:@"livePropertyStorage"];
+    [self unbind:@"cascadingPropertyStorage"];
     [self unbind:@"defaultPropertyStorage"];
 }
 
@@ -229,6 +225,15 @@
     }
     else {
         return MAX(self.positionManager.maxViewPort, self.defaultStyleManager.maxViewPort);
+    }
+}
+
+- (void)setCurrentViewPort:(NSInteger)currentViewPort{
+    _currentViewPort = currentViewPort;
+    
+    for (id key in [_m_storageManagerDict allKeys] ) {
+        IUDataStorageManager *manager = _m_storageManagerDict[key];
+        manager.currentViewPort = currentViewPort;
     }
 }
 
@@ -341,19 +346,19 @@
         }
         //binding
         if (box.defaultStyleManager) {
-            [box bind:@"liveStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"cascadingStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"cascadingStorage" options:nil];
             [box bind:@"currentStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
             [box bind:@"defaultStyleStorage" toObject:box.defaultStyleManager withKeyPath:@"defaultStorage" options:nil];
         }
         if(box.positionManager){
             [box bind:@"currentPositionStorage" toObject:box.positionManager withKeyPath:@"currentStorage" options:nil];
-            [box bind:@"livePositionStorage" toObject:box.positionManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"cascadingPositionStorage" toObject:box.positionManager withKeyPath:@"cascadingStorage" options:nil];
             [box bind:@"defaultPositionStorage" toObject:box.positionManager withKeyPath:@"defaultStorage" options:nil];
             
         }
         if(box.propertyManager){
             [box bind:@"currentPropertyStorage" toObject:box.propertyManager withKeyPath:@"currentStorage" options:nil];
-            [box bind:@"livePropertyStorage" toObject:box.propertyManager withKeyPath:@"liveStorage" options:nil];
+            [box bind:@"cascadingPropertyStorage" toObject:box.propertyManager withKeyPath:@"cascadingStorage" options:nil];
             [box bind:@"defaultPropertyStorage" toObject:box.propertyManager withKeyPath:@"defaultStorage" options:nil];
         }
         
@@ -1202,8 +1207,8 @@ e.g. 만약 css로 옮긴다면)
 - (BOOL)canChangeHCenter{
 //    if(_positionType == IUPositionTypeFloatLeft || _positionType == IUPositionTypeFloatRight
 //       || _css.editViewPort != IUCSSDefaultViewPort){
-    if([self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
-       || [self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]){
+    if([self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
+       || [self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]){
         return NO;
     }
     return YES;
@@ -1212,8 +1217,8 @@ e.g. 만약 css로 옮긴다면)
 - (BOOL)canChangeVCenter{
 //    if(_positionType == IUPositionTypeAbsolute ||
 //       _positionType == IUPositionTypeFixed){
-    if([self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeAbsolute)]
-       || [self.livePositionStorage.position isEqualToNumber:@(IUPositionTypeFixed)]){
+    if([self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeAbsolute)]
+       || [self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFixed)]){
         return YES;
     }
     return NO;

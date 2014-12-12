@@ -88,7 +88,7 @@ static     IUTestWC *testWC;
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        page.liveStyleStorage.bgColor = [NSColor yellowColor];
+        page.cascadingStyleStorage.bgColor = [NSColor yellowColor];
         [page updateCSS];
 
     }];
@@ -157,10 +157,10 @@ static     IUTestWC *testWC;
         [section addIU:parent error:nil];
         [manager setNeedsUpdateHTML:section];
         
-        [parent.livePositionStorage setX:@(0)];
-        [parent.livePositionStorage setY:@(0)];
-        [parent.liveStyleStorage setWidth:@(100)];
-        [parent.liveStyleStorage setHeight:@(100)];
+        [parent.cascadingPositionStorage setX:@(0)];
+        [parent.cascadingPositionStorage setY:@(0)];
+        [parent.cascadingStyleStorage setWidth:@(100)];
+        [parent.cascadingStyleStorage setHeight:@(100)];
         [manager setNeedsUpdateCSS:parent];
         
         IUBox *child = [[IUBox alloc] initWithPreset];
@@ -176,10 +176,10 @@ static     IUTestWC *testWC;
         //test frame css
         
         
-        [child.livePositionStorage setX:@(0)];
-        [child.livePositionStorage setY:@(0)];
-        [child.liveStyleStorage setWidth:@(50)];
-        [child.liveStyleStorage setHeight:@(50)];
+        [child.cascadingPositionStorage setX:@(0)];
+        [child.cascadingPositionStorage setY:@(0)];
+        [child.cascadingStyleStorage setWidth:@(50)];
+        [child.cascadingStyleStorage setHeight:@(50)];
         
         
         [manager setNeedsUpdateCSS:child];

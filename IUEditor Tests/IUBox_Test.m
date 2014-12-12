@@ -36,7 +36,7 @@
     IUBox *box = [[IUBox alloc] initWithPreset];
     
     XCTAssertEqual([[IUIdentifierManager managerForMainWindow] objectForIdentifier:box.htmlID], box);
-    XCTAssertTrue([box.liveStyleStorage.bgColor isKindOfClass:[NSColor class]]);
+    XCTAssertTrue([box.cascadingStyleStorage.bgColor isKindOfClass:[NSColor class]]);
 }
 
 /* this explain how to use import */
@@ -49,7 +49,7 @@
     import.prototypeClass = class;
     
     XCTAssertEqual(import.prototypeClass, class);
-    XCTAssertEqual(import.liveStyleStorage, class.liveStyleStorage);
+    XCTAssertEqual(import.cascadingStyleStorage, class.cascadingStyleStorage);
 }
 
 /* make page and check every value is in */
@@ -57,7 +57,7 @@
 - (void)test3_page {
     IUClass *class = [[IUClass alloc] initWithPreset:IUClassPresetTypeHeader];
     class.htmlID = @"class";
-    XCTAssertEqual(class.liveStyleStorage.width, @(100));
+    XCTAssertEqual(class.cascadingStyleStorage.width, @(100));
 
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     header.htmlID = @"header";

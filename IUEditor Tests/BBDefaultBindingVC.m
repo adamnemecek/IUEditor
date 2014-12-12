@@ -97,7 +97,7 @@ static     IUTestWC *testWC;
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        page.liveStyleStorage.bgColor = [NSColor yellowColor];
+        page.cascadingStyleStorage.bgColor = [NSColor yellowColor];
         [page updateCSS];
         
     }];

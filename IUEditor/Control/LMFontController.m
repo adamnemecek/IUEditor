@@ -42,12 +42,12 @@ static LMFontController *gFontController = nil;
 
 - (void)setLastUsedFontToIUBox:(IUBox *)iu{
     
-    NSString *fontName = iu.liveStyleStorage.fontName;
+    NSString *fontName = iu.cascadingStyleStorage.fontName;
     if(fontName == nil){
         iu.currentStyleStorage.fontName = _lastUsedFontName;
     }
     
-    NSNumber *fontSize = iu.liveStyleStorage.fontSize;
+    NSNumber *fontSize = iu.cascadingStyleStorage.fontSize;
     if(fontSize == nil){
         iu.currentStyleStorage.fontSize = @(_lastUsedFontSize);
     }    

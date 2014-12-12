@@ -106,70 +106,70 @@
     
     /* binding */
     /* bg */
-    [self outlet:_bgColorWell bind:NSValueBinding liveStyleStorageProperty:@"bgColor"];
-    [self outlet:_gradientStartColor bind:NSValueBinding liveStyleStorageProperty:@"bgGradientStartColor"];
-    [self outlet:_gradientEndColor bind:NSValueBinding liveStyleStorageProperty:@"bgGradientEndColor"];
+    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
+    [self outlet:_gradientStartColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgGradientStartColor"];
+    [self outlet:_gradientEndColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgGradientEndColor"];
     
     /* radius */
-    [self outlet:_radiusSlider bind:NSValueBinding liveStyleStorageProperty:@"borderRadius"];
-    [self outlet:_radiusTextField bind:NSValueBinding liveStyleStorageProperty:@"borderRadius"];
-    [self outlet:_radiusStepper bind:NSValueBinding liveStyleStorageProperty:@"borderRadius"];
+    [self outlet:_radiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
+    [self outlet:_radiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
+    [self outlet:_radiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
     
-    [self outlet:_topLeftRadiusSlider bind:NSValueBinding liveStyleStorageProperty:@"topLeftBorderRadius"];
-    [self outlet:_topLeftRadiusTextField bind:NSValueBinding liveStyleStorageProperty:@"topLeftBorderRadius"];
-    [self outlet:_topLeftRadiusStepper bind:NSValueBinding liveStyleStorageProperty:@"topLeftBorderRadius"];
+    [self outlet:_topLeftRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
+    [self outlet:_topLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
+    [self outlet:_topLeftRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
 
-    [self outlet:_topRightRadiusSlider bind:NSValueBinding liveStyleStorageProperty:@"topRightBorderRadius"];
-    [self outlet:_topRightRadiusTextField bind:NSValueBinding liveStyleStorageProperty:@"topRightBorderRadius"];
-    [self outlet:_topRightRadiusStepper bind:NSValueBinding liveStyleStorageProperty:@"topRightBorderRadius"];
+    [self outlet:_topRightRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
+    [self outlet:_topRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
+    [self outlet:_topRightRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
     
-    [self outlet:_bottomLeftRadiusSlider bind:NSValueBinding liveStyleStorageProperty:@"bottomLeftborderRadius"];
-    [self outlet:_bottomLeftRadiusTextField bind:NSValueBinding liveStyleStorageProperty:@"bottomLeftborderRadius"];
-    [self outlet:_bottomLeftRadiusStepper bind:NSValueBinding liveStyleStorageProperty:@"bottomLeftborderRadius"];
+    [self outlet:_bottomLeftRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
+    [self outlet:_bottomLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
+    [self outlet:_bottomLeftRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
 
-    [self outlet:_bottomRightRadiusSlider bind:NSValueBinding liveStyleStorageProperty:@"bottomRightBorderRadius"];
-    [self outlet:_bottomRightRadiusTextField bind:NSValueBinding liveStyleStorageProperty:@"bottomRightBorderRadius"];
-    [self outlet:_bottomRightRadiusStepper bind:NSValueBinding liveStyleStorageProperty:@"bottomRightBorderRadius"];
+    [self outlet:_bottomRightRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
+    [self outlet:_bottomRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
+    [self outlet:_bottomRightRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
     
     /* border */
-    [self outlet:_borderColorWell bind:NSValueBinding liveStyleStorageProperty:@"borderColor"];
-    [self outlet:_borderSizeTextField bind:NSValueBinding liveStyleStorageProperty:@"borderWidth"];
-    [self outlet:_borderSizeStepper bind:NSValueBinding liveStyleStorageProperty:@"borderWidth"];
+    [self outlet:_borderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"borderColor"];
+    [self outlet:_borderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];
+    [self outlet:_borderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];
 
-    [self outlet:_topBorderColorWell bind:NSValueBinding liveStyleStorageProperty:@"topBorderColor"];
-    [self outlet:_topBorderSizeTextField bind:NSValueBinding liveStyleStorageProperty:@"topBorderWidth"];
-    [self outlet:_topBorderSizeStepper bind:NSValueBinding liveStyleStorageProperty:@"topBorderWidth"];
+    [self outlet:_topBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderColor"];
+    [self outlet:_topBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderWidth"];
+    [self outlet:_topBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderWidth"];
 
-    [self outlet:_leftBorderColorWell bind:NSValueBinding liveStyleStorageProperty:@"leftBorderColor"];
-    [self outlet:_leftBorderSizeTextField bind:NSValueBinding liveStyleStorageProperty:@"leftBorderWidth"];
-    [self outlet:_leftBorderSizeStepper bind:NSValueBinding liveStyleStorageProperty:@"leftBorderWidth"];
+    [self outlet:_leftBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderColor"];
+    [self outlet:_leftBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderWidth"];
+    [self outlet:_leftBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderWidth"];
 
-    [self outlet:_rightBorderColorWell bind:NSValueBinding liveStyleStorageProperty:@"rightBorderColor"];
-    [self outlet:_rightBorderSizeTextField bind:NSValueBinding liveStyleStorageProperty:@"rightBorderWidth"];
-    [self outlet:_rightBorderSizeStepper bind:NSValueBinding liveStyleStorageProperty:@"rightBorderWidth"];
+    [self outlet:_rightBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderColor"];
+    [self outlet:_rightBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderWidth"];
+    [self outlet:_rightBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderWidth"];
 
-    [self outlet:_bottomBorderColorWell bind:NSValueBinding liveStyleStorageProperty:@"bottomBorderColor"];
-    [self outlet:_bottomBorderSizeTextField bind:NSValueBinding liveStyleStorageProperty:@"bottomBorderWidth"];
-    [self outlet:_bottomBorderSizeStepper bind:NSValueBinding liveStyleStorageProperty:@"bottomBorderWidth"];
+    [self outlet:_bottomBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderColor"];
+    [self outlet:_bottomBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderWidth"];
+    [self outlet:_bottomBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderWidth"];
     
     /* shadow */
-    [self outlet:_shadowColorWell bind:NSValueBinding liveStyleStorageProperty:@"shadowColor"];
+    [self outlet:_shadowColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColor"];
     
-    [self outlet:_shadowColorVerticalSlider bind:NSValueBinding liveStyleStorageProperty:@"shadowColorVertical"];
-    [self outlet:_shadowColorVerticalTextField bind:NSValueBinding liveStyleStorageProperty:@"shadowColorVertical"];
-    [self outlet:_shadowColorVerticalStepper bind:NSValueBinding liveStyleStorageProperty:@"shadowColorVertical"];
+    [self outlet:_shadowColorVerticalSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
+    [self outlet:_shadowColorVerticalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
+    [self outlet:_shadowColorVerticalStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
 
-    [self outlet:_shadowColorHorizontalSlider bind:NSValueBinding liveStyleStorageProperty:@"shadowColorHorizontal"];
-    [self outlet:_shadowColorHorizontalTextField bind:NSValueBinding liveStyleStorageProperty:@"shadowColorHorizontal"];
-    [self outlet:_shadowColorHorizontalStepper bind:NSValueBinding liveStyleStorageProperty:@"shadowColorHorizontal"];
+    [self outlet:_shadowColorHorizontalSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
+    [self outlet:_shadowColorHorizontalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
+    [self outlet:_shadowColorHorizontalStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
 
-    [self outlet:_shadowColorSpreadSlider bind:NSValueBinding liveStyleStorageProperty:@"shadowColorSpread"];
-    [self outlet:_shadowColorSpreadTextField bind:NSValueBinding liveStyleStorageProperty:@"shadowColorSpread"];
-    [self outlet:_shadowColorSpreadStepper bind:NSValueBinding liveStyleStorageProperty:@"shadowColorSpread"];
+    [self outlet:_shadowColorSpreadSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
+    [self outlet:_shadowColorSpreadTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
+    [self outlet:_shadowColorSpreadStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
 
-    [self outlet:_shadowColorBlurSlider bind:NSValueBinding liveStyleStorageProperty:@"shadowColorBlur"];
-    [self outlet:_shadowColorBlurTextField bind:NSValueBinding liveStyleStorageProperty:@"shadowColorBlur"];
-    [self outlet:_shadowColorBlurStepper bind:NSValueBinding liveStyleStorageProperty:@"shadowColorBlur"];
+    [self outlet:_shadowColorBlurSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
+    [self outlet:_shadowColorBlurTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
+    [self outlet:_shadowColorBlurStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
 
     
 }
@@ -180,31 +180,31 @@
 #pragma mark - button action
 - (IBAction)clickGradientEnableButton:(id)sender {
     if([sender state] == NSOnState){
-        NSColor *currentBgColor = self.liveStyleStorage.bgColor;
+        NSColor *currentBgColor = self.cascadingStyleStorage.bgColor;
         
-        [self.liveStyleStorage beginTransaction:self];
+        [self.cascadingStyleStorage beginTransaction:self];
         
-        self.liveStyleStorage.bgGradientStartColor = currentBgColor;
-        self.liveStyleStorage.bgGradientEndColor = currentBgColor;
-        self.liveStyleStorage.bgColor = nil;
+        self.cascadingStyleStorage.bgGradientStartColor = currentBgColor;
+        self.cascadingStyleStorage.bgGradientEndColor = currentBgColor;
+        self.cascadingStyleStorage.bgColor = nil;
         
-        [self.liveStyleStorage commitTransaction:self];
+        [self.cascadingStyleStorage commitTransaction:self];
     }
     else{
-        NSColor *currentBgColor = self.liveStyleStorage.bgGradientStartColor;
-        [self.liveStyleStorage beginTransaction:self];
+        NSColor *currentBgColor = self.cascadingStyleStorage.bgGradientStartColor;
+        [self.cascadingStyleStorage beginTransaction:self];
         
-        self.liveStyleStorage.bgGradientStartColor = nil;
-        self.liveStyleStorage.bgGradientEndColor = nil;
-        self.liveStyleStorage.bgColor = currentBgColor;
+        self.cascadingStyleStorage.bgGradientStartColor = nil;
+        self.cascadingStyleStorage.bgGradientEndColor = nil;
+        self.cascadingStyleStorage.bgColor = currentBgColor;
         
-        [self.liveStyleStorage commitTransaction:self];
+        [self.cascadingStyleStorage commitTransaction:self];
 
     }
 }
 
 - (IBAction)clickBGColorClearButton:(id)sender {
-    self.liveStyleStorage.bgColor = nil;
+    self.cascadingStyleStorage.bgColor = nil;
 }
 
 

@@ -51,17 +51,17 @@
     
     //background Image
     //content binding through imageArrayController in xib
-    [self outlet:_bgImageComboBox bind:NSValueBinding liveStyleStorageProperty:@"imageName"];
-    [self outlet:_bgImageSizeSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageSizeType"];
-    [self outlet:_bgImageRepeatPopupButton bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageRepeat"];
-    [self outlet:_bgImageFixedPopupButton bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageAttachment"];
+    [self outlet:_bgImageComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"imageName"];
+    [self outlet:_bgImageSizeSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageSizeType"];
+    [self outlet:_bgImageRepeatPopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageRepeat"];
+    [self outlet:_bgImageFixedPopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageAttachment"];
     
     //bg image position
-    [self outlet:_bgImageHPositionSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageHPosition"];
-    [self outlet:_bgImageVPositionSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"imageVPosition"];
+    [self outlet:_bgImageHPositionSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageHPosition"];
+    [self outlet:_bgImageVPositionSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageVPosition"];
     
-    [self outlet:_bgImageXPositionTextField bind:NSValueBinding liveStyleStorageProperty:@"imageX"];
-    [self outlet:_bgImageYPositionTextField bind:NSValueBinding liveStyleStorageProperty:@"imageY"];
+    [self outlet:_bgImageXPositionTextField bind:NSValueBinding cascadingStyleStorageProperty:@"imageX"];
+    [self outlet:_bgImageYPositionTextField bind:NSValueBinding cascadingStyleStorageProperty:@"imageY"];
     
 }
 
@@ -69,20 +69,20 @@
 
 - (IBAction)clickEnableXYPositionButton:(id)sender {
     
-    [self.liveStyleStorage beginTransaction:self];
+    [self.cascadingStyleStorage beginTransaction:self];
     
     if([sender state] == NSOnState){
         //x,y position을 사용할 경우에는 string position사용하지 않음.(V/H position)
-        self.liveStyleStorage.imageVPosition = nil;
-        self.liveStyleStorage.imageHPosition = nil;
+        self.cascadingStyleStorage.imageVPosition = nil;
+        self.cascadingStyleStorage.imageHPosition = nil;
     }
     else{
         //x,y position을 사용하지 않을 경우에는 지금까지 사용했던 값을 nil로.
-        self.liveStyleStorage.imageX = nil;
-        self.liveStyleStorage.imageY = nil;
+        self.cascadingStyleStorage.imageX = nil;
+        self.cascadingStyleStorage.imageY = nil;
     }
     
-    [self.liveStyleStorage commitTransaction:self];
+    [self.cascadingStyleStorage commitTransaction:self];
 }
 
 - (NSSize)getImageSizeAtPath:(NSString *)path{
@@ -105,15 +105,15 @@
             imagePath = ((IUImage *)box).imagePath;
         }
         else{
-            imagePath = box.liveStyleStorage.imageName;
+            imagePath = box.cascadingStyleStorage.imageName;
         }
         NSSize currentImageSize = [self getImageSizeAtPath:imagePath];
-        [self.liveStyleStorage beginTransaction:self];
+        [self.cascadingStyleStorage beginTransaction:self];
     
-        [self.liveStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];
-        [self.liveStyleStorage setHeight:@(currentImageSize.height) unit:@(IUFrameUnitPixel)];
+        [self.cascadingStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];
+        [self.cascadingStyleStorage setHeight:@(currentImageSize.height) unit:@(IUFrameUnitPixel)];
     
-        [self.liveStyleStorage commitTransaction:self];
+        [self.cascadingStyleStorage commitTransaction:self];
     }
     
     

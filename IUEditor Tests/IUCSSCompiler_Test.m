@@ -37,8 +37,8 @@
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
-    box.livePositionStorage.position = @(IUPositionTypeAbsolute);
-    box.livePositionStorage.x = @(30);
+    box.cascadingPositionStorage.position = @(IUPositionTypeAbsolute);
+    box.cascadingPositionStorage.x = @(30);
 //    box.cssLiveStorage.x = @(30);
 //    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
@@ -49,19 +49,19 @@
 }
 
 - (void)test3_border{
-    box.liveStyleStorage.borderWidth = @(3);
-    box.liveStyleStorage.borderColor = [NSColor yellowColor];
+    box.cascadingStyleStorage.borderWidth = @(3);
+    box.cascadingStyleStorage.borderColor = [NSColor yellowColor];
     
     XCTAssertEqualObjects(box.currentStyleStorage.borderColor, [NSColor yellowColor]);
-    XCTAssertEqualObjects(box.liveStyleStorage.leftBorderColor, [NSColor yellowColor]);
+    XCTAssertEqualObjects(box.cascadingStyleStorage.leftBorderColor, [NSColor yellowColor]);
 
-    box.liveStyleStorage.topBorderColor = nil;
+    box.cascadingStyleStorage.topBorderColor = nil;
     XCTAssertEqualObjects(box.currentStyleStorage.borderColor, NSMultipleValuesMarker);
     XCTAssertEqualObjects(box.currentStyleStorage.leftBorderColor, [NSColor yellowColor]);
     XCTAssertEqualObjects(box.currentStyleStorage.topBorderColor, nil);
     
-    box.liveStyleStorage.shadowColorBlur = @(2);
-    box.liveStyleStorage.shadowColor = [NSColor greenColor];
+    box.cascadingStyleStorage.shadowColorBlur = @(2);
+    box.cascadingStyleStorage.shadowColor = [NSColor greenColor];
     
     IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
@@ -72,12 +72,12 @@
 }
 
 - (void)test4_hover{
-    box.liveStyleStorage.bgColor = [NSColor blueColor];
-    ((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor = [NSColor redColor];
+    box.cascadingStyleStorage.bgColor = [NSColor blueColor];
+    ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor = [NSColor redColor];
     
     
-    XCTAssertEqualObjects(box.liveStyleStorage.bgColor, [NSColor blueColor]);
-    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor, [NSColor redColor]);
+    XCTAssertEqualObjects(box.cascadingStyleStorage.bgColor, [NSColor blueColor]);
+    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor, [NSColor redColor]);
     
     IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
@@ -93,12 +93,12 @@
 }
 
 - (void)test5_font{
-    box.livePropertyStorage.innerHTML = @"test";
-    box.liveStyleStorage.fontName = @"Roboto";
-    box.liveStyleStorage.fontSize = @(13);
-    box.liveStyleStorage.fontColor = [NSColor blueColor];
+    box.cascadingPropertyStorage.innerHTML = @"test";
+    box.cascadingStyleStorage.fontName = @"Roboto";
+    box.cascadingStyleStorage.fontSize = @(13);
+    box.cascadingStyleStorage.fontColor = [NSColor blueColor];
     
-    box.liveStyleStorage.fontAlign = @(IUAlignLeft);
+    box.cascadingStyleStorage.fontAlign = @(IUAlignLeft);
     
     XCTAssertEqualObjects(box.currentStyleStorage.fontName, @"Roboto");
     XCTAssertEqualObjects(box.currentStyleStorage.fontSize, @(13));

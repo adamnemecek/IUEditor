@@ -86,7 +86,7 @@
     
     IUPage *page = [[IUPage alloc] initWithPreset];
 
-    ((IUStyleStorage *)page.liveStyleStorage).bgColor = [NSColor greenColor];
+    ((IUStyleStorage *)page.cascadingStyleStorage).bgColor = [NSColor greenColor];
     [manager loadSheet:page];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -99,7 +99,7 @@
 - (void)test4_cssSourceManager{
     webViewLoadingExpectation = [self expectationWithDescription:@"test4"];
     IUPage *page = [[IUPage alloc] initWithPreset];
-    [page.livePositionStorage setX:@(50)];
+    [page.cascadingPositionStorage setX:@(50)];
     
     [manager loadSheet:page];
     
@@ -109,7 +109,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        [box.liveStyleStorage setWidth:@(100)];
+        [box.cascadingStyleStorage setWidth:@(100)];
         
         [manager setNeedsUpdateCSS:box];
         
@@ -133,7 +133,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        ((IUStyleStorage *)box.hoverStyleManager.liveStorage).bgColor = [NSColor yellowColor];
+        ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor = [NSColor yellowColor];
         
         [manager setNeedsUpdateCSS:box];
         

@@ -104,11 +104,11 @@ typedef enum IUFrameUnit{
 - (NSInteger)viewPortOfStorage:(IUDataStorage*)storage;
 - (IUDataStorage *)storageOfSmallerViewPortOfStorage:(IUDataStorage*)storage;
 - (IUDataStorage *)storageOfBiggerViewPortOfStorage:(IUDataStorage*)storage;
-- (IUDataStorage *)liveStorageForViewPort:(NSInteger)viewPort;
+- (IUDataStorage *)cascadingStorageForViewPort:(NSInteger)viewPort;
 
 @property (readonly) id currentStorage;
 @property (readonly) id defaultStorage;
-@property (readonly) id liveStorage;
+@property (readonly) id cascadingStorage;
 
 - (void)createStorageForViewPort:(NSInteger)viewPort;
 - (void)removeStorageForViewPort:(NSInteger)viewPort;

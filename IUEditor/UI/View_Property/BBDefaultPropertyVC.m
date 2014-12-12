@@ -22,30 +22,30 @@
 
 #pragma mark - binding
 
-- (void)outlet:(id)outlet bind:(NSString *)binding liveStyleStorageProperty:(NSString *)property{
-    [self outlet:outlet bind:binding liveStyleStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property{
+    [self outlet:outlet bind:binding cascadingStyleStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
     
 }
-- (void)outlet:(id)outlet bind:(NSString *)binding livePositionStorageProperty:(NSString *)property{
-    [self outlet:outlet bind:binding livePositionStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property{
+    [self outlet:outlet bind:binding cascadingPositionStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
 }
-- (void)outlet:(id)outlet bind:(NSString *)binding livePropertyStorageProperty:(NSString *)property{
-     [self outlet:outlet bind:binding livePropertyStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property{
+     [self outlet:outlet bind:binding cascadingPropertyStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
 }
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property{
     [self outlet:outlet bind:binding property:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
 }
 
 
-- (void)outlet:(id)outlet bind:(NSString *)binding liveStyleStorageProperty:(NSString *)property options:(NSDictionary *)options{
-    [outlet bind:binding toObject:self withKeyPath:[self pathForLiveStyleStorageProperty:property] options:options];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property options:(NSDictionary *)options{
+    [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingStyleStorageProperty:property] options:options];
     
 }
-- (void)outlet:(id)outlet bind:(NSString *)binding livePositionStorageProperty:(NSString *)property options:(NSDictionary *)options{
-    [outlet bind:binding toObject:self withKeyPath:[self pathForLivePositionStorageProperty:property] options:options];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property options:(NSDictionary *)options{
+    [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingPositionStorageProperty:property] options:options];
 }
-- (void)outlet:(id)outlet bind:(NSString *)binding livePropertyStorageProperty:(NSString *)property options:(NSDictionary *)options{
-     [outlet bind:binding toObject:self withKeyPath:[self pathForLivePropertyStorageProperty:property] options:options];
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property options:(NSDictionary *)options{
+     [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingPropertyStorageProperty:property] options:options];
 }
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property options:(NSDictionary *)options{
     [outlet bind:binding toObject:self withKeyPath:[self pathForProperty:property] options:options];
@@ -53,14 +53,14 @@
 
 #pragma mark - keyPath
 
-- (NSString *)pathForLiveStyleStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.liveStyleStorage." stringByAppendingString:property];
+- (NSString *)pathForCascadingStyleStorageProperty:(NSString *)property{
+    return [@"self.iuController.selection.cascadingStyleStorage." stringByAppendingString:property];
 }
-- (NSString *)pathForLivePositionStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.livePositionStorage." stringByAppendingString:property];
+- (NSString *)pathForCascadingPositionStorageProperty:(NSString *)property{
+    return [@"self.iuController.selection.cascadingPositionStorage." stringByAppendingString:property];
 }
-- (NSString *)pathForLivePropertyStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.livePropertyStorage." stringByAppendingString:property];
+- (NSString *)pathForCascadingPropertyStorageProperty:(NSString *)property{
+    return [@"self.iuController.selection.cascadingPropertyStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForProperty:(NSString *)property{
     return [@"self.iuController.selection." stringByAppendingString:property];
@@ -68,14 +68,14 @@
 
 #pragma mark - storage 
 
-- (IUStyleStorage *)liveStyleStorage{
-    return [self valueForKeyPath:@"self.iuController.selection.liveStyleStorage"];
+- (IUStyleStorage *)cascadingStyleStorage{
+    return [self valueForKeyPath:@"self.iuController.selection.cascadingStyleStorage"];
 }
-- (IUPositionStorage *)livePositionStorage{
-    return [self valueForKeyPath:@"self.iuController.selection.livePositionStorage"];
+- (IUPositionStorage *)cascadingPositionStorage{
+    return [self valueForKeyPath:@"self.iuController.selection.cascadingPositionStorage"];
 }
-- (IUPropertyStorage *)livePropertyStorage{
-     return [self valueForKeyPath:@"self.iuController.selection.livePropertyStorage"];
+- (IUPropertyStorage *)cascadingPropertyStorage{
+     return [self valueForKeyPath:@"self.iuController.selection.cascadingPropertyStorage"];
 }
 
 

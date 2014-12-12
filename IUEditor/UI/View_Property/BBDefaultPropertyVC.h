@@ -17,21 +17,21 @@
 @property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
 
 
-//binding to liveStorageProperty or default property of selected iubox
-- (void)outlet:(id)outlet bind:(NSString *)binding liveStyleStorageProperty:(NSString *)property;
-- (void)outlet:(id)outlet bind:(NSString *)binding livePositionStorageProperty:(NSString *)property;
-- (void)outlet:(id)outlet bind:(NSString *)binding livePropertyStorageProperty:(NSString *)property;
+//binding to cascadingStorageProperty or default property of selected iubox
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property;
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property;
 
 
-- (void)outlet:(id)outlet bind:(NSString *)binding liveStyleStorageProperty:(NSString *)property options:(NSDictionary *)options;
-- (void)outlet:(id)outlet bind:(NSString *)binding livePositionStorageProperty:(NSString *)property options:(NSDictionary *)options;
-- (void)outlet:(id)outlet bind:(NSString *)binding livePropertyStorageProperty:(NSString *)property options:(NSDictionary *)options;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property options:(NSDictionary *)options;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property options:(NSDictionary *)options;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property options:(NSDictionary *)options;
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property options:(NSDictionary *)options;
 
-//get liveStorage
-- (IUStyleStorage *)liveStyleStorage;
-- (IUPositionStorage *)livePositionStorage;
-- (IUPropertyStorage *)livePropertyStorage;
+//get cascadingStorage
+- (IUStyleStorage *)cascadingStyleStorage;
+- (IUPositionStorage *)cascadingPositionStorage;
+- (IUPropertyStorage *)cascadingPropertyStorage;
 
 @end

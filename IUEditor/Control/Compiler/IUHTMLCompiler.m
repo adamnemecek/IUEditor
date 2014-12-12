@@ -527,7 +527,7 @@
             /* following code assumes propertyManager.currentViewPort should be equal parameter viewPort */
             NSAssert(viewPort == textIU.propertyManager.currentViewPort, @"not equal");
             
-            if(textIU.livePropertyStorage.innerHTML && textIU.livePropertyStorage.innerHTML.length > 0){
+            if(textIU.cascadingPropertyStorage.innerHTML && textIU.cascadingPropertyStorage.innerHTML.length > 0){
                 [code increaseIndentLevelForEdit];
                 [code addCodeLine:textIU.currentPropertyStorage.innerHTML];
                 [code decreaseIndentLevelForEdit];

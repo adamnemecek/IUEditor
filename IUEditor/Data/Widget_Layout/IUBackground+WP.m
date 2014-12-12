@@ -21,7 +21,7 @@
     WPSiteTitle *title = [[WPSiteTitle alloc] initWithPreset];
     title.htmlID = @"SiteTitle";
     title.name = @"SiteTitle";
-    title.livePositionStorage.y = @(60);
+    title.cascadingPositionStorage.y = @(60);
     title.enableHCenter = YES;
 
     [self.header addIU:title error:nil];
@@ -29,7 +29,7 @@
     WPSiteDescription *desc = [[WPSiteDescription alloc] initWithPreset];
     desc.htmlID = @"SiteDescription";
     desc.name = @"SiteDescription";
-    desc.livePositionStorage.y = @(110);
+    desc.cascadingPositionStorage.y = @(110);
     
     [self.header addIU:desc error:nil];
 
@@ -40,8 +40,8 @@
     
     [self.header addIU:menu error:nil];
     
-    self.header.liveStyleStorage.height = @(200);
-    self.header.liveStyleStorage.bgColor = nil;
+    self.header.cascadingStyleStorage.height = @(200);
+    self.header.cascadingStyleStorage.bgColor = nil;
 
     
 }

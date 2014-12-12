@@ -47,8 +47,8 @@
     
     
     /* mouse hover */
-    [self outlet:_selectedBgColorWell bind:NSValueBinding liveStyleStorageProperty:@"bgColor"];
-    [self outlet:_selectedTextColorWell bind:NSValueBinding liveStyleStorageProperty:@"fontColor"];
+    [self outlet:_selectedBgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
+    [self outlet:_selectedTextColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
     
 
 }

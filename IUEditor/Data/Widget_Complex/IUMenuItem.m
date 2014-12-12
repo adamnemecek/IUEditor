@@ -70,7 +70,7 @@
     [super connectWithEditor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:nil];
-    [self.parent.liveStyleStorage addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
+    [self.parent.cascadingStyleStorage addObserver:self forKeyPath:@"height" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:@"height"];
     
 
 }
@@ -79,7 +79,7 @@
 
 - (void)disconnectWithEditor{
     if([self isConnectedWithEditor]){
-        [self.parent.liveStyleStorage removeObserver:self forKeyPath:@"height" context:@"height"];
+        [self.parent.cascadingStyleStorage removeObserver:self forKeyPath:@"height" context:@"height"];
         [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     }

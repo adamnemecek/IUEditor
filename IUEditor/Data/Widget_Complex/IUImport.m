@@ -77,9 +77,9 @@
         [self setStorageManager:[aClass dataManagerForSelector:selector] forSelector:selector];
     }
 
-    [self bind:@"liveStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"cascadingStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"cascadingStorage" options:nil];
     [self bind:@"currentStyleStorage" toObject:aClass.defaultStyleManager withKeyPath:@"currentStorage" options:nil];
-    [self bind:@"livePositionStorage" toObject:aClass.positionManager withKeyPath:@"liveStorage" options:nil];
+    [self bind:@"cascadingPositionStorage" toObject:aClass.positionManager withKeyPath:@"cascadingStorage" options:nil];
     [self bind:@"currentPositionStorage" toObject:aClass.positionManager withKeyPath:@"currentStorage" options:nil];
 
 

@@ -141,7 +141,7 @@
     //not page class
     //page will be set reported values from javscript
     if([_sheet isKindOfClass:[IUClass class]]){
-        NSNumber *classHeight = _sheet.liveStyleStorage.height;
+        NSNumber *classHeight = _sheet.cascadingStyleStorage.height;
         if(classHeight){
             [[self canvasView] setHeightOfMainView:[classHeight floatValue]];
         }
@@ -661,10 +661,10 @@
         
         if(element.innerText && [element.innerText stringByTrim].length > 0){
             [[LMFontController sharedFontController] setLastUsedFontToIUBox:iu];
-            iu.livePropertyStorage.innerHTML = element.innerHTML;
+            iu.cascadingPropertyStorage.innerHTML = element.innerHTML;
         }
         else{
-            iu.livePropertyStorage.innerHTML = nil;
+            iu.cascadingPropertyStorage.innerHTML = nil;
         }
         
     }

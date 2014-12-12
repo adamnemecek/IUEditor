@@ -32,13 +32,13 @@
 - (void)test1_BOX {
     IUBox *box = [[IUBox alloc] init];
     
-    XCTAssertNotNil(box.liveStyleStorage);
-    [box.livePositionStorage setPosition:@(IUPositionTypeAbsolute)];
-    [box.livePositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
-    XCTAssertTrue([box.livePositionStorage.x isEqualToNumber:@(50)]);
+    XCTAssertNotNil(box.cascadingStyleStorage);
+    [box.cascadingPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+    [box.cascadingPositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
+    XCTAssertTrue([box.cascadingPositionStorage.x isEqualToNumber:@(50)]);
 
     XCTAssertTrue([box.currentPositionStorage.x isEqualToNumber:@(50)]);
-    XCTAssertTrue([box.currentPositionStorage.x isEqualToNumber:box.livePositionStorage.x]);
+    XCTAssertTrue([box.currentPositionStorage.x isEqualToNumber:box.cascadingPositionStorage.x]);
     
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
@@ -85,7 +85,7 @@
     IUImport *import = [[IUImport alloc] initWithPreset:classObj];
     import.htmlID = @"import";
     import.prototypeClass = classObj;
-    XCTAssertEqual(import.livePropertyStorage, classObj.livePropertyStorage);
+    XCTAssertEqual(import.cascadingPropertyStorage, classObj.cascadingPropertyStorage);
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
     NSString *htmlCode;
@@ -97,7 +97,7 @@
 - (void)test3_Text {
     IUText *text = [[IUText alloc] init];
     text.text = @"Hello Dally";
-    XCTAssertEqualObjects(text.text, text.livePropertyStorage.innerHTML);
+    XCTAssertEqualObjects(text.text, text.cascadingPropertyStorage.innerHTML);
 
     
     IUCompiler *compiler = [[IUCompiler alloc] init];

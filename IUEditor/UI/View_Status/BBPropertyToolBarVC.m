@@ -58,26 +58,24 @@
     
     
     //frame
-    [self outlet:_xTextField bind:NSValueBinding livePositionStorageProperty:@"x"];
-    [self outlet:_yTextField bind:NSValueBinding livePositionStorageProperty:@"y"];
-    [self outlet:_wTextField bind:NSValueBinding liveStyleStorageProperty:@"width"];
-    
-//    [_wTextField bind:NSValueBinding toObject:self withKeyPath:@"iuController.selection.liveStyleStorage.width" options:IUBindingDictNotRaisesApplicable];
-    [self outlet:_hTextField bind:NSValueBinding liveStyleStorageProperty:@"height"];
+    [self outlet:_xTextField bind:NSValueBinding cascadingPositionStorageProperty:@"x"];
+    [self outlet:_yTextField bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
+    [self outlet:_wTextField bind:NSValueBinding cascadingStyleStorageProperty:@"width"];
+    [self outlet:_hTextField bind:NSValueBinding cascadingStyleStorageProperty:@"height"];
     
     [self outlet:_verticalCenterButton bind:NSValueBinding property:@"enableVCenter"];
     [self outlet:_horizontalCenterButton bind:NSValueBinding property:@"enableHCenter"];
     
     //bg color
-    [self outlet:_bgColorWell bind:NSValueBinding liveStyleStorageProperty:@"bgColor"];
+    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
     
     //text binding
-    [self outlet:_fontNameComboBox bind:NSValueBinding liveStyleStorageProperty:@"fontName"];
-//    [self outlet:_fontWeightPopUpButton bind:NSValueBinding liveStyleStorageProperty:@"fontWeight"];
+    [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
+//    [self outlet:_fontWeightPopUpButton bind:NSValueBinding cascadingStyleStorageProperty:@"fontWeight"];
 
-    [self outlet:_fontSizeComboBox bind:NSValueBinding liveStyleStorageProperty:@"fontSize"];
-    [self outlet:_fontColorWell bind:NSValueBinding liveStyleStorageProperty:@"fontColor"];
-    [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding liveStyleStorageProperty:@"fontAlign"];
+    [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
+    [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
+    [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontAlign"];
     
 }
 
@@ -114,58 +112,58 @@
         
         for(IUBox *box in self.iuController.selectedObjects){
             NSRect percentFrame = [self percentFrameForIU:box];
-            [box.livePositionStorage beginTransaction:self];
-            [box.liveStyleStorage commitTransaction:self];
+            [box.cascadingPositionStorage beginTransaction:self];
+            [box.cascadingStyleStorage commitTransaction:self];
 
 
             if([sender isEqualTo:_xUnitButton]){
-                [box.livePositionStorage setX:@(percentFrame.origin.x) unit:@(IUFrameUnitPercent)];
+                [box.cascadingPositionStorage setX:@(percentFrame.origin.x) unit:@(IUFrameUnitPercent)];
             }
             else if([sender isEqualTo:_yUnitButton]){
-                [box.livePositionStorage setY:@(percentFrame.origin.y) unit:@(IUFrameUnitPercent)];
+                [box.cascadingPositionStorage setY:@(percentFrame.origin.y) unit:@(IUFrameUnitPercent)];
             }
             else if([sender isEqualTo:_wUnitButton]){
-                [box.liveStyleStorage setWidth:@(percentFrame.size.width) unit:@(IUFrameUnitPercent)];
+                [box.cascadingStyleStorage setWidth:@(percentFrame.size.width) unit:@(IUFrameUnitPercent)];
             }
             else if([sender isEqualTo:_hUnitButton]){
-                [box.liveStyleStorage setHeight:@(percentFrame.size.height) unit:@(IUFrameUnitPercent)];
+                [box.cascadingStyleStorage setHeight:@(percentFrame.size.height) unit:@(IUFrameUnitPercent)];
             }
             
-            [box.liveStyleStorage commitTransaction:self];
-            [box.livePositionStorage commitTransaction:self];
+            [box.cascadingStyleStorage commitTransaction:self];
+            [box.cascadingPositionStorage commitTransaction:self];
         }
     }
     //change from percent to pixel
     else{
         for(IUBox *box in self.iuController.selectedObjects){
             NSRect pixelFrame = [self pixelFrameForIU:box];
-            [box.livePositionStorage beginTransaction:self];
-            [box.liveStyleStorage commitTransaction:self];
+            [box.cascadingPositionStorage beginTransaction:self];
+            [box.cascadingStyleStorage commitTransaction:self];
             
             
             if([sender isEqualTo:_xUnitButton]){
-                [box.livePositionStorage setX:@(pixelFrame.origin.x) unit:@(IUFrameUnitPixel)];
+                [box.cascadingPositionStorage setX:@(pixelFrame.origin.x) unit:@(IUFrameUnitPixel)];
             }
             else if([sender isEqualTo:_yUnitButton]){
-                [box.livePositionStorage setY:@(pixelFrame.origin.y) unit:@(IUFrameUnitPixel)];
+                [box.cascadingPositionStorage setY:@(pixelFrame.origin.y) unit:@(IUFrameUnitPixel)];
             }
             else if([sender isEqualTo:_wUnitButton]){
-                [box.liveStyleStorage setWidth:@(pixelFrame.size.width) unit:@(IUFrameUnitPixel)];
+                [box.cascadingStyleStorage setWidth:@(pixelFrame.size.width) unit:@(IUFrameUnitPixel)];
             }
             else if([sender isEqualTo:_hUnitButton]){
-                [box.liveStyleStorage setHeight:@(pixelFrame.size.height) unit:@(IUFrameUnitPixel)];
+                [box.cascadingStyleStorage setHeight:@(pixelFrame.size.height) unit:@(IUFrameUnitPixel)];
             }
             
-            [box.liveStyleStorage commitTransaction:self];
-            [box.livePositionStorage commitTransaction:self];
+            [box.cascadingStyleStorage commitTransaction:self];
+            [box.cascadingPositionStorage commitTransaction:self];
         }
     }
 }
 
 - (IBAction)clickNilBgColorButton:(id)sender {
-    [self.liveStyleStorage beginTransaction:self];
-    self.liveStyleStorage.bgColor = nil;
-    [self.liveStyleStorage commitTransaction:self];
+    [self.cascadingStyleStorage beginTransaction:self];
+    self.cascadingStyleStorage.bgColor = nil;
+    [self.cascadingStyleStorage commitTransaction:self];
 }
 
 - (IBAction)clickFontNameComboBox:(id)sender {

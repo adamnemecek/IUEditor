@@ -23,7 +23,7 @@
 
 @property id currentStorage;
 @property id defaultStorage;
-@property id liveStorage;
+@property id cascadingStorage;
 - (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes;
 @end
 
@@ -311,7 +311,7 @@
 - (void)setDefaultProperties{
 
     _currentStorage = _defaultStorage;
-    _liveStorage = _currentStorage;
+    _cascadingStorage = _currentStorage;
     _currentViewPort = _maxViewPort;
     _owners = [NSMutableArray array];
     
@@ -324,9 +324,6 @@
     for(IUDataStorage *storage in [_workingStorages allValues]){
         storage.manager = self;
     }
-    
-    [self addObserver:self forKeyPath:@"currentViewPort" options:0 context:nil];
-    
 }
 
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
@@ -339,7 +336,7 @@
     IUDataStorageManager *manager = [[[self class] allocWithZone:zone] init];
     manager.workingStorages = [_workingStorages copy];
     manager.defaultStorage = [manager.workingStorages objectForKey:@(self.maxViewPort)];
-    manager.currentViewPort = _currentViewPort; //create live
+    manager.currentViewPort = _currentViewPort; //create cascading storages
     
     for(IUDataStorage *storage in [manager.workingStorages allValues]){
         storage.manager = manager;
@@ -365,19 +362,22 @@
 
 
 
-- (IUDataStorage*)liveStorageForViewPort:(NSInteger)viewPort{
+- (IUDataStorage*)cascadingStorageForViewPort:(NSInteger)viewPort{
     /* does not send information to manager */
-    IUDataStorage *liveStorage = [[self storageForViewPort:viewPort] copy];
-    [liveStorage disableUpdate:self];
+    IUDataStorage *cascadingStorage = [[self storageForViewPort:viewPort] copy];
+    [cascadingStorage disableUpdate:self];
     /*
      get overwrite all data
      */
     IUDataStorage *currStorage = self.currentStorage;
     while ( (currStorage = [self storageWithBiggerViewPortOf:currStorage]) ) {
-        [liveStorage overwritingDataStorageForNilValue:currStorage];
+        [cascadingStorage overwritingDataStorageForNilValue:currStorage];
     }
-    [liveStorage enableUpdate:self];
-    return liveStorage;
+    [cascadingStorage enableUpdate:self];
+    
+    //새로만들어진 storage에 manager를 붙임.
+    cascadingStorage.manager = self;
+    return cascadingStorage;
 }
 
 - (void)setCurrentViewPort:(NSInteger)currentViewPort{
@@ -390,7 +390,7 @@
     }
     
     self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
-    self.liveStorage = [self liveStorageForViewPort:currentViewPort];
+    self.cascadingStorage = [self cascadingStorageForViewPort:currentViewPort];
     
     _currentViewPort = currentViewPort;
     [self didChangeValueForKey:@"currentViewPort"];
@@ -462,7 +462,7 @@
 
 
 /**
- Manage new value of liveStorage = currentStroage
+ Manage new value of cascading storage = currentStroage
  */
 - (void)storage:(IUDataStorage*)storage changes:(NSArray *)changes{
     NSMutableArray *changedKeys = [NSMutableArray array];
@@ -475,17 +475,17 @@
         //    id oldValue = change[@"oldValue"];
         
         if (storage == self.currentStorage) {
-            [self.liveStorage disableUpdate:self];
-            [self.liveStorage setValue:changeDict[@"newValue"] forKey:key];
-            [self.liveStorage enableUpdate:self];
+            [self.cascadingStorage disableUpdate:self];
+            [self.cascadingStorage setValue:changeDict[@"newValue"] forKey:key];
+            [self.cascadingStorage enableUpdate:self];
         }
-        else if (storage == self.liveStorage) {
+        else if (storage == self.cascadingStorage) {
             [self.currentStorage disableUpdate:self];
             [self.currentStorage setValue:changeDict[@"newValue"] forKey:key];
             [self.currentStorage enableUpdate:self];
         }
         else {
-            NSAssert(0, @"Only current storage and live storage is updatable");
+            NSAssert(0, @"Only current storage and cascading storage is updatable");
         }
     }
     
@@ -495,7 +495,7 @@
 }
 
 
-- (id)liveValueForKey:(id)key forViewPort:(NSInteger)viewPort{
+- (id)liveValueForKey:(id)key forViewPort:(NSInteger)viewPort __deprecated{
     IUDataStorage *storage = [self storageForViewPort:viewPort];
     
     while (1) {

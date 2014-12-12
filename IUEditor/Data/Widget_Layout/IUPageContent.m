@@ -44,7 +44,7 @@
         titleBox.defaultPositionStorage.y = @(285);
         titleBox.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
 
-        titleBox.livePropertyStorage.innerHTML = @"Content Area";
+        titleBox.cascadingPropertyStorage.innerHTML = @"Content Area";
         
         titleBox.enableHCenter = YES;
         

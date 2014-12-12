@@ -335,7 +335,7 @@
 
 - (NSDictionary*)stringTagDictionaryWithIdentifier_storage:(IUTarget)target viewPort:(NSInteger)viewPort{
     if (target == IUTargetEditor) {
-        /* make live storage by inheritance */
+        /* make cascading storage by inheritance */
         NSMutableDictionary *returnDict = [NSMutableDictionary dictionary];
         
         for ( NSNumber *currentViewPort in allViewports ){

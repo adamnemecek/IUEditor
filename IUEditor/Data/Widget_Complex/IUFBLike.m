@@ -102,7 +102,7 @@
     
     [self updateCSS];
         
-    NSString *currentPixel = [[NSString alloc] initWithFormat:@"%.0f", [self.liveStyleStorage.height floatValue]];
+    NSString *currentPixel = [[NSString alloc] initWithFormat:@"%.0f", [self.cascadingStyleStorage.height floatValue]];
     
     NSString *source;
 
