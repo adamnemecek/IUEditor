@@ -208,6 +208,9 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)showWindows{
     [super showWindows];
     [self showButterflyWindow];
+    for (IUSheet *sheet in self.project.allSheets) {
+        [[IUIdentifierManager managerForMainWindow] registerObjectRecusively:sheet withIdentifierKey:@"htmlID" childrenKey:@"children"];
+    }
 }
 
 - (void)showButterflyWindow{

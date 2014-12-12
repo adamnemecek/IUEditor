@@ -294,6 +294,7 @@
 
 - (id)initForUntitledDocument{
     /* initialize at temp directory */
+    [[IUIdentifierManager managerForMainWindow] reset];
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(IUDefaultViewPort), @320]];
     _serverInfo = [[IUServerInfo alloc] init];

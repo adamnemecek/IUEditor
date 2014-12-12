@@ -20,6 +20,8 @@
  */
 + (IUIdentifierManager *)managerForMainWindow;
 
+- (void)reset;
+
 - (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey;
 
 /**

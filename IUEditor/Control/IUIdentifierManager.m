@@ -62,6 +62,9 @@ static IUIdentifierManager *identifierForNilWindow;
 }
 
 
+- (void)reset {
+    confirmed = [NSMutableDictionary dictionary];
+}
 
 
 /*
