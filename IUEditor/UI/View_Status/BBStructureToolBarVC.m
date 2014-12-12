@@ -7,6 +7,9 @@
 //
 
 #import "BBStructureToolBarVC.h"
+#import "IUProject.h"
+#import "IUPage.h"
+#import "IUClass.h"
 
 @interface BBStructureToolBarVC ()
 
@@ -39,13 +42,23 @@
 #pragma mark - PathControl action
 
 - (IBAction)clickIUPathControl:(id)sender {
+    //get current event
     NSEvent *currentEvent = [NSApp currentEvent];
     NSPoint eventPoint = [currentEvent locationInWindow];
     NSPoint location = [_iuPathControl convertPoint:eventPoint fromView:nil];
 
+    //path control을 클릭하면 같은 depth의 iu들을 메뉴로 보여준다.
     IUBox *iu = [[_iuPathControl clickedPathComponentCell] representedObject];
     NSMenu *clickedPathMenu = [self menuForIU:iu];
-    NSInteger iuIndex = [iu.parent.children indexOfObject:iu];
+    NSInteger iuIndex = 0;
+    
+    if([iu isKindOfClass:[IUSheet class]]){
+       iuIndex =  [_pageController.project.allSheets indexOfObject:iu];
+    }
+    else{
+        iuIndex = [iu.parent.children indexOfObject:iu];
+    }
+    
     [clickedPathMenu popUpMenuPositioningItem:[clickedPathMenu itemAtIndex:iuIndex] atLocation:location inView:_iuPathControl];
 }
 
@@ -112,30 +125,53 @@
         //sibling이 존재
         NSMenu *popupMenu = [[NSMenu alloc] init];
         for(IUBox *child in iu.parent.children){
-#if DEBUG
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:child.htmlID action:@selector(clickForMenuItem:) keyEquivalent:@""];
-#else
-            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:child.name action:@selector(clickForMenuItem:) keyEquivalent:@""];
-#endif
-            [menuItem setTarget:self];
-            [menuItem setImage:[[child class] navigationImage]];
-            [menuItem setRepresentedObject:child];
+            NSMenuItem *menuItem = [self menuItemForIU:child];
             [popupMenu addItem:menuItem];
         }
         
         return popupMenu;
         
     }
+    else if([iu isKindOfClass:[IUSheet class]]){
+        NSMenu *popupMenu = [[NSMenu alloc] init];
+        for(IUSheet *sheet in _pageController.project.allSheets){
+            NSMenuItem *menuItem = [self menuItemForIU:sheet];
+            [popupMenu addItem:menuItem];
+        }
+        return popupMenu;
+    }
     
     return nil;
 }
+- (NSMenuItem *)menuItemForIU:(IUBox *)iu{
+    
+#if DEBUG
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:iu.htmlID action:@selector(clickForMenuItem:) keyEquivalent:@""];
+#else
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:iu.name action:@selector(clickForMenuItem:) keyEquivalent:@""];
+#endif
+    [menuItem setTarget:self];
+    [menuItem setImage:[[iu class] navigationImage]];
+    [menuItem setRepresentedObject:iu];
+    
+    return  menuItem;
+}
+
 
 #pragma mark - selection
 
 - (void)clickForMenuItem:(id)sender{
     if([sender isKindOfClass:[NSMenuItem class]]){
         IUBox *iu = [sender representedObject];
-        [self.iuController setSelectedObject:iu];
+        if([iu isKindOfClass:[IUPage class]]){
+            [self.pageController setSelectedObject:iu];
+        }
+        else if([iu isKindOfClass:[IUClass class]]){
+            [self.classController setSelectedObject:iu];
+        }
+        else{
+            [self.iuController setSelectedObject:iu];
+        }
     }
 }
 

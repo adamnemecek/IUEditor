@@ -279,6 +279,8 @@
         //sheet controllers
         [_projectStructureVC setPageController:_pageController];
         [_projectStructureVC setClassController:_classController];
+        [_structureToolBarVC setPageController:_pageController];
+        [_structureToolBarVC setClassController:_classController];
         
         //resource
         [_imagePropertyVC setResourceRootItem:document.resourceRootItem];

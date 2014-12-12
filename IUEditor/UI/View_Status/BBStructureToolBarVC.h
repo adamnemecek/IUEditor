@@ -8,10 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
+#import "IUSheetController.h"
 
 @interface BBStructureToolBarVC : NSViewController <NSPathControlDelegate>
 
 @property (nonatomic) IUController *iuController;
+@property (nonatomic) IUSheetController *pageController;
+@property (nonatomic) IUSheetController *classController;
 
 @end
 
