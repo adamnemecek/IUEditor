@@ -77,30 +77,11 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (id)initWithType:(NSString *)typeName error:(NSError *__autoreleasing *)outError{
     self = [super initWithType:typeName error:outError];
     if(self){
-
-        
         //FIXME:
         //projectType은 nsuserdefault로 넘겨받아야함.
-        
         IUProject *newProject = [[NSClassFromString(@"IUProject") alloc] initForUntitledDocument];
-        if(newProject){
-            
-            _project = newProject;
-            
-            //re-check htmlID (IUBox can not access to identifier manager while initializing
-            for(IUSheet *sheet in _project.allSheets){
-                for(IUBox *iu in sheet.allChildren){
-                    iu.htmlID = [self.identifierManager createAndRegisterIdentifierWithObject:iu];
-                    iu.name = iu.htmlID;
-                    
-                }
-                
-                [self.identifierManager registerIdentifier:sheet.htmlID withObject:sheet];
-                sheet.name = sheet.htmlID;
-            }
-            
-        }
-        //get document path:NSString *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        _project = newProject;
+        
         NSString *resourceTempPath = [self resourceTemporaryPath];
         [[NSFileManager defaultManager] createDirectoryAtPath:resourceTempPath withIntermediateDirectories:YES attributes:nil error:nil];
         [_resourceRootItem loadFromPath:resourceTempPath];

@@ -497,10 +497,6 @@
 - (id <IUSourceManagerProtocol>)sourceManager{
     return [(id<BBWindowProtocol>)[[NSApp mainWindow] windowController] sourceManager];
 }
-- (IUIdentifierManager *)identifierManager{
-    return [(id<IUDocumentProtocol>)[[[NSApp mainWindow] windowController] document] identifierManager];
-    
-}
 #endif
 
 
@@ -567,9 +563,12 @@
 
 - (NSString*)absoluteBuildPath{
     NSMutableString *str = [self.buildPath mutableCopy];
-    [str replaceOccurrencesOfString:@"$IUFileDirectory" withString:[[self path] stringByDeletingLastPathComponent] options:0 range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"$AppName" withString:[self name] options:0 range:NSMakeRange(0, [str length])];    
-    
+    if ([str containsString:@"$IUFileDirectory"]) {
+        [str replaceOccurrencesOfString:@"$IUFileDirectory" withString:[[self path] stringByDeletingLastPathComponent] options:0 range:NSMakeRange(0, [str length])];
+    }
+    if ([str containsString:@"$AppName"]){
+        [str replaceOccurrencesOfString:@"$AppName" withString:[self name] options:0 range:NSMakeRange(0, [str length])];
+    }
     NSString *returnPath = [str stringByExpandingTildeInPath];
     return returnPath;
 }

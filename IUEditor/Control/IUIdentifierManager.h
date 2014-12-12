@@ -12,7 +12,14 @@
 
 @interface IUIdentifierManager : NSObject
 
+
+/**
+ @description return identifier manager for current main window
+ @note even if there is no main window, this function returns shared manager for
+        all non-window process
+ */
 + (IUIdentifierManager *)managerForMainWindow;
+
 - (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey;
 
 /**
@@ -25,6 +32,9 @@
 - (NSString *)identifierForObject:(id)object;
 - (id)objectForIdentifier:(NSString*)identifier;
 - (void)removeIdentifier:(NSString *)identifier;
+
+/*
 - (BOOL)replaceIdentifier:(NSString *)from withIdentifier:(NSString *)to;
+ */
 
 @end
