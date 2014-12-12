@@ -57,6 +57,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"text"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     if ([keyPath isEqualToString:@"text"]) {
         [self setValue:_text forKeyPath:@"self.currentPropertyStorage.innerHTML"];
@@ -68,6 +72,7 @@
 
 - (id)initWithPreset{
     self = [super initWithPreset];
+    [self addObserver:self forKeyPath:@"text" options:0 context:nil];
     [self bind:@"text" toObject:self withKeyPath:@"currentPropertyStorage.innerHTML" options:nil];
     return self;
 }
@@ -82,6 +87,7 @@
         [aDecoder decodeToObject:self withProperties:[[IUText class] properties]];
         [self.undoManager enableUndoRegistration];
     }
+    [self addObserver:self forKeyPath:@"text" options:0 context:nil];
     [self bind:@"text" toObject:self withKeyPath:@"currentPropertyStorage.innerHTML" options:nil];
     return self;
 }
