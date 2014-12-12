@@ -87,13 +87,20 @@
     [self setRulerOffsets];
     
     //adjsut to constraint of webview;
-    NSLayoutConstraint *webviewConstraint = [self.mainView constraintForIdentifier:@"leading_webview"];
-    [self.mainView removeConstraints:@[webviewConstraint]];
+    NSLayoutConstraint *leadingWebviewConstraint = [self.mainView constraintForIdentifier:@"leading_webview"];
+    NSLayoutConstraint *trailingWebviewContstraint = [self.mainView constraintForIdentifier:@"trailing_webview"];
+    [self.mainView removeConstraints:@[leadingWebviewConstraint, trailingWebviewContstraint]];
+    
     
     NSInteger left = (self.maxCurrentFrameWidth - self.controller.selectedFrameWidth)/2;
-    NSLayoutConstraint *adjustWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView leading:left];
-    adjustWebViewConstraint.identifier = @"leading_webview";
-    [self.mainView addConstraints:@[adjustWebViewConstraint]];
+    NSLayoutConstraint *adjustLeadingWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView leading:left];
+    adjustLeadingWebViewConstraint.identifier = @"leading_webview";
+    
+    NSLayoutConstraint *adjustTrailingWebViewConstraint = [self.mainView viewConstraint:self.webView toSuperview:self.mainView trailing:left];
+    adjustTrailingWebViewConstraint.identifier = @"trailing_webview";
+
+    
+    [self.mainView addConstraints:@[adjustLeadingWebViewConstraint, adjustTrailingWebViewConstraint]];
     [self.mainView setNeedsLayout:YES];
     [self.mainView setNeedsUpdateConstraints:YES];
 }
@@ -440,7 +447,6 @@
                 
                 //change editable mode
                 if(theEvent.clickCount == 2){
-                    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationDoubleClickCanvas object:self.window];
                     [self.controller enableTextEditorForSelectedIU];
                 }
             }

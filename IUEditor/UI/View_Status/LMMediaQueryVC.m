@@ -39,10 +39,6 @@
     [_mqArrayController setSortDescriptors:@[sort]];
 }
 
-- (NSWindowController *)currentWC{
-    return [[self.view window] windowController];
-}
-
 - (void)loadWithMQWidths:(NSArray *)widthArray{
     [_mqArrayController addObjects:widthArray];
     //set default width as maximum width
@@ -68,12 +64,9 @@
     else{
         largerWidth = maxWidth;
     }
-    NSInteger oldSelectedWidth = mqWidth;
     mqWidth = width;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth)}];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelectedWithInfo object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self.view.window userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth)}];
 }
 
 
@@ -137,7 +130,7 @@
     }
     
     //notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQAdded object:[self currentWC]
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQAdded object:self.view.window
                                                       userInfo:@{IUNotificationMQSize:@(newWidth),
                                                                  IUNotificationMQOldMaxSize:oldMaxWidth,
                                                                  IUNotificationMQMaxSize:maxWidth,
@@ -145,7 +138,9 @@
 }
 
 - (void)changeMaxWidth{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQMaxChanged object:[self currentWC] userInfo:@{IUNotificationMQSize:@(mqWidth), IUNotificationMQMaxSize:[[_mqArrayController arrangedObjects] firstObject]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQMaxChanged object:self.view.window userInfo:@{IUNotificationMQSize:@(mqWidth), IUNotificationMQMaxSize:[[_mqArrayController arrangedObjects] firstObject]}];
+    
+    
 
 }
 

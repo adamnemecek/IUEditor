@@ -56,17 +56,6 @@
 }
 
 
-
-- (void)connectWithEditor{
-    
-    NSAssert(self.project, @"");
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-}
-
-
 - (id)initWithPreset:(IUClass*)aClass{
     self = [super initWithPreset];
     [self.undoManager disableUndoRegistration];

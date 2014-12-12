@@ -651,15 +651,7 @@
     
     //change html
     JDCode *htmlCode = [[JDCode alloc] init];
-    //REVIEW : sheetouter의 width를 변경시키며 editor에서 media query가 서포트 되는것 처럼 보이게 함.
-    //webview의 사이즈를 바꾸지 않고 그대로 사용할 수 있다.
-    //장점
-    // - 페이지를 center로 보낼수있음
-    // - media query 바깥의 IU들을 overflow : visible 을 통해서 보이게 할 수 있음.
-    // - text editor를 불러올 수 있음.
-    [htmlCode addCodeLineWithFormat:@"<div id=\"%@\" style='width:%dpx'>", IUSheetOuterIdentifier, frameWidth];
     [htmlCode addCodeLine:sheetHTMLCode];
-    [htmlCode addString:@"<div>"];
     [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
     
     

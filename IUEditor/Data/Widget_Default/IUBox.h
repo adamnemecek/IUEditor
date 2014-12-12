@@ -123,23 +123,29 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 @property BOOL removed; // iu is removed;
 
-@property (readonly) IUStyleStorage *defaultStyleStorage;
-@property (readonly) IUStyleStorage *cascadingStyleStorage;
-@property (readonly) IUStyleStorage *currentStyleStorage;
 
-@property (readonly) IUPositionStorage *defaultPositionStorage;
-@property (readonly) IUPositionStorage *cascadingPositionStorage;
-@property (readonly) IUPositionStorage *currentPositionStorage;
+/* manage viewport */
+- (NSInteger)maxViewPort;
+- (void)setMaxViewPort:(NSInteger)viewport;
+- (void)setCurrentViewPort:(NSInteger)viewport;
+- (void)copyViewPortDataStorageFrom:(NSInteger)from to:(NSInteger)to;
+- (void)removeViewPort:(NSInteger)viewport;
 
-@property (readonly) IUPropertyStorage *defaultPropertyStorage;
-@property (readonly) IUPropertyStorage *cascadingPropertyStorage;
-@property (readonly) IUPropertyStorage *currentPropertyStorage;
+/* storages */
+@property (readonly) _binding_ IUStyleStorage *defaultStyleStorage;
+@property (readonly) _binding_ IUStyleStorage *cascadingStyleStorage;
+@property (readonly) _binding_ IUStyleStorage *currentStyleStorage;
+
+@property (readonly) _binding_ IUPositionStorage *defaultPositionStorage;
+@property (readonly) _binding_ IUPositionStorage *cascadingPositionStorage;
+@property (readonly) _binding_ IUPositionStorage *currentPositionStorage;
+
+@property (readonly) _binding_ IUPropertyStorage *defaultPropertyStorage;
+@property (readonly) _binding_ IUPropertyStorage *cascadingPropertyStorage;
+@property (readonly) _binding_ IUPropertyStorage *currentPropertyStorage;
 
 
 - (NSArray *)allCSSSelectors;
-- (NSInteger)maxViewPort;
-@property (nonatomic) NSInteger currentViewPort;
-
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector;
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;
 - (IUDataStorageManager *)defaultStyleManager;
@@ -161,7 +167,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 - (id <IUSourceManagerProtocol>) sourceManager;
 - (IUIdentifierManager *) identifierManager;
 #endif
-
 
 /* call by grid view */
 - (void)startFrameMoveWithTransactionForStartFrame:(NSRect)frame;

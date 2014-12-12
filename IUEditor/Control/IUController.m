@@ -167,13 +167,26 @@
 - (BOOL)setSelectionIndexPaths:(NSArray *)indexPaths{
     //paste repeat count zero
     _pasteRepeatCount = 0;
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
+    NSDictionary *userInfoDictionary;
+    if(self.selectionClassName){
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName};
+    }
+    else{
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:userInfoDictionary];
 
 
     BOOL result = [super setSelectionIndexPaths:indexPaths];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
+    if(self.selectionClassName){
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName};
+    }
+    else{
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:userInfoDictionary];
 
     return result;
 }
@@ -182,11 +195,28 @@
     //paste repeat count zero
     _pasteRepeatCount = 0;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
+    NSDictionary *userInfoDictionary;
+    if(self.selectionClassName){
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName};
+    }
+    else{
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:userInfoDictionary];
     
     BOOL result = [super setSelectionIndexPath:indexPath];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:@{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName}];
+    
+    
+    if(self.selectionClassName){
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects, @"selectionClassName":self.selectionClassName};
+    }
+    else{
+        userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:userInfoDictionary];
     return result;
 }
 

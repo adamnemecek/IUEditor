@@ -25,9 +25,6 @@ static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
 #define definedPrefixIdentifiers @[@"IU",@"mce",@"mceu"]
 #define definedIdentifers  @[@"id",@"ifdef",@"default"]
 
-
-#define IUSheetOuterIdentifier @"sheet_outer"
-
 //text editor mode
 //editable class can change attributes
 //addible class only can add or remove text

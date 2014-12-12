@@ -7,6 +7,7 @@
 //
 
 #import "BBMediaQueryVC.h"
+#import "IUSheet.h"
 
 @interface BBMediaQueryVC ()
 
@@ -31,10 +32,6 @@
     [self selectMediaQueryWidth:_project.maxViewPort];
 }
 
-- (NSWindowController *)currentWC{
-    return [[self.view window] windowController];
-}
-
 - (IBAction)clickMediaQueryPopupButton:(id)sender {
     NSInteger selectedWidth = [[[_mediaQueryPopupButton selectedItem] representedObject] integerValue];
     [self selectMediaQueryWidth:selectedWidth];
@@ -54,8 +51,13 @@
     NSInteger oldSelectedWidth = _currentSelectedWidth;
     _currentSelectedWidth = width;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth)}];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelectedWithInfo object:[self currentWC] userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self.view.window userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
+    
+    for (IUSheet *sheet in _project.allSheets) {
+        for(IUBox *box in sheet.allChildren){
+            [box setCurrentViewPort:_currentSelectedWidth];
+        }
+    }
     
 }
 

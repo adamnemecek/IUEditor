@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "LMDefaultPropertyVC.h"
 
+__attribute__((deprecated))
 @interface LMPropertyIUCollectionVC : LMDefaultPropertyVC <NSTextFieldDelegate>
 
 

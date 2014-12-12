@@ -180,11 +180,12 @@
         [self initialize];
         [self createDefaultStorages];
         [self bindStorages];
-        self.currentViewPort = IUDefaultViewPort;
 
         //setting for css
         self.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
-
+        [self.defaultStyleStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
+        [self.defaultStyleStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
+        
         [self.undoManager enableUndoRegistration];
     }
     return self;
@@ -198,7 +199,6 @@
         [self initialize];
         [self createDefaultStorages];
         [self bindStorages];
-        self.currentViewPort = IUDefaultViewPort;
         
         [self.undoManager enableUndoRegistration];
     }
@@ -217,25 +217,6 @@
     
     changedCSSWidths = [NSMutableSet set];
 }
-
-- (NSInteger)maxViewPort {
-    if (self.project) {
-        return self.project.maxViewPort;
-    }
-    else {
-        return MAX(self.positionManager.maxViewPort, self.defaultStyleManager.maxViewPort);
-    }
-}
-
-- (void)setCurrentViewPort:(NSInteger)currentViewPort{
-    _currentViewPort = currentViewPort;
-    
-    for (id key in [_m_storageManagerDict allKeys] ) {
-        IUDataStorageManager *manager = _m_storageManagerDict[key];
-        manager.currentViewPort = currentViewPort;
-    }
-}
-
 
 - (void)createDefaultStorages{
     //create storage
@@ -275,10 +256,6 @@
         [manager addOwner:self];
     }
     
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:self.project];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:nil];
 
@@ -545,64 +522,40 @@
     }
 }
 
-- (void)addMQSize:(NSNotification *)notification{
-    
-    //NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-    NSInteger oldMaxSize = [[notification.userInfo valueForKey:IUNotificationMQOldMaxSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    
-    if ([notification.userInfo valueForKey:IUNotificationMQLargerSize]) {
-        NSInteger nextSize = [[notification.userInfo valueForKey:IUNotificationMQLargerSize] integerValue];
-        if(nextSize != maxSize){
-            //media query 바로 위에 size를 copy함
-            // 760이 있을때  750 size 를 copy
-            //[_css copyCSSDictFrom:nextSize to:size];
-        }
+#pragma mark - viewPort
+
+
+- (NSInteger)maxViewPort {
+    if (self.project) {
+        return self.project.maxViewPort;
     }
-    if(oldMaxSize != maxSize){
+    else {
+        return MAX(self.positionManager.maxViewPort, self.defaultStyleManager.maxViewPort);
+    }
+    
+}
+- (void)setMaxViewPort:(NSInteger)viewport{
+    if(viewport != self.maxViewPort){
         for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
-            [manager setMaxViewPort:maxSize];
+            [manager setMaxViewPort:viewport];
         }
     }
-    /*
-
-    //max size가 변하면 max css를 현재 css로 카피시킴.
-    //960을만들고 1280을 나중에 만들면
-    //1280으로 그냥 다옮겨가면서 960css 가 망가지게 됨.
-    //방지하기 위한 용도
-    if(size == maxSize){
-        //[_css copyCSSMaxViewPortDictTo:oldMaxSize];
-    }
-    
-    //[_css setMaxViewPort:maxSize];
-     */
-    
 }
-
-- (void)removeMQSize:(NSNotification *)notification{
-    NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-//    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    
-    for(IUDataStorageManager *manager in _m_storageManagerDict){
-        [manager removeStorageForViewPort:size];
-    }
-    
-}
-
-
-- (void)changeMQSelect:(NSNotification *)notification{
-    
-    [self willChangeValueForKey:@"canChangeHCenter"];
-
-    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-//    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
-    
+- (void)setCurrentViewPort:(NSInteger)viewport{
     for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
-        [manager setCurrentViewPort:selectedSize];
+        [manager setCurrentViewPort:viewport];
     }
-    
-    [self didChangeValueForKey:@"canChangeHCenter"];
-    
+}
+
+- (void)copyViewPortDataStorageFrom:(NSInteger)from to:(NSInteger)to{
+    for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
+        [manager copyDataStorageFrom:from to:to];
+    }
+}
+- (void)removeViewPort:(NSInteger)viewport{
+    for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
+        [manager removeStorageForViewPort:viewport];
+    }
 }
 
 

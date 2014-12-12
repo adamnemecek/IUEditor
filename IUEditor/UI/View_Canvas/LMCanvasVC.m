@@ -49,7 +49,7 @@
 
 -(void)viewDidLoad{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelectedWithInfo object:[[self.view window] windowController]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:[self.view window]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
     
@@ -118,18 +118,9 @@
 
 
 #pragma mark - canvas frame
-/** change webview width by media query size
- */
-- (void)updateWebViewWidth{
-    NSString *outerCSS = [NSString stringWithFormat:@"width:%ldpx", self.selectedFrameWidth];
-    [self IUClassIdentifier:@"#"IUSheetOuterIdentifier CSSUpdated:outerCSS];
-    [self updateJS];
-}
-
 - (void)windowDidResize:(NSNotification *)notification{
     [[self webCanvasView] resizePageContent];
     [[self canvasView] windowDidResize:notification];
-    [self updateWebViewWidth];
 }
 
 -(void)changeIUPageHeight:(CGFloat)pageHeight{
@@ -177,7 +168,6 @@
     
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
-    [self updateWebViewWidth];
     
     [self reloadSheet];
     
@@ -206,7 +196,6 @@
 #pragma mark - IUCanvasController Protocol
 
 - (void)webViewdidFinishLoadFrame{
-    [self updateWebViewWidth];
     [self updateJS];
 }
 
@@ -540,31 +529,34 @@
         else {
             currentIdentifier = moveObj.htmlID;
         }
-        NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
-        id currentValue = [self.webCanvasView evaluateWebScript:frameJS];
         
+        id currentValue;
+        if([moveObj.currentStyleStorage.widthUnit isEqualToNumber:@(IUFrameUnitPercent)]
+           || [moveObj.currentStyleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPercent)]){
+            NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", currentIdentifier];
+            currentValue = [self.webCanvasView evaluateWebScript:frameJS];
+        }
         
         NSSize originalSize = [moveObj originalFrame].size;
         
         if([moveObj canChangeWidthByDraggable]){
             CGFloat currentW = originalSize.width + totalSize.width;
-            CGFloat currentPercentW = [[currentValue valueForKey:@"width"] floatValue];
             if([moveObj.currentStyleStorage.widthUnit isEqualToNumber:@(IUFrameUnitPixel)]){
                 [moveObj.currentStyleStorage setWidth:@(currentW) unit:@(IUFrameUnitPixel)];
             }
             else{
+                CGFloat currentPercentW = [[currentValue valueForKey:@"width"] floatValue];
                 [moveObj.currentStyleStorage setWidth:@(currentPercentW) unit:@(IUFrameUnitPercent)];
             }
         }
         
         if([moveObj canChangeHeightByDraggable]){
-            CGFloat currentH = originalSize.height + totalSize.height;
-            CGFloat currentPercentH = [[currentValue valueForKey:@"height"] floatValue];
-            
             if([moveObj.currentStyleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+                CGFloat currentH = originalSize.height + totalSize.height;
                 [moveObj.currentStyleStorage setHeight:@(currentH) unit:@(IUFrameUnitPixel)];
             }
             else{
+                CGFloat currentPercentH = [[currentValue valueForKey:@"height"] floatValue];
                 [moveObj.currentStyleStorage setHeight:@(currentPercentH) unit:@(IUFrameUnitPercent)];
             }
             
@@ -667,7 +659,8 @@
 - (void)saveElementText:(DOMHTMLElement *)element forIdnetifier:(NSString *)identifier{
     IUBox *iu = [self.controller tryIUBoxByIdentifier:identifier];
     if(iu){
-        
+        [iu.cascadingPropertyStorage disableUpdate:self];
+
         if(element.innerText && [element.innerText stringByTrim].length > 0){
             [[LMFontController sharedFontController] setLastUsedFontToIUBox:iu];
             iu.cascadingPropertyStorage.innerHTML = element.innerHTML;
@@ -675,6 +668,8 @@
         else{
             iu.cascadingPropertyStorage.innerHTML = nil;
         }
+        
+        [iu.cascadingPropertyStorage enableUpdate:self];
         
     }
     [iu updateCSS];

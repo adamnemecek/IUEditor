@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPropertyToolBarVC">
@@ -375,7 +375,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gf5-2B-3ys" userLabel="btn_HC">
                                     <rect key="frame" x="0.0" y="-4" width="26" height="30"/>
                                     <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="btn_ac_h" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="YZp-lf-rMj">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
@@ -527,14 +527,14 @@
                             <subviews>
                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89S-Qn-DNT">
                                     <rect key="frame" x="-5" y="1" width="70" height="20"/>
-                                    <popUpButtonCell key="cell" type="bevel" title="Light" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" selectedItem="OvY-yh-r6a" id="RGG-mE-Ih1">
+                                    <popUpButtonCell key="cell" type="bevel" title="Light" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="OvY-yh-r6a" id="RGG-mE-Ih1">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
                                         <menu key="menu" id="A06-im-TW1">
                                             <items>
-                                                <menuItem title="Light" id="OvY-yh-r6a" userLabel="Light"/>
+                                                <menuItem title="Light" state="on" id="OvY-yh-r6a" userLabel="Light"/>
                                                 <menuItem title="Normal" id="y6h-v1-Lfc" userLabel="Normal"/>
-                                                <menuItem title="Bold" state="on" id="njy-W5-cdT" userLabel="Bold"/>
+                                                <menuItem title="Bold" id="njy-W5-cdT" userLabel="Bold"/>
                                             </items>
                                         </menu>
                                     </popUpButtonCell>

@@ -11,13 +11,7 @@
 body{
     background-color:red;
 }
-#sheet_outer{
-    background-color:white;
-    position:absolute;
-    display:block;
-    overflow:visible;
-    height:100%;
-}
+
 .IUSheet, .IUPageContent{
     overflow:visible;
 }

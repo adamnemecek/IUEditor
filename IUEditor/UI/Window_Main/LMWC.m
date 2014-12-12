@@ -234,7 +234,6 @@
     [self setLogViewState:0];
     
     //notification observer default
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(performDoubleClick:) name:IUNotificationDoubleClickCanvas object:self.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(increaseConsoleLogReferenceCount) name:IUNotificationConsoleStart object:self.window];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(decreaseConsoleLogReferenceCount) name:IUNotificationConsoleEnd object:self.window];
     
@@ -296,7 +295,6 @@
 
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationDoubleClickCanvas object:self.window];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleStart object:self.window];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleEnd object:self.window];
 

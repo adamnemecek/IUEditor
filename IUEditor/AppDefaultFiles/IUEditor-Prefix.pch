@@ -101,13 +101,11 @@
 
 
 #define IUNotificationNewIUCreatedByCanvas @"IUNotificationNewIUCreatedByCanvas"
-#define IUNotificationDoubleClickCanvas @"IUNotificationDoubleClickCanvas"
 
 //called when media query is changed, usually occured by addsize, removesize, selectsize
 #define IUNotificationMQAdded @"MQAdded"
 #define IUNotificationMQRemoved @"MQRemoved"
 #define IUNotificationMQSelected @"MQSelected"
-#define IUNotificationMQSelectedWithInfo @"MQSelectedWithInfo"
 #define IUNotificationMQMaxChanged @"MQMaxChanged"
 #define IUNotificationMQSize @"MQSize"
 #define IUNotificationMQOldSize @"MQOldSize"

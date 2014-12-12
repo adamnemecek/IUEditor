@@ -118,6 +118,7 @@ BOOL   isNSRectContainsRect(NSRect rect, NSRect subrect);
 
 -(NSLayoutConstraint *)viewConstraint:(NSView *)view equalToWidth:(CGFloat)width;
 -(NSLayoutConstraint *)viewConstraint:(NSView *)view toSuperview:(NSView *)superview leading:(CGFloat)leading;
+-(NSLayoutConstraint *)viewConstraint:(NSView *)view toSuperview:(NSView *)superview trailing:(CGFloat)trailing;
 -(NSLayoutConstraint *)constraintForIdentifier:(NSString *)identifier;
 
 @end

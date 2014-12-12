@@ -217,21 +217,6 @@
     return page;
 }
 
-- (void)connectWithEditor{
-//    NSAssert(self.project, @"");
-    
-    [[self undoManager] disableUndoRegistration];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-    
-    for(IUBox *iu in self.children){
-        [iu connectWithEditor];
-    }
-    [[self undoManager] enableUndoRegistration];
-}
 
 - (void)disconnectWithEditor{
     if([self isConnectedWithEditor]){

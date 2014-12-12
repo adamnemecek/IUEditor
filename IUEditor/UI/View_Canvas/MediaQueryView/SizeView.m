@@ -167,7 +167,6 @@
         largeSize = [[self sortedArray][selectIndex -1] integerValue];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxSize)}];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelectedWithInfo object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxSize), IUNotificationMQLargerSize:@(largeSize), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
     
     [self.controller enableUpdateCSS:self];
         
