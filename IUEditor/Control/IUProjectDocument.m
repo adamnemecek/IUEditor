@@ -75,8 +75,14 @@ static NSString *metaDataIUVersion = @"IUVersion";
     self = [super initWithType:typeName error:outError];
     if(self){
         //FIXME:
-        //projectType은 nsuserdefault로 넘겨받아야함.
+        //projectType은 nsuserdefault로 넘겨받아야함. option 도 마찬가지.
         _project = [[NSClassFromString(@"IUProject") alloc] initForUntitledDocument];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"projectInitOption"]) {
+            NSDictionary *option = [[NSUserDefaults standardUserDefaults] objectForKey:@"projectInitOption"];
+            if (option[@"stressTest"]) {
+                [_project setAsStressTestMode];
+            }
+        }
         NSString *resourceTempPath = [self resourceTemporaryPath];
         [[NSFileManager defaultManager] createDirectoryAtPath:resourceTempPath withIntermediateDirectories:YES attributes:nil error:nil];
         [_resourceRootItem loadFromPath:resourceTempPath];

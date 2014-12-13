@@ -64,6 +64,18 @@
     }
     
 #if DEBUG
+    NSMenu *mainMenu = [[NSApplication sharedApplication] mainMenu];
+    NSMenuItem *debugItem = [[NSMenuItem alloc] init];
+    debugItem.title = @"Debug";
+    [mainMenu addItem:debugItem];
+    
+    NSMenu *debugMenu = [[NSMenu alloc] init];
+    debugMenu.title = @"Debug";
+    [debugItem setSubmenu:debugMenu];
+    [debugMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Stress Test" action:@selector(debug_stressTest) keyEquivalent:@""]];
+#endif
+    
+#if DEBUG
     /*
      [JDLogUtil enableLogSection:IULogSource];
      [JDLogUtil enableLogSection:IULogJS];
@@ -121,6 +133,10 @@
 }
 
 
+- (void)debug_stressTest {
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"stressTest"];
+    [[NSDocumentController sharedDocumentController] newDocument:@{IUProjectModeKey:IUProjectModeStress}];
+}
 
 
 - (IBAction)openPreference:(id)sender {

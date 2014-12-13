@@ -15,6 +15,7 @@
 #import "IUFooter.h"
 #import "IUEventVariable.h"
 #import "IUIdentifierManager.h"
+#import "IUProjectController.h"
 
 #import "IUDjangoProject.h"
 #import "IUWordpressProject.h"
@@ -295,6 +296,7 @@
 - (id)initForUntitledDocument{
     /* initialize at temp directory */
     [[IUIdentifierManager managerForMainWindow] reset];
+    NSDictionary *documentOption = [[IUProjectController sharedDocumentController] newDocumentOption];
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(IUDefaultViewPort), @320]];
     _serverInfo = [[IUServerInfo alloc] init];
@@ -332,7 +334,44 @@
     // create build directory
     [[NSFileManager defaultManager] createDirectoryAtPath:self.absoluteBuildPath withIntermediateDirectories:YES attributes:nil error:nil];
     */
+    if (documentOption[IUProjectModeKey] == IUProjectModeStress) {
+        [self setAsStressTestMode];
+    }
     return self;
+}
+
+- (void)setAsStressTestMode {
+    /* Time History */
+    // 2014/12/13 [test01] : set 5.3, iuframe 0.10~0.12s, movieIU 0.12s
+    
+    [JDLogUtil timeLogStart:@"setStressMode"];
+    IUPage *pg = [[_pageGroup childrenFileItems] firstObject];
+    IUPageContent *content = pg.pageContent;
+    
+    IUBox *firstBox;
+    for (int i=0; i<500; i++) {
+        IUBox *box = [[IUBox alloc] init];
+        if (i==0){
+            firstBox = box;
+        }
+        [content addIU:box error:nil];
+        [box.currentPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+        [box.currentPositionStorage setX:@(i*3) unit:@(IUFrameUnitPixel)];
+        [box.currentPositionStorage setY:@(i*3) unit:@(IUFrameUnitPixel)];
+        [box.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPixel)];
+        [box.currentStyleStorage setHeight:@(100) unit:@(IUFrameUnitPixel)];
+        [box.currentStyleStorage setBgColor:[NSColor randomColor]];
+    }
+    [JDLogUtil timeLogEnd:@"setStressMode"];
+    
+    for (int i=0; i<10; i++) {
+        int64_t time = (i+5) * NSEC_PER_SEC;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time)), dispatch_get_main_queue(), ^{
+            for (int j=0; j <10; j++){
+                [firstBox.currentPositionStorage setX:@(10*j)];
+            }
+        });
+    }
 }
 
 /*

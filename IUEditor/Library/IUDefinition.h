@@ -59,6 +59,8 @@ extern NSString *const IUValue;
 extern NSString *const IUCompleTypeHTML;
 extern NSString *const IUCompleTypeDjango;
 
-
+extern NSString *const IUProjectModeKey;
+extern NSString *const IUProjectModeStress;
+extern NSString *const IUProjectModeNormal;
 
 #endif

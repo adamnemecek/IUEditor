@@ -77,6 +77,7 @@ static NSString *IUClassGroupName = @"class";
  Make Project for untitled document
  */
 - (id)initForUntitledDocument;
+- (void)setAsStressTestMode;
 
 
 //project properties

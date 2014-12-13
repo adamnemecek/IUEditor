@@ -15,3 +15,7 @@ NSString *const IUValue = @"value";
 
 NSString *const IUCompleTypeHTML = @"HTML";
 NSString *const IUCompileTypeDjango = @"DJANGO";
+
+NSString *const IUProjectModeKey = @"projectMode";
+NSString *const IUProjectModeStress = @"stress";
+NSString *const IUProjectModeNormal = @"normal";

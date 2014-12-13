@@ -10,17 +10,24 @@
 #import "IUProjectDocument.h"
 
 @implementation IUProjectController{
-    NSDictionary *newDocumentOption;
+    NSDictionary *_newDocumentOption;
 }
 
 
 - (void)newDocument:(id)sender{
+    if ([sender isKindOfClass:[NSDictionary class]]){
+        _newDocumentOption = [sender copy];
+    }
     [super newDocument:sender];
 }
 
 - (void)newDocument:(id)sender withOption:(NSDictionary *)option __deprecated{
-    newDocumentOption = option;
+    _newDocumentOption = option;
     [self newDocument:sender];
+}
+
+- (NSDictionary *)newDocumentOption {
+    return _newDocumentOption;
 }
 
 - (void)openDocument:(id)sender{

@@ -21,4 +21,6 @@ url을 넘기고 싶으면 IUProjectKeyIUFilePath를 key로 option에 넣어야�
 */
 - (void)newDocument:(id)sender withOption:(NSDictionary *)option __deprecated;
 
+- (NSDictionary *)newDocumentOption;
+
 @end
