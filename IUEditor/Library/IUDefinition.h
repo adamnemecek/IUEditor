@@ -63,4 +63,15 @@ extern NSString *const IUProjectModeKey;
 extern NSString *const IUProjectModeStress;
 extern NSString *const IUProjectModeNormal;
 
+
+/******************************
+ 
+ Code decorator
+ 
+ *******************************/
+
+ 
+#define _binding_
+#define _observing_
+
 #endif

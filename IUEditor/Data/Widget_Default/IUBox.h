@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JDCoder.h"
+#import "IUDefinition.h"
 
 #import "IUIdentifierManager.h"
 #import "IUProjectProtocol.h"

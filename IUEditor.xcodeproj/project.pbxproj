@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0901CC111A3DB680009D21D8 /* IUPerformanceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0901CC101A3DB680009D21D8 /* IUPerformanceTest.m */; };
 		0926059C1A1A5481008C40FC /* JDCoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6C19F7C04000A75567 /* JDCoderTest.m */; };
 		092605A31A1A5481008C40FC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		092605AA1A1A54E5008C40FC /* IUDataStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */; };
@@ -767,6 +768,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0901CC121A3DB680009D21D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D2EF34B19F751FF00BBBAE5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D2EF35219F751FF00BBBAE5;
+			remoteInfo = IUEditor;
+		};
 		092605951A1A5481008C40FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D2EF34B19F751FF00BBBAE5 /* Project object */;
@@ -791,6 +799,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0901CC0C1A3DB680009D21D8 /* IUPerformanceTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IUPerformanceTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0901CC0F1A3DB680009D21D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0901CC101A3DB680009D21D8 /* IUPerformanceTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IUPerformanceTest.m; sourceTree = "<group>"; };
 		092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IUEditor Tests copy.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		092605B51A1C1078008C40FC /* IUBoxes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUBoxes.h; sourceTree = "<group>"; };
 		092605B61A1C2B19008C40FC /* IUSourceManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IUSourceManagerProtocol.h; sourceTree = "<group>"; };
@@ -1833,6 +1844,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0901CC091A3DB680009D21D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		092605A21A1A5481008C40FC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1876,6 +1894,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0901CC0D1A3DB680009D21D8 /* IUPerformanceTest */ = {
+			isa = PBXGroup;
+			children = (
+				0901CC101A3DB680009D21D8 /* IUPerformanceTest.m */,
+				0901CC0E1A3DB680009D21D8 /* Supporting Files */,
+			);
+			path = IUPerformanceTest;
+			sourceTree = "<group>";
+		};
+		0901CC0E1A3DB680009D21D8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0901CC0F1A3DB680009D21D8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		3D2EF34A19F751FF00BBBAE5 = {
 			isa = PBXGroup;
 			children = (
@@ -1883,6 +1918,7 @@
 				3D2EF35519F751FF00BBBAE5 /* IUEditor */,
 				3D2EFC2219F7888B00BBBAE5 /* JDLibrary */,
 				3DE45F5D19F7BFB200A75567 /* IUEditor Tests */,
+				0901CC0D1A3DB680009D21D8 /* IUPerformanceTest */,
 				3D2EF35419F751FF00BBBAE5 /* Products */,
 				3D2EF38E19F7540C00BBBAE5 /* Framework */,
 			);
@@ -1895,6 +1931,7 @@
 				3DE45F5C19F7BFB200A75567 /* IUEditor Tests.xctest */,
 				09D647CB1A161EF600634434 /* IUEditor Tests UI.xctest */,
 				092605A81A1A5481008C40FC /* IUEditor Tests copy.xctest */,
+				0901CC0C1A3DB680009D21D8 /* IUPerformanceTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3687,6 +3724,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0901CC0B1A3DB680009D21D8 /* IUPerformanceTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0901CC161A3DB680009D21D8 /* Build configuration list for PBXNativeTarget "IUPerformanceTest" */;
+			buildPhases = (
+				0901CC081A3DB680009D21D8 /* Sources */,
+				0901CC091A3DB680009D21D8 /* Frameworks */,
+				0901CC0A1A3DB680009D21D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0901CC131A3DB680009D21D8 /* PBXTargetDependency */,
+			);
+			name = IUPerformanceTest;
+			productName = IUPerformanceTest;
+			productReference = 0901CC0C1A3DB680009D21D8 /* IUPerformanceTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		092605931A1A5481008C40FC /* JDLib Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 092605A51A1A5481008C40FC /* Build configuration list for PBXNativeTarget "JDLib Tests" */;
@@ -3767,6 +3822,10 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = JDLab;
 				TargetAttributes = {
+					0901CC0B1A3DB680009D21D8 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 3D2EF35219F751FF00BBBAE5;
+					};
 					3D2EF35219F751FF00BBBAE5 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -3793,11 +3852,19 @@
 				092605931A1A5481008C40FC /* JDLib Tests */,
 				3DE45F5B19F7BFB200A75567 /* IUEditor Tests */,
 				09D647B61A161EF600634434 /* IUEditor Tests UI */,
+				0901CC0B1A3DB680009D21D8 /* IUPerformanceTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0901CC0A1A3DB680009D21D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		092605A41A1A5481008C40FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4264,6 +4331,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0901CC081A3DB680009D21D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0901CC111A3DB680009D21D8 /* IUPerformanceTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		092605961A1A5481008C40FC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4605,6 +4680,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0901CC131A3DB680009D21D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D2EF35219F751FF00BBBAE5 /* IUEditor */;
+			targetProxy = 0901CC121A3DB680009D21D8 /* PBXContainerItemProxy */;
+		};
 		092605941A1A5481008C40FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D2EF35219F751FF00BBBAE5 /* IUEditor */;
@@ -4651,6 +4731,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0901CC141A3DB680009D21D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = IUPerformanceTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
+			};
+			name = Debug;
+		};
+		0901CC151A3DB680009D21D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = IUPerformanceTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUEditor.app/Contents/MacOS/IUEditor";
+			};
+			name = Release;
+		};
 		092605A61A1A5481008C40FC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4881,6 +4997,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0901CC161A3DB680009D21D8 /* Build configuration list for PBXNativeTarget "IUPerformanceTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0901CC141A3DB680009D21D8 /* Debug */,
+				0901CC151A3DB680009D21D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		092605A51A1A5481008C40FC /* Build configuration list for PBXNativeTarget "JDLib Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
