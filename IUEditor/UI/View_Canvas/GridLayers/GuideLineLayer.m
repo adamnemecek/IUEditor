@@ -35,6 +35,7 @@
 
 - (void)clearPath{
     [path removeAllPoints];
+#warning MEMORY LEAK!!!!!!!!!
     self.path = [path quartzPath];
 }
 
