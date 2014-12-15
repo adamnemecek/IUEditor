@@ -156,7 +156,9 @@
         [element setOuterHTML:htmlCode];
     }
     
-    [_webCanvasView runJSAfterRefreshCSS];
+    /* instead of running js */
+//    [_webCanvasView runJSAfterRefreshCSS];
+    [_webCanvasView updateFrameDictionaryWithIdentifiers:@[box.htmlID]];
 }
 
 
@@ -186,9 +188,13 @@
         [self updateNonInlineCSSText:cssString withSelector:selector];
     }];
     
-    [_webCanvasView runJSAfterRefreshCSS];
+    /* instead of running js */
+//    [_webCanvasView runJSAfterRefreshCSS];
+    [_webCanvasView updateFrameDictionaryWithIdentifiers:@[box.htmlID]];
 
 }
+
+
 
 - (void)setNeedsUpdateCSS:(IUBox *)box withIdentifiers:(NSArray *)identifiers{
     //TODO: 겸치는 set만 동작하게

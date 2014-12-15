@@ -220,7 +220,9 @@
             
         }
         [self.manager.undoManager endUndoGrouping];
-        [self.manager storage:self changes:[_changePropertyStack copy]];
+        if(_changePropertyStack.count > 0){
+            [self.manager storage:self changes:[_changePropertyStack copy]];
+        }
         [_changePropertyStack removeAllObjects];
     }
 }
@@ -504,8 +506,10 @@
         }
     }
     
-    for(id <IUDataStorageManagerDelegate> box in _owners){
-        [box setNeedsToUpdateStorage:storage keys:[changedKeys copy]];
+    if(changedKeys.count > 0){
+        for(id <IUDataStorageManagerDelegate> box in _owners){
+            [box setNeedsToUpdateStorage:storage keys:[changedKeys copy]];
+        }
     }
 }
 
