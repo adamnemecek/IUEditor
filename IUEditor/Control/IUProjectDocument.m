@@ -512,7 +512,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 + (BOOL)autosavesInPlace
 {
-    return YES;
+    return NO;
 }
 
 
