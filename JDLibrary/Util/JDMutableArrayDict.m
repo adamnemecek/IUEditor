@@ -10,6 +10,12 @@
 //
 
 #import "JDMutableArrayDict.h"
+@interface JDMutableArrayDict()
+
+@property NSDictionary* dict;
+@property NSArray* array;
+
+@end
 
 @implementation JDMutableArrayDict {
 }

@@ -25,8 +25,8 @@
 }
 
 
-@property (nonatomic, retain) NSDictionary* dict;
-@property (nonatomic, retain) NSArray* array;
+@property (readonly) NSDictionary* dict;
+@property (readonly) NSArray* array;
 
 
 - (id)objectAtIndex:(NSUInteger)index;

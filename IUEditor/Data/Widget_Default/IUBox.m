@@ -797,7 +797,7 @@ e.g. 만약 css로 옮긴다면)
         [_m_children removeObject:iu];
     }
     
-    if (self.isConnectedWithEditor) {
+    if (self.isConnectedWithEditor && children.count > 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureChangeRemoving, IUNotificationStructureChangedIU: children}];
     }
     

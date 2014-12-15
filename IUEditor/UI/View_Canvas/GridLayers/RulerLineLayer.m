@@ -61,6 +61,7 @@
     
     [path drawline:start end:end];
     self.path = [path quartzPath];
+    CGPathRelease(self.path);
 }
 
 

@@ -34,9 +34,10 @@
 }
 
 - (void)clearPath{
+
     [path removeAllPoints];
-#warning MEMORY LEAK!!!!!!!!!
     self.path = [path quartzPath];
+    CGPathRelease(self.path);
 }
 
 - (void)drawLine:(NSArray *)array{
@@ -49,5 +50,6 @@
         [path drawline:line.start end:line.end];
     }
     self.path = [path quartzPath];
+    CGPathRelease(self.path);
 }
 @end

@@ -66,6 +66,7 @@
             NSAssert(0, @"");
         }
         free(readonly);
+        free(weak);
         free(type);
     }
     return self;
