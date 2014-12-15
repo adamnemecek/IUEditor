@@ -89,10 +89,11 @@
 }
 
 - (void)setSheet:(IUSheet *)sheet{
-    
     [[self gridView] clearAllLayer];
     [[self canvasView] loadDefaultZoom];
     [self updateClassHeight];
+    
+    _sheet = sheet;
 }
 
 

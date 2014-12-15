@@ -281,6 +281,8 @@
         [_projectStructureVC setClassController:_classController];
         [_structureToolBarVC setPageController:_pageController];
         [_structureToolBarVC setClassController:_classController];
+        [_tracingPropertyVC setPageController:_pageController];
+        [_tracingPropertyVC setClassController:_classController];
         
         //resource
         [_imagePropertyVC setResourceRootItem:document.resourceRootItem];
@@ -290,6 +292,7 @@
         //iucontroller
         [_canvasVC setController:_iuController];
         [_stylePropertyVC setIuController:_iuController];
+        [_imagePropertyVC setIuController:_iuController];
         
         //set iudata is connected
         [document.undoManager disableUndoRegistration];

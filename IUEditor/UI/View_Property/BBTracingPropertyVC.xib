@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBTracingPropertyVC">
             <connections>
+                <outlet property="ghostOpacitySlider" destination="bg5-5q-5fF" id="0Lt-pT-niz"/>
+                <outlet property="ghostOpacityTextField" destination="hWx-Hv-RD8" id="LOV-x0-XWv"/>
+                <outlet property="ghostXTextField" destination="3yI-yd-kge" id="Vaz-N1-L0P"/>
+                <outlet property="ghostYTextField" destination="tvG-CZ-6Rp" id="A52-di-QNS"/>
+                <outlet property="tracingImageComboBox" destination="emj-s7-NBX" id="mgQ-Xf-UfG"/>
+                <outlet property="tracingModeButton" destination="5Jt-by-9Dq" id="VAx-FI-b6J"/>
                 <outlet property="view" destination="rqr-F0-tDe" id="igk-dE-9Os"/>
             </connections>
         </customObject>
@@ -89,6 +95,7 @@
                                     </comboBoxCell>
                                     <connections>
                                         <binding destination="nlJ-wg-D6r" name="content" keyPath="arrangedObjects.name" id="Nz6-en-vKH"/>
+                                        <outlet property="delegate" destination="-2" id="Dmo-3s-Wg3"/>
                                     </connections>
                                 </comboBox>
                             </subviews>
@@ -318,7 +325,7 @@
                     </textField>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bg5-5q-5fF">
                         <rect key="frame" x="76" y="528" width="100" height="15"/>
-                        <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="yOp-yZ-l7Y"/>
+                        <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="yOp-yZ-l7Y"/>
                     </slider>
                     <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Xs2-IX-0Ao" userLabel="%">
                         <rect key="frame" x="184" y="526" width="40" height="22"/>
@@ -342,6 +349,9 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="BWC-Qc-MSw" id="ve3-ou-5RD"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </view>
@@ -366,5 +376,8 @@
             </connections>
         </arrayController>
         <userDefaultsController representsSharedInstance="YES" id="qw3-3t-9mR"/>
+        <numberFormatter formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="BWC-Qc-MSw" userLabel="percent">
+            <integer key="multiplier" value="100"/>
+        </numberFormatter>
     </objects>
 </document>

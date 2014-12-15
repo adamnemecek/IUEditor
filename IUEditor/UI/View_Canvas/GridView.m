@@ -87,14 +87,6 @@
         
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:@"showGhost" options:NSKeyValueObservingOptionInitial context:nil];
         
-        /*
-         delete : 2014.11.30 initialize, zoom에서 mqselect 할때 사이즈가 맞지않음.
-        //initialize mqshadow layer
-        //shadowLayer = [MQShadowLayer layer];
-        //[self.layer insertSubLayerFullFrame:shadowLayer below:borderManagerLayer];
-        */
-        
-        
         //initialize selection Layer
         selectionLayer = [CALayer layer];
         [selectionLayer setBackgroundColor:[[NSColor clearColor] CGColor]];

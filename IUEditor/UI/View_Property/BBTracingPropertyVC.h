@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IUResource.h"
+#import "IUSheetController.h"
 
-@interface BBTracingPropertyVC : NSViewController
+@interface BBTracingPropertyVC : NSViewController <NSComboBoxDelegate>
 
 @property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
+@property (weak) IUSheetController *pageController, *classController;
 
 @end
