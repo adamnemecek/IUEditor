@@ -289,7 +289,7 @@
         
         //iucontroller
         [_canvasVC setController:_iuController];
-        
+        [_stylePropertyVC setIuController:_iuController];
         
         //set iudata is connected
         [document.undoManager disableUndoRegistration];
@@ -361,9 +361,13 @@
     }
 
 }
-
 - (void)reloadCurrentSheet:(id)sender{
     [self.sourceManager loadSheet:_currentSheet];
+    [_canvasVC setSheet:_currentSheet];
+}
+
+- (void)reloadCurrentSheet:(id)sender viewport:(NSInteger)viewport{
+    [self.sourceManager loadSheet:_currentSheet viewport:viewport];
     [_canvasVC setSheet:_currentSheet];
 }
 

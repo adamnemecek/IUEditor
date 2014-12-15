@@ -76,14 +76,6 @@
 }
 
 
-- (void)overwritingDataStorageForNilValue:(IUPositionStorage*)aStorage{
-    [super overwritingDataStorageForNilValue:aStorage];
-    /* remove update manager for temporary */
-    if (self.x == nil && aStorage.x != nil) {
-        self.x = aStorage.x;
-    }
-}
-
 
 /* it's for conversion */
 - (void)setCSSValue:(id)value fromCSSforCSSKey:(NSString *)key{

@@ -116,16 +116,16 @@
 #pragma mark - keyPath
 //REVIEW: self.selection not working (proxy multiple 전달 안됨)
 - (NSString *)pathForCSSTag:(IUCSSTag)tag{
-    return [@"self.controller.selection.css.effectiveTagDictionary." stringByAppendingString:tag];
+    return [@"controller.selection.css.effectiveTagDictionary." stringByAppendingString:tag];
 }
 - (NSString *)pathForProperty:(IUPropertyTag)property{
-    return [@"self.controller.selection." stringByAppendingString:property];
+    return [@"controller.selection." stringByAppendingString:property];
 }
 - (NSString *)pathForEventTag:(IUEventTag)tag{
-    return [@"self.controller.selection.event." stringByAppendingString:tag];
+    return [@"controller.selection.event." stringByAppendingString:tag];
 }
 - (NSString *)pathForMqDataTag:(IUMQDataTag)tag{
-    return [@"self.controller.selection.mqData." stringByAppendingString:tag];
+    return [@"controller.selection.mqData." stringByAppendingString:tag];
 }
 
 @end

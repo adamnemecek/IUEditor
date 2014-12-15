@@ -30,7 +30,7 @@ static NSString * const IUCompilerTagOption = @"tag";
  Return whole web source of sheet;
  WebSource = HTML + CSS
  */
-- (NSString *)editorSource:(IUBox *)box viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth;
+- (NSString *)editorSource:(IUBox *)box viewPort:(NSInteger)viewPort;
 
 - (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort ;
 - (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS;

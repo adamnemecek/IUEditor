@@ -38,8 +38,9 @@ typedef enum{
 @property IUSheetController *classController;
 @property IUController *iuController;
 
-
 - (void)reloadCurrentSheet:(id)sender;
+- (void)reloadCurrentSheet:(id)sender viewport:(NSInteger)viewport;
+
 - (NSString *)projectName;
 
 @end

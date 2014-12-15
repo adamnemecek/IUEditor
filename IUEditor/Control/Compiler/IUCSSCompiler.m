@@ -61,8 +61,9 @@
 }
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    IUCSSCode *cssCode = [self cssCodeForIU:iu];
     //FIXME: Not Coded
-    return [self cssCodeForIU:iu];
+    return cssCode;
 }
 
 

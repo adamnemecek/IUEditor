@@ -96,10 +96,6 @@
 }
 
 
-- (void)reloadSheet{
-    [(BBWC *)[[NSApp mainWindow] windowController] reloadCurrentSheet:self];
-}
-
 
 #pragma mark - views
 
@@ -169,7 +165,7 @@
     [self setSelectedFrameWidth:selectedSize];
     [self setMaxFrameWidth:maxSize];
     
-    [self reloadSheet];
+    [(BBWC *)[[NSApp mainWindow] windowController] reloadCurrentSheet:self viewport:selectedSize];
     
     [[self canvasView] updateMainViewOrigin];
     [[self gridView] setSelectedFrameWidth:_selectedFrameWidth];

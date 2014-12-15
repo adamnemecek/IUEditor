@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBStylePropertyVC">
@@ -91,7 +91,7 @@
                     </box>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="lge-Q8-gq6">
                         <rect key="frame" x="-1" y="-1" width="241" height="720"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
+                        <clipView key="contentView" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -359,7 +359,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wzG-VV-34q">
-                    <rect key="frame" x="0.0" y="-2" width="241" height="9"/>
+                    <rect key="frame" x="0.0" y="-2" width="241" height="8"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -431,6 +431,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="Lu5-Zd-hB8"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -500,6 +503,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="Xoc-vK-3zS"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -549,6 +555,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="vmw-Zh-7xo"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -598,6 +607,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="Xj9-Wr-ljz"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -647,6 +659,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="QDn-8U-F2l"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -676,7 +691,7 @@
                     <color key="fillColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="d3w-D5-Jhg">
-                    <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
+                    <rect key="frame" x="0.0" y="-1" width="241" height="9"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -784,6 +799,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="wLF-i1-Mvx"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                 </view>
@@ -853,6 +871,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="A5E-Mu-gbS"/>
+                                            </connections>
                                         </textField>
                                         <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="FYf-Af-hpt">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
@@ -913,6 +934,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="IjF-jo-8KA"/>
+                                            </connections>
                                         </textField>
                                         <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="44c-nM-9CI">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
@@ -973,6 +997,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="saA-W0-h5F"/>
+                                            </connections>
                                         </textField>
                                         <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TbH-4a-nXM">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
@@ -1033,6 +1060,9 @@
                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <connections>
+                                                <outlet property="formatter" destination="iqP-46-LRt" id="HNz-kG-FY6"/>
+                                            </connections>
                                         </textField>
                                         <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jqa-QC-agd">
                                             <rect key="frame" x="3" y="3" width="14" height="14"/>
@@ -1073,7 +1103,7 @@
                     <color key="fillColor" red="0.55635751720000004" green="0.45606755459999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="6sW-uV-SRA">
-                    <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
+                    <rect key="frame" x="0.0" y="-1" width="241" height="4"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1094,7 +1124,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Eqt-zy-2CY">
-                    <rect key="frame" x="0.0" y="-1" width="241" height="4"/>
+                    <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1155,6 +1185,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="formatter" destination="jy6-rz-E4d" id="x5e-u0-7T1"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -1208,6 +1241,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="formatter" destination="jy6-rz-E4d" id="oue-py-fsJ"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -1261,6 +1297,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="formatter" destination="jy6-rz-E4d" id="Iib-4m-aAN"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -1314,6 +1353,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="formatter" destination="jy6-rz-E4d" id="bfk-D7-di2"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -1348,6 +1390,8 @@
             </subviews>
             <point key="canvasLocation" x="515.5" y="-503"/>
         </customView>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'px'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="iqP-46-LRt" userLabel="px"/>
+        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="jy6-rz-E4d" userLabel="integer"/>
     </objects>
     <resources>
         <image name="btn_remove_color_large" width="92" height="14"/>

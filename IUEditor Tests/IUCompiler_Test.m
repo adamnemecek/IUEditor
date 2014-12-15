@@ -94,15 +94,4 @@
     XCTAssertTrue([htmlCode containsString:@"box1"]);
 }
 
-- (void)test3_Text {
-    IUText *text = [[IUText alloc] init];
-    text.text = @"Hello Dally";
-    XCTAssertEqualObjects(text.text, text.cascadingPropertyStorage.innerHTML);
-
-    
-    IUCompiler *compiler = [[IUCompiler alloc] init];
-    NSString *htmlCode;
-    [compiler editorIUSource:text htmlIDPrefix:nil viewPort:text.maxViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
-    XCTAssertTrue([htmlCode containsString:@"Hello Dally"]);
-}
 @end

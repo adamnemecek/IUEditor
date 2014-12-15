@@ -51,14 +51,14 @@
     NSInteger oldSelectedWidth = _currentSelectedWidth;
     _currentSelectedWidth = width;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self.view.window userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
-    
     for (IUSheet *sheet in _project.allSheets) {
         for(IUBox *box in sheet.allChildren){
             [box setCurrentViewPort:_currentSelectedWidth];
         }
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self.view.window userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth), IUNotificationMQLargerSize:@(largerWidth), IUNotificationMQOldSize:@(oldSelectedWidth)} ];
+
 }
 
 

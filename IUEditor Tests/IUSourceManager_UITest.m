@@ -44,8 +44,6 @@ static     IUTestWC *testWC;
     
     
     manager = [[IUSourceManager alloc] init];
-    manager.viewPort = IUDefaultViewPort;
-    manager.canvasViewWidth = 960;
     
     [manager setCanvasVC:testWC];
     [manager setCompiler:[[IUCompiler alloc] init]];
@@ -83,8 +81,7 @@ static     IUTestWC *testWC;
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
 
     
-    [manager loadSheet:page];
-    
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -110,8 +107,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
-    
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -144,8 +140,7 @@ static     IUTestWC *testWC;
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
     
-    [manager loadSheet:page];
-    
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -205,8 +200,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
-    
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
@@ -240,7 +234,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -275,7 +269,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -310,7 +304,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -348,7 +342,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -389,7 +383,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -442,7 +436,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -482,7 +476,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -519,7 +513,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -530,7 +524,7 @@ static     IUTestWC *testWC;
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
-        manager.viewPort = 320;
+//        manager.viewPort = 320;
         iu.mobileTitle = @"test12";
         
         [manager setNeedsUpdateHTML:iu];
@@ -558,7 +552,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -601,7 +595,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -642,7 +636,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -732,7 +726,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -771,7 +765,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -809,7 +803,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         
@@ -848,7 +842,7 @@ static     IUTestWC *testWC;
     IUHeader *header = [[IUHeader alloc] initWithPreset:class];
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:5 handler:^(NSError *error) {
         

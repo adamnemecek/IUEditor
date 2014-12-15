@@ -11,9 +11,11 @@
                 <outlet property="fontColorWell" destination="5ms-4s-DQl" id="TDx-Ey-Xb8"/>
                 <outlet property="fontNameComboBox" destination="JyG-1W-hMj" id="ezM-0f-on4"/>
                 <outlet property="fontSizeComboBox" destination="yrT-JY-2UB" id="ZY1-Yd-TIJ"/>
+                <outlet property="fontWeightPopUpButton" destination="89S-Qn-DNT" id="EmY-E8-03x"/>
                 <outlet property="hTextField" destination="Vhr-rD-eTs" id="Hu3-0s-JGq"/>
                 <outlet property="hUnitButton" destination="WQy-d3-dnM" id="qfb-rJ-Zbz"/>
                 <outlet property="horizontalCenterButton" destination="vIh-s9-xdu" id="ckd-Az-Hx2"/>
+                <outlet property="lightWeigtMenuItem" destination="OvY-yh-r6a" id="lMN-9b-L8B"/>
                 <outlet property="verticalCenterButton" destination="Gf5-2B-3ys" id="Lu9-GU-G5y"/>
                 <outlet property="view" destination="QcR-wN-r3d" id="YNL-20-5cM"/>
                 <outlet property="wTextField" destination="TR6-zl-0LG" id="NYL-Xh-f5o"/>
@@ -67,6 +69,9 @@
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="wjd-1g-0EE" id="OHG-Wx-3Wg"/>
+                                    </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bnh-So-rAT" userLabel="- px">
                                     <rect key="frame" x="38" y="-2" width="24" height="26"/>
@@ -130,6 +135,9 @@
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="wjd-1g-0EE" id="yFz-nw-kXo"/>
+                                    </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rvj-o2-uQS" userLabel="- px">
                                     <rect key="frame" x="38" y="-2" width="24" height="26"/>
@@ -207,6 +215,9 @@
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="wjd-1g-0EE" id="Wl7-ei-Eot"/>
+                                    </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z6j-Lw-Lr4" userLabel="- px">
                                     <rect key="frame" x="38" y="-2" width="24" height="26"/>
@@ -285,6 +296,9 @@
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="wjd-1g-0EE" id="wB7-wG-e2E"/>
+                                    </connections>
                                 </textField>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQy-d3-dnM" userLabel="- px">
                                     <rect key="frame" x="38" y="-2" width="24" height="26"/>
@@ -497,7 +511,7 @@
                             <subviews>
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-1W-hMj">
                                     <rect key="frame" x="0.0" y="-2" width="141" height="24"/>
-                                    <comboBoxCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" title="Roboto Condensed" buttonBordered="NO" numberOfVisibleItems="5" id="jbD-Re-ibT">
+                                    <comboBoxCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Roboto Condensed" buttonBordered="NO" numberOfVisibleItems="5" id="jbD-Re-ibT">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -721,9 +735,10 @@
                 <binding destination="-2" name="contentDictionary" keyPath="self.fontController.fontDict" id="xL4-Op-nzj"/>
             </connections>
         </dictionaryController>
-        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'pt'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="300" id="TN6-jc-ItC" userLabel="pt formatter">
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'pt'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="300" id="TN6-jc-ItC" userLabel="pt">
             <real key="minimum" value="0.0"/>
         </numberFormatter>
+        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="wjd-1g-0EE" userLabel="integer"/>
         <userDefaultsController representsSharedInstance="YES" id="Mlt-Ni-DBX"/>
     </objects>
     <resources>

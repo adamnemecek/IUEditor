@@ -32,6 +32,7 @@
 //iutext property
 @property (weak) IBOutlet NSComboBox *fontNameComboBox;
 @property (weak) IBOutlet NSPopUpButton *fontWeightPopUpButton;
+@property (weak) IBOutlet NSMenuItem *lightWeigtMenuItem;
 @property (weak) IBOutlet NSComboBox *fontSizeComboBox;
 @property (weak) IBOutlet NSColorWell *fontColorWell;
 @property (weak) IBOutlet NSSegmentedControl *fontAlignSegmentedControl;
@@ -71,7 +72,7 @@
     
     //text binding
     [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
-//    [self outlet:_fontWeightPopUpButton bind:NSValueBinding cascadingStyleStorageProperty:@"fontWeight"];
+    [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight"];
 
     [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
@@ -167,10 +168,18 @@
 }
 
 - (IBAction)clickFontNameComboBox:(id)sender {
-    //TODO: update fontWeight
+    NSString *fontName = [_fontNameComboBox stringValue];
+    [self updateFontWeigtWithFontName:fontName];
 }
 
-- (void)updateFontWeigtComboBox{
+- (void)updateFontWeigtWithFontName:(NSString *)fontName{
+    BOOL hasLightWeigt = [_fontController hasLight:fontName];
+    if(hasLightWeigt){
+        [_lightWeigtMenuItem setEnabled:YES];
+    }
+    else{
+        [_lightWeigtMenuItem setEnabled:NO];
+    }
     
 }
 

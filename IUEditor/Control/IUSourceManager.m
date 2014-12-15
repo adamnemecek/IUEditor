@@ -30,13 +30,15 @@
     NSString *_documentBasePath;
 
     NSDictionary *CSSCodeCache; // key = box, value = CSSCode last generated
+    NSInteger _viewport; /* managing view port, view port is set at loadSheet */
+
 }
 
 #pragma mark - initialize
 
 - (id)init{
     self = [super init];
-    _viewPort = IUDefaultViewPort;
+    _viewport = IUDefaultViewPort;
     [self setCompiler:[[IUCompiler alloc] init]];
     return self;
 }
@@ -89,11 +91,16 @@
     self.compilerRule = [[project class] defaultCompilerRule];
 }
 
-
 - (void)loadSheet:(IUSheet *)sheet{
+    [self loadSheet:sheet viewport:_viewport];
+}
+
+- (void)loadSheet:(IUSheet *)sheet viewport:(NSInteger)viewport{
+    
+    _viewport = viewport;
     NSAssert(_compiler, @"compiler is nil");
     
-    NSString *code = [_compiler editorSource:sheet viewPort:_viewPort canvasWidth:_canvasViewWidth];
+    NSString *code = [_compiler editorSource:sheet viewPort:_viewport];
     NSAssert(code, @"code is nil");
     if (_documentBasePath) {
         [[_webCanvasView mainFrame] loadHTMLString:code baseURL:[NSURL fileURLWithPath:_documentBasePath]];
@@ -137,7 +144,7 @@
             DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:htmlID];
             NSAssert(element, @"element should not nil");
             NSString *htmlCode;
-            [_compiler editorIUSource:box htmlIDPrefix:htmlID viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+            [_compiler editorIUSource:box htmlIDPrefix:htmlID viewPort:_viewport htmlSource:&htmlCode nonInlineCSSSource:nil];
             [element setOuterHTML:htmlCode];
         }
     }
@@ -145,7 +152,7 @@
         DOMHTMLElement *element = (DOMHTMLElement *)[[self DOMDocument] getElementById:box.htmlID];
         NSAssert(element, @"element should not nil");
         NSString *htmlCode;
-        [_compiler editorIUSource:box htmlIDPrefix:nil viewPort:_viewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+        [_compiler editorIUSource:box htmlIDPrefix:nil viewPort:_viewport htmlSource:&htmlCode nonInlineCSSSource:nil];
         [element setOuterHTML:htmlCode];
     }
     
@@ -159,8 +166,8 @@
     /*
      현재까지 transaction을 지원하지 않는다.
      */
-    IUCSSCode *code = [_compiler editorIUCSSSource:box viewPort:_viewPort];
-    NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewPort];
+    IUCSSCode *code = [_compiler editorIUCSSSource:box viewPort:_viewport];
+    NSDictionary *inlineCSSDict = [code inlineTagDictionyForViewport:_viewport];
     /* insert css code to inline */
     [inlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         DOMNodeList *list = [[self DOMDocument]  querySelectorAll:selector];
@@ -173,7 +180,7 @@
     }];
     
 
-    NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewPort];
+    NSDictionary *nonInlineCSSDict = [code nonInlineTagDictionaryForViewport:_viewport];
 
     [nonInlineCSSDict enumerateKeysAndObjectsUsingBlock:^(NSString* selector, NSString *cssString, BOOL *stop) {
         [self updateNonInlineCSSText:cssString withSelector:selector];

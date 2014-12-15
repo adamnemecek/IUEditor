@@ -72,12 +72,9 @@
  */
 - (void)setProject:(IUProject*)project;
 
-/* managing view port */
-@property NSInteger viewPort;
-@property NSInteger canvasViewWidth;
-
 /* load a sheet */
 - (void)loadSheet:(IUSheet *)sheet;
+- (void)loadSheet:(IUSheet *)sheet viewport:(NSInteger)viewport;
 
 /* called by box */
 - (void)setNeedsUpdateHTML:(IUBox*)box;

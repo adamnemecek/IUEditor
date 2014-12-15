@@ -618,7 +618,7 @@
 
 
 
-- (NSString *)editorSource:(IUBox *)iu viewPort:(NSInteger)viewPort canvasWidth:(NSInteger)frameWidth {
+- (NSString *)editorSource:(IUBox *)iu viewPort:(NSInteger)viewPort{
     NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:@"webTemplate" ofType:@"html"];
     if (templateFilePath == nil) {
         NSAssert(0, @"Template file name wrong");

@@ -405,6 +405,7 @@
     
     self.currentStorage = [self.workingStorages objectForKey:@(currentViewPort)];
     self.cascadingStorage = [self cascadingStorageForViewPort:currentViewPort];
+    ((IUDataStorage *)self.cascadingStorage).manager = self;
     
     _currentViewPort = currentViewPort;
     [self didChangeValueForKey:@"currentViewPort"];

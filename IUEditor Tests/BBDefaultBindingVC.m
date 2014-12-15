@@ -49,8 +49,6 @@ static     IUTestWC *testWC;
     }
     
     manager = [[IUSourceManager alloc] init];
-    manager.viewPort = IUDefaultViewPort;
-    manager.canvasViewWidth = 960;
     
     iuController = [[IUController alloc] init];
     
@@ -87,7 +85,7 @@ static     IUTestWC *testWC;
     [iuController setContent:page];
     [iuController setSelectedObject:page];
     
-    [manager loadSheet:page];
+    [manager loadSheet:page viewport:IUDefaultViewPort];
     
     BBPropertyToolBarVC *defaultPropertyVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
     defaultPropertyVC.iuController = iuController;

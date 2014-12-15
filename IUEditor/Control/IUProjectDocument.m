@@ -468,6 +468,9 @@ static NSString *metaDataIUVersion = @"IUVersion";
     if(resourceFileWrapper){
         _resourceFileWrapper = resourceFileWrapper;
     }
+    else{
+        readSuccess = NO;
+    }
     
     
     // load the metaData file from it's wrapper
@@ -480,7 +483,10 @@ static NSString *metaDataIUVersion = @"IUVersion";
         NSMutableDictionary *finalMetadata = [NSPropertyListSerialization propertyListWithData:metaData options:NSPropertyListImmutable format:NULL error:outError];
         self.metaDataDict = finalMetadata;
     }
-
+    else{
+        readSuccess = NO;
+    }
+    
     
     NSFileWrapper *projectDataWarpper = [fileWrappers objectForKey:projectJsonData];
     if(projectDataWarpper){
@@ -490,15 +496,14 @@ static NSString *metaDataIUVersion = @"IUVersion";
         if(_project && [self fileURL]){
             [self changeProjectPath:[self fileURL]];
             [self.resourceRootItem loadFromPath:[_project.path stringByAppendingPathComponent:@"resource"]];
-
-            readSuccess = YES;
+        }
+        if(_project == nil){
+            readSuccess = NO;
         }
     }
 
     
-    [self setDocumentFileWrapper:fileWrapper];
-
-    
+    [self setDocumentFileWrapper:fileWrapper];    
     [self.undoManager enableUndoRegistration];
 
     return readSuccess;
