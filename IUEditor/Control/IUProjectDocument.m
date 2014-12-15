@@ -453,7 +453,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 {
     [self.undoManager disableUndoRegistration];
 
-    BOOL readSuccess= NO;
+    BOOL readSuccess= YES;
     NSDictionary *fileWrappers = [fileWrapper fileWrappers];
     
     if([fileWrappers objectForKey:@"iuData"]){
