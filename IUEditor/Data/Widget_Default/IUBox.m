@@ -97,7 +97,7 @@
     
     
     [self bindStorages];
-    self.currentViewPort = IUDefaultViewPort;
+    [self setCurrentViewPort:IUDefaultViewPort];
     return self;
 }
 
@@ -251,11 +251,12 @@
     NSAssert(self.project, @"");
     
     [[self undoManager] disableUndoRegistration];
+
     
     for(IUDataStorageManager *manager in [_m_storageManagerDict allValues]){
         [manager addOwner:self];
     }
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:self.project];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(structureChanged:) name:IUNotificationStructureDidChange object:nil];
 
@@ -269,7 +270,14 @@
 
 }
 - (void)disconnectWithEditor{
+
+    //unregister htmlid to identifiermanager 
+    [[IUIdentifierManager managerForMainWindow] removeIdentifier:self.htmlID];
+    
+    //remove observer
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    
     for (IUBox *box in self.children) {
         [box disconnectWithEditor];
     }
@@ -281,6 +289,9 @@
     if([self isConnectedWithEditor]){
         [self disconnectWithEditor];
     }
+    //unbinding
+    [self unbindStorages];
+
 }
 
 #pragma mark - copy
@@ -681,6 +692,14 @@ e.g. 만약 css로 옮긴다면)
         return nil;
     }
 }
+- (BOOL)childrenLeafKey{
+    if(_m_children.count <= 0){
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
 
 - (NSMutableArray *)_m_children{
     return _m_children;
@@ -733,6 +752,8 @@ e.g. 만약 css로 옮긴다면)
     if (_m_children == nil) {
         _m_children = [NSMutableArray array];
     }
+    
+    [self willChangeValueForKey:@"children"];
 
     [(IUBox *)[self.undoManager prepareWithInvocationTarget:self] removeIU:iu];
     
@@ -755,6 +776,8 @@ e.g. 만약 css로 옮긴다면)
         
         [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureAdding, IUNotificationStructureChangedIU: iu}];
     }
+    
+    [self didChangeValueForKey:@"children"];
 
     return YES;
 }
@@ -766,35 +789,34 @@ e.g. 만약 css로 옮긴다면)
 
 
 -(BOOL)removeIU:(IUBox *)iu{
-        NSInteger index = [_m_children indexOfObject:iu];
-        [[self.undoManager prepareWithInvocationTarget:self] insertIU:iu atIndex:index error:nil];
-        
-        //IURemoved 호출한 다음에 m_children을 호출해야함.
-        //border를 지울려면 controller 에 iu 정보 필요.
-        //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.sourceManager removeIU:self];
-        [_m_children removeObject:iu];
-        
-        if (self.isConnectedWithEditor) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureChangeRemoving, IUNotificationStructureChangedIU: iu}];
-        }
+    
+    [self willChangeValueForKey:@"children"];
+
+    NSInteger index = [_m_children indexOfObject:iu];
+    [[self.undoManager prepareWithInvocationTarget:self] insertIU:iu atIndex:index error:nil];
+    
+    //IURemoved 호출한 다음에 m_children을 호출해야함. border를 지울려면 controller 에 iu 정보 필요.
+    [self.sourceManager removeIU:iu];
+    [_m_children removeObject:iu];
+    
+    if (self.isConnectedWithEditor) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureChangeRemoving, IUNotificationStructureChangedIU: iu}];
+    }
     
     [iu disconnectWithEditor];
+    iu.parent = nil;
+    iu = nil;
     [self updateHTML];
+    
+    [self didChangeValueForKey:@"children"];
     return YES;
 }
 
 -(BOOL)removeAllIU{
+    
     NSArray *children = self.children;
     for (IUBox *iu in children) {
-        NSInteger index = [_m_children indexOfObject:iu];
-        [[self.undoManager prepareWithInvocationTarget:self] insertIU:iu atIndex:index error:nil];
-        
-        //IURemoved 호출한 다음에 m_children을 호출해야함.
-        //border를 지울려면 controller 에 iu 정보 필요.
-        //--undo [self.project.identifierManager unregisterIUs:@[iu]];
-        [self.sourceManager removeIU:iu];
-        [_m_children removeObject:iu];
+        [self removeIU:iu];
     }
     
     if (self.isConnectedWithEditor && children.count > 0) {
@@ -805,6 +827,9 @@ e.g. 만약 css로 옮긴다면)
 }
 
 -(BOOL)changeIUIndex:(IUBox*)iu to:(NSUInteger)index error:(NSError**)error{
+    
+    [self willChangeValueForKey:@"children"];
+    
     NSInteger currentIndex = [_m_children indexOfObject:iu];
 
     [[self.undoManager prepareWithInvocationTarget:self] changeIUIndex:iu to:currentIndex error:nil];
@@ -820,6 +845,8 @@ e.g. 만약 css로 옮긴다면)
     if (self.isConnectedWithEditor) {
         [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureChangeReindexing, IUNotificationStructureChangedIU: iu}];
     }
+    
+    [self didChangeValueForKey:@"children"];
     
     return YES;
 }

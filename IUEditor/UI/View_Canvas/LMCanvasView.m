@@ -529,14 +529,18 @@
 - (void)mouseUp:(NSEvent *)theEvent withConvertedPoint:(NSPoint)centerConvertedPoint{
     if(_isMouseDownForNewIU){
         NSString *identifier = [self identifierAtPoint:centerConvertedPoint];
-        IUBox *parentIU = [self parentIUWithIdentifier:identifier];
-        NSSize size = NSMakeSize(centerConvertedPoint.x - startDragPoint.x, centerConvertedPoint.y - startDragPoint.y);
-        BOOL result =  [self.controller makeNewIUWithClassName:_selectedWidgetClassName withFrame:NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height) atParentIU:parentIU];
-        
-        if(result){
-            _selectedWidgetClassName = nil;
-            [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationNewIUCreatedByCanvas object:self.window];
+        if(identifier){
+            IUBox *parentIU = [self parentIUWithIdentifier:identifier];
+            NSSize size = NSMakeSize(centerConvertedPoint.x - startDragPoint.x, centerConvertedPoint.y - startDragPoint.y);
             
+            BOOL result =  [self.controller makeNewIUWithClassName:_selectedWidgetClassName withFrame:NSMakeRect(startDragPoint.x, startDragPoint.y, size.width, size.height) atParentIU:parentIU];
+            
+            
+            if(result){
+                _selectedWidgetClassName = nil;
+                [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationNewIUCreatedByCanvas object:self.window];
+                
+            }
         }
     }
     [self clearMouseMovement];

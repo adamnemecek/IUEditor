@@ -23,6 +23,7 @@
     if(self){
         [self setObjectClass:[IUBox class]];
         [self setChildrenKeyPath:@"children"];
+        [self setLeafKeyPath:@"childrenLeafKey"];
     }
     return self;
 }

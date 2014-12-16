@@ -242,8 +242,11 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 //children
 - (NSArray*)children;
-
 - (NSMutableArray*)allChildren;
+/**
+ @brief : iubox is leaf or not
+ */
+- (BOOL)childrenLeafKey;
 
 
 -(BOOL)canAddIUByUserInput;

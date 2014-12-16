@@ -267,9 +267,8 @@
     
     BOOL result = [parentIU addIU:newIU error:nil];
     
-    [self.controller rearrangeObjects];
     [self.controller setSelectedObject:newIU];
-    
+
     JDTraceLog( @"[IU:%@] : point(%.1f, %.1f) atIU:%@", newIU.htmlID, position.x, position.y, parentIU.htmlID);
     
     return result;
@@ -306,8 +305,9 @@
 
 - (void)removeSelectedIUs{
     NSMutableArray *alternatedSelection = [NSMutableArray array];
+    NSArray *removeIUs = [self.controller selectedObjects];
     
-    for(IUBox *box in [self.controller selectedObjects]){
+    for(IUBox *box in removeIUs){
         //selected objects can contain removed object
         if([alternatedSelection containsObject:box.htmlID]){
             [alternatedSelection removeObject:box.htmlID];
@@ -315,8 +315,8 @@
         
         //add parent or not to be removed objects add to alternated selection
         if([box canRemoveIUByUserInput]){
-            [box.parent removeIU:box];
             [alternatedSelection addObject:box.parent.htmlID];
+            [box.parent removeIU:box];
         }
         else{
             [alternatedSelection addObject:box.htmlID];
@@ -324,8 +324,6 @@
     }
     
     [self.controller setSelectedObjectsByIdentifiers:alternatedSelection];
-    [self.controller rearrangeObjects];
-    
 }
 
 - (IUBox *)tryIUBoxByIdentifier:(NSString *)identifier{

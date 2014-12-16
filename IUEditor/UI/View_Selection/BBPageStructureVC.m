@@ -82,7 +82,6 @@
         [currentPage.pageContent addIU:newSection error:nil];
         
         //reload controller
-        [self.iuController rearrangeObjects];
         [self.iuController setSelectedObject:newSection];
     }
 }

@@ -261,17 +261,16 @@
 - (id)init{
     self = [super init];
 
-    self.workingStorages = [[JDMutableArrayDict alloc] init];
+    _workingStorages = [[JDMutableArrayDict alloc] init];
     _storageClassName = @"IUDataStorage";
+    
     IUDataStorage *defaultStorage = [self newStorage];
     defaultStorage.manager = self;
     
-    self.maxViewPort = IUDefaultViewPort;
-    [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
+    _maxViewPort = IUDefaultViewPort;
+    [self.workingStorages insertObject:defaultStorage forKey:@(_maxViewPort) atIndex:0];
+    _defaultStorage = defaultStorage;
     
-    self.currentViewPort = IUDefaultViewPort;
-    
-
     [self setDefaultProperties];
 
     return self;
@@ -280,16 +279,14 @@
 - (id)initWithStorageClassName:(NSString *)className{
     self = [super init];
     if(self){
-        self.workingStorages = [[JDMutableArrayDict alloc] init];
+        _workingStorages = [[JDMutableArrayDict alloc] init];
         _storageClassName = className;
+        
         IUDataStorage *defaultStorage = [self newStorage];
         defaultStorage.manager = self;
         
-        self.maxViewPort = IUDefaultViewPort;
-        [self.workingStorages insertObject:defaultStorage forKey:@(self.maxViewPort) atIndex:0];
-        
-        self.currentViewPort = IUDefaultViewPort;
-        
+        _maxViewPort = IUDefaultViewPort;
+        [self.workingStorages insertObject:defaultStorage forKey:@(_maxViewPort) atIndex:0];
         _defaultStorage = defaultStorage;
         
         [self setDefaultProperties];
@@ -305,7 +302,7 @@
 }
 
 - (id)initWithJDCoder:(JDCoder *)aDecoder{
-    self = [self init];
+    self = [super init];
     if(self){
         
         //decoder
@@ -365,15 +362,26 @@
 #pragma mark - properties
 
 - (void)addOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
-    [_owners addObject:box];
+    /**
+     REVIEW : owner should be a weak object
+     http://stackoverflow.com/questions/21797617/how-to-store-weak-reference-object-in-array-dictionary-in-objc
+     */
+    NSValue *weakObj = [NSValue valueWithNonretainedObject:box];
+    [_owners addObject:weakObj];
 }
 
 - (void)removeOwner:(id<IUDataStorageManagerDelegate,JDCoding>)box{
-    [_owners removeObject:box];
+    NSValue *weakObj = [NSValue valueWithNonretainedObject:box];
+    [_owners removeObject:weakObj];
 }
 
 - (NSArray *)owners{
-    return [_owners copy];
+    NSMutableArray *realOwners = [NSMutableArray array];
+    for(NSValue *weakObj in _owners){
+        id box = [weakObj nonretainedObjectValue];
+        [realOwners addObject:box];
+    }
+    return [realOwners copy];
 }
 
 
