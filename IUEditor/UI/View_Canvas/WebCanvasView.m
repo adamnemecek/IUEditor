@@ -365,29 +365,77 @@
 
 
 - (NSRect)gridFrameWithIdentfier:(NSString *)identifier{
-    DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:identifier];
-    NSRect frame = NSMakeRect(element.offsetLeft, element.offsetTop, element.offsetWidth, element.offsetHeight);
-    return frame;
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", identifier];
+    id frameObject = [self evaluateWebScript:frameJS];
+    NSRect pixelFrame = NSMakeRect([[frameObject valueForKey:@"left"] floatValue],
+                                       [[frameObject valueForKey:@"top"] floatValue],
+                                       [[frameObject valueForKey:@"width"] floatValue],
+                                       [[frameObject valueForKey:@"height"] floatValue]
+                                       );
+    return pixelFrame;
+    
+
+    //NSRect frame = NSMakeRect(element.offsetLeft, element.offsetTop, element.offsetWidth, element.offsetHeight);
+}
+
+- (NSPoint)offsetWithElement:(DOMElement *)element{
+    NSPoint offset = NSMakePoint(element.offsetLeft, element.offsetTop);
+    if(element.parentElement){
+        NSPoint parentOffset  = [self offsetWithElement:element.parentElement];
+        offset.x += parentOffset.x;
+        offset.y += parentOffset.y;
+    }
+    return offset;
+}
+
+- (NSRect)domGridFrameWithIdentifier:(NSString *)identifier{
+    DOMElement *element =  [[[self mainFrame] DOMDocument] getElementById:identifier];
+    if(element){
+        NSPoint offset = [self offsetWithElement:element];
+        return NSMakeRect(offset.x, offset.y, element.offsetWidth, element.offsetHeight);
+    }
+    return NSZeroRect;
 }
 
 - (void)updateFrameDictionaryWithIdentifiers:(NSArray *)identifiers{
+    
+
+    /*
+    [JDLogUtil timeLogStart:@"jsFrame"];
     NSMutableDictionary *gridFrameDict = [NSMutableDictionary dictionary];
     
     for(NSString *identifier in identifiers){
-        NSRect frame = [self gridFrameWithIdentfier:identifier];
-        [gridFrameDict setObject:[NSValue valueWithRect:frame] forKey:identifier];
+        NSRect gridFrame = [self gridFrameWithIdentfier:identifier];
+        [gridFrameDict setObject:[NSValue valueWithRect:gridFrame] forKey:identifier];
+        
     }
+    [JDLogUtil timeLogEnd:@"jsFrame"];
+     //REVIEW : jsframe is slower than dom frame
+     JDLogUtil.m:+[JDLogUtil timeLogEnd:] 250 - Time taken for jsFrame 0.000318364 s[;
+     JDLogUtil.m:+[JDLogUtil timeLogEnd:] 250 - Time taken for domFrame 4.8748e-05 s[;
+     */
+    [JDLogUtil timeLogStart:@"domFrame"];
+    
+    NSMutableDictionary *gridFrameDict = [NSMutableDictionary dictionary];
+    
+    for(NSString *identifier in identifiers){
+        NSRect gridFrame = [self domGridFrameWithIdentifier:identifier];
+        [gridFrameDict setObject:[NSValue valueWithRect:gridFrame] forKey:identifier];
+        
+    }
+    [JDLogUtil timeLogEnd:@"domFrame"];
+
     
     [self.controller updateGridFrameDictionary:gridFrameDict];
 }
 
-- (void)updateFrameDict{
+- (void)updateFrameDict __deprecated{
     //reportFrameDict(after call setIUCSSStyle)
     [self stringByEvaluatingJavaScriptFromString:@"getIUUpdatedFrameThread()"];
 }
 
 
-- (void)runJSAfterRefreshCSS{
+- (void)runJSAfterRefreshCSS __deprecated{
     JDTraceLog(@"runJSAfterRefreshCSS");
     [self stringByEvaluatingJavaScriptFromString:@"reframeCenter()"];
     [self evaluateWebScript:@"resizeSideBar()"];
@@ -404,6 +452,13 @@
 
 - (id)evaluateWebScript:(NSString *)script{
     return [[self windowScriptObject] evaluateWebScript:script];
+}
+
+- (void)reframeCenter{
+    [self stringByEvaluatingJavaScriptFromString:@"reframeCenter()"];
+}
+- (void)resizeSidebar{
+    [self evaluateWebScript:@"resizeSideBar()"];
 }
 
 - (void)resizePageContent{

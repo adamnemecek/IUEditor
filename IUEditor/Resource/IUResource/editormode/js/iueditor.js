@@ -95,6 +95,24 @@ $.fn.iuPosition = function(){
 	return { top: top, left: left, width: width, height: height, x:x, y:y }
 }
 
+function updateIUFrame(){
+    console.timeStart("updateIUFrame");
+    /*
+    for (var iuid in idList){
+        $('#'+iuid).updatePixel();
+    }
+    */
+    console.log(document.sharedFrameDict)
+    if (Object.keys(document.sharedFrameDict).length > 0 && console.reportFrameDict ){
+        
+        console.reportFrameDict(document.sharedFrameDict);
+        
+        document.sharedPercentFrameDict = {};
+        document.sharedFrameDict = {};
+    }
+    console.timeEnd("updateIUFrame");
+}
+
 
 $.fn.iuPercentFrame = function(){
 	var iu = $(this);

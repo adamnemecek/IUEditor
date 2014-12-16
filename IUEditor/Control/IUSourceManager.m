@@ -156,9 +156,7 @@
         [element setOuterHTML:htmlCode];
     }
     
-    /* instead of running js */
-//    [_webCanvasView runJSAfterRefreshCSS];
-    [_webCanvasView updateFrameDictionaryWithIdentifiers:@[box.htmlID]];
+    [self postProcessAfterUpdate:box];
 }
 
 
@@ -188,10 +186,39 @@
         [self updateNonInlineCSSText:cssString withSelector:selector];
     }];
     
-    /* instead of running js */
-//    [_webCanvasView runJSAfterRefreshCSS];
-    [_webCanvasView updateFrameDictionaryWithIdentifiers:@[box.htmlID]];
+    [self postProcessAfterUpdate:box];
+}
 
+- (void)postProcessAfterUpdate:(IUBox *)box{
+    
+    //run js if box has center attribute
+    if(box.enableHCenter || box.enableVCenter){
+        [_webCanvasView reframeCenter];
+    }
+    
+    //resize sidebar, page content
+    if([box.parent isKindOfClass:[IUPageContent class]]){
+        [_webCanvasView resizePageContent];
+        [_webCanvasView resizeSidebar];
+    }
+    
+    //update grid frame dictionary
+    NSMutableArray *updatedIUs = [NSMutableArray array];
+    
+    if([box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeRelative)]
+       || [box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
+       || [box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]
+       ){
+        //update siblings
+        [updatedIUs addObject:box.parent.htmlID];
+        [updatedIUs addObjectsFromArray:[box.parent.allChildren valueForKey:@"htmlID"]];
+    }
+    else{
+        [updatedIUs addObject:box.htmlID];
+        [updatedIUs addObjectsFromArray:[box.allChildren valueForKey:@"htmlID"]];
+    }
+    
+    [_webCanvasView updateFrameDictionaryWithIdentifiers:updatedIUs];
 }
 
 
