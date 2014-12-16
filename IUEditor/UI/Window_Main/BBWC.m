@@ -61,9 +61,10 @@
 
 @implementation BBWC{
     //wc properties
-    __weak IUProject *_project;
-    __weak IUResourceRootItem *_resourceRootItem;
+    IUProject *_project;
+    IUResourceRootItem *_resourceRootItem;
     __weak IUSheet *_currentSheet;
+    NSUndoManager *_undoManager;
     
     BBPropertyTabType _currentTabType;
     
@@ -316,6 +317,8 @@
     [super setDocument:document];
     if (document && document.project){
         [self setProject:document.project];
+        [self setUndoManager:document.undoManager];
+        [self setResourceRootItem:document.resourceRootItem];
     }
     
 }

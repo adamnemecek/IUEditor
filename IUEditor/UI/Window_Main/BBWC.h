@@ -58,6 +58,7 @@ typedef enum{
 
 /**
  Set IUProjectDocument to Window Controller
+ setDoccument will set project, resourceManager, undomanager.
  */
 - (void)setDocument:(IUProjectDocument *)document;
 
