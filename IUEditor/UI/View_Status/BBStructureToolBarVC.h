@@ -12,9 +12,9 @@
 
 @interface BBStructureToolBarVC : NSViewController <NSPathControlDelegate>
 
-@property (nonatomic) IUController *iuController;
-@property (nonatomic) IUSheetController *pageController;
-@property (nonatomic) IUSheetController *classController;
+@property (nonatomic, weak) IUController *iuController;
+@property (nonatomic, weak) IUSheetController *pageController;
+@property (nonatomic, weak) IUSheetController *classController;
 
 @end
 

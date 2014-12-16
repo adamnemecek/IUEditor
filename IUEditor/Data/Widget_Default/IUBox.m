@@ -286,12 +286,12 @@
 }
 
 - (void)dealloc{
-    if([self isConnectedWithEditor]){
-        [self disconnectWithEditor];
-    }
     //unbinding
     [self unbindStorages];
 
+    if([self isConnectedWithEditor]){
+        [self disconnectWithEditor];
+    }
 }
 
 #pragma mark - copy
@@ -802,10 +802,8 @@ e.g. 만약 css로 옮긴다면)
     if (self.isConnectedWithEditor) {
         [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationStructureDidChange object:self.project userInfo:@{IUNotificationStructureChangeType: IUNotificationStructureChangeRemoving, IUNotificationStructureChangedIU: iu}];
     }
-    
+
     [iu disconnectWithEditor];
-    iu.parent = nil;
-    iu = nil;
     [self updateHTML];
     
     [self didChangeValueForKey:@"children"];

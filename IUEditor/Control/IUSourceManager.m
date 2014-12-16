@@ -22,13 +22,13 @@
 @end
 
 @implementation IUSourceManager {
-    __weak  id <IUSourceManagerDelegate> _canvasVC;
-    IUCompiler *_compiler;
+    __weak id<IUSourceManagerDelegate> _canvasVC;
     __weak WebCanvasView *_webCanvasView;
     __weak IUProject *_project;
     
+    IUCompiler *_compiler;
     NSString *_documentBasePath;
-
+ 
     NSDictionary *CSSCodeCache; // key = box, value = CSSCode last generated
     NSInteger _viewport; /* managing view port, view port is set at loadSheet */
 
@@ -111,7 +111,7 @@
     }
 #endif
     
-    [_webCanvasView runJSAfterRefreshCSS];
+    [self postProcessAfterUpdate:sheet];
         
 }
 

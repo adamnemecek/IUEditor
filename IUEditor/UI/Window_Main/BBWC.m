@@ -63,11 +63,9 @@
     //wc properties
     __weak IUProject *_project;
     __weak IUResourceRootItem *_resourceRootItem;
-    __weak NSUndoManager *_undoManager;
-    
+    __weak IUSheet *_currentSheet;
     
     BBPropertyTabType _currentTabType;
-    IUSheet *_currentSheet;
     
     //view controllers
     BBTopToolBarVC *_topToolBarVC;
@@ -257,7 +255,6 @@
 }
 
 - (void)dealloc{
-    _topToolBarVC = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -302,10 +299,6 @@
         
         [self loadFirstPage];
         
-}
-
-- (void)setUndoManager:(NSUndoManager *)undoManager {
-    _undoManager = undoManager;
 }
 
 - (void)setResourceRootItem:(IUResourceRootItem *)rootItem{

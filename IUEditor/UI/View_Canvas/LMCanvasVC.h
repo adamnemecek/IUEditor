@@ -25,10 +25,8 @@
 @interface LMCanvasVC : NSViewController <IUCanvasController, IUSourceManagerDelegate, BBJSManagerProtocol>
 
 
-- (void)prepareDealloc;
-
-@property (nonatomic) IUSheet  *sheet;
-@property (nonatomic) IUController  *controller;
+@property (nonatomic, weak) IUSheet  *sheet;
+@property (nonatomic, weak) IUController  *controller;
 @property (nonatomic) NSInteger selectedFrameWidth;
 @property NSInteger maxFrameWidth;
 

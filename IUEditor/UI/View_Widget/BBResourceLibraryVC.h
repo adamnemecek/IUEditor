@@ -11,6 +11,6 @@
 
 @interface BBResourceLibraryVC : NSViewController <NSOutlineViewDelegate>
 
-@property (nonatomic) IUResourceRootItem *resourceRootItem;
+@property (nonatomic, weak) IUResourceRootItem *resourceRootItem;
 
 @end

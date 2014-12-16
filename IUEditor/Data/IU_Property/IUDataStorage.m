@@ -515,7 +515,7 @@
     }
     
     if(changedKeys.count > 0){
-        for(id <IUDataStorageManagerDelegate> box in _owners){
+        for(id <IUDataStorageManagerDelegate> box in self.owners){
             [box setNeedsToUpdateStorage:storage keys:[changedKeys copy]];
         }
     }

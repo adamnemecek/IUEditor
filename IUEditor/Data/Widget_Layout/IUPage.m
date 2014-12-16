@@ -217,16 +217,6 @@
     return page;
 }
 
-
-- (void)disconnectWithEditor{
-    if([self isConnectedWithEditor]){
-        for(IUBox *iu in self.children){
-            [iu disconnectWithEditor];
-        }
-    }
-    [super disconnectWithEditor];
-}
-
 - (BOOL)shouldCompileHeight{
     return NO;
 }

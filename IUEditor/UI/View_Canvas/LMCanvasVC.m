@@ -65,12 +65,6 @@
     
 }
 
-- (void)prepareDealloc{
-    self.webCanvasView.controller = nil;
-    self.gridView.controller = nil;
-    self.canvasView.controller = nil;
-}
-
 
 -(void) dealloc{
     

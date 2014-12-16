@@ -102,14 +102,22 @@
     [super awakeAfterUsingJDCoder:aDecoder];
     [self.undoManager disableUndoRegistration];
     
-    _referenceImports = [aDecoder decodeObjectForKey:@"referenceImport"];
+    
+    //REVIEW: support weak references : load weak references from import
+    _referenceImports = [NSMutableArray array];
+    NSArray *references = [aDecoder decodeObjectForKey:@"referenceImport"];
+    for(IUImport *import in references){
+        [self addReference:import];
+    }
     
     [self.undoManager enableUndoRegistration];
     
 }
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [super encodeWithJDCoder:aCoder];
-    [aCoder encodeObject:_referenceImports forKey:@"referenceImport"];
+    
+    //REVIEW: support weak references : save import from weak value object
+    [aCoder encodeObject:self.references forKey:@"referenceImport"];
 }
 
 -(BOOL)canChangeWidthByUserInput{
@@ -120,25 +128,38 @@
     return YES;
 }
 
-- (void)addReference:(IUImport*)import{
-    if([_referenceImports containsObject:import] == NO){
-        [_referenceImports addObject:import];
-    }
-}
-- (void)removeReference:(IUImport*)import{
-    [_referenceImports removeObject:import];
-}
-
-- (NSArray*)references{
-    return [_referenceImports copy];
-}
-
 - (void)updateCSS{
     [super updateCSS];
-    for(IUImport *import in _referenceImports){
+    for(IUImport *import in self.references){
         [import updateCSS];
     }
 }
+
+- (void)addReference:(IUImport*)import{
+    /**
+     REVIEW : owner should be a weak object
+     http://stackoverflow.com/questions/21797617/how-to-store-weak-reference-object-in-array-dictionary-in-objc
+     */
+    NSValue *weakObj = [NSValue valueWithNonretainedObject:import];
+    if([_referenceImports containsObject:weakObj] == NO){
+        [_referenceImports addObject:weakObj];
+    }
+}
+- (void)removeReference:(IUImport*)import{
+    NSValue *weakObj = [NSValue valueWithNonretainedObject:import];
+    [_referenceImports removeObject:weakObj];
+}
+
+- (NSArray*)references{
+    NSMutableArray *realReferences = [NSMutableArray array];
+    for(NSValue *weakObj in _referenceImports){
+        id box = [weakObj nonretainedObjectValue];
+        [realReferences addObject:box];
+    }
+    return [realReferences copy];
+}
+
+
 
 
 @end

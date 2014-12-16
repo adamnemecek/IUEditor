@@ -14,11 +14,11 @@
 
 @interface LMCanvasView : NSView
 
-@property (nonatomic) IBOutlet id<IUCanvasController>  controller;
+@property (nonatomic, weak) IBOutlet id<IUCanvasController>  controller;
 
 @property (weak) IBOutlet NSScrollView *mainScrollView;
 
-@property  NSFlippedView *mainView;
+@property NSFlippedView *mainView;
 @property WebCanvasView *webView;
 @property GridView *gridView;
 

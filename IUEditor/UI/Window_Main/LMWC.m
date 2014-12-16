@@ -287,7 +287,7 @@
     [iuInspectorVC unbind:@"controller"];
     [topToolbarVC unbind:@"sheetController"];
 
-    [canvasVC prepareDealloc];
+//    [canvasVC prepareDealloc];
 //    [commandVC prepareDealloc];
     [iuInspectorVC prepareDealloc];
     [appearanceVC prepareDealloc];

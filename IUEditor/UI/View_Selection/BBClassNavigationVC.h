@@ -11,7 +11,7 @@
 
 @interface BBClassNavigationVC : NSViewController <NSOutlineViewDelegate>
 
-@property (nonatomic) IUSheetController *classController;
+@property (nonatomic, weak) IUSheetController *classController;
 
 
 @end

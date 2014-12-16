@@ -14,7 +14,7 @@
 @interface WebCanvasView : WebView {
 }
 
-@property (nonatomic) id<IUCanvasController>  controller;
+@property (nonatomic, weak) id<IUCanvasController>  controller;
 
 //call javascript
 - (void)runJSAfterRefreshCSS __deprecated;

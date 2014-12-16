@@ -1,3 +1,4 @@
+
 //
 //  IUProject.m
 //  IUEditor
@@ -159,6 +160,7 @@
     _classGroup.parentFileItem = self;
     
 }
+
 /*
 -(id)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     [super awakeAfterUsingCoder:aDecoder];
@@ -293,7 +295,7 @@
 /* 그냥 initWithCreation:nil] 하면
     NSAssert에 걸리므로 임시로 이렇게 처리 */
 
-- (id)initForUntitledDocument{
+- (id)initForUntitledDocument{    
     /* initialize at temp directory */
     [[IUIdentifierManager managerForMainWindow] reset];
     NSDictionary *documentOption = [[IUProjectController sharedDocumentController] newDocumentOption];
@@ -466,49 +468,38 @@
 - (void)connectWithEditor{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
-    /*
-    IUProjectType type = [self projectType];
-    IUCompileRule rule;
-    switch (type) {
-        case IUProjectTypeDefault:
-        case IUProjectTypePresentation:
-            rule = IUCompileRuleDefault;
-            break;
-        case IUProjectTypeDjango:
-            rule = IUCompileRuleDjango;
-            break;
-        case IUProjectTypeWordpress:
-            rule = IUCompileRuleWordpress;
-            break;
-        default:
-            assert(0);
-            break;
-    }
-    
-//    [self setCompileRule:rule];
-    */
+
     for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
     }
+    [self setIsConnectedWithEditor];
     
 }
 
 - (void)setIsConnectedWithEditor{
     _isConnectedWithEditor = YES;
-    for (IUSheet *sheet in self.allSheets) {
-        [sheet setIsConnectedWithEditor];
-    }
 }
 
 - (BOOL)isConnectedWithEditor{
     return _isConnectedWithEditor;
 }
-
--(void)dealloc{
-    if([self isConnectedWithEditor]){
+- (void)disconnectWithEditor{
+    
+    if(self.isConnectedWithEditor){
+        
         [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQAdded object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQRemoved object:nil];
+        
+        for (IUSheet *sheet in self.allSheets) {
+            [sheet disconnectWithEditor];
+        }
+        
+        _isConnectedWithEditor = NO;
     }
+}
+
+-(void)dealloc{
+    [self disconnectWithEditor];
     [JDLogUtil log:IULogDealloc string:@"IUProject"];
 }
 

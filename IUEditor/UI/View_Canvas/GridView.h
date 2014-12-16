@@ -15,7 +15,7 @@
 
 @interface GridView : NSView
 
-@property (nonatomic) id<IUCanvasController>  controller;
+@property (nonatomic, weak) id<IUCanvasController>  controller;
 
 - (void)setLayerOriginWithZoom:(CGFloat)zoom;
 

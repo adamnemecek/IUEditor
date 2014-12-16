@@ -11,6 +11,6 @@
 
 @interface BBPageStructureVC : NSViewController <NSOutlineViewDelegate>
 
-@property (nonatomic) IUController *iuController;
+@property (nonatomic, weak) IUController *iuController;
 
 @end

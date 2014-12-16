@@ -17,7 +17,7 @@
 @property (weak) IBOutlet NSTextField *ghostOpacityTextField;
 @property (weak) IBOutlet NSButton *tracingModeButton;
 
-@property IUSheet *currentSheet;
+@property (weak) IUSheet *currentSheet;
 
 
 @end

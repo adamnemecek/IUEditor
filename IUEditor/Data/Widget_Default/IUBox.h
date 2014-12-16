@@ -84,7 +84,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 @property (copy, nonatomic) NSString *name;
 @property (copy) NSString *htmlID;
-@property (weak) IUBox    *parent;
+@property (weak, nonatomic) IUBox    *parent;
 
 
 @property (readonly) BOOL canAddIUByUserInput;
@@ -221,12 +221,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 
 #pragma mark - IU Setting
 - (IUTextInputType)textInputType;
-
-
-
-- (void)addMQSize:(NSNotification *)notification;
-- (void)removeMQSize:(NSNotification *)notification;
-- (void)changeMQSelect:(NSNotification *)notification;
 
 //Event
 @property (readonly) IUEvent *event;

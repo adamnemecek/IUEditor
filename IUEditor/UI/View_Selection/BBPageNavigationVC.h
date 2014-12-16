@@ -11,6 +11,6 @@
 
 @interface BBPageNavigationVC : NSViewController <NSOutlineViewDelegate>
 
-@property (nonatomic) IUSheetController *pageController;
+@property (nonatomic, weak) IUSheetController *pageController;
 
 @end
