@@ -36,7 +36,6 @@
     IUBox *box = [[IUBox alloc] initWithPreset];
     
     XCTAssertEqual([[IUIdentifierManager managerForMainWindow] objectForIdentifier:box.htmlID], box);
-    XCTAssertTrue([box.cascadingStyleStorage.bgColor isKindOfClass:[NSColor class]]);
 }
 
 /* this explain how to use import */
