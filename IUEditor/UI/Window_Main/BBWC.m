@@ -305,6 +305,10 @@
     
 }
 
+- (NSUndoManager *)undoManager {
+    return _undoManager;
+}
+
 - (void)setResourceRootItem:(IUResourceRootItem *)rootItem{
     //resource
     [_widgetPropertyVC setResourceRootItem:rootItem];
