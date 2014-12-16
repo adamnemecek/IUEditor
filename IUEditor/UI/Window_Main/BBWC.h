@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 #import "BBWindowProtocol.h"
+#import "IUProjectDocument.h"
+#import "IUResource.h"
 
 typedef enum{
     BBPropertyTabTypeWidget,
@@ -37,6 +39,27 @@ typedef enum{
 @property IUSheetController *pageController;
 @property IUSheetController *classController;
 @property IUController *iuController;
+
+/**
+ @note project will be retained
+ */
+- (void)setProject:(IUProject *)project;
+
+/**
+ @note resourceItem will be retained
+ */
+- (void)setResourceRootItem:(IUResourceRootItem *)rootItem;
+
+/**
+ @note undomanager will be retained
+ */
+- (void)setUndoManager:(NSUndoManager *)undoManager;
+- (NSUndoManager *)undoManager;
+
+/**
+ Set IUProjectDocument to Window Controller
+ */
+- (void)setDocument:(IUProjectDocument *)document;
 
 - (void)reloadCurrentSheet:(id)sender;
 - (void)reloadCurrentSheet:(id)sender viewport:(NSInteger)viewport;

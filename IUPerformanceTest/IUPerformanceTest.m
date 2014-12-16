@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
+#import "BBWC.h"
 #import "IUBox.h"
 #import "JDLogUtil.h"
 
@@ -15,7 +16,10 @@
 
 @end
 
-@implementation IUPerformanceTest
+@implementation IUPerformanceTest {
+    IUProject *project;
+    BBWC *wc;
+}
 
 - (void)setUp {
     [super setUp];
@@ -32,13 +36,20 @@
     XCTAssert(YES, @"Pass");
 }
 
-- (void)testPerformanceExample {
+- (void)testPerformance_1 {
     [self measureBlock:^{
         for (int i=0; i<200; i++){
             IUBox *box = [[IUBox alloc] init];
             box = nil;
         }
     }];
+}
+
+- (void)test_binding {
+    project = [[IUProject alloc] initForUntitledDocument];
+    wc = [[BBWC alloc] initWithWindowNibName:@"BBWC"];
+    [wc setProject:project];
+    [wc showWindow:nil];
 }
 
 @end

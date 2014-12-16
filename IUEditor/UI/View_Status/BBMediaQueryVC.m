@@ -22,11 +22,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    [_mediaQueryPopupButton bind:NSContentBinding toObject:self withKeyPath:@"project.mqSizes" options:IUBindingDictNotRaisesApplicable];
+ 
+}
+
+- (void)dealloc{
     
 }
+
 - (void)setProject:(IUProject *)project{
     _project = project;
+ 
+    //[_mediaQueryPopupButton bind:NSContentBinding toObject:self.project withKeyPath:@"mqSizes" options:IUBindingDictNotRaisesApplicable];
     
     //init with mediaquery
     [self selectMediaQueryWidth:_project.maxViewPort];

@@ -11,8 +11,8 @@
 
 #import "IUProject.h"
 #import "IUResource.h"
+@class BBWC;
 
-#import "BBWC.h"
 
 @interface IUProjectDocument : NSDocument <IUDocumentProtocol>
 

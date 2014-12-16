@@ -39,8 +39,6 @@
     [super viewDidLoad];
     
     //binding
-    [_buildTypePopupButton bind:NSContentBinding toObject:self.sourceManager withKeyPath:@"availableCompilerRule" options:IUBindingDictNotRaisesApplicable];
-    [_buildTypePopupButton bind:NSSelectedValueBinding toObject:self.sourceManager withKeyPath:@"compilerRule" options:IUBindingDictNotRaisesApplicable];
     [_serverStateTextField bind:NSValueBinding toObject:self withKeyPath:@"serverState" options:IUBindingDictNotRaisesApplicable];
     
     
@@ -49,6 +47,13 @@
     
 }
 
+- (void)setSourceManager:(IUSourceManager *)sourceManager {
+    [self willChangeValueForKey:@"sourceManager"];
+    _sourceManager = sourceManager;
+    [_buildTypePopupButton bind:NSContentBinding toObject:_sourceManager withKeyPath:@"availableCompilerRule" options:IUBindingDictNotRaisesApplicable];
+    [_buildTypePopupButton bind:NSSelectedValueBinding toObject:_sourceManager withKeyPath:@"compilerRule" options:IUBindingDictNotRaisesApplicable];
+    [self didChangeValueForKey:@"sourceManager"];
+}
 
 
 - (IBAction)build:(id)sender {

@@ -11,7 +11,6 @@
 #import "LMWindow.h"
 
 #import "BBDefaultVCs.h"
-#import "IUProjectDocument.h"
 
 #if DEBUG
 
@@ -62,7 +61,11 @@
 
 @implementation BBWC{
     //wc properties
-    IUProject *_project;
+    __weak IUProject *_project;
+    __weak IUResourceRootItem *_resourceRootItem;
+    __weak NSUndoManager *_undoManager;
+    
+    
     BBPropertyTabType _currentTabType;
     IUSheet *_currentSheet;
     
@@ -132,7 +135,7 @@
         _iuController = [[IUController alloc] init];
         
         //initailize manager
-        [_topToolBarVC setSourceManager:_sourceManager];
+        //[_topToolBarVC setSourceManager:_sourceManager];
         [_projectStructureVC setIuController:_iuController];
         [_structureToolBarVC setIuController:_iuController];
         [_propertyToolBarVC setIuController:_iuController];
@@ -254,13 +257,12 @@
 }
 
 - (void)dealloc{
+    _topToolBarVC = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)setDocument:(IUProjectDocument *)document{
-    [super setDocument:document];
-    if (document && document.project){
-        _project = document.project;
+- (void)setProject:(IUProject *)project{
+        _project = project;
         
         //allocation when project is set
         _pageController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
@@ -273,7 +275,7 @@
         //project
         [_sourceManager setProject:_project];
         
-        [_topToolBarVC setProject:_project];
+        //[_topToolBarVC setProject:_project];
         [_actionPropertyVC setProject:_project];
         
         //sheet controllers
@@ -284,26 +286,39 @@
         [_tracingPropertyVC setPageController:_pageController];
         [_tracingPropertyVC setClassController:_classController];
         
-        //resource
-        [_imagePropertyVC setResourceRootItem:document.resourceRootItem];
-        [_resourceLibraryVC setResourceRootItem:document.resourceRootItem];
-        [_tracingPropertyVC setResourceRootItem:document.resourceRootItem];
-        
+    
         //iucontroller
         [_canvasVC setController:_iuController];
         [_stylePropertyVC setIuController:_iuController];
         [_imagePropertyVC setIuController:_iuController];
         
         //set iudata is connected
-        [document.undoManager disableUndoRegistration];
+        [self.undoManager disableUndoRegistration];
         
         [_project connectWithEditor];
         [_project setIsConnectedWithEditor];
         
-        [document.undoManager enableUndoRegistration];
+        [self.undoManager enableUndoRegistration];
         
         [self loadFirstPage];
         
+}
+
+- (void)setUndoManager:(NSUndoManager *)undoManager {
+    _undoManager = undoManager;
+}
+
+- (void)setResourceRootItem:(IUResourceRootItem *)rootItem{
+        //resource
+        [_imagePropertyVC setResourceRootItem:rootItem];
+        [_resourceLibraryVC setResourceRootItem:rootItem];
+        [_tracingPropertyVC setResourceRootItem:rootItem];
+}
+
+- (void)setDocument:(IUProjectDocument *)document{
+    [super setDocument:document];
+    if (document && document.project){
+        [self setProject:document.project];
     }
     
 }
