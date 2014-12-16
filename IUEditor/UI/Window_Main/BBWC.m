@@ -255,6 +255,7 @@
 }
 
 - (void)dealloc{
+    [JDLogUtil log:IULogDealloc string:@"BBWC"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

@@ -181,6 +181,46 @@ static NSCountedSet *enableLogSection;
         [alert runModal];
     });
 }
+
++ (NSMutableDictionary *)watches {
+    static NSMutableDictionary *Watches = nil;
+    static dispatch_once_t OnceToken;
+    dispatch_once(&OnceToken, ^{
+        Watches = @{}.mutableCopy;
+    });
+    return Watches;
+}
+
++ (double)secondsFromMachTime:(uint64_t)time {
+    mach_timebase_info_data_t timebase;
+    mach_timebase_info(&timebase);
+    return (double)time * (double)timebase.numer /
+    (double)timebase.denom / 1e9;
+    
+}
+
++ (void)timeLogStart:(NSString *)name {
+    uint64_t begin = mach_absolute_time();
+    self.watches[name] = @(begin);
+    JDTraceLog(@"timeLog Start %@", name);
+    
+}
+
++ (void)timeLogEnd:(NSString *)name {
+    uint64_t end = mach_absolute_time();
+    uint64_t begin = [self.watches[name] unsignedLongLongValue];
+    double elapse = [self secondsFromMachTime:(end - begin)];
+    if(elapse > 0.03){
+        JDFatalLog(@"Time taken for %@ %g s",
+                   name, elapse);
+    }
+    else{
+        JDTraceLog(@"Time taken for %@ %g s",
+                   name, elapse);
+    }
+    [self.watches removeObjectForKey:name];
+}
+
 #else
 
 +(void)log:(int)atLevel fromFile:(NSString *)theFile fromFunction:(const char [])theFunction fromLine:(int)theLine withMessage:(NSString *)theMessage{}
@@ -196,7 +236,8 @@ static NSCountedSet *enableLogSection;
 
 +(void)alert:(NSString*)alertMsg{}
 +(void)alert:(NSString*)alertMsg title:(NSString*)title{}
-
++(void)timeLogStart:(NSString *)name{}
++(void)timeLogEnd:(NSString *)name {)
 
 #endif
 
@@ -213,43 +254,5 @@ static NSCountedSet *enableLogSection;
 }
 
 
-+ (NSMutableDictionary *)watches {
-    static NSMutableDictionary *Watches = nil;
-    static dispatch_once_t OnceToken;
-    dispatch_once(&OnceToken, ^{
-        Watches = @{}.mutableCopy;
-    });
-    return Watches;
-}
-
-+ (double)secondsFromMachTime:(uint64_t)time {
-    mach_timebase_info_data_t timebase;
-    mach_timebase_info(&timebase);
-    return (double)time * (double)timebase.numer /
-    (double)timebase.denom / 1e9;
-
-}
-
-+ (void)timeLogStart:(NSString *)name {
-    uint64_t begin = mach_absolute_time();
-    self.watches[name] = @(begin);
-    JDTraceLog(@"timeLog Start %@", name);
-
-}
-
-+ (void)timeLogEnd:(NSString *)name {
-    uint64_t end = mach_absolute_time();
-    uint64_t begin = [self.watches[name] unsignedLongLongValue];
-    double elapse = [self secondsFromMachTime:(end - begin)];
-    if(elapse > 0.03){
-        JDFatalLog(@"Time taken for %@ %g s",
-              name, elapse);
-    }
-    else{
-        JDErrorLog(@"Time taken for %@ %g s",
-               name, elapse);
-    }
-    [self.watches removeObjectForKey:name];
-}
 
 @end

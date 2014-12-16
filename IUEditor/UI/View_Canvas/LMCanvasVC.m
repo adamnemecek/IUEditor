@@ -67,7 +67,6 @@
 
 
 -(void) dealloc{
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                             @"sheet.ghostX",
