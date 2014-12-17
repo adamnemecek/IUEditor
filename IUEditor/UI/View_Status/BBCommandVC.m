@@ -47,6 +47,11 @@
     
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 - (void)setSourceManager:(IUSourceManager *)sourceManager {
     [self willChangeValueForKey:@"sourceManager"];
     _sourceManager = sourceManager;

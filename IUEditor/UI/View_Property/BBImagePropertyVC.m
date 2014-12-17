@@ -64,6 +64,9 @@
     [self outlet:_bgImageYPositionTextField bind:NSValueBinding cascadingStyleStorageProperty:@"imageY"];
     
 }
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
 
 #pragma mark - button action
 

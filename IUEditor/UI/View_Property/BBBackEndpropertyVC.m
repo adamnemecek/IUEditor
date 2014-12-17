@@ -27,6 +27,11 @@
     _childrenViewArray = @[_contentView, _visibleView, _ellipsisView];
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 #pragma mark - table view
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{

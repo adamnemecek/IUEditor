@@ -37,7 +37,10 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    JDSectionInfoLog(IULogDealloc, @"");
+
 }
+
 
 #pragma mark - PathControl action
 

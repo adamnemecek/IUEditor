@@ -43,6 +43,10 @@
     return self;
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
 - (void)setCanvasVC:(id <IUSourceManagerDelegate>)canvasVC{
     _canvasVC = canvasVC;
     _webCanvasView = canvasVC.webCanvasView;

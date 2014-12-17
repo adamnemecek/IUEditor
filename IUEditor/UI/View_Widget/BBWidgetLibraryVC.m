@@ -49,7 +49,10 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    JDSectionInfoLog(IULogDealloc, @"");
+
 }
+
 
 - (void)reloadWidgets{
     [self makeWidgetCells];

@@ -500,7 +500,7 @@
 
 -(void)dealloc{
     [self disconnectWithEditor];
-    [JDLogUtil log:IULogDealloc string:@"IUProject"];
+    JDSectionInfoLog(IULogDealloc, @"");
 }
 
 

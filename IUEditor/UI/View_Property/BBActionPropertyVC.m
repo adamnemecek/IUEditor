@@ -53,6 +53,10 @@
 
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
 #pragma mark - table view
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{

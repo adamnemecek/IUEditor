@@ -113,8 +113,9 @@ static NSCountedSet *enableLogSection;
 +(void)sectionLog:(NSString *)section level:(int)atLevel fromFile:(NSString *)theFile fromFunction:(const char [])theFunction fromLine:(int)theLine withMessage:(NSString *)theMessage{
     
     if([enableLogSection containsObject:section]){
-  
-        [self log:atLevel fromFile:theFile fromFunction:theFunction fromLine:theLine withMessage:theMessage];;
+        NSString *sectionMessage = [NSString stringWithFormat:@"[%@] %ld : %@", section, [enableLogSection countForObject:section], theMessage];
+        [self log:atLevel fromFile:theFile fromFunction:theFunction fromLine:theLine withMessage:sectionMessage];
+        [enableLogSection addObject:section];
     }
     
 }

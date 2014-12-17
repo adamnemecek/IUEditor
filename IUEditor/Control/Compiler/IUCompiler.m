@@ -584,7 +584,7 @@
 
 
 - (void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"IUCompiler"];
+    JDSectionInfoLog(IULogDealloc, @"");
 }
 
 - (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort{

@@ -80,6 +80,12 @@
     
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+#pragma mark - js
+
 - (NSRect)percentFrameForIU:(IUBox *)iu{
     NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", iu.htmlID];
     id currentValue = [self.jsManager evaluateWebScript:frameJS];
@@ -105,6 +111,8 @@
     
     return pixelFrame;
 }
+
+#pragma mark - ibaction
 
 - (IBAction)clickUnitButton:(id)sender {
     NSButton *clickedUnitButton = sender;

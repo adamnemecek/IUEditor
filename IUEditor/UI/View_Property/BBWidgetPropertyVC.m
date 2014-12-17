@@ -29,7 +29,10 @@
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    JDSectionInfoLog(IULogDealloc, @"");
+
 }
+
 
 #pragma mark - notification
 - (void)changeIUSelection:(NSNotification *)notification{

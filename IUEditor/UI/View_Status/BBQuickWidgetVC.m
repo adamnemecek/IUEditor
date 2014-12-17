@@ -19,4 +19,9 @@
     // Do view setup here.
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 @end

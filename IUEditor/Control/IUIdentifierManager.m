@@ -37,19 +37,23 @@ static IUIdentifierManager *identifierForNilWindow;
     }
 }
 
++ (void)closeWindow:(NSWindow *)window{
+    NSInteger windowNum = [window windowNumber];
+    [identifierManagerDictionary removeObjectForKey:@(windowNum)];
+}
+
 -(id)init{
     self = [super init];
     confirmed = [NSMutableDictionary dictionary];
     return self;
 }
 
-#pragma mark - new Identifier
-
 - (void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"IUIdentifierManager"];
+    JDSectionInfoLog(IULogDealloc, @"");
 }
 
 
+#pragma mark - new Identifier
 
 - (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey {
     confirmed[[object valueForKey:identifierKey]] = object;
@@ -65,7 +69,6 @@ static IUIdentifierManager *identifierForNilWindow;
 - (void)reset {
     confirmed = [NSMutableDictionary dictionary];
 }
-
 
 /*
  Storage Conversion

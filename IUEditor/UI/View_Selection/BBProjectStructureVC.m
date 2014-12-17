@@ -48,6 +48,11 @@
     [_pageStuructureView addSubviewFullFrame:_pageStructureVC.view];
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 - (void)setPageController:(IUSheetController *)pageController{
     _pageController = pageController;
     [_pageNavigationVC setPageController:pageController];

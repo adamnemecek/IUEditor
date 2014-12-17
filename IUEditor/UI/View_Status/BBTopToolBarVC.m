@@ -53,6 +53,14 @@
     [_mediaQueryView addSubviewFullFrame:_mediaQueryVC.view];
 }
 
+
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
+#pragma mark - set properties
+
 - (void)setSourceManager:(id)sourceManager{
     [_commandVC setSourceManager:sourceManager];
 }

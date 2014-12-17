@@ -26,7 +26,7 @@
 }
 
 - (void)dealloc{
-    
+    JDSectionInfoLog(IULogDealloc, @"");
 }
 
 - (void)setProject:(IUProject *)project{

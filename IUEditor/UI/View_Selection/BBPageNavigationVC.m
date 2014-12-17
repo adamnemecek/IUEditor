@@ -24,6 +24,12 @@
 
 }
 
+
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(NSTreeNode*)item {
     NSString *cellIentifier;
     if([item.representedObject performSelector:@selector(isLeaf)]){

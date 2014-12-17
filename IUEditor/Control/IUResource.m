@@ -204,6 +204,10 @@
     NSString *_absolutePath;
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
 - (void)sendKVONoti_startUpdateImageResourceItem {
     [self willChangeValueForKey:@"imageResourceItems"];
     

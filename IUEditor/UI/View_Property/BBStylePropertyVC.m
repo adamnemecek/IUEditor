@@ -173,6 +173,9 @@
 
     
 }
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
 
 - (void)reloadData{
     [_styleTableView reloadData];

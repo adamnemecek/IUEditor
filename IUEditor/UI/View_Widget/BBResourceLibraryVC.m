@@ -24,6 +24,11 @@
     
 }
 
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
+
+
 #pragma mark - button action
 
 - (IBAction)clickImportResourceButton:(id)sender {

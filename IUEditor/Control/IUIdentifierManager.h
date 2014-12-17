@@ -19,6 +19,10 @@
         all non-window process
  */
 + (IUIdentifierManager *)managerForMainWindow;
+/**
+ @brief remove window's manager when window close
+ */
++ (void)closeWindow:(NSWindow *)window;
 
 - (void)reset;
 

@@ -291,7 +291,7 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 
 - (void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"IUProjectDocument"];
+    JDSectionInfoLog(IULogDealloc, @"");
 }
 
 

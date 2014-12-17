@@ -255,8 +255,9 @@
 }
 
 - (void)dealloc{
-    [JDLogUtil log:IULogDealloc string:@"BBWC"];
+    JDSectionInfoLog(IULogDealloc, @"");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [IUIdentifierManager closeWindow:self.window];
 }
 
 - (void)setProject:(IUProject *)project{
