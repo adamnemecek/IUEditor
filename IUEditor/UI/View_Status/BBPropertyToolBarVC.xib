@@ -35,19 +35,15 @@
                 <rect key="frame" x="1" y="1" width="981" height="30"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Ku-hP-WmA">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Ku-hP-WmA">
                         <rect key="frame" x="8" y="5" width="14" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="6xU-M6-H68"/>
-                            <constraint firstAttribute="width" constant="10" id="WZS-w7-F6u"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X" id="deX-Xt-7Si">
                             <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="mH2-Sk-NLU" userLabel="X-px">
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="mH2-Sk-NLU" userLabel="X-px">
                         <rect key="frame" x="21" y="4" width="63" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="61" height="20"/>
@@ -94,27 +90,32 @@
                                 </button>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="Foc-qC-scl"/>
-                            <constraint firstAttribute="width" constant="63" id="Uvw-8F-H6m"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vB2-jv-bCg">
-                        <rect key="frame" x="88" y="5" width="14" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="MdB-mZ-rxt"/>
-                            <constraint firstAttribute="width" constant="10" id="gfs-Pr-NC8"/>
-                        </constraints>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CX9-ig-9Dh" userLabel="- Stepper">
+                        <rect key="frame" x="83" y="3" width="15" height="22"/>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="47Z-cz-UHr"/>
+                    </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vB2-jv-bCg">
+                        <rect key="frame" x="98" y="5" width="14" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Y" id="o7F-r0-hZC">
                             <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ljd-YB-vqC" userLabel="Y-px">
-                        <rect key="frame" x="101" y="4" width="63" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ljd-YB-vqC" userLabel="Y-px">
+                        <rect key="frame" x="111" y="4" width="63" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="61" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -175,26 +176,32 @@
                                 </box>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="63" id="Jg2-TX-42E"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ymD-Hj-p13">
-                        <rect key="frame" x="168" y="5" width="15" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="9qo-1F-bfa"/>
-                            <constraint firstAttribute="width" constant="11" id="TmW-xt-Z3I"/>
-                        </constraints>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEi-VY-3UY" userLabel="- Stepper">
+                        <rect key="frame" x="173" y="3" width="15" height="22"/>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="GYu-xg-ndS"/>
+                    </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymD-Hj-p13">
+                        <rect key="frame" x="188" y="5" width="15" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="W" id="HSv-RO-ebd">
                             <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2bs-ef-Dpb" userLabel="W-px">
-                        <rect key="frame" x="184" y="4" width="63" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2bs-ef-Dpb" userLabel="W-px">
+                        <rect key="frame" x="204" y="4" width="63" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="61" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -239,7 +246,7 @@
                                     </connections>
                                 </button>
                                 <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ErY-hT-cmI">
-                                    <rect key="frame" x="36" y="-38" width="4" height="96"/>
+                                    <rect key="frame" x="36" y="-38" width="5" height="96"/>
                                     <contentFilters>
                                         <ciFilter name="CIFalseColor">
                                             <configuration>
@@ -255,27 +262,32 @@
                                 </box>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="6Sw-OG-bbg"/>
-                            <constraint firstAttribute="width" constant="63" id="Gpi-6z-rrA"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="epW-xE-52P">
-                        <rect key="frame" x="250" y="5" width="15" height="17"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="11" id="K44-Fy-nQL"/>
-                            <constraint firstAttribute="height" constant="17" id="id0-AH-tbb"/>
-                        </constraints>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMQ-bG-CwM" userLabel="- Stepper">
+                        <rect key="frame" x="266" y="3" width="15" height="22"/>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="m8R-TY-x4j"/>
+                    </stepper>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="epW-xE-52P">
+                        <rect key="frame" x="280" y="5" width="15" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H" id="vIQ-aO-lFR">
                             <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                             <color key="textColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="z8F-dI-nJj" userLabel="H-px">
-                        <rect key="frame" x="263" y="4" width="63" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="z8F-dI-nJj" userLabel="H-px">
+                        <rect key="frame" x="293" y="4" width="63" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="61" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -336,19 +348,24 @@
                                 </box>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="63" id="P1A-wl-mgd"/>
-                            <constraint firstAttribute="height" constant="22" id="dHb-wk-uKT"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="enH-gt-Ifv" userLabel="-Disclosure">
-                        <rect key="frame" x="330" y="7" width="17" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="Ivc-NO-R11"/>
-                            <constraint firstAttribute="height" constant="15" id="if0-B3-1ph"/>
-                        </constraints>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6fx-db-DV3" userLabel="- Stepper">
+                        <rect key="frame" x="355" y="3" width="15" height="22"/>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="GTl-AL-vfa"/>
+                    </stepper>
+                    <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="enH-gt-Ifv" userLabel="-Disclosure">
+                        <rect key="frame" x="372" y="7" width="17" height="16"/>
                         <contentFilters>
                             <ciFilter name="CIFalseColor">
                                 <configuration>
@@ -363,12 +380,8 @@
                             <font key="font" metaFont="miniSystem"/>
                         </buttonCell>
                     </button>
-                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ajN-Mw-MNN">
-                        <rect key="frame" x="348" y="3" width="5" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="1" id="Q3i-6f-NGE"/>
-                            <constraint firstAttribute="height" constant="24" id="ufr-I2-fML"/>
-                        </constraints>
+                    <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ajN-Mw-MNN">
+                        <rect key="frame" x="390" y="3" width="5" height="24"/>
                         <contentFilters>
                             <ciFilter name="CIColorInvert">
                                 <configuration>
@@ -380,15 +393,15 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="IWH-xg-Z0R" userLabel="AlignSet">
-                        <rect key="frame" x="357" y="4" width="52" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="IWH-xg-Z0R" userLabel="AlignSet">
+                        <rect key="frame" x="399" y="4" width="52" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="50" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gf5-2B-3ys" userLabel="btn_HC">
                                     <rect key="frame" x="0.0" y="-4" width="26" height="30"/>
-                                    <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="btn_ac_h_off" imagePosition="overlaps" alignment="center" alternateImage="btn_ac_h_on" state="on" imageScaling="proportionallyDown" inset="2" id="YZp-lf-rMj">
+                                    <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="btn_ac_h_off" imagePosition="overlaps" alignment="center" alternateImage="btn_ac_h_on" imageScaling="proportionallyDown" inset="2" id="YZp-lf-rMj">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -408,18 +421,11 @@
                                 </button>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="52" id="DhA-XX-ppu"/>
-                            <constraint firstAttribute="height" constant="22" id="jHL-vy-Not"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box horizontalHuggingPriority="750" verticalHuggingPriority="247" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="A9R-Y4-xnk">
-                        <rect key="frame" x="413" y="3" width="5" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="1" id="2mB-JW-hvV"/>
-                        </constraints>
+                    <box horizontalHuggingPriority="750" verticalHuggingPriority="247" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="A9R-Y4-xnk">
+                        <rect key="frame" x="455" y="3" width="5" height="24"/>
                         <contentFilters>
                             <ciFilter name="CIColorInvert">
                                 <configuration>
@@ -431,8 +437,8 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yVc-EZ-Bbf" userLabel="Color Well">
-                        <rect key="frame" x="422" y="4" width="22" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yVc-EZ-Bbf" userLabel="Color Well">
+                        <rect key="frame" x="464" y="4" width="22" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -454,15 +460,11 @@
                                 </box>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="22" id="RUD-ku-vlb"/>
-                            <constraint firstAttribute="height" constant="22" id="ZZL-W3-yRc"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wH7-tS-iyf" userLabel="Transparent">
-                        <rect key="frame" x="448" y="4" width="22" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="wH7-tS-iyf" userLabel="Transparent">
+                        <rect key="frame" x="490" y="4" width="22" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -479,19 +481,11 @@
                                 </button>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="22" id="JF2-nt-xaA"/>
-                            <constraint firstAttribute="height" constant="22" id="vkX-Bg-uRN"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8x2-r1-82k">
-                        <rect key="frame" x="474" y="3" width="5" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="XJd-e6-P9y"/>
-                            <constraint firstAttribute="width" constant="1" id="s0L-FX-jrU"/>
-                        </constraints>
+                    <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8x2-r1-82k">
+                        <rect key="frame" x="516" y="3" width="5" height="24"/>
                         <contentFilters>
                             <ciFilter name="CIColorInvert">
                                 <configuration>
@@ -503,8 +497,8 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cLW-cW-zIx" userLabel="FontFamily">
-                        <rect key="frame" x="483" y="4" width="140" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cLW-cW-zIx" userLabel="FontFamily">
+                        <rect key="frame" x="525" y="4" width="140" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="138" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -526,15 +520,11 @@
                                 </comboBox>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="140" id="8yw-6P-0Yi"/>
-                            <constraint firstAttribute="height" constant="22" id="axy-Kr-XMR"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2I-BH-Oo8" userLabel="FontWeight">
-                        <rect key="frame" x="627" y="4" width="70" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2I-BH-Oo8" userLabel="FontWeight">
+                        <rect key="frame" x="669" y="4" width="70" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="68" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -555,15 +545,11 @@
                                 </popUpButton>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="70" id="sl1-ML-d8E"/>
-                            <constraint firstAttribute="height" constant="22" id="xIZ-lb-OWP"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="65I-DI-f94" userLabel="FontSize">
-                        <rect key="frame" x="701" y="4" width="60" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="65I-DI-f94" userLabel="FontSize">
+                        <rect key="frame" x="743" y="4" width="60" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="58" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -581,15 +567,11 @@
                                 </comboBox>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="60" id="O8e-Lc-jE6"/>
-                            <constraint firstAttribute="height" constant="22" id="dQN-Im-qmR"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Txc-1l-Wfj" userLabel="FontColor">
-                        <rect key="frame" x="765" y="4" width="22" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Txc-1l-Wfj" userLabel="FontColor">
+                        <rect key="frame" x="807" y="4" width="22" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="20" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -611,15 +593,11 @@
                                 </box>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="22" id="DSx-UC-EDz"/>
-                            <constraint firstAttribute="height" constant="22" id="Wli-4x-Nve"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="OvN-Hd-vaP" userLabel="TextAlign">
-                        <rect key="frame" x="791" y="4" width="109" height="22"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="OvN-Hd-vaP" userLabel="TextAlign">
+                        <rect key="frame" x="833" y="4" width="109" height="22"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="107" height="20"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -651,84 +629,14 @@
                                 </segmentedControl>
                             </subviews>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="109" id="QFw-kN-aaW"/>
-                            <constraint firstAttribute="height" constant="22" id="sdw-rU-uiw"/>
-                        </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                 </subviews>
             </view>
-            <constraints>
-                <constraint firstItem="E2I-BH-Oo8" firstAttribute="leading" secondItem="cLW-cW-zIx" secondAttribute="trailing" constant="4" id="00w-Rt-naa"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="E2I-BH-Oo8" secondAttribute="top" id="1Pe-pv-pYW"/>
-                <constraint firstItem="wH7-tS-iyf" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="1lt-8W-Jyz"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="65I-DI-f94" secondAttribute="top" id="2yo-bV-A9K"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="mH2-Sk-NLU" secondAttribute="bottom" id="6Ax-Rg-LDL"/>
-                <constraint firstItem="A9R-Y4-xnk" firstAttribute="leading" secondItem="IWH-xg-Z0R" secondAttribute="trailing" constant="6" id="6BN-ni-CPf"/>
-                <constraint firstItem="E2I-BH-Oo8" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="8OP-9I-iQ9"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="OvN-Hd-vaP" secondAttribute="top" id="9jF-kT-Pk7"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="wH7-tS-iyf" secondAttribute="bottom" id="BcM-ug-Wsu"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="IWH-xg-Z0R" secondAttribute="top" id="BcS-QI-ZGe"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="Txc-1l-Wfj" secondAttribute="bottom" id="CQg-0j-4aJ"/>
-                <constraint firstItem="cLW-cW-zIx" firstAttribute="leading" secondItem="8x2-r1-82k" secondAttribute="trailing" constant="6" id="Ekc-6C-ewq"/>
-                <constraint firstItem="2bs-ef-Dpb" firstAttribute="leading" secondItem="ymD-Hj-p13" secondAttribute="trailing" constant="3" id="EmI-lQ-Ftq"/>
-                <constraint firstItem="2bs-ef-Dpb" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="GXV-pj-QQf"/>
-                <constraint firstItem="vB2-jv-bCg" firstAttribute="baseline" secondItem="ymD-Hj-p13" secondAttribute="baseline" id="GuN-nk-014"/>
-                <constraint firstItem="OvN-Hd-vaP" firstAttribute="leading" secondItem="Txc-1l-Wfj" secondAttribute="trailing" constant="4" id="J6A-8I-zzO"/>
-                <constraint firstItem="mH2-Sk-NLU" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="J6W-pZ-PcQ"/>
-                <constraint firstItem="65I-DI-f94" firstAttribute="leading" secondItem="E2I-BH-Oo8" secondAttribute="trailing" constant="4" id="JRl-30-MBK"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="2bs-ef-Dpb" secondAttribute="bottom" id="KzK-3q-GN0"/>
-                <constraint firstItem="vB2-jv-bCg" firstAttribute="baseline" secondItem="7Ku-hP-WmA" secondAttribute="baseline" id="L4C-WB-ipY"/>
-                <constraint firstItem="epW-xE-52P" firstAttribute="leading" secondItem="2bs-ef-Dpb" secondAttribute="trailing" constant="5" id="LmY-rI-JTI"/>
-                <constraint firstAttribute="centerY" secondItem="8x2-r1-82k" secondAttribute="centerY" id="Mad-hi-CVm"/>
-                <constraint firstItem="IWH-xg-Z0R" firstAttribute="leading" secondItem="ajN-Mw-MNN" secondAttribute="trailing" constant="6" id="NIr-HP-Cz6"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="2bs-ef-Dpb" secondAttribute="top" id="OT0-QY-BUn"/>
-                <constraint firstItem="8x2-r1-82k" firstAttribute="leading" secondItem="wH7-tS-iyf" secondAttribute="trailing" constant="6" id="Pet-nw-4hq"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="E2I-BH-Oo8" secondAttribute="bottom" id="Rbz-hT-box"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="S5j-Rl-qvX"/>
-                <constraint firstItem="7Ku-hP-WmA" firstAttribute="leading" secondItem="QcR-wN-r3d" secondAttribute="leading" constant="11" id="TRf-TV-aed"/>
-                <constraint firstItem="mH2-Sk-NLU" firstAttribute="leading" secondItem="7Ku-hP-WmA" secondAttribute="trailing" constant="1" id="UlO-Nt-6hR"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="Txc-1l-Wfj" secondAttribute="top" id="Vcg-QO-X2e"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="wH7-tS-iyf" secondAttribute="top" id="WQ1-82-u3K"/>
-                <constraint firstItem="z8F-dI-nJj" firstAttribute="leading" secondItem="epW-xE-52P" secondAttribute="trailing" id="Wi3-aM-DsI"/>
-                <constraint firstItem="z8F-dI-nJj" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="Wr9-Qr-XJR"/>
-                <constraint firstItem="yVc-EZ-Bbf" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="X1T-Jv-7ui"/>
-                <constraint firstItem="Txc-1l-Wfj" firstAttribute="leading" secondItem="65I-DI-f94" secondAttribute="trailing" constant="4" id="Yl7-fE-Kvy"/>
-                <constraint firstItem="IWH-xg-Z0R" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="YoU-bl-WLy"/>
-                <constraint firstItem="ajN-Mw-MNN" firstAttribute="top" secondItem="8x2-r1-82k" secondAttribute="top" id="abC-JU-omS"/>
-                <constraint firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="b6g-yw-j8R"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="z8F-dI-nJj" secondAttribute="top" id="cm3-zA-lZN"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="OvN-Hd-vaP" secondAttribute="bottom" id="cpk-BD-rpm"/>
-                <constraint firstItem="wH7-tS-iyf" firstAttribute="leading" secondItem="yVc-EZ-Bbf" secondAttribute="trailing" constant="4" id="cs3-Gm-3yq"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="z8F-dI-nJj" secondAttribute="bottom" id="e9b-f7-54z"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="yVc-EZ-Bbf" secondAttribute="bottom" id="hzh-J9-VWU"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="mH2-Sk-NLU" secondAttribute="top" id="kEQ-Jf-MUH"/>
-                <constraint firstItem="ymD-Hj-p13" firstAttribute="leading" secondItem="ljd-YB-vqC" secondAttribute="trailing" constant="6" id="l3L-Y5-Fee"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="65I-DI-f94" secondAttribute="bottom" id="lIq-Tb-0X2"/>
-                <constraint firstItem="OvN-Hd-vaP" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="nhB-NE-gd9"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="yVc-EZ-Bbf" secondAttribute="top" id="nvS-s8-TQq"/>
-                <constraint firstAttribute="centerY" secondItem="enH-gt-Ifv" secondAttribute="centerY" id="oAL-rT-fBe"/>
-                <constraint firstItem="vB2-jv-bCg" firstAttribute="baseline" secondItem="epW-xE-52P" secondAttribute="baseline" id="oGa-vA-S9U"/>
-                <constraint firstItem="vB2-jv-bCg" firstAttribute="leading" secondItem="mH2-Sk-NLU" secondAttribute="trailing" constant="6" id="owM-Pk-pTg"/>
-                <constraint firstItem="ajN-Mw-MNN" firstAttribute="top" secondItem="A9R-Y4-xnk" secondAttribute="top" id="ozq-BV-7CD"/>
-                <constraint firstItem="cLW-cW-zIx" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="qOt-xy-vNp"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="top" secondItem="cLW-cW-zIx" secondAttribute="top" id="qe2-3J-FdB"/>
-                <constraint firstItem="Txc-1l-Wfj" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="rwS-EI-ZfC"/>
-                <constraint firstItem="65I-DI-f94" firstAttribute="centerY" secondItem="A9R-Y4-xnk" secondAttribute="centerY" id="ue4-lz-qGG"/>
-                <constraint firstAttribute="bottom" secondItem="7Ku-hP-WmA" secondAttribute="bottom" constant="6" id="wNu-PU-74h"/>
-                <constraint firstItem="7Ku-hP-WmA" firstAttribute="top" secondItem="QcR-wN-r3d" secondAttribute="top" constant="9" id="wdq-Dz-izu"/>
-                <constraint firstItem="enH-gt-Ifv" firstAttribute="leading" secondItem="z8F-dI-nJj" secondAttribute="trailing" constant="5" id="xDg-0E-E1s"/>
-                <constraint firstItem="ajN-Mw-MNN" firstAttribute="leading" secondItem="enH-gt-Ifv" secondAttribute="trailing" constant="4" id="yCH-cJ-nxL"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="IWH-xg-Z0R" secondAttribute="bottom" id="yUt-R8-PGR"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="leading" secondItem="vB2-jv-bCg" secondAttribute="trailing" constant="1" id="zC9-nS-YpI"/>
-                <constraint firstItem="ljd-YB-vqC" firstAttribute="bottom" secondItem="cLW-cW-zIx" secondAttribute="bottom" id="zit-Jm-d5H"/>
-                <constraint firstItem="yVc-EZ-Bbf" firstAttribute="leading" secondItem="A9R-Y4-xnk" secondAttribute="trailing" constant="6" id="zqg-pk-Irg"/>
-            </constraints>
             <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="581.5" y="340"/>
+            <point key="canvasLocation" x="610.5" y="357"/>
         </box>
         <dictionaryController objectClassName="_NSControllerKeyValuePair" id="9LK-VW-xRy" userLabel="fontDictionaryController">
             <connections>
