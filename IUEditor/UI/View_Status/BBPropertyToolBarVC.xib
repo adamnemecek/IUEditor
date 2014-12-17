@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPropertyToolBarVC">
@@ -562,7 +562,8 @@
                                         <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                     </comboBoxCell>
                                     <connections>
-                                        <binding destination="-2" name="content" keyPath="self.fontController.fontSizeArray" id="Pi2-LE-Eok"/>
+                                        <binding destination="-2" name="contentValues" keyPath="self.fontController.fontSizeArray" id="qO3-D6-waa"/>
+                                        <outlet property="formatter" destination="TN6-jc-ItC" id="SYN-xw-8tF"/>
                                     </connections>
                                 </comboBox>
                             </subviews>

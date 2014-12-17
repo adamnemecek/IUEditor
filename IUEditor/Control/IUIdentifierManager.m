@@ -37,7 +37,7 @@ static IUIdentifierManager *identifierForNilWindow;
     }
 }
 
-+ (void)closeWindow:(NSWindow *)window{
++ (void)removeIdentifierManagerForWindow:(NSWindow *)window{
     NSInteger windowNum = [window windowNumber];
     [identifierManagerDictionary removeObjectForKey:@(windowNum)];
 }

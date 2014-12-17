@@ -37,6 +37,10 @@ static LMFontController *gFontController = nil;
     return @[@(0), @(-2.0), @(-1.0), @(0.5), @(1.0), @(2.0)];
 }
 
+- (NSArray *)fontLineHeightArray{
+    return @[@(1.0), @(2.0)];
+}
+
 
 #pragma mark - current font
 

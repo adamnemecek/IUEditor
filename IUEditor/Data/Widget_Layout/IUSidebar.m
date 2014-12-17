@@ -42,7 +42,8 @@
 }
 
 - (void)setDefaultPropertiesSidebar{
-    self.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+    self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    self.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
     self.defaultStyleStorage.width = nil;
     self.defaultStyleStorage.bgColor = nil;
     self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);

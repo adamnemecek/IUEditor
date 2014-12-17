@@ -209,10 +209,7 @@
     //update grid frame dictionary
     NSMutableArray *updatedIUs = [NSMutableArray array];
     
-    if([box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeRelative)]
-       || [box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
-       || [box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]
-       ){
+    if([box.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeRelative)]){
         //update siblings
         [updatedIUs addObject:box.parent.htmlID];
         [updatedIUs addObjectsFromArray:[box.parent.allChildren valueForKey:@"htmlID"]];

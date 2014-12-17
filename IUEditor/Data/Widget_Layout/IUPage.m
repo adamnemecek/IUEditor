@@ -132,7 +132,8 @@
             _sidebar.type = IUSidebarTypeFull;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
             
@@ -142,11 +143,14 @@
             _sidebar.type = IUSidebarTypeInside;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
 
-            _footer.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+            
+            _footer.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _footer.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
             
             break;
         case IUPageLayoutSideBar2:
@@ -154,14 +158,19 @@
             _sidebar.type = IUSidebarTypeFull;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _header.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            _header.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _header.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_header.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
 
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeFloatRight);
+            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
+
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
 
-            _footer.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+            _footer.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _footer.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
+
             [_footer.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             
         default:

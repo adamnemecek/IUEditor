@@ -22,7 +22,7 @@
 /**
  @brief remove window's manager when window close
  */
-+ (void)closeWindow:(NSWindow *)window;
++ (void)removeIdentifierManagerForWindow:(NSWindow *)window;
 
 - (void)reset;
 

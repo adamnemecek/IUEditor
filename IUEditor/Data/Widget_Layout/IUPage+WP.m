@@ -42,7 +42,8 @@
     [section addIU:centerBox error:nil];
 
     WPSidebar *sidebar = [[WPSidebar alloc] initWithPreset];
-    sidebar.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+    sidebar.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    sidebar.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
     sidebar.defaultPositionStorage.y = @(40);
     [centerBox addIU:sidebar error:nil];
     

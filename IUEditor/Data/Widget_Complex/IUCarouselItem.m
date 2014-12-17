@@ -15,7 +15,8 @@
     self = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        self.defaultPositionStorage.position = @(IUPositionTypeFloatLeft);
+        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
         [self.undoManager enableUndoRegistration];
 
     }

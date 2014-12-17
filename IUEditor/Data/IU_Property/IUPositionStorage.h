@@ -12,14 +12,28 @@
 
 typedef enum _IUPositionType{
     IUPositionTypeAbsolute,
-    IUPositionTypeAbsoluteBottom,
     IUPositionTypeRelative,
-    IUPositionTypeFloatLeft,
-    IUPositionTypeFloatRight,
     IUPositionTypeFixed,
-    IUPositionTypeFixedBottom,
 }IUPositionType;
-@property (nonatomic) NSNumber *position; //Use IUPositionType
+
+typedef enum {
+    IUSecondPositionTypeFloatLeft,
+    IUSecondPositionTypeFloatRight,
+    IUSecondPositionTypeBottom,
+}IUSecondPositionType;
+
+/**
+ @brief position is css tag 'position', use IUPositionType
+ */
+@property (nonatomic) NSNumber *position;
+/**
+ @brief second position use IUSecondPositionType.
+ IUSecondPositionTypeFloatLeft, IUSecondPositionTypeFloatRight should be used when position is IUPositionTypeRelative.
+ Also IUSecondPositionTypeFloatXXX is css tag 'float'.
+ IUSecondPositionTypeBottom shoulde be used when position is IUPositionTypeAbsolute, IUPositionTypeFixed
+ IUSecondPositionTypeBottom is run by script.
+ */
+@property (nonatomic) NSNumber *secondPosition; //Use IUSecondPositionType
 
 @property (nonatomic, readonly) NSNumber* xUnit;
 @property (nonatomic, readonly) NSNumber* yUnit;

@@ -257,57 +257,59 @@
 - (void)dealloc{
     JDSectionInfoLog(IULogDealloc, @"");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [IUIdentifierManager closeWindow:self.window];
+    [IUIdentifierManager removeIdentifierManagerForWindow:self.window];
 }
 
 - (void)setProject:(IUProject *)project{
-        _project = project;
-        
-        //allocation when project is set
-        _pageController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
-        _classController = [[IUSheetController alloc] initWithSheetGroup:_project.classGroup];
-        
-        //load properties when project is set
-        //view part
-        [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
-        
-        //project
-        [_sourceManager setProject:_project];
-        
-        //[_topToolBarVC setProject:_project];
-        [_actionPropertyVC setProject:_project];
-        
-        //sheet controllers
-        [_projectStructureVC setPageController:_pageController];
-        [_projectStructureVC setClassController:_classController];
-        [_structureToolBarVC setPageController:_pageController];
-        [_structureToolBarVC setClassController:_classController];
-        [_tracingPropertyVC setPageController:_pageController];
-        [_tracingPropertyVC setClassController:_classController];
-        
+    _project = project;
     
-        //iucontroller
-        [_canvasVC setController:_iuController];
-        [_stylePropertyVC setIuController:_iuController];
-        [_imagePropertyVC setIuController:_iuController];
-        
-        //set iudata is connected
-        [self.undoManager disableUndoRegistration];
-        
-        [_project connectWithEditor];
-        [_project setIsConnectedWithEditor];
-        
-        [self.undoManager enableUndoRegistration];
-        
-        [self loadFirstPage];
-        
+    //allocation when project is set
+    _pageController = [[IUSheetController alloc] initWithSheetGroup:_project.pageGroup];
+    _classController = [[IUSheetController alloc] initWithSheetGroup:_project.classGroup];
+    
+    //load properties when project is set
+    //view part
+    [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
+    
+    //project
+    [_sourceManager setProject:_project];
+    
+    //[_topToolBarVC setProject:_project];
+    [_actionPropertyVC setProject:_project];
+    
+    //sheet controllers
+    [_projectStructureVC setPageController:_pageController];
+    [_projectStructureVC setClassController:_classController];
+    [_structureToolBarVC setPageController:_pageController];
+    [_structureToolBarVC setClassController:_classController];
+    [_tracingPropertyVC setPageController:_pageController];
+    [_tracingPropertyVC setClassController:_classController];
+    
+    
+    //iucontroller
+    [_canvasVC setController:_iuController];
+    [_widgetPropertyVC setIuController:_iuController];
+    [_stylePropertyVC setIuController:_iuController];
+    [_imagePropertyVC setIuController:_iuController];
+    
+    //set iudata is connected
+    [self.undoManager disableUndoRegistration];
+    
+    [_project connectWithEditor];
+    [_project setIsConnectedWithEditor];
+    
+    [self.undoManager enableUndoRegistration];
+    
+    [self loadFirstPage];
+    
 }
 
 - (void)setResourceRootItem:(IUResourceRootItem *)rootItem{
-        //resource
-        [_imagePropertyVC setResourceRootItem:rootItem];
-        [_resourceLibraryVC setResourceRootItem:rootItem];
-        [_tracingPropertyVC setResourceRootItem:rootItem];
+    //resource
+    [_widgetPropertyVC setResourceRootItem:rootItem];
+    [_imagePropertyVC setResourceRootItem:rootItem];
+    [_resourceLibraryVC setResourceRootItem:rootItem];
+    [_tracingPropertyVC setResourceRootItem:rootItem];
 }
 
 - (void)setDocument:(IUProjectDocument *)document{

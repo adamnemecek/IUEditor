@@ -543,13 +543,6 @@
              */
             
             switch (positionType) {
-                case IUPositionTypeAbsoluteBottom:{
-                    enablebottom = YES;
-                    if(_iu.enableHCenter == NO){
-                        leftTag = @"left";
-                    }
-                    break;
-                }
                 case IUPositionTypeAbsolute:{
                     if(_iu.enableVCenter == NO){
                         topTag = @"top";
@@ -567,25 +560,7 @@
                     }
                     break;
                 }
-                case IUPositionTypeFloatLeft:{
-                    [code insertTag:@"position" string:@"relative"];
-                    [code insertTag:@"float" string:@"left"];
-                    topTag = @"margin-top"; leftTag = @"margin-left"; break;
-                    break;
-                }
-                case IUPositionTypeFloatRight:{
-                    [code insertTag:@"position" string:@"relative"];
-                    [code insertTag:@"float" string:@"right"];
-                    topTag = @"margin-top";
-                    leftTag = @"margin-right";
-                    break;
-                }
-                case IUPositionTypeFixedBottom:{
-                    enablebottom = YES;
-                    [code insertTag:@"position" string:@"fixed"];
-                    [code insertTag:@"z-index" string:@"11"];
-                    leftTag = @"left"; break;
-                }
+
                 case IUPositionTypeFixed:{
                     [code insertTag:@"position" string:@"fixed"];
                     [code insertTag:@"z-index" string:@"11"];
@@ -601,13 +576,30 @@
                     break;
             }
             
+            IUSecondPositionType secondPositionType = [positionStorage.secondPosition intValue];
+            switch (secondPositionType) {
+                case IUSecondPositionTypeFloatLeft:
+                    [code insertTag:@"float" string:@"left"];
+                    leftTag = @"margin-left";
+                    break;
+                case IUSecondPositionTypeFloatRight:
+                    [code insertTag:@"float" string:@"right"];
+                    leftTag = @"margin-right";
+                    break;
+                    
+                case IUSecondPositionTypeBottom:
+                    topTag = nil;
+                    break;
+                default:
+                    break;
+            }
             //set x location
             if (enablebottom){
                 [code insertTag:@"bottom" number:@(0) unit:IUCSSUnitPixel];
             }
             else if (positionStorage.x && _iu.shouldCompileX && leftTag ) {
                 
-                if(positionType == IUPositionTypeFloatRight){
+                if(secondPositionType == IUSecondPositionTypeFloatRight){
                     CGFloat right = [positionStorage.x floatValue] * (-1);
                     [code insertTag:leftTag number:@(right) frameUnit:positionStorage.xUnit];
                 }

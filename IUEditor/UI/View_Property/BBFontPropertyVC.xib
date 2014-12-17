@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBFontPropertyVC">
+            <connections>
+                <outlet property="fontAlignSegmentedControl" destination="U3K-Xb-4zk" id="ZOD-MB-Zu9"/>
+                <outlet property="fontColorWell" destination="3Nq-a8-etO" id="149-hy-yYn"/>
+                <outlet property="fontNameComboBox" destination="V8L-Eu-iYH" id="v8f-LM-Td9"/>
+                <outlet property="fontSizeComboBox" destination="2xe-ps-5a2" id="hem-HS-11X"/>
+                <outlet property="letterSpacingComboBox" destination="Y4u-ua-fqB" id="pKN-8I-FVt"/>
+                <outlet property="lineHeightComboBox" destination="uml-0i-Hqq" id="IdV-Mb-z9h"/>
+                <outlet property="textTypeMatrix" destination="m1X-zV-KIl" id="3yO-7T-Sfw"/>
+                <outlet property="view" destination="EGN-JT-bzG" id="nf5-cu-Yf3"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="EGN-JT-bzG" userLabel="Font">
+            <rect key="frame" x="0.0" y="0.0" width="241" height="251"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="0.0" y="0.0" width="241" height="251"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4R1-8e-NXS" userLabel="Font">
+                        <rect key="frame" x="14" y="222" width="30" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Font" id="p7Y-Cw-Iyb">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vYT-jL-tN4" userLabel="Font Family">
+                        <rect key="frame" x="15" y="188" width="210" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="208" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V8L-Eu-iYH">
+                                    <rect key="frame" x="0.0" y="-2" width="214" height="24"/>
+                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Roboto Condensed" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="4Ol-AH-kSy">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <objectValues>
+                                            <string>Helvetica Neue</string>
+                                            <string>200%</string>
+                                            <string>300%</string>
+                                        </objectValues>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <binding destination="Jn5-yE-EVI" name="content" keyPath="arrangedObjects.key" id="OAp-Rl-mZu"/>
+                                    </connections>
+                                </comboBox>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Khq-yp-BFZ" userLabel="Font Size">
+                        <rect key="frame" x="15" y="158" width="65" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="63" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xe-ps-5a2">
+                                    <rect key="frame" x="-1" y="-2" width="68" height="24"/>
+                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="120 pt" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="OtV-xc-4y0">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <objectValues>
+                                            <string>Helvetica Neue</string>
+                                            <string>200%</string>
+                                            <string>300%</string>
+                                        </objectValues>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <binding destination="-2" name="contentValues" keyPath="self.fontController.fontSizeArray" id="CpR-DA-YNd"/>
+                                        <outlet property="formatter" destination="Mvz-R0-E6c" id="0T0-4a-Tg7"/>
+                                    </connections>
+                                </comboBox>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="diY-JH-6dt" userLabel="Font Weight">
+                        <rect key="frame" x="88" y="158" width="65" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="63" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wSU-jp-Yvs">
+                                    <rect key="frame" x="-1" y="-2" width="68" height="24"/>
+                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Normal" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="AN0-D9-kt6">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <objectValues>
+                                            <string>Light</string>
+                                            <string>Normal</string>
+                                            <string>Bold</string>
+                                        </objectValues>
+                                    </comboBoxCell>
+                                </comboBox>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Xv9-dW-fsD" userLabel="Font Color">
+                        <rect key="frame" x="160" y="158" width="65" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="63" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1x7-SQ-qGX">
+                                    <rect key="frame" x="3" y="3" width="57" height="14"/>
+                                    <view key="contentView">
+                                        <rect key="frame" x="1" y="1" width="55" height="12"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nq-a8-etO">
+                                                <rect key="frame" x="-6" y="-16" width="156" height="34"/>
+                                                <color key="color" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </colorWell>
+                                        </subviews>
+                                    </view>
+                                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                    <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </box>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7y3-ye-xpp">
+                        <rect key="frame" x="0.0" y="141" width="240" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mSI-Au-w2x" userLabel="ic_Line-Height">
+                        <rect key="frame" x="16" y="108" width="20" height="20"/>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_line_height" id="JRt-wY-bAB"/>
+                    </imageView>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3Rm-6t-Bg6" userLabel="Line-Height">
+                        <rect key="frame" x="41" y="107" width="74" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="72" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uml-0i-Hqq">
+                                    <rect key="frame" x="-1" y="-2" width="79" height="24"/>
+                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2.0" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="PjI-nc-BkL">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <objectValues>
+                                            <string>Helvetica Neue</string>
+                                            <string>200%</string>
+                                            <string>300%</string>
+                                        </objectValues>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <binding destination="-2" name="contentValues" keyPath="self.fontController.fontLineHeightArray" id="fPA-PF-mfC"/>
+                                        <outlet property="formatter" destination="b7F-Wf-3OS" id="DmM-uE-uDb"/>
+                                    </connections>
+                                </comboBox>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enp-LA-lLx" userLabel="ic_Letter-Spacing">
+                        <rect key="frame" x="126" y="108" width="20" height="20"/>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_letter_spacing" id="7zI-FR-kHg"/>
+                    </imageView>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="k8J-zN-1fW" userLabel="Letter-Spacing">
+                        <rect key="frame" x="151" y="107" width="74" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="72" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y4u-ua-fqB">
+                                    <rect key="frame" x="-1" y="-2" width="79" height="24"/>
+                                    <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0 px" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="eEh-Ja-Riq">
+                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <objectValues>
+                                            <string>Helvetica Neue</string>
+                                            <string>200%</string>
+                                            <string>300%</string>
+                                        </objectValues>
+                                    </comboBoxCell>
+                                    <connections>
+                                        <binding destination="-2" name="contentValues" keyPath="self.fontController.fontLetterSpacingArray" id="rlj-hJ-jhk"/>
+                                        <outlet property="formatter" destination="8Vf-FM-jfg" id="YxR-v0-6OO"/>
+                                    </connections>
+                                </comboBox>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iAr-OS-0BD">
+                        <rect key="frame" x="1" y="90" width="240" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-iJ-g5o">
+                        <rect key="frame" x="13" y="62" width="73" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alignment" id="vQK-DU-7J9">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="W1N-PJ-oKi" userLabel="Text-Align">
+                        <rect key="frame" x="85" y="59" width="140" height="22"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="138" height="20"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U3K-Xb-4zk">
+                                    <rect key="frame" x="-1" y="-3" width="141" height="25"/>
+                                    <contentFilters>
+                                        <ciFilter name="CIFalseColor">
+                                            <configuration>
+                                                <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                                <ciColor key="inputColor1" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                                <null key="inputImage"/>
+                                            </configuration>
+                                        </ciFilter>
+                                    </contentFilters>
+                                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="Oe2-bV-4he">
+                                        <font key="font" metaFont="system"/>
+                                        <segments>
+                                            <segment image="ic_text_align_left" width="33" selected="YES"/>
+                                            <segment image="ic_text_align_center" width="33" tag="1"/>
+                                            <segment image="ic_text_align_right" width="33">
+                                                <nil key="label"/>
+                                            </segment>
+                                            <segment image="ic_text_align_full" width="33">
+                                                <nil key="label"/>
+                                            </segment>
+                                        </segments>
+                                    </segmentedCell>
+                                </segmentedControl>
+                            </subviews>
+                        </view>
+                        <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </box>
+                    <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Kjq-qQ-cwi">
+                        <rect key="frame" x="1" y="44" width="240" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jrA-NY-Ih0">
+                        <rect key="frame" x="13" y="16" width="73" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text Type" id="XZd-ib-E37">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5fG-vY-6OI">
+                        <rect key="frame" x="103" y="16" width="28" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text" id="6ni-i9-UrC">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IZA-G8-qxz">
+                        <rect key="frame" x="154" y="16" width="28" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H1" id="4co-X9-EJI">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQA-rn-QA9">
+                        <rect key="frame" x="207" y="16" width="28" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="H2" id="5TH-2A-eKj">
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1X-zV-KIl">
+                        <rect key="frame" x="85" y="15" width="143" height="18"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        <size key="cellSize" width="50" height="18"/>
+                        <size key="intercellSpacing" width="2" height="0.0"/>
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gGy-Fe-fGk">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="        " imagePosition="left" alignment="left" controlSize="small" state="on" tag="1" inset="2" id="hUZ-OD-xnZ">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </column>
+                            <column>
+                                <buttonCell type="radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="s8v-C2-dVC">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </column>
+                            <column>
+                                <buttonCell type="radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ZkX-kY-v42">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                    </matrix>
+                    <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="fMP-ZC-dHj">
+                        <rect key="frame" x="0.0" y="-2" width="240" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                </subviews>
+            </view>
+            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+            <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="716.5" y="26.5"/>
+        </box>
+        <dictionaryController objectClassName="_NSControllerKeyValuePair" id="Jn5-yE-EVI" userLabel="fontDictionaryController">
+            <connections>
+                <binding destination="-2" name="contentDictionary" keyPath="self.fontController.fontDict" id="5FP-nr-FVw"/>
+            </connections>
+        </dictionaryController>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'pt'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="300" id="Mvz-R0-E6c" userLabel="pt">
+            <real key="minimum" value="0.0"/>
+        </numberFormatter>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'px'" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" minimumFractionDigits="1" maximumFractionDigits="1" id="8Vf-FM-jfg" userLabel="px">
+            <metadata>
+                <real key="inspectorSampleValue" value="0.5"/>
+            </metadata>
+        </numberFormatter>
+        <numberFormatter formatterBehavior="custom10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" minimumFractionDigits="1" maximumFractionDigits="1" id="b7F-Wf-3OS" userLabel="float"/>
+        <userDefaultsController representsSharedInstance="YES" id="WCf-GI-NF5"/>
+    </objects>
+    <resources>
+        <image name="ic_letter_spacing" width="20" height="20"/>
+        <image name="ic_line_height" width="20" height="20"/>
+        <image name="ic_text_align_center" width="15" height="10"/>
+        <image name="ic_text_align_full" width="15" height="10"/>
+        <image name="ic_text_align_left" width="15" height="10"/>
+        <image name="ic_text_align_right" width="15" height="10"/>
+    </resources>
+</document>

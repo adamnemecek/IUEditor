@@ -49,6 +49,9 @@ typedef enum _IUOverflowType{
     IUOverflowTypeScroll,
 }IUOverflowType;
 
+/**
+ @brief overflowType use IUOverflowType
+ */
 @property (nonatomic) NSNumber* overflowType;
 
 

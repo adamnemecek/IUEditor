@@ -910,7 +910,7 @@ e.g. 만약 css로 옮긴다면)
 }
 
 -(BOOL)shouldCompileY{
-    if ([self.currentPositionStorage.position isEqualToNumber:@(IUPositionTypeAbsoluteBottom)]) {
+    if ([self.currentPositionStorage.secondPosition isEqualToNumber:@(IUSecondPositionTypeBottom)]) {
         return NO;
     }
     return YES;
@@ -1184,8 +1184,8 @@ e.g. 만약 css로 옮긴다면)
 - (BOOL)canChangeHCenter{
 //    if(_positionType == IUPositionTypeFloatLeft || _positionType == IUPositionTypeFloatRight
 //       || _css.editViewPort != IUCSSDefaultViewPort){
-    if([self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatLeft)]
-       || [self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFloatRight)]){
+    if([self.cascadingPositionStorage.secondPosition isEqualToNumber:@(IUSecondPositionTypeFloatLeft)]
+       || [self.cascadingPositionStorage.secondPosition isEqualToNumber:@(IUSecondPositionTypeFloatRight)]){
         return NO;
     }
     return YES;

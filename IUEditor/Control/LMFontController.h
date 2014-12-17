@@ -33,6 +33,7 @@ typedef enum{
 
 - (NSArray *)fontSizeArray;
 - (NSArray *)fontLetterSpacingArray;
+- (NSArray *)fontLineHeightArray;
 
 #pragma mark - current font
 @property NSString *lastUsedFontName;
