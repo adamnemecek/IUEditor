@@ -17,6 +17,11 @@
 @property (weak) IBOutlet NSTextField *wTextField;
 @property (weak) IBOutlet NSTextField *hTextField;
 
+@property (weak) IBOutlet NSStepper *xStepper;
+@property (weak) IBOutlet NSStepper *yStepper;
+@property (weak) IBOutlet NSStepper *wStepper;
+@property (weak) IBOutlet NSStepper *hStepper;
+
 @property (weak) IBOutlet NSButton *xUnitButton;
 @property (weak) IBOutlet NSButton *yUnitButton;
 @property (weak) IBOutlet NSButton *wUnitButton;
@@ -63,6 +68,12 @@
     [self outlet:_yTextField bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
     [self outlet:_wTextField bind:NSValueBinding cascadingStyleStorageProperty:@"width"];
     [self outlet:_hTextField bind:NSValueBinding cascadingStyleStorageProperty:@"height"];
+    
+    [self outlet:_xStepper bind:NSValueBinding cascadingPositionStorageProperty:@"x"];
+    [self outlet:_yStepper bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
+    [self outlet:_wStepper bind:NSValueBinding cascadingStyleStorageProperty:@"width"];
+    [self outlet:_hStepper bind:NSValueBinding cascadingStyleStorageProperty:@"height"];
+
     
     [self outlet:_verticalCenterButton bind:NSValueBinding property:@"enableVCenter"];
     [self outlet:_horizontalCenterButton bind:NSValueBinding property:@"enableHCenter"];

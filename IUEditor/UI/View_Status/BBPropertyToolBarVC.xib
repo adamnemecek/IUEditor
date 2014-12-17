@@ -12,16 +12,20 @@
                 <outlet property="fontNameComboBox" destination="JyG-1W-hMj" id="ezM-0f-on4"/>
                 <outlet property="fontSizeComboBox" destination="yrT-JY-2UB" id="ZY1-Yd-TIJ"/>
                 <outlet property="fontWeightPopUpButton" destination="89S-Qn-DNT" id="EmY-E8-03x"/>
+                <outlet property="hStepper" destination="6fx-db-DV3" id="Rd7-NH-qYo"/>
                 <outlet property="hTextField" destination="Vhr-rD-eTs" id="Hu3-0s-JGq"/>
                 <outlet property="hUnitButton" destination="WQy-d3-dnM" id="qfb-rJ-Zbz"/>
                 <outlet property="horizontalCenterButton" destination="vIh-s9-xdu" id="ckd-Az-Hx2"/>
                 <outlet property="lightWeigtMenuItem" destination="OvY-yh-r6a" id="lMN-9b-L8B"/>
                 <outlet property="verticalCenterButton" destination="Gf5-2B-3ys" id="Lu9-GU-G5y"/>
                 <outlet property="view" destination="QcR-wN-r3d" id="YNL-20-5cM"/>
+                <outlet property="wStepper" destination="LMQ-bG-CwM" id="gJ6-mz-Caq"/>
                 <outlet property="wTextField" destination="TR6-zl-0LG" id="NYL-Xh-f5o"/>
                 <outlet property="wUnitButton" destination="Z6j-Lw-Lr4" id="NZh-YG-2lp"/>
+                <outlet property="xStepper" destination="CX9-ig-9Dh" id="joR-DF-V3s"/>
                 <outlet property="xTextField" destination="RRB-7r-yV9" id="cYj-zf-Hev"/>
                 <outlet property="xUnitButton" destination="bnh-So-rAT" id="eC4-2a-O1C"/>
+                <outlet property="yStepper" destination="dEi-VY-3UY" id="t8F-Um-YJs"/>
                 <outlet property="yTextField" destination="d9R-Lb-DLh" id="TdQ-7S-6XY"/>
                 <outlet property="yUnitButton" destination="rvj-o2-uQS" id="tvc-Aa-oNZ"/>
             </connections>
