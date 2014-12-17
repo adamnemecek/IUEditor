@@ -3,11 +3,12 @@
     {
       "idiom" : "mac",
       "scale" : "1x",
-      "filename" : "ac_h.png"
+      "filename" : "ac_v.png"
     },
     {
       "idiom" : "mac",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "ac_v@2x.png"
     }
   ],
   "info" : {
