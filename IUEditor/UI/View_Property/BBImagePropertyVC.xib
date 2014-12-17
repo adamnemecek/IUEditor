@@ -48,7 +48,7 @@
                         <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-4i-oYD">
+                    <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="ebw-4i-oYD">
                         <rect key="frame" x="-1" y="-1" width="241" height="720"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="m8y-en-k0p">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
@@ -56,7 +56,6 @@
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="vCe-YV-JyZ">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <size key="intercellSpacing" width="0.0" height="2"/>
                                     <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="gridColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                     <tableColumns>
@@ -119,11 +118,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView wantsLayer="YES" id="FHa-H8-0tQ" userLabel="Image">
-            <rect key="frame" x="0.0" y="0.0" width="241" height="168"/>
+            <rect key="frame" x="0.0" y="0.0" width="241" height="170"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fJ1-bY-sT3">
-                    <rect key="frame" x="13" y="140" width="214" height="16"/>
+                    <rect key="frame" x="13" y="142" width="214" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Image" id="qQH-hC-qGv">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,7 +130,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qwU-t3-UBI" userLabel="- Combo Box">
-                    <rect key="frame" x="15" y="109" width="210" height="22"/>
+                    <rect key="frame" x="15" y="111" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -158,7 +157,7 @@
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yTz-ck-R2G" userLabel="btn_Fit Size">
-                    <rect key="frame" x="15" y="79" width="210" height="22"/>
+                    <rect key="frame" x="15" y="81" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +187,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbt-d6-v1t">
-                    <rect key="frame" x="13" y="47" width="93" height="16"/>
+                    <rect key="frame" x="13" y="49" width="93" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Alternative Text" id="eFP-Sp-0vK">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -196,7 +195,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="lEJ-OT-ag6" userLabel="- Text Field">
-                    <rect key="frame" x="15" y="16" width="210" height="22"/>
+                    <rect key="frame" x="15" y="18" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -223,8 +222,15 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2d-3p-gbA">
-                    <rect key="frame" x="0.0" y="-1" width="241" height="9"/>
+                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2d-3p-gbA">
+                    <rect key="frame" x="0.0" y="-1" width="241" height="7"/>
+                    <contentFilters>
+                        <ciFilter name="CIColorInvert">
+                            <configuration>
+                                <null key="inputImage"/>
+                            </configuration>
+                        </ciFilter>
+                    </contentFilters>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -233,11 +239,11 @@
             <point key="canvasLocation" x="390.5" y="-1185"/>
         </customView>
         <customView wantsLayer="YES" id="iMc-V5-FiZ" userLabel="Background Image">
-            <rect key="frame" x="0.0" y="0.0" width="241" height="168"/>
+            <rect key="frame" x="0.0" y="0.0" width="241" height="170"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ljg-N7-FyF">
-                    <rect key="frame" x="13" y="140" width="214" height="16"/>
+                    <rect key="frame" x="13" y="142" width="214" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Background Image" id="X5Y-im-TrN">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -245,7 +251,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UGi-rz-fER" userLabel="- Combo Box">
-                    <rect key="frame" x="15" y="109" width="210" height="22"/>
+                    <rect key="frame" x="15" y="111" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -272,7 +278,7 @@
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="X57-22-P15" userLabel="btn_Fit Size">
-                    <rect key="frame" x="15" y="78" width="210" height="22"/>
+                    <rect key="frame" x="15" y="80" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -282,8 +288,8 @@
                                 <contentFilters>
                                     <ciFilter name="CIFalseColor">
                                         <configuration>
-                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="0.0"/>
-                                            <ciColor key="inputColor1" red="0.19607843458652496" green="0.39215686917304993" blue="0.62745100259780884" alpha="1"/>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1"/>
                                             <null key="inputImage"/>
                                         </configuration>
                                     </ciFilter>
@@ -299,10 +305,10 @@
                         </subviews>
                     </view>
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.50980392156862742" green="0.50980392156862742" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iSL-1g-QAG" userLabel="Background Size">
-                    <rect key="frame" x="15" y="47" width="210" height="22"/>
+                    <rect key="frame" x="15" y="49" width="210" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="208" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -343,7 +349,7 @@
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="40O-Ri-gXv" userLabel="Repeat">
-                    <rect key="frame" x="15" y="16" width="100" height="22"/>
+                    <rect key="frame" x="15" y="18" width="100" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="98" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -369,7 +375,7 @@
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4O6-t2-5Y2" userLabel="Fixed : on/off">
-                    <rect key="frame" x="125" y="16" width="100" height="22"/>
+                    <rect key="frame" x="125" y="18" width="100" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="98" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -392,8 +398,15 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-jx-7jC">
+                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-jx-7jC">
                     <rect key="frame" x="0.0" y="-1" width="241" height="9"/>
+                    <contentFilters>
+                        <ciFilter name="CIColorInvert">
+                            <configuration>
+                                <null key="inputImage"/>
+                            </configuration>
+                        </ciFilter>
+                    </contentFilters>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -402,11 +415,11 @@
             <point key="canvasLocation" x="390.5" y="-980.5"/>
         </customView>
         <customView wantsLayer="YES" id="cgk-62-vZR" userLabel="Background Position">
-            <rect key="frame" x="0.0" y="0.0" width="241" height="134"/>
+            <rect key="frame" x="0.0" y="0.0" width="241" height="136"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wvG-Hb-ybP">
-                    <rect key="frame" x="13" y="106" width="214" height="16"/>
+                    <rect key="frame" x="13" y="108" width="214" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Background Position" id="Vgj-Lu-GHZ">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -414,7 +427,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2L6-hZ-PhS" userLabel="Align : LCR">
-                    <rect key="frame" x="15" y="75" width="100" height="22"/>
+                    <rect key="frame" x="15" y="77" width="100" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="98" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -447,7 +460,7 @@
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rVH-ZV-PcL" userLabel="Align : TCB">
-                    <rect key="frame" x="125" y="75" width="100" height="22"/>
+                    <rect key="frame" x="125" y="77" width="100" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="98" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -484,7 +497,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lxh-a3-Zng">
-                    <rect key="frame" x="13" y="44" width="214" height="17"/>
+                    <rect key="frame" x="13" y="46" width="214" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Use X/Y Position" id="rFO-o7-2v1">
                         <font key="font" metaFont="cellTitle"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -492,7 +505,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ld6-lV-9hb" userLabel="- Check Box">
-                    <rect key="frame" x="13" y="44" width="214" height="17"/>
+                    <rect key="frame" x="13" y="46" width="214" height="17"/>
                     <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="C8Z-Br-tJB">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="titleBar" size="12"/>
@@ -502,7 +515,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkY-pM-vTb">
-                    <rect key="frame" x="16" y="15" width="14" height="17"/>
+                    <rect key="frame" x="16" y="17" width="14" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X" id="vLk-K6-Ty5">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -510,7 +523,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zbe-GS-Afa" userLabel="X - %">
-                    <rect key="frame" x="30" y="14" width="85" height="22"/>
+                    <rect key="frame" x="30" y="16" width="85" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="83" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -554,7 +567,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="GWa-pp-ta8" userLabel="X - px">
-                    <rect key="frame" x="30" y="14" width="85" height="22"/>
+                    <rect key="frame" x="30" y="16" width="85" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="83" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -598,7 +611,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqA-ha-7ml">
-                    <rect key="frame" x="126" y="15" width="14" height="17"/>
+                    <rect key="frame" x="126" y="17" width="14" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Y" id="4dg-e8-tf5">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -606,7 +619,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TgR-H8-XoN" userLabel="Y - %">
-                    <rect key="frame" x="140" y="14" width="85" height="22"/>
+                    <rect key="frame" x="140" y="16" width="85" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="83" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -650,7 +663,7 @@
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="sM2-cF-Mir" userLabel="Y - px">
-                    <rect key="frame" x="140" y="14" width="85" height="22"/>
+                    <rect key="frame" x="140" y="16" width="85" height="22"/>
                     <view key="contentView">
                         <rect key="frame" x="1" y="1" width="83" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -693,8 +706,15 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-sm-OJw">
+                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-sm-OJw">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
+                    <contentFilters>
+                        <ciFilter name="CIColorInvert">
+                            <configuration>
+                                <null key="inputImage"/>
+                            </configuration>
+                        </ciFilter>
+                    </contentFilters>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
