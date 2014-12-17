@@ -10,13 +10,20 @@
 
 @interface BBPGTextFieldPropertyVC ()
 
+@property (weak) IBOutlet NSTextField *placeholderTextField;
+@property (weak) IBOutlet NSTextField *inputValueTextField;
+@property (weak) IBOutlet NSMatrix *typeMatrix;
+
 @end
 
 @implementation BBPGTextFieldPropertyVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+    
+    [self outlet:_placeholderTextField bind:NSValueBinding property:@"placeholder"];
+    [self outlet:_inputValueTextField bind:NSValueBinding property:@"inputValue"];
+    [self outlet:_typeMatrix bind:NSSelectedIndexBinding property:@"type"];
 }
 
 @end

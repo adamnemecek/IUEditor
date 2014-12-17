@@ -6,6 +6,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPGFormPropertyVC">
             <connections>
+                <outlet property="targetComboBox" destination="fxX-wV-cDT" id="Gjg-1f-gqb"/>
                 <outlet property="view" destination="VPJ-cI-AOs" id="mOE-YJ-RYn"/>
             </connections>
         </customObject>
@@ -21,7 +22,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idv-lQ-0Wv">
                         <rect key="frame" x="13" y="45" width="132" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Form Field Target" id="oTf-CR-Ydr">
-                            <font key="font" metaFont="titleBar" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -35,7 +36,7 @@
                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fxX-wV-cDT">
                                     <rect key="frame" x="-1" y="-2" width="215" height="24"/>
                                     <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Select Target" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="tsU-wh-xtc">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <objectValues>

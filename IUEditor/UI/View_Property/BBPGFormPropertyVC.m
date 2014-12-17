@@ -10,6 +10,8 @@
 
 @interface BBPGFormPropertyVC ()
 
+@property (weak) IBOutlet NSComboBox *targetComboBox;
+
 @end
 
 @implementation BBPGFormPropertyVC
@@ -17,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
+    [self outlet:_targetComboBox bind:NSValueBinding property:@"target"];
 }
 
 @end

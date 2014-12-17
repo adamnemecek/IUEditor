@@ -10,6 +10,8 @@
 
 @interface BBPGSubmitPropertyVC ()
 
+@property (weak) IBOutlet NSTextField *labelTextField;
+
 @end
 
 @implementation BBPGSubmitPropertyVC
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    [self outlet:_labelTextField bind:NSValueBinding property:@"label"];
 }
 
 @end
