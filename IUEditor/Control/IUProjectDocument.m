@@ -196,7 +196,10 @@ static NSString *metaDataIUVersion = @"IUVersion";
 
 
 - (void)makeWindowControllers{
+    
     BBWC *wc = [[BBWC alloc] initWithWindowNibName:@"BBWC"];
+    [wc setResourceRootItem:_resourceRootItem];
+    
     [self addWindowController:wc];
     
 }

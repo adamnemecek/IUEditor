@@ -11,6 +11,7 @@
 
 static NSString* kIUBackgroundOptionEmpty = @"backgroundOptionEmpty";
 
+__attribute__((deprecated))
 @interface IUBackground : IUSheet
 
 @property  IUHeader    *header;
