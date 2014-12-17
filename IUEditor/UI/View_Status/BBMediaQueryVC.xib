@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
@@ -77,14 +77,13 @@
                                 </configuration>
                             </ciFilter>
                         </contentFilters>
-                        <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" inset="2" pullsDown="YES" arrowPosition="noArrow" selectedItem="aeO-2R-nqp" id="WIZ-gv-KOE">
+                        <popUpButtonCell key="cell" type="square" title="Add New Size" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" id="WIZ-gv-KOE">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
                             <menu key="menu" id="3t7-yS-vvk">
                                 <items>
-                                    <menuItem state="on" image="NSSmartBadgeTemplate" hidden="YES" id="aeO-2R-nqp"/>
-                                    <menuItem title="Add new size" id="MvS-bL-DUM"/>
-                                    <menuItem title="Edit" id="wSS-Yc-BFy"/>
+                                    <menuItem title="Add New Size" hidden="YES" id="MvS-bL-DUM"/>
+                                    <menuItem title="Edit Size" id="wSS-Yc-BFy"/>
                                     <menuItem title="Delete" id="MHd-J5-j9Q"/>
                                 </items>
                             </menu>
@@ -109,9 +108,208 @@
             <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="1235" y="265"/>
         </box>
+        <customView id="NIa-Yo-QJV" userLabel="Add size">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="69"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wxl-BE-FSx">
+                    <rect key="frame" x="8" y="43" width="59" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ADD SIZE" id="JYp-ak-17C">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xrv-am-KSq" userLabel="btn_Close">
+                    <rect key="frame" x="92" y="41" width="24" height="24"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_close" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="mI3-Zs-ToR">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="sin-eI-etn">
+                    <rect key="frame" x="-2" y="37" width="192" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NUY-ws-hPy" userLabel="Size">
+                    <rect key="frame" x="10" y="9" width="73" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="71" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="05x-OC-9WL" userLabel="- Text Field">
+                                <rect key="frame" x="-1" y="-1" width="50" height="22"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="0" drawsBackground="YES" id="qw1-ro-dMX">
+                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dVT-3A-yIS" userLabel="- px">
+                                <rect key="frame" x="48" y="-2" width="24" height="24"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <buttonCell key="cell" type="smallSquare" title="px" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BdQ-Ga-5mJ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UTI-gN-tyM" userLabel="btn_Add">
+                    <rect key="frame" x="87" y="9" width="23" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="21" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1b-Fx-HlC">
+                                <rect key="frame" x="-1" y="-3" width="23" height="26"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="0.0"/>
+                                            <ciColor key="inputColor1" red="0.19607843458652496" green="0.39215686917304993" blue="0.70588237047195435" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aWJ-k9-t8I">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystemBold"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.19215686269999999" green="0.34901960780000002" blue="0.58431372550000005" alpha="0.0" colorSpace="calibratedRGB"/>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="126" y="472.5"/>
+        </customView>
+        <customView id="3jg-U5-EDE" userLabel="Edit size">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="69"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bO7-OY-plo">
+                    <rect key="frame" x="8" y="43" width="61" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="EDIT SIZE" id="iMn-f0-4ZZ">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iTo-JU-5bZ" userLabel="btn_Close">
+                    <rect key="frame" x="92" y="41" width="24" height="24"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_close" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="yia-Hi-CGs">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qvr-q1-hnp">
+                    <rect key="frame" x="-2" y="37" width="192" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rE3-Di-gkt" userLabel="Size">
+                    <rect key="frame" x="10" y="9" width="73" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="71" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4p-ig-yQ4" userLabel="- Text Field">
+                                <rect key="frame" x="-1" y="-1" width="50" height="22"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="0" drawsBackground="YES" id="F5l-he-sH2">
+                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-JZ-oSK" userLabel="- px">
+                                <rect key="frame" x="48" y="-2" width="24" height="24"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <buttonCell key="cell" type="smallSquare" title="px" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="UrW-6Z-Cif">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="OFp-yD-Eax" userLabel="btn_Add">
+                    <rect key="frame" x="87" y="9" width="23" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="21" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qVT-vT-bYI">
+                                <rect key="frame" x="-1" y="-3" width="23" height="26"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="0.0"/>
+                                            <ciColor key="inputColor1" red="0.19607843458652496" green="0.39215686917304993" blue="0.70588237047195435" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <buttonCell key="cell" type="smallSquare" title="OK" bezelStyle="smallSquare" alignment="center" controlSize="small" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L39-eX-dgH">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="miniSystemBold"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.19215686269999999" green="0.34901960780000002" blue="0.58431372550000005" alpha="0.0" colorSpace="calibratedRGB"/>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="126" y="358.5"/>
+        </customView>
     </objects>
     <resources>
-        <image name="NSSmartBadgeTemplate" width="14" height="14"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="btn_close" width="10" height="10"/>
         <image name="ic_mediaquery" width="25" height="13"/>
     </resources>
 </document>
