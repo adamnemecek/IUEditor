@@ -10,6 +10,9 @@
 
 @interface BBImportPropertyVC ()
 
+@property (weak) IBOutlet NSPopUpButton *compositionPopUpButton;
+@property (strong) IBOutlet NSArrayController *compositionController;
+
 @end
 
 @implementation BBImportPropertyVC
@@ -17,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    
 }
 
 @end

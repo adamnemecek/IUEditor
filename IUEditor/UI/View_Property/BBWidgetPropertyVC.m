@@ -145,6 +145,11 @@
     [_pgTextAreaPropertyVC setResourceRootItem:resourceRootItem];
 }
 
+- (void)setProject:(IUProject *)project{
+    _project = project;
+    [_importPropertyVC setProject:project];
+}
+
 
 #pragma mark - notification
 - (void)changeIUSelection:(NSNotification *)notification{

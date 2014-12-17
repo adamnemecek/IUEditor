@@ -6,6 +6,24 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBCarouselPropertyVC">
             <connections>
+                <outlet property="arrowXSlider" destination="ixN-xt-Cok" id="bnc-MU-54a"/>
+                <outlet property="arrowXStepper" destination="3Bk-Q7-G36" id="rpn-rG-vz1"/>
+                <outlet property="arrowXTextField" destination="noD-P0-Ckf" id="pWd-6l-e35"/>
+                <outlet property="arrowYSlider" destination="eXx-eo-yGU" id="JC9-W1-qFg"/>
+                <outlet property="arrowYStepper" destination="mk7-ER-Tyk" id="uVw-y0-32Q"/>
+                <outlet property="arrowYTextField" destination="yLe-s6-oAx" id="lRT-NY-bYh"/>
+                <outlet property="autoplayMatrix" destination="DaQ-GV-qVe" id="BVF-Lm-79M"/>
+                <outlet property="controlTypeSegmentedControl" destination="09A-FE-1mx" id="RJM-cR-gCp"/>
+                <outlet property="countStepper" destination="2xX-yj-e1S" id="XL2-Se-vbg"/>
+                <outlet property="countTextField" destination="aF3-2v-d2h" id="1KO-5N-ezI"/>
+                <outlet property="deselectColorWell" destination="kTe-Y8-Smw" id="vr6-TP-Zk0"/>
+                <outlet property="durationStepper" destination="cnl-7c-6N6" id="Xk6-Jc-H63"/>
+                <outlet property="durationTextField" destination="Bbh-6B-p7N" id="G0z-nx-YLd"/>
+                <outlet property="enableArrowMatrix" destination="isJ-qc-aLL" id="8TH-lG-Vvg"/>
+                <outlet property="leftArrowImageComboBox" destination="wBF-CQ-zde" id="l2s-fy-Iyl"/>
+                <outlet property="pagerPositionSlider" destination="fzt-Pq-zfT" id="LFf-yJ-iVA"/>
+                <outlet property="rightArrowImageComboBox" destination="pSm-O3-V6i" id="LFl-vN-Rl0"/>
+                <outlet property="selectColorWell" destination="JnI-5K-1um" id="yQA-Lk-Tk9"/>
                 <outlet property="view" destination="LV8-KQ-Vj4" id="4MB-d5-jTC"/>
             </connections>
         </customObject>

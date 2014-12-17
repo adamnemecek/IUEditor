@@ -19,7 +19,7 @@
 /**
  return all children sheets
  */
-- (NSArray*)childrenFileItems;
+- (NSArray*)childrenFileItems __deprecated;
 
 /**
  Add Item. Item can be IUSheet or IUSheet Group

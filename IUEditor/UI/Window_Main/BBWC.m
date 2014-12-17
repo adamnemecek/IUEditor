@@ -276,6 +276,7 @@
     
     //[_topToolBarVC setProject:_project];
     [_actionPropertyVC setProject:_project];
+    [_widgetPropertyVC setProject:_project];
     
     //sheet controllers
     [_projectStructureVC setPageController:_pageController];
@@ -284,7 +285,6 @@
     [_structureToolBarVC setClassController:_classController];
     [_tracingPropertyVC setPageController:_pageController];
     [_tracingPropertyVC setClassController:_classController];
-    
     
     //iucontroller
     [_canvasVC setController:_iuController];

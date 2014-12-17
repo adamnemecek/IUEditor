@@ -6,6 +6,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBWebVideoPropertyVC">
             <connections>
+                <outlet property="loopButton" destination="bdR-Pi-1FL" id="49q-DJ-1gh"/>
+                <outlet property="playTypeMatrix" destination="hcG-sk-0FS" id="bVV-TY-FYZ"/>
+                <outlet property="urlTextField" destination="pAT-FF-2A3" id="KHB-Jd-hNH"/>
                 <outlet property="view" destination="HJ7-Xj-Mth" id="avS-rF-KDF"/>
             </connections>
         </customObject>
@@ -55,7 +58,7 @@
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NvB-ju-eyR">
-                        <rect key="frame" x="1" y="136" width="240" height="5"/>
+                        <rect key="frame" x="1" y="136" width="240" height="4"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>

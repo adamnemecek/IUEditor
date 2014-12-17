@@ -10,13 +10,20 @@
 
 @interface BBTransitionPropertyVC ()
 
+@property (weak) IBOutlet NSPopUpButton *animationTypePopUpButton;
+@property (weak) IBOutlet NSTextField *durationTextField;
+@property (weak) IBOutlet NSPopUpButton *eventTypePopUpButton;
+
 @end
 
 @implementation BBTransitionPropertyVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+
+    [self outlet:_animationTypePopUpButton bind:NSValueBinding property:@"animation"];
+    [self outlet:_durationTextField bind:NSValueBinding property:@"duration"];
+    [self outlet:_eventTypePopUpButton bind:NSValueBinding property:@"eventType"];
 }
 
 @end

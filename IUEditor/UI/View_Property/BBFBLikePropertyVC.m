@@ -9,6 +9,9 @@
 #import "BBFBLikePropertyVC.h"
 
 @interface BBFBLikePropertyVC ()
+@property (weak) IBOutlet NSTextField *urlTextField;
+@property (weak) IBOutlet NSPopUpButton *colorSchemePopupButton;
+@property (weak) IBOutlet NSButton *showFriendsFace;
 
 @end
 
@@ -16,7 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+    
+    [self outlet:_urlTextField bind:NSValueBinding property:@"likePage"];
+    [self outlet:_colorSchemePopupButton bind:NSSelectedIndexBinding property:@"colorscheme"];
+    [self outlet:_showFriendsFace bind:NSValueBinding property:@"showFriendsFace"];
 }
 
 @end

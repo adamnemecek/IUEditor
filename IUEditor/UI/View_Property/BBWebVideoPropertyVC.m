@@ -9,6 +9,9 @@
 #import "BBWebVideoPropertyVC.h"
 
 @interface BBWebVideoPropertyVC ()
+@property (weak) IBOutlet NSTextField *urlTextField;
+@property (weak) IBOutlet NSButton *loopButton;
+@property (weak) IBOutlet NSMatrix *playTypeMatrix;
 
 @end
 
@@ -16,7 +19,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+
+    [self outlet:_urlTextField bind:NSValueBinding property:@"movieLink"];
+    [self outlet:_loopButton bind:NSValueBinding property:@"enableLoop"];
+    [self outlet:_playTypeMatrix bind:NSSelectedIndexBinding property:@"playType"];
 }
 
 @end

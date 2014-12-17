@@ -6,6 +6,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBImportPropertyVC">
             <connections>
+                <outlet property="compositionController" destination="wQp-N8-m3w" id="Wgm-j7-oEy"/>
+                <outlet property="compositionPopUpButton" destination="gby-W4-i2n" id="QJz-kC-hsV"/>
                 <outlet property="view" destination="0in-Ty-dqn" id="eYY-dn-f0u"/>
             </connections>
         </customObject>
@@ -21,7 +23,7 @@
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67W-Vf-LTM">
                         <rect key="frame" x="13" y="45" width="132" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Import Composition" id="sYr-tU-5wH">
-                            <font key="font" metaFont="titleBar" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -34,16 +36,22 @@
                             <subviews>
                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gby-W4-i2n">
                                     <rect key="frame" x="-5" y="1" width="210" height="20"/>
-                                    <popUpButtonCell key="cell" type="bevel" title="None" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="CQu-MD-Giv" id="sQk-n0-VJZ">
+                                    <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="sQk-n0-VJZ">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
                                         <menu key="menu" id="dbG-fW-dGJ">
                                             <items>
-                                                <menuItem title="None" state="on" id="CQu-MD-Giv"/>
+                                                <menuItem title="None" id="CQu-MD-Giv"/>
                                                 <menuItem title="Dark" id="nnI-UK-FNi"/>
                                             </items>
                                         </menu>
+                                        <connections>
+                                            <binding destination="wQp-N8-m3w" name="selectedIndex" keyPath="selection" id="hlK-e6-Qc4"/>
+                                        </connections>
                                     </popUpButtonCell>
+                                    <connections>
+                                        <binding destination="wQp-N8-m3w" name="content" keyPath="arrangedObjects.name" id="pgk-0H-jzC"/>
+                                    </connections>
                                 </popUpButton>
                             </subviews>
                         </view>
@@ -60,7 +68,13 @@
             </view>
             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="347.5" y="89"/>
+            <point key="canvasLocation" x="235.5" y="89"/>
         </box>
+        <userDefaultsController representsSharedInstance="YES" id="J17-XV-Eve"/>
+        <arrayController objectClassName="IUSheet" id="wQp-N8-m3w" userLabel="compositionController">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="self.project.classGroup.allLeafChildrenFileItems" id="L1u-hO-Y6a"/>
+            </connections>
+        </arrayController>
     </objects>
 </document>

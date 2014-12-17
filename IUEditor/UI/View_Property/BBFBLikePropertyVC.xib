@@ -6,6 +6,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBFBLikePropertyVC">
             <connections>
+                <outlet property="colorSchemePopupButton" destination="O0W-11-W5T" id="mDp-nf-lHR"/>
+                <outlet property="showFriendsFace" destination="I2f-6d-dyI" id="K1l-wR-lxC"/>
+                <outlet property="urlTextField" destination="1kJ-Ps-yA3" id="yIz-Dq-rKH"/>
                 <outlet property="view" destination="gFB-iM-153" id="4ON-8Q-GLn"/>
             </connections>
         </customObject>

@@ -7,7 +7,10 @@
 //
 
 #import "BBDefaultPropertyVC.h"
+#import "IUProject.h"
 
 @interface BBImportPropertyVC : BBDefaultPropertyVC
+
+@property (nonatomic, weak) IUProject *project;
 
 @end

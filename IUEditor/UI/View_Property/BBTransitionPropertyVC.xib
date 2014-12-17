@@ -6,6 +6,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBTransitionPropertyVC">
             <connections>
+                <outlet property="animationTypePopUpButton" destination="U2g-Cd-LZL" id="fc9-Wz-fnk"/>
+                <outlet property="durationTextField" destination="vUb-3E-Ois" id="OXl-oJ-wWI"/>
+                <outlet property="eventTypePopUpButton" destination="pkb-9E-8Wk" id="jWP-9n-PbI"/>
                 <outlet property="view" destination="k3E-Ka-2wj" id="OFe-qf-gqi"/>
             </connections>
         </customObject>
@@ -72,6 +75,9 @@
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <outlet property="formatter" destination="9sJ-MM-Kl6" id="cUA-rN-W3d"/>
+                                    </connections>
                                 </textField>
                             </subviews>
                         </view>
@@ -93,7 +99,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pkb-9E-8Wk">
-                                    <rect key="frame" x="-5" y="1" width="210" height="20"/>
+                                    <rect key="frame" x="-1" y="0.0" width="210" height="20"/>
                                     <popUpButtonCell key="cell" type="bevel" title="Click" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="TIC-aJ-9G8" id="hzD-ZZ-1mp">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
@@ -122,5 +128,6 @@
             <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="257.5" y="93.5"/>
         </box>
+        <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 's'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="9sJ-MM-Kl6" userLabel="seconds"/>
     </objects>
 </document>
