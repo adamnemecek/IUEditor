@@ -662,6 +662,30 @@
 		3DC616B61A41352600B94A4C /* BBFontPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616B41A41352600B94A4C /* BBFontPropertyVC.xib */; };
 		3DC616BA1A41357200B94A4C /* BBFramePropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616B81A41357200B94A4C /* BBFramePropertyVC.m */; };
 		3DC616BB1A41357200B94A4C /* BBFramePropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616B91A41357200B94A4C /* BBFramePropertyVC.xib */; };
+		3DC616BF1A4151FD00B94A4C /* BBVideoPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616BD1A4151FD00B94A4C /* BBVideoPropertyVC.m */; };
+		3DC616C01A4151FD00B94A4C /* BBVideoPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616BE1A4151FD00B94A4C /* BBVideoPropertyVC.xib */; };
+		3DC616C41A41525C00B94A4C /* BBTweetPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616C21A41525C00B94A4C /* BBTweetPropertyVC.m */; };
+		3DC616C51A41525C00B94A4C /* BBTweetPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616C31A41525C00B94A4C /* BBTweetPropertyVC.xib */; };
+		3DC616C91A41529A00B94A4C /* BBGoogleMapPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616C71A41529A00B94A4C /* BBGoogleMapPropertyVC.m */; };
+		3DC616CA1A41529A00B94A4C /* BBGoogleMapPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616C81A41529A00B94A4C /* BBGoogleMapPropertyVC.xib */; };
+		3DC616CE1A4152C300B94A4C /* BBWebVideoPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616CC1A4152C300B94A4C /* BBWebVideoPropertyVC.m */; };
+		3DC616CF1A4152C300B94A4C /* BBWebVideoPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616CD1A4152C300B94A4C /* BBWebVideoPropertyVC.xib */; };
+		3DC616D31A4152E000B94A4C /* BBFBLikePropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616D11A4152E000B94A4C /* BBFBLikePropertyVC.m */; };
+		3DC616D41A4152E000B94A4C /* BBFBLikePropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616D21A4152E000B94A4C /* BBFBLikePropertyVC.xib */; };
+		3DC616D81A41530500B94A4C /* BBTransitionPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616D61A41530500B94A4C /* BBTransitionPropertyVC.m */; };
+		3DC616D91A41530500B94A4C /* BBTransitionPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616D71A41530500B94A4C /* BBTransitionPropertyVC.xib */; };
+		3DC616DD1A41532A00B94A4C /* BBCarouselPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616DB1A41532A00B94A4C /* BBCarouselPropertyVC.m */; };
+		3DC616DE1A41532A00B94A4C /* BBCarouselPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616DC1A41532A00B94A4C /* BBCarouselPropertyVC.xib */; };
+		3DC616E21A41535500B94A4C /* BBImportPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616E01A41535500B94A4C /* BBImportPropertyVC.m */; };
+		3DC616E31A41535500B94A4C /* BBImportPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616E11A41535500B94A4C /* BBImportPropertyVC.xib */; };
+		3DC616E81A4153EE00B94A4C /* BBPGSubmitPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616E61A4153EE00B94A4C /* BBPGSubmitPropertyVC.m */; };
+		3DC616E91A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616E71A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib */; };
+		3DC616ED1A41540F00B94A4C /* BBPGFormPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616EB1A41540F00B94A4C /* BBPGFormPropertyVC.m */; };
+		3DC616EE1A41540F00B94A4C /* BBPGFormPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616EC1A41540F00B94A4C /* BBPGFormPropertyVC.xib */; };
+		3DC616F21A41542F00B94A4C /* BBPGTextFieldPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616F01A41542F00B94A4C /* BBPGTextFieldPropertyVC.m */; };
+		3DC616F31A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616F11A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib */; };
+		3DC616F71A41545E00B94A4C /* BBPGTextAreaPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616F51A41545E00B94A4C /* BBPGTextAreaPropertyVC.m */; };
+		3DC616F81A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616F61A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib */; };
 		3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */; };
 		3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */; };
 		3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */; };
@@ -1717,6 +1741,42 @@
 		3DC616B71A41357200B94A4C /* BBFramePropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFramePropertyVC.h; path = UI/View_Property/BBFramePropertyVC.h; sourceTree = "<group>"; };
 		3DC616B81A41357200B94A4C /* BBFramePropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFramePropertyVC.m; path = UI/View_Property/BBFramePropertyVC.m; sourceTree = "<group>"; };
 		3DC616B91A41357200B94A4C /* BBFramePropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBFramePropertyVC.xib; path = UI/View_Property/BBFramePropertyVC.xib; sourceTree = "<group>"; };
+		3DC616BC1A4151FD00B94A4C /* BBVideoPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBVideoPropertyVC.h; path = UI/View_Property/BBVideoPropertyVC.h; sourceTree = "<group>"; };
+		3DC616BD1A4151FD00B94A4C /* BBVideoPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBVideoPropertyVC.m; path = UI/View_Property/BBVideoPropertyVC.m; sourceTree = "<group>"; };
+		3DC616BE1A4151FD00B94A4C /* BBVideoPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBVideoPropertyVC.xib; path = UI/View_Property/BBVideoPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616C11A41525C00B94A4C /* BBTweetPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBTweetPropertyVC.h; path = UI/View_Property/BBTweetPropertyVC.h; sourceTree = "<group>"; };
+		3DC616C21A41525C00B94A4C /* BBTweetPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBTweetPropertyVC.m; path = UI/View_Property/BBTweetPropertyVC.m; sourceTree = "<group>"; };
+		3DC616C31A41525C00B94A4C /* BBTweetPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBTweetPropertyVC.xib; path = UI/View_Property/BBTweetPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616C61A41529A00B94A4C /* BBGoogleMapPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBGoogleMapPropertyVC.h; path = UI/View_Property/BBGoogleMapPropertyVC.h; sourceTree = "<group>"; };
+		3DC616C71A41529A00B94A4C /* BBGoogleMapPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBGoogleMapPropertyVC.m; path = UI/View_Property/BBGoogleMapPropertyVC.m; sourceTree = "<group>"; };
+		3DC616C81A41529A00B94A4C /* BBGoogleMapPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBGoogleMapPropertyVC.xib; path = UI/View_Property/BBGoogleMapPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616CB1A4152C300B94A4C /* BBWebVideoPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBWebVideoPropertyVC.h; path = UI/View_Property/BBWebVideoPropertyVC.h; sourceTree = "<group>"; };
+		3DC616CC1A4152C300B94A4C /* BBWebVideoPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWebVideoPropertyVC.m; path = UI/View_Property/BBWebVideoPropertyVC.m; sourceTree = "<group>"; };
+		3DC616CD1A4152C300B94A4C /* BBWebVideoPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWebVideoPropertyVC.xib; path = UI/View_Property/BBWebVideoPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616D01A4152E000B94A4C /* BBFBLikePropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFBLikePropertyVC.h; path = UI/View_Property/BBFBLikePropertyVC.h; sourceTree = "<group>"; };
+		3DC616D11A4152E000B94A4C /* BBFBLikePropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBFBLikePropertyVC.m; path = UI/View_Property/BBFBLikePropertyVC.m; sourceTree = "<group>"; };
+		3DC616D21A4152E000B94A4C /* BBFBLikePropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBFBLikePropertyVC.xib; path = UI/View_Property/BBFBLikePropertyVC.xib; sourceTree = "<group>"; };
+		3DC616D51A41530500B94A4C /* BBTransitionPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBTransitionPropertyVC.h; path = UI/View_Property/BBTransitionPropertyVC.h; sourceTree = "<group>"; };
+		3DC616D61A41530500B94A4C /* BBTransitionPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBTransitionPropertyVC.m; path = UI/View_Property/BBTransitionPropertyVC.m; sourceTree = "<group>"; };
+		3DC616D71A41530500B94A4C /* BBTransitionPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBTransitionPropertyVC.xib; path = UI/View_Property/BBTransitionPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616DA1A41532A00B94A4C /* BBCarouselPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBCarouselPropertyVC.h; path = UI/View_Property/BBCarouselPropertyVC.h; sourceTree = "<group>"; };
+		3DC616DB1A41532A00B94A4C /* BBCarouselPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBCarouselPropertyVC.m; path = UI/View_Property/BBCarouselPropertyVC.m; sourceTree = "<group>"; };
+		3DC616DC1A41532A00B94A4C /* BBCarouselPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBCarouselPropertyVC.xib; path = UI/View_Property/BBCarouselPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616DF1A41535500B94A4C /* BBImportPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBImportPropertyVC.h; path = UI/View_Property/BBImportPropertyVC.h; sourceTree = "<group>"; };
+		3DC616E01A41535500B94A4C /* BBImportPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBImportPropertyVC.m; path = UI/View_Property/BBImportPropertyVC.m; sourceTree = "<group>"; };
+		3DC616E11A41535500B94A4C /* BBImportPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBImportPropertyVC.xib; path = UI/View_Property/BBImportPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616E51A4153EE00B94A4C /* BBPGSubmitPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPGSubmitPropertyVC.h; path = UI/View_Property/BBPGSubmitPropertyVC.h; sourceTree = "<group>"; };
+		3DC616E61A4153EE00B94A4C /* BBPGSubmitPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPGSubmitPropertyVC.m; path = UI/View_Property/BBPGSubmitPropertyVC.m; sourceTree = "<group>"; };
+		3DC616E71A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPGSubmitPropertyVC.xib; path = UI/View_Property/BBPGSubmitPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616EA1A41540F00B94A4C /* BBPGFormPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPGFormPropertyVC.h; path = UI/View_Property/BBPGFormPropertyVC.h; sourceTree = "<group>"; };
+		3DC616EB1A41540F00B94A4C /* BBPGFormPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPGFormPropertyVC.m; path = UI/View_Property/BBPGFormPropertyVC.m; sourceTree = "<group>"; };
+		3DC616EC1A41540F00B94A4C /* BBPGFormPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPGFormPropertyVC.xib; path = UI/View_Property/BBPGFormPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616EF1A41542F00B94A4C /* BBPGTextFieldPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPGTextFieldPropertyVC.h; path = UI/View_Property/BBPGTextFieldPropertyVC.h; sourceTree = "<group>"; };
+		3DC616F01A41542F00B94A4C /* BBPGTextFieldPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPGTextFieldPropertyVC.m; path = UI/View_Property/BBPGTextFieldPropertyVC.m; sourceTree = "<group>"; };
+		3DC616F11A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPGTextFieldPropertyVC.xib; path = UI/View_Property/BBPGTextFieldPropertyVC.xib; sourceTree = "<group>"; };
+		3DC616F41A41545E00B94A4C /* BBPGTextAreaPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPGTextAreaPropertyVC.h; path = UI/View_Property/BBPGTextAreaPropertyVC.h; sourceTree = "<group>"; };
+		3DC616F51A41545E00B94A4C /* BBPGTextAreaPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPGTextAreaPropertyVC.m; path = UI/View_Property/BBPGTextAreaPropertyVC.m; sourceTree = "<group>"; };
+		3DC616F61A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPGTextAreaPropertyVC.xib; path = UI/View_Property/BBPGTextAreaPropertyVC.xib; sourceTree = "<group>"; };
 		3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBQuickWidgetVC.h; path = UI/View_Status/BBQuickWidgetVC.h; sourceTree = "<group>"; };
 		3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBQuickWidgetVC.m; path = UI/View_Status/BBQuickWidgetVC.m; sourceTree = "<group>"; };
 		3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBQuickWidgetVC.xib; path = UI/View_Status/BBQuickWidgetVC.xib; sourceTree = "<group>"; };
@@ -2633,6 +2693,7 @@
 		3D2EF5FC19F783F700BBBAE5 /* Property */ = {
 			isa = PBXGroup;
 			children = (
+				3DC616E41A4153D800B94A4C /* PGGroup */,
 				3DC616B11A41348600B94A4C /* IUBox */,
 				3DD19CAA1A35697800A5198E /* OldVersion */,
 				3DD19CAB1A3569A500A5198E /* BBStylePropertyVC.h */,
@@ -3515,8 +3576,51 @@
 				3DC616B71A41357200B94A4C /* BBFramePropertyVC.h */,
 				3DC616B81A41357200B94A4C /* BBFramePropertyVC.m */,
 				3DC616B91A41357200B94A4C /* BBFramePropertyVC.xib */,
+				3DC616BC1A4151FD00B94A4C /* BBVideoPropertyVC.h */,
+				3DC616BD1A4151FD00B94A4C /* BBVideoPropertyVC.m */,
+				3DC616BE1A4151FD00B94A4C /* BBVideoPropertyVC.xib */,
+				3DC616C11A41525C00B94A4C /* BBTweetPropertyVC.h */,
+				3DC616C21A41525C00B94A4C /* BBTweetPropertyVC.m */,
+				3DC616C31A41525C00B94A4C /* BBTweetPropertyVC.xib */,
+				3DC616C61A41529A00B94A4C /* BBGoogleMapPropertyVC.h */,
+				3DC616C71A41529A00B94A4C /* BBGoogleMapPropertyVC.m */,
+				3DC616C81A41529A00B94A4C /* BBGoogleMapPropertyVC.xib */,
+				3DC616CB1A4152C300B94A4C /* BBWebVideoPropertyVC.h */,
+				3DC616CC1A4152C300B94A4C /* BBWebVideoPropertyVC.m */,
+				3DC616CD1A4152C300B94A4C /* BBWebVideoPropertyVC.xib */,
+				3DC616D01A4152E000B94A4C /* BBFBLikePropertyVC.h */,
+				3DC616D11A4152E000B94A4C /* BBFBLikePropertyVC.m */,
+				3DC616D21A4152E000B94A4C /* BBFBLikePropertyVC.xib */,
+				3DC616D51A41530500B94A4C /* BBTransitionPropertyVC.h */,
+				3DC616D61A41530500B94A4C /* BBTransitionPropertyVC.m */,
+				3DC616D71A41530500B94A4C /* BBTransitionPropertyVC.xib */,
+				3DC616DA1A41532A00B94A4C /* BBCarouselPropertyVC.h */,
+				3DC616DB1A41532A00B94A4C /* BBCarouselPropertyVC.m */,
+				3DC616DC1A41532A00B94A4C /* BBCarouselPropertyVC.xib */,
+				3DC616DF1A41535500B94A4C /* BBImportPropertyVC.h */,
+				3DC616E01A41535500B94A4C /* BBImportPropertyVC.m */,
+				3DC616E11A41535500B94A4C /* BBImportPropertyVC.xib */,
 			);
 			name = IUBox;
+			sourceTree = "<group>";
+		};
+		3DC616E41A4153D800B94A4C /* PGGroup */ = {
+			isa = PBXGroup;
+			children = (
+				3DC616E51A4153EE00B94A4C /* BBPGSubmitPropertyVC.h */,
+				3DC616E61A4153EE00B94A4C /* BBPGSubmitPropertyVC.m */,
+				3DC616E71A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib */,
+				3DC616EA1A41540F00B94A4C /* BBPGFormPropertyVC.h */,
+				3DC616EB1A41540F00B94A4C /* BBPGFormPropertyVC.m */,
+				3DC616EC1A41540F00B94A4C /* BBPGFormPropertyVC.xib */,
+				3DC616EF1A41542F00B94A4C /* BBPGTextFieldPropertyVC.h */,
+				3DC616F01A41542F00B94A4C /* BBPGTextFieldPropertyVC.m */,
+				3DC616F11A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib */,
+				3DC616F41A41545E00B94A4C /* BBPGTextAreaPropertyVC.h */,
+				3DC616F51A41545E00B94A4C /* BBPGTextAreaPropertyVC.m */,
+				3DC616F61A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib */,
+			);
+			name = PGGroup;
 			sourceTree = "<group>";
 		};
 		3DD19C7D1A316D4400A5198E /* TopToolBarChildrenVCs */ = {
@@ -3930,6 +4034,7 @@
 				3D2EFBA619F786C700BBBAE5 /* refresh-128.png in Resources */,
 				3D2EFB7819F786C700BBBAE5 /* mail-24-128.png in Resources */,
 				3D2EF75C19F7856E00BBBAE5 /* heroku_keysadd.sh in Resources */,
+				3DC616DE1A41532A00B94A4C /* BBCarouselPropertyVC.xib in Resources */,
 				3D2EF78819F785B000BBBAE5 /* InstallingWordpress.pdf in Resources */,
 				3D2EFB9219F786C700BBBAE5 /* MB__photo.png in Resources */,
 				3D2EF71C19F784E300BBBAE5 /* LMCommandVC.xib in Resources */,
@@ -3970,6 +4075,7 @@
 				3D2EF6CE19F784A400BBBAE5 /* LMPropertyIUTweetButtonVC.xib in Resources */,
 				3DE462EF19FA4A2600A75567 /* ws_thumbnail.png in Resources */,
 				3D2EFB5319F786C700BBBAE5 /* download-128.png in Resources */,
+				3DC616E31A41535500B94A4C /* BBImportPropertyVC.xib in Resources */,
 				3D2EF73019F7850100BBBAE5 /* LMFileNaviVC.xib in Resources */,
 				3D2EFB6919F786C700BBBAE5 /* icon-ios7-refresh-outline-128.png in Resources */,
 				3D2EF77F19F7857E00BBBAE5 /* wpPageInformation.plist in Resources */,
@@ -4014,6 +4120,7 @@
 				3D2EF77419F7857E00BBBAE5 /* defaultFont.plist in Resources */,
 				3D2EF77A19F7857E00BBBAE5 /* sampleTemplate.plist in Resources */,
 				3D2EF5F319F7837600BBBAE5 /* LMNewPageWC.xib in Resources */,
+				3DC616D41A4152E000B94A4C /* BBFBLikePropertyVC.xib in Resources */,
 				3D2EF5AE19F7830100BBBAE5 /* LMHelpLargeVideoPopoverVC.xib in Resources */,
 				3D2EF76119F7856E00BBBAE5 /* composer.zip in Resources */,
 				3D2EFB3319F786C700BBBAE5 /* ArrowLeft-128.png in Resources */,
@@ -4034,6 +4141,7 @@
 				3D2EFB9119F786C700BBBAE5 /* MapMarker_PushPin_Right_Pink.png in Resources */,
 				3D2EFB4E19F786C700BBBAE5 /* common_email_envelope_mail_-128.png in Resources */,
 				3D2EF79919F785C000BBBAE5 /* IUFBLike.rtf in Resources */,
+				3DC616C51A41525C00B94A4C /* BBTweetPropertyVC.xib in Resources */,
 				3D2EF3B519F77C9E00BBBAE5 /* Images.xcassets in Resources */,
 				3D2EFBEE19F787DE00BBBAE5 /* map_position.png in Resources */,
 				3DE462E819FA4A2600A75567 /* resume_preview_tablet.png in Resources */,
@@ -4075,6 +4183,7 @@
 				3D2EFB8819F786C700BBBAE5 /* MapMarker_Marker_Inside_Chartreuse.png in Resources */,
 				3DD19CD61A35A4EF00A5198E /* BBBackEndPropertyVC.xib in Resources */,
 				3D2EF58C19F782C700BBBAE5 /* LMStartPreviewWC.xib in Resources */,
+				3DC616F31A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib in Resources */,
 				3D2EF54419F7828000BBBAE5 /* LMWC.xib in Resources */,
 				3D2EF76219F7856E00BBBAE5 /* config.ru in Resources */,
 				2666986619FE2608009F98AE /* arrow_left.png in Resources */,
@@ -4143,6 +4252,7 @@
 				3D2EF66F19F7848F00BBBAE5 /* LMPropertyDisplayVC.xib in Resources */,
 				3D2EF75D19F7856E00BBBAE5 /* heroku_login.sh in Resources */,
 				3D2EFBBF19F786C700BBBAE5 /* zoom67-128.png in Resources */,
+				3DC616C01A4151FD00B94A4C /* BBVideoPropertyVC.xib in Resources */,
 				3D2EFBB319F786C700BBBAE5 /* Streamline-46-128.png in Resources */,
 				3D2EFB7719F786C700BBBAE5 /* MagnifyingGlass-128.png in Resources */,
 				3D2EF55619F782B800BBBAE5 /* LMNotiDownloadWC.xib in Resources */,
@@ -4172,6 +4282,7 @@
 				09C860921A2C771D001C0A53 /* BBWidgetLibraryVC.xib in Resources */,
 				3D2EFB6419F786C700BBBAE5 /* icon-arrow-right-b-128.png in Resources */,
 				3D2EFBA719F786C700BBBAE5 /* refresh27-128.png in Resources */,
+				3DC616EE1A41540F00B94A4C /* BBPGFormPropertyVC.xib in Resources */,
 				3D2EFBF319F787DE00BBBAE5 /* ttwidgetNone.png in Resources */,
 				3D2EFB9619F786C700BBBAE5 /* other_arrow-left_other-128.png in Resources */,
 				3D2EFB9919F786C700BBBAE5 /* photo32-128.png in Resources */,
@@ -4224,7 +4335,9 @@
 				3D2EFBED19F787DE00BBBAE5 /* FBSampleImage.png in Resources */,
 				3DE462F119FA4A2600A75567 /* blog.zip in Resources */,
 				3DE462DD19FA4A2600A75567 /* pf_pc_02.png in Resources */,
+				3DC616E91A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib in Resources */,
 				3DD19CC61A35A18700A5198E /* BBEventPropertyVC.xib in Resources */,
+				3DC616CA1A41529A00B94A4C /* BBGoogleMapPropertyVC.xib in Resources */,
 				3D2EF58219F782C700BBBAE5 /* LMStartNewDjangoVC.xib in Resources */,
 				3D2EFBD319F7878800BBBAE5 /* iuframe.js in Resources */,
 				3D2EFB6D19F786C700BBBAE5 /* info-large-128.png in Resources */,
@@ -4257,6 +4370,7 @@
 				3D2EF6C819F784A400BBBAE5 /* LMPropertyIUTextFieldVC.xib in Resources */,
 				3D082F6C1A30372A00B653B1 /* BBPageNavigationVC.xib in Resources */,
 				3D2EF75919F7856E00BBBAE5 /* functions.php in Resources */,
+				3DC616CF1A4152C300B94A4C /* BBWebVideoPropertyVC.xib in Resources */,
 				3D2EFB2819F786C700BBBAE5 /* arrow-alt-down.png in Resources */,
 				3D2EF55919F782B800BBBAE5 /* LMNotiMessageWC.xib in Resources */,
 				3DE462B819FA4A2600A75567 /* agency_preview_mobile03.png in Resources */,
@@ -4275,6 +4389,7 @@
 				3D2EF76519F7856E00BBBAE5 /* wpCommentTemplate in Resources */,
 				3DE462CF19FA4A2600A75567 /* gallery_preview02.png in Resources */,
 				3D2EFC0A19F7883700BBBAE5 /* jquery.event.move.js in Resources */,
+				3DC616D91A41530500B94A4C /* BBTransitionPropertyVC.xib in Resources */,
 				3D2EFB3619F786C700BBBAE5 /* back-alt-128.png in Resources */,
 				3D2EF7CA19F7860700BBBAE5 /* EventMouseOn.mp4 in Resources */,
 				3D2EF5E319F7836500BBBAE5 /* LMPreferenceFontVC.xib in Resources */,
@@ -4324,6 +4439,7 @@
 				3D2EFB5119F786C700BBBAE5 /* device_camera_capture_photo_-128.png in Resources */,
 				3D2EF7C119F785E900BBBAE5 /* PGGroup.mp4 in Resources */,
 				3D2EF70F19F784D600BBBAE5 /* LMWidgetLibraryVC.xib in Resources */,
+				3DC616F81A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib in Resources */,
 				3D2EF70D19F784D600BBBAE5 /* LMResourceVC.xib in Resources */,
 				3D2EF6FD19F784B500BBBAE5 /* LMEventVC.xib in Resources */,
 				3DD19CB71A358B3A00A5198E /* BBImagePropertyVC.xib in Resources */,
@@ -4504,7 +4620,10 @@
 				3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */,
 				09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */,
 				3D2EFC5219F788BA00BBBAE5 /* JDHerokuUtil.m in Sources */,
+				3DC616D81A41530500B94A4C /* BBTransitionPropertyVC.m in Sources */,
 				3D2EF49D19F781C400BBBAE5 /* IUImage.m in Sources */,
+				3DC616C91A41529A00B94A4C /* BBGoogleMapPropertyVC.m in Sources */,
+				3DC616DD1A41532A00B94A4C /* BBCarouselPropertyVC.m in Sources */,
 				3D2EF62719F7845500BBBAE5 /* GridView.m in Sources */,
 				3D2EFC2019F7888400BBBAE5 /* NSMutableDictionary+IUTag.m in Sources */,
 				3D2EF53F19F7828000BBBAE5 /* LMAppWarningWC.m in Sources */,
@@ -4528,6 +4647,7 @@
 				3D2EF5E219F7836500BBBAE5 /* LMPreferenceFontVC.m in Sources */,
 				3D2EF67219F7848F00BBBAE5 /* LMPropertyProgrammingType1VC.m in Sources */,
 				3D2EFC9F19F788D100BBBAE5 /* NSCoder+JDExtension.m in Sources */,
+				3DC616E81A4153EE00B94A4C /* BBPGSubmitPropertyVC.m in Sources */,
 				3D2EF54519F7828000BBBAE5 /* LMWindow.m in Sources */,
 				3DD19C861A316E1500A5198E /* BBPropertyToolBarVC.m in Sources */,
 				3D2EF65E19F7848F00BBBAE5 /* LMAppearanceFrameVC.m in Sources */,
@@ -4543,12 +4663,15 @@
 				3D2EFC7F19F788C600BBBAE5 /* JDReponderCollectionView.m in Sources */,
 				3D082F6B1A30372A00B653B1 /* BBPageNavigationVC.m in Sources */,
 				3D2EF66619F7848F00BBBAE5 /* LMIUPropertyVC.m in Sources */,
+				3DC616F71A41545E00B94A4C /* BBPGTextAreaPropertyVC.m in Sources */,
 				3D2EF6DA19F784A400BBBAE5 /* LMPropertyWPMenuVC.m in Sources */,
 				3D2EF6C119F784A400BBBAE5 /* LMPropertyIUPageVC.m in Sources */,
 				3D2EFC4E19F788BA00BBBAE5 /* JDEnvUtil.m in Sources */,
 				3D2EF42C19F7815B00BBBAE5 /* IUWordpressProject.m in Sources */,
+				3DC616CE1A4152C300B94A4C /* BBWebVideoPropertyVC.m in Sources */,
 				3D2EFCBC19F78D1F00BBBAE5 /* LMPropertyIUImportVC.m in Sources */,
 				3D2EF5AF19F7830100BBBAE5 /* LMHelpPopover.m in Sources */,
+				3DC616F21A41542F00B94A4C /* BBPGTextFieldPropertyVC.m in Sources */,
 				3D2EFC8319F788C600BBBAE5 /* JDTextFieldCell.m in Sources */,
 				3D2EF67619F7848F00BBBAE5 /* LMPropertyShadowVC.m in Sources */,
 				3D2EF4D019F781E400BBBAE5 /* PGForm.m in Sources */,
@@ -4565,6 +4688,7 @@
 				3D2EF61419F7843800BBBAE5 /* GuideLineLayer.m in Sources */,
 				3D2EFCC419F78D5A00BBBAE5 /* LMPropertyIUCollectionVC.m in Sources */,
 				3D2EFC5419F788BA00BBBAE5 /* JDMutableArrayDict.m in Sources */,
+				3DC616E21A41535500B94A4C /* BBImportPropertyVC.m in Sources */,
 				3D2EF49B19F781C400BBBAE5 /* IUCenterBox.m in Sources */,
 				3D2EF6DC19F784A400BBBAE5 /* LMPropertyWPPageLinksVC.m in Sources */,
 				3D2EF70E19F784D600BBBAE5 /* LMWidgetLibraryVC.m in Sources */,
@@ -4595,6 +4719,7 @@
 				3D2EF5B219F7830100BBBAE5 /* LMHelpVideoPopoverVC.m in Sources */,
 				3DD19CB21A356F0800A5198E /* BBExpandableView.m in Sources */,
 				3D2EF4C419F781D300BBBAE5 /* IUTweetButton.m in Sources */,
+				3DC616ED1A41540F00B94A4C /* BBPGFormPropertyVC.m in Sources */,
 				3D2EF59A19F782F100BBBAE5 /* LMTutorialManager.m in Sources */,
 				3D2EF3F519F780E000BBBAE5 /* IUEventVariable.m in Sources */,
 				09E6F9391A22CBFE00FD1EBB /* IUEvent.m in Sources */,
@@ -4632,6 +4757,7 @@
 				3D2EF5E019F7836500BBBAE5 /* LMPreferenceDjangoVC.m in Sources */,
 				3D2EF62819F7845500BBBAE5 /* LMCanvasVC.m in Sources */,
 				3D2EF60719F7842A00BBBAE5 /* LMRulerView.m in Sources */,
+				3DC616BF1A4151FD00B94A4C /* BBVideoPropertyVC.m in Sources */,
 				3D2EF3B319F77C9E00BBBAE5 /* LMAppDelegate.m in Sources */,
 				3D2EF50E19F781FB00BBBAE5 /* WPArticleList.m in Sources */,
 				3D2EF40F19F780EA00BBBAE5 /* IUSheetController.m in Sources */,
@@ -4653,6 +4779,7 @@
 				3D2EF4C019F781D300BBBAE5 /* IUItem.m in Sources */,
 				3D2EFC8019F788C600BBBAE5 /* JDResponderBox.m in Sources */,
 				3D2EF51219F781FB00BBBAE5 /* WPCommentForm.m in Sources */,
+				3DC616D31A4152E000B94A4C /* BBFBLikePropertyVC.m in Sources */,
 				3D2EF4BB19F781D300BBBAE5 /* IUCollection.m in Sources */,
 				3D2EF3F319F780E000BBBAE5 /* IUCompiler.m in Sources */,
 				3D2EFC7B19F788C600BBBAE5 /* JDIntegerTextField.m in Sources */,
@@ -4677,6 +4804,7 @@
 				3D2EF6BB19F784A400BBBAE5 /* LMPropertyIUMenuItemVC.m in Sources */,
 				3D2EF51319F781FB00BBBAE5 /* WPCommentFormCell.m in Sources */,
 				3D082F881A30544100B653B1 /* BBNavigationOutlineView.m in Sources */,
+				3DC616C41A41525C00B94A4C /* BBTweetPropertyVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  BBFontPropertyVC.h
+//  BBTransitionPropertyVC.h
 //  IUEditor
 //
 //  Created by seungmi on 2014. 12. 17..
@@ -8,6 +8,6 @@
 
 #import "BBDefaultPropertyVC.h"
 
-@interface BBFontPropertyVC : BBDefaultPropertyVC
+@interface BBTransitionPropertyVC : BBDefaultPropertyVC
 
 @end
