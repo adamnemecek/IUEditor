@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="iuOutlineView" destination="50O-Vm-YUR" id="3PK-he-HU2"/>
                 <outlet property="sectionButton" destination="PUX-TT-vej" id="r4p-Yj-URY"/>
+                <outlet property="sectionPopover" destination="sn5-cf-rQP" id="2xM-8B-anB"/>
                 <outlet property="view" destination="6db-pJ-yAa" id="qNX-ev-1fa"/>
             </connections>
         </customObject>
@@ -146,7 +147,7 @@
                                                     <outlet property="textField" destination="hWm-w3-W4N" id="dvx-5t-wp6"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView identifier="settingIUCell" id="AQL-Xm-TA0">
+                                            <tableCellView identifier="settingIUCell" id="AQL-Xm-TA0" customClass="BBButtonTableCellView">
                                                 <rect key="frame" x="0.0" y="0.0" width="241" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -202,6 +203,21 @@
                                                                                         </buttonCell>
                                                                                         <connections>
                                                                                             <action selector="clickSectionSettingButton:" target="-2" id="kxO-KG-1tP"/>
+                                                                                            <binding destination="AQL-Xm-TA0" name="argument2" keyPath="objectValue" previousBinding="Xtv-i3-6H3" id="1dg-wf-Meb">
+                                                                                                <dictionary key="options">
+                                                                                                    <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
+                                                                                                </dictionary>
+                                                                                            </binding>
+                                                                                            <binding destination="AQL-Xm-TA0" name="argument" keyPath="self.clickButton" id="Xtv-i3-6H3">
+                                                                                                <dictionary key="options">
+                                                                                                    <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
+                                                                                                </dictionary>
+                                                                                            </binding>
+                                                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="1dg-wf-Meb" id="0wv-pa-UIJ">
+                                                                                                <dictionary key="options">
+                                                                                                    <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
+                                                                                                </dictionary>
+                                                                                            </binding>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -289,6 +305,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="hBO-jy-jos" secondAttribute="bottom" id="xSH-jz-uKK"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="clickButton" destination="rTb-cg-yO3" id="RaB-HX-2AF"/>
                                                     <outlet property="imageView" destination="inS-hm-bzj" id="OCP-lv-Tif"/>
                                                     <outlet property="textField" destination="YOt-hY-IhY" id="t6z-38-X2J"/>
                                                 </connections>
@@ -405,9 +422,67 @@
             </constraints>
             <point key="canvasLocation" x="379.5" y="-994"/>
         </customView>
+        <customView id="y0h-UL-vzD" userLabel="Section Option">
+            <rect key="frame" x="0.0" y="0.0" width="142" height="62"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MKw-ox-b9Q">
+                    <rect key="frame" x="8" y="36" width="59" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SECTION" id="C2s-vW-Gh2">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cIH-sJ-jnx" userLabel="btn_Close">
+                    <rect key="frame" x="116" y="34" width="24" height="24"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_close" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="byZ-Qu-THJ">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickSectionPopoverCloseButton:" target="-2" id="5eT-H9-ybw"/>
+                    </connections>
+                </button>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="J8T-8I-1dP">
+                    <rect key="frame" x="-2" y="30" width="192" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mbu-E2-2D9">
+                    <rect key="frame" x="26" y="10" width="109" height="14"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Full-Screen Height" id="LI2-I1-LuN">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaw-pM-B7X" userLabel="- Check Box">
+                    <rect key="frame" x="8" y="8" width="127" height="18"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="p22-tJ-lSC">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="titleBar" size="12"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="274" y="506"/>
+        </customView>
+        <viewController id="wsA-kO-qlY" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="y0h-UL-vzD" id="ZrL-8d-LBc"/>
+            </connections>
+        </viewController>
+        <popover id="sn5-cf-rQP" customClass="BBSectionPopover">
+            <connections>
+                <outlet property="contentViewController" destination="wsA-kO-qlY" id="jZH-rO-Mcg"/>
+                <outlet property="fullscreenButton" destination="eaw-pM-B7X" id="heC-3u-3Ba"/>
+            </connections>
+        </popover>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="btn_close" width="10" height="10"/>
         <image name="btn_delete" width="14" height="16"/>
         <image name="ic_page" width="16" height="16"/>
         <image name="ic_section" width="16" height="16"/>

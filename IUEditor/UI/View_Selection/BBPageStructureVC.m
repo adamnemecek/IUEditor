@@ -13,10 +13,46 @@
 #import "IUBoxes.h"
 #import "IUIdentifierManager.h"
 
+/**
+ BBSectionPopover manage section property
+ */
+@interface BBSectionPopover : NSPopover
+@property (weak) IUSection *currentSection;
+@property (weak) IBOutlet NSButton *fullscreenButton;
+
+@end
+
+@implementation BBSectionPopover
+
+- (id)init{
+    self = [super init];
+    if(self){
+        [_fullscreenButton bind:NSValueBinding toObject:self.currentSection withKeyPath:@"enableFullSize" options:IUBindingDictNotRaisesApplicable];
+
+    }
+    return self;
+}
+
+@end
+
+/**
+ BBButtonTableCellView is subclass of NSTableCellView.
+ BBButtonTableCellView knows its clickButton
+ */
+@interface BBButtonTableCellView : NSTableCellView
+@property (weak) IBOutlet NSButton *clickButton;
+@end
+
+@implementation BBButtonTableCellView
+
+@end
+
+
 @interface BBPageStructureVC ()
 
 @property (weak) IBOutlet NSOutlineView *iuOutlineView;
 @property (weak) IBOutlet NSButton *sectionButton;
+@property (strong) IBOutlet BBSectionPopover *sectionPopover;
 
 @end
 
@@ -27,7 +63,6 @@
     
     [_iuOutlineView bind:NSContentBinding toObject:self.iuController withKeyPath:@"arrangedObjects" options:IUBindingDictNotRaisesApplicable];
     [_iuOutlineView bind:NSSelectionIndexPathsBinding toObject:self.iuController withKeyPath:@"selectionIndexPaths" options:IUBindingDictNotRaisesApplicable];
-    
     //add observers
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
 
@@ -87,23 +122,22 @@
         [self.iuController setSelectedObject:newSection];
     }
 }
-/*
 
-- (IBAction)clickVisibleButton:(id)sender {
-    BOOL visible = [sender state];
+- (IBAction)clickSectionSettingButton:(id)sender forSection:(IUSection *)section{
+    //현재 selection과 같으면 popover를 닫고 return
+    if([_sectionPopover isShown] ){
+        [_sectionPopover close];
+        if([section isEqualTo:_sectionPopover.currentSection]){
+            return;
+        }
+    }
     
-    NSTableCellView *cell = [self parentCellOfView:sender];
-    NSString *identifier = [cell.textField stringValue];
+    _sectionPopover.currentSection = section;
+    [_sectionPopover showRelativeToRect:[sender frame] ofView:sender preferredEdge:NSMinYEdge];
     
-    IUBox *box = [self.iuController IUBoxByIdentifier:identifier];
-    [box.cascadingStyleStorage beginTransaction:self];
-    box.cascadingStyleStorage.editorHidden = @(visible);
-    [box.cascadingStyleStorage commitTransaction:self];
 }
-
-*/
-- (IBAction)clickSectionSettingButton:(id)sender {
-    
+- (IBAction)clickSectionPopoverCloseButton:(id)sender {
+    [_sectionPopover close];
 }
 
 /* debug function */
