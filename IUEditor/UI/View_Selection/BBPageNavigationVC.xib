@@ -143,7 +143,7 @@
                                                                                             <string key="NSSelectorName">clickPageSettingButtonForPage:</string>
                                                                                         </dictionary>
                                                                                     </binding>
-                                                                                    <binding destination="-2" name="target" keyPath="self" previousBinding="Iha-yt-pnE" id="clB-g8-W47">
+                                                                                    <binding destination="-2" name="target" keyPath="self" previousBinding="Iha-yt-pnE" id="14l-g9-KUL">
                                                                                         <dictionary key="options">
                                                                                             <string key="NSSelectorName">clickPageSettingButtonForPage:</string>
                                                                                         </dictionary>

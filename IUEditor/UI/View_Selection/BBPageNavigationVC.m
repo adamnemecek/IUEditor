@@ -61,9 +61,8 @@
         _pagePreferenceWC = [[BBPagePreferenceWC alloc] initWithWindowNibName:[BBPagePreferenceWC className]];
     }
     _pagePreferenceWC.currentPage = page;
-    [self.view.window beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){
-        
-    }];
+//    [[NSApp mainWindow] beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){}];
+    [self.view.window beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){}];
 }
 
 
