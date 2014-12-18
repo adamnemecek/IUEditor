@@ -19,10 +19,10 @@
                 <rect key="frame" x="1" y="1" width="239" height="743"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" borderWidth="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="AM2-pN-veu" userLabel="Import">
-                        <rect key="frame" x="-2" y="687" width="243" height="34"/>
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="AM2-pN-veu" userLabel="Import">
+                        <rect key="frame" x="-2" y="688" width="243" height="32"/>
                         <view key="contentView">
-                            <rect key="frame" x="2" y="2" width="239" height="30"/>
+                            <rect key="frame" x="1" y="1" width="241" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDT-1r-ZHY">
@@ -196,7 +196,7 @@
                         <color key="fillColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <tabView drawsBackground="NO" type="noTabsNoBorder" initialItem="836-Cr-w3B" translatesAutoresizingMaskIntoConstraints="NO" id="4ga-Zv-j1A" userLabel="resourceView">
-                        <rect key="frame" x="-1" y="24" width="241" height="663"/>
+                        <rect key="frame" x="-1" y="24" width="241" height="664"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="241" id="G5i-2l-HU5"/>
                         </constraints>
@@ -204,11 +204,11 @@
                         <tabViewItems>
                             <tabViewItem label="List" identifier="1" id="836-Cr-w3B" userLabel="List">
                                 <view key="view" id="KIC-40-okx">
-                                    <rect key="frame" x="0.0" y="0.0" width="241" height="663"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="664"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFb-vz-dBD">
-                                            <rect key="frame" x="0.0" y="7" width="241" height="656"/>
+                                            <rect key="frame" x="0.0" y="8" width="241" height="656"/>
                                             <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="6HZ-Ua-pgb">
                                                 <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -337,8 +337,8 @@
                 <constraint firstItem="dQS-re-Ljh" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" id="4n4-yk-4MH"/>
                 <constraint firstItem="AM2-pN-veu" firstAttribute="leading" secondItem="RD9-SL-Arq" secondAttribute="leading" constant="-1" id="8aV-eR-Hfb"/>
                 <constraint firstItem="4ga-Zv-j1A" firstAttribute="leading" secondItem="vRv-Oc-7Rb" secondAttribute="leading" id="Avu-mM-EzC"/>
-                <constraint firstItem="AM2-pN-veu" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" constant="23" id="LDd-M8-ly9"/>
-                <constraint firstItem="4ga-Zv-j1A" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" constant="57" id="RbK-V0-h0E"/>
+                <constraint firstItem="AM2-pN-veu" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" constant="24" id="LDd-M8-ly9"/>
+                <constraint firstItem="4ga-Zv-j1A" firstAttribute="top" secondItem="RD9-SL-Arq" secondAttribute="top" constant="56" id="RbK-V0-h0E"/>
                 <constraint firstItem="dQS-re-Ljh" firstAttribute="top" secondItem="4ga-Zv-j1A" secondAttribute="bottom" id="SwD-HY-iEG"/>
                 <constraint firstItem="4ga-Zv-j1A" firstAttribute="top" secondItem="AM2-pN-veu" secondAttribute="bottom" id="dPn-2c-UTT"/>
                 <constraint firstItem="4ga-Zv-j1A" firstAttribute="trailing" secondItem="vRv-Oc-7Rb" secondAttribute="trailing" id="meA-hM-Qym"/>
@@ -363,7 +363,7 @@
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="btn_delete" width="14" height="16"/>
         <image name="ic_folder" width="16" height="16"/>
-        <image name="tab_03_image_off" width="26" height="26"/>
-        <image name="tab_07_library_on" width="26" height="26"/>
+        <image name="tab_03_image_off" width="28" height="28"/>
+        <image name="tab_07_library_on" width="28" height="28"/>
     </resources>
 </document>
