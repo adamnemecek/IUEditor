@@ -17,7 +17,6 @@
         [self setLeafKeyPath:@"isLeaf"];
         [self setContent:sheetGroup];
         [self setObjectClass:[NSObject class]];
-        [self setAvoidsEmptySelection:NO];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionWillChange object:nil];
     }
