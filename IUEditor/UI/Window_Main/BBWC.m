@@ -9,13 +9,11 @@
 #import "BBWC.h"
 
 #import "LMWindow.h"
-
 #import "BBDefaultVCs.h"
+#import "BBProjectPreferenceWC.h"
 
 #if DEBUG
-
 #import "LMDebugSourceWC.h"
-
 #endif
 
 @interface BBWC ()
@@ -85,6 +83,9 @@
     BBTracingPropertyVC *_tracingPropertyVC;
     BBProjectStructureVC *_projectStructureVC;
     BBBackEndPropertyVC *_backEndPropertyVC;
+    
+    //sheet controllers
+    BBProjectPreferenceWC *_projectPreferenceWC;
     
     
 #if DEBUG
@@ -305,12 +306,14 @@
 }
 
 
-- (void)setResourceRootItem:(IUResourceRootItem *)rootItem{
+- (void)setResourceRootItem:(IUResourceRootItem *)resourceRootItem{
+    _resourceRootItem = resourceRootItem;
+    
     //resource
-    [_widgetPropertyVC setResourceRootItem:rootItem];
-    [_imagePropertyVC setResourceRootItem:rootItem];
-    [_resourceLibraryVC setResourceRootItem:rootItem];
-    [_tracingPropertyVC setResourceRootItem:rootItem];
+    [_widgetPropertyVC setResourceRootItem:resourceRootItem];
+    [_imagePropertyVC setResourceRootItem:resourceRootItem];
+    [_resourceLibraryVC setResourceRootItem:resourceRootItem];
+    [_tracingPropertyVC setResourceRootItem:resourceRootItem];
 }
 
 - (void)setDocument:(IUProjectDocument *)document{
@@ -392,6 +395,22 @@
 - (NSString *)projectName{
     return _project.name;
 }
+
+
+#pragma mark - main menu actions
+
+- (IBAction)clickProjectPreference:(id)sender{
+    if(_projectPreferenceWC == nil){
+        _projectPreferenceWC = [[BBProjectPreferenceWC alloc] initWithWindowNibName:[BBProjectPreferenceWC className]];
+        _projectPreferenceWC.project = _project;
+        _projectPreferenceWC.resourceRootItem = _resourceRootItem;
+    }
+    
+    [self.window beginSheet:_projectPreferenceWC.window completionHandler:^(NSModalResponse returnCode){
+        
+    }];
+}
+
 
 #pragma mark - debug
 #if DEBUG

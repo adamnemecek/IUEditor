@@ -159,6 +159,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Project" id="lXh-Vg-hj8">
                         <items>
+                            <menuItem title="Project Preference" keyEquivalent="," id="HTo-a3-GBO">
+                                <connections>
+                                    <action selector="clickProjectPreference:" target="-1" id="U3I-2q-xFS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="krh-bP-zDj"/>
                             <menuItem title="Build" keyEquivalent="b" id="aFe-Um-CQJ">
                                 <connections>
                                     <action selector="build:" target="-1" id="Bvz-UU-BX6"/>

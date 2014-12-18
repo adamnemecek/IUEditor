@@ -686,6 +686,10 @@
 		3DC616F31A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616F11A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib */; };
 		3DC616F71A41545E00B94A4C /* BBPGTextAreaPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616F51A41545E00B94A4C /* BBPGTextAreaPropertyVC.m */; };
 		3DC616F81A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616F61A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib */; };
+		3DC617031A42787900B94A4C /* BBProjectPreferenceWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC617011A42787900B94A4C /* BBProjectPreferenceWC.m */; };
+		3DC617041A42787900B94A4C /* BBProjectPreferenceWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC617021A42787900B94A4C /* BBProjectPreferenceWC.xib */; };
+		3DC6170D1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC6170B1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.m */; };
+		3DC6170E1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC6170C1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.xib */; };
 		3DD19C761A316C4800A5198E /* BBQuickWidgetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */; };
 		3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */; };
 		3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD19C791A316C6D00A5198E /* BBMediaQueryVC.m */; };
@@ -1777,6 +1781,12 @@
 		3DC616F41A41545E00B94A4C /* BBPGTextAreaPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPGTextAreaPropertyVC.h; path = UI/View_Property/BBPGTextAreaPropertyVC.h; sourceTree = "<group>"; };
 		3DC616F51A41545E00B94A4C /* BBPGTextAreaPropertyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPGTextAreaPropertyVC.m; path = UI/View_Property/BBPGTextAreaPropertyVC.m; sourceTree = "<group>"; };
 		3DC616F61A41545E00B94A4C /* BBPGTextAreaPropertyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPGTextAreaPropertyVC.xib; path = UI/View_Property/BBPGTextAreaPropertyVC.xib; sourceTree = "<group>"; };
+		3DC617001A42787900B94A4C /* BBProjectPreferenceWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBProjectPreferenceWC.h; path = UI/Sheet_Preference/BBProjectPreferenceWC.h; sourceTree = "<group>"; };
+		3DC617011A42787900B94A4C /* BBProjectPreferenceWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBProjectPreferenceWC.m; path = UI/Sheet_Preference/BBProjectPreferenceWC.m; sourceTree = "<group>"; };
+		3DC617021A42787900B94A4C /* BBProjectPreferenceWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBProjectPreferenceWC.xib; path = UI/Sheet_Preference/BBProjectPreferenceWC.xib; sourceTree = "<group>"; };
+		3DC6170A1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultProjectPreferenceVC.h; path = UI/Sheet_Preference/BBDefaultProjectPreferenceVC.h; sourceTree = "<group>"; };
+		3DC6170B1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBDefaultProjectPreferenceVC.m; path = UI/Sheet_Preference/BBDefaultProjectPreferenceVC.m; sourceTree = "<group>"; };
+		3DC6170C1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBDefaultProjectPreferenceVC.xib; path = UI/Sheet_Preference/BBDefaultProjectPreferenceVC.xib; sourceTree = "<group>"; };
 		3DD19C731A316C4800A5198E /* BBQuickWidgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBQuickWidgetVC.h; path = UI/View_Status/BBQuickWidgetVC.h; sourceTree = "<group>"; };
 		3DD19C741A316C4800A5198E /* BBQuickWidgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBQuickWidgetVC.m; path = UI/View_Status/BBQuickWidgetVC.m; sourceTree = "<group>"; };
 		3DD19C751A316C4800A5198E /* BBQuickWidgetVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBQuickWidgetVC.xib; path = UI/View_Status/BBQuickWidgetVC.xib; sourceTree = "<group>"; };
@@ -2413,9 +2423,8 @@
 		3D2EF53319F7826A00BBBAE5 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
-				3D2EF5C319F7833D00BBBAE5 /* SyncUtil */,
-				3D2EF5C219F7833800BBBAE5 /* Preference */,
-				3D2EF5C119F7832F00BBBAE5 /* Layout */,
+				3DC616FA1A42781700B94A4C /* Preference */,
+				3DC616F91A42780A00B94A4C /* Old */,
 			);
 			name = Sheet;
 			sourceTree = "<group>";
@@ -3623,6 +3632,29 @@
 			name = PGGroup;
 			sourceTree = "<group>";
 		};
+		3DC616F91A42780A00B94A4C /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				3D2EF5C119F7832F00BBBAE5 /* Layout */,
+				3D2EF5C219F7833800BBBAE5 /* Preference */,
+				3D2EF5C319F7833D00BBBAE5 /* SyncUtil */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		3DC616FA1A42781700B94A4C /* Preference */ = {
+			isa = PBXGroup;
+			children = (
+				3DC617001A42787900B94A4C /* BBProjectPreferenceWC.h */,
+				3DC617011A42787900B94A4C /* BBProjectPreferenceWC.m */,
+				3DC617021A42787900B94A4C /* BBProjectPreferenceWC.xib */,
+				3DC6170A1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.h */,
+				3DC6170B1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.m */,
+				3DC6170C1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.xib */,
+			);
+			name = Preference;
+			sourceTree = "<group>";
+		};
 		3DD19C7D1A316D4400A5198E /* TopToolBarChildrenVCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -4181,6 +4213,7 @@
 				3D2EFBB019F786C700BBBAE5 /* Streamline-09-128.png in Resources */,
 				3D2EF57F19F782C700BBBAE5 /* LMStartNewDefaultVC.xib in Resources */,
 				3D2EFB8819F786C700BBBAE5 /* MapMarker_Marker_Inside_Chartreuse.png in Resources */,
+				3DC617041A42787900B94A4C /* BBProjectPreferenceWC.xib in Resources */,
 				3DD19CD61A35A4EF00A5198E /* BBBackEndPropertyVC.xib in Resources */,
 				3D2EF58C19F782C700BBBAE5 /* LMStartPreviewWC.xib in Resources */,
 				3DC616F31A41542F00B94A4C /* BBPGTextFieldPropertyVC.xib in Resources */,
@@ -4350,6 +4383,7 @@
 				3D2EFB9A19F786C700BBBAE5 /* pin-128.png in Resources */,
 				3D2EF6C619F784A400BBBAE5 /* LMPropertyIUSubmitButtonVC.xib in Resources */,
 				3D2EFB7519F786C700BBBAE5 /* location-24-128.png in Resources */,
+				3DC6170E1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.xib in Resources */,
 				3D2EFB4619F786C700BBBAE5 /* CircledBorderTriangleRight-128.png in Resources */,
 				3D2EF6D519F784A400BBBAE5 /* LMPropertyWebProgrammingVC.xib in Resources */,
 				3D2EFB7E19F786C700BBBAE5 /* map-marker-128.png in Resources */,
@@ -4564,6 +4598,7 @@
 				3D2EF52C19F7822700BBBAE5 /* IUCSS.m in Sources */,
 				3D2EFC5A19F788BA00BBBAE5 /* JDUIUtil.m in Sources */,
 				0965D1301A21C923000E400B /* IUEventCompiler.m in Sources */,
+				3DC6170D1A428A8A00B94A4C /* BBDefaultProjectPreferenceVC.m in Sources */,
 				3D2EFC8619F788C600BBBAE5 /* LMDragAndDropButton.m in Sources */,
 				3D2EF57D19F782C700BBBAE5 /* LMStartItem.m in Sources */,
 				3D2EF66E19F7848F00BBBAE5 /* LMPropertyDisplayVC.m in Sources */,
@@ -4604,6 +4639,7 @@
 				3D2EFCD219F78F0F00BBBAE5 /* IUCSSWPCompiler.m in Sources */,
 				3D2EF4D319F781E400BBBAE5 /* PGTextField.m in Sources */,
 				3D2EF41119F780EA00BBBAE5 /* LMGeneralObject.m in Sources */,
+				3DC617031A42787900B94A4C /* BBProjectPreferenceWC.m in Sources */,
 				3D2EF52D19F7822700BBBAE5 /* IUDataStorage.m in Sources */,
 				3D2EF4C219F781D300BBBAE5 /* IUMenuItem.m in Sources */,
 				3D2EF6C719F784A400BBBAE5 /* LMPropertyIUTextFieldVC.m in Sources */,

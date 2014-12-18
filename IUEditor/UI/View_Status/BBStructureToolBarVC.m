@@ -124,8 +124,17 @@
 }
 
 - (NSMenu *)menuForIU:(IUBox *)iu{
-    if(iu.parent.children.count > 1){
-        //sibling이 존재
+    
+    if([iu isKindOfClass:[IUSheet class]]){//IUSheet class는 allSheet
+    
+        NSMenu *popupMenu = [[NSMenu alloc] init];
+        for(IUSheet *sheet in _pageController.project.allSheets){
+            NSMenuItem *menuItem = [self menuItemForIU:sheet];
+            [popupMenu addItem:menuItem];
+        }
+        return popupMenu;
+    }
+    else{
         NSMenu *popupMenu = [[NSMenu alloc] init];
         for(IUBox *child in iu.parent.children){
             NSMenuItem *menuItem = [self menuItemForIU:child];
@@ -134,14 +143,6 @@
         
         return popupMenu;
         
-    }
-    else if([iu isKindOfClass:[IUSheet class]]){
-        NSMenu *popupMenu = [[NSMenu alloc] init];
-        for(IUSheet *sheet in _pageController.project.allSheets){
-            NSMenuItem *menuItem = [self menuItemForIU:sheet];
-            [popupMenu addItem:menuItem];
-        }
-        return popupMenu;
     }
     
     return nil;
