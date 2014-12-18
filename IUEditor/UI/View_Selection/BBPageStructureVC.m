@@ -75,8 +75,9 @@
     if([[_iuController.content firstObject] isKindOfClass:[IUPage class]]){
         //allocation new section
         IUSection *newSection = [[IUSection alloc] initWithPreset];
-        
+#if DEBUG
         [self testaddIu:newSection];
+#endif
         
         //add section to pageContent
         IUPage *currentPage = [_iuController.content firstObject];
@@ -86,7 +87,27 @@
         [self.iuController setSelectedObject:newSection];
     }
 }
+/*
 
+- (IBAction)clickVisibleButton:(id)sender {
+    BOOL visible = [sender state];
+    
+    NSTableCellView *cell = [self parentCellOfView:sender];
+    NSString *identifier = [cell.textField stringValue];
+    
+    IUBox *box = [self.iuController IUBoxByIdentifier:identifier];
+    [box.cascadingStyleStorage beginTransaction:self];
+    box.cascadingStyleStorage.editorHidden = @(visible);
+    [box.cascadingStyleStorage commitTransaction:self];
+}
+
+*/
+- (IBAction)clickSectionSettingButton:(id)sender {
+    
+}
+
+/* debug function */
+#if DEBUG
 - (void)testaddIu:(IUBox *)iu{
     
     IUBox *parent = iu;
@@ -98,5 +119,6 @@
     
     
 }
+#endif
 
 @end

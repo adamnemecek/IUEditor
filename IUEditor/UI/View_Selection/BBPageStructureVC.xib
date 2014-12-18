@@ -95,6 +95,13 @@
                                                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                     <font key="font" metaFont="system"/>
                                                                                 </buttonCell>
+                                                                                <connections>
+                                                                                    <binding destination="p5B-2W-mz4" name="value" keyPath="objectValue.cascadingStyleStorage.editorHidden" id="dFl-m0-G6j">
+                                                                                        <dictionary key="options">
+                                                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                        </dictionary>
+                                                                                    </binding>
+                                                                                </connections>
                                                                             </button>
                                                                         </subviews>
                                                                     </view>
@@ -193,6 +200,9 @@
                                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
+                                                                                        <connections>
+                                                                                            <action selector="clickSectionSettingButton:" target="-2" id="kxO-KG-1tP"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </view>
@@ -224,6 +234,13 @@
                                                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
+                                                                                        <connections>
+                                                                                            <binding destination="AQL-Xm-TA0" name="value" keyPath="objectValue.cascadingStyleStorage.editorHidden" id="POY-hy-peG">
+                                                                                                <dictionary key="options">
+                                                                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                                                                </dictionary>
+                                                                                            </binding>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </view>

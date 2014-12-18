@@ -7,6 +7,8 @@
 //
 
 #import "BBPageNavigationVC.h"
+#import "BBPagePreferenceWC.h"
+
 
 @interface BBPageNavigationVC ()
 
@@ -14,7 +16,9 @@
 
 @end
 
-@implementation BBPageNavigationVC
+@implementation BBPageNavigationVC{
+    BBPagePreferenceWC *_pagePreferenceWC;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,5 +56,15 @@
         [self.pageController addObject:newSheetGroup];
     }
 }
+- (IBAction)clickPageSettingButtonForPage:(IUPage *)page{
+    if(_pagePreferenceWC == nil){
+        _pagePreferenceWC = [[BBPagePreferenceWC alloc] initWithWindowNibName:[BBPagePreferenceWC className]];
+    }
+    _pagePreferenceWC.currentPage = page;
+    [self.view.window beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){
+        
+    }];
+}
+
 
 @end
