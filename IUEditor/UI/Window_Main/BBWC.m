@@ -64,7 +64,6 @@
     IUProject *_project;
     IUResourceRootItem *_resourceRootItem;
     __weak IUSheet *_currentSheet;
-    NSUndoManager *_undoManager;
     
     BBPropertyTabType _currentTabType;
     
@@ -294,20 +293,17 @@
     [_imagePropertyVC setIuController:_iuController];
     
     //set iudata is connected
-    [self.undoManager disableUndoRegistration];
+    [[self.document undoManager] disableUndoRegistration];
     
     [_project connectWithEditor];
     [_project setIsConnectedWithEditor];
     
-    [self.undoManager enableUndoRegistration];
+    [[self.document undoManager] enableUndoRegistration];
     
     [self loadFirstPage];
     
 }
 
-- (NSUndoManager *)undoManager {
-    return _undoManager;
-}
 
 - (void)setResourceRootItem:(IUResourceRootItem *)rootItem{
     //resource
@@ -321,7 +317,6 @@
     [super setDocument:document];
     if (document && document.project){
         [self setProject:document.project];
-        [self setUndoManager:document.undoManager];
         [self setResourceRootItem:document.resourceRootItem];
     }
     

@@ -6,7 +6,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBImportPropertyVC">
             <connections>
-                <outlet property="compositionController" destination="wQp-N8-m3w" id="Wgm-j7-oEy"/>
                 <outlet property="compositionPopUpButton" destination="gby-W4-i2n" id="QJz-kC-hsV"/>
                 <outlet property="view" destination="0in-Ty-dqn" id="eYY-dn-f0u"/>
             </connections>
@@ -45,12 +44,9 @@
                                                 <menuItem title="Dark" id="nnI-UK-FNi"/>
                                             </items>
                                         </menu>
-                                        <connections>
-                                            <binding destination="wQp-N8-m3w" name="content" keyPath="arrangedObjects.name" id="cEj-WC-XtA"/>
-                                        </connections>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="wQp-N8-m3w" name="content" keyPath="arrangedObjects.name" id="pgk-0H-jzC"/>
+                                        <action selector="clickCompositionPopUpButton:" target="-2" id="STn-dm-n3J"/>
                                     </connections>
                                 </popUpButton>
                             </subviews>
@@ -71,10 +67,5 @@
             <point key="canvasLocation" x="235.5" y="89"/>
         </box>
         <userDefaultsController representsSharedInstance="YES" id="J17-XV-Eve"/>
-        <arrayController objectClassName="IUSheet" id="wQp-N8-m3w" userLabel="compositionController">
-            <connections>
-                <binding destination="-2" name="contentArray" keyPath="self.project.classGroup.allLeafChildrenFileItems" id="L1u-hO-Y6a"/>
-            </connections>
-        </arrayController>
     </objects>
 </document>

@@ -51,12 +51,6 @@ typedef enum{
 - (void)setResourceRootItem:(IUResourceRootItem *)rootItem;
 
 /**
- @note undomanager will be retained
- */
-- (void)setUndoManager:(NSUndoManager *)undoManager;
-- (NSUndoManager *)undoManager;
-
-/**
  Set IUProjectDocument to Window Controller
  setDoccument will set project, resourceManager, undomanager.
  */

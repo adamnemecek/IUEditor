@@ -34,4 +34,7 @@
 - (IUPositionStorage *)cascadingPositionStorage;
 - (IUPropertyStorage *)cascadingPropertyStorage;
 
+//get property value
+- (id)valueForProperty:(NSString *)property;
+
 @end

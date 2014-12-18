@@ -78,6 +78,10 @@
      return [self valueForKeyPath:@"self.iuController.selection.cascadingPropertyStorage"];
 }
 
+#pragma mark - property
+- (id)valueForProperty:(NSString *)property{
+    return [self valueForKeyPath:[self pathForProperty:property]];
+}
 
 
 @end
