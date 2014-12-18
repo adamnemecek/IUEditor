@@ -64,6 +64,14 @@ a{
     text-align:center;
 }
 
+.IUGoogleMap{
+    /* google chrome bug :  div fixed issue */
+    /* http://stackoverflow.com/questions/16576961/chrome-only-fixed-div-w-google-map-scrolls-when-other-div-scrolls */
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    -webkit-transform: none !important;
+}
+/* caro
+
 /* carousel */
 
 .IUCarousel > .wrapper{

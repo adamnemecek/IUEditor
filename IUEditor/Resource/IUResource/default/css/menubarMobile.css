@@ -39,8 +39,8 @@
 	width:100%;
 }
 .IUMenuBar > ul > li > a{
-	text-align:left;
-	text-indent:10%;
+	/*text-align:left;
+	text-indent:10%;*/
 }
 /* menuItem : depth - 2*/
 .IUMenuBar > ul > li > ul > li{
