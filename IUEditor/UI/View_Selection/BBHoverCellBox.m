@@ -6,15 +6,15 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import "BBPageStrucutreCellBox.h"
+#import "BBHoverCellBox.h"
 
-@interface BBPageStrucutreCellBox ()
+@interface BBHoverCellBox ()
 
 @property (nonatomic) BOOL mouseInside;
 
 @end
 
-@implementation BBPageStrucutreCellBox{
+@implementation BBHoverCellBox{
     NSTrackingArea *_trackingArea;
 }
 

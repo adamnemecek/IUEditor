@@ -28,7 +28,6 @@
 		097DFEFB1A2F3E60004C1EAE /* IUDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09890A251A25B4C30015AF9A /* IUFileItem.m */; };
-		09C860891A2C7443001C0A53 /* BBWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */; };
 		09C8608A1A2C7443001C0A53 /* BBWidgetIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */; };
 		09C8608F1A2C754E001C0A53 /* BBWidgetLibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */; };
 		09C860921A2C771D001C0A53 /* BBWidgetLibraryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860911A2C771D001C0A53 /* BBWidgetLibraryVC.xib */; };
@@ -656,7 +655,7 @@
 		3D4DFF3D1A2ED7CA00418CE0 /* BBWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3B1A2ED7CA00418CE0 /* BBWC.m */; };
 		3D4DFF3E1A2ED7CA00418CE0 /* BBWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4DFF3C1A2ED7CA00418CE0 /* BBWC.xib */; };
 		3D744D8B1A42A096007FAB8A /* BBSelectColorTableRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D744D8A1A42A096007FAB8A /* BBSelectColorTableRowView.m */; };
-		3D744D8E1A42AF52007FAB8A /* BBPageStrucutreCellBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D744D8D1A42AF52007FAB8A /* BBPageStrucutreCellBox.m */; };
+		3D744D8E1A42AF52007FAB8A /* BBHoverCellBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D744D8D1A42AF52007FAB8A /* BBHoverCellBox.m */; };
 		3DC616B01A398B9A00B94A4C /* IUController_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616AF1A398B9A00B94A4C /* IUController_Test.m */; };
 		3DC616B51A41352600B94A4C /* BBFontPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616B31A41352600B94A4C /* BBFontPropertyVC.m */; };
 		3DC616B61A41352600B94A4C /* BBFontPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616B41A41352600B94A4C /* BBFontPropertyVC.xib */; };
@@ -849,7 +848,6 @@
 		09890A251A25B4C30015AF9A /* IUFileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUFileItem.m; path = Data/Project/IUFileItem.m; sourceTree = "<group>"; };
 		099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSCompiler_Test.m; sourceTree = "<group>"; };
 		099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
-		09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWidgetCellView.xib; path = UI/View_Widget/BBWidgetCellView.xib; sourceTree = "<group>"; };
 		09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWidgetIconView.xib; path = UI/View_Widget/BBWidgetIconView.xib; sourceTree = "<group>"; };
 		09C8608C1A2C754E001C0A53 /* BBWidgetLibraryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBWidgetLibraryVC.h; path = UI/View_Widget/BBWidgetLibraryVC.h; sourceTree = "<group>"; };
 		09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWidgetLibraryVC.m; path = UI/View_Widget/BBWidgetLibraryVC.m; sourceTree = "<group>"; };
@@ -1735,8 +1733,8 @@
 		3D4DFF3F1A2ED93D00418CE0 /* BBDefaultVCs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBDefaultVCs.h; path = UI/Window_Main/BBDefaultVCs.h; sourceTree = "<group>"; };
 		3D744D891A42A096007FAB8A /* BBSelectColorTableRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBSelectColorTableRowView.h; path = UI/View_Selection/BBSelectColorTableRowView.h; sourceTree = "<group>"; };
 		3D744D8A1A42A096007FAB8A /* BBSelectColorTableRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSelectColorTableRowView.m; path = UI/View_Selection/BBSelectColorTableRowView.m; sourceTree = "<group>"; };
-		3D744D8C1A42AF52007FAB8A /* BBPageStrucutreCellBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPageStrucutreCellBox.h; path = UI/View_Selection/BBPageStrucutreCellBox.h; sourceTree = "<group>"; };
-		3D744D8D1A42AF52007FAB8A /* BBPageStrucutreCellBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPageStrucutreCellBox.m; path = UI/View_Selection/BBPageStrucutreCellBox.m; sourceTree = "<group>"; };
+		3D744D8C1A42AF52007FAB8A /* BBHoverCellBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBHoverCellBox.h; path = UI/View_Selection/BBHoverCellBox.h; sourceTree = "<group>"; };
+		3D744D8D1A42AF52007FAB8A /* BBHoverCellBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBHoverCellBox.m; path = UI/View_Selection/BBHoverCellBox.m; sourceTree = "<group>"; };
 		3DC616AC1A385BC800B94A4C /* BBJSManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBJSManagerProtocol.h; path = UI/View_Canvas/BBJSManagerProtocol.h; sourceTree = "<group>"; };
 		3DC616AF1A398B9A00B94A4C /* IUController_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUController_Test.m; sourceTree = "<group>"; };
 		3DC616B21A41352600B94A4C /* BBFontPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFontPropertyVC.h; path = UI/View_Property/BBFontPropertyVC.h; sourceTree = "<group>"; };
@@ -2640,8 +2638,8 @@
 				3D082F8B1A30652000B653B1 /* BBClassNavigationVC.xib */,
 				3D744D891A42A096007FAB8A /* BBSelectColorTableRowView.h */,
 				3D744D8A1A42A096007FAB8A /* BBSelectColorTableRowView.m */,
-				3D744D8C1A42AF52007FAB8A /* BBPageStrucutreCellBox.h */,
-				3D744D8D1A42AF52007FAB8A /* BBPageStrucutreCellBox.m */,
+				3D744D8C1A42AF52007FAB8A /* BBHoverCellBox.h */,
+				3D744D8D1A42AF52007FAB8A /* BBHoverCellBox.m */,
 			);
 			name = Selection;
 			sourceTree = "<group>";
@@ -2678,7 +2676,6 @@
 		3D2EF5FA19F783DF00BBBAE5 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */,
 				09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */,
 				09C8608C1A2C754E001C0A53 /* BBWidgetLibraryVC.h */,
 				09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */,
@@ -4338,7 +4335,6 @@
 				3DE462F219FA4A2600A75567 /* wp_thumbnail.png in Resources */,
 				3D2EFBB719F786C700BBBAE5 /* twitter3-128.png in Resources */,
 				3D2EFBAD19F786C700BBBAE5 /* stop.png in Resources */,
-				09C860891A2C7443001C0A53 /* BBWidgetCellView.xib in Resources */,
 				3D2EF5E719F7836500BBBAE5 /* LMPreferenceWC.xib in Resources */,
 				3D2EFBAB19F786C700BBBAE5 /* social_4-128.png in Resources */,
 				3D2EF5CD19F7835B00BBBAE5 /* LMServerWC.xib in Resources */,
@@ -4549,7 +4545,7 @@
 			files = (
 				3D2EF48B19F781B700BBBAE5 /* IUPageContent.m in Sources */,
 				3D2EF51B19F781FB00BBBAE5 /* WPMenuItem.m in Sources */,
-				3D744D8E1A42AF52007FAB8A /* BBPageStrucutreCellBox.m in Sources */,
+				3D744D8E1A42AF52007FAB8A /* BBHoverCellBox.m in Sources */,
 				3DD19CCB1A35A2FE00A5198E /* BBResourceLibraryVC.m in Sources */,
 				3DD19C7B1A316C6D00A5198E /* BBMediaQueryVC.m in Sources */,
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface BBPageStrucutreCellBox : NSBox
+@interface BBHoverCellBox : NSBox
 
 @property (weak) IBOutlet NSView *hoverView;
 

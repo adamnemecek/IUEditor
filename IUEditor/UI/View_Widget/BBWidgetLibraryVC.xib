@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBWidgetLibraryVC">
@@ -145,7 +145,7 @@
                                     <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="64" viewBased="YES" id="Gze-79-YqO">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="64" viewBased="YES" id="Gze-79-YqO">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="0.0" height="1"/>
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -163,6 +163,58 @@
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView identifier="widgetCell" wantsLayer="YES" id="Cd3-9o-xUa">
+                                                            <rect key="frame" x="0.0" y="65" width="241" height="64"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3HD-mS-V2F" userLabel="Container">
+                                                                    <rect key="frame" x="0.0" y="-1" width="242" height="66"/>
+                                                                    <view key="contentView">
+                                                                        <rect key="frame" x="1" y="1" width="240" height="64"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                        <subviews>
+                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sWt-KK-H5n" userLabel="WidgetName">
+                                                                                <rect key="frame" x="60" y="33" width="100" height="16"/>
+                                                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Text" id="TtE-ui-jLi">
+                                                                                    <font key="font" metaFont="titleBar" size="12"/>
+                                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="Cd3-9o-xUa" name="value" keyPath="objectValue.className" id="grb-eZ-KRp"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                            <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="Khb-9O-kli" userLabel="WidgetIcon">
+                                                                                <rect key="frame" x="10" y="9" width="48" height="48"/>
+                                                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="tool_text" id="hEw-rl-g5R"/>
+                                                                                <connections>
+                                                                                    <binding destination="Cd3-9o-xUa" name="value" keyPath="objectValue.image" id="S31-AA-8Kq"/>
+                                                                                </connections>
+                                                                            </imageView>
+                                                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5aM-La-kHS" userLabel="Description">
+                                                                                <rect key="frame" x="60" y="17" width="164" height="14"/>
+                                                                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Text object &lt;p&gt;,&lt;h1&gt;,&lt;h2&gt;" id="fUR-Gb-QBW">
+                                                                                    <font key="font" metaFont="system" size="10"/>
+                                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.51000000000000001" colorSpace="calibratedRGB"/>
+                                                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                </textFieldCell>
+                                                                                <connections>
+                                                                                    <binding destination="Cd3-9o-xUa" name="value" keyPath="objectValue.shortDesc" id="sOW-5r-8qS"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                        </subviews>
+                                                                    </view>
+                                                                    <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="fillColor" white="1" alpha="0.0" colorSpace="deviceWhite"/>
+                                                                </box>
+                                                            </subviews>
+                                                        </tableCellView>
+                                                        <customView identifier="NSTableViewRowViewKey" id="V0F-qq-B4h" customClass="BBSelectColorTableRowView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="241" height="64"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        </customView>
+                                                    </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
@@ -254,5 +306,6 @@
     <resources>
         <image name="NSIconViewTemplate" width="10" height="10"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
+        <image name="tool_text" width="34" height="34"/>
     </resources>
 </document>

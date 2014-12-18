@@ -20,18 +20,10 @@
 @end
 
 
-@interface BBWidgetLibraryViewCell : NSTableCellView
-@property BOOL isSelected;
-@end
-
-@implementation BBWidgetLibraryViewCell
-
-@end
-
 
 @implementation BBWidgetLibraryVC {
     NSDictionary *_widgets;
-    BBWidgetLibraryViewCell *_selectedCell;
+    NSTableCellView *_selectedCell;
     NSArray *_widgetCells; /* should be saved for retain selection */
 }
 
@@ -63,25 +55,21 @@
 /* notification called by canvas after make iu*/
 - (void)deselectCurrentWidget:(NSNotification *)notification{
     [_tableView deselectAll:self];
-    _selectedCell.isSelected = NO;
     _selectedCell = nil;
 }
 
 - (IBAction)clickWidgetLibraryTableView:(id)sender {
     
-    BBWidgetLibraryViewCell *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
+    NSTableCellView *cell = _tableView.selectedRow != -1 ? [_widgetCells objectAtIndex:_tableView.selectedRow] : nil;
 
     if (cell == nil || [cell isEqualTo:_selectedCell]) { //clear selection
         if([cell isEqualTo:_selectedCell]){
             [_tableView deselectAll:self];
         }
-        _selectedCell.isSelected = NO;
         _selectedCell = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:nil];
     }
     else {
-        _selectedCell.isSelected = NO;
-        cell.isSelected = YES;
         _selectedCell = cell;
         [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetLibraryKey:cell.objectValue[@"className"]}];
     }
@@ -135,9 +123,7 @@
         NSImage *widgetImage = [widgetClass classImage];
         NSString *shortDesc = [widgetClass shortDescription];
         
-        NSArray *nibObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"BBWidgetCellView" owner:self topLevelObjects:&nibObjects];
-        BBWidgetLibraryViewCell *widgetViewCell = [nibObjects[0] isKindOfClass:[NSView class]] ? nibObjects[0] : nibObjects[1];
+        NSTableCellView *widgetViewCell = [_tableView makeViewWithIdentifier:@"widgetCell" owner:self];
         widgetViewCell.objectValue = @{@"className":widgetName, @"image":widgetImage, @"shortDesc":shortDesc};
         [widgetCellMutableArray addObject:widgetViewCell];
     }
