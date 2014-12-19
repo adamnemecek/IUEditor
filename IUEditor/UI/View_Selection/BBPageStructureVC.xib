@@ -28,7 +28,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                <color key="gridColor" red="1" green="1" blue="1" alpha="0.050000000000000003" colorSpace="calibratedRGB"/>
+                                <color key="gridColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                 <tableColumns>
                                     <tableColumn width="241" minWidth="16" maxWidth="1000" id="kgG-ue-9Je">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -182,14 +182,14 @@
                                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="hDi-iP-arr" userLabel="Hover">
                                                                     <rect key="frame" x="189" y="0.0" width="52" height="26"/>
                                                                     <subviews>
-                                                                        <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qfs-6X-1OK" userLabel="MouseOn_Setting">
-                                                                            <rect key="frame" x="-1" y="-1" width="26" height="28"/>
+                                                                        <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qfs-6X-1OK" userLabel="MouseOn_Setting">
+                                                                            <rect key="frame" x="2" y="-1" width="26" height="28"/>
                                                                             <view key="contentView">
                                                                                 <rect key="frame" x="1" y="1" width="24" height="26"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-cg-yO3">
-                                                                                        <rect key="frame" x="5" y="6" width="14" height="15"/>
+                                                                                        <rect key="frame" x="5" y="7" width="14" height="15"/>
                                                                                         <contentFilters>
                                                                                             <ciFilter name="CIColorInvert">
                                                                                                 <configuration>
@@ -222,10 +222,6 @@
                                                                                     </button>
                                                                                 </subviews>
                                                                             </view>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="26" id="8dM-0n-JNF"/>
-                                                                                <constraint firstAttribute="height" constant="28" id="kMz-Hg-nGs"/>
-                                                                            </constraints>
                                                                             <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         </box>
@@ -272,8 +268,6 @@
                                                                     </subviews>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="52" id="73Y-RA-Ud7"/>
-                                                                        <constraint firstItem="qfs-6X-1OK" firstAttribute="top" secondItem="hDi-iP-arr" secondAttribute="top" constant="-1" id="GbX-88-Azc"/>
-                                                                        <constraint firstItem="qfs-6X-1OK" firstAttribute="leading" secondItem="hDi-iP-arr" secondAttribute="leading" constant="-1" id="OjT-zr-Rdc"/>
                                                                         <constraint firstAttribute="trailing" secondItem="dDD-7J-fjT" secondAttribute="trailing" constant="-1" id="Q36-SH-dFk"/>
                                                                         <constraint firstItem="dDD-7J-fjT" firstAttribute="top" secondItem="hDi-iP-arr" secondAttribute="top" constant="-1" id="Z1E-Vl-u0u"/>
                                                                     </constraints>

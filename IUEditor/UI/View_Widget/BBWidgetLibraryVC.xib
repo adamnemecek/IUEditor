@@ -202,15 +202,8 @@
                                                                                     <binding destination="Cd3-9o-xUa" name="value" keyPath="objectValue.shortDesc" id="sOW-5r-8qS"/>
                                                                                 </connections>
                                                                             </textField>
-                                                                            <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.5" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4AX-Ai-C2x">
+                                                                            <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="4AX-Ai-C2x">
                                                                                 <rect key="frame" x="0.0" y="-2" width="241" height="5"/>
-                                                                                <contentFilters>
-                                                                                    <ciFilter name="CIColorInvert">
-                                                                                        <configuration>
-                                                                                            <null key="inputImage"/>
-                                                                                        </configuration>
-                                                                                    </ciFilter>
-                                                                                </contentFilters>
                                                                                 <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                                                 <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                 <font key="titleFont" metaFont="system"/>
