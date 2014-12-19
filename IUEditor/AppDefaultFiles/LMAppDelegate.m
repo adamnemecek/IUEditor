@@ -9,9 +9,13 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "Reachability.h"
 
-
 #import "LMAppDelegate.h"
-#import "LMWC.h"
+
+#import "BBStartWarningWC.h"
+
+
+/////////////////////////////
+
 #import "JDLogUtil.h"
 
 #import "IUDjangoProject.h"
@@ -22,12 +26,15 @@
 #import "LMNotiManager.h"
 #import "JDEnvUtil.h"
 #import "LMHelpWC.h"
-#import "LMAppWarningWC.h"
 
 @implementation LMAppDelegate{
+    BBStartWarningWC *_startWarningWC;
+    
+    ///////////////////////
     LMPreferenceWC *preferenceWC;
     LMNotiManager *notiManager;
-    LMAppWarningWC *warnWC;
+    
+    
 }
 
 + (void)initialize{
@@ -52,15 +59,21 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    
+    /* check network connection */
     if([self isConnected] == NO){
+        /* network is disconnected */
         
         [NSApp activateIgnoringOtherApps:YES];
         
         //import warning
-        warnWC =  [[LMAppWarningWC alloc] initWithWindowNibName:[LMAppWarningWC className]];
-        [warnWC showWindow:self];
-        [warnWC.window center];
-        [warnWC.window makeKeyAndOrderFront:self];
+        if(_startWarningWC == nil){
+            _startWarningWC = [[BBStartWarningWC alloc] initWithWindowNibName:[BBStartWarningWC className]];
+        }
+        
+        [_startWarningWC showWindow:self];
+        [_startWarningWC.window center];
+        [_startWarningWC.window makeKeyAndOrderFront:self];
     }
     
 #if DEBUG
@@ -73,9 +86,7 @@
     debugMenu.title = @"Debug";
     [debugItem setSubmenu:debugMenu];
     [debugMenu addItem:[[NSMenuItem alloc] initWithTitle:@"Stress Test" action:@selector(debug_stressTest) keyEquivalent:@""]];
-#endif
-    
-#if DEBUG
+
     /*
      [JDLogUtil enableLogSection:IULogSource];
      [JDLogUtil enableLogSection:IULogJS];

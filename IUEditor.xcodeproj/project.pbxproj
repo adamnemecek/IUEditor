@@ -804,6 +804,10 @@
 		3DEE5A311A44008E0061886F /* BBServerSettingWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A2F1A44008E0061886F /* BBServerSettingWC.xib */; };
 		3DEE5A351A4400B90061886F /* BBHerokuManagementWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A331A4400B90061886F /* BBHerokuManagementWC.m */; };
 		3DEE5A361A4400B90061886F /* BBHerokuManagementWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A341A4400B90061886F /* BBHerokuManagementWC.xib */; };
+		3DEE5A3F1A441CA50061886F /* BBCloseWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A3D1A441CA50061886F /* BBCloseWC.m */; };
+		3DEE5A401A441CA50061886F /* BBCloseWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A3E1A441CA50061886F /* BBCloseWC.xib */; };
+		3DEE5A441A441E530061886F /* BBStartWarningWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A421A441E530061886F /* BBStartWarningWC.m */; };
+		3DEE5A451A441E530061886F /* BBStartWarningWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A431A441E530061886F /* BBStartWarningWC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1939,6 +1943,12 @@
 		3DEE5A321A4400B90061886F /* BBHerokuManagementWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBHerokuManagementWC.h; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.h; sourceTree = "<group>"; };
 		3DEE5A331A4400B90061886F /* BBHerokuManagementWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBHerokuManagementWC.m; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.m; sourceTree = "<group>"; };
 		3DEE5A341A4400B90061886F /* BBHerokuManagementWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBHerokuManagementWC.xib; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.xib; sourceTree = "<group>"; };
+		3DEE5A3C1A441CA50061886F /* BBCloseWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBCloseWC.h; path = UI/Sheet_Common/BBCloseWC.h; sourceTree = "<group>"; };
+		3DEE5A3D1A441CA50061886F /* BBCloseWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBCloseWC.m; path = UI/Sheet_Common/BBCloseWC.m; sourceTree = "<group>"; };
+		3DEE5A3E1A441CA50061886F /* BBCloseWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBCloseWC.xib; path = UI/Sheet_Common/BBCloseWC.xib; sourceTree = "<group>"; };
+		3DEE5A411A441E530061886F /* BBStartWarningWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBStartWarningWC.h; path = UI/Window_Main/BBStartWarningWC.h; sourceTree = "<group>"; };
+		3DEE5A421A441E530061886F /* BBStartWarningWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBStartWarningWC.m; path = UI/Window_Main/BBStartWarningWC.m; sourceTree = "<group>"; };
+		3DEE5A431A441E530061886F /* BBStartWarningWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBStartWarningWC.xib; path = UI/Window_Main/BBStartWarningWC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2388,6 +2398,9 @@
 		3D2EF53019F7823F00BBBAE5 /* MainWindow */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE5A411A441E530061886F /* BBStartWarningWC.h */,
+				3DEE5A421A441E530061886F /* BBStartWarningWC.m */,
+				3DEE5A431A441E530061886F /* BBStartWarningWC.xib */,
 				3D2EF53419F7828000BBBAE5 /* LMAppWarningWC.h */,
 				3D2EF53519F7828000BBBAE5 /* LMAppWarningWC.m */,
 				3D2EF53619F7828000BBBAE5 /* LMAppWarningWC.xib */,
@@ -2447,6 +2460,9 @@
 				3DEE5A271A43BE4E0061886F /* BBNewPageLayoutWC.h */,
 				3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */,
 				3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */,
+				3DEE5A3C1A441CA50061886F /* BBCloseWC.h */,
+				3DEE5A3D1A441CA50061886F /* BBCloseWC.m */,
+				3DEE5A3E1A441CA50061886F /* BBCloseWC.xib */,
 			);
 			name = Sheet;
 			sourceTree = "<group>";
@@ -4435,6 +4451,7 @@
 				3DE462F719FA4A2600A75567 /* wpblog_pc_02.png in Resources */,
 				3D2EF79B19F785C000BBBAE5 /* IUImage.rtf in Resources */,
 				3D2EF79D19F785C000BBBAE5 /* IUMovie.rtf in Resources */,
+				3DEE5A401A441CA50061886F /* BBCloseWC.xib in Resources */,
 				3D2EF67319F7848F00BBBAE5 /* LMPropertyProgrammingType1VC.xib in Resources */,
 				3D2EF6CA19F784A400BBBAE5 /* LMPropertyIUTextViewVC.xib in Resources */,
 				3D2EF8EA19F7868B00BBBAE5 /* ResizeNE-SW.tiff in Resources */,
@@ -4521,6 +4538,7 @@
 				3D2EFBE019F787D000BBBAE5 /* jquery-1.10.2.js in Resources */,
 				3D2EF6F319F784B500BBBAE5 /* LMEventMouseOnVC.xib in Resources */,
 				2666986719FE2608009F98AE /* arrow_right.png in Resources */,
+				3DEE5A451A441E530061886F /* BBStartWarningWC.xib in Resources */,
 				3D2EFBB419F786C700BBBAE5 /* Streamline-48-128.png in Resources */,
 				3D2EFB7F19F786C700BBBAE5 /* map.png in Resources */,
 				3D2EFC1319F7885500BBBAE5 /* stressTest.js in Resources */,
@@ -4609,6 +4627,7 @@
 				3DD19CD51A35A4EF00A5198E /* BBBackEndPropertyVC.m in Sources */,
 				3D2EF51619F781FB00BBBAE5 /* WPCommentFormLabel.m in Sources */,
 				3D2EFCA619F788D100BBBAE5 /* NSView+JDExtension.m in Sources */,
+				3DEE5A3F1A441CA50061886F /* BBCloseWC.m in Sources */,
 				3D2EF6F219F784B500BBBAE5 /* LMEventMouseOnVC.m in Sources */,
 				3D2EF58819F782C700BBBAE5 /* LMStartNewWPVC.m in Sources */,
 				3D2EF6F619F784B500BBBAE5 /* LMEventVariableReceiverFrameVC.m in Sources */,
@@ -4847,6 +4866,7 @@
 				3D2EF5CC19F7835B00BBBAE5 /* LMServerWC.m in Sources */,
 				3D2EF66419F7848F00BBBAE5 /* LMInspectorLinkVC.m in Sources */,
 				3D2EF40B19F780EA00BBBAE5 /* IUIdentifierManager.m in Sources */,
+				3DEE5A441A441E530061886F /* BBStartWarningWC.m in Sources */,
 				3D2EF52219F781FB00BBBAE5 /* WPWidgetBody.m in Sources */,
 				3D2EF6D419F784A400BBBAE5 /* LMPropertyWebProgrammingVC.m in Sources */,
 				3D2EF51D19F781FB00BBBAE5 /* WPPageLinks.m in Sources */,

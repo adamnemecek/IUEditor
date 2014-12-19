@@ -12,11 +12,11 @@
 
 #import "JDUIUtil.h"
 #import "JDLogUtil.h"
-#import "LMCloseWC.h"
 
+#import "BBCloseWC.h"
 
 @implementation LMWindow{
-    LMCloseWC *closeWC;
+    BBCloseWC *_closeWC;
 }
 
 
@@ -29,7 +29,6 @@
     [closeButton setTarget:self];
     [closeButton setAction:@selector(performClose:)];
     
-     closeWC = [[LMCloseWC alloc] initWithWindowNibName:[LMCloseWC class].className];
 
 }
 
@@ -78,19 +77,31 @@
         return;
     }
     
-    [closeWC setProjectName:[(BBWC *)[self windowController] projectName]];
+    if(_closeWC == nil){
+        _closeWC = [[BBCloseWC alloc] initWithWindowNibName:[BBCloseWC className]];
+
+    }
+    
+    [_closeWC setProjectName:[(BBWC *)[self windowController] projectName]];
     
     [self setAlphaValue:0.9];
     [self setIgnoresMouseEvents:YES];
     
-    [self beginCriticalSheet:closeWC.window completionHandler:^(NSModalResponse returnCode) {
-        [closeWC.window orderOut:nil];
+    [self beginCriticalSheet:_closeWC.window completionHandler:^(NSModalResponse returnCode) {
+        [_closeWC.window orderOut:nil];
 
         switch (returnCode) {
             case NSModalResponseOK:
+                //save and close
+                [self.windowController saveDocument:self];
+                [self close];
+                break;
+            case NSModalResponseAbort:
+                //don'tsave and close
                 [self close];
                 break;
             case NSModalResponseCancel:
+                //cancel to close
                 [self setIgnoresMouseEvents:NO];
                 [self setAlphaValue:1.0];
             default:
