@@ -8,6 +8,7 @@
 
 #import "BBPageNavigationVC.h"
 #import "BBPagePreferenceWC.h"
+#import "BBNewPageLayoutWC.h"
 
 
 @interface BBPageNavigationVC ()
@@ -18,6 +19,7 @@
 
 @implementation BBPageNavigationVC{
     BBPagePreferenceWC *_pagePreferenceWC;
+    BBNewPageLayoutWC *_pageLayoutWC;
 }
 
 - (void)viewDidLoad {
@@ -46,8 +48,7 @@
     return cellView;
 }
 
-- (IBAction)clickNewPageButton:(id)sender {
-}
+
 - (IBAction)clickNewPageGroupButton:(id)sender {
     
     if(self.pageController.selectedObjects.count > 0){
@@ -64,6 +65,13 @@
 //    [[NSApp mainWindow] beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){}];
     [self.view.window beginSheet:_pagePreferenceWC.window completionHandler:^(NSModalResponse returnCode){}];
 }
+- (IBAction)clickNewPageButton:(id)sender {
+    if (_pageLayoutWC == nil){
+        _pageLayoutWC = [[BBNewPageLayoutWC alloc] initWithWindowNibName:[BBNewPageLayoutWC className]];
+        _pageLayoutWC.pageController = self.pageController;
+    }
+    [self.view.window beginSheet:_pageLayoutWC.window completionHandler:^(NSModalResponse returnCode){
+    }];
 
-
+}
 @end

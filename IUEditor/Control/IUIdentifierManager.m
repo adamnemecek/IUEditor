@@ -102,6 +102,7 @@ static IUIdentifierManager *identifierForNilWindow;
 }
 
 
+
 - (NSString *)identifierForObject:(id)object{
     NSArray *keys = [confirmed allKeysForObject:object];
     NSAssert(keys.count > 0, @"key is not identical");

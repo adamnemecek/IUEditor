@@ -38,9 +38,6 @@
 - (NSString *)identifierForObject:(id)object;
 - (id)objectForIdentifier:(NSString*)identifier;
 - (void)removeIdentifier:(NSString *)identifier;
-
-/*
 - (BOOL)replaceIdentifier:(NSString *)from withIdentifier:(NSString *)to;
- */
 
 @end

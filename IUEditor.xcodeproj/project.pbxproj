@@ -798,6 +798,8 @@
 		3DE4631119FF3AC200A75567 /* RulerLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4631019FF3AC200A75567 /* RulerLineLayer.m */; };
 		3DE463151A0085C900A75567 /* LMMediaQueryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE463131A0085C900A75567 /* LMMediaQueryVC.m */; };
 		3DE463161A0085C900A75567 /* LMMediaQueryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */; };
+		3DEE5A2A1A43BE4E0061886F /* BBNewPageLayoutWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */; };
+		3DEE5A2B1A43BE4E0061886F /* BBNewPageLayoutWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1924,6 +1926,9 @@
 		3DE463121A0085C900A75567 /* LMMediaQueryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMMediaQueryVC.h; path = UI/View_Status/LMMediaQueryVC.h; sourceTree = "<group>"; };
 		3DE463131A0085C900A75567 /* LMMediaQueryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMMediaQueryVC.m; path = UI/View_Status/LMMediaQueryVC.m; sourceTree = "<group>"; };
 		3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMMediaQueryVC.xib; path = UI/View_Status/LMMediaQueryVC.xib; sourceTree = "<group>"; };
+		3DEE5A271A43BE4E0061886F /* BBNewPageLayoutWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBNewPageLayoutWC.h; path = UI/Sheet_Layout/BBNewPageLayoutWC.h; sourceTree = "<group>"; };
+		3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBNewPageLayoutWC.m; path = UI/Sheet_Layout/BBNewPageLayoutWC.m; sourceTree = "<group>"; };
+		3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBNewPageLayoutWC.xib; path = UI/Sheet_Layout/BBNewPageLayoutWC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2428,6 +2433,9 @@
 			children = (
 				3DC616FA1A42781700B94A4C /* Preference */,
 				3DC616F91A42780A00B94A4C /* Old */,
+				3DEE5A271A43BE4E0061886F /* BBNewPageLayoutWC.h */,
+				3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */,
+				3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */,
 			);
 			name = Sheet;
 			sourceTree = "<group>";
@@ -4475,6 +4483,7 @@
 				3D2EF5E919F7836500BBBAE5 /* LMProjectConvertWC.xib in Resources */,
 				3D2EF76319F7856E00BBBAE5 /* config.ruunit in Resources */,
 				3D3ABB721A2F0F2700E22E27 /* BBTopToolBarVC.xib in Resources */,
+				3DEE5A2B1A43BE4E0061886F /* BBNewPageLayoutWC.xib in Resources */,
 				3D2EFB5119F786C700BBBAE5 /* device_camera_capture_photo_-128.png in Resources */,
 				3D2EF7C119F785E900BBBAE5 /* PGGroup.mp4 in Resources */,
 				3D2EF70F19F784D600BBBAE5 /* LMWidgetLibraryVC.xib in Resources */,
@@ -4833,6 +4842,7 @@
 				3D2EFC5719F788BA00BBBAE5 /* JDShellUtil.m in Sources */,
 				3D2EF51C19F781FB00BBBAE5 /* WPPageLink.m in Sources */,
 				3D2EF48F19F781B700BBBAE5 /* IUSidebar.m in Sources */,
+				3DEE5A2A1A43BE4E0061886F /* BBNewPageLayoutWC.m in Sources */,
 				3D082F8C1A30652000B653B1 /* BBClassNavigationVC.m in Sources */,
 				3D2EF55719F782B800BBBAE5 /* LMNotiManager.m in Sources */,
 				3D2EF5E819F7836500BBBAE5 /* LMProjectConvertWC.m in Sources */,
