@@ -103,22 +103,22 @@
 #define IUNotificationNewIUCreatedByCanvas @"IUNotificationNewIUCreatedByCanvas"
 
 //called when media query is changed, usually occured by addsize, removesize, selectsize
-#define IUNotificationMQAdded @"MQAdded"
-#define IUNotificationMQRemoved @"MQRemoved"
-#define IUNotificationMQSelected @"MQSelected"
-#define IUNotificationMQMaxChanged @"MQMaxChanged"
-#define IUNotificationMQSize @"MQSize"
-#define IUNotificationMQOldSize @"MQOldSize"
-#define IUNotificationMQMaxSize @"MQMaxSize"
-#define IUNotificationMQLargerSize @"MQLargerSize"
-#define IUNotificationMQOldMaxSize @"MQOldMaxSize"
+#define IUProjectDidAddViewPortNotification @"MQAdded"
+#define IUProjectDidRemoveViewPortNotification @"MQRemoved"
+#define IUProjectDidChangeSelectedViewPortNotification @"MQSelected"
+#define IUProjectDidChangeMaxViewPortNotification @"MQMaxChanged"
+#define IUViewPortKey @"viewPort"
+#define IUOldViewPortKey @"MQOldSize"
+#define IUMaxViewPortKey @"MQMaxSize"
+#define IULargerViewPortKey @"MQLargerSize"
+#define IUOldMaxSizeKey @"MQOldMaxSize"
 
 
 //notification when console log is arrived
-#define IUNotificationConsoleLog @"ConsoleLog"
-#define IUNotificationConsoleStart @"ConsoleStart"
-#define IUNotificationConsoleEnd @"ConsoleEnd"
-#define IUNotificationConsoleLogText @"Log"
+#define IUConsoleLogDidArriveNotification @"ConsoleLog"
+#define IUConsoleDidStartNotification @"ConsoleStart"
+#define IUConsoleDidEndNotification @"ConsoleEnd"
+#define IULogKey @"Log"
 
 
 #define CalledByNoti void

@@ -20,7 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         NSAssert(window, @"Should have window");
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addText:) name:IUNotificationConsoleLog object:window];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addText:) name:IUConsoleLogDidArriveNotification object:window];
     }
     return self;
 }

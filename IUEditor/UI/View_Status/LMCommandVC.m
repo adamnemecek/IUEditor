@@ -224,7 +224,7 @@
         [debugServerShell execute:command delegate:self];
     }
     [self refreshServerState];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleStart object:self.view.window];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidStartNotification object:self.view.window];
     return YES;
 }
 
@@ -248,7 +248,7 @@
         [JDShellUtil execute:killCommand];
     }
     [self refreshServerState];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleEnd object:self.view.window];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidEndNotification object:self.view.window];
 }
 
 - (void)refreshServerState{
@@ -312,21 +312,21 @@
 
 - (void)shellUtil:(JDShellUtil*)util standardOutputDataReceived:(NSData*)data{
     NSString *log = [[NSString alloc] initWithData:data encoding:4];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:self.view.window userInfo:@{@"Log": log}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:self.view.window userInfo:@{@"Log": log}];
 }
 
 - (void)shellUtil:(JDShellUtil*)util standardErrorDataReceived:(NSData*)data{
     NSString *log = [[NSString alloc] initWithData:data encoding:4];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:self.view.window userInfo:@{@"Log": log}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:self.view.window userInfo:@{@"Log": log}];
 }
 
 
 - (void)shellUtilExecutionFinished:(JDShellUtil *)util{
     if (util.name) {
         NSString *log = [NSString stringWithFormat:@" ------ %@ Ended -----", util.name];
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:self.view.window userInfo:@{IUNotificationConsoleLogText: log}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:self.view.window userInfo:@{IULogKey: log}];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleEnd object:self.view.window];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidEndNotification object:self.view.window];
 }
 
 @end

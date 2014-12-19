@@ -19,7 +19,7 @@
 
 //template description
 @property NSString *desc , *feature;
-@property NSString *mqSizes;
+@property NSString *viewPorts;
 @property IUProjectType projectType;
 @property NSArray *previewImageArray;
 @property NSArray *previewVideoArray;

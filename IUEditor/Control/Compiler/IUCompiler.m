@@ -392,7 +392,7 @@
         NSAssert(0, @"cannot make output css source without project information");
     }
     
-    NSArray *mqSizeArray = sheet.project.mqSizes;
+    NSArray *mqSizeArray = sheet.project.viewPorts;
     
     //remove default size
     NSInteger largestWidth = [[mqSizeArray objectAtIndex:0] integerValue];
@@ -687,7 +687,7 @@
         [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
         
         if(_rule == kIUCompileRuleWordpress){
-            NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.mqSizes];
+            NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.viewPorts];
             [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:cssString];
         }
         else{

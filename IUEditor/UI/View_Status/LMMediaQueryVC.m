@@ -66,7 +66,7 @@
     }
     mqWidth = width;
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self.view.window userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxWidth)}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeSelectedViewPortNotification object:self.view.window userInfo:@{IUViewPortKey:@(width), IUMaxViewPortKey:@(maxWidth)}];
 }
 
 
@@ -130,15 +130,15 @@
     }
     
     //notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQAdded object:self.view.window
-                                                      userInfo:@{IUNotificationMQSize:@(newWidth),
-                                                                 IUNotificationMQOldMaxSize:oldMaxWidth,
-                                                                 IUNotificationMQMaxSize:maxWidth,
-                                                                 IUNotificationMQLargerSize:largerSize}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidAddViewPortNotification object:self.view.window
+                                                      userInfo:@{IUViewPortKey:@(newWidth),
+                                                                 IUOldMaxSizeKey:oldMaxWidth,
+                                                                 IUMaxViewPortKey:maxWidth,
+                                                                 IULargerViewPortKey:largerSize}];
 }
 
 - (void)changeMaxWidth{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQMaxChanged object:self.view.window userInfo:@{IUNotificationMQSize:@(mqWidth), IUNotificationMQMaxSize:[[_mqArrayController arrangedObjects] firstObject]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeMaxViewPortNotification object:self.view.window userInfo:@{IUViewPortKey:@(mqWidth), IUMaxViewPortKey:[[_mqArrayController arrangedObjects] firstObject]}];
     
     
 

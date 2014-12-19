@@ -166,7 +166,7 @@
     if(selectIndex != 0){
         largeSize = [[self sortedArray][selectIndex -1] integerValue];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQSelected object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxSize)}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeSelectedViewPortNotification object:self userInfo:@{IUViewPortKey:@(selectedWidth), IUMaxViewPortKey:@(maxSize)}];
     
     [self.controller enableUpdateCSS:self];
         
@@ -194,7 +194,7 @@
         }
     }
     if(isChange){
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQMaxChanged object:self userInfo:@{IUNotificationMQSize:@(selectedWidth), IUNotificationMQMaxSize:@(maxBox.frameWidth)}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeMaxViewPortNotification object:self userInfo:@{IUViewPortKey:@(selectedWidth), IUMaxViewPortKey:@(maxBox.frameWidth)}];
     }
 }
 
@@ -278,7 +278,7 @@
 
     //notification
     InnerSizeBox *maxBox = (InnerSizeBox *)boxManageView.subviews[0];
-     [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQRemoved object:self userInfo:@{IUNotificationMQSize:@(width), IUNotificationMQMaxSize:@(maxBox.frameWidth)}];
+     [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidRemoveViewPortNotification object:self userInfo:@{IUViewPortKey:@(width), IUMaxViewPortKey:@(maxBox.frameWidth)}];
 
 }
 
@@ -320,11 +320,11 @@
     }
     
 //notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQAdded object:self
-                                                      userInfo:@{IUNotificationMQSize:@(newWidth),
-                                                                 IUNotificationMQOldMaxSize:oldMax,
-                                                                 IUNotificationMQMaxSize:max,
-                                                                 IUNotificationMQLargerSize:largerSize}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidAddViewPortNotification object:self
+                                                      userInfo:@{IUViewPortKey:@(newWidth),
+                                                                 IUOldMaxSizeKey:oldMax,
+                                                                 IUMaxViewPortKey:max,
+                                                                 IULargerViewPortKey:largerSize}];
     
 }
 

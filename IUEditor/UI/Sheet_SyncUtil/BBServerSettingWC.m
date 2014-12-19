@@ -52,7 +52,7 @@
         _syncUtil.remoteDirectory = self.project.serverInfo.remotePath;
         _syncUtil.localDirectory = _project.absoluteBuildPath;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleStart object:[NSApp mainWindow] userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidStartNotification object:[NSApp mainWindow] userInfo:nil];
         [_syncUtil upload];
     }
     else {
@@ -66,15 +66,15 @@
 
 #pragma mark - JDSyncUtil Delegate
 - (void)syncUtilReceivedStdOutput:(NSString*)aMessage{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:[NSApp mainWindow] userInfo:@{IUNotificationConsoleLogText: aMessage}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:[NSApp mainWindow] userInfo:@{IULogKey: aMessage}];
 
 }
 - (void)syncUtilReceivedStdError:(NSString*)aMessage{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:[NSApp mainWindow] userInfo:@{IUNotificationConsoleLogText: aMessage}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:[NSApp mainWindow] userInfo:@{IULogKey: aMessage}];
 
 }
 - (void)syncFinished:(int)terminationStatus{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleEnd object:[NSApp mainWindow] userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidEndNotification object:[NSApp mainWindow] userInfo:nil];
  
 }
 

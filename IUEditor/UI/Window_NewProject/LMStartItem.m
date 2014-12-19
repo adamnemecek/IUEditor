@@ -20,7 +20,7 @@
         self.name = [dict objectForKey:@"name"];
         self.projectType = [[dict objectForKey:@"type"] intValue];
         self.desc = [dict objectForKey:@"desc"];
-        self.mqSizes = [dict objectForKey:@"pageSize"];
+        self.viewPorts = [dict objectForKey:@"pageSize"];
         self.previewImageArray = [dict objectForKey:@"previewImages"];
         self.previewVideoArray = [dict objectForKey:@"previewVideos"];
         self.packagePath = [dict objectForKey:@"projectPackageFile"];

@@ -652,7 +652,7 @@
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUMenuItem:(IUMenuItem*)menuItem{
 
-    NSMutableArray *editWidths = [menuItem.project.mqSizes mutableCopy];
+    NSMutableArray *editWidths = [menuItem.project.viewPorts mutableCopy];
     
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];

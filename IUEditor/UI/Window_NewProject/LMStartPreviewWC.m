@@ -90,7 +90,7 @@ static LMStartPreviewWC *gStartPreviewWindow = nil;
                 break;
         }
         
-        [_sizeTF setStringValue:currentItem.mqSizes];
+        [_sizeTF setStringValue:currentItem.viewPorts];
         [_featureTF setStringValue:currentItem.feature];
         
         [self updatePreview];

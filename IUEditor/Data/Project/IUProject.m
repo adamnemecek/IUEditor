@@ -95,7 +95,7 @@
 
 #pragma mark - init
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
-    [aCoder encodeObject:_mqSizes forKey:@"mqSizes"];
+    [aCoder encodeObject:_mqSizes forKey:@"viewPorts"];
     [aCoder encodeObject:_buildPath forKey:@"_buildPath"];
     
     [aCoder encodeObject:self.buildResourcePath forKey:@"_buildResourcePath"];
@@ -121,7 +121,7 @@
 //        _compiler.webTemplateFileName = @"webTemplate";
         
         
-        _mqSizes = [[aDecoder decodeObjectForKey:@"mqSizes"] mutableCopy];
+        _mqSizes = [[aDecoder decodeObjectForKey:@"viewPorts"] mutableCopy];
         _classGroup = [aDecoder decodeObjectForKey:@"_classGroup"];
         _pageGroup = [aDecoder decodeObjectForKey:@"_pageGroup"];
         _name = [aDecoder decodeObjectForKey:@"_name"];
@@ -240,7 +240,7 @@
     
     [self.undoManager disableUndoRegistration];
     
-    _mqSizes = [project.mqSizes mutableCopy];
+    _mqSizes = [project.viewPorts mutableCopy];
     
     
     _compiler = [[IUCompiler alloc] init];
@@ -466,8 +466,8 @@
 
 
 - (void)connectWithEditor{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMQSize:) name:IUNotificationMQAdded object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeMQSize:) name:IUNotificationMQRemoved object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addViewPort:) name:IUProjectDidAddViewPortNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeViewPort:) name:IUProjectDidRemoveViewPortNotification object:nil];
 
     for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
@@ -486,8 +486,8 @@
     
     if(self.isConnectedWithEditor){
         
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQAdded object:nil];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationMQRemoved object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:IUProjectDidAddViewPortNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:IUProjectDidRemoveViewPortNotification object:nil];
         
         for (IUSheet *sheet in self.allSheets) {
             [sheet disconnectWithEditor];
@@ -532,25 +532,25 @@
 
 #pragma mark - mq
 
-- (void)addMQSize:(NSNotification *)notification{
-    NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-    NSAssert(_mqSizes, @"mqsize");
+- (void)addViewPort:(NSNotification *)notification{
+    NSInteger size = [[notification.userInfo objectForKey:IUViewPortKey] integerValue];
+    NSAssert(_mqSizes, @"viewPort");
     [_mqSizes addObject:@(size)];
 }
 
-- (void)removeMQSize:(NSNotification *)notification{
-    NSInteger size = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-    NSAssert(_mqSizes, @"mqsize");
+- (void)removeViewPort:(NSNotification *)notification{
+    NSInteger size = [[notification.userInfo objectForKey:IUViewPortKey] integerValue];
+    NSAssert(_mqSizes, @"viewPort");
     [_mqSizes removeObject:@(size)];
 }
 
-- (NSArray*)mqSizes{
+- (NSArray*)viewPorts{
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending: NO];
     return [_mqSizes sortedArrayUsingDescriptors:@[sortOrder]];
 }
 
 - (NSInteger)maxViewPort{
-    return [[self mqSizes][0] integerValue];
+    return [[self viewPorts][0] integerValue];
 }
 
 #pragma mark - compile

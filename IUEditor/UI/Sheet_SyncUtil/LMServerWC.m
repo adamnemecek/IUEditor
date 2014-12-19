@@ -59,7 +59,7 @@
         syncUtil.localDirectory = self.serverInfo.localPath;
         syncUtil.syncDirectory = self.serverInfo.syncItem;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleStart object:_notificationSender userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidStartNotification object:_notificationSender userInfo:nil];
         syncUtil.tag = 0; //0 for download, 1 for upload
         [syncUtil download];
     }
@@ -84,7 +84,7 @@
         syncUtil.remoteDirectory = self.serverInfo.remotePath;
         syncUtil.localDirectory = _project.absoluteBuildPath;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleStart object:_notificationSender userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidStartNotification object:_notificationSender userInfo:nil];
         [syncUtil upload];
     }
     else {
@@ -102,7 +102,7 @@
         
         restartServerShell = [[JDShellUtil alloc] init];
         [restartServerShell execute:command delegate:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleStart object:_notificationSender];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidStartNotification object:_notificationSender];
     }
     else {
         [JDLogUtil alert:@"Set Project Property First"];
@@ -111,34 +111,34 @@
 }
 
 - (void)syncUtilReceivedStdOutput:(NSString*)aMessage{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:_notificationSender userInfo:@{IUNotificationConsoleLogText: aMessage}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:_notificationSender userInfo:@{IULogKey: aMessage}];
     
 }
 - (void)syncUtilReceivedStdError:(NSString*)aMessage{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:_notificationSender userInfo:@{IUNotificationConsoleLogText: aMessage}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:_notificationSender userInfo:@{IULogKey: aMessage}];
 }
 
 - (void)syncFinished:(int)terminationStatus{
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleEnd object:_notificationSender userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidEndNotification object:_notificationSender userInfo:nil];
     
 }
 
 - (void)shellUtil:(JDShellUtil*)util standardOutputDataReceived:(NSData*)data{
     NSString *log = [[NSString alloc] initWithData:data encoding:4];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:_notificationSender userInfo:@{@"Log": log}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:_notificationSender userInfo:@{@"Log": log}];
 }
 
 - (void)shellUtil:(JDShellUtil*)util standardErrorDataReceived:(NSData*)data{
     NSString *log = [[NSString alloc] initWithData:data encoding:4];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:_notificationSender userInfo:@{@"Log": log}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:_notificationSender userInfo:@{@"Log": log}];
 }
 
 - (void) shellUtilExecutionFinished:(JDShellUtil *)util{
     if (util.name) {
         NSString *log = [NSString stringWithFormat:@" ------ %@ Ended -----", util.name];
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleLog object:_notificationSender userInfo:@{IUNotificationConsoleLogText: log}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleLogDidArriveNotification object:_notificationSender userInfo:@{IULogKey: log}];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationConsoleEnd object:_notificationSender];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUConsoleDidEndNotification object:_notificationSender];
 }
 
 - (IBAction)close:(id)sender{

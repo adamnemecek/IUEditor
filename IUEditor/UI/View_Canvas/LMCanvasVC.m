@@ -49,9 +49,9 @@
 
 -(void)viewDidLoad{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUNotificationMQSelected object:[self.view window]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUProjectDidChangeSelectedViewPortNotification object:[self.view window]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUNotificationMQMaxChanged object:[[self.view window] windowController]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUProjectDidChangeMaxViewPortNotification object:[[self.view window] windowController]];
     
     
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
@@ -148,10 +148,10 @@
 #pragma mark - MQ
 - (void)changeMQSelect:(NSNotification *)notification{
     
-    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+    NSInteger selectedSize = [[notification.userInfo valueForKey:IUViewPortKey] integerValue];
+    NSInteger maxSize = [[notification.userInfo valueForKey:IUMaxViewPortKey] integerValue];
     
-    NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUNotificationMQOldSize] integerValue];
+    NSInteger oldSelectedSize = [[notification.userInfo valueForKey:IUOldViewPortKey] integerValue];
     //mq가 바뀌기전에 현재 text를 현재 size에 저장한다.
     [self saveCurrentTextEditorForWidth:oldSelectedSize];
     
@@ -170,8 +170,8 @@
 
 
 - (void)changeMQMaxSize:(NSNotification *)notification{
-    NSInteger selectedSize = [[notification.userInfo valueForKey:IUNotificationMQSize] integerValue];
-    NSInteger maxSize = [[notification.userInfo valueForKey:IUNotificationMQMaxSize] integerValue];
+    NSInteger selectedSize = [[notification.userInfo valueForKey:IUViewPortKey] integerValue];
+    NSInteger maxSize = [[notification.userInfo valueForKey:IUMaxViewPortKey] integerValue];
     //extend to scroll size
     [self.canvasView.mainView setWidth:maxSize];
     

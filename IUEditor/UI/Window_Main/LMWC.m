@@ -234,8 +234,8 @@
     [self setLogViewState:0];
     
     //notification observer default
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(increaseConsoleLogReferenceCount) name:IUNotificationConsoleStart object:self.window];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(decreaseConsoleLogReferenceCount) name:IUNotificationConsoleEnd object:self.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(increaseConsoleLogReferenceCount) name:IUConsoleDidStartNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(decreaseConsoleLogReferenceCount) name:IUConsoleDidEndNotification object:self.window];
     
     //observer
     [_IUController addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionPrior context:nil];
@@ -268,7 +268,7 @@
 //    [stackVC connectWithEditor];
     
     //load mq
-    [mqVC loadWithMQWidths:_project.mqSizes];
+    [mqVC loadWithMQWidths:_project.viewPorts];
     
     
 }
@@ -295,8 +295,8 @@
 
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleStart object:self.window];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationConsoleEnd object:self.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUConsoleDidStartNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IUConsoleDidEndNotification object:self.window];
 
 }
 

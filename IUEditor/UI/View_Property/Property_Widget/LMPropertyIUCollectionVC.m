@@ -28,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self loadView];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectMQSize:) name:IUNotificationMQSelected object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectViewPort:) name:IUProjectDidChangeSelectedViewPortNotification object:nil];
     }
     return self;
 }
@@ -68,10 +68,10 @@
 
 
 
-- (void)selectMQSize:(NSNotification *)notification{
-    selectedSize = [[notification.userInfo objectForKey:IUNotificationMQSize] integerValue];
-    largeSize = [[notification.userInfo objectForKey:IUNotificationMQLargerSize] integerValue];
-    maxSize = [[notification.userInfo objectForKey:IUNotificationMQMaxSize] integerValue];
+- (void)selectViewPort:(NSNotification *)notification{
+    selectedSize = [[notification.userInfo objectForKey:IUViewPortKey] integerValue];
+    largeSize = [[notification.userInfo objectForKey:IULargerViewPortKey] integerValue];
+    maxSize = [[notification.userInfo objectForKey:IUMaxViewPortKey] integerValue];
  
     [self updateCount];
 }
