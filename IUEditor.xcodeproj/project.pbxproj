@@ -800,6 +800,10 @@
 		3DE463161A0085C900A75567 /* LMMediaQueryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */; };
 		3DEE5A2A1A43BE4E0061886F /* BBNewPageLayoutWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */; };
 		3DEE5A2B1A43BE4E0061886F /* BBNewPageLayoutWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */; };
+		3DEE5A301A44008E0061886F /* BBServerSettingWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A2E1A44008E0061886F /* BBServerSettingWC.m */; };
+		3DEE5A311A44008E0061886F /* BBServerSettingWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A2F1A44008E0061886F /* BBServerSettingWC.xib */; };
+		3DEE5A351A4400B90061886F /* BBHerokuManagementWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A331A4400B90061886F /* BBHerokuManagementWC.m */; };
+		3DEE5A361A4400B90061886F /* BBHerokuManagementWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A341A4400B90061886F /* BBHerokuManagementWC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1929,6 +1933,12 @@
 		3DEE5A271A43BE4E0061886F /* BBNewPageLayoutWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBNewPageLayoutWC.h; path = UI/Sheet_Layout/BBNewPageLayoutWC.h; sourceTree = "<group>"; };
 		3DEE5A281A43BE4E0061886F /* BBNewPageLayoutWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBNewPageLayoutWC.m; path = UI/Sheet_Layout/BBNewPageLayoutWC.m; sourceTree = "<group>"; };
 		3DEE5A291A43BE4E0061886F /* BBNewPageLayoutWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBNewPageLayoutWC.xib; path = UI/Sheet_Layout/BBNewPageLayoutWC.xib; sourceTree = "<group>"; };
+		3DEE5A2D1A44008E0061886F /* BBServerSettingWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBServerSettingWC.h; path = UI/Sheet_SyncUtil/BBServerSettingWC.h; sourceTree = "<group>"; };
+		3DEE5A2E1A44008E0061886F /* BBServerSettingWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBServerSettingWC.m; path = UI/Sheet_SyncUtil/BBServerSettingWC.m; sourceTree = "<group>"; };
+		3DEE5A2F1A44008E0061886F /* BBServerSettingWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBServerSettingWC.xib; path = UI/Sheet_SyncUtil/BBServerSettingWC.xib; sourceTree = "<group>"; };
+		3DEE5A321A4400B90061886F /* BBHerokuManagementWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBHerokuManagementWC.h; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.h; sourceTree = "<group>"; };
+		3DEE5A331A4400B90061886F /* BBHerokuManagementWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBHerokuManagementWC.m; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.m; sourceTree = "<group>"; };
+		3DEE5A341A4400B90061886F /* BBHerokuManagementWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBHerokuManagementWC.xib; path = UI/Sheet_SyncUtil/BBHerokuManagementWC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2431,6 +2441,7 @@
 		3D2EF53319F7826A00BBBAE5 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE5A2C1A44005F0061886F /* SyncUtil */,
 				3DC616FA1A42781700B94A4C /* Preference */,
 				3DC616F91A42780A00B94A4C /* Old */,
 				3DEE5A271A43BE4E0061886F /* BBNewPageLayoutWC.h */,
@@ -3894,6 +3905,19 @@
 			path = IUEditor/Resource/AppResource/templates/wpblog;
 			sourceTree = "<group>";
 		};
+		3DEE5A2C1A44005F0061886F /* SyncUtil */ = {
+			isa = PBXGroup;
+			children = (
+				3DEE5A2D1A44008E0061886F /* BBServerSettingWC.h */,
+				3DEE5A2E1A44008E0061886F /* BBServerSettingWC.m */,
+				3DEE5A2F1A44008E0061886F /* BBServerSettingWC.xib */,
+				3DEE5A321A4400B90061886F /* BBHerokuManagementWC.h */,
+				3DEE5A331A4400B90061886F /* BBHerokuManagementWC.m */,
+				3DEE5A341A4400B90061886F /* BBHerokuManagementWC.xib */,
+			);
+			name = SyncUtil;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4103,6 +4127,7 @@
 				3D2EFBD219F7878800BBBAE5 /* iucarousel.js in Resources */,
 				3D2EF75F19F7856E00BBBAE5 /* index.php in Resources */,
 				3DE462BA19FA4A2600A75567 /* agency_thumbnail@2x.png in Resources */,
+				3DEE5A311A44008E0061886F /* BBServerSettingWC.xib in Resources */,
 				3D2EFB5C19F786C700BBBAE5 /* flat_icons-graficheria.it-02.png in Resources */,
 				3D2EF5F519F7837600BBBAE5 /* LMWordpressCreateFileWC.xib in Resources */,
 				3D2EFCBD19F78D1F00BBBAE5 /* LMPropertyIUImportVC.xib in Resources */,
@@ -4237,6 +4262,7 @@
 				3D2EFBE119F787D000BBBAE5 /* jquery-ui-1.9.2.js in Resources */,
 				3D2EF6BC19F784A400BBBAE5 /* LMPropertyIUMenuItemVC.xib in Resources */,
 				3D2EF6F919F784B500BBBAE5 /* LMEventVariableReceiverVC.xib in Resources */,
+				3DEE5A361A4400B90061886F /* BBHerokuManagementWC.xib in Resources */,
 				3D2EFB2619F786C700BBBAE5 /* arrow_full_lowerright-128.png in Resources */,
 				3DE462E519FA4A2600A75567 /* Resume.zip in Resources */,
 				3DE462C219FA4A2600A75567 /* cs_tablet_01.png in Resources */,
@@ -4601,6 +4627,7 @@
 				3D2EF49C19F781C400BBBAE5 /* IUHTML.m in Sources */,
 				3D2EFCA419F788D100BBBAE5 /* NSString+JDExtension.m in Sources */,
 				09CC1E2C1A15A03100E39599 /* IUJSCompiler.m in Sources */,
+				3DEE5A301A44008E0061886F /* BBServerSettingWC.m in Sources */,
 				3D2EF4BA19F781D300BBBAE5 /* IUCarouselItem.m in Sources */,
 				3DE4631119FF3AC200A75567 /* RulerLineLayer.m in Sources */,
 				3D2EF66A19F7848F00BBBAE5 /* LMPropertyBGImageVC.m in Sources */,
@@ -4850,6 +4877,7 @@
 				3D2EF48819F781B700BBBAE5 /* IUHeader.m in Sources */,
 				3D2EFCCB19F78D7A00BBBAE5 /* LMPropertyIUGoogleMapVC.m in Sources */,
 				3D2EF4C519F781D300BBBAE5 /* IUWebMovie.m in Sources */,
+				3DEE5A351A4400B90061886F /* BBHerokuManagementWC.m in Sources */,
 				3D2EF6CB19F784A400BBBAE5 /* LMPropertyIUTransitionVC.m in Sources */,
 				3D2EF57E19F782C700BBBAE5 /* LMStartNewDefaultVC.m in Sources */,
 				3D2EF66819F7848F00BBBAE5 /* LMPropertyAnalyticsVC.m in Sources */,

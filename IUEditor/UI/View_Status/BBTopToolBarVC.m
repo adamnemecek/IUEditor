@@ -14,6 +14,9 @@
 
 #import "BBWC.h"
 
+#import "BBServerSettingWC.h"
+#import "BBHerokuManagementWC.h"
+
 @interface BBTopToolBarVC ()
 
 @property (weak) IBOutlet NSView *commandView;
@@ -28,9 +31,15 @@
 @end
 
 @implementation BBTopToolBarVC{
+    
+    //subviews
     BBCommandVC *_commandVC;
     BBQuickWidgetVC *_quickWidgetVC;
     BBMediaQueryVC *_mediaQueryVC;
+    
+    //sheet window controller
+    BBServerSettingWC *_serverSettingWC;
+    BBHerokuManagementWC *_herokuManagementWC;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
@@ -72,4 +81,23 @@
 - (IBAction)clickReloadSheetButton:(id)sender {
     [(BBWC *)[[NSApp mainWindow] windowController] reloadCurrentSheet:self];
 }
+
+- (IBAction)clickServerSettingMenuItem:(id)sender {
+    if (_serverSettingWC == nil){
+        _serverSettingWC = [[BBServerSettingWC alloc] initWithWindowNibName:[BBServerSettingWC className]];
+    }
+    
+    [self.view.window beginCriticalSheet:_serverSettingWC.window completionHandler:^(NSModalResponse returnCode){
+        
+    }];
+}
+- (IBAction)clickHerokuSettingMenuItem:(id)sender {
+    if (_herokuManagementWC == nil){
+        _herokuManagementWC = [[BBHerokuManagementWC alloc] initWithWindowNibName:[BBHerokuManagementWC className]];
+    }
+    [self.view.window beginCriticalSheet:_herokuManagementWC.window completionHandler:^(NSModalResponse returnCode){
+        
+    }];
+}
+
 @end
