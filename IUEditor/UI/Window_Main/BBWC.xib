@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBWC">
             <connections>
+                <outlet property="bottomToolBarView" destination="goD-BY-82H" id="0zV-eK-xkL"/>
                 <outlet property="canvasView" destination="hiZ-5m-BMA" id="sNr-ir-uwJ"/>
                 <outlet property="debugButton" destination="eMd-vE-f42" id="QBV-9I-AQj"/>
                 <outlet property="mainWindow" destination="Pug-OS-dSL" id="voj-sv-EjT"/>
-                <outlet property="pageTabView" destination="goD-BY-82H" id="83A-8R-B7e"/>
                 <outlet property="propertyIconBox" destination="oir-pz-oba" id="I2S-3n-fFV"/>
                 <outlet property="propertyIconButtonCell" destination="eJg-uN-CL9" id="XIC-nS-3xg"/>
                 <outlet property="propertySettingTabView" destination="hEQ-Kq-OCR" id="BVb-JR-e8Y"/>
@@ -131,7 +131,7 @@
                             <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
                         </constraints>
                     </customView>
-                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="PageTab">
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="BottomToolBar">
                         <rect key="frame" x="-1" y="-1" width="982" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
@@ -204,7 +204,7 @@
         </buttonCell>
     </objects>
     <resources>
-        <image name="tab_01_widget_off" width="26" height="26"/>
-        <image name="tab_01_widget_on" width="26" height="26"/>
+        <image name="tab_01_widget_off" width="28" height="28"/>
+        <image name="tab_01_widget_on" width="28" height="28"/>
     </resources>
 </document>

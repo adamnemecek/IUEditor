@@ -24,6 +24,8 @@
 @property (weak) IBOutlet NSView *topToolBarView;
 @property (weak) IBOutlet NSView *structureToolBarView;
 @property (weak) IBOutlet NSView *propertyToolBarView;
+//bottom tool bar
+@property (weak) IBOutlet NSView *bottomToolBarView;
 
 //canvas
 @property (weak) IBOutlet NSView *canvasView;
@@ -49,8 +51,6 @@
 @property (weak) IBOutlet NSView *tabStructureView;
 @property (weak) IBOutlet NSView *tabBackEndView;
 
-//bottom view
-@property (weak) IBOutlet NSView *pageTabView;
 
 //debug
 @property (weak) IBOutlet NSButton *debugButton;
@@ -69,6 +69,7 @@
     BBTopToolBarVC *_topToolBarVC;
     BBStructureToolBarVC *_structureToolBarVC;
     BBPropertyToolBarVC *_propertyToolBarVC;
+    BBBottomToolBarVC *_bottomToolBarVC;
     
     LMCanvasVC *_canvasVC;
     
@@ -107,6 +108,7 @@
         _topToolBarVC = [[BBTopToolBarVC alloc] initWithNibName:[BBTopToolBarVC className] bundle:nil];
         _structureToolBarVC = [[BBStructureToolBarVC alloc] initWithNibName:[BBStructureToolBarVC className] bundle:nil];
         _propertyToolBarVC = [[BBPropertyToolBarVC alloc] initWithNibName:[BBPropertyToolBarVC className] bundle:nil];
+        _bottomToolBarVC = [[BBBottomToolBarVC alloc] initWithNibName:[BBBottomToolBarVC className] bundle:nil];
         
         //canvas
         _canvasVC = [[LMCanvasVC alloc] initWithNibName:[LMCanvasVC className] bundle:nil];
@@ -224,6 +226,7 @@
     [_topToolBarView addSubviewFullFrame:_topToolBarVC.view];
     [_structureToolBarView addSubviewFullFrame:_structureToolBarVC.view];
     [_propertyToolBarView addSubviewFullFrame:_propertyToolBarVC.view];
+    [_bottomToolBarView addSubviewFullFrame:_bottomToolBarVC.view];
     
     //canvas
     [_canvasView addSubviewFullFrame:_canvasVC.view];
@@ -286,6 +289,8 @@
     [_structureToolBarVC setClassController:_classController];
     [_tracingPropertyVC setPageController:_pageController];
     [_tracingPropertyVC setClassController:_classController];
+    [_bottomToolBarVC setPageController:_pageController];
+    [_bottomToolBarVC setClassController:_classController];
     
     //iucontroller
     [_canvasVC setController:_iuController];

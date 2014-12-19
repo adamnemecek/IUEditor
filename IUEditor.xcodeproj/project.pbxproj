@@ -804,6 +804,8 @@
 		3DEE5A401A441CA50061886F /* BBCloseWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A3E1A441CA50061886F /* BBCloseWC.xib */; };
 		3DEE5A441A441E530061886F /* BBStartWarningWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A421A441E530061886F /* BBStartWarningWC.m */; };
 		3DEE5A451A441E530061886F /* BBStartWarningWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A431A441E530061886F /* BBStartWarningWC.xib */; };
+		3DEE5A491A44223F0061886F /* BBBottomToolBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A471A44223F0061886F /* BBBottomToolBarVC.m */; };
+		3DEE5A4A1A44223F0061886F /* BBBottomToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A481A44223F0061886F /* BBBottomToolBarVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1939,6 +1941,9 @@
 		3DEE5A411A441E530061886F /* BBStartWarningWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBStartWarningWC.h; path = UI/Window_Main/BBStartWarningWC.h; sourceTree = "<group>"; };
 		3DEE5A421A441E530061886F /* BBStartWarningWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBStartWarningWC.m; path = UI/Window_Main/BBStartWarningWC.m; sourceTree = "<group>"; };
 		3DEE5A431A441E530061886F /* BBStartWarningWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBStartWarningWC.xib; path = UI/Window_Main/BBStartWarningWC.xib; sourceTree = "<group>"; };
+		3DEE5A461A44223F0061886F /* BBBottomToolBarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBBottomToolBarVC.h; path = UI/View_Status/BBBottomToolBarVC.h; sourceTree = "<group>"; };
+		3DEE5A471A44223F0061886F /* BBBottomToolBarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBBottomToolBarVC.m; path = UI/View_Status/BBBottomToolBarVC.m; sourceTree = "<group>"; };
+		3DEE5A481A44223F0061886F /* BBBottomToolBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBBottomToolBarVC.xib; path = UI/View_Status/BBBottomToolBarVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2671,6 +2676,7 @@
 		3D2EF5F919F783D700BBBAE5 /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE5A4B1A4422480061886F /* Old */,
 				3D3ABB6E1A2F0F2700E22E27 /* BBTopToolBarVC.h */,
 				3D3ABB6F1A2F0F2700E22E27 /* BBTopToolBarVC.m */,
 				3D3ABB701A2F0F2700E22E27 /* BBTopToolBarVC.xib */,
@@ -2681,18 +2687,9 @@
 				3DD19C841A316E1500A5198E /* BBPropertyToolBarVC.m */,
 				3DD19C851A316E1500A5198E /* BBPropertyToolBarVC.xib */,
 				3DD19C7D1A316D4400A5198E /* TopToolBarChildrenVCs */,
-				3DE463121A0085C900A75567 /* LMMediaQueryVC.h */,
-				3DE463131A0085C900A75567 /* LMMediaQueryVC.m */,
-				3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */,
-				3D2EF71019F784E300BBBAE5 /* LMBottomToolbarVC.h */,
-				3D2EF71119F784E300BBBAE5 /* LMBottomToolbarVC.m */,
-				3D2EF71219F784E300BBBAE5 /* LMBottomToolbarVC.xib */,
-				3D2EF71319F784E300BBBAE5 /* LMCommandVC.h */,
-				3D2EF71419F784E300BBBAE5 /* LMCommandVC.m */,
-				3D2EF71519F784E300BBBAE5 /* LMCommandVC.xib */,
-				3D2EF71619F784E300BBBAE5 /* LMConsoleVC.h */,
-				3D2EF71719F784E300BBBAE5 /* LMConsoleVC.m */,
-				3D2EF71819F784E300BBBAE5 /* LMConsoleVC.xib */,
+				3DEE5A461A44223F0061886F /* BBBottomToolBarVC.h */,
+				3DEE5A471A44223F0061886F /* BBBottomToolBarVC.m */,
+				3DEE5A481A44223F0061886F /* BBBottomToolBarVC.xib */,
 			);
 			name = ToolBar;
 			sourceTree = "<group>";
@@ -3918,6 +3915,25 @@
 			name = SyncUtil;
 			sourceTree = "<group>";
 		};
+		3DEE5A4B1A4422480061886F /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				3D2EF71619F784E300BBBAE5 /* LMConsoleVC.h */,
+				3D2EF71719F784E300BBBAE5 /* LMConsoleVC.m */,
+				3D2EF71819F784E300BBBAE5 /* LMConsoleVC.xib */,
+				3DE463121A0085C900A75567 /* LMMediaQueryVC.h */,
+				3DE463131A0085C900A75567 /* LMMediaQueryVC.m */,
+				3DE463141A0085C900A75567 /* LMMediaQueryVC.xib */,
+				3D2EF71019F784E300BBBAE5 /* LMBottomToolbarVC.h */,
+				3D2EF71119F784E300BBBAE5 /* LMBottomToolbarVC.m */,
+				3D2EF71219F784E300BBBAE5 /* LMBottomToolbarVC.xib */,
+				3D2EF71319F784E300BBBAE5 /* LMCommandVC.h */,
+				3D2EF71419F784E300BBBAE5 /* LMCommandVC.m */,
+				3D2EF71519F784E300BBBAE5 /* LMCommandVC.xib */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4409,6 +4425,7 @@
 				3DC616E91A4153EE00B94A4C /* BBPGSubmitPropertyVC.xib in Resources */,
 				3DD19CC61A35A18700A5198E /* BBEventPropertyVC.xib in Resources */,
 				3DC616CA1A41529A00B94A4C /* BBGoogleMapPropertyVC.xib in Resources */,
+				3DEE5A4A1A44223F0061886F /* BBBottomToolBarVC.xib in Resources */,
 				3D2EF58219F782C700BBBAE5 /* LMStartNewDjangoVC.xib in Resources */,
 				3D2EFBD319F7878800BBBAE5 /* iuframe.js in Resources */,
 				3D2EFB6D19F786C700BBBAE5 /* info-large-128.png in Resources */,
@@ -4662,6 +4679,7 @@
 				3D2EF5B019F7830100BBBAE5 /* LMHelpTextPopoverVC.m in Sources */,
 				3DE462FF19FA4B8100A75567 /* LMJSManager.m in Sources */,
 				3D2EFC5819F788BA00BBBAE5 /* JDSyncUtil.m in Sources */,
+				3DEE5A491A44223F0061886F /* BBBottomToolBarVC.m in Sources */,
 				3D2EF59119F782C700BBBAE5 /* LMStartWC.m in Sources */,
 				3D2EF42B19F7815B00BBBAE5 /* IUSheetGroup.m in Sources */,
 				3D2EF50C19F781FB00BBBAE5 /* WPArticleComment.m in Sources */,
