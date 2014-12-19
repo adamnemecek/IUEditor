@@ -44,7 +44,6 @@
         
         self.defaultStyleStorage.height = @(80);
         self.defaultStyleStorage.width = @(320);
-        self.defaultStyleStorage.bgColor = nil;
         
         [[self undoManager] enableUndoRegistration];
 

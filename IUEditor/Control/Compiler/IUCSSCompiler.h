@@ -14,13 +14,16 @@
 @interface IUCSSCompiler : NSObject
 
 /* storage mode */
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu;
+- (IUCSSCode*)cssCodeForIU:(IUBox*)iu __deprecated;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
 
 /**
 compiler has common functions to compile iubox
  */
 @property (nonatomic) id<IUCompilerProtocol> compiler;
+
+@property NSString *editorResourcePrefix;
+@property NSString *outputResourcePrefix;
 
 @end
 

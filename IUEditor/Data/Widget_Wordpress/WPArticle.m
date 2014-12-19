@@ -60,10 +60,9 @@
     if(self){
         [self.undoManager disableUndoRegistration];
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
         
         [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
         

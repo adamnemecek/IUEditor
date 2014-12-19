@@ -27,11 +27,10 @@
 
         self.enableHCenter = YES;
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultPositionStorage.y = @(10);
         
         [self.defaultStyleStorage setWidth:@(30) unit:@(IUFrameUnitPercent)];
-        self.defaultStyleStorage.bgColor = nil;
         
         self.defaultStyleStorage.fontSize = @(14);
         self.defaultStyleStorage.fontLineHeight = @(2.0);

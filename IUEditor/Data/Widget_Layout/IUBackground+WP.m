@@ -41,7 +41,7 @@
     [self.header addIU:menu error:nil];
     
     self.header.cascadingStyleStorage.height = @(200);
-    self.header.cascadingStyleStorage.bgColor = nil;
+    self.header.cascadingStyleStorage.bgColor1 = nil;
 
     
 }

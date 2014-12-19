@@ -39,13 +39,11 @@
     return self;
 }
 - (void)setDefaultPropertiesHeader{
-    self.defaultStyleStorage.bgColor = nil;
-    
     [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
     self.defaultStyleStorage.height = @(120);
     self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
     
-    self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
     
 }
 

@@ -29,10 +29,10 @@
         self.bgActive = [NSColor blackColor];
         self.fontActive = [NSColor whiteColor];
 
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         self.defaultStyleStorage.overflowType = @(IUOverflowTypeVisible);
-        self.defaultStyleStorage.bgColor = [NSColor grayColor];
+        self.defaultStyleStorage.bgColor1 = [NSColor grayColor];
         self.defaultStyleStorage.fontColor = [NSColor whiteColor];
         self.defaultStyleStorage.width = @(130);
         self.defaultStyleStorage.fontLineHeight = nil;

@@ -398,9 +398,6 @@
         [cascadingStorage overwritingDataStorageForNilValue:currStorage];
     }
     [cascadingStorage enableUpdate:self];
-    
-    //새로만들어진 storage에 manager를 붙임.
-    cascadingStorage.manager = self;
     return cascadingStorage;
 }
 

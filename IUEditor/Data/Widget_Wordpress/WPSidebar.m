@@ -40,7 +40,6 @@
         //setting for css
         self.defaultStyleStorage.width = @(180);
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
         
 
         //default widget

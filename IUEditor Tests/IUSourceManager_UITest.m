@@ -644,7 +644,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         IUWebMovie *iu = [[IUWebMovie alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
@@ -654,7 +654,7 @@ static     IUTestWC *testWC;
         [manager setNeedsUpdateCSS:iu];
         
         IUWebMovie *iu2 = [[IUWebMovie alloc] initWithPreset];
-        iu2.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu2.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu2 error:nil];
         [manager setNeedsUpdateHTML:section];
         [iu2 setIsConnectedWithEditor];
@@ -694,7 +694,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         PGTextView *iu = [[PGTextView alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
@@ -734,7 +734,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         PGTextField *iu = [[PGTextField alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
@@ -773,7 +773,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         PGSubmitButton *iu = [[PGSubmitButton alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
@@ -811,7 +811,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         PGPageLinkSet *iu = [[PGPageLinkSet alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         
@@ -850,7 +850,7 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         PGForm *iu = [[PGForm alloc] initWithPreset];
-        iu.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        iu.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         [section addIU:iu error:nil];
         [manager setNeedsUpdateHTML:section];
         

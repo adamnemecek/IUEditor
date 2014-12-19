@@ -27,28 +27,26 @@
     //contents
     IUSection *section = [[IUSection alloc] initWithPreset];
     section.name = @"Contents";
-    section.defaultStyleStorage.bgColor = nil;
     section.defaultStyleStorage.height = nil;
     [self.pageContent addIU:section error:nil];
     
     IUCenterBox *centerBox = [[IUCenterBox alloc] initWithPreset];
     centerBox.name = @"CenterBox";
     centerBox.enableHCenter = YES;
-    centerBox.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    centerBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
     centerBox.defaultPositionStorage.y = @(0);
     
     centerBox.defaultStyleStorage.height = nil;
-    centerBox.defaultStyleStorage.bgColor = nil;
     [section addIU:centerBox error:nil];
 
     WPSidebar *sidebar = [[WPSidebar alloc] initWithPreset];
-    sidebar.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    sidebar.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
     sidebar.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
     sidebar.defaultPositionStorage.y = @(40);
     [centerBox addIU:sidebar error:nil];
     
     WPArticleList *list = [[WPArticleList alloc] initWithPreset];
-    list.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    list.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
     sidebar.defaultPositionStorage.y = @(0);
     list.enableHCenter = YES;
 
@@ -62,7 +60,6 @@
     //footer
     IUSection *footer = [[IUSection alloc] initWithPreset];
     footer.name = @"Footer";
-    footer.defaultStyleStorage.bgColor  = nil;
     footer.defaultStyleStorage.height = @(100);
     
     IUText *copyright = [IUText copyrightBox];
@@ -83,7 +80,6 @@
     //contents
     IUSection *section = [[IUSection alloc] initWithPreset];
     section.name = @"Contents";
-    section.defaultStyleStorage.bgColor = nil;
     section.defaultStyleStorage.height = @(400);
     [self.pageContent addIU:section error:nil];
     
@@ -97,7 +93,6 @@
     image.defaultPositionStorage.y = @(110);
     image.defaultStyleStorage.width = @(140);
     image.defaultStyleStorage.height = @(140);
-    image.defaultStyleStorage.bgColor = nil;
     
     
     [section addIU:image error:nil];
@@ -109,13 +104,12 @@
 
     //frame
     text404.enableHCenter = YES;
-    text404.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
+    text404.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
     text404.defaultPositionStorage.y = @(270);
 
     
     [text404.defaultStyleStorage setWidth:@(75) unit:@(IUFrameUnitPercent)];
     text404.defaultStyleStorage.height = nil;
-    text404.defaultStyleStorage.bgColor = nil;
     
     
     //font
@@ -129,7 +123,6 @@
     //footer
     IUSection *footer = [[IUSection alloc] initWithPreset];
     footer.name = @"Footer";
-    footer.defaultStyleStorage.bgColor = nil;
     footer.defaultStyleStorage.height = @(100);
 
     

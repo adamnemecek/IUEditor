@@ -43,7 +43,6 @@
 
         self.defaultStyleStorage.width = @(680);
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
 
         WPArticle *article = [[WPArticle alloc] initWithPreset];
         [self addIU:article error:nil];

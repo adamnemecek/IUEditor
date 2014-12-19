@@ -106,9 +106,9 @@
     
     /* binding */
     /* bg */
-    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
-    [self outlet:_gradientStartColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgGradientStartColor"];
-    [self outlet:_gradientEndColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgGradientEndColor"];
+    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
+    [self outlet:_gradientStartColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
+    [self outlet:_gradientEndColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor2"];
     
     /* radius */
     [self outlet:_radiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
@@ -183,31 +183,15 @@
 #pragma mark - button action
 - (IBAction)clickGradientEnableButton:(id)sender {
     if([sender state] == NSOnState){
-        NSColor *currentBgColor = self.cascadingStyleStorage.bgColor;
-        
-        [self.cascadingStyleStorage beginTransaction:self];
-        
-        self.cascadingStyleStorage.bgGradientStartColor = currentBgColor;
-        self.cascadingStyleStorage.bgGradientEndColor = currentBgColor;
-        self.cascadingStyleStorage.bgColor = nil;
-        
-        [self.cascadingStyleStorage commitTransaction:self];
+        self.cascadingStyleStorage.bgColor2 = self.cascadingStyleStorage.bgColor1;
     }
     else{
-        NSColor *currentBgColor = self.cascadingStyleStorage.bgGradientStartColor;
-        [self.cascadingStyleStorage beginTransaction:self];
-        
-        self.cascadingStyleStorage.bgGradientStartColor = nil;
-        self.cascadingStyleStorage.bgGradientEndColor = nil;
-        self.cascadingStyleStorage.bgColor = currentBgColor;
-        
-        [self.cascadingStyleStorage commitTransaction:self];
-
+        self.cascadingStyleStorage.bgColor2 = nil;
     }
 }
 
 - (IBAction)clickBGColorClearButton:(id)sender {
-    self.cascadingStyleStorage.bgColor = nil;
+    self.cascadingStyleStorage.bgColor1 = nil;
 }
 
 

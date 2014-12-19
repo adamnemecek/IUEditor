@@ -40,11 +40,10 @@
 
 - (void)setDefaultPropertiesFooter{
     self.defaultStyleStorage.width = nil;
-    self.defaultStyleStorage.bgColor = nil;
     [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
     self.defaultStyleStorage.height = @(120);
     
-    self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+    self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
     self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden);
 }
 

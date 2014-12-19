@@ -98,12 +98,14 @@ typedef enum{
 @property (nonatomic) NSNumber* imageAttachment;
 
 /* background tag */
-@property (nonatomic) NSColor* bgColor;
-@property (nonatomic) NSColor* bgGradientStartColor;
-@property (nonatomic) NSColor* bgGradientEndColor;
+@property (nonatomic) NSColor* bgColor1;
+@property (nonatomic) NSColor* bgColor2;
 
-/* only for use hover bgColor */
+/*
+ not using: 14.12.19.
+ only for use hover bgColor
 @property (nonatomic) NSNumber* bgColorDuration;
+ */
 
 
 /* border tag */

@@ -14,12 +14,11 @@
     self = [super initWithPreset];
     if(self){
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultPositionStorage.x = nil;
         
         [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
     }
     return self;
 }

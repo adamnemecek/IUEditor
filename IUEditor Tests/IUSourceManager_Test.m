@@ -86,7 +86,7 @@
     
     IUPage *page = [[IUPage alloc] initWithPreset];
 
-    ((IUStyleStorage *)page.cascadingStyleStorage).bgColor = [NSColor greenColor];
+    ((IUStyleStorage *)page.cascadingStyleStorage).bgColor1 = [NSColor greenColor];
     [manager loadSheet:page viewport:IUDefaultViewPort];
     
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
@@ -131,7 +131,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor = [NSColor yellowColor];
+        ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1 = [NSColor yellowColor];
         
         [manager setNeedsUpdateCSS:box];
         

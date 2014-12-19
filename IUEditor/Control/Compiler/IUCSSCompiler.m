@@ -7,6 +7,9 @@
 //
 
 #import "IUCSSCompiler.h"
+#import "IUCSSBaseCompiler.h"
+
+
 #import "LMFontController.h"
 #import "IUCSS.h"
 #import "IUProject.h"
@@ -37,6 +40,15 @@
 
 
 @implementation IUCSSCompiler {
+    IUCSSBaseCompiler *_baseCompiler;
+}
+
+- (id)init {
+    self = [super init];
+    _baseCompiler = [[IUCSSBaseCompiler alloc] init];
+    [self bind:@"editorResourcePrefix" toObject:_baseCompiler withKeyPath:@"editorResourcePrefix" options:nil];
+    [self bind:@"outputResourcePrefix" toObject:_baseCompiler withKeyPath:@"editorResourcePrefix" options:nil];
+    return self;
 }
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu {
@@ -61,9 +73,9 @@
 }
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
-    IUCSSCode *cssCode = [self cssCodeForIU:iu];
-    //FIXME: Not Coded
-    return cssCode;
+    /* currently, only support IUBox CSS */
+    IUCSSCode *code = [_baseCompiler cssCodeForIU:iu target:target viewPort:viewPort option:nil];
+    return code;
 }
 
 
@@ -110,7 +122,7 @@
 
         /* update CSSCode */
         [self updateCSSPositionCode:code asIUBox:_iu viewport:viewport];
-        [self updateCSSApperanceCode:code asIUBox:_iu viewport:viewport];
+        //[self updateCSSApperanceCode:code asIUBox:_iu viewport:viewport];
 
         [self updateCSSFontCode:code asIUBox:_iu viewport:viewport];
         
@@ -143,9 +155,9 @@
                 [code insertTag:@"background-position-y" number:hoverStorage.imageY unit:IUUnitPixel];
             }
         }
-        else if(hoverStorage.bgColor){
-            NSString *outputColor = [hoverStorage.bgColor cssBGColorString];
-            NSString *editorColor = [hoverStorage.bgColor rgbaString];
+        else if(hoverStorage.bgColor1){
+            NSString *outputColor = [hoverStorage.bgColor1 cssBGColorString];
+            NSString *editorColor = [hoverStorage.bgColor1 rgbaString];
             if ([outputColor length] == 0) {
                 outputColor = @"black";
                 editorColor = @"black";
@@ -157,6 +169,7 @@
             [code insertTag:@"background-color" string:editorColor];
             [code setInsertingTarget:IUTargetBoth];
             
+            /*
             if(hoverStorage.bgColorDuration){
                 [code setInsertingIdentifier:_iu.cssIdentifier];
                 NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [hoverStorage.bgColorDuration integerValue]];
@@ -164,6 +177,7 @@
                 [code insertTag:@"transition" string:durationStr];
                 
             }
+             */
         }
         
         if(hoverStorage.fontColor){
@@ -353,174 +367,6 @@
    
 }
 
-- (void)updateCSSApperanceCode:(IUCSSCode*)code asIUBox:(IUBox*)_iu viewport:(int)viewport{
-    [code setInsertingTarget:IUTargetBoth];
-    IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
-    
-    /* css for default view port */
-    /* pointer */
-    if (_iu.link) {
-        [code insertTag:@"cursor" string:@"pointer"];
-    }
-    
-    /*overflow*/
-    if(styleStorage.overflowType){
-        IUOverflowType overflow = [[styleStorage overflowType] intValue];
-        switch (overflow) {
-            case IUOverflowTypeVisible:
-                [code insertTag:@"overflow" string:@"visible"];
-                break;
-            case IUOverflowTypeScroll:
-                [code insertTag:@"overflow" string:@"scroll"];
-                break;
-            case IUOverflowTypeHidden:
-                //default overflow type : hidden
-            default:
-                break;
-        }
-    }
-    
-    /* display */
-    if(styleStorage.hidden){
-        if([styleStorage.hidden boolValue]){
-            [code insertTag:@"display" string:@"none"];
-        }
-        else{
-            [code insertTag:@"display" string:@"inherit"];
-        }
-    }
-    
-    if(styleStorage.editorHidden && [styleStorage.editorHidden boolValue]){
-        [code insertTag:@"display" string:@"none" target:IUTargetEditor];
-    }
-    
-    /* opacity */
-    if(styleStorage.opacity){
-        float opacity = [styleStorage.opacity floatValue] / 100;
-        [code insertTag:@"opacity" number:@(opacity) unit:IUUnitNone];
-        
-        [code setInsertingTarget:IUTargetOutput];
-        [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[styleStorage.opacity intValue]] ];
-        
-        [code setInsertingTarget:IUTargetBoth];
-    }
-    
-    
-    /* background-color */
-    if(styleStorage.bgGradientStartColor && styleStorage.bgGradientEndColor){
-        
-        [code insertTag:@"background-color" color:styleStorage.bgGradientStartColor];
-        
-        
-        NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", styleStorage.bgGradientStartColor.rgbString, styleStorage.bgGradientEndColor.rgbString];
-        NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", styleStorage.bgGradientStartColor.rgbString, styleStorage.bgGradientEndColor.rgbString];
-        NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", styleStorage.bgGradientStartColor.rgbStringWithTransparent, styleStorage.bgGradientEndColor.rgbStringWithTransparent];
-        NSString *gradientStr = [webKitStr stringByAppendingFormat:@"%@ %@", mozStr, ieStr];
-        
-        [code setInsertingTarget:IUTargetOutput];
-        [code insertTag:@"background" string:gradientStr];
-        
-        [code setInsertingTarget:IUTargetEditor];
-        [code insertTag:@"background" string:webKitStr];
-        
-        
-    }
-    else{
-        if(styleStorage.bgColor){
-            [code insertTag:@"background-color" string:[styleStorage.bgColor cssBGColorString]];
-            
-        }
-        
-        /* background - image */
-#if 0
-        if(styleStorage.imageName){
-            if (styleStorage.imageName) {
-                <#statements#>
-            }
-            NSAssert(0, @"not yet coded");
-            NSString *imgSrc = [[_compiler imagePathWithImageName:styleStorage.imageName target:IUTargetEditor] CSSURLString];
-            if(imgSrc){
-                [code insertTag:@"background-image" string:imgSrc target:IUTargetEditor];
-            }
-            NSString *outputImgSrc = [[_compiler imagePathWithImageName:styleStorage.imageName target:IUTargetOutput] CSSURLString];
-            if(outputImgSrc){
-                [code insertTag:@"background-image" string:outputImgSrc target:IUTargetOutput];
-            }
-            
-            
-            /* image size */
-            if(styleStorage.imageSizeType){
-                IUStyleImageSizeType sizetype = [styleStorage.imageSizeType intValue];
-                switch (sizetype) {
-                    case IUStyleImageSizeTypeStretch:
-                        [code insertTag:@"background-size" string:@"100% 100%"];
-                        break;
-                    case IUStyleImageSizeTypeContain:
-                        [code insertTag:@"background-size" string:@"contain"];
-                        break;
-                    case IUStyleImageSizeTypeCover:
-                        [code insertTag:@"background-size" string:@"cover"];
-                        break;
-                    case IUStyleImageSizeTypeAuto:
-                    default:
-                        break;
-                }
-            }
-            
-            if(styleStorage.imageAttachment && [styleStorage.imageAttachment boolValue]){
-                [code insertTag:@"background-attachment" string:@"fixed"];
-            }
-            
-            /* image position */
-            if(styleStorage.imageX || styleStorage.imageY){
-                if(styleStorage.imageX){
-                    [code insertTag:@"background-position-x" number:styleStorage.imageX unit:IUUnitPixel];
-                }
-                if(styleStorage.imageY){
-                    [code insertTag:@"background-position-y" number:styleStorage.imageY unit:IUUnitPixel];
-                }
-            }
-            else{
-                if(styleStorage.imageVPosition){
-                    IUCSSBGVPostion vPosition = [styleStorage.imageVPosition intValue];
-                    NSString *vPositionString;
-                    switch (vPosition) {
-                        case IUCSSBGVPostionTop: vPositionString = @"top"; break;
-                        case IUCSSBGVPostionCenter: vPositionString = @"center"; break;
-                        case IUCSSBGVPostionBottom: vPositionString = @"bottom"; break;
-                        default:
-                            break;
-                    }
-                    [code insertTag:@"background-position-y" string:vPositionString];
-                }
-                if(styleStorage.imageHPosition){
-                    IUCSSBGHPostion hPosition = [styleStorage.imageHPosition intValue];
-                    NSString *hPositionString;
-                    switch (hPosition) {
-                        case IUCSSBGHPostionLeft: hPositionString = @"left"; break;
-                        case IUCSSBGHPostionCenter: hPositionString = @"center"; break;
-                        case IUCSSBGVPostionBottom: hPositionString = @"right"; break;
-                        default: NSAssert(0, @"Cannot be default");  break;
-                    }
-                    [code insertTag:@"background-position-x" string:hPositionString];
-                }
-                
-            }
-            
-            /* image repeat */
-            if(styleStorage.imageRepeat){
-                if ([styleStorage.imageRepeat boolValue]) {
-                    [code insertTag:@"background-repeat" string:@"repeat"];
-                }
-                else{
-                    [code insertTag:@"background-repeat" string:@"no-repeat"];
-                }
-            }
-        }
-#endif
-
-    }
-}
 
 
 
@@ -530,11 +376,11 @@
     
     IUPositionStorage *positionStorage = (IUPositionStorage *)[_iu.positionManager storageForViewPort:viewport];
     if(positionStorage){
-        if(positionStorage.position){
+        if(positionStorage.firstPosition){
             NSString *topTag;
             NSString *leftTag;
             bool enablebottom=NO;
-            IUPositionType positionType = [positionStorage.position intValue];
+            IUFirstPositionType positionType = [positionStorage.firstPosition intValue];
             /* insert position */
             /* Note */
             /* Cannot use'top' tag for relative position here.
@@ -543,7 +389,7 @@
              */
             
             switch (positionType) {
-                case IUPositionTypeAbsolute:{
+                case IUFirstPositionTypeAbsolute:{
                     if(_iu.enableVCenter == NO){
                         topTag = @"top";
                     }
@@ -552,7 +398,7 @@
                     }
                     break;
                 }
-                case IUPositionTypeRelative:{
+                case IUFirstPositionTypeRelative:{
                     [code insertTag:@"position" string:@"relative"];
                     topTag = @"margin-top";
                     if(_iu.enableHCenter == NO){
@@ -561,7 +407,7 @@
                     break;
                 }
 
-                case IUPositionTypeFixed:{
+                case IUFirstPositionTypeFixed:{
                     [code insertTag:@"position" string:@"fixed"];
                     [code insertTag:@"z-index" string:@"11"];
                     if(_iu.enableVCenter == NO){
@@ -850,8 +696,8 @@
         [code setInsertingTarget:IUTargetBoth];
         IUStyleStorage *styleStorage = (IUStyleStorage *)[menuItem.defaultStyleManager storageForViewPort:viewport];
         if(styleStorage){
-            if(styleStorage.bgColor){
-                [code insertTag:@"background-color" color:styleStorage.bgColor];
+            if(styleStorage.bgColor1){
+                [code insertTag:@"background-color" color:styleStorage.bgColor1];
             }
             if(styleStorage.fontColor){
                 [code insertTag:@"color" color:styleStorage.fontColor];

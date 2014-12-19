@@ -33,7 +33,7 @@
     IUBox *box = [[IUBox alloc] init];
     
     XCTAssertNotNil(box.cascadingStyleStorage);
-    [box.cascadingPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+    [box.cascadingPositionStorage setFirstPosition:@(IUFirstPositionTypeAbsolute)];
     [box.cascadingPositionStorage setX:@(50) unit:@(IUFrameUnitPixel)];
     XCTAssertTrue([box.cascadingPositionStorage.x isEqualToNumber:@(50)]);
 

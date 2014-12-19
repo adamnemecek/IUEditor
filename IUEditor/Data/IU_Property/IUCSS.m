@@ -551,11 +551,11 @@
         
         /* convert bg color */
         if (convertTagDict[IUCSSTagBGGradient]) {
-            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientStartColor toStorageWithkey:@"bgColor"];
-            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientEndColor toStorageWithkey:@"bgGradientColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientStartColor toStorageWithkey:@"bgColor1"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGGradientEndColor toStorageWithkey:@"bgColor2"];
         }
         else {
-            [self convertToStyleStorageManager_setTag:IUCSSTagBGColor toStorageWithkey:@"bgColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagBGColor toStorageWithkey:@"bgColor1"];
         }
         
         /* border and radius  */
@@ -639,7 +639,7 @@
         
         //color
         if ([convertTagDict[IUCSSTagHoverBGColorEnable] boolValue]) {
-            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGColor toStorageWithkey:@"bgColor"];
+            [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGColor toStorageWithkey:@"bgColor1"];
             [self convertToStyleStorageManager_setTag:IUCSSTagHoverBGColorDuration toStorageWithkey:@"bgColorDuration"];
         }
         

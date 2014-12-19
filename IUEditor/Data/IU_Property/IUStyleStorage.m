@@ -50,10 +50,8 @@
     [aCoder encodeObject:_imageSizeType forKey:@"imageSizeType"];
     [aCoder encodeObject:_imageAttachment forKey:@"imageAttachment"];
     
-    [aCoder encodeObject:_bgColor forKey:@"bgColor"];
-    [aCoder encodeObject:_bgGradientStartColor forKey:@"bgGradientStartColor"];
-    [aCoder encodeObject:_bgGradientEndColor forKey:@"bgGradientEndColor"];
-    [aCoder encodeObject:_bgColorDuration forKey:@"bgColorDuration"];
+    [aCoder encodeObject:_bgColor1 forKey:@"bgColor1"];
+    [aCoder encodeObject:_bgColor2 forKey:@"bgColor2"];
     
     [aCoder encodeObject:_topBorderColor forKey:@"topBorderColor"];
     [aCoder encodeObject:_leftBorderColor forKey:@"leftBorderColor"];
@@ -116,11 +114,8 @@
         _imageAttachment = [aDecoder decodeObjectForKey:@"imageAttachment"];
         
         
-        _bgColor = [aDecoder decodeObjectForKey:@"bgColor"];
-        _bgGradientStartColor = [aDecoder decodeObjectForKey:@"bgGradientStartColor"];
-        _bgGradientEndColor = [aDecoder decodeObjectForKey:@"bgGradientEndColor"];
-        _bgColorDuration = [aDecoder decodeObjectForKey:@"bgColorDuration"];
-        
+        _bgColor1 = [aDecoder decodeObjectForKey:@"bgColor1"];
+        _bgColor2 = [aDecoder decodeObjectForKey:@"bgColor2"];
         
         _topBorderColor = [aDecoder decodeObjectForKey:@"topBorderColor"];
         _leftBorderColor = [aDecoder decodeObjectForKey:@"leftBorderColor"];
@@ -131,7 +126,6 @@
         _leftBorderWidth = [aDecoder decodeObjectForKey:@"leftBorderWidth"];
         _rightBorderWidth = [aDecoder decodeObjectForKey:@"rightBorderWidth"];
         _bottomBorderWidth = [aDecoder decodeObjectForKey:@"bottomBorderWidth"];
-        
         
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _fontSize = [aDecoder decodeObjectForKey:@"fontSize"];
@@ -182,10 +176,8 @@
         copyStorage.imageY = _imageY;
         copyStorage.imageSizeType = _imageSizeType;
         
-        copyStorage.bgColor = _bgColor;
-        copyStorage.bgGradientStartColor = _bgGradientStartColor;
-        copyStorage.bgGradientEndColor = _bgGradientEndColor;
-        copyStorage.bgColorDuration = _bgColorDuration;
+        copyStorage.bgColor1 = _bgColor1;
+        copyStorage.bgColor2 = _bgColor2;
         
         copyStorage.topBorderWidth = _topBorderWidth;
         copyStorage.bottomBorderWidth = _bottomBorderWidth;

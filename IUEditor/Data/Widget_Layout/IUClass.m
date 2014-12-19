@@ -35,14 +35,14 @@
     
     IUText *titleBox = [[IUText alloc] initWithPreset];
     titleBox.currentPositionStorage.y = @(43);
-    titleBox.currentPositionStorage.position = @(IUPositionTypeAbsolute);
+    titleBox.currentPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
     
     titleBox.currentStyleStorage.width = @(140);
     titleBox.currentStyleStorage.height = @(34);
     titleBox.currentStyleStorage.fontSize = @(24);
     titleBox.currentStyleStorage.fontAlign = @(IUAlignCenter);
     titleBox.currentStyleStorage.fontColor = [NSColor rgbColorRed:153 green:153 blue:153 alpha:1];
-    titleBox.currentStyleStorage.bgColor  = nil;
+    titleBox.currentStyleStorage.bgColor1  = nil;
     titleBox.currentStyleStorage.fontName = @"Helvetica";
     
     titleBox.enableHCenter = YES;

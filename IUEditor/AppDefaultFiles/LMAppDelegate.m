@@ -202,7 +202,7 @@
 #pragma mark - application delegate
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender{
-    return YES;
+    return NO;
 }
 
 

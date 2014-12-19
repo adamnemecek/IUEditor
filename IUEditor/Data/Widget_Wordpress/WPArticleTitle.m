@@ -28,12 +28,11 @@
         [self.undoManager disableUndoRegistration];
         
         //css
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultPositionStorage.y = @(80);
         
         [self.defaultStyleStorage setWidth:@(90) unit:@(IUFrameUnitPercent)];
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
         
         self.enableHCenter = YES;
         

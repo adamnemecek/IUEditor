@@ -24,10 +24,9 @@
     if(self){
         [self.undoManager disableUndoRegistration];
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultStyleStorage.width = nil;
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
     
         self.defaultStyleStorage.fontName = @"Roboto";
         self.defaultStyleStorage.fontSize = @(14);

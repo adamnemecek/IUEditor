@@ -17,11 +17,10 @@
     self = [super initWithPreset];
     if(self){
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultPositionStorage.x = nil;
         
         [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
-        self.defaultStyleStorage.bgColor = nil;
         
         //label allocation
         WPCommentFormLabel *label = [[WPCommentFormLabel alloc] initWithPreset];

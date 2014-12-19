@@ -35,7 +35,6 @@
 
         self.defaultStyleStorage.width = @(450);
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
         
         self.defaultStyleStorage.fontSize = @(12);
         self.defaultStyleStorage.fontLineHeight = @(1.5);

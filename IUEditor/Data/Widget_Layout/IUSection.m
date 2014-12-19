@@ -28,7 +28,7 @@
         
         [self.undoManager disableUndoRegistration];
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         self.defaultPositionStorage.x = nil;
         self.defaultPositionStorage.y = nil;
         

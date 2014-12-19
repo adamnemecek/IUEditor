@@ -39,11 +39,10 @@
         self.align = IUAlignRight;
         self.leftRightPadding = 5;
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         self.defaultStyleStorage.width = @(900);
         self.defaultStyleStorage.height = @(100);
-        self.defaultStyleStorage.bgColor = nil;
         
         
         WPPageLink *pageLink = [[WPPageLink alloc] initWithPreset];

@@ -167,6 +167,7 @@
 }
 
 - (void)insertTag:(NSString*)tag string:(NSString*)stringValue target:(IUTarget)target{
+    NSAssert([_currentIdentifiers count], @"Did you set current identifier?");
     if (target & IUTargetEditor ) {
         NSMutableDictionary *cssDictWithIdentifier = _editorCSSDictWithViewPort[@(_currentViewPort)];
         if (cssDictWithIdentifier == nil) { //does not have view port, so make new one

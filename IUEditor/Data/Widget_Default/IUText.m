@@ -37,7 +37,6 @@
     
     copyright.defaultStyleStorage.width = nil;
     copyright.defaultStyleStorage.height = nil;
-    copyright.defaultStyleStorage.bgColor = nil;
     
     copyright.defaultStyleStorage.fontName = @"Roboto";
     copyright.defaultStyleStorage.fontSize = @(12);

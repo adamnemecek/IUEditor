@@ -25,7 +25,6 @@
 
         //setting for css
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
 
         //setting children
         self.titleWidget = [[WPWidgetTitle alloc] initWithPreset];

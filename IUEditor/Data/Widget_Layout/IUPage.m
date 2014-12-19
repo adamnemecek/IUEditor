@@ -124,15 +124,15 @@
 - (void)loadPreset_makeCSS{
     switch (_layout) {
         case IUPageLayoutDefault:
-            _header.defaultPositionStorage.position = @(IUPositionTypeRelative);
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _header.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
+            _pageContent.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             break;
         case IUPageLayoutSideBarOnly:
             
             _sidebar.type = IUSidebarTypeFull;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
@@ -143,13 +143,13 @@
             _sidebar.type = IUSidebarTypeInside;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
 
             
-            _footer.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _footer.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _footer.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
             
             break;
@@ -158,17 +158,17 @@
             _sidebar.type = IUSidebarTypeFull;
             [_sidebar.defaultStyleStorage setWidth:@(15) unit:@(IUFrameUnitPercent)];
             
-            _header.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _header.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _header.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
             [_header.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
 
-            _pageContent.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _pageContent.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _pageContent.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatRight);
 
             [_pageContent.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];
             [_pageContent.defaultStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
 
-            _footer.defaultPositionStorage.position = @(IUPositionTypeRelative);
+            _footer.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
             _footer.defaultPositionStorage.secondPosition = @(IUSecondPositionTypeFloatLeft);
 
             [_footer.defaultStyleStorage setWidth:@(85) unit:@(IUFrameUnitPercent)];

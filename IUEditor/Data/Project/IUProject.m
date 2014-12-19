@@ -357,12 +357,12 @@
             firstBox = box;
         }
         [content addIU:box error:nil];
-        [box.currentPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+        [box.currentPositionStorage setFirstPosition:@(IUFirstPositionTypeAbsolute)];
         [box.currentPositionStorage setX:@(i*3) unit:@(IUFrameUnitPixel)];
         [box.currentPositionStorage setY:@(i*3) unit:@(IUFrameUnitPixel)];
         [box.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPixel)];
         [box.currentStyleStorage setHeight:@(100) unit:@(IUFrameUnitPixel)];
-        [box.currentStyleStorage setBgColor:[NSColor randomColor]];
+        [box.currentStyleStorage setBgColor1:[NSColor randomColor]];
     }
     [JDLogUtil timeLogEnd:@"setStressMode"];
     
@@ -471,9 +471,8 @@
 
     for (IUSheet *sheet in self.allSheets) {
         [sheet connectWithEditor];
+        [sheet setIsConnectedWithEditor];
     }
-    [self setIsConnectedWithEditor];
-    
 }
 
 - (void)setIsConnectedWithEditor{

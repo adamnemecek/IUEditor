@@ -23,7 +23,7 @@
 - (void)encodeWithJDCoder:(JDCoder *)aCoder{
     [super encodeWithJDCoder:aCoder];
     
-    [aCoder encodeObject:_position forKey:@"position"];
+    [aCoder encodeObject:_firstPosition forKey:@"position"];
     [aCoder encodeObject:_xUnit forKey:@"xUnit"];
     [aCoder encodeObject:_yUnit forKey:@"yUnit"];
     [aCoder encodeObject:_x forKey:@"x"];
@@ -34,7 +34,7 @@
     self = [super initWithJDCoder:aDecoder];
     if (self){
         
-        _position = [aDecoder decodeObjectForKey:@"position"];
+        _firstPosition = [aDecoder decodeObjectForKey:@"position"];
         _xUnit = [aDecoder decodeObjectForKey:@"xUnit"];
         _yUnit = [aDecoder decodeObjectForKey:@"yUnit"];
         _x = [aDecoder decodeObjectForKey:@"x"];
@@ -49,7 +49,7 @@
     [copyStorage disableUpdate:JD_CURRENT_FUNCTION];
     
     if(copyStorage){
-        copyStorage.position = _position;
+        copyStorage.firstPosition = _firstPosition;
         copyStorage.xUnit = _xUnit;
         copyStorage.yUnit = _yUnit;
         copyStorage.x = _x;

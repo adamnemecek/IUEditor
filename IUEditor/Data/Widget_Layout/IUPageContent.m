@@ -23,11 +23,10 @@
     self  = [super initWithPreset];
     if(self){
         [self.undoManager disableUndoRegistration];
-        self.defaultStyleStorage.bgColor = [NSColor whiteColor];
+        self.defaultStyleStorage.bgColor1 = [NSColor whiteColor];
         [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
         
         IUSection *section = [[IUSection alloc] initWithPreset];
-        section.defaultStyleStorage.bgColor = nil;
         section.defaultStyleStorage.height = @(720);
         
         [self addIU:section error:nil];
@@ -38,11 +37,10 @@
         titleBox.defaultStyleStorage.fontSize = @(36);
         titleBox.defaultStyleStorage.fontAlign = @(IUAlignCenter);
         titleBox.defaultStyleStorage.fontColor = [NSColor rgbColorRed:179 green:179 blue:179 alpha:1];
-        titleBox.defaultStyleStorage.bgColor = nil;
         titleBox.defaultStyleStorage.fontName = @"Helvetica";
         
         titleBox.defaultPositionStorage.y = @(285);
-        titleBox.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
+        titleBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
 
         titleBox.cascadingPropertyStorage.innerHTML = @"Content Area";
         
@@ -57,11 +55,10 @@
         contentBox.defaultStyleStorage.fontSize = @(18);
         contentBox.defaultStyleStorage.fontAlign = @(IUAlignCenter);
         contentBox.defaultStyleStorage.fontColor = [NSColor rgbColorRed:179 green:179 blue:179 alpha:1];
-        contentBox.defaultStyleStorage.bgColor = nil;
         contentBox.defaultStyleStorage.fontName = @"Helvetica";
         
         contentBox.defaultPositionStorage.y = @(335);
-        contentBox.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
+        contentBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
         
         contentBox.defaultPropertyStorage.innerHTML = @"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right.";
         

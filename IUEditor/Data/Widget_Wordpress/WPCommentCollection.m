@@ -29,7 +29,7 @@
         
         [self.undoManager disableUndoRegistration];
         
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         [self.defaultStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
         self.defaultStyleStorage.height = nil;
@@ -41,7 +41,7 @@
         
         authorObj.defaultStyleStorage.height = nil;
         authorObj.defaultStyleStorage.width = nil;
-        authorObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        authorObj.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         [self addIU:authorObj error:nil];
         
@@ -50,7 +50,7 @@
         
         dateObj.defaultStyleStorage.height = nil;
         dateObj.defaultStyleStorage.width = nil;
-        dateObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        dateObj.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
 
         [self addIU:dateObj error:nil];
 
@@ -58,7 +58,7 @@
         commentObj.objType = WPCommentObjectTypeContent;
         commentObj.defaultStyleStorage.height = nil;
         commentObj.defaultStyleStorage.width = nil;
-        commentObj.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        commentObj.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         [self addIU:commentObj error:nil];
         

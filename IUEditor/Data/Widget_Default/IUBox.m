@@ -182,7 +182,7 @@
         [self bindStorages];
 
         //setting for css
-        self.defaultPositionStorage.position = @(IUPositionTypeAbsolute);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
         [self.defaultStyleStorage setWidth:@(0) unit:@(IUFrameUnitPixel)];
         [self.defaultStyleStorage setHeight:@(0) unit:@(IUFrameUnitPixel)];
         
@@ -231,7 +231,7 @@
     IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage className]];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
 
-    [self.defaultPositionStorage setPosition:@(IUPositionTypeAbsolute)];
+    [self.defaultPositionStorage setFirstPosition:@(IUFirstPositionTypeAbsolute)];
     [self.defaultPositionStorage setX:nil unit:@(IUFrameUnitPixel)];
     [self.defaultPositionStorage setY:nil unit:@(IUFrameUnitPixel)];
     
@@ -1192,10 +1192,10 @@ e.g. 만약 css로 옮긴다면)
 }
 
 - (BOOL)canChangeVCenter{
-//    if(_positionType == IUPositionTypeAbsolute ||
-//       _positionType == IUPositionTypeFixed){
-    if([self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeAbsolute)]
-       || [self.cascadingPositionStorage.position isEqualToNumber:@(IUPositionTypeFixed)]){
+//    if(_positionType == IUFirstPositionTypeAbsolute ||
+//       _positionType == IUFirstPositionTypeFixed){
+    if([self.cascadingPositionStorage.firstPosition isEqualToNumber:@(IUFirstPositionTypeAbsolute)]
+       || [self.cascadingPositionStorage.firstPosition isEqualToNumber:@(IUFirstPositionTypeFixed)]){
         return YES;
     }
     return NO;
@@ -1209,7 +1209,7 @@ e.g. 만약 css로 옮긴다면)
 
 /*
 
-- (void)setPositionType:(IUPositionType)positionType{
+- (void)setPositionType:(IUFirstPositionType)positionType{
     
     if(_positionType == positionType){
         return;
@@ -1235,18 +1235,18 @@ e.g. 만약 css로 옮긴다면)
     
     BOOL disableVCenterFlag = NO;
     if(positionType == IUPositionTypeFloatLeft || positionType == IUPositionTypeFloatRight
-       || positionType == IUPositionTypeRelative
+       || positionType == IUFirstPositionTypeRelative
        || positionType == IUPositionTypeAbsoluteBottom
        || positionType == IUPositionTypeFixedBottom
        || _positionType == IUPositionTypeFloatLeft
        || _positionType == IUPositionTypeFloatRight
-       || _positionType == IUPositionTypeRelative
+       || _positionType == IUFirstPositionTypeRelative
        || _positionType == IUPositionTypeAbsoluteBottom
        || _positionType == IUPositionTypeFixedBottom){
         
         if( _positionType == IUPositionTypeFloatLeft
            || _positionType == IUPositionTypeFloatRight
-           || _positionType == IUPositionTypeRelative
+           || _positionType == IUFirstPositionTypeRelative
            || _positionType == IUPositionTypeAbsoluteBottom
            || _positionType == IUPositionTypeFixedBottom){
             self.enableVCenter = NO;
@@ -1278,7 +1278,7 @@ e.g. 만약 css로 옮긴다면)
     }
     
     
-    if(_positionType == IUPositionTypeRelative ||
+    if(_positionType == IUFirstPositionTypeRelative ||
        _positionType == IUPositionTypeFloatLeft ||
        _positionType == IUPositionTypeFloatRight){
         //html order

@@ -42,7 +42,6 @@
         self.defaultStyleStorage.width = @(800);
         self.defaultStyleStorage.height = @(40);
         
-        self.defaultStyleStorage.bgColor = nil;
         
         //font
         self.defaultStyleStorage.fontSize = @(12);

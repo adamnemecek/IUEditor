@@ -36,7 +36,6 @@
         
         self.defaultStyleStorage.width = @(300);
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
         
         self.defaultStyleStorage.fontName = @"Helvetica";
         self.defaultStyleStorage.fontSize = @(30);

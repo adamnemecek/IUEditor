@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #import "IUCSSCompiler.h"
+#import "IUCSSBaseCompiler.h"
 
 @interface IUCSSCompiler_Test : XCTestCase
 
@@ -16,12 +17,14 @@
 
 @implementation IUCSSCompiler_Test {
     IUCSSCompiler *compiler;
+    IUCSSBaseCompiler *baseCompiler;
     IUBox *box;
 }
 
 - (void)setUp {
     [super setUp];
     compiler = [[IUCSSCompiler alloc] init];
+    baseCompiler = [[IUCSSBaseCompiler alloc] init];
     box = [[IUBox alloc] init];
     box.htmlID = @"BOX";
 }
@@ -33,16 +36,10 @@
 
 
 - (void)test2_frameCode {
-
-//    box.cssLiveStorage.x = @(30);
-//    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
-
-    box.cascadingPositionStorage.position = @(IUPositionTypeAbsolute);
+    box.cascadingPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
     box.cascadingPositionStorage.x = @(30);
-//    box.cssLiveStorage.x = @(30);
-//    [box.cssLiveStorage setXUnitAndChangeX:@(IUFrameUnitPixel)];
 
-    IUCSSCode *code = [compiler cssCodeForIU:box];
+    IUCSSCode *code = [baseCompiler cssCodeForIU:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssertEqualObjects(dict[@".BOX"], @"left:30px;" );
@@ -72,12 +69,12 @@
 }
 
 - (void)test4_hover{
-    box.cascadingStyleStorage.bgColor = [NSColor blueColor];
-    ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor = [NSColor redColor];
+    box.cascadingStyleStorage.bgColor1 = [NSColor blueColor];
+    ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1 = [NSColor redColor];
     
     
-    XCTAssertEqualObjects(box.cascadingStyleStorage.bgColor, [NSColor blueColor]);
-    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor, [NSColor redColor]);
+    XCTAssertEqualObjects(box.cascadingStyleStorage.bgColor1, [NSColor blueColor]);
+    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1, [NSColor redColor]);
     
     IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
@@ -116,6 +113,16 @@
     
 }
 
+- (void)test6_bgcolor {
+    box.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:1 green:0 blue:0 alpha:1];
+    
+    IUCSSCode *code = [baseCompiler cssCodeForIU:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
+    NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
+    
+    
+    XCTAssert([dict.allKeys containsObject:@".BOX"]);
+    XCTAssert([dict[@".BOX"] containsString:@"background-color"]);
+}
 /*
 
 - (void)test6_bg{
@@ -147,7 +154,7 @@
 }
 
 - (void)test7_position{
-    box.livePositionStorage.position = @(IUPositionTypeAbsolute);
+    box.livePositionStorage.position = @(IUFirstPositionTypeAbsolute);
     box.livePositionStorage.x = @(20);
     box.livePositionStorage.y = @(50);
 
@@ -158,7 +165,7 @@
     XCTAssert([dict.allKeys containsObject:@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"position"]==NO);
     
-    box.livePositionStorage.position = @(IUPositionTypeRelative);
+    box.livePositionStorage.position = @(IUFirstPositionTypeRelative);
     code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
@@ -184,7 +191,7 @@
     XCTAssert([dict[@".BOX"] containsString:@"margin-right"]);
 
 
-    box.livePositionStorage.position = @(IUPositionTypeFixed);
+    box.livePositionStorage.position = @(IUFirstPositionTypeFixed);
     code = [compiler cssCodeForIU:box];
     dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     

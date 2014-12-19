@@ -327,7 +327,6 @@
         [self setProject:document.project];
         [self setResourceRootItem:document.resourceRootItem];
     }
-    
 }
 
 /**

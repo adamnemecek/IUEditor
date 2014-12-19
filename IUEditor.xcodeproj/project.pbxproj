@@ -28,6 +28,8 @@
 		097DFEFB1A2F3E60004C1EAE /* IUDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 097DFEFA1A2F3E60004C1EAE /* IUDefinition.m */; };
 		097FD73F1A11A182008931A0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2EF38819F7528500BBBAE5 /* WebKit.framework */; };
 		09890A261A25B4C30015AF9A /* IUFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09890A251A25B4C30015AF9A /* IUFileItem.m */; };
+		09BB507E1A41D7CD001A3706 /* IUCSSBaseCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BB507D1A41D7CD001A3706 /* IUCSSBaseCompiler.m */; };
+		09C860891A2C7443001C0A53 /* BBWidgetCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */; };
 		09C8608A1A2C7443001C0A53 /* BBWidgetIconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */; };
 		09C8608F1A2C754E001C0A53 /* BBWidgetLibraryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */; };
 		09C860921A2C771D001C0A53 /* BBWidgetLibraryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09C860911A2C771D001C0A53 /* BBWidgetLibraryVC.xib */; };
@@ -858,6 +860,13 @@
 		09890A251A25B4C30015AF9A /* IUFileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUFileItem.m; path = Data/Project/IUFileItem.m; sourceTree = "<group>"; };
 		099128901A0763FA0041DEAC /* IUCSSCompiler_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUCSSCompiler_Test.m; sourceTree = "<group>"; };
 		099128921A0764270041DEAC /* JDCoder+IUProject_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JDCoder+IUProject_Test.m"; sourceTree = "<group>"; };
+                09BB507C1A41D7CD001A3706 /* IUCSSBaseCompiler.h */ = {isa =
+                PBXFileReference; fileEncoding = 4; lastKnownFileType =
+                sourcecode.c.h; name = IUCSSBaseCompiler.h; path =
+                Control/Compiler/IUCSSBaseCompiler.h; sourceTree = "<group>";
+                };
+		09BB507D1A41D7CD001A3706 /* IUCSSBaseCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUCSSBaseCompiler.m; path = Control/Compiler/IUCSSBaseCompiler.m; sourceTree = "<group>"; };
+		09C860861A2C7443001C0A53 /* BBWidgetCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWidgetCellView.xib; path = UI/View_Widget/BBWidgetCellView.xib; sourceTree = "<group>"; };
 		09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBWidgetIconView.xib; path = UI/View_Widget/BBWidgetIconView.xib; sourceTree = "<group>"; };
 		09C8608C1A2C754E001C0A53 /* BBWidgetLibraryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBWidgetLibraryVC.h; path = UI/View_Widget/BBWidgetLibraryVC.h; sourceTree = "<group>"; };
 		09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBWidgetLibraryVC.m; path = UI/View_Widget/BBWidgetLibraryVC.m; sourceTree = "<group>"; };
@@ -2164,6 +2173,8 @@
 				3D2EF3EC19F780E000BBBAE5 /* IUCompiler.m */,
 				3D2EF3ED19F780E000BBBAE5 /* IUCSSCompiler.h */,
 				3D2EF3EE19F780E000BBBAE5 /* IUCSSCompiler.m */,
+				09BB507C1A41D7CD001A3706 /* IUCSSBaseCompiler.h */,
+				09BB507D1A41D7CD001A3706 /* IUCSSBaseCompiler.m */,
 				3D2EF3EF19F780E000BBBAE5 /* IUEventVariable.h */,
 				3D2EF3F019F780E000BBBAE5 /* IUEventVariable.m */,
 				3D2EF3F119F780E000BBBAE5 /* IUHTMLCompiler.h */,
@@ -4847,6 +4858,7 @@
 				3D2EF70C19F784D600BBBAE5 /* LMResourceVC.m in Sources */,
 				3D2EF58F19F782C700BBBAE5 /* LMStartTemplateVC.m in Sources */,
 				3D2EFC4F19F788BA00BBBAE5 /* JDFileUtil.m in Sources */,
+				09BB507E1A41D7CD001A3706 /* IUCSSBaseCompiler.m in Sources */,
 				3D2EF51819F781FB00BBBAE5 /* WPCommentObject.m in Sources */,
 				3D082F911A306C3D00B653B1 /* BBPageStructureVC.m in Sources */,
 				3D2EF5AD19F7830100BBBAE5 /* LMHelpLargeVideoPopoverVC.m in Sources */,

@@ -13,10 +13,9 @@
 - (id)initWithPreset{
     self = [super initWithPreset];
     if(self){
-        self.defaultPositionStorage.position = @(IUPositionTypeRelative);
+        self.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeRelative);
         
         self.defaultStyleStorage.height = nil;
-        self.defaultStyleStorage.bgColor = nil;
     }
 
     return self;

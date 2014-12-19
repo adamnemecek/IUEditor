@@ -79,7 +79,7 @@
     [self outlet:_horizontalCenterButton bind:NSValueBinding property:@"enableHCenter"];
     
     //bg color
-    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
+    [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
     
     //text binding
     [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
@@ -182,7 +182,7 @@
 
 - (IBAction)clickNilBgColorButton:(id)sender {
     [self.cascadingStyleStorage beginTransaction:self];
-    self.cascadingStyleStorage.bgColor = nil;
+    self.cascadingStyleStorage.bgColor1 = nil;
     [self.cascadingStyleStorage commitTransaction:self];
 }
 
