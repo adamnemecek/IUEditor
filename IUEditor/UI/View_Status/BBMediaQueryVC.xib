@@ -4,7 +4,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
+            <connections>
+                <outlet property="mediaQueryPopupButton" destination="PgM-MX-wCM" id="lRF-RL-o8U"/>
+                <outlet property="view" destination="QI1-SK-e60" id="DTX-z2-5B2"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="lEs-hA-8Q8" userLabel="MediaQuerySetting">
@@ -209,7 +214,7 @@
                                 <rect key="frame" x="-1" y="-1" width="50" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" id="G7n-la-dUb">
-                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -251,11 +256,77 @@
             </subviews>
             <point key="canvasLocation" x="559" y="346"/>
         </customView>
+        <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="QI1-SK-e60" userLabel="Mediaquery">
+            <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView">
+                <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ClX-b0-31M">
+                        <rect key="frame" x="17" y="2" width="25" height="38"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <contentFilters>
+                            <ciFilter name="CIFalseColor">
+                                <configuration>
+                                    <ciColor key="inputColor0" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                    <ciColor key="inputColor1" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_mediaquery" id="JOG-UN-8MN"/>
+                    </imageView>
+                    <popUpButton id="PgM-MX-wCM">
+                        <rect key="frame" x="38" y="2" width="70" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="E6b-sy-9Iu">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="titleBar" size="12"/>
+                            <menu key="menu" id="69f-kS-N5o">
+                                <items>
+                                    <menuItem title="960 px" id="YDL-7l-bXT"/>
+                                    <menuItem title="768 px" id="4Tf-mq-Aje"/>
+                                    <menuItem title="320 px" id="Evm-ko-aOm"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <button id="7RT-10-CU0">
+                        <rect key="frame" x="107" y="2" width="30" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <contentFilters>
+                            <ciFilter name="CIColorInvert">
+                                <configuration>
+                                    <null key="inputImage"/>
+                                </configuration>
+                            </ciFilter>
+                        </contentFilters>
+                        <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSActionTemplate" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="wtL-I8-f2Y">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                </subviews>
+            </view>
+            <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="1235" y="265"/>
+        </box>
     </objects>
     <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="btn_close" width="10" height="10"/>
+        <image name="ic_mediaquery" width="25" height="13"/>
         <image name="mq_desktop" width="120" height="120"/>
         <image name="mq_mobile" width="120" height="120"/>
         <image name="mq_tablet" width="120" height="120"/>
