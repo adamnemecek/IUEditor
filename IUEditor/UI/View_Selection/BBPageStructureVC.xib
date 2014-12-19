@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPageStructureVC">
@@ -27,8 +27,8 @@
                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" outlineTableColumn="kgG-ue-9Je" id="50O-Vm-YUR">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <tableViewGridLines key="gridStyleMask" dashed="YES"/>
-                                <color key="gridColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                <color key="gridColor" red="1" green="1" blue="1" alpha="0.050000000000000003" colorSpace="calibratedRGB"/>
                                 <tableColumns>
                                     <tableColumn width="241" minWidth="16" maxWidth="1000" id="kgG-ue-9Je">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -208,12 +208,12 @@
                                                                                                     <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="AQL-Xm-TA0" name="argument" keyPath="self.clickButton" id="Xtv-i3-6H3">
+                                                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="1dg-wf-Meb" id="0wv-pa-UIJ">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
                                                                                                 </dictionary>
                                                                                             </binding>
-                                                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="1dg-wf-Meb" id="0wv-pa-UIJ">
+                                                                                            <binding destination="AQL-Xm-TA0" name="argument" keyPath="self.clickButton" id="Xtv-i3-6H3">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>
                                                                                                 </dictionary>
