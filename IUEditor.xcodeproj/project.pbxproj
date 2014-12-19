@@ -161,10 +161,6 @@
 		3D2EF52C19F7822700BBBAE5 /* IUCSS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF52519F7822700BBBAE5 /* IUCSS.m */; };
 		3D2EF52D19F7822700BBBAE5 /* IUDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF52719F7822700BBBAE5 /* IUDataStorage.m */; };
 		3D2EF52F19F7822700BBBAE5 /* IUMQData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF52B19F7822700BBBAE5 /* IUMQData.m */; };
-		3D2EF53F19F7828000BBBAE5 /* LMAppWarningWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF53519F7828000BBBAE5 /* LMAppWarningWC.m */; };
-		3D2EF54019F7828000BBBAE5 /* LMAppWarningWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF53619F7828000BBBAE5 /* LMAppWarningWC.xib */; };
-		3D2EF54119F7828000BBBAE5 /* LMCloseWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF53819F7828000BBBAE5 /* LMCloseWC.m */; };
-		3D2EF54219F7828000BBBAE5 /* LMCloseWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF53919F7828000BBBAE5 /* LMCloseWC.xib */; };
 		3D2EF54319F7828000BBBAE5 /* LMWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF53B19F7828000BBBAE5 /* LMWC.m */; };
 		3D2EF54419F7828000BBBAE5 /* LMWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D2EF53C19F7828000BBBAE5 /* LMWC.xib */; };
 		3D2EF54519F7828000BBBAE5 /* LMWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF53E19F7828000BBBAE5 /* LMWindow.m */; };
@@ -1087,12 +1083,6 @@
 		3D2EF52719F7822700BBBAE5 /* IUDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUDataStorage.m; path = Data/IU_Property/IUDataStorage.m; sourceTree = "<group>"; };
 		3D2EF52A19F7822700BBBAE5 /* IUMQData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUMQData.h; path = Data/IU_Property/IUMQData.h; sourceTree = "<group>"; };
 		3D2EF52B19F7822700BBBAE5 /* IUMQData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUMQData.m; path = Data/IU_Property/IUMQData.m; sourceTree = "<group>"; };
-		3D2EF53419F7828000BBBAE5 /* LMAppWarningWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMAppWarningWC.h; path = UI/Window_Main/LMAppWarningWC.h; sourceTree = "<group>"; };
-		3D2EF53519F7828000BBBAE5 /* LMAppWarningWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMAppWarningWC.m; path = UI/Window_Main/LMAppWarningWC.m; sourceTree = "<group>"; };
-		3D2EF53619F7828000BBBAE5 /* LMAppWarningWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMAppWarningWC.xib; path = UI/Window_Main/LMAppWarningWC.xib; sourceTree = "<group>"; };
-		3D2EF53719F7828000BBBAE5 /* LMCloseWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCloseWC.h; path = UI/Window_Main/LMCloseWC.h; sourceTree = "<group>"; };
-		3D2EF53819F7828000BBBAE5 /* LMCloseWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCloseWC.m; path = UI/Window_Main/LMCloseWC.m; sourceTree = "<group>"; };
-		3D2EF53919F7828000BBBAE5 /* LMCloseWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMCloseWC.xib; path = UI/Window_Main/LMCloseWC.xib; sourceTree = "<group>"; };
 		3D2EF53A19F7828000BBBAE5 /* LMWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMWC.h; path = UI/Window_Main/LMWC.h; sourceTree = "<group>"; };
 		3D2EF53B19F7828000BBBAE5 /* LMWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMWC.m; path = UI/Window_Main/LMWC.m; sourceTree = "<group>"; };
 		3D2EF53C19F7828000BBBAE5 /* LMWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMWC.xib; path = UI/Window_Main/LMWC.xib; sourceTree = "<group>"; };
@@ -2401,12 +2391,6 @@
 				3DEE5A411A441E530061886F /* BBStartWarningWC.h */,
 				3DEE5A421A441E530061886F /* BBStartWarningWC.m */,
 				3DEE5A431A441E530061886F /* BBStartWarningWC.xib */,
-				3D2EF53419F7828000BBBAE5 /* LMAppWarningWC.h */,
-				3D2EF53519F7828000BBBAE5 /* LMAppWarningWC.m */,
-				3D2EF53619F7828000BBBAE5 /* LMAppWarningWC.xib */,
-				3D2EF53719F7828000BBBAE5 /* LMCloseWC.h */,
-				3D2EF53819F7828000BBBAE5 /* LMCloseWC.m */,
-				3D2EF53919F7828000BBBAE5 /* LMCloseWC.xib */,
 				3D2EF53A19F7828000BBBAE5 /* LMWC.h */,
 				3D2EF53B19F7828000BBBAE5 /* LMWC.m */,
 				3D2EF53C19F7828000BBBAE5 /* LMWC.xib */,
@@ -4180,7 +4164,6 @@
 				3D2EF7BE19F785E900BBBAE5 /* IUImport.mp4 in Resources */,
 				3D2EFCF219F7976B00BBBAE5 /* image_default.png in Resources */,
 				09C8608A1A2C7443001C0A53 /* BBWidgetIconView.xib in Resources */,
-				3D2EF54219F7828000BBBAE5 /* LMCloseWC.xib in Resources */,
 				3D2EFB4819F786C700BBBAE5 /* CircledStop-128.png in Resources */,
 				3D2EF6C019F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.xib in Resources */,
 				3DE462D219FA4A2600A75567 /* gallery_thumb.png in Resources */,
@@ -4464,7 +4447,6 @@
 				3D2EFB2819F786C700BBBAE5 /* arrow-alt-down.png in Resources */,
 				3D2EF55919F782B800BBBAE5 /* LMNotiMessageWC.xib in Resources */,
 				3DE462B819FA4A2600A75567 /* agency_preview_mobile03.png in Resources */,
-				3D2EF54019F7828000BBBAE5 /* LMAppWarningWC.xib in Resources */,
 				3D2EFB3919F786C700BBBAE5 /* Camera-128.png in Resources */,
 				3DD19C771A316C4800A5198E /* BBQuickWidgetVC.xib in Resources */,
 				3D2EFBA019F786C700BBBAE5 /* question_yellow.png in Resources */,
@@ -4722,7 +4704,6 @@
 				3DC616DD1A41532A00B94A4C /* BBCarouselPropertyVC.m in Sources */,
 				3D2EF62719F7845500BBBAE5 /* GridView.m in Sources */,
 				3D2EFC2019F7888400BBBAE5 /* NSMutableDictionary+IUTag.m in Sources */,
-				3D2EF53F19F7828000BBBAE5 /* LMAppWarningWC.m in Sources */,
 				3D2EF51E19F781FB00BBBAE5 /* WPSidebar.m in Sources */,
 				3D2EFC9D19F788D100BBBAE5 /* CALayer+JDExtension.m in Sources */,
 				3D2EF5CA19F7835B00BBBAE5 /* LMHerokuWC.m in Sources */,
@@ -4836,7 +4817,6 @@
 				3D2EF48C19F781B700BBBAE5 /* IUResponsiveSection.m in Sources */,
 				3D2EFC4D19F788BA00BBBAE5 /* JDDateTimeUtil.m in Sources */,
 				3D2EF50A19F781FB00BBBAE5 /* WPArticle.m in Sources */,
-				3D2EF54119F7828000BBBAE5 /* LMCloseWC.m in Sources */,
 				3D2EF48D19F781B700BBBAE5 /* IUSection.m in Sources */,
 				3D2EF70C19F784D600BBBAE5 /* LMResourceVC.m in Sources */,
 				3D2EF58F19F782C700BBBAE5 /* LMStartTemplateVC.m in Sources */,
