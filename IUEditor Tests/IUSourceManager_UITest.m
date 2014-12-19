@@ -85,7 +85,7 @@ static     IUTestWC *testWC;
     
     //wait for web view's load
     [self waitForExpectationsWithTimeout:2 handler:^(NSError *error) {
-        page.cascadingStyleStorage.bgColor = [NSColor yellowColor];
+        page.cascadingStyleStorage.bgColor1 = [NSColor yellowColor];
         [page updateCSS];
 
     }];
@@ -391,12 +391,12 @@ static     IUTestWC *testWC;
         [section setSourceManager:manager];
         
         IUClass *test = [[IUClass alloc] initWithPreset:IUClassPresetTypeNone];
-        test.defaultStyleStorage.bgColor = [NSColor yellowColor];
+        test.defaultStyleStorage.bgColor1 = [NSColor yellowColor];
         test.defaultStyleStorage.width = @(200);
         test.defaultStyleStorage.height = @(300);
         
         IUBox *child = [[IUBox alloc] initWithPreset];
-        child.defaultStyleStorage.bgColor = [NSColor greenColor];
+        child.defaultStyleStorage.bgColor1 = [NSColor greenColor];
         child.defaultStyleStorage.width = @(100);
         child.defaultStyleStorage.height = @(100);
         
@@ -404,7 +404,7 @@ static     IUTestWC *testWC;
         
         IUCollection *iu = [[IUCollection alloc] initWithPreset];
         [section addIU:iu error:nil];
-        iu.defaultStyleStorage.bgColor = [NSColor redColor];
+        iu.defaultStyleStorage.bgColor1 = [NSColor redColor];
         iu.defaultStyleStorage.width = @(500);
         iu.defaultStyleStorage.height = @(600);
         iu.defaultItemCount = 2;
