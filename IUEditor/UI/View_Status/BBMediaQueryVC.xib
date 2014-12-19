@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
             <connections>
-                <outlet property="mediaQueryPopupButton" destination="PgM-MX-wCM" id="lRF-RL-o8U"/>
+                <outlet property="mediaQueryPopupButton" destination="PgM-MX-wCM" id="NDA-7H-0up"/>
+                <outlet property="mediaQuerySettingPopover" destination="obM-zz-yrB" id="Met-vg-jlA"/>
+                <outlet property="mediaQueryTableView" destination="924-lr-Z1M" id="ZCd-kt-8sV"/>
+                <outlet property="sizeTextField" destination="Ure-rI-j4K" id="0Eh-DW-IjH"/>
                 <outlet property="view" destination="QI1-SK-e60" id="DTX-z2-5B2"/>
             </connections>
         </customObject>
@@ -32,6 +35,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="clickPopoverCloseButton:" target="-2" id="wun-9x-9aX"/>
+                    </connections>
                 </button>
                 <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="aXt-xf-ohf">
                     <rect key="frame" x="-2" y="168" width="202" height="5"/>
@@ -93,7 +99,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="rTi-8R-kSh">
+                                            <tableCellView identifier="pcMediaQueryCell" id="rTi-8R-kSh">
                                                 <rect key="frame" x="0.0" y="2" width="198" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -118,13 +124,25 @@
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <binding destination="rTi-8R-kSh" name="argument" keyPath="objectValue" id="Abi-40-XmT">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="Abi-40-XmT" id="Chy-T5-Yqx">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="qZn-TT-Z4q" id="2oh-7c-xjZ"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView id="v0h-pg-lYZ">
+                                            <tableCellView identifier="tabletMediaQueryCell" id="v0h-pg-lYZ">
                                                 <rect key="frame" x="0.0" y="2" width="198" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -142,12 +160,32 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_tablet" id="7IB-HZ-EKU"/>
                                                     </imageView>
+                                                    <button id="XfX-tj-ucf">
+                                                        <rect key="frame" x="179" y="-5" width="10" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="2Vq-R7-FTs">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <binding destination="v0h-pg-lYZ" name="argument" keyPath="objectValue" id="4MS-5h-B7A">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="4MS-5h-B7A" id="Kgj-Mi-z9T">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="16Z-LP-bh0" id="9N2-FN-IN6"/>
                                                 </connections>
                                             </tableCellView>
-                                            <tableCellView id="lwy-5f-4er">
+                                            <tableCellView identifier="mobileMediaQueryCell" id="lwy-5f-4er">
                                                 <rect key="frame" x="0.0" y="2" width="198" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -165,6 +203,26 @@
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_mobile" id="sTl-Uf-7HH"/>
                                                     </imageView>
+                                                    <button id="D2Z-Cf-Epn">
+                                                        <rect key="frame" x="84" y="-5" width="198" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="suj-2L-Ocz">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <binding destination="lwy-5f-4er" name="argument" keyPath="objectValue" id="MPO-qn-JOp">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="MPO-qn-JOp" id="XfF-vr-aUZ">
+                                                                <dictionary key="options">
+                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                </dictionary>
+                                                            </binding>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <connections>
                                                     <outlet property="textField" destination="cAR-xi-Img" id="zFp-sR-QrZ"/>
@@ -173,6 +231,10 @@
                                         </prototypeCellViews>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="-2" id="g20-na-vbA"/>
+                                    <outlet property="delegate" destination="-2" id="zhU-h0-jPu"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -247,6 +309,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="clickNewSizeButton:" target="-2" id="Ave-VJ-Ub3"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
@@ -277,7 +342,7 @@
                         </contentFilters>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_mediaquery" id="JOG-UN-8MN"/>
                     </imageView>
-                    <popUpButton id="PgM-MX-wCM">
+                    <popUpButton id="PgM-MX-wCM" userLabel="mqSizePopupButton">
                         <rect key="frame" x="38" y="2" width="70" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <contentFilters>
@@ -287,19 +352,22 @@
                                 </configuration>
                             </ciFilter>
                         </contentFilters>
-                        <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="E6b-sy-9Iu">
+                        <popUpButtonCell key="cell" type="square" title="960 px" bezelStyle="shadowlessSquare" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="YDL-7l-bXT" id="E6b-sy-9Iu">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="titleBar" size="12"/>
                             <menu key="menu" id="69f-kS-N5o">
                                 <items>
-                                    <menuItem title="960 px" id="YDL-7l-bXT"/>
+                                    <menuItem title="960 px" state="on" id="YDL-7l-bXT"/>
                                     <menuItem title="768 px" id="4Tf-mq-Aje"/>
                                     <menuItem title="320 px" id="Evm-ko-aOm"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <connections>
+                            <action selector="clickMediaQueryPopupButton:" target="-2" id="fUf-U6-pRr"/>
+                        </connections>
                     </popUpButton>
-                    <button id="7RT-10-CU0">
+                    <button id="7RT-10-CU0" userLabel="setting Button">
                         <rect key="frame" x="107" y="2" width="30" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <contentFilters>
@@ -313,6 +381,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="clickMediaQuerySettingButton:" target="-2" id="oV8-gw-Yc4"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
@@ -320,6 +391,17 @@
             <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
             <point key="canvasLocation" x="1235" y="265"/>
         </box>
+        <viewController id="90n-Sm-8H4" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="lEs-hA-8Q8" id="ydP-KA-wOU"/>
+            </connections>
+        </viewController>
+        <popover id="obM-zz-yrB">
+            <connections>
+                <outlet property="contentViewController" destination="90n-Sm-8H4" id="bNa-sj-oMx"/>
+            </connections>
+        </popover>
+        <userDefaultsController representsSharedInstance="YES" id="Hvg-Em-uYI"/>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>

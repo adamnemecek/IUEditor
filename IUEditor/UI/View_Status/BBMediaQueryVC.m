@@ -13,6 +13,12 @@
 
 @property (weak) IBOutlet NSPopUpButton *mediaQueryPopupButton;
 
+/* media query popover view outlet */
+@property (strong) IBOutlet NSPopover *mediaQuerySettingPopover;
+@property (weak) IBOutlet NSTextField *sizeTextField;
+@property (weak) IBOutlet NSTableView *mediaQueryTableView;
+
+
 @end
 
 @implementation BBMediaQueryVC{
@@ -21,8 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
  
+    [_mediaQueryPopupButton bind:NSContentBinding toObject:self withKeyPath:@"project.mqSizes" options:IUBindingDictNotRaisesApplicable];
+
 }
 
 - (void)dealloc{
@@ -31,8 +38,6 @@
 
 - (void)setProject:(IUProject *)project{
     _project = project;
- 
-    //[_mediaQueryPopupButton bind:NSContentBinding toObject:self.project withKeyPath:@"mqSizes" options:IUBindingDictNotRaisesApplicable];
     
     //init with mediaquery
     [self selectMediaQueryWidth:_project.maxViewPort];
@@ -68,8 +73,70 @@
 }
 
 
+#pragma mark - Popover View Control
+
 - (IBAction)clickMediaQuerySettingButton:(id)sender {
+    if([_mediaQuerySettingPopover isShown]){
+        [_mediaQuerySettingPopover close];
+    }
+    else{
+        [_mediaQueryTableView reloadData];
+        [_mediaQuerySettingPopover showRelativeToRect:[self.view frame] ofView:self.view preferredEdge:NSMinYEdge];
+    }
+}
+
+
+- (IBAction)clickPopoverCloseButton:(id)sender {
+    if([_mediaQuerySettingPopover isShown]){
+        [_mediaQuerySettingPopover close];
+    }
+}
+- (IBAction)clickNewSizeButton:(id)sender {
+    NSInteger size = [_sizeTextField integerValue];
+    if([_project.mqSizes containsObject:@(size)] == NO){
+        
+        
+        NSInteger oldMaxSize = [[_project.mqSizes firstObject] integerValue];
+        NSInteger maxSize = size > oldMaxSize ? size : oldMaxSize;
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQAdded object:self.view.window
+                                                          userInfo:@{IUNotificationMQSize:@(size),
+                                                                     IUNotificationMQOldMaxSize:@(oldMaxSize),
+                                                                     IUNotificationMQMaxSize:@(maxSize)}];
+        [_mediaQueryTableView reloadData];
+
+    }
+}
+
+- (IBAction)clickRemoveSizeButton:(id)sender forSize:(NSNumber *)size{
+    NSInteger oldMaxSize = [[_project.mqSizes firstObject] integerValue];
+    NSInteger maxSize = [size integerValue] == oldMaxSize ? [[_project.mqSizes objectAtIndex:1] integerValue] : oldMaxSize;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationMQRemoved object:self userInfo:@{IUNotificationMQSize:size, IUNotificationMQMaxSize:@(maxSize)}];
+    [_mediaQueryTableView reloadData];
+
+}
+
+#pragma mark - Manage Popover Table View
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{
+    return _project.mqSizes.count;
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
+    NSInteger mqSize = [[_project.mqSizes objectAtIndex:row] integerValue];
+    NSTableCellView *cell;
+    if(mqSize < IUMobileSize){
+        cell = [tableView makeViewWithIdentifier:@"mobileMediaQueryCell" owner:self];
+    }
+    else if (mqSize < IUTabletSize){
+        cell = [tableView makeViewWithIdentifier:@"tabletMediaQueryCell" owner:self];
+    }
+    else{//pc Size
+        cell = [tableView makeViewWithIdentifier:@"pcMediaQueryCell" owner:self];
+    }
+    [cell.textField setStringValue:[NSString stringWithFormat:@"%ld px", mqSize]];
+    cell.objectValue = @(mqSize);
+    
+    return cell;
 }
 
 @end

@@ -278,7 +278,7 @@
     //project
     [_sourceManager setProject:_project];
     
-    //[_topToolBarVC setProject:_project];
+    [_topToolBarVC setProject:_project];
     [_actionPropertyVC setProject:_project];
     [_widgetPropertyVC setProject:_project];
     
