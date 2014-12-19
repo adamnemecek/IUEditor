@@ -2697,19 +2697,11 @@
 		3D2EF5FA19F783DF00BBBAE5 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				3DEE5A4C1A4428120061886F /* Old */,
 				09C860871A2C7443001C0A53 /* BBWidgetIconView.xib */,
 				09C8608C1A2C754E001C0A53 /* BBWidgetLibraryVC.h */,
 				09C8608D1A2C754E001C0A53 /* BBWidgetLibraryVC.m */,
 				09C860911A2C771D001C0A53 /* BBWidgetLibraryVC.xib */,
-				3D2EF70119F784D600BBBAE5 /* LMClipArtVC.h */,
-				3D2EF70219F784D600BBBAE5 /* LMClipArtVC.m */,
-				3D2EF70319F784D600BBBAE5 /* LMClipArtVC.xib */,
-				3D2EF70419F784D600BBBAE5 /* LMResourceVC.h */,
-				3D2EF70519F784D600BBBAE5 /* LMResourceVC.m */,
-				3D2EF70619F784D600BBBAE5 /* LMResourceVC.xib */,
-				3D2EF70719F784D600BBBAE5 /* LMWidgetLibraryVC.h */,
-				3D2EF70819F784D600BBBAE5 /* LMWidgetLibraryVC.m */,
-				3D2EF70919F784D600BBBAE5 /* LMWidgetLibraryVC.xib */,
 				3DD19CC81A35A2FE00A5198E /* BBResourceLibraryVC.h */,
 				3DD19CC91A35A2FE00A5198E /* BBResourceLibraryVC.m */,
 				3DD19CCA1A35A2FE00A5198E /* BBResourceLibraryVC.xib */,
@@ -3930,6 +3922,22 @@
 				3D2EF71319F784E300BBBAE5 /* LMCommandVC.h */,
 				3D2EF71419F784E300BBBAE5 /* LMCommandVC.m */,
 				3D2EF71519F784E300BBBAE5 /* LMCommandVC.xib */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+		3DEE5A4C1A4428120061886F /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				3D2EF70119F784D600BBBAE5 /* LMClipArtVC.h */,
+				3D2EF70219F784D600BBBAE5 /* LMClipArtVC.m */,
+				3D2EF70319F784D600BBBAE5 /* LMClipArtVC.xib */,
+				3D2EF70419F784D600BBBAE5 /* LMResourceVC.h */,
+				3D2EF70519F784D600BBBAE5 /* LMResourceVC.m */,
+				3D2EF70619F784D600BBBAE5 /* LMResourceVC.xib */,
+				3D2EF70719F784D600BBBAE5 /* LMWidgetLibraryVC.h */,
+				3D2EF70819F784D600BBBAE5 /* LMWidgetLibraryVC.m */,
+				3D2EF70919F784D600BBBAE5 /* LMWidgetLibraryVC.xib */,
 			);
 			name = Old;
 			sourceTree = "<group>";

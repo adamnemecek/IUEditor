@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBQuickWidgetVC">
             <connections>
+                <outlet property="fifthWidgetButton" destination="NSi-L8-3uB" id="NKY-CS-t0c"/>
+                <outlet property="firstWidgetButton" destination="cPa-6w-mFG" id="RWz-ZH-Ct0"/>
+                <outlet property="forthWidgetButton" destination="pvZ-Ek-oQ9" id="ksa-S9-19e"/>
+                <outlet property="secondWidgetButton" destination="cFp-gA-sjf" id="kdD-il-VeG"/>
+                <outlet property="thirdWidgetButton" destination="3VX-fo-zoa" id="Mby-lf-KRQ"/>
                 <outlet property="view" destination="9AW-Qk-04A" id="WQr-j0-MFt"/>
             </connections>
         </customObject>
@@ -34,6 +39,9 @@
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewIUBoxButton:" target="-2" id="ZLL-HL-TGh"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -61,6 +69,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewIUBoxButton:" target="-2" id="Nig-Hp-xwZ"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -88,6 +99,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewIUBoxButton:" target="-2" id="b61-Ry-CBe"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -116,6 +130,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewIUBoxButton:" target="-2" id="p5J-9I-HcQ"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -143,6 +160,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewIUBoxButton:" target="-2" id="HPf-rj-HN3"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -170,6 +190,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewSectionButton:" target="-2" id="Fvb-xI-tHx"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -198,6 +221,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewPageButton:" target="-2" id="YyV-1G-WiS"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -228,6 +254,9 @@
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="clickNewClassButton:" target="-2" id="yjj-8y-Ron"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -275,10 +304,10 @@
         <image name="ic_comp" width="16" height="16"/>
         <image name="ic_page" width="16" height="16"/>
         <image name="ic_section" width="16" height="16"/>
-        <image name="stack_centerbox" width="14" height="10"/>
-        <image name="stack_image" width="14" height="10"/>
-        <image name="stack_text" width="14" height="10"/>
-        <image name="stack_transition" width="14" height="10"/>
-        <image name="stack_view" width="14" height="10"/>
+        <image name="stack_centerbox" width="16" height="16"/>
+        <image name="stack_image" width="16" height="16"/>
+        <image name="stack_text" width="16" height="16"/>
+        <image name="stack_transition" width="16" height="16"/>
+        <image name="stack_view" width="16" height="16"/>
     </resources>
 </document>

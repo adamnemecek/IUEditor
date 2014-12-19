@@ -7,7 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IUSheetController.h"
+#import "IUController.h"
 
 @interface BBQuickWidgetVC : NSViewController
+
+@property (weak) IUSheetController *pageController;
+@property (weak) IUSheetController *classController;
+@property (weak) IUController *iuController;
+
+@property NSArray *quickWidgetsArray;
 
 @end

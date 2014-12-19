@@ -53,7 +53,6 @@
 - (IBAction)clickNewCompositionButton:(id)sender {
     if(self.classController.selectedObjects.count > 0){
         IUClass *newClass = [[IUClass alloc] initWithPreset];
-                
         [self.classController addObject:newClass];
 
     }
