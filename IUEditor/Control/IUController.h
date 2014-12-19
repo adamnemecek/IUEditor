@@ -48,6 +48,12 @@
 - (NSArray *)allHTMLIDsWithIU:(IUBox *)IU;
 - (NSString *)htmlIDForIU:(IUBox *)box withIndexPath:(NSIndexPath *)path;
 
+
+/**
+ @brief remove selected objects
+ */
+- (void)removeSelectedObjects;
+
 @property NSUndoManager *undoManager;
 
 @end

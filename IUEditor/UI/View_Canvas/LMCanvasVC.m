@@ -297,26 +297,7 @@
 }
 
 - (void)removeSelectedIUs{
-    NSMutableArray *alternatedSelection = [NSMutableArray array];
-    NSArray *removeIUs = [self.controller selectedObjects];
-    
-    for(IUBox *box in removeIUs){
-        //selected objects can contain removed object
-        if([alternatedSelection containsObject:box.htmlID]){
-            [alternatedSelection removeObject:box.htmlID];
-        }
-        
-        //add parent or not to be removed objects add to alternated selection
-        if([box canRemoveIUByUserInput]){
-            [alternatedSelection addObject:box.parent.htmlID];
-            [box.parent removeIU:box];
-        }
-        else{
-            [alternatedSelection addObject:box.htmlID];
-        }
-    }
-    
-    [self.controller setSelectedObjectsByIdentifiers:alternatedSelection];
+    [self.controller removeSelectedObjects];
 }
 
 - (IUBox *)tryIUBoxByIdentifier:(NSString *)identifier{

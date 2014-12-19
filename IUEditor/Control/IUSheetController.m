@@ -64,7 +64,24 @@
     else{
         [currentSelection.parentFileItem addFileItem:object];
     }
-    [self rearrangeObjects];
+}
+
+- (void)removeSelectedObjects{
+    NSMutableArray *alternatedSelection = [NSMutableArray array];
+    NSArray *removeSheets = [self selectedObjects];
+    
+    for(id <IUFileItemProtocol>sheet in removeSheets){
+        //selected objects can contain removed object
+        if([alternatedSelection containsObject:sheet]){
+            [alternatedSelection removeObject:sheet];
+        }
+        
+        //add parent to alternated selection
+        [alternatedSelection addObject:sheet.parentFileItem];
+        [sheet.parentFileItem removeFileItem:sheet];
+
+    }
+    [self setSelectedObjects:[alternatedSelection copy]];
 }
 
 - (BOOL)setSelectionIndexPaths:(NSArray *)indexPaths{

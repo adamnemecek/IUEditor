@@ -97,19 +97,25 @@
 
 
 - (void)addFileItem:(id<IUFileItemProtocol>)fileItem{
+    [self willChangeValueForKey:@"childrenFileItems"];
     fileItem.parentFileItem = self;
     [_children addObject:fileItem];
+    [self didChangeValueForKey:@"childrenFileItems"];
 }
 
 - (void)removeFileItem:(id<IUFileItemProtocol>)fileItem{
     NSAssert([_children containsObject:fileItem], @"");
+    [self willChangeValueForKey:@"childrenFileItems"];
     fileItem.parentFileItem = nil;
     [_children removeObject:fileItem];
+    [self didChangeValueForKey:@"childrenFileItems"];
 }
 
 - (void)changeIndex:(IUSheet *)sheet toIndex:(NSUInteger)newIndex{
+    [self willChangeValueForKey:@"childrenFileItems"];
     [_children removeObject:sheet];
     [_children insertObject:sheet atIndex:newIndex];
+    [self didChangeValueForKey:@"childrenFileItems"];
 }
 
 - (id)sheetWithHtmlID:(NSString *)identifier{

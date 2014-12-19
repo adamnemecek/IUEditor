@@ -140,6 +140,10 @@
     [_sectionPopover close];
 }
 
+- (IBAction)clickTrashButton:(id)sender{
+    [self.iuController removeSelectedObjects];
+}
+
 /* debug function */
 #if DEBUG
 - (void)testaddIu:(IUBox *)iu{

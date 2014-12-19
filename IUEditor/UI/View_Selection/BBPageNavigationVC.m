@@ -74,4 +74,8 @@
     }];
 
 }
+
+- (IBAction)clickTrashButton:(id)sender{
+    [self.pageController removeSelectedObjects];
+}
 @end

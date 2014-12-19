@@ -19,5 +19,6 @@
 - (IUSheet *)firstSheet;
 
 - (void)addObject:(id <IUFileItemProtocol>)object;
+- (void)removeSelectedObjects;
 
 @end

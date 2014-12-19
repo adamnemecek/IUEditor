@@ -69,4 +69,8 @@
     }
 }
 
+- (IBAction)clickTrashButton:(id)sender{
+    [self.classController removeSelectedObjects];
+}
+
 @end
