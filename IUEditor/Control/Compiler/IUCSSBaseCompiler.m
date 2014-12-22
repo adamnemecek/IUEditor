@@ -19,10 +19,10 @@
     
     if (target == IUTargetEditor) {
         [code setInsertingViewPort:viewPort];
-        IUPositionStorage *storage = (iu.positionManager.currentViewPort == viewPort) ? iu.positionManager.currentStorage : (IUPositionStorage *)[[iu positionManager] cascadingStorageForViewPort:viewPort];
+        IUPositionStorage *storage = (iu.positionManager.currentViewPort == viewPort) ? iu.positionManager.cascadingStorage : (IUPositionStorage *)[[iu positionManager] cascadingStorageForViewPort:viewPort];
         [self updateCSSPositionCode:code IU:iu storage:storage option:option];
         
-        IUStyleStorage *styleStorage = (iu.positionManager.currentViewPort == viewPort) ? iu.defaultStyleManager.currentStorage : [[iu defaultStyleManager] cascadingStorageForViewPort:viewPort];
+        IUStyleStorage *styleStorage = (iu.positionManager.currentViewPort == viewPort) ? iu.defaultStyleManager.cascadingStorage : [[iu defaultStyleManager] cascadingStorageForViewPort:viewPort];
         [self updateCSSWidthAndHeightCode:code IU:iu storage:styleStorage option:option];
         [self updateCSSAppearanceCode:code styleStorage:styleStorage option:option];
         [self updateCSSBackgroundCode:code target:target storage:styleStorage option:option];

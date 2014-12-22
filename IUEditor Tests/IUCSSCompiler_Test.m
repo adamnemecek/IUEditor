@@ -123,6 +123,22 @@
     XCTAssert([dict.allKeys containsObject:@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"background-color"]);
 }
+
+- (void)test7_viewPort {
+    IUBox *testBox = [[IUBox alloc] init];
+    testBox.htmlID = @"testBox";
+    [testBox setCurrentViewPort:480];
+    testBox.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:1 green:0 blue:0 alpha:1];
+    IUCSSCode *code480 = [baseCompiler cssCodeForIU:testBox target:IUTargetEditor viewPort:480 option:nil];
+    NSDictionary *dict = [code480 stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:480];
+    XCTAssert([dict[@".testBox"] containsString:@"background-color:rgb(255,0,0)"]);
+    
+    [testBox setCurrentViewPort:960];
+    testBox.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:0 green:1 blue:0 alpha:1];
+    IUCSSCode *code960 = [baseCompiler cssCodeForIU:testBox target:IUTargetEditor viewPort:960 option:nil];
+    NSDictionary *dict2 = [code960 stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:960];
+    XCTAssert([dict2[@".testBox"] containsString:@"background-color:rgb(0,255,0)"]);
+}
 /*
 
 - (void)test6_bg{
