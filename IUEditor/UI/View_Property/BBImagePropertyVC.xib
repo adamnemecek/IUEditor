@@ -222,15 +222,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2d-3p-gbA">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E2d-3p-gbA">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
-                    <contentFilters>
-                        <ciFilter name="CIColorInvert">
-                            <configuration>
-                                <null key="inputImage"/>
-                            </configuration>
-                        </ciFilter>
-                    </contentFilters>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -398,15 +391,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-jx-7jC">
-                    <rect key="frame" x="0.0" y="-1" width="241" height="7"/>
-                    <contentFilters>
-                        <ciFilter name="CIColorInvert">
-                            <configuration>
-                                <null key="inputImage"/>
-                            </configuration>
-                        </ciFilter>
-                    </contentFilters>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-jx-7jC">
+                    <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -706,15 +692,8 @@
                     <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.80000000000000004" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-sm-OJw">
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-sm-OJw">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
-                    <contentFilters>
-                        <ciFilter name="CIColorInvert">
-                            <configuration>
-                                <null key="inputImage"/>
-                            </configuration>
-                        </ciFilter>
-                    </contentFilters>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>

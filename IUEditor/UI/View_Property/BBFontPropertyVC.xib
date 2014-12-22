@@ -140,20 +140,13 @@
                         <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7y3-ye-xpp">
-                        <rect key="frame" x="0.0" y="141" width="240" height="4"/>
+                        <rect key="frame" x="0.0" y="141" width="240" height="5"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mSI-Au-w2x" userLabel="ic_Line-Height">
                         <rect key="frame" x="16" y="108" width="20" height="20"/>
-                        <contentFilters>
-                            <ciFilter name="CIColorInvert">
-                                <configuration>
-                                    <null key="inputImage"/>
-                                </configuration>
-                            </ciFilter>
-                        </contentFilters>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_line_height" id="JRt-wY-bAB"/>
                     </imageView>
                     <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="3Rm-6t-Bg6" userLabel="Line-Height">
@@ -186,13 +179,6 @@
                     </box>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enp-LA-lLx" userLabel="ic_Letter-Spacing">
                         <rect key="frame" x="126" y="108" width="20" height="20"/>
-                        <contentFilters>
-                            <ciFilter name="CIColorInvert">
-                                <configuration>
-                                    <null key="inputImage"/>
-                                </configuration>
-                            </ciFilter>
-                        </contentFilters>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ic_letter_spacing" id="7zI-FR-kHg"/>
                     </imageView>
                     <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="k8J-zN-1fW" userLabel="Letter-Spacing">
@@ -342,7 +328,7 @@
                         </cells>
                     </matrix>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="fMP-ZC-dHj">
-                        <rect key="frame" x="0.0" y="-2" width="240" height="4"/>
+                        <rect key="frame" x="0.0" y="-2" width="240" height="5"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
