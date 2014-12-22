@@ -251,7 +251,7 @@
     
     
     //add observers
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:_project];
     
     [self loadFirstPage];
     
@@ -337,7 +337,9 @@
  makeNewDocument : viewDidLoad -> setDocument
  */
 - (void)loadFirstPage{
-    [_pageController setSelectedObject:_pageController.firstSheet];
+    if([self isWindowLoaded]){
+        [_pageController setSelectedObject:_pageController.firstSheet];
+    }
 }
 
 #pragma mark - property Icon
@@ -373,7 +375,7 @@
 
 - (void)changeSheetSelection:(NSNotification *)notification{
     
-    id selectedObject = [notification.userInfo objectForKey:@"selectedObject"];
+    id selectedObject = [notification.userInfo objectForKey:kIUNotificationSheetSelection];
     if ([selectedObject isKindOfClass:[IUSheet class]] ){
         IUSheet *sheet = selectedObject;
         [_iuController setContent:sheet];

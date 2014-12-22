@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetStructureChange:) name:IUNotificationSheetStructureDidChange object:self.view.window];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChange:) name:IUNotificationSelectionDidChange object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetStructureChange:) name:IUNotificationSheetStructureDidChange object:self.project];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChange:) name:IUNotificationSelectionDidChange object:self.project];
     
     [self resetCompositionPopUpButton];
 

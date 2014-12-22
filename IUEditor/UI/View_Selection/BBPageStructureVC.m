@@ -64,7 +64,7 @@
     [_iuOutlineView bind:NSContentBinding toObject:self.iuController withKeyPath:@"arrangedObjects" options:IUBindingDictNotRaisesApplicable];
     [_iuOutlineView bind:NSSelectionIndexPathsBinding toObject:self.iuController withKeyPath:@"selectionIndexPaths" options:IUBindingDictNotRaisesApplicable];
     //add observers
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSheetSelection:) name:IUNotificationSheetSelectionDidChange object:self.iuController.project];
 
     
 }
@@ -96,7 +96,7 @@
  */
 - (void)changeSheetSelection:(NSNotification *)notification{
     
-    id selectedObject = [notification.userInfo objectForKey:@"selectedObject"];
+    id selectedObject = [notification.userInfo objectForKey:kIUNotificationSheetSelection];
     if ([selectedObject isKindOfClass:[IUClass class]] ){
         [_sectionButton setEnabled:NO];
     }

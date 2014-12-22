@@ -34,7 +34,7 @@ static NSString *const kIUFileTabItem = @"kIUFileTabItem";
     
     
     //add observing
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetChanged:) name:IUNotificationSheetSelectionDidChange object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetChanged:) name:IUNotificationSheetSelectionDidChange object:self.pageController.project];
     [self.openedSheetController addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueObservingOptionNew context:@"sheetControllerChange"];
     
 }
@@ -66,7 +66,7 @@ static NSString *const kIUFileTabItem = @"kIUFileTabItem";
 }
 
 - (void)sheetChanged:(NSNotification *)notification{
-    id <IUFileItemProtocol>selectedObject = [notification.userInfo objectForKey:@"selectedObject"];
+    id <IUFileItemProtocol>selectedObject = [notification.userInfo objectForKey:kIUNotificationSheetSelection];
     if([selectedObject isKindOfClass:[IUSheet class]]){
         if([[self.openedSheetController arrangedObjects] containsObject:selectedObject] == NO){
             [self.openedSheetController addObject:selectedObject];

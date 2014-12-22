@@ -64,6 +64,8 @@ extern NSString *const IUProjectModeStress;
 extern NSString *const IUProjectModeNormal;
 
 
+extern NSString const *kIUNotificationSheetSelection;
+
 /******************************
  
  Code decorator

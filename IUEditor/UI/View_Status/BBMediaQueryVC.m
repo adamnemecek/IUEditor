@@ -67,8 +67,9 @@
             [box setCurrentViewPort:_currentSelectedWidth];
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeSelectedViewPortNotification object:self.view.window userInfo:@{IUViewPortKey:@(width), IUMaxViewPortKey:@(maxWidth), IULargerViewPortKey:@(largerWidth), IUOldViewPortKey:@(oldSelectedWidth)} ];
+    if(self.view.window){
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUProjectDidChangeSelectedViewPortNotification object:self.view.window userInfo:@{IUViewPortKey:@(width), IUMaxViewPortKey:@(maxWidth), IULargerViewPortKey:@(largerWidth), IUOldViewPortKey:@(oldSelectedWidth)} ];
+    }
 
 }
 

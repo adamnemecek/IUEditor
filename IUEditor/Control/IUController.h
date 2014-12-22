@@ -54,6 +54,8 @@
  */
 - (void)removeSelectedObjects;
 
+- (IUProject *)project;
+
 @property NSUndoManager *undoManager;
 
 @end

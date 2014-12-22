@@ -8,6 +8,7 @@
 
 #import "IUSheetController.h"
 
+
 @implementation IUSheetController
 
 - (id)initWithSheetGroup:(IUSheetGroup *)sheetGroup{
@@ -18,7 +19,7 @@
         [self setContent:sheetGroup];
         [self setObjectClass:[NSObject class]];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionWillChange object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionWillChange object:self.project];
     }
     return self;
 }
@@ -53,7 +54,7 @@
 
 -(void)setContent:(id)content{
     [super setContent:content];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:self.project];
 }
 
 - (void)addObject:(id <IUFileItemProtocol>)object{
@@ -107,7 +108,7 @@
         isSendNotification = YES;
     }
     if(isSendNotification){
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionWillChange object:self.project userInfo:@{kIUNotificationSheetSelection: [self.selectedObjects firstObject]}];
     }
     
     NSIndexPath *currentIndexPath = [self selectionIndexPath];
@@ -117,7 +118,7 @@
     BOOL result = [super setSelectionIndexPaths:@[indexPath]];
 
     if(isSendNotification){
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self userInfo:@{@"selectedObject": [self.selectedObjects firstObject]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetSelectionDidChange object:self.project userInfo:@{kIUNotificationSheetSelection: [self.selectedObjects firstObject]}];
     }
 
     return result;

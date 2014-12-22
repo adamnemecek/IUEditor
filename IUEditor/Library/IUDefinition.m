@@ -20,3 +20,8 @@ NSString *const IUCompileTypeDjango = @"DJANGO";
 NSString *const IUProjectModeKey = @"projectMode";
 NSString *const IUProjectModeStress = @"stress";
 NSString *const IUProjectModeNormal = @"normal";
+
+//sheet selection
+NSString const *kIUNotificationSheetSelection = @"kUNotificationSheetSelection";
+
+

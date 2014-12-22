@@ -28,6 +28,11 @@
     return self;
 }
 
+- (IUProject *)project{
+    IUSheet *document = [self.content firstObject];
+    return document.project;
+}
+
 - (id)selection{
     if ([self.selectedObjects count] == 1) {
         return [[self selectedObjects] objectAtIndex:0];
@@ -176,7 +181,7 @@
         userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:userInfoDictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self.project userInfo:userInfoDictionary];
 
 
     BOOL result = [super setSelectionIndexPaths:indexPaths];
@@ -187,7 +192,7 @@
     else{
         userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:userInfoDictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self.project userInfo:userInfoDictionary];
 
     return result;
 }
@@ -204,7 +209,7 @@
         userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self userInfo:userInfoDictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionWillChange object:self.project userInfo:userInfoDictionary];
     
     BOOL result = [super setSelectionIndexPath:indexPath];
 
@@ -217,7 +222,7 @@
         userInfoDictionary = @{@"selectedObjects": self.selectedObjects};
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self userInfo:userInfoDictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSelectionDidChange object:self.project userInfo:userInfoDictionary];
     return result;
 }
 

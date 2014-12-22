@@ -99,7 +99,7 @@
 
 - (void)connectWithEditor{
     [super connectWithEditor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:self.project];
     
     if(self.children.count > 0){
         IUCarouselItem *item = self.children[0];

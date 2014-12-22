@@ -112,13 +112,13 @@
 }
 - (void)connectWithEditor{
     [super connectWithEditor];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChanged:) name:IUNotificationSelectionDidChange object:self.project];
 
 }
 
 - (void)dealloc{
     if([self isConnectedWithEditor]){
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:IUNotificationSelectionDidChange object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
     }
 }
 

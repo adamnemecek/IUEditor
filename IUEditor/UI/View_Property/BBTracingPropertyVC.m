@@ -30,7 +30,7 @@
     // Do view setup here.
     
     //add observer
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sheetSelectionChange:) name:IUNotificationSheetSelectionDidChange object:self.pageController.project];
     
     
     //binding
@@ -52,7 +52,7 @@
 
 
 - (void)sheetSelectionChange:(NSNotification *)notification{
-    IUSheet *sheet = [notification.userInfo objectForKey:@"selectedObject"];
+    IUSheet *sheet = [notification.userInfo objectForKey:kIUNotificationSheetSelection];
     self.currentSheet = sheet;
 }
 

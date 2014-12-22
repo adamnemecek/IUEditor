@@ -64,7 +64,7 @@
 - (void)test3_notification{
     expectation = [self expectationWithDescription:@"sheetController"];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUNotificationSheetSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUNotificationSheetSelectionDidChange object:self.pagesController.project];
     
     
     [_pagesController setSelectedObject:[_project.pageGroup.childrenFileItems firstObject]];

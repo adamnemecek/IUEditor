@@ -10,7 +10,6 @@
 #import "IUProject.h"
 #import "IUSheet.h"
 
-
 @interface IUSheetController : NSTreeController
 
 - (id)initWithSheetGroup:(IUSheetGroup *)sheetGroup;

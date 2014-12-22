@@ -92,7 +92,7 @@
     _childrenVCArray = [NSMutableArray array];
     
     //add observer to iuselection 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIUSelection:) name:IUNotificationSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIUSelection:) name:IUNotificationSelectionDidChange object:self.project];
 }
 
 - (void)dealloc{

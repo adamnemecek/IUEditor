@@ -25,7 +25,7 @@
     [_iuPathControl setDoubleAction:@selector(doubleClickIUPathControl:)];
     
     //change path control when iuselection is changed
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChanged:) name:IUNotificationSelectionDidChange object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChanged:) name:IUNotificationSelectionDidChange object:self.iuController.project];
 
 }
 
