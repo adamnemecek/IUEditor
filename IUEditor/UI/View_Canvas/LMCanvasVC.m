@@ -53,6 +53,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUProjectDidChangeMaxViewPortNotification object:self.view.window];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:self.view.window];
+
+    
     
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
                                          @"sheet.ghostX",
