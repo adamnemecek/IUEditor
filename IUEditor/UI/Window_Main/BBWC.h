@@ -40,7 +40,7 @@ typedef enum{
 @property IUSheetController *classController;
 @property IUController *iuController;
 
-IUEditor.xcodeproj/project.pbxproj/**
+/**
  @note project will be retained
  */
 - (void)setProject:(IUProject *)project;
