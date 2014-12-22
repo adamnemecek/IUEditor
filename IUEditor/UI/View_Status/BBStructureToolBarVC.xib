@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBStructureToolBarVC">
@@ -38,7 +38,6 @@
             </view>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="tBR-yh-fKJ" secondAttribute="centerY" id="1H3-Dj-p99"/>
-                <constraint firstAttribute="trailing" secondItem="tBR-yh-fKJ" secondAttribute="trailing" constant="1" id="79z-bc-Nrf"/>
                 <constraint firstItem="tBR-yh-fKJ" firstAttribute="leading" secondItem="jyu-Vg-2Tw" secondAttribute="leading" constant="2" id="rym-wo-L2a"/>
             </constraints>
             <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>

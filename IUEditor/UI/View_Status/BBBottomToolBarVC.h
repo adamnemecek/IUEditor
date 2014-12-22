@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "IUSheetController.h"
 
-@interface BBBottomToolBarVC : NSViewController
+@interface BBBottomToolBarVC : NSViewController <NSCollectionViewDelegate>
 
 @property (weak) IUSheetController *pageController;
 @property (weak) IUSheetController *classController;

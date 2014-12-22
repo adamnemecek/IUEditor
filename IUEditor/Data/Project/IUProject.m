@@ -297,7 +297,6 @@
 
 - (id)initForUntitledDocument{    
     /* initialize at temp directory */
-    [[IUIdentifierManager managerForMainWindow] reset];
     NSDictionary *documentOption = [[IUProjectController sharedDocumentController] newDocumentOption];
     self = [super init];
     _mqSizes = [NSMutableArray arrayWithArray:@[@(IUDefaultViewPort), @320]];

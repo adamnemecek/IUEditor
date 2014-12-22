@@ -6,7 +6,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBBottomToolBarVC">
             <connections>
-                <outlet property="hiddenFileTabButton" destination="qmP-kR-VCd" id="N8C-dP-tQZ"/>
+                <outlet property="fileItemCollectionView" destination="fde-iQ-0Zo" id="MQh-Xs-rhv"/>
+                <outlet property="openedSheetController" destination="edI-uh-ZTz" id="5R8-Fr-H9w"/>
+                <outlet property="showFilesButton" destination="wto-br-rmr" id="eNZ-l3-x7u"/>
                 <outlet property="view" destination="hpV-qb-ztJ" id="3OV-bi-ZHw"/>
                 <outlet property="zoomComboBox" destination="GtZ-BG-DAo" id="6dT-3V-5h1"/>
             </connections>
@@ -20,32 +22,71 @@
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="xuK-SJ-3WR" userLabel="TabView">
                         <rect key="frame" x="0.0" y="-1" width="880" height="24"/>
+                        <subviews>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="M94-dU-oUO">
+                                <rect key="frame" x="0.0" y="0.0" width="880" height="24"/>
+                                <clipView key="contentView" id="8mZ-dZ-Njz">
+                                    <rect key="frame" x="1" y="1" width="248" height="158"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView selectable="YES" maxNumberOfRows="1" id="fde-iQ-0Zo">
+                                            <rect key="frame" x="0.0" y="0.0" width="248" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="primaryBackgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <binding destination="edI-uh-ZTz" name="content" keyPath="arrangedObjects" id="KAj-Td-3a5"/>
+                                                <binding destination="edI-uh-ZTz" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="KAj-Td-3a5" id="ztM-Uk-mpi"/>
+                                                <outlet property="delegate" destination="-2" id="2zk-mk-iV9"/>
+                                                <outlet property="itemPrototype" destination="XTx-Ca-ORm" id="yXP-J4-2mU"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="W8y-4p-y2n">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="D3g-Cd-vHP">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="M94-dU-oUO" secondAttribute="bottom" id="7NZ-4C-Wuk"/>
+                            <constraint firstAttribute="trailing" secondItem="M94-dU-oUO" secondAttribute="trailing" id="DgR-jS-Eol"/>
+                            <constraint firstItem="M94-dU-oUO" firstAttribute="top" secondItem="xuK-SJ-3WR" secondAttribute="top" id="Soo-cd-f3n"/>
+                            <constraint firstItem="M94-dU-oUO" firstAttribute="leading" secondItem="xuK-SJ-3WR" secondAttribute="leading" id="yl1-uS-PN0"/>
                             <constraint firstAttribute="height" constant="24" id="zSK-DM-zEq"/>
                         </constraints>
                     </customView>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="uWe-be-xNL" userLabel="btn_Next">
+                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="uWe-be-xNL" userLabel="btn_Next">
                         <rect key="frame" x="879" y="-1" width="24" height="24"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="22" height="22"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmP-kR-VCd">
-                                    <rect key="frame" x="-1" y="-2" width="24" height="26"/>
-                                    <contentFilters>
-                                        <ciFilter name="CIFalseColor">
-                                            <configuration>
-                                                <ciColor key="inputColor0" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1"/>
-                                                <ciColor key="inputColor1" red="0.0" green="0.0" blue="0.0" alpha="0.0"/>
-                                                <null key="inputImage"/>
-                                            </configuration>
-                                        </ciFilter>
-                                    </contentFilters>
-                                    <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="btn_next" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="V9l-hP-eHd">
+                                <popUpButton wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wto-br-rmr">
+                                    <rect key="frame" x="1" y="0.0" width="19" height="21"/>
+                                    <popUpButtonCell key="cell" type="square" title="Index" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" arrowPosition="noArrow" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="K1J-K6-Zdb" id="bIR-q6-uo3">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
+                                        <menu key="menu" id="EuN-hl-Gfc">
+                                            <items>
+                                                <menuItem title="Index" state="on" onStateImage="btn_next" offStateImage="btn_next" mixedStateImage="btn_next" enabled="NO" id="K1J-K6-Zdb"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="clickShowFilesButton:" target="-2" id="T7h-Yh-RE8"/>
+                                        <binding destination="edI-uh-ZTz" name="contentValues" keyPath="arrangedObjects.name" id="Q5r-is-jwe"/>
+                                    </connections>
+                                </popUpButton>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEW-3L-Xjr">
+                                    <rect key="frame" x="-10" y="-10" width="42" height="42"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="btn_next" id="spv-eE-uVM"/>
+                                </imageView>
                             </subviews>
                         </view>
                         <constraints>
@@ -53,9 +94,9 @@
                             <constraint firstAttribute="height" constant="24" id="hNx-c1-j49"/>
                         </constraints>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" red="0.2156862745" green="0.2156862745" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="QMK-Eq-KVC" userLabel="Zoom">
+                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="QMK-Eq-KVC" userLabel="Zoom">
                         <rect key="frame" x="902" y="-1" width="80" height="24"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="78" height="22"/>
@@ -170,6 +211,9 @@
                                         <color key="textColor" red="0.80392156859999997" green="0.78823529410000004" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <binding destination="XTx-Ca-ORm" name="value" keyPath="self.representedObject.name" id="eNQ-tR-WfF"/>
+                                    </connections>
                                 </textField>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="OGa-95-m6F" userLabel="btn_Close">
                                     <rect key="frame" x="105" y="-1" width="24" height="24"/>
@@ -188,6 +232,18 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="Oze-jd-sGO">
+                                            <dictionary key="options">
+                                                <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="target" keyPath="self" previousBinding="Oze-jd-sGO" id="2Vl-zE-Ng0">
+                                            <dictionary key="options">
+                                                <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -234,6 +290,9 @@
                                         <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
+                                    <connections>
+                                        <binding destination="XTx-Ca-ORm" name="value" keyPath="self.representedObject.name" id="PYr-8p-FYy"/>
+                                    </connections>
                                 </textField>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="BUm-MU-IYw" userLabel="btn_Close">
                                     <rect key="frame" x="105" y="-1" width="24" height="24"/>
@@ -245,6 +304,18 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="nvg-2P-iQh">
+                                            <dictionary key="options">
+                                                <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
+                                            </dictionary>
+                                        </binding>
+                                        <binding destination="-2" name="target" keyPath="self" previousBinding="nvg-2P-iQh" id="Wnu-Pz-ieq">
+                                            <dictionary key="options">
+                                                <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -263,6 +334,13 @@
                         </constraints>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.70196078429999997" green="0.70196078429999997" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <binding destination="XTx-Ca-ORm" name="hidden" keyPath="self.selected" id="PVR-1x-5BR">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
                     </box>
                 </subviews>
             </view>
@@ -288,6 +366,12 @@
                 <real key="inspectorSampleValue" value="100"/>
             </metadata>
         </numberFormatter>
+        <collectionViewItem id="XTx-Ca-ORm">
+            <connections>
+                <outlet property="view" destination="7Kq-Wn-D2N" id="v1o-0y-kZF"/>
+            </connections>
+        </collectionViewItem>
+        <arrayController objectClassName="NSObject" id="edI-uh-ZTz" userLabel="openedSheetController"/>
     </objects>
     <resources>
         <image name="NSRevealFreestandingTemplate" width="14" height="14"/>

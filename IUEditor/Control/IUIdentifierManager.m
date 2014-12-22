@@ -31,6 +31,7 @@ static IUIdentifierManager *identifierForNilWindow;
         IUIdentifierManager *manager = identifierManagerDictionary[@(windowNum)];
         if (manager == nil) {
             manager = [[IUIdentifierManager alloc] init];
+            [identifierForNilWindow moveAllConfirmedToIUIdentifierManager:manager];
             identifierManagerDictionary[@(windowNum)] = manager;
         }
         return manager;
@@ -54,6 +55,14 @@ static IUIdentifierManager *identifierForNilWindow;
 
 
 #pragma mark - new Identifier
+- (void)moveAllConfirmedToIUIdentifierManager:(IUIdentifierManager *)manager{
+
+    [confirmed enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [manager registerIdentifier:key withObject:obj];
+    }];
+    
+    [confirmed removeAllObjects];
+}
 
 - (void)registerObjectRecusively:(id)object withIdentifierKey:(NSString *)identifierKey childrenKey:(NSString *)childrenKey {
     confirmed[[object valueForKey:identifierKey]] = object;

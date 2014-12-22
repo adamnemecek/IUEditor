@@ -200,7 +200,13 @@ static NSString *metaDataIUVersion = @"IUVersion";
     BBWC *wc = [[BBWC alloc] initWithWindowNibName:@"BBWC"];
     [wc setResourceRootItem:_resourceRootItem];
     
-    [self addWindowController:wc];
+    
+    for (IUSheet *sheet in self.project.allSheets) {
+        [[IUIdentifierManager managerForMainWindow] registerObjectRecusively:sheet withIdentifierKey:@"htmlID" childrenKey:@"children"];
+    }
+
+    
+    [super addWindowController:wc];
     
 }
 
@@ -218,9 +224,6 @@ static NSString *metaDataIUVersion = @"IUVersion";
 - (void)showWindows{
     [super showWindows];
     [self showButterflyWindow];
-    for (IUSheet *sheet in self.project.allSheets) {
-        [[IUIdentifierManager managerForMainWindow] registerObjectRecusively:sheet withIdentifierKey:@"htmlID" childrenKey:@"children"];
-    }
 }
 
 - (void)showButterflyWindow{
