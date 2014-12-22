@@ -88,18 +88,6 @@
     [self.cascadingStyleStorage commitTransaction:self];
 }
 
-- (NSSize)getImageSizeAtPath:(NSString *)path{
-    NSString *frameJS = [NSString stringWithFormat:@"getImageSize('%@')", path];
-    id currentValue = [self.jsManager evaluateWebScript:frameJS];
-    NSSize imageSize = NSMakeSize([[currentValue valueForKey:@"width"] floatValue],
-                                   [[currentValue valueForKey:@"height"] floatValue]
-                                   );
-    
-    
-    return imageSize;
-}
-
-
 - (IBAction)clickFitToImageButton:(id)sender {
     
     for(IUBox *box in self.iuController.selectedObjects){
@@ -110,7 +98,7 @@
         else{
             imagePath = box.cascadingStyleStorage.imageName;
         }
-        NSSize currentImageSize = [self getImageSizeAtPath:imagePath];
+        NSSize currentImageSize = [self.jsManager imageSizeAtPath:imagePath];
         [self.cascadingStyleStorage beginTransaction:self];
     
         [self.cascadingStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];

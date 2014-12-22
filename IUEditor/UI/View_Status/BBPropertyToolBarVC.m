@@ -95,33 +95,6 @@
     JDSectionInfoLog(IULogDealloc, @"");
 }
 
-#pragma mark - js
-
-- (NSRect)percentFrameForIU:(IUBox *)iu{
-    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", iu.htmlID];
-    id currentValue = [self.jsManager evaluateWebScript:frameJS];
-    NSRect percentFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
-                                     [[currentValue valueForKey:@"top"] floatValue],
-                                     [[currentValue valueForKey:@"width"] floatValue],
-                                     [[currentValue valueForKey:@"height"] floatValue]
-                                     );
-    
-    
-    return percentFrame;
-}
-
-- (NSRect)pixelFrameForIU:(IUBox *)iu{
-    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", iu.htmlID];
-    id currentValue = [self.jsManager evaluateWebScript:frameJS];
-    NSRect pixelFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
-                                   [[currentValue valueForKey:@"top"] floatValue],
-                                   [[currentValue valueForKey:@"width"] floatValue],
-                                   [[currentValue valueForKey:@"height"] floatValue]
-                                   );
-    
-    
-    return pixelFrame;
-}
 
 #pragma mark - ibaction
 
@@ -131,9 +104,9 @@
     if([clickedUnitButton state] == NSOnState){
         
         for(IUBox *box in self.iuController.selectedObjects){
-            NSRect percentFrame = [self percentFrameForIU:box];
+            NSRect percentFrame = [self.jsManager percentFrameForIdentifier:box.htmlID];
             [box.cascadingPositionStorage beginTransaction:self];
-            [box.cascadingStyleStorage commitTransaction:self];
+            [box.cascadingStyleStorage beginTransaction:self];
 
 
             if([sender isEqualTo:_xUnitButton]){
@@ -156,9 +129,9 @@
     //change from percent to pixel
     else{
         for(IUBox *box in self.iuController.selectedObjects){
-            NSRect pixelFrame = [self pixelFrameForIU:box];
+            NSRect pixelFrame = [self.jsManager pixelFrameForIdentifier:box.htmlID];
             [box.cascadingPositionStorage beginTransaction:self];
-            [box.cascadingStyleStorage commitTransaction:self];
+            [box.cascadingStyleStorage beginTransaction:self];
             
             
             if([sender isEqualTo:_xUnitButton]){

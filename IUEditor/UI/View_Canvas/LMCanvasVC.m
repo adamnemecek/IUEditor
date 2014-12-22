@@ -771,13 +771,8 @@
         style.cssText = css;
     }
 }
-- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
-    return [[self webCanvasView] callWebScriptMethod:function withArguments:args];
-}
 
-- (id)evaluateWebScript:(NSString *)script{
-    return [[self webCanvasView] evaluateWebScript:script];
-}
+
 
 - (void)updateJS{
     [[self webCanvasView] runJSAfterRefreshCSS];
@@ -861,6 +856,50 @@
     NSPoint distance = NSMakePoint(point.x-iuframe.origin.x,
                                    point.y - iuframe.origin.y);
     return distance;
+}
+
+#pragma mark - javascript
+- (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args{
+    return [[self webCanvasView] callWebScriptMethod:function withArguments:args];
+}
+
+- (id)evaluateWebScript:(NSString *)script{
+    return [[self webCanvasView] evaluateWebScript:script];
+}
+
+- (NSRect)pixelFrameForIdentifier:(NSString *)identifier{
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", identifier];
+    id currentValue = [self evaluateWebScript:frameJS];
+    NSRect percentFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                     [[currentValue valueForKey:@"top"] floatValue],
+                                     [[currentValue valueForKey:@"width"] floatValue],
+                                     [[currentValue valueForKey:@"height"] floatValue]
+                                     );
+    
+    
+    return percentFrame;
+}
+- (NSRect)percentFrameForIdentifier:(NSString *)identifier{
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", identifier];
+    id currentValue = [self evaluateWebScript:frameJS];
+    NSRect pixelFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
+                                   [[currentValue valueForKey:@"top"] floatValue],
+                                   [[currentValue valueForKey:@"width"] floatValue],
+                                   [[currentValue valueForKey:@"height"] floatValue]
+                                   );
+    
+    
+    return pixelFrame;
+}
+- (NSSize)imageSizeAtPath:(NSString *)path{
+    NSString *frameJS = [NSString stringWithFormat:@"getImageSize('%@')", path];
+    id currentValue = [self evaluateWebScript:frameJS];
+    NSSize imageSize = NSMakeSize([[currentValue valueForKey:@"width"] floatValue],
+                                  [[currentValue valueForKey:@"height"] floatValue]
+                                  );
+    
+    
+    return imageSize;
 }
 
 

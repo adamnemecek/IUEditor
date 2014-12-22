@@ -15,6 +15,10 @@
 - (id)callWebScriptMethod:(NSString *)function withArguments:(NSArray *)args;
 - (id)evaluateWebScript:(NSString *)script;
 
+- (NSRect)pixelFrameForIdentifier:(NSString *)identifier;
+- (NSRect)percentFrameForIdentifier:(NSString *)identifier;
+- (NSSize)imageSizeAtPath:(NSString *)path;
+
 @end;
 
 #endif
