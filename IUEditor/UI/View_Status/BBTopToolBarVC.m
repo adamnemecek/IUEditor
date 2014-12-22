@@ -60,6 +60,7 @@
     [_commandView addSubviewFullFrame:_commandVC.view];
     [_quickWidgetView addSubviewFullFrame:_quickWidgetVC.view];
     [_mediaQueryView addSubviewFullFrame:_mediaQueryVC.view];
+    
 }
 
 

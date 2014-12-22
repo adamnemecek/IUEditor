@@ -49,9 +49,9 @@
 
 -(void)viewDidLoad{
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUProjectDidChangeSelectedViewPortNotification object:[self.view window]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQSelect:) name:IUProjectDidChangeSelectedViewPortNotification object:self.view.window];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUProjectDidChangeMaxViewPortNotification object:[self.view window]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMQMaxSize:) name:IUProjectDidChangeMaxViewPortNotification object:self.view.window];
     
     
     [self addObserver:self forKeyPaths:@[@"sheet.ghostImageName",
@@ -83,7 +83,7 @@
 
 - (void)setSheet:(IUSheet *)sheet{
     [[self gridView] clearAllLayer];
-    [[self canvasView] loadDefaultZoom];
+//    [[self canvasView] loadDefaultZoom];
     [self updateClassHeight];
     
     _sheet = sheet;

@@ -23,12 +23,14 @@
 
 @implementation BBMediaQueryVC{
     NSInteger _currentSelectedWidth;
+    BOOL _isLoadedMaxViewPort;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
  
     [_mediaQueryPopupButton bind:NSContentBinding toObject:self withKeyPath:@"project.viewPorts" options:IUBindingDictNotRaisesApplicable];
+    [self.view addObserver:self forKeyPath:@"window" options:NSKeyValueObservingOptionNew context:nil];
 
 }
 
@@ -36,11 +38,26 @@
     JDSectionInfoLog(IULogDealloc, @"");
 }
 
+- (void)windowDidChange:(NSDictionary *)change{
+    //window가 붙자마자 media query default select
+    if ([change[@"new"] isKindOfClass:[NSWindow class]]) {
+        [self loadMaxViewPort];
+    }
+}
+
+- (void)loadMaxViewPort{
+    if(_isLoadedMaxViewPort == NO){
+        if([self isViewLoaded] && self.project){
+            _isLoadedMaxViewPort = YES;
+            //init with mediaquery
+            [self selectMediaQueryWidth:_project.maxViewPort];
+        }
+    }
+}
+
 - (void)setProject:(IUProject *)project{
     _project = project;
-    
-    //init with mediaquery
-    [self selectMediaQueryWidth:_project.maxViewPort];
+  
 }
 
 - (IBAction)clickMediaQueryPopupButton:(id)sender {

@@ -12,5 +12,6 @@
 @interface BBMediaQueryVC : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, weak) IUProject *project;
+- (void)loadMaxViewPort;
 
 @end
