@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBWC">
@@ -54,6 +54,12 @@
                         <rect key="frame" x="-1" y="715" width="983" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="5mf-Yc-4CQ"/>
+                        </constraints>
+                    </customView>
+                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="BottomToolBar">
+                        <rect key="frame" x="-1" y="-1" width="983" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
                         </constraints>
                     </customView>
                     <tabView wantsLayer="YES" type="noTabsNoBorder" initialItem="NV3-JK-5Hs" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-Kq-OCR" userLabel="TabView">
@@ -131,12 +137,6 @@
                             <constraint firstAttribute="height" constant="42" id="67v-Ii-5By"/>
                         </constraints>
                     </customView>
-                    <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="goD-BY-82H" userLabel="BottomToolBar">
-                        <rect key="frame" x="-1" y="-1" width="982" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="odU-ls-zJr"/>
-                        </constraints>
-                    </customView>
                     <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EMr-FR-JJZ" userLabel="propertyIcon">
                         <rect key="frame" x="1221" y="-2" width="40" height="741"/>
                         <subviews>
@@ -193,7 +193,7 @@
                     <constraint firstAttribute="bottom" secondItem="hiZ-5m-BMA" secondAttribute="bottom" constant="22" id="q1t-1Y-Hh0"/>
                     <constraint firstAttribute="trailing" secondItem="aNS-8q-0SX" secondAttribute="trailing" constant="-2" id="sfw-YE-hQk"/>
                     <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="hiZ-5m-BMA" secondAttribute="trailing" id="wzS-Jf-2By"/>
-                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="goD-BY-82H" secondAttribute="trailing" id="xB2-Fx-LWO"/>
+                    <constraint firstItem="hEQ-Kq-OCR" firstAttribute="leading" secondItem="goD-BY-82H" secondAttribute="trailing" constant="-1" id="xB2-Fx-LWO"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="691" y="539"/>

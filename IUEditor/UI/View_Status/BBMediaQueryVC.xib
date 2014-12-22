@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBMediaQueryVC">
@@ -72,182 +72,194 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="TfG-EL-GWq">
-                    <rect key="frame" x="0.0" y="30" width="200" height="104"/>
+                <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="BG2-s3-U8G">
+                    <rect key="frame" x="-1" y="30" width="202" height="104"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CAA-q9-nwY">
-                        <rect key="frame" x="1" y="0.0" width="238" height="134"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="200" height="102"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="924-lr-Z1M">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <size key="intercellSpacing" width="0.0" height="4"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
-                                <color key="gridColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
-                                <tableColumns>
-                                    <tableColumn width="198" minWidth="40" maxWidth="1000" id="zPQ-Au-XoQ">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                        </tableHeaderCell>
-                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="IWr-mt-VuL">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                        <prototypeCellViews>
-                                            <tableCellView identifier="pcMediaQueryCell" id="rTi-8R-kSh">
-                                                <rect key="frame" x="0.0" y="2" width="198" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="qZn-TT-Z4q">
-                                                        <rect key="frame" x="32" y="4" width="84" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="960 px" id="cOg-AK-rEk">
-                                                            <font key="font" metaFont="cellTitle"/>
-                                                            <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xaP-5I-C4y">
-                                                        <rect key="frame" x="9" y="1" width="22" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_desktop" id="gft-iP-Hcj"/>
-                                                    </imageView>
-                                                    <button id="eE5-nX-6mA">
-                                                        <rect key="frame" x="179" y="-2" width="10" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="5Wu-bv-3YQ">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <binding destination="rTi-8R-kSh" name="argument" keyPath="objectValue" id="Abi-40-XmT">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="Abi-40-XmT" id="Chy-T5-Yqx">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <connections>
-                                                    <outlet property="textField" destination="qZn-TT-Z4q" id="2oh-7c-xjZ"/>
-                                                </connections>
-                                            </tableCellView>
-                                            <tableCellView identifier="tabletMediaQueryCell" id="v0h-pg-lYZ">
-                                                <rect key="frame" x="0.0" y="2" width="198" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="16Z-LP-bh0">
-                                                        <rect key="frame" x="32" y="4" width="84" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="768 px" id="OJW-TP-hcL">
-                                                            <font key="font" metaFont="cellTitle"/>
-                                                            <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="eq6-Et-c2W">
-                                                        <rect key="frame" x="9" y="1" width="22" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_tablet" id="7IB-HZ-EKU"/>
-                                                    </imageView>
-                                                    <button id="XfX-tj-ucf">
-                                                        <rect key="frame" x="179" y="-5" width="10" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="2Vq-R7-FTs">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <binding destination="v0h-pg-lYZ" name="argument" keyPath="objectValue" id="4MS-5h-B7A">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="4MS-5h-B7A" id="Kgj-Mi-z9T">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <connections>
-                                                    <outlet property="textField" destination="16Z-LP-bh0" id="9N2-FN-IN6"/>
-                                                </connections>
-                                            </tableCellView>
-                                            <tableCellView identifier="mobileMediaQueryCell" id="lwy-5f-4er">
-                                                <rect key="frame" x="0.0" y="2" width="198" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="cAR-xi-Img">
-                                                        <rect key="frame" x="32" y="4" width="84" height="17"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="320 px" id="Vey-g2-72R">
-                                                            <font key="font" metaFont="cellTitle"/>
-                                                            <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="JPv-88-cj0">
-                                                        <rect key="frame" x="9" y="1" width="22" height="22"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_mobile" id="sTl-Uf-7HH"/>
-                                                    </imageView>
-                                                    <button id="D2Z-Cf-Epn">
-                                                        <rect key="frame" x="84" y="-5" width="198" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="suj-2L-Ocz">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <binding destination="lwy-5f-4er" name="argument" keyPath="objectValue" id="MPO-qn-JOp">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                            <binding destination="-2" name="target" keyPath="self" previousBinding="MPO-qn-JOp" id="XfF-vr-aUZ">
-                                                                <dictionary key="options">
-                                                                    <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
-                                                                </dictionary>
-                                                            </binding>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <connections>
-                                                    <outlet property="textField" destination="cAR-xi-Img" id="zFp-sR-QrZ"/>
-                                                </connections>
-                                            </tableCellView>
-                                        </prototypeCellViews>
-                                    </tableColumn>
-                                </tableColumns>
-                                <connections>
-                                    <outlet property="dataSource" destination="-2" id="g20-na-vbA"/>
-                                    <outlet property="delegate" destination="-2" id="zhU-h0-jPu"/>
-                                </connections>
-                            </tableView>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="TfG-EL-GWq">
+                                <rect key="frame" x="0.0" y="-1" width="200" height="104"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CAA-q9-nwY">
+                                    <rect key="frame" x="1" y="0.0" width="238" height="134"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" viewBased="YES" id="924-lr-Z1M">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="0.0" height="4"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                            <color key="gridColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                            <tableColumns>
+                                                <tableColumn width="200" minWidth="40" maxWidth="1000" id="zPQ-Au-XoQ">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="IWr-mt-VuL">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <prototypeCellViews>
+                                                        <tableCellView identifier="pcMediaQueryCell" id="rTi-8R-kSh">
+                                                            <rect key="frame" x="0.0" y="2" width="200" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="qZn-TT-Z4q">
+                                                                    <rect key="frame" x="32" y="3" width="84" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="960 px" id="cOg-AK-rEk">
+                                                                        <font key="font" metaFont="cellTitle"/>
+                                                                        <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xaP-5I-C4y">
+                                                                    <rect key="frame" x="8" y="1" width="22" height="22"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_desktop" id="gft-iP-Hcj"/>
+                                                                </imageView>
+                                                                <button id="eE5-nX-6mA">
+                                                                    <rect key="frame" x="172" y="-3" width="24" height="24"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="5Wu-bv-3YQ">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="rTi-8R-kSh" name="argument" keyPath="objectValue" id="Abi-40-XmT">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                        <binding destination="-2" name="target" keyPath="self" previousBinding="Abi-40-XmT" id="Chy-T5-Yqx">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="qZn-TT-Z4q" id="2oh-7c-xjZ"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                        <tableCellView identifier="tabletMediaQueryCell" id="v0h-pg-lYZ">
+                                                            <rect key="frame" x="0.0" y="28" width="200" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="16Z-LP-bh0">
+                                                                    <rect key="frame" x="32" y="3" width="84" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="768 px" id="OJW-TP-hcL">
+                                                                        <font key="font" metaFont="cellTitle"/>
+                                                                        <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="eq6-Et-c2W">
+                                                                    <rect key="frame" x="8" y="1" width="22" height="22"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_tablet" id="7IB-HZ-EKU"/>
+                                                                </imageView>
+                                                                <button id="XfX-tj-ucf">
+                                                                    <rect key="frame" x="172" y="-1" width="24" height="24"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="2Vq-R7-FTs">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="v0h-pg-lYZ" name="argument" keyPath="objectValue" id="4MS-5h-B7A">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                        <binding destination="-2" name="target" keyPath="self" previousBinding="4MS-5h-B7A" id="Kgj-Mi-z9T">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="16Z-LP-bh0" id="9N2-FN-IN6"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                        <tableCellView identifier="mobileMediaQueryCell" id="lwy-5f-4er">
+                                                            <rect key="frame" x="0.0" y="54" width="200" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="cAR-xi-Img">
+                                                                    <rect key="frame" x="32" y="3" width="84" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="320 px" id="Vey-g2-72R">
+                                                                        <font key="font" metaFont="cellTitle"/>
+                                                                        <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="JPv-88-cj0">
+                                                                    <rect key="frame" x="8" y="1" width="22" height="22"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="mq_mobile" id="sTl-Uf-7HH"/>
+                                                                </imageView>
+                                                                <button id="D2Z-Cf-Epn">
+                                                                    <rect key="frame" x="172" y="-1" width="24" height="24"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="suj-2L-Ocz">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                    <connections>
+                                                                        <binding destination="lwy-5f-4er" name="argument" keyPath="objectValue" id="MPO-qn-JOp">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                        <binding destination="-2" name="target" keyPath="self" previousBinding="MPO-qn-JOp" id="XfF-vr-aUZ">
+                                                                            <dictionary key="options">
+                                                                                <string key="NSSelectorName">clickRemoveSizeButton:forSize:</string>
+                                                                            </dictionary>
+                                                                        </binding>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <connections>
+                                                                <outlet property="textField" destination="cAR-xi-Img" id="zFp-sR-QrZ"/>
+                                                            </connections>
+                                                        </tableCellView>
+                                                    </prototypeCellViews>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-2" id="g20-na-vbA"/>
+                                                <outlet property="delegate" destination="-2" id="zhU-h0-jPu"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="pHp-lS-c6e">
+                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="orz-sj-Eap">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </clipView>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="pHp-lS-c6e">
-                        <rect key="frame" x="1" y="119" width="223" height="15"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="orz-sj-Eap">
-                        <rect key="frame" x="224" y="17" width="15" height="102"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
                 <box autoresizesSubviews="NO" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="b1v-vo-BU8" userLabel="X - px">
                     <rect key="frame" x="94" y="141" width="74" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -406,11 +418,11 @@
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="btn_close" width="10" height="10"/>
+        <image name="btn_remove" width="10" height="10"/>
         <image name="ic_mediaquery" width="25" height="13"/>
-        <image name="mq_desktop" width="120" height="120"/>
-        <image name="mq_mobile" width="120" height="120"/>
-        <image name="mq_tablet" width="120" height="120"/>
+        <image name="mq_desktop" width="16" height="16"/>
+        <image name="mq_mobile" width="16" height="16"/>
+        <image name="mq_tablet" width="16" height="16"/>
     </resources>
 </document>

@@ -3,16 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "mq_tablet.png"
+      "filename" : "ic_heroku_dark.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "mq_tablet@2x.png"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "ic_heroku_dark@2x.png"
     }
   ],
   "info" : {

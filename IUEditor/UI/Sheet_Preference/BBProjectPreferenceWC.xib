@@ -13,21 +13,21 @@
         <window title="Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="1VU-9H-mk7">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="283" y="305" width="540" height="440"/>
+            <rect key="contentRect" x="283" y="305" width="540" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="By5-gw-Qny">
-                <rect key="frame" x="0.0" y="8" width="540" height="440"/>
+                <rect key="frame" x="0.0" y="6" width="540" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="19O-wf-27F" userLabel="Title">
-                        <rect key="frame" x="-1" y="410" width="542" height="30"/>
+                    <box autoresizesSubviews="NO" borderWidth="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" id="19O-wf-27F" userLabel="Title">
+                        <rect key="frame" x="-2" y="411" width="544" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="540" height="28"/>
+                            <rect key="frame" x="2" y="2" width="540" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="lJf-km-f5r">
-                                    <rect key="frame" x="7" y="6" width="123" height="17"/>
+                                    <rect key="frame" x="10" y="10" width="123" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="PROJECT SETTING" id="eMj-8f-ZUR">
                                         <font key="font" metaFont="systemBold" size="12"/>
@@ -41,7 +41,7 @@
                         <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="HoH-pT-SkI">
-                        <rect key="frame" x="0.0" y="40" width="541" height="370"/>
+                        <rect key="frame" x="0.0" y="40" width="541" height="371"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="NdZ-zZ-ALv">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
@@ -181,7 +181,7 @@
                     </box>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="456" y="236"/>
+            <point key="canvasLocation" x="456" y="241"/>
         </window>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>

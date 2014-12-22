@@ -18,20 +18,20 @@
         <window title="Page" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="UUZ-26-c9w">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="283" y="306" width="540" height="450"/>
+            <rect key="contentRect" x="283" y="306" width="540" height="460"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="4GK-bg-pPw">
-                <rect key="frame" x="0.0" y="-1" width="540" height="450"/>
+                <rect key="frame" x="0.0" y="0.0" width="540" height="460"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ear-2L-M6p" userLabel="Title">
-                        <rect key="frame" x="0.0" y="420" width="540" height="30"/>
+                    <box autoresizesSubviews="NO" fixedFrame="YES" borderWidth="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ear-2L-M6p" userLabel="Title">
+                        <rect key="frame" x="-2" y="421" width="544" height="40"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="538" height="28"/>
+                            <rect key="frame" x="2" y="2" width="540" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="puG-dh-XkG">
-                                    <rect key="frame" x="7" y="6" width="123" height="17"/>
+                                    <rect key="frame" x="10" y="10" width="123" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="PAGE SETTING" id="djz-hd-Mv2">
                                         <font key="font" metaFont="systemBold" size="12"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,13 +115,13 @@
                         <color key="fillColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                     </box>
                     <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="01A-0q-iWh" userLabel="Preference">
-                        <rect key="frame" x="0.0" y="40" width="540" height="380"/>
+                        <rect key="frame" x="0.0" y="40" width="540" height="381"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="538" height="378"/>
+                            <rect key="frame" x="1" y="1" width="538" height="379"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cz-UG-8zN">
-                                    <rect key="frame" x="23" y="341" width="62" height="17"/>
+                                    <rect key="frame" x="23" y="342" width="62" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Page Title" id="MIv-8b-05Q">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -129,7 +129,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="APs-NX-2wY" userLabel="- Text Field">
-                                    <rect key="frame" x="25" y="311" width="490" height="22"/>
+                                    <rect key="frame" x="25" y="312" width="490" height="22"/>
                                     <view key="contentView">
                                         <rect key="frame" x="1" y="1" width="488" height="20"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,7 +157,7 @@
                                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHj-lU-DKn">
-                                    <rect key="frame" x="23" y="278" width="61" height="17"/>
+                                    <rect key="frame" x="23" y="279" width="61" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Keywords" id="dae-1s-fhR">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -165,7 +165,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8g6-Ha-NDn" userLabel="- Text Field">
-                                    <rect key="frame" x="25" y="248" width="490" height="22"/>
+                                    <rect key="frame" x="25" y="249" width="490" height="22"/>
                                     <view key="contentView">
                                         <rect key="frame" x="1" y="1" width="488" height="20"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,7 +184,7 @@
                                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Qs-Oe-yLV">
-                                    <rect key="frame" x="23" y="215" width="70" height="17"/>
+                                    <rect key="frame" x="23" y="216" width="70" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="ayD-MS-3QM">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -192,7 +192,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="XgS-wi-ge4" userLabel="- Text Field">
-                                    <rect key="frame" x="25" y="185" width="490" height="22"/>
+                                    <rect key="frame" x="25" y="186" width="490" height="22"/>
                                     <view key="contentView">
                                         <rect key="frame" x="1" y="1" width="488" height="20"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -220,7 +220,7 @@
                                     <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </box>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yWO-6v-PDz">
-                                    <rect key="frame" x="23" y="152" width="188" height="17"/>
+                                    <rect key="frame" x="23" y="153" width="188" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Google Analytics Tracking Code" id="XWK-ce-P7o">
                                         <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
@@ -228,7 +228,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <scrollView fixedFrame="YES" borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAS-mQ-Pum" userLabel="- Text View">
-                                    <rect key="frame" x="25" y="25" width="490" height="120"/>
+                                    <rect key="frame" x="25" y="26" width="490" height="120"/>
                                     <clipView key="contentView" ambiguous="YES" misplaced="YES" id="OV2-kt-JQi">
                                         <rect key="frame" x="1" y="1" width="223" height="133"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -262,7 +262,7 @@
                     </box>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="166" y="601"/>
+            <point key="canvasLocation" x="166" y="604.5"/>
         </window>
     </objects>
 </document>
