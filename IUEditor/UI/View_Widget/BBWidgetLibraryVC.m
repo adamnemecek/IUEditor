@@ -35,7 +35,9 @@
     [self reloadWidgets];
     
     //add observer
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deselectCurrentWidget:) name:IUNotificationNewIUCreatedByCanvas object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectWidget:) name:IUNotificationNewIUCreatedByCanvas object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectWidget:) name:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window];
+
 
 }
 
@@ -52,10 +54,36 @@
     [self.tableView deselectAll:self];
 }
 
-/* notification called by canvas after make iu*/
-- (void)deselectCurrentWidget:(NSNotification *)notification{
-    [_tableView deselectAll:self];
-    _selectedCell = nil;
+
+/* notification called by other VCs */
+- (void)selectWidget:(NSNotification *)notification{
+    if([notification.name isEqualToString:IUNotificationNewIUCreatedByCanvas]){
+        [_tableView deselectAll:self];
+        _selectedCell = nil;
+    }
+    else if([notification.name isEqualToString:IUWidgetLibrarySelectionDidChangeNotification]){
+        id sender = [notification.userInfo objectForKey:IUWidgetLibrarySender];
+        if([sender isNotEqualTo:self]){
+            NSString *className = [notification.userInfo objectForKey:IUWidgetLibraryKey];
+            if(className){
+                NSUInteger index =0;
+                for(NSTableCellView *cell in _widgetCells){
+                    if([cell.objectValue[@"className"] isEqualToString:className]){
+                        break;
+                    }
+                    index++;
+                }
+                [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+                _selectedCell = [self.tableView selectedCell];
+            }
+            else{
+                
+                [_tableView deselectAll:self];
+                _selectedCell = nil;
+            }
+            
+        }
+    }
 }
 
 - (IBAction)clickWidgetLibraryTableView:(id)sender {
@@ -67,11 +95,11 @@
             [_tableView deselectAll:self];
         }
         _selectedCell = nil;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetLibrarySender:self}];
     }
     else {
         _selectedCell = cell;
-        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetLibraryKey:cell.objectValue[@"className"]}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:IUWidgetLibrarySelectionDidChangeNotification object:self.view.window userInfo:@{IUWidgetLibraryKey:cell.objectValue[@"className"], IUWidgetLibrarySender:self}];
     }
 }
 

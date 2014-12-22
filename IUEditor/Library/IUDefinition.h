@@ -52,7 +52,7 @@ typedef enum _IUUnit{
  *******************************/
 extern NSString *const IUWidgetLibrarySelectionDidChangeNotification;  // called at widget library
 extern NSString *const IUWidgetLibraryKey;
-
+extern NSString *const IUWidgetLibrarySender;
 extern NSString *const IUKey;
 extern NSString *const IUValue;
 

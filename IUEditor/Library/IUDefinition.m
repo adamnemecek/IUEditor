@@ -9,6 +9,7 @@
 
 NSString *const IUWidgetLibrarySelectionDidChangeNotification = @"IUWidgetSelectionDidChangeNotification";
 NSString *const IUWidgetLibraryKey = @"selectedWidget";
+NSString *const IUWidgetLibrarySender = @"IUWidgetLibrarySender";
 
 NSString *const IUKey = @"key";
 NSString *const IUValue = @"value";

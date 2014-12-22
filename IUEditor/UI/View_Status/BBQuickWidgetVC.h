@@ -16,6 +16,6 @@
 @property (weak) IUSheetController *classController;
 @property (weak) IUController *iuController;
 
-@property NSArray *quickWidgetsArray;
+- (void)setQuickWidgetArray:(NSArray *)quickWidgetsArray;
 
 @end

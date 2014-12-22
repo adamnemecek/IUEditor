@@ -1,305 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBQuickWidgetVC">
             <connections>
-                <outlet property="fifthWidgetButton" destination="NSi-L8-3uB" id="NKY-CS-t0c"/>
-                <outlet property="firstWidgetButton" destination="cPa-6w-mFG" id="RWz-ZH-Ct0"/>
-                <outlet property="forthWidgetButton" destination="pvZ-Ek-oQ9" id="ksa-S9-19e"/>
-                <outlet property="secondWidgetButton" destination="cFp-gA-sjf" id="kdD-il-VeG"/>
-                <outlet property="thirdWidgetButton" destination="3VX-fo-zoa" id="Mby-lf-KRQ"/>
-                <outlet property="view" destination="9AW-Qk-04A" id="WQr-j0-MFt"/>
+                <outlet property="quickWidgetMatrix" destination="4Xt-Bn-SsK" id="wX9-ze-TQM"/>
+                <outlet property="view" destination="eof-Rs-K6y" id="qd5-x8-exv"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="9AW-Qk-04A" userLabel="QuickAdd">
-            <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <view key="contentView">
-                <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <subviews>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="KZh-VU-Aj6" userLabel="Add Box">
-                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="cPa-6w-mFG">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="pbq-KH-Jz9"/>
-                                        <constraint firstAttribute="width" constant="38" id="vI7-HR-NqL"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="stack_view" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="pDx-Kk-l2a">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewIUBoxButton:" target="-2" id="ZLL-HL-TGh"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="POk-O2-aGY"/>
-                            <constraint firstAttribute="centerY" secondItem="cPa-6w-mFG" secondAttribute="centerY" id="dND-yP-sPu"/>
-                            <constraint firstAttribute="centerX" secondItem="cPa-6w-mFG" secondAttribute="centerX" id="lUi-mn-hQl"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hLk-5Z-exX" userLabel="Add Text">
-                        <rect key="frame" x="39" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="cFp-gA-sjf">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="7BB-P7-hXg"/>
-                                        <constraint firstAttribute="height" constant="38" id="bpN-M3-EoL"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="stack_text" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="NrZ-er-KXD">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewIUBoxButton:" target="-2" id="Nig-Hp-xwZ"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="cFp-gA-sjf" secondAttribute="centerX" id="1lJ-le-dJv"/>
-                            <constraint firstAttribute="centerY" secondItem="cFp-gA-sjf" secondAttribute="centerY" id="9hP-AE-qGZ"/>
-                            <constraint firstAttribute="height" constant="40" id="mw7-gv-GQp"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="yeF-SC-RnH" userLabel="Add Image">
-                        <rect key="frame" x="78" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="3VX-fo-zoa">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="v3J-aI-eWg"/>
-                                        <constraint firstAttribute="height" constant="38" id="wre-SU-Ie8"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="stack_image" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="e2F-55-ehv">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewIUBoxButton:" target="-2" id="b61-Ry-CBe"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="3VX-fo-zoa" secondAttribute="centerX" id="3XL-xm-a3M"/>
-                            <constraint firstAttribute="centerY" secondItem="3VX-fo-zoa" secondAttribute="centerY" id="9jy-fB-VTq"/>
-                            <constraint firstAttribute="height" constant="40" id="YkE-ce-Mv3"/>
-                            <constraint firstAttribute="width" constant="40" id="bFi-KL-Krm"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NGT-Ac-8yg" userLabel="Add Transition">
-                        <rect key="frame" x="117" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="pvZ-Ek-oQ9">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="lr2-zU-xYg"/>
-                                        <constraint firstAttribute="width" constant="38" id="w9d-pl-M8H"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="stack_transition" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ulZ-YR-yxp">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewIUBoxButton:" target="-2" id="p5J-9I-HcQ"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="pvZ-Ek-oQ9" secondAttribute="centerY" id="WJK-cg-dt6"/>
-                            <constraint firstAttribute="centerX" secondItem="pvZ-Ek-oQ9" secondAttribute="centerX" id="XUh-WT-ay8"/>
-                            <constraint firstAttribute="height" constant="40" id="mJ0-RL-KY0"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="nDA-bU-JFO" userLabel="Add Centerbox">
-                        <rect key="frame" x="156" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" alphaValue="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="NSi-L8-3uB">
-                                    <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="Uwi-L7-1py"/>
-                                        <constraint firstAttribute="height" constant="38" id="tPa-Fm-ujU"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="stack_centerbox" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="G9w-o8-BrJ">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewIUBoxButton:" target="-2" id="HPf-rj-HN3"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="centerY" secondItem="NSi-L8-3uB" secondAttribute="centerY" id="EaD-g9-CHc"/>
-                            <constraint firstAttribute="centerX" secondItem="NSi-L8-3uB" secondAttribute="centerX" id="L7g-RL-3KF"/>
-                            <constraint firstAttribute="height" constant="40" id="YEv-gG-WKj"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="BoX-lm-VUE" userLabel="Add Section">
-                        <rect key="frame" x="195" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n3Q-e1-yLu">
-                                    <rect key="frame" x="1" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="38" id="TIT-KM-qEq"/>
-                                        <constraint firstAttribute="width" constant="38" id="n8c-w8-wx6"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ic_section" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="bLQ-YV-bbd">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewSectionButton:" target="-2" id="Fvb-xI-tHx"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstItem="n3Q-e1-yLu" firstAttribute="leading" secondItem="BoX-lm-VUE" secondAttribute="leading" constant="2" id="8cZ-2t-YAG"/>
-                            <constraint firstItem="n3Q-e1-yLu" firstAttribute="centerY" secondItem="BoX-lm-VUE" secondAttribute="centerY" id="LVs-VY-u48"/>
-                            <constraint firstAttribute="height" constant="40" id="O9O-QZ-rvT"/>
-                            <constraint firstAttribute="width" constant="40" id="tdn-Kb-lC2"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5eE-at-HJm" userLabel="Add Page">
-                        <rect key="frame" x="234" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HlX-eX-GgD">
-                                    <rect key="frame" x="1" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="8jA-0H-PFL"/>
-                                        <constraint firstAttribute="height" constant="38" id="j2k-Lf-Gyy"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ic_page" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="ioy-3I-7tO">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewPageButton:" target="-2" id="YyV-1G-WiS"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="7Fb-On-kel"/>
-                            <constraint firstItem="HlX-eX-GgD" firstAttribute="top" secondItem="5eE-at-HJm" secondAttribute="top" constant="1" id="UZh-d2-0L1"/>
-                            <constraint firstAttribute="trailing" secondItem="HlX-eX-GgD" secondAttribute="trailing" id="VXa-GR-Q2N"/>
-                            <constraint firstItem="HlX-eX-GgD" firstAttribute="leading" secondItem="5eE-at-HJm" secondAttribute="leading" constant="2" id="hGV-tT-vUv"/>
-                            <constraint firstAttribute="height" constant="40" id="kPI-NE-E7c"/>
-                            <constraint firstItem="HlX-eX-GgD" firstAttribute="centerY" secondItem="5eE-at-HJm" secondAttribute="centerY" id="teY-cS-iYg"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                    <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="9zw-ld-b4g" userLabel="Add Comp">
-                        <rect key="frame" x="273" y="0.0" width="40" height="40"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="38" height="38"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sYA-Bs-acq">
-                                    <rect key="frame" x="1" y="0.0" width="38" height="38"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="38" id="SVb-JN-Gyf"/>
-                                        <constraint firstAttribute="height" constant="38" id="i3K-e5-iY8"/>
-                                    </constraints>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ic_comp" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="U8r-jm-njm">
-                                        <behavior key="behavior" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="clickNewClassButton:" target="-2" id="yjj-8y-Ron"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                        </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="40" id="HL5-Ze-Yed"/>
-                            <constraint firstItem="sYA-Bs-acq" firstAttribute="centerY" secondItem="9zw-ld-b4g" secondAttribute="centerY" id="MAP-kV-uYY"/>
-                            <constraint firstItem="sYA-Bs-acq" firstAttribute="leading" secondItem="9zw-ld-b4g" secondAttribute="leading" constant="2" id="bn7-8h-c83"/>
-                            <constraint firstAttribute="width" constant="40" id="swy-i3-JOb"/>
-                        </constraints>
-                        <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                    </box>
-                </subviews>
-            </view>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="hLk-5Z-exX" secondAttribute="trailing" constant="234" id="2FC-qO-VLs"/>
-                <constraint firstAttribute="trailing" secondItem="5eE-at-HJm" secondAttribute="trailing" constant="39" id="3np-0b-Poi"/>
-                <constraint firstItem="BoX-lm-VUE" firstAttribute="leading" secondItem="NGT-Ac-8yg" secondAttribute="trailing" constant="38" id="72F-YI-tfH"/>
-                <constraint firstAttribute="centerY" secondItem="5eE-at-HJm" secondAttribute="centerY" id="Bdj-8U-9mR"/>
-                <constraint firstAttribute="bottom" secondItem="9zw-ld-b4g" secondAttribute="bottom" id="KR6-au-rsf"/>
-                <constraint firstItem="KZh-VU-Aj6" firstAttribute="leading" secondItem="9AW-Qk-04A" secondAttribute="leading" id="NET-BX-EDP"/>
-                <constraint firstAttribute="centerY" secondItem="BoX-lm-VUE" secondAttribute="centerY" id="Sfj-lU-VJb"/>
-                <constraint firstItem="hLk-5Z-exX" firstAttribute="leading" secondItem="9AW-Qk-04A" secondAttribute="leading" constant="39" id="UN4-m4-EPd"/>
-                <constraint firstAttribute="centerY" secondItem="NGT-Ac-8yg" secondAttribute="centerY" id="VG3-0x-wrd"/>
-                <constraint firstItem="nDA-bU-JFO" firstAttribute="leading" secondItem="yeF-SC-RnH" secondAttribute="trailing" constant="38" id="Vga-KN-1SA"/>
-                <constraint firstAttribute="centerY" secondItem="nDA-bU-JFO" secondAttribute="centerY" id="X8H-13-fmZ"/>
-                <constraint firstAttribute="trailing" secondItem="KZh-VU-Aj6" secondAttribute="trailing" constant="273" id="Yft-ZS-jdx"/>
-                <constraint firstItem="9zw-ld-b4g" firstAttribute="top" secondItem="9AW-Qk-04A" secondAttribute="top" id="ZV6-oY-Ywf"/>
-                <constraint firstAttribute="centerY" secondItem="KZh-VU-Aj6" secondAttribute="centerY" id="d2V-oa-Wu6"/>
-                <constraint firstItem="9zw-ld-b4g" firstAttribute="leading" secondItem="BoX-lm-VUE" secondAttribute="trailing" constant="38" id="dlV-I4-SGj"/>
-                <constraint firstItem="NGT-Ac-8yg" firstAttribute="leading" secondItem="hLk-5Z-exX" secondAttribute="trailing" constant="38" id="i91-fo-d2T"/>
-                <constraint firstAttribute="centerY" secondItem="9zw-ld-b4g" secondAttribute="centerY" id="jJB-AC-bsl"/>
-                <constraint firstAttribute="centerY" secondItem="yeF-SC-RnH" secondAttribute="centerY" id="mhy-LF-hWq"/>
-                <constraint firstAttribute="trailing" secondItem="9zw-ld-b4g" secondAttribute="trailing" id="qY0-rV-dDi"/>
-                <constraint firstItem="yeF-SC-RnH" firstAttribute="leading" secondItem="KZh-VU-Aj6" secondAttribute="trailing" constant="38" id="tPR-ff-b4s"/>
-                <constraint firstAttribute="centerY" secondItem="hLk-5Z-exX" secondAttribute="centerY" id="v1E-gz-K8f"/>
-                <constraint firstItem="5eE-at-HJm" firstAttribute="leading" secondItem="nDA-bU-JFO" secondAttribute="trailing" constant="38" id="zDr-au-ofB"/>
-            </constraints>
-            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-            <color key="fillColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-            <point key="canvasLocation" x="792.5" y="239"/>
-        </box>
-        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="eof-Rs-K6y" userLabel="QuickAdd">
+        <box autoresizesSubviews="NO" title="Box" boxType="custom" borderType="none" titlePosition="noTitle" id="eof-Rs-K6y" userLabel="QuickWidget">
             <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <view key="contentView">
@@ -367,46 +80,49 @@
                         <color key="borderColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="fillColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.0" colorSpace="calibratedRGB"/>
                     </box>
-                    <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xt-Bn-SsK">
+                    <matrix verticalHuggingPriority="750" fixedFrame="YES" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xt-Bn-SsK">
                         <rect key="frame" x="0.0" y="0.0" width="196" height="40"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         <size key="cellSize" width="39" height="40"/>
                         <buttonCell key="prototype" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" inset="2" id="mdG-H7-l20">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <cells>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_view" imagePosition="only" alignment="left" state="on" tag="1" inset="2" id="DhZ-tq-KxQ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_text" imagePosition="only" alignment="left" inset="2" id="JXG-oF-ctU">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_image" imagePosition="only" alignment="left" inset="2" id="NZh-Ea-j8r">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_transition" imagePosition="only" alignment="left" inset="2" id="l3i-Ro-kcf">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_centerbox" imagePosition="only" alignment="left" inset="2" id="Ssb-47-qrv">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                         </cells>
+                        <connections>
+                            <action selector="clickQuickWidgetMatrix:" target="-2" id="AW9-Cr-4Jq"/>
+                        </connections>
                     </matrix>
                     <box autoresizesSubviews="NO" wantsLayer="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="13R-2Y-YzJ" userLabel="Add Section">
                         <rect key="frame" x="195" y="0.0" width="40" height="40"/>
