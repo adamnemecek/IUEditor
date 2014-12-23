@@ -45,6 +45,12 @@
 //font controller
 @property (weak) LMFontController *fontController;
 
+//popover outlet
+@property (weak) IBOutlet NSButton *extendedFrameButton;
+@property (strong) IBOutlet NSPopover *framePopover;
+@property (weak) IBOutlet NSTextField *minWidthTextField;
+@property (weak) IBOutlet NSTextField *minHeightTextField;
+
 @end
 
 @implementation BBPropertyToolBarVC
@@ -88,6 +94,10 @@
     [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
     [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontAlign"];
+    
+    //popover
+    [self outlet:_minWidthTextField bind:NSValueBinding cascadingStyleStorageProperty:@"minWidth"];
+    [self outlet:_minHeightTextField bind:NSValueBinding cascadingStyleStorageProperty:@"minHeight"];
     
 }
 
@@ -175,5 +185,30 @@
     
 }
 
+- (IBAction)clickFramePopoverButton:(id)sender {
+    if([_framePopover isShown]){
+        [_framePopover close];
+    }
+    else{
+        [_framePopover showRelativeToRect:[_extendedFrameButton frame] ofView:self.view preferredEdge:NSMinYEdge];
+    }
+
+}
+- (IBAction)clickFramePopoverCloseButton:(id)sender {
+    if([_framePopover isShown]){
+        [_framePopover close];
+    }
+}
+- (IBAction)clickRemoveWidthButton:(id)sender {
+    [self.cascadingStyleStorage beginTransaction:self];
+    self.cascadingStyleStorage.width = nil;
+    [self.cascadingStyleStorage commitTransaction:self];
+
+}
+- (IBAction)clickRemoveHeightButton:(id)sender {
+    [self.cascadingStyleStorage beginTransaction:self];
+    self.cascadingStyleStorage.height = nil;
+    [self.cascadingStyleStorage commitTransaction:self];
+}
 
 @end

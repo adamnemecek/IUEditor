@@ -7,16 +7,20 @@
         <customObject id="-2" userLabel="File's Owner" customClass="BBPropertyToolBarVC">
             <connections>
                 <outlet property="bgColorWell" destination="6qb-co-6J5" id="fMU-rY-J6R"/>
+                <outlet property="extendedFrameButton" destination="enH-gt-Ifv" id="uQ8-Fo-Veu"/>
                 <outlet property="fontAlignSegmentedControl" destination="D8c-FT-LLw" id="oZ6-tY-f3M"/>
                 <outlet property="fontColorWell" destination="5ms-4s-DQl" id="TDx-Ey-Xb8"/>
                 <outlet property="fontNameComboBox" destination="JyG-1W-hMj" id="ezM-0f-on4"/>
                 <outlet property="fontSizeComboBox" destination="yrT-JY-2UB" id="ZY1-Yd-TIJ"/>
                 <outlet property="fontWeightPopUpButton" destination="89S-Qn-DNT" id="EmY-E8-03x"/>
+                <outlet property="framePopover" destination="kRs-lb-sES" id="xO7-z1-UHu"/>
                 <outlet property="hStepper" destination="6fx-db-DV3" id="Rd7-NH-qYo"/>
                 <outlet property="hTextField" destination="Vhr-rD-eTs" id="Hu3-0s-JGq"/>
                 <outlet property="hUnitButton" destination="WQy-d3-dnM" id="qfb-rJ-Zbz"/>
                 <outlet property="horizontalCenterButton" destination="Gf5-2B-3ys" id="5qC-fO-PLQ"/>
                 <outlet property="lightWeigtMenuItem" destination="OvY-yh-r6a" id="lMN-9b-L8B"/>
+                <outlet property="minHeightTextField" destination="53I-81-zLo" id="iFO-92-Bg8"/>
+                <outlet property="minWidthTextField" destination="Gx7-xu-iys" id="85x-PN-gpt"/>
                 <outlet property="verticalCenterButton" destination="vIh-s9-xdu" id="H5g-wB-lSo"/>
                 <outlet property="view" destination="QcR-wN-r3d" id="YNL-20-5cM"/>
                 <outlet property="wStepper" destination="LMQ-bG-CwM" id="gJ6-mz-Caq"/>
@@ -383,6 +387,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="miniSystem"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="clickFramePopoverButton:" target="-2" id="DCJ-0b-gUN"/>
+                        </connections>
                     </button>
                     <box horizontalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ajN-Mw-MNN">
                         <rect key="frame" x="390" y="3" width="5" height="24"/>
@@ -653,12 +660,173 @@
         </numberFormatter>
         <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="wjd-1g-0EE" userLabel="integer"/>
         <userDefaultsController representsSharedInstance="YES" id="Mlt-Ni-DBX"/>
+        <customView id="1gD-hn-952" userLabel="FramePopoverView">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="145"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tv8-eK-CF4">
+                    <rect key="frame" x="8" y="122" width="46" height="14"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="FRAME" id="wUY-8z-fxT">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mI-7G-GQX" userLabel="btn_Close">
+                    <rect key="frame" x="124" y="117" width="24" height="24"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_close" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="tdc-Af-sXW">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="clickFramePopoverCloseButton:" target="-2" id="pXz-RL-ZW5"/>
+                    </connections>
+                </button>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qZp-oT-Igi">
+                    <rect key="frame" x="-2" y="113" width="192" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Xac-uD-sQH" userLabel="Size">
+                    <rect key="frame" x="10" y="85" width="63" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="61" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gx7-xu-iys" userLabel="- Text Field">
+                                <rect key="frame" x="-1" y="-1" width="40" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" id="GeQ-ng-hiB">
+                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ou3-2k-VWv" userLabel="- px">
+                                <rect key="frame" x="38" y="-2" width="24" height="24"/>
+                                <buttonCell key="cell" type="smallSquare" title="px" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hDs-KS-v5I">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MPf-fW-vnW">
+                    <rect key="frame" x="22" y="67" width="39" height="14"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Min-W" id="uTj-KU-8u9">
+                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
+                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ThB-Yg-S9K" userLabel="Size">
+                    <rect key="frame" x="77" y="85" width="63" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="61" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="53I-81-zLo" userLabel="- Text Field">
+                                <rect key="frame" x="-1" y="-1" width="40" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="" drawsBackground="YES" id="Zs2-Em-e3w">
+                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pqX-Ha-nHE" userLabel="- px">
+                                <rect key="frame" x="38" y="-2" width="24" height="24"/>
+                                <buttonCell key="cell" type="smallSquare" title="px" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fHR-ay-wbO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9r0-wi-DJv">
+                    <rect key="frame" x="90" y="67" width="37" height="14"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Min-H" id="snY-uY-hh7">
+                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
+                        <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="LRR-L2-XxC" userLabel="btn_RemoveW">
+                    <rect key="frame" x="10" y="36" width="130" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="128" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vk3-zQ-PgB">
+                                <rect key="frame" x="16" y="4" width="10" height="10"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSRemoveTemplate" id="Jed-Bn-qki"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y3p-xH-4aL">
+                                <rect key="frame" x="-1" y="-1" width="130" height="22"/>
+                                <buttonCell key="cell" type="smallSquare" title="   Remove Width" bezelStyle="smallSquare" imagePosition="left" alignment="center" controlSize="small" state="on" imageScaling="proportionallyDown" inset="2" id="scD-oB-jjv">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clickRemoveWidthButton:" target="-2" id="jEA-zA-8GQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.85490196080000003" green="0.85098039219999999" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ase-6j-aSS" userLabel="btn_RemoveH">
+                    <rect key="frame" x="10" y="9" width="130" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="128" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-rE-1cr">
+                                <rect key="frame" x="16" y="4" width="10" height="10"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSRemoveTemplate" id="ssR-TQ-eTL"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1D-2q-nxy">
+                                <rect key="frame" x="-1" y="-1" width="130" height="22"/>
+                                <buttonCell key="cell" type="smallSquare" title="    Remove Height" bezelStyle="smallSquare" imagePosition="left" alignment="center" controlSize="small" state="on" imageScaling="proportionallyDown" inset="2" id="3dj-D8-VvE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="clickRemoveHeightButton:" target="-2" id="dDJ-G6-0WK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.85490196080000003" green="0.85098039219999999" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="380" y="515.5"/>
+        </customView>
+        <viewController id="CUV-03-WQL" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="1gD-hn-952" id="sR6-Bu-Qsk"/>
+            </connections>
+        </viewController>
+        <popover id="kRs-lb-sES">
+            <connections>
+                <outlet property="contentViewController" destination="CUV-03-WQL" id="vWs-4s-FYM"/>
+            </connections>
+        </popover>
     </objects>
     <resources>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="btn_ac_h_off" width="26" height="26"/>
         <image name="btn_ac_h_on" width="26" height="26"/>
         <image name="btn_ac_v_off" width="26" height="26"/>
         <image name="btn_ac_v_on" width="26" height="26"/>
+        <image name="btn_close" width="10" height="10"/>
         <image name="btn_remove_color" width="14" height="14"/>
         <image name="ic_text_align_center" width="15" height="10"/>
         <image name="ic_text_align_full" width="15" height="10"/>
