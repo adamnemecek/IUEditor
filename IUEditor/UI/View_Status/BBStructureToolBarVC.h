@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
 #import "IUSheetController.h"
-#import "JDMemoryCheckVC.h"
+#import "JDMemoryCheck.h"
 
 @interface BBStructureToolBarVC : JDMemoryCheckVC <NSPathControlDelegate>
 

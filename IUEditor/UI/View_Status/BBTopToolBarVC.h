@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "JDMemoryCheckVC.h"
+#import "JDMemoryCheck.h"
 
 @interface BBTopToolBarVC : JDMemoryCheckVC
 

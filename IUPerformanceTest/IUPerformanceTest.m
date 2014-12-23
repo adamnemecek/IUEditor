@@ -11,7 +11,7 @@
 #import "BBWC.h"
 #import "IUBox.h"
 #import "JDLogUtil.h"
-#import "JDMemoryCheckVC.h"
+#import "JDMemoryCheck.h"
 
 
 @interface IUPerformanceTest : XCTestCase

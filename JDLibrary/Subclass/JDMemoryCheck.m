@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import "JDMemoryCheckVC.h"
+#import "JDMemoryCheck.h"
 
 static JDMemoryChecker *memoryChecker;
 
@@ -36,6 +36,21 @@ static JDMemoryChecker *memoryChecker;
     [self.delegate memoryCheckerObjectWillDeallocated:className aliveObjectCount:set.count];
 }
 
+-(void)fireMemoryCheckAfterDelay:(NSTimeInterval)sec {
+    [self performSelector:@selector(memoryCheck) withObject:nil afterDelay:sec];
+}
+
+-(void)memoryCheck {
+    if (self.set.count == 0) {
+        NSLog(@"[MemoryChecker] All released ");
+    }
+    else {
+        NSLog(@"[MemoryChecker] ------- ");
+        NSLog([)
+        NSLog(@"------------------------");
+    }
+}
+
 @end
 
 @interface JDMemoryCheckVC ()
@@ -61,6 +76,7 @@ static JDMemoryChecker *memoryChecker;
     [[JDMemoryChecker sharedChecker] objDidAllocated:self.className];
     return self;
 }
+
 
 - (void)dealloc {
     [[JDMemoryChecker sharedChecker] objWillDeallocated:self.className];

@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
 #import "IUResource.h"
-#import "JDMemoryCheckVC.h"
+#import "JDMemoryCheck.h"
 
 @interface BBDefaultPropertyVC : JDMemoryCheckVC
 
