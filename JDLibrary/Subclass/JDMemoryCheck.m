@@ -11,11 +11,11 @@
 static JDMemoryChecker *memoryChecker;
 
 @implementation JDMemoryChecker
-@synthesize set;
+@synthesize set = _set;
 
 - (id)init{
     self = [super init];
-    set = [NSCountedSet set];
+    _set = [NSCountedSet set];
     return self;
 }
 
@@ -28,12 +28,12 @@ static JDMemoryChecker *memoryChecker;
 }
 
 -(void)objDidAllocated:(NSString *)className {
-    [set addObject:className];
+    [_set addObject:className];
 }
 
 -(void)objWillDeallocated:(NSString *)className {
-    [set removeObject:className];
-    [self.delegate memoryCheckerObjectWillDeallocated:className aliveObjectCount:set.count];
+    [_set removeObject:className];
+    [self.delegate memoryCheckerObjectWillDeallocated:className aliveObjectCount:_set.count];
 }
 
 -(void)fireMemoryCheckAfterDelay:(NSTimeInterval)sec {
@@ -41,12 +41,13 @@ static JDMemoryChecker *memoryChecker;
 }
 
 -(void)memoryCheck {
-    if (self.set.count == 0) {
+    NSAssert(_set, @"NO SET");
+    if (_set.count == 0) {
         NSLog(@"[MemoryChecker] All released ");
     }
     else {
         NSLog(@"[MemoryChecker] ------- ");
-        NSLog([)
+        NSLog([_set description], nil);
         NSLog(@"------------------------");
     }
 }

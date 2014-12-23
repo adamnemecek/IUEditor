@@ -14,6 +14,7 @@
 #import "JDLogUtil.h"
 
 #import "BBCloseWC.h"
+#import "JDMemoryCheck.h"
 
 @implementation LMWindow{
     BBCloseWC *_closeWC;
@@ -114,6 +115,7 @@
 
 - (void)close{
     [IUIdentifierManager removeIdentifierManagerForWindow:self];
+    [[JDMemoryChecker sharedChecker] fireMemoryCheckAfterDelay:5];
     [super close];
 }
 

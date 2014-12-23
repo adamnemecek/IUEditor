@@ -1,5 +1,5 @@
 //
-//  JDMemoryCheckVC.h
+//  JDMemoryCheck.h
 //  IUEditor
 //
 //  Created by Joodong Yang on 2014. 12. 22..
@@ -18,9 +18,13 @@
 @interface JDMemoryChecker : NSObject
 
 +(JDMemoryChecker *)sharedChecker;
+-(void)fireMemoryCheckAfterDelay:(NSTimeInterval)sec;
+-(void)memoryCheck;
+
 -(void)objDidAllocated:(NSString *)className;
 -(void)objWillDeallocated:(NSString *)className;
-@property NSCountedSet *set;
+@property (readonly) NSCountedSet *set;
+
 
 @property id <JDMemoryCheckerDelegate> delegate;
 @end
