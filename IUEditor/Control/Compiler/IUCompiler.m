@@ -376,18 +376,16 @@
 #pragma mark - cssSource
 
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu{
-    NSAssert(cssCompiler, @"cssCompiler is nil");
-    return [cssCompiler cssCodeForIU:iu];
-}
 
 - (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport{
     //TODO: optimize this function
     //currently, csscompiler makes whole css code
-    return [cssCompiler cssCodeForIU:iu];
+    return [cssCompiler cssCodeForIU:iu rule:kIUCompileRuleHTML target:target viewPort:viewport option:nil];
 }
 
 - (NSString *)outputCSSSource_storage:(IUPage *)sheet{
+    return nil;
+#if 0
     if (sheet.project == nil){
         NSAssert(0, @"cannot make output css source without project information");
     }
@@ -487,10 +485,13 @@
         
     }
     return code.string;
+#endif
 }
 
 //to be deleted
 -(JDCode *)cssSource:(IUSheet *)sheet cssSizeArray:(NSArray *)cssSizeArray{
+    return nil;
+    /*j
     
     //remove default size
     NSInteger largestWidth = [[cssSizeArray objectAtIndex:0] integerValue];
@@ -580,6 +581,7 @@
         
     }
     return code;
+     */
 }
 
 

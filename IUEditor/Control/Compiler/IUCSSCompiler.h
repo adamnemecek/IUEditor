@@ -14,7 +14,6 @@
 @interface IUCSSCompiler : NSObject
 
 /* storage mode */
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu __deprecated;
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
 
 /**
