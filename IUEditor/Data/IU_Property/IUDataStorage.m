@@ -386,7 +386,7 @@
 
 
 
-- (IUDataStorage*)cascadingStorageForViewPort:(NSInteger)viewPort{
+- (id)cascadingStorageForViewPort:(NSInteger)viewPort{
     /* does not send information to manager */
     IUDataStorage *cascadingStorage = [[self storageForViewPort:viewPort] copy];
     [cascadingStorage disableUpdate:self];

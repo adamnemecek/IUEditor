@@ -8,13 +8,14 @@
 
 #import "IUBox.h"
 
+
+extern NSString * const IUInnerHTMLKey; // = "IUInnerHTMLKey"
+
 /**
- IUHTML cannot have children. It draws HTML directly. 
+ @description insert HTML code directly.
+ As converting to storage mode, 'innerHTML' will saved at default data storage, with IUInnerHTMLKey.
+ @note You should save innerHTML to defaultPropertyStorage.
  */
 @interface IUHTML : IUBox
-
-@property (nonatomic) NSString *innerHTML;
--(BOOL)hasInnerHTML;
-
 
 @end

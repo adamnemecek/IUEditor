@@ -790,9 +790,10 @@
     JDCode *code = [[JDCode alloc] init];
     
     [code addCodeLineWithFormat:@"<div %@>", attributeDict.attributeStringValue];
-    if(html.hasInnerHTML){
-        [code addCodeLine:html.innerHTML];
-    }
+    
+    IUPropertyStorage *propertyStorage = [[html propertyManager] cascadingStorageForViewPort:viewPort];
+    NSString *innerHTML = [propertyStorage valueForKey:IUInnerHTMLKey];
+    [code addCodeLine:innerHTML];
     [code addCodeLineWithFormat:@"</div>"];
     return code;
 }

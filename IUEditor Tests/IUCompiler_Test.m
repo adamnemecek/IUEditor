@@ -73,7 +73,7 @@
     XCTAssertTrue([htmlCode containsString:@"img"]);
 }
 
-- (void)test2_Import {
+- (void)test4_Import {
     /* How to use class-import */
     IUBox *box = [[IUBox alloc] init];
     box.htmlID = @"box1";
@@ -92,6 +92,18 @@
     [compiler editorIUSource:import htmlIDPrefix:nil viewPort:import.maxViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
 
     XCTAssertTrue([htmlCode containsString:@"box1"]);
+}
+
+- (void)test5_HTML {
+    IUHTML *html = [[IUHTML alloc] initWithPreset];
+    NSString *innerHTML = @"<div>Hello World</div>";
+    [html.defaultPropertyStorage setValue:innerHTML forKey:IUInnerHTMLKey];
+    
+    IUCompiler *compiler = [[IUCompiler alloc] init];
+    NSString *htmlCode;
+    [compiler editorIUSource:html htmlIDPrefix:nil viewPort:IUDefaultViewPort htmlSource:&htmlCode nonInlineCSSSource:nil];
+
+    XCTAssertTrue([htmlCode containsString:innerHTML]);
 }
 
 @end

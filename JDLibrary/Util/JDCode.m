@@ -31,9 +31,11 @@
 }
 
 - (void)addCodeLine:(NSString*)newCode{
-    [string appendString:whiteSpace];
-    [string appendString:newCode];
-    [self addNewLine];
+    if (newCode) {
+        [string appendString:whiteSpace];
+        [string appendString:newCode];
+        [self addNewLine];
+    }
 }
 
 - (void)addNewLine{

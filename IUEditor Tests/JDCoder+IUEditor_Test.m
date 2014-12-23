@@ -144,16 +144,6 @@
 
 }
 
-- (void)test6_IUHTML{
-    IUHTML *iu = [[IUHTML alloc] initWithPreset];
-    iu.innerHTML = @"<p>abc</p>";
-    
-    JDCoder *coder = [[JDCoder alloc] init];
-    [coder encodeRootObject:iu];
-    
-    IUHTML *decodeIU = [coder decodeRootObject];
-    XCTAssertEqual(decodeIU.innerHTML, @"<p>abc</p>");
-}
 
 - (void)test7_IUImage{
     IUImage *iu = [[IUImage alloc] initWithPreset];
