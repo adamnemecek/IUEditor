@@ -238,7 +238,7 @@ static NSCountedSet *enableLogSection;
 +(void)alert:(NSString*)alertMsg{}
 +(void)alert:(NSString*)alertMsg title:(NSString*)title{}
 +(void)timeLogStart:(NSString *)name{}
-+(void)timeLogEnd:(NSString *)name {)
++(void)timeLogEnd:(NSString *)name {}
 
 #endif
 
