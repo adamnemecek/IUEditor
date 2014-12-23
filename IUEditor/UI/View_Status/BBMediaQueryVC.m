@@ -36,6 +36,8 @@
 
 - (void)dealloc{
     [_mediaQueryPopupButton unbind:NSContentBinding];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.view removeObserver:self forKeyPath:@"window"];
     JDSectionInfoLog(IULogDealloc, @"");
 }
 
