@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "JDMemoryCheckVC.h"
 
 #import "JDShellUtil.h"
 
@@ -14,12 +15,13 @@
 #import "IUSheetController.h"
 
 
+
 /**
  @brief BBComandVC manages build and open exported file by user interaction.
  Also, if project is Django type, commandVC manages run server and stop server.
  
  */
-@interface BBCommandVC : NSViewController <JDShellUtilPipeDelegate>
+@interface BBCommandVC : JDMemoryCheckVC <JDShellUtilPipeDelegate>
 
 @property (weak, nonatomic) IUSourceManager *sourceManager;
 @property (weak, nonatomic) IUSheetController      *docController;

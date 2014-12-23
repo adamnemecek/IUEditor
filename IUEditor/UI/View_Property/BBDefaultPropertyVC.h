@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
 #import "IUResource.h"
+#import "JDMemoryCheckVC.h"
 
-@interface BBDefaultPropertyVC : NSViewController
+@interface BBDefaultPropertyVC : JDMemoryCheckVC
 
 @property (nonatomic, weak) IUController      *iuController;
 //resource root

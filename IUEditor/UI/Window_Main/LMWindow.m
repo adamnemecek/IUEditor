@@ -32,6 +32,7 @@
 
 }
 
+
 - (BOOL)isMouseEvent:(NSEvent *)theEvent{
     if(theEvent.type == NSLeftMouseDown ||
        theEvent.type == NSRightMouseDown ||
@@ -109,6 +110,11 @@
         }
     }];
         
+}
+
+- (void)close{
+    [IUIdentifierManager removeIdentifierManagerForWindow:self];
+    [super close];
 }
 
 

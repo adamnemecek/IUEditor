@@ -27,6 +27,9 @@
     }
     return self;
 }
+- (void)dealloc{
+    JDSectionInfoLog(IULogDealloc, @"");
+}
 
 - (IUProject *)project{
     IUSheet *document = [self.content firstObject];

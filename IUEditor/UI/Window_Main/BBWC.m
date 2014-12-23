@@ -258,10 +258,11 @@
 
 }
 
+
 - (void)dealloc{
     JDSectionInfoLog(IULogDealloc, @"");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [IUIdentifierManager removeIdentifierManagerForWindow:self.window];
+    // identifier manager will be removed at Window dealloc
 }
 
 - (void)setProject:(IUProject *)project{

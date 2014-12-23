@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
 #import "IUSheetController.h"
+#import "JDMemoryCheckVC.h"
 
-@interface BBStructureToolBarVC : NSViewController <NSPathControlDelegate>
+@interface BBStructureToolBarVC : JDMemoryCheckVC <NSPathControlDelegate>
 
 @property (nonatomic, weak) IUController *iuController;
 @property (nonatomic, weak) IUSheetController *pageController;

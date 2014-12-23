@@ -52,6 +52,7 @@
 		09E6F9391A22CBFE00FD1EBB /* IUEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E6F9381A22CBFE00FD1EBB /* IUEvent.m */; };
 		09E6F93C1A22CC3500FD1EBB /* IUEvent2.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E6F93B1A22CC3500FD1EBB /* IUEvent2.m */; };
 		09E8E43B1A08BA1E0017419B /* IUSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E43A1A08BA1E0017419B /* IUSourceManager.m */; };
+		09EBC9CA1A47D72800E0E7C4 /* JDMemoryCheckVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 09EBC9C91A47D72800E0E7C4 /* JDMemoryCheckVC.m */; };
 		09F473791A2AE3D300EB0BCC /* IUResource_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F473781A2AE3D300EB0BCC /* IUResource_Test.m */; };
 		2666986619FE2608009F98AE /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986419FE2608009F98AE /* arrow_left.png */; };
 		2666986719FE2608009F98AE /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986519FE2608009F98AE /* arrow_right.png */; };
@@ -887,6 +888,8 @@
 		09E8E43A1A08BA1E0017419B /* IUSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSourceManager.m; path = Control/IUSourceManager.m; sourceTree = "<group>"; };
 		09E8E43C1A08DE700017419B /* IUBox_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUBox_Test.m; sourceTree = "<group>"; };
 		09E8E4401A0A0B410017419B /* IUSourceManager_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUSourceManager_Test.m; sourceTree = "<group>"; };
+		09EBC9C81A47D72800E0E7C4 /* JDMemoryCheckVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDMemoryCheckVC.h; path = JDLibrary/Subclass/JDMemoryCheckVC.h; sourceTree = "<group>"; };
+		09EBC9C91A47D72800E0E7C4 /* JDMemoryCheckVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDMemoryCheckVC.m; path = JDLibrary/Subclass/JDMemoryCheckVC.m; sourceTree = "<group>"; };
 		09F473781A2AE3D300EB0BCC /* IUResource_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUResource_Test.m; sourceTree = "<group>"; };
 		2666986419FE2608009F98AE /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_left.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_left.png; sourceTree = "<group>"; };
 		2666986519FE2608009F98AE /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow_right.png; path = IUEditor/Resource/AppResource/image/clipart/arrow_right.png; sourceTree = "<group>"; };
@@ -3548,6 +3551,8 @@
 				3D2EFC7919F788C600BBBAE5 /* NSTextField+DragAndDrop.m */,
 				3DD731C11A11B46100BD833F /* NSRulerView+CustomColor.h */,
 				3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */,
+				09EBC9C81A47D72800E0E7C4 /* JDMemoryCheckVC.h */,
+				09EBC9C91A47D72800E0E7C4 /* JDMemoryCheckVC.m */,
 			);
 			name = Subclass;
 			sourceTree = "<group>";
@@ -4630,6 +4635,7 @@
 				3D2EF6BF19F784A400BBBAE5 /* LMPropertyIUPageLinkSetVC.m in Sources */,
 				3D2EF6FC19F784B500BBBAE5 /* LMEventVC.m in Sources */,
 				3D2EF52319F781FB00BBBAE5 /* WPWidgetTitle.m in Sources */,
+				09EBC9CA1A47D72800E0E7C4 /* JDMemoryCheckVC.m in Sources */,
 				3DD19CA61A3543CF00A5198E /* BBDefaultPropertyVC.m in Sources */,
 				3D2EF51719F781FB00BBBAE5 /* WPCommentFormSubmitBtn.m in Sources */,
 				3DD19CC51A35A18700A5198E /* BBEventPropertyVC.m in Sources */,
