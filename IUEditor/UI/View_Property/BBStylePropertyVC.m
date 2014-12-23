@@ -133,6 +133,7 @@
     [self outlet:_bottomRightRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
     
     /* border */
+    [self outlet:_borderTypePopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"borderType"];
     [self outlet:_borderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"borderColor"];
     [self outlet:_borderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];
     [self outlet:_borderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];

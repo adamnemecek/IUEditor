@@ -93,6 +93,12 @@ typedef enum{
     IUStyleImageSizeTypeStretch,
 }IUStyleImageSizeType;
 
+
+
+@property (nonatomic) NSNumber* imageSizeType;
+@property (nonatomic) NSNumber* imageAttachment;
+
+/* background tag */
 typedef enum{
     IUStyleColorDirectionHorizontal,
     IUStyleColorDirectionVertical,
@@ -100,11 +106,6 @@ typedef enum{
     IUStyleColorDirectionRightTop,
 }IUStyleColorDirection;
 
-
-@property (nonatomic) NSNumber* imageSizeType;
-@property (nonatomic) NSNumber* imageAttachment;
-
-/* background tag */
 @property (nonatomic) NSNumber *bgColorDirection;
 @property (nonatomic) NSColor* bgColor1;
 @property (nonatomic) NSColor* bgColor2;
@@ -121,6 +122,13 @@ typedef enum{
 @property (nonatomic) NSNumber  *borderWidth;
 @property (nonatomic) NSColor   *borderColor;
 @property (nonatomic) NSNumber  *borderRadius;
+typedef enum{
+    IUStyleBorderTypeSolid,
+    IUStyleBorderTypeDashed,
+    IUStyleBorderTypeDotted,
+}IUStyleBorderType;
+
+@property (nonatomic) NSNumber  *borderType;
 
 /* followings are border/radius tags */
 @property (nonatomic) NSNumber* topBorderWidth;

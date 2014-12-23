@@ -367,7 +367,7 @@
 
 - (void)updateCSSRadiusAndBorderCode:(IUCSSCode*)code styleStorage:(IUStyleStorage *)styleStorage option:(NSDictionary *)options{
     if(styleStorage.borderWidth){
-        //width
+        //border width
         if(styleStorage.borderWidth == NSMultipleValuesMarker){
             if(styleStorage.topBorderWidth){
                 [code insertTag:@"border-top-width" number:styleStorage.topBorderWidth unit:IUUnitPixel];
@@ -385,28 +385,50 @@
         else{
             [code insertTag:@"border-width" number:styleStorage.borderWidth unit:IUUnitPixel];
         }
-    }
-    if (styleStorage.borderColor) {
-        //color
-        if(styleStorage.borderColor == NSMultipleValuesMarker){
-            if(styleStorage.topBorderColor){
-                [code insertTag:@"border-top-color" color:styleStorage.topBorderColor];
+        
+        //border color
+        if (styleStorage.borderColor) {
+            if(styleStorage.borderColor == NSMultipleValuesMarker){
+                if(styleStorage.topBorderColor){
+                    [code insertTag:@"border-top-color" color:styleStorage.topBorderColor];
+                }
+                if(styleStorage.bottomBorderColor){
+                    [code insertTag:@"border-bottom-color" color:styleStorage.bottomBorderColor];
+                }
+                if(styleStorage.leftBorderColor){
+                    [code insertTag:@"border-left-color" color:styleStorage.leftBorderColor];
+                }
+                if(styleStorage.rightBorderColor){
+                    [code insertTag:@"border-right-color" color:styleStorage.rightBorderColor];
+                }
+                
             }
-            if(styleStorage.bottomBorderColor){
-                [code insertTag:@"border-bottom-color" color:styleStorage.bottomBorderColor];
+            else{
+                [code insertTag:@"border-color" color:styleStorage.borderColor];
             }
-            if(styleStorage.leftBorderColor){
-                [code insertTag:@"border-left-color" color:styleStorage.leftBorderColor];
-            }
-            if(styleStorage.rightBorderColor){
-                [code insertTag:@"border-right-color" color:styleStorage.rightBorderColor];
-            }
-            
         }
-        else{
-            [code insertTag:@"border-color" color:styleStorage.borderColor];
+        
+        //border style
+        IUStyleBorderType borderType = [styleStorage.borderType intValue];
+        NSString *borderStyle;
+        switch (borderType) {
+            case IUStyleBorderTypeSolid:
+                break;
+            case IUStyleBorderTypeDashed:
+                borderStyle = @"dashed";
+                break;
+            case IUStyleBorderTypeDotted:
+                borderStyle = @"dotted";
+                break;
+                
+            default:
+                break;
+        }
+        if(borderStyle){
+            [code insertTag:@"border-style" string:borderStyle];
         }
     }
+    
     //radius
     if(styleStorage.borderRadius){
         if(styleStorage.borderRadius == NSMultipleValuesMarker){
