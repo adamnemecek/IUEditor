@@ -40,7 +40,7 @@
     
     [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
     [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
-    [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight"];
+    [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight" options:@{NSNullPlaceholderBindingOption:@(1), NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
     [self outlet:_lineHeightComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontLineHeight"];

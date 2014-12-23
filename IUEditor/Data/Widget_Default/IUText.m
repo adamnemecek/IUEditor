@@ -83,6 +83,14 @@
     return NO;
 }
 
+- (void)setTextType:(IUTextType)textType{
+    if(_textType != textType){
+        [[self.undoManager prepareWithInvocationTarget:self] setTextType:_textType];
+        _textType = textType;
+        [self updateHTML];
+    }
+}
+
 - (IUTextInputType)textInputType{
      if(self.pgContentVariable && self.pgContentVariable.length > 0){
         return IUTextInputTypeAddible;

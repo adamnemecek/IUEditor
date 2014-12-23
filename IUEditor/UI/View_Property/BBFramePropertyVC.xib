@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBFramePropertyVC">
@@ -69,7 +69,7 @@
                             <subviews>
                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XCV-EW-wtf">
                                     <rect key="frame" x="-5" y="1" width="100" height="20"/>
-                                    <popUpButtonCell key="cell" type="bevel" title="Bottom" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="NSZ-3x-tCy" id="NQn-7e-lUI">
+                                    <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="NQn-7e-lUI">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
                                         <menu key="menu" id="CuR-e6-UBq">
@@ -77,7 +77,7 @@
                                                 <menuItem title="None" id="rE7-XO-5c8"/>
                                                 <menuItem title="Left" id="vKv-fu-Mst"/>
                                                 <menuItem title="Right" id="xwP-39-Acs"/>
-                                                <menuItem title="Bottom" state="on" id="NSZ-3x-tCy"/>
+                                                <menuItem title="Bottom" id="NSZ-3x-tCy"/>
                                             </items>
                                         </menu>
                                     </popUpButtonCell>

@@ -25,7 +25,7 @@
     [self outlet:_positionPopUpButton bind:NSSelectedIndexBinding cascadingPositionStorageProperty:@"position"];
     [self outlet:_secondPositionPopUpButton bind:NSSelectedIndexBinding cascadingPositionStorageProperty:@"secondPosition"];
     
-    [self outlet:_overflowPopUpButton bind:NSSelectedIndexBinding cascadingPositionStorageProperty:@"overflowType"];
+    [self outlet:_overflowPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"overflowType"];
 }
 
 @end

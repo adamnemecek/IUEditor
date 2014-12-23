@@ -17,6 +17,7 @@ typedef enum _IUPositionType{
 }IUFirstPositionType;
 
 typedef enum {
+    IUSecondPositionTypeNone,
     IUSecondPositionTypeFloatLeft,
     IUSecondPositionTypeFloatRight,
     IUSecondPositionTypeBottom,

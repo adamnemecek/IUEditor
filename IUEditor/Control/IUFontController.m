@@ -34,7 +34,7 @@ static IUFontController *gFontController = nil;
               @(14), @(18), @(21), @(24), @(30), @(36), @(48), @(60), @(72)];
 }
 - (NSArray *)fontLetterSpacingArray{
-    return @[@(0), @(-2.0), @(-1.0), @(0.5), @(1.0), @(2.0)];
+    return @[@(-2.0), @(-1.0), @(0), @(0.5), @(1.0), @(2.0)];
 }
 
 - (NSArray *)fontLineHeightArray{

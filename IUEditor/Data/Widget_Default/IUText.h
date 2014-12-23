@@ -24,6 +24,6 @@ typedef enum{
 +(IUText *)copyrightBox;
 
 //0 for default, 1 for H1, 2 for H2
-@property IUTextType textType;
+@property (nonatomic) IUTextType textType;
 
 @end
