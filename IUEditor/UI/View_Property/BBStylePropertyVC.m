@@ -109,6 +109,7 @@
     [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
     [self outlet:_gradientStartColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
     [self outlet:_gradientEndColor bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor2"];
+    [self outlet:_gradientDirectionSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"bgColorDirection"];
     
     /* radius */
     [self outlet:_radiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];

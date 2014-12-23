@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBStylePropertyVC">
@@ -91,7 +91,7 @@
                     </box>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="lge-Q8-gq6">
                         <rect key="frame" x="-1" y="-1" width="241" height="720"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
+                        <clipView key="contentView" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -197,9 +197,12 @@
                                                 <rect key="frame" x="1" y="1" width="90" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9s-o2-w0y">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v9s-o2-w0y" customClass="JDColorWell">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
                                                         <color key="color" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="0We-QN-F3Y" id="J4c-u6-uSO"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -284,9 +287,12 @@
                                                 <rect key="frame" x="1" y="1" width="45" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Oi-ND7">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Oi-ND7" customClass="JDColorWell">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
                                                         <color key="color" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="aI0-2x-sHU" id="EkI-sh-qmv"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -299,9 +305,12 @@
                                                 <rect key="frame" x="1" y="1" width="44" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnu-Tw-cS3">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnu-Tw-cS3" customClass="JDColorWell">
                                                         <rect key="frame" x="-6" y="-16" width="156" height="34"/>
                                                         <color key="color" red="0.0" green="0.30196078430000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="aI0-2x-sHU" id="Wfe-bl-ytB"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -685,7 +694,7 @@
                     <color key="fillColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="d3w-D5-Jhg">
-                    <rect key="frame" x="0.0" y="181" width="241" height="9"/>
+                    <rect key="frame" x="0.0" y="181" width="241" height="4"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -768,9 +777,12 @@
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-B4-cKm">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GKj-B4-cKm" customClass="JDColorWell">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="Mjl-7D-WEF" id="keW-6t-6Tu"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -875,9 +887,12 @@
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nc-mt-xpZ">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Nc-mt-xpZ" customClass="JDColorWell">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="L5Y-2r-xOU" id="yfI-eo-2Qu"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -938,9 +953,12 @@
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XD6-7v-Uzu">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XD6-7v-Uzu" customClass="JDColorWell">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="DP7-dS-Oeb" id="jMN-vd-xj2"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -1001,9 +1019,12 @@
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTT-pG-hC3">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTT-pG-hC3" customClass="JDColorWell">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="GUB-l0-q4N" id="aQ9-VY-ykw"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -1064,9 +1085,12 @@
                                                 <rect key="frame" x="1" y="1" width="12" height="12"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjo-1p-j6N">
+                                                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjo-1p-j6N" customClass="JDColorWell">
                                                         <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                         <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                        <connections>
+                                                            <outlet property="borderBox" destination="kdW-Oo-RVt" id="kR3-UG-WIR"/>
+                                                        </connections>
                                                     </colorWell>
                                                 </subviews>
                                             </view>
@@ -1097,7 +1121,7 @@
                     <color key="fillColor" red="0.55635751720000004" green="0.45606755459999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.99999999999999989" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="6sW-uV-SRA">
-                    <rect key="frame" x="0.0" y="149" width="241" height="4"/>
+                    <rect key="frame" x="0.0" y="149" width="241" height="9"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1149,9 +1173,12 @@
                                     <rect key="frame" x="1" y="1" width="90" height="12"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-8e-Ps3">
+                                        <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-8e-Ps3" customClass="JDColorWell">
                                             <rect key="frame" x="-6" y="-16" width="156" height="34"/>
                                             <color key="color" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <outlet property="borderBox" destination="uet-8l-Hg0" id="1FV-If-bEr"/>
+                                            </connections>
                                         </colorWell>
                                     </subviews>
                                 </view>

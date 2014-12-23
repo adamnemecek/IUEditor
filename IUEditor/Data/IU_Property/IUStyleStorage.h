@@ -93,11 +93,19 @@ typedef enum{
     IUStyleImageSizeTypeStretch,
 }IUStyleImageSizeType;
 
+typedef enum{
+    IUStyleColorDirectionHorizontal,
+    IUStyleColorDirectionVertical,
+    IUStyleColorDirectionLeftTop,
+    IUStyleColorDirectionRightTop,
+}IUStyleColorDirection;
+
 
 @property (nonatomic) NSNumber* imageSizeType;
 @property (nonatomic) NSNumber* imageAttachment;
 
 /* background tag */
+@property (nonatomic) NSNumber *bgColorDirection;
 @property (nonatomic) NSColor* bgColor1;
 @property (nonatomic) NSColor* bgColor2;
 

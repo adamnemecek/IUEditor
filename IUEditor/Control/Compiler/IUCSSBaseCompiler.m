@@ -161,13 +161,54 @@
         }
         //gradient
         else {
-            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-gradient(linear, left top, left bottom, color-stop(0.05, %@), color-stop(1, %@));", styleStorage.bgColor1.rgbString, styleStorage.bgColor2.rgbString];
-            NSString *mozStr = [NSString stringWithFormat:@"	background:-moz-linear-gradient( center top, %@ 5%%, %@ 100%% );", styleStorage.bgColor2.rgbString, styleStorage.bgColor1.rgbString];
-            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=0)", styleStorage.bgColor1.rgbStringWithTransparent, styleStorage.bgColor2.rgbStringWithTransparent];
             
-            NSString *gradientStr = [webKitStr stringByAppendingFormat:@"%@ %@", mozStr, ieStr];
+            NSString *standardDirection, *webkitDirection, *mozDirection, *ieDirection;
+            IUStyleColorDirection direction = [styleStorage.bgColorDirection intValue];
+            switch (direction) {
+                case IUStyleColorDirectionVertical:
+                    webkitDirection = @"top";
+                    standardDirection = @"to bottom";
+                    mozDirection = @"bottom";
+                    ieDirection = @"0";
+                    break;
+                case IUStyleColorDirectionHorizontal:
+                    webkitDirection = @"left";
+                    standardDirection = @"to right";
+                    mozDirection = @"right";
+                    ieDirection = @"1";
+                    break;
+                case IUStyleColorDirectionLeftTop:
+                    webkitDirection = @"left top";
+                    standardDirection = @"to bottom right";
+                    mozDirection = @"bottom right";
+                    ieDirection = @"0";
+                    break;
+                case IUStyleColorDirectionRightTop:
+                    webkitDirection = @"right top";
+                    standardDirection = @"to bottom left";
+                    mozDirection = @"bottom left";
+                    //FIXME : ieDirection
+                    ieDirection = @"0";
+                    break;
+                default:
+                    break;
+            }
             
+            NSString *colorString = [NSString stringWithFormat:@"%@, %@", [styleStorage.bgColor1 rgbaString], [styleStorage.bgColor2 rgbaString]];
+
+            NSString *webKitStr = [NSString stringWithFormat:@"-webkit-linear-gradient(%@, %@)",webkitDirection, colorString];
+            NSString *mozStr = [NSString stringWithFormat:@"-moz-linear-gradient(%@, %@)", mozDirection, colorString];
+            NSString *standardStr = [NSString stringWithFormat:@"linear-gradient(%@, %@)",standardDirection, colorString];
+
+            NSString *ieStr = [NSString stringWithFormat:@"filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='%@', endColorstr='%@', GradientType=%@)", styleStorage.bgColor1.rgbStringWithTransparent, styleStorage.bgColor2.rgbStringWithTransparent, ieDirection];
+            
+            NSString *gradientStr = [webKitStr stringByAppendingFormat:@"; background:%@ ; background:%@; %@", mozStr, standardStr, ieStr];
+            [code setInsertingTarget:IUTargetOutput];
             [code insertTag:@"background" string:gradientStr];
+            
+            [code setInsertingTarget:IUTargetEditor];
+            [code insertTag:@"background" string:standardStr];
+
         }
     }
     
