@@ -98,11 +98,22 @@
         else{
             imagePath = box.cascadingStyleStorage.imageName;
         }
-        NSSize currentImageSize = [self.jsManager imageSizeAtPath:imagePath];
+        
+        NSString *absolutePath;
+        if([imagePath isHTTPURL]){
+            absolutePath = imagePath;
+        }
+        else{
+            absolutePath  = [[self.resourceRootItem absolutePath] stringByAppendingPathComponent:imagePath];
+        }
+        NSImage *image = [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:absolutePath]];
+        NSImageRep *rep = [[image representations] objectAtIndex:0];
+        NSSize imageSize = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+        
         [self.cascadingStyleStorage beginTransaction:self];
     
-        [self.cascadingStyleStorage setWidth:@(currentImageSize.width) unit:@(IUFrameUnitPixel)];
-        [self.cascadingStyleStorage setHeight:@(currentImageSize.height) unit:@(IUFrameUnitPixel)];
+        [self.cascadingStyleStorage setWidth:@(imageSize.width) unit:@(IUFrameUnitPixel)];
+        [self.cascadingStyleStorage setHeight:@(imageSize.height) unit:@(IUFrameUnitPixel)];
     
         [self.cascadingStyleStorage commitTransaction:self];
     }

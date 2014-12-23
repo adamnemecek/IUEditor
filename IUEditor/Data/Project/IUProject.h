@@ -122,8 +122,11 @@ static NSString *IUClassGroupName = @"class";
 
 
 
+@property NSString *buildPath;
+@property NSString *buildResourcePath;
 - (NSString*)absoluteBuildPath;
 - (NSString*)absoluteBuildResourcePath;
+
 
 //build
 - (IUProjectType)projectType;
@@ -156,8 +159,6 @@ static NSString *IUClassGroupName = @"class";
 // server information
 - (IUServerInfo*)serverInfo;
 
-@property NSString *buildPath;
-@property NSString *buildResourcePath;
 - (void)resetBuildPath;
 
 

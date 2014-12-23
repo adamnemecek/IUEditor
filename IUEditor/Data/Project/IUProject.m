@@ -585,6 +585,8 @@
 
 #pragma mark - build
 
+
+
 - (void)resetBuildPath{
     self.buildPath = @"$IUFileDirectory/$AppName_build";
     self.buildResourcePath = @"$IUBuildPath/resource";

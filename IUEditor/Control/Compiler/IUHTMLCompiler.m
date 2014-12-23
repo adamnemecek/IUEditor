@@ -580,7 +580,11 @@
      */
     if (target == IUTargetEditor) {
         if(image.imagePath){
-            if (_editorResourcePrefix) {
+            
+            if([image.imagePath isHTTPURL]){
+                
+            }
+            else if (_editorResourcePrefix) {
                 [attributeDict addAttribute:@"src" value:[_editorResourcePrefix stringByAppendingPathComponent:image.imagePath]];
             }
             else {

@@ -256,7 +256,7 @@
 }
 
 - (NSString *)relativePath{
-    return @"/";
+    return @"";
 }
 - (void)updateImageResourceItem{
     

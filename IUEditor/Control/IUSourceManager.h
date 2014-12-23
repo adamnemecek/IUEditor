@@ -66,7 +66,10 @@
  Document base path can be replaced by setting project
  */
 - (void)setDocumentBasePath:(NSString*)documentBasePath;
-
+/**
+ Set Resource Base Path for Editor
+ */
+- (void)setEditorResourceBasePath:(NSString *)path;
 /**
  @Note: setting project will replace document base path
  */

@@ -93,6 +93,12 @@
     
     //TODO: last opened compiler를 program status로 저장?
     self.compilerRule = [[project class] defaultCompilerRule];
+    //FIXME 
+    [_compiler setOutputResourceBasePath:@"resource"];
+}
+
+- (void)setEditorResourceBasePath:(NSString *)path{
+    [_compiler setEditorResourceBasePath:path];
 }
 
 - (void)loadSheet:(IUSheet *)sheet{

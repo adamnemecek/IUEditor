@@ -11,7 +11,6 @@
 
 #import "IUCompiler.h"
 #import "IUCSSCompiler.h"
-#import "IUCSSCompiler.h"
 #import "IUCSSWPCompiler.h"
 #import "IUJSCompiler.h"
 #import "IUHTMLCompiler.h"
@@ -33,9 +32,8 @@
     IUCSSCompiler *cssCompiler;
     IUHTMLCompiler *htmlCompiler;
     IUJSCompiler *jsCompiler;
-    NSString *_resourceURLPath;
-    NSString *_jsURLPath;
-    NSString *_cssURLPath;
+    NSString *_editorResourcePath;
+    NSString *_outputResourcePath;
 
 }
 
@@ -720,16 +718,17 @@
     return NO;
 }
 
-- (void)setJSBasePath:(NSString*)urlPath{
-    _jsURLPath = [urlPath copy];
+- (void)setEditorResourceBasePath:(NSString *)path{
+    _editorResourcePath = [path copy];
+    [cssCompiler setEditorResourcePrefix:path];
+    [htmlCompiler setEditorResourcePrefix:path];
+    
 }
-
-- (void)setCSSBasePath:(NSString*)urlPath{
-    _cssURLPath = [urlPath copy];
-}
-
-- (void)setResourceBasePath:(NSString *)urlPath {
-    _resourceURLPath = [urlPath copy];
+- (void)setOutputResourceBasePath:(NSString *)path{
+    _outputResourcePath = [path copy];
+    //FIXME: compiler rule
+    [cssCompiler setOutputResourcePrefix:path];
+    [htmlCompiler setEditorResourcePrefix:path];
 }
 
 /*

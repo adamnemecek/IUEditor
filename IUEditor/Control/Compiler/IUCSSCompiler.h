@@ -21,8 +21,8 @@ compiler has common functions to compile iubox
  */
 @property (nonatomic) id<IUCompilerProtocol> compiler;
 
-@property NSString *editorResourcePrefix;
-@property NSString *outputResourcePrefix;
+@property (nonatomic) NSString *editorResourcePrefix;
+@property (nonatomic) NSString *outputResourcePrefix;
 
 @end
 

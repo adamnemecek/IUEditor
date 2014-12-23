@@ -43,9 +43,10 @@ static NSString * const IUCompilerTagOption = @"tag";
 - (NSString *)jsInitFileName:(IUPage *)document;
 - (NSString *)jsInitSource:(IUPage*)document storage:(BOOL)storage;
 
-- (void)setJSBasePath:(NSString*)urlPath;
-- (void)setCSSBasePath:(NSString*)urlPath;
-- (void)setResourceBasePath:(NSString *)urlPath;
+- (void)setEditorResourceBasePath:(NSString *)path;
+- (void)setOutputResourceBasePath:(NSString *)path;
+
+
 
 //meta source
 - (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project;

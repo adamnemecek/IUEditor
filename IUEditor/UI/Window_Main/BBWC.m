@@ -247,7 +247,6 @@
     //set CanvasVC
     [_mainWindow setCanvasVC:_canvasVC];
     [_propertyToolBarVC setJsManager:_canvasVC];
-    [_imagePropertyVC setJsManager:_canvasVC];
     
     
     //add observers
@@ -320,6 +319,9 @@
     [_imagePropertyVC setResourceRootItem:resourceRootItem];
     [_resourceLibraryVC setResourceRootItem:resourceRootItem];
     [_tracingPropertyVC setResourceRootItem:resourceRootItem];
+    
+    //buildPath
+    [_sourceManager setEditorResourceBasePath:resourceRootItem.absolutePath];
 }
 
 - (void)setDocument:(IUProjectDocument *)document{

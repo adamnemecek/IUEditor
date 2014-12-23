@@ -46,9 +46,15 @@
 - (id)init {
     self = [super init];
     _baseCompiler = [[IUCSSBaseCompiler alloc] init];
-    [self bind:@"editorResourcePrefix" toObject:_baseCompiler withKeyPath:@"editorResourcePrefix" options:nil];
-    [self bind:@"outputResourcePrefix" toObject:_baseCompiler withKeyPath:@"editorResourcePrefix" options:nil];
     return self;
+}
+- (void)setEditorResourcePrefix:(NSString *)editorResourcePrefix{
+    _editorResourcePrefix = editorResourcePrefix;
+    [_baseCompiler setEditorResourcePrefix:editorResourcePrefix];
+}
+- (void)setOutputResourcePrefix:(NSString *)outputResourcePrefix{
+    _outputResourcePrefix = outputResourcePrefix;
+    [_baseCompiler setEditorResourcePrefix:outputResourcePrefix];
 }
 
 - (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {

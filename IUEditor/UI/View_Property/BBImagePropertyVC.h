@@ -14,6 +14,5 @@
  */
 @interface BBImagePropertyVC : BBDefaultPropertyVC <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (weak) id<BBJSManagerProtocol> jsManager;
 
 @end
