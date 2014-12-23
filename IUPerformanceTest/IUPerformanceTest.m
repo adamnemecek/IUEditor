@@ -11,6 +11,8 @@
 #import "BBWC.h"
 #import "IUBox.h"
 #import "JDLogUtil.h"
+#import "JDMemoryCheckVC.h"
+
 
 @interface IUPerformanceTest : XCTestCase
 
@@ -37,19 +39,15 @@
 }
 
 - (void)testPerformance_1 {
+    IUIdentifierManager *manager = [IUIdentifierManager managerForMainWindow];
     [self measureBlock:^{
-        for (int i=0; i<200; i++){
+        for (int i=0; i<10; i++){
             IUBox *box = [[IUBox alloc] init];
+            [manager reset];
             box = nil;
         }
     }];
 }
 
-- (void)test_binding {
-    project = [[IUProject alloc] initForUntitledDocument];
-    wc = [[BBWC alloc] initWithWindowNibName:@"BBWC"];
-    [wc setProject:project];
-    [wc showWindow:nil];
-}
 
 @end
