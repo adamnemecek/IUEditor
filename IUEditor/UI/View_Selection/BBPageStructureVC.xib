@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBPageStructureVC">
@@ -202,7 +202,6 @@
                                                                                             <font key="font" metaFont="system"/>
                                                                                         </buttonCell>
                                                                                         <connections>
-                                                                                            <action selector="clickSectionSettingButton:" target="-2" id="kxO-KG-1tP"/>
                                                                                             <binding destination="AQL-Xm-TA0" name="argument2" keyPath="objectValue" previousBinding="Xtv-i3-6H3" id="1dg-wf-Meb">
                                                                                                 <dictionary key="options">
                                                                                                     <string key="NSSelectorName">clickSectionSettingButton:forSection:</string>

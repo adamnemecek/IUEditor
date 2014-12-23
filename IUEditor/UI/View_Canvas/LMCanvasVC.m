@@ -456,7 +456,7 @@
         if([moveObj canChangeXByUserInput]){
             CGFloat currentX = origianlLocation.x + totalPoint.x;
             CGFloat currentPercentX = [[currentValue valueForKey:@"left"] floatValue];
-            if([moveObj.currentPositionStorage.xUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+            if(moveObj.currentPositionStorage.xUnit == nil || [moveObj.currentPositionStorage.xUnit isEqualToNumber:@(IUFrameUnitPixel)]){
                 [moveObj.currentPositionStorage setX:@(currentX) unit:@(IUFrameUnitPixel)];
             }
             else{
@@ -467,7 +467,7 @@
         if([moveObj canChangeYByUserInput]){
             CGFloat currentY = origianlLocation.y + totalPoint.y;
             CGFloat currentPercentY = [[currentValue valueForKey:@"top"] floatValue];
-            if([moveObj.currentPositionStorage.yUnit isEqualToNumber:@(IUFrameUnitPixel)]){
+            if(moveObj.currentPositionStorage.yUnit == nil ||  [moveObj.currentPositionStorage.yUnit isEqualToNumber:@(IUFrameUnitPixel)]){
                 [moveObj.currentPositionStorage setY:@(currentY) unit:@(IUFrameUnitPixel)];
             }
             else{
