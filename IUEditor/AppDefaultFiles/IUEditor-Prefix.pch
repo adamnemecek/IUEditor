@@ -146,3 +146,8 @@
 
 #define XCA_SHORTHAND
 #endif
+
+#if DEBUG
+#else
+#define JDMemoryCheckVC NSViewController
+#endif

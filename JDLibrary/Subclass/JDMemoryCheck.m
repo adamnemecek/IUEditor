@@ -6,6 +6,7 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
+#if DEBUG
 #import "JDMemoryCheck.h"
 
 static JDMemoryChecker *memoryChecker;
@@ -84,3 +85,5 @@ static JDMemoryChecker *memoryChecker;
 }
 
 @end
+
+#endif

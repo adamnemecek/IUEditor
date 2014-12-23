@@ -6,6 +6,7 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
+#if DEBUG
 #import <Cocoa/Cocoa.h>
 
 @class  JDMemoryChecker;
@@ -33,3 +34,5 @@
 @interface JDMemoryCheckVC : NSViewController
 
 @end
+
+#endif

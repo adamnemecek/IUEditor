@@ -115,7 +115,9 @@
 
 - (void)close{
     [IUIdentifierManager removeIdentifierManagerForWindow:self];
+#if DEBUG
     [[JDMemoryChecker sharedChecker] fireMemoryCheckAfterDelay:5];
+#endif
     [super close];
 }
 
