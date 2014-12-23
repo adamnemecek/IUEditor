@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBCommandVC">
@@ -40,7 +40,7 @@
                                             </configuration>
                                         </ciFilter>
                                     </contentFilters>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_build" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EyI-Hk-cNy">
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="btn_build" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="EyI-Hk-cNy">
                                         <behavior key="behavior" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
@@ -78,19 +78,7 @@
                                     <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Ux4-AA-Xwr">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
-                                        <menu key="menu" id="jIA-Ic-4Ee">
-                                            <items>
-                                                <menuItem title="HTML" id="m7j-sP-cEX"/>
-                                                <menuItem title="Django" id="v0b-nC-FvE"/>
-                                                <menuItem title="Wordpress" id="TUh-kW-QQt"/>
-                                                <menuItem title="Presentation" id="gCw-rS-MEE">
-                                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                </menuItem>
-                                            </items>
-                                        </menu>
+                                        <menu key="menu" id="jIA-Ic-4Ee"/>
                                     </popUpButtonCell>
                                     <connections>
                                         <action selector="clickBuildTypePopupButton:" target="-2" id="o86-VO-jfC"/>
