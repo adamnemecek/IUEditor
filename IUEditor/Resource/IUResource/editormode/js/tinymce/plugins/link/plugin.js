@@ -258,12 +258,18 @@ tinymce.PluginManager.add('link', function(editor) {
 			data: data,
 			body: [
 				{
-					name: 'href',
+                    name: 'href',
+                    type: 'textbox',
+                    size: 40,
+                    label: 'Url',
+
+                    /*name: 'href',
 					type: 'filepicker',
 					filetype: 'file',
 					size: 40,
+                    label: 'Url',*/
+                   
 					autofocus: true,
-					label: 'Url',
 					onchange: urlChange,
 					onkeyup: updateText
 				},

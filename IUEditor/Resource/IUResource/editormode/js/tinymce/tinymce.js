@@ -31185,7 +31185,7 @@ define("tinymce/EditorManager", [
 				             inline: true,  
 				             plugins: ["link searchreplace paste textcolor"],  
 							 font_formats:iuFontList,
-				             toolbar: "forecolor backcolor | fontselect fontsizeselect | bold italic underline | link unlink",  
+				             toolbar: "forecolor backcolor bold italic underline link unlink | fontselect fontsizeselect",  
 				             menubar: false  
 				             };  
 					if (!self.get(value)) {
