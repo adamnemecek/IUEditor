@@ -378,7 +378,7 @@
 - (IUCSSCode*)cssCodeForIU:(IUBox *)iu target:(IUTarget)target viewport:(int)viewport{
     //TODO: optimize this function
     //currently, csscompiler makes whole css code
-    return [cssCompiler cssCodeForIU:iu rule:kIUCompileRuleHTML target:target viewPort:viewport option:nil];
+    return [cssCompiler cssCodeForIU:iu rule:IUCompileRuleHTML target:target viewPort:viewport option:nil];
 }
 
 - (NSString *)outputCSSSource_storage:(IUPage *)sheet{
@@ -501,7 +501,7 @@
         int size = [[cssSizeArray objectAtIndex:count] intValue];
         
         //REVIEW: word press rule은 header에 붙임, 나머지는 .css파일로 따로 뽑아냄.
-        if(_rule == kIUCompileRuleWordpress){
+        if(_rule == IUCompileRuleWordpress){
             
             if(size == sheet.project.maxViewPort){
                 [code addCodeLine:@"<style id=default>"];
@@ -686,7 +686,7 @@
         JDCode *iuCSS = [self cssHeaderForSheet:sheet isEdit:NO];
         [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
         
-        if(_rule == kIUCompileRuleWordpress){
+        if(_rule == IUCompileRuleWordpress){
             NSString *cssString = [self outputCSSSource:sheet mqSizeArray:sheet.project.viewPorts];
             [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:cssString];
         }
@@ -701,12 +701,12 @@
         
         JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
         
-        if (_rule == kIUCompileRuleDjango) {
+        if (_rule == IUCompileRuleDjango) {
             [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"/resource/"];
             [sourceCode replaceCodeString:@"./resource/" toCodeString:@"/resource/"];
             [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('/resource/"];
         }
-        if (_rule == kIUCompileRuleWordpress) {
+        if (_rule == IUCompileRuleWordpress) {
             [sourceCode replaceCodeString:@"\"resource/" toCodeString:@"\"<?php bloginfo('template_url'); ?>/resource/"];
             [sourceCode replaceCodeString:@"./resource/" toCodeString:@"<?php bloginfo('template_url'); ?>/resource/"];
             [sourceCode replaceCodeString:@"('resource/" toCodeString:@"('<?php bloginfo('template_url'); ?>/resource/"];

@@ -44,11 +44,11 @@
 }
 
 + (NSArray *)compilerRules{
-    return @[kIUCompileRuleHTML, kIUCompileRulePresentation];
+    return @[IUCompileRuleHTML, IUCompileRulePresentation];
 }
 
 + (NSString *)defaultCompilerRule{
-    return kIUCompileRuleHTML;
+    return IUCompileRuleHTML;
 }
 
 

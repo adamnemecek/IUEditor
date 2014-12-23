@@ -119,11 +119,11 @@
 
     NSString *rule = sourceManager.compilerRule;
     //FIXME : temp
-    //rule = kIUCompileRuleHTML;
+    //rule = IUCompileRuleHTML;
     
-    if ([rule isEqualToString:kIUCompileRuleHTML]
-        || [rule isEqualToString:kIUCompileRuleWordpress]
-        || [rule isEqualToString:kIUCompileRulePresentation] ) {
+    if ([rule isEqualToString:IUCompileRuleHTML]
+        || [rule isEqualToString:IUCompileRuleWordpress]
+        || [rule isEqualToString:IUCompileRulePresentation] ) {
         BOOL result = [sourceManager build:nil];
 
         if (result == NO) {
@@ -133,11 +133,11 @@
         if([doc isKindOfClass:[IUSheet class]] == NO){
             doc = _docController.project.pageGroup.childrenFileItems.firstObject;
         }
-        if ([rule isEqualToString:kIUCompileRuleHTML] || [rule isEqualToString:kIUCompileRulePresentation]) {
+        if ([rule isEqualToString:IUCompileRuleHTML] || [rule isEqualToString:IUCompileRulePresentation]) {
             NSString *firstPath = [sourceManager absoluteBuildPathForSheet:doc];
             [[NSWorkspace sharedWorkspace] openFile:firstPath];
         }
-        else if([rule isEqualToString:kIUCompileRuleWordpress]){
+        else if([rule isEqualToString:IUCompileRuleWordpress]){
             IUWordpressProject *wProject = (IUWordpressProject *) _docController.project;
             
             NSMutableString *path = [NSMutableString stringWithString:@"http://127.0.0.1"];
@@ -152,7 +152,7 @@
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:path]];
         }
     }
-    else if ([rule isEqualToString:kIUCompileRuleDjango]){
+    else if ([rule isEqualToString:IUCompileRuleDjango]){
         IUDjangoProject *project = (IUDjangoProject *)_docController.project;
         
         //get port

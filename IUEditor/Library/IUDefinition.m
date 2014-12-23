@@ -14,14 +14,16 @@ NSString *const IUWidgetLibrarySender = @"IUWidgetLibrarySender";
 NSString *const IUKey = @"key";
 NSString *const IUValue = @"value";
 
-NSString *const IUCompleTypeHTML = @"HTML";
-NSString *const IUCompileTypeDjango = @"DJANGO";
+NSString *const IUCompileRuleHTML = @"HTML";
+NSString *const IUCompileRuleDjango = @"DJANGO";
+NSString *const IUCompileRulePresentation = @"Django";
+NSString *const IUCompileRuleWordpress = @"WordPress";
 
 NSString *const IUProjectModeKey = @"projectMode";
 NSString *const IUProjectModeStress = @"stress";
 NSString *const IUProjectModeNormal = @"normal";
 
 //sheet selection
-NSString const *kIUNotificationSheetSelection = @"kUNotificationSheetSelection";
+NSString *const kIUNotificationSheetSelection = @"kUNotificationSheetSelection";
 
 

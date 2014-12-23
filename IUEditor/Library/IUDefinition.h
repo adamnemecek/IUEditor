@@ -56,15 +56,18 @@ extern NSString *const IUWidgetLibrarySender;
 extern NSString *const IUKey;
 extern NSString *const IUValue;
 
-extern NSString *const IUCompleTypeHTML;
-extern NSString *const IUCompleTypeDjango;
+extern NSString *const IUCompileRuleHTML;
+extern NSString *const IUCompileRuleDjango;
+extern NSString *const IUCompileRulePresentation;
+extern NSString *const IUCompileRuleWordpress;
 
 extern NSString *const IUProjectModeKey;
 extern NSString *const IUProjectModeStress;
 extern NSString *const IUProjectModeNormal;
 
+extern NSString *const kIUNotificationSheetSelection;
 
-extern NSString const *kIUNotificationSheetSelection;
+
 
 /******************************
  

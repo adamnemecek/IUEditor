@@ -32,11 +32,11 @@
 }
 
 + (NSArray *)compilerRules{
-    return @[kIUCompileRuleHTML, kIUCompileRulePresentation, kIUCompileRuleWordpress];
+    return @[IUCompileRuleHTML, IUCompileRulePresentation, IUCompileRuleWordpress];
 }
 
 + (NSString *)defaultCompilerRule{
-    return kIUCompileRuleWordpress;
+    return IUCompileRuleWordpress;
 }
 
 
@@ -149,7 +149,7 @@
 }
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet{
-    NSString *extension = ([self.sourceManager.compilerRule isEqualToString:kIUCompileRuleWordpress]) ? @"php" : @"html";
+    NSString *extension = ([self.sourceManager.compilerRule isEqualToString:IUCompileRuleWordpress]) ? @"php" : @"html";
     NSString *filePath = [[self.absoluteBuildPath stringByAppendingPathComponent:sheet.name ] stringByAppendingPathExtension:extension];
     return filePath;
 }

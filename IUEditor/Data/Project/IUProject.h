@@ -22,14 +22,6 @@ typedef enum _IUGitType{
 
 
 
-/**
- Basic Compiler rules
- */
-static NSString *kIUCompileRuleHTML = @"HTML";
-static NSString *kIUCompileRuleDjango = @"Django";
-static NSString *kIUCompileRulePresentation = @"Presentation";
-static NSString *kIUCompileRuleWordpress = @"wordpress";
-
 
 //setting
 static NSString * IUProjectKeyType = @"projectType";

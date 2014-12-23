@@ -445,7 +445,7 @@
         /* make html and css */
         
         //if compile mode is Presentation, add button
-        if (_compilerRule == kIUCompileRulePresentation) {
+        if (_compilerRule == IUCompileRulePresentation) {
             NSAssert(0, @"Not Coded ");
             return NO;
         }

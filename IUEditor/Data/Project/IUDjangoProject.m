@@ -23,10 +23,10 @@
 }
 
 + (NSArray *)compilerRules{
-    return @[kIUCompileRuleHTML, kIUCompileRuleDjango, kIUCompileRulePresentation];
+    return @[IUCompileRuleHTML, IUCompileRuleDjango, IUCompileRulePresentation];
 }
 + (NSString *)defaultCompilerRule{
-    return kIUCompileRuleDjango;
+    return IUCompileRuleDjango;
 }
 
 #pragma mark - init
