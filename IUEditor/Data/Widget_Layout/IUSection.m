@@ -72,19 +72,19 @@
 }
 
 - (BOOL)canChangeHeightByUserInput{
-    if(_enableFullSize){
+    if(_heightAsWindowHeight){
         return NO;
     }
     return [super canChangeHeightByUserInput];
 }
 
-- (void)setEnableFullSize:(BOOL)enableFullSize{
+- (void)setHeightAsWindowHeight:(BOOL)heightAsWindowHeight{
     [self willChangeValueForKey:@"canChangeHeightByUserInput"];
     
-    [[self.undoManager prepareWithInvocationTarget:self] setEnableFullSize:_enableFullSize];
-    _enableFullSize = enableFullSize;
+    [[self.undoManager prepareWithInvocationTarget:self] setHeightAsWindowHeight:_heightAsWindowHeight];
+    _heightAsWindowHeight = heightAsWindowHeight;
     
-    if(_enableFullSize){
+    if(_heightAsWindowHeight){
         self.defaultStyleStorage.height = nil;
     }
     

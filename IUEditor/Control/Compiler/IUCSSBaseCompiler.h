@@ -16,7 +16,7 @@
 
 @interface IUCSSBaseCompiler : NSObject
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
+- (IUCSSCode*)cssCodeForIUBox:(IUBox*)iu target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option;
 
 @property NSString *editorResourcePrefix;
 @property NSString *outputResourcePrefix;

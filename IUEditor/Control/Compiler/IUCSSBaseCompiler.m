@@ -12,7 +12,7 @@
 
 @implementation IUCSSBaseCompiler
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+- (IUCSSCode*)cssCodeForIUBox:(IUBox*)iu target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
     IUCSSCode *code = [[IUCSSCode alloc] init];
     [code setMainIdentifier:[NSString stringWithFormat:@".%@", iu.htmlID]];
     [code setInsertingTarget:target];

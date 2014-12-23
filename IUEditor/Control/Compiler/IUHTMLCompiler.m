@@ -310,8 +310,8 @@
 }
 
 - (JDCode *)htmlCodeAsIUSection:(IUSection *)section htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option {
-    if(target == IUTargetOutput && section.enableFullSize){
-        [attributeDict addAttribute:@"enableFullSize" value:@"1"];
+    if(target == IUTargetOutput && section.heightAsWindowHeight){
+        [attributeDict addAttribute:@"heightAsWindowHeight" value:@"1"];
     }
     JDCode *code = [self htmlCodeAsIUBox:section htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort attributeDict:attributeDict cssCodes:cssCodes option:option];
     

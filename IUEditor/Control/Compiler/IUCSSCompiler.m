@@ -51,172 +51,57 @@
     return self;
 }
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu {
-    IUCSSCode *code = [[IUCSSCode alloc] init];
-    [code setMaxViewPort:iu.maxViewPort];
-
+- (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
     NSArray *classPedigree = [[iu class] classPedigreeTo:[IUBox class]].reversedArray;
     for (NSString *className in classPedigree) {
-        NSString *str = [NSString stringWithFormat:@"updateCSSCode:as%@:", className];
+        NSString *str = [NSString stringWithFormat:@"cssCodeFor%@:rule:target:viewPort:option:", className];
         SEL selector = NSSelectorFromString(str);
         if ([self respondsToSelector:selector]) {
             IMP imp = [self methodForSelector:selector];
-            void (*func)(id, SEL, id, id) = (void *)imp;
-            func(self, selector, code, iu);
+            IUCSSCode *(*func)(id, SEL, IUBox*, NSString*, IUTarget, NSInteger, NSDictionary*) = (void *)imp;
+            IUCSSCode *code = func(self, selector, iu, rule, target, viewPort, option);
+            return code;
         }
     }
-    
-    [self updateLinkCSSCode:code asIUBox:iu];
-
-
-    return code;
+    return nil;
 }
 
-- (IUCSSCode*)cssCodeForIU:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
-    IUCSSCode *code = [_baseCompiler cssCodeForIU:iu target:target viewPort:viewPort option:nil];
-    
-    return code;
+- (IUCSSCode *)cssCodeForIUBox:(IUBox *)iu rule:(NSString *)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    return [_baseCompiler cssCodeForIUBox:iu target:target viewPort:viewPort option:option];
 }
 
-
-- (void)updateLinkCSSCode:(IUCSSCode *)code asIUBox:(IUBox *)iu{
-    //REVIEW: a tag는 밑으로 들어감. 상위에 있을 경우에 %사이즈를 먹어버림.
-    //밑에 child 혹은 p tag 가 없을 경우에는 a tag의 사이즈가 0이 되기 때문에 size를 만들어줌
-    return;
-    NSAssert(0, @"not yet coded");
-    
-    /*
-    if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
-        if(iu.textInputType == IUTextInputTypeEditable){
-            [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
-            [code setInsertingTarget:IUTargetBoth];
-            
-            [code insertTag:@"display" string:@"block"];
-            [code insertTag:@"width" string:@"100%"];
-            [code insertTag:@"height" string:@"100%"];
-        }
-    }
-     */
-}
-
-
-
-- (void)updateCSSCode:(IUCSSCode*)code asIUSection:(IUSection*)section{
-    if(section.enableFullSize){
-        [code setInsertingTarget:IUTargetEditor];
-        [code setInsertingIdentifier:section.cssIdentifier];
+- (IUCSSCode *)cssCodeForIUSection:(IUSection *)iu rule:(NSString *)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    IUCSSCode *code = [self cssCodeForIUBox:iu rule:rule target:target viewPort:viewPort option:option];
+    if(iu.heightAsWindowHeight && target==IUTargetEditor){
+        [code setInsertingIdentifier:code.mainIdentifier];
         [code insertTag:@"height" number:@(720) unit:IUUnitPixel];
     }
+    return code;
 }
 
-- (void)updateCSSCode:(IUCSSCode*)code asIUHeader:(IUHeader*)header{
-    if(header.prototypeClass){
+- (IUCSSCode *)cssCodeForIUMenuBar:(IUMenuBar *)iu rule:(NSString *)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    NSAssert(0, @"not yet coded");
+    IUCSSCode *code = [self cssCodeForIUBox:iu rule:rule target:target viewPort:viewPort option:option];
+    
+    if (target == IUTargetEditor) {
+        [code setInsertingIdentifier:code.mainIdentifier];
+        [code setInsertingTarget:target];
+        [code setInsertingViewPort:viewPort];
         
-        NSArray *editWidths = [header.defaultStyleManager allViewPorts];
-        [code setInsertingIdentifier:header.cssIdentifier];
         
-        //FIXME : import가 css를 공유한다면 사라져도 될 코드임.
-        for (NSNumber *viewportNumber in editWidths) {
-            int viewport = [viewportNumber intValue];
-            [code setInsertingViewPort:viewport];
-            
-            IUStyleStorage *styleStorage = (IUStyleStorage *)[header.prototypeClass.defaultStyleManager storageForViewPort:viewport];
-            if(styleStorage.height){
-                [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
-            }
-            
-            if(styleStorage.minHeight && [styleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPercent)]){
-                [code insertTag:@"min-height" number:styleStorage.minHeight frameUnit:(IUFrameUnitPixel)];
-                
-            }
-        }
     }
-}
-
-- (void)updateCSSCode:(IUCSSCode*)code asIUFooter:(IUFooter*)footer storage:(BOOL)storage{
-    if(footer.prototypeClass){
-        NSArray *editWidths = [footer.defaultStyleManager allViewPorts];
-        [code setInsertingIdentifier:footer.cssIdentifier];
-        
-        
-        //FIXME : import가 css를 공유한다면 사라져도 될 코드임.
-        for (NSNumber *viewportNumber in editWidths) {
-            int viewport = [viewportNumber intValue];
-            [code setInsertingViewPort:viewport];
-            
-            IUStyleStorage *styleStorage = (IUStyleStorage *)[footer.prototypeClass.defaultStyleManager storageForViewPort:viewport];
-            if(styleStorage.height){
-                [code insertTag:@"height" number:styleStorage.height frameUnit:styleStorage.heightUnit];
-            }
-            
-            if(styleStorage.minHeight && [styleStorage.heightUnit isEqualToNumber:@(IUFrameUnitPercent)]){
-                [code insertTag:@"min-height" number:styleStorage.minHeight frameUnit:(IUFrameUnitPixel)];
-                
-            }
-        }
-    }
-    
-    
-    
-}
-
-
-
-- (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet{
-    [code setInsertingTarget:IUTargetBoth];
-    [code setInsertingViewPort:pageLinkSet.project.maxViewPort];
-    
-    //ul class
-    [code setInsertingIdentifier:pageLinkSet.clipIdentifier];
-    switch (pageLinkSet.pageLinkAlign) {
-        case IUAlignLeft: break;
-        case IUAlignRight: [code insertTag:@"float" string:@"right"]; break;
-        case IUAlignCenter: [code insertTag:@"margin" string:@"auto"]; break;
-        default:NSAssert(0, @"Error");
-    }
-    [code insertTag:@"display" string:@"block"];
-    
-    //li class - active, hover
-    [code setInsertingIdentifiers:@[pageLinkSet.activeIdentifier, pageLinkSet.hoverIdentifier] withType:IUCSSIdentifierTypeNonInline];
-    [code insertTag:@"background-color" color:pageLinkSet.selectedButtonBGColor];
-    
-
-    //li class
-    [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
-    [code insertTag:@"display" string:@"block"];
-    [code insertTag:@"margin-left" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
-    [code insertTag:@"margin-right" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
-    [code insertTag:@"background-color" color:pageLinkSet.defaultButtonBGColor];
-
-    
-    //li media query
-    [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
-    for (NSNumber *viewPort in [pageLinkSet.defaultStyleManager allViewPorts]){
-        [code setInsertingViewPort:[viewPort intValue]];
-        
-        IUStyleStorage *styleStorage = (IUStyleStorage *)[pageLinkSet.defaultStyleManager storageForViewPort:[viewPort intValue]];
-        if(styleStorage.height){
-            //FIXME: percent가 들어오면 어떻게 되는건지????
-            [code insertTag:@"width" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
-            [code insertTag:@"height" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
-            [code insertTag:@"line-height" number:styleStorage.height unit:IUUnitPixel];
-        }
-    }
-    
+    return code;
 }
 
 - (void)updateCSSCode:(IUCSSCode*)code asIUMenuBar:(IUMenuBar*)menuBar{
-    
+    NSAssert(0, @"not yet coded");
     NSArray *editWidths = [menuBar.defaultStyleManager allViewPorts];
-
     for (NSNumber *viewportNumber in editWidths) {
         int viewport = [viewportNumber intValue];
         [code setInsertingViewPort:viewport];
         
         IUStyleStorage *styleStorage = (IUStyleStorage *)[menuBar.defaultStyleManager storageForViewPort:viewport];
         int height = [styleStorage.height intValue];
-        
-        
 
         [code setInsertingTarget:IUTargetBoth];
         if(viewport < IUMobileSize){
@@ -324,81 +209,6 @@
             [code insertTag:@"height" number:@(height) unit:IUUnitPixel];
         }
         [code insertTag:@"line-height" number:@(height) unit:IUUnitPixel];
-        
-        
-        
-        //clousre
-        //closure removed 2014.10.20 @smchoi
-        /*
-        if(menuItem.closureIdentifier){
-            [code setInsertingIdentifier:menuItem.closureIdentifier];
-            value = [menuItem.css effectiveValueForTag:IUCSSTagFontColor forViewport:viewport];
-            
-            if(value){
-                NSString *color = [[(NSColor *)value rgbString] stringByAppendingString:@" !important"];
-                if(menuItem.depth == 1){
-                    [code insertTag:@"border-top-color" string:color];
-                }
-                else if(menuItem.depth ==2){
-                    IUMenuBar *menuBar = (IUMenuBar *)(menuItem.parent.parent);
-                    if(viewport > IUMobileSize){
-                        if(menuBar.align == IUMenuBarAlignLeft){
-                            [code insertTag:@"border-left-color" string:color];
-                        }
-                        else if(menuBar.align == IUMenuBarAlignRight){
-                            [code insertTag:@"border-right-color" string:color];
-                        }
-                    }
-                    else{
-                        if(menuBar.align == IUMenuBarAlignLeft){
-                            [code insertTag:@"border-left-color" string:@"transparent !important"];
-                        }
-                        else if(menuBar.align == IUMenuBarAlignRight){
-                            [code insertTag:@"border-right-color" string:@"transparent !important"];
-                        }
-                        [code insertTag:@"border-top-color" string:color];
-                    }
-                }
-            }
-            int top = (maxHeight- 10)/2;
-            [code insertTag:@"top" integer:top unit:IUUnitPixel];
-                
-            
-        }
-         
-        
-        //clousre active, hover
-        if(menuItem.closureHoverIdentifier){
-            [code setInsertingIdentifiers:@[menuItem.closureActiveIdentifier, menuItem.closureHoverIdentifier]];
-            NSString *color = [[menuItem.fontActive rgbString] stringByAppendingString:@" !important"];
-            if(menuItem.depth == 1){
-                [code insertTag:@"border-top-color" string:color];
-            }
-            else if(menuItem.depth ==2){
-                IUMenuBar *menuBar = (IUMenuBar *)(menuItem.parent.parent);
-                if(viewport > IUMobileSize){
-                    if(menuBar.align == IUMenuBarAlignLeft){
-                        [code insertTag:@"border-left-color" string:color];
-                    }
-                    else if(menuBar.align == IUMenuBarAlignRight){
-                        [code insertTag:@"border-right-color" string:color];
-                    }
-                }
-                else{
-                    if(menuBar.align == IUMenuBarAlignLeft){
-                        [code insertTag:@"border-left-color" string:@"transparent !important"];
-                    }
-                    else if(menuBar.align == IUMenuBarAlignRight){
-                        [code insertTag:@"border-right-color" string:@"transparent !important"];
-                    }
-                    [code insertTag:@"border-top-color" string:color];
-                }
-            }
-            int top = (maxHeight- 10)/2;
-            [code insertTag:@"top" integer:top unit:IUUnitPixel];
-            
-        }
-         */
         
         
         //editor mode
@@ -724,4 +534,71 @@
 */
 
 
+
+
+
+
+/*
+- (void)updateCSSCode:(IUCSSCode*)code asPGPageLinkSet:(PGPageLinkSet*)pageLinkSet{
+    [code setInsertingTarget:IUTargetBoth];
+    [code setInsertingViewPort:pageLinkSet.project.maxViewPort];
+    
+    //ul class
+    [code setInsertingIdentifier:pageLinkSet.clipIdentifier];
+    switch (pageLinkSet.pageLinkAlign) {
+        case IUAlignLeft: break;
+        case IUAlignRight: [code insertTag:@"float" string:@"right"]; break;
+        case IUAlignCenter: [code insertTag:@"margin" string:@"auto"]; break;
+        default:NSAssert(0, @"Error");
+    }
+    [code insertTag:@"display" string:@"block"];
+    
+    //li class - active, hover
+    [code setInsertingIdentifiers:@[pageLinkSet.activeIdentifier, pageLinkSet.hoverIdentifier] withType:IUCSSIdentifierTypeNonInline];
+    [code insertTag:@"background-color" color:pageLinkSet.selectedButtonBGColor];
+    
+
+    //li class
+    [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
+    [code insertTag:@"display" string:@"block"];
+    [code insertTag:@"margin-left" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
+    [code insertTag:@"margin-right" number:@(pageLinkSet.buttonMargin) unit:IUUnitPixel];
+    [code insertTag:@"background-color" color:pageLinkSet.defaultButtonBGColor];
+
+    
+    //li media query
+    [code setInsertingIdentifier:pageLinkSet.itemIdentifier];
+    for (NSNumber *viewPort in [pageLinkSet.defaultStyleManager allViewPorts]){
+        [code setInsertingViewPort:[viewPort intValue]];
+        
+        IUStyleStorage *styleStorage = (IUStyleStorage *)[pageLinkSet.defaultStyleManager storageForViewPort:[viewPort intValue]];
+        if(styleStorage.height){
+            //FIXME: percent가 들어오면 어떻게 되는건지????
+            [code insertTag:@"width" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
+            [code insertTag:@"height" number:styleStorage.height frameUnit:@(IUFrameUnitPixel)];
+            [code insertTag:@"line-height" number:styleStorage.height unit:IUUnitPixel];
+        }
+    }
+}
+ */
+
+/*
+- (void)updateLinkCSSCode:(IUCSSCode *)code asIUBox:(IUBox *)iu{
+    //REVIEW: a tag는 밑으로 들어감. 상위에 있을 경우에 %사이즈를 먹어버림.
+    //밑에 child 혹은 p tag 가 없을 경우에는 a tag의 사이즈가 0이 되기 때문에 size를 만들어줌
+    return;
+    NSAssert(0, @"not yet coded");
+    
+    if(iu.link && [_compiler hasLink:iu] && iu.children.count==0 ){
+        if(iu.textInputType == IUTextInputTypeEditable){
+            [code setInsertingIdentifier:[iu.cssIdentifier stringByAppendingString:@" a"]];
+            [code setInsertingTarget:IUTargetBoth];
+            
+            [code insertTag:@"display" string:@"block"];
+            [code insertTag:@"width" string:@"100%"];
+            [code insertTag:@"height" string:@"100%"];
+        }
+    }
+}
+     */
 @end

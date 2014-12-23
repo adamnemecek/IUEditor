@@ -27,7 +27,7 @@
 - (id)init{
     self = [super init];
     if(self){
-        [_fullscreenButton bind:NSValueBinding toObject:self withKeyPath:@"currentSection.enableFullSize" options:IUBindingDictNotRaisesApplicable];
+        [_fullscreenButton bind:NSValueBinding toObject:self withKeyPath:@"currentSection.heightAsWindowHeight" options:IUBindingDictNotRaisesApplicable];
 
     }
     return self;

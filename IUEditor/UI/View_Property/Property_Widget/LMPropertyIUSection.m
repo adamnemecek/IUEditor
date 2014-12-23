@@ -26,7 +26,7 @@
 }
 
 - (void)awakeFromNib{
-    [self outlet:_fullsizeBtn bind:NSValueBinding property:@"enableFullSize"];
+    [self outlet:_fullsizeBtn bind:NSValueBinding property:@"heightAsWindowHeight"];
 }
 
 

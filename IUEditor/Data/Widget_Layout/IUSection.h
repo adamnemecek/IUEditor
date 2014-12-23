@@ -10,7 +10,7 @@
 
 @interface IUSection : IUBox
 
-@property (nonatomic) BOOL enableFullSize;
+@property (nonatomic) BOOL heightAsWindowHeight;
 
 
 @end

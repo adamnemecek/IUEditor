@@ -33,7 +33,7 @@ function isElementIntersectViewport (el) {
 
 
 function makefullSizeSection(){
-    var respc = $('[enableFullSize="1"]').toArray();
+    var respc = $('[heightAsWindowHeight="1"]').toArray();
 	var windowHeight =  $(window).height();
 	
 	var sectionHeight = windowHeight;
