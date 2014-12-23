@@ -203,7 +203,7 @@
     [self.gridView setLayerOriginWithZoom:zoomFactor];
     
     //ruler- scale
-    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoom, zoom)];
+    [[self.mainScrollView contentView] scaleUnitSquareToSize:NSMakeSize(zoomFactor, zoomFactor)];
     [self.mainScrollView setNeedsDisplay:YES];
     [self.mainScrollView setNeedsLayout:YES];
 
@@ -417,7 +417,8 @@
     NSPoint originalPoint = [theEvent locationInWindow];
     NSPoint filpConvertedPoint = [self.mainView convertPoint:originalPoint fromView:nil];
     CGFloat zoom = self.gridView.layer.affineTransform.a;
-    CGFloat left = self.gridView.layer.affineTransform.tx*1/zoom;
+//    CGFloat left = self.gridView.layer.affineTransform.tx*1/zoom;
+    CGFloat left = self.gridView.layer.affineTransform.tx*1;
     NSPoint centerConvertedPoint = NSMakePoint(filpConvertedPoint.x - left, filpConvertedPoint.y);
 
     NSPoint convertedScrollPoint = [self.mainScrollView convertPoint:originalPoint fromView:nil];

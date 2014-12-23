@@ -19,6 +19,7 @@
 #import "IUStyleStorage.h"
 #import "IUPositionStorage.h"
 #import "IUPropertyStorage.h"
+#import "IUActionStorage.h"
 
 
 #import "IUSourceDelegate.h"
@@ -51,8 +52,7 @@ typedef enum{
 
 /* default data manager name */
 static NSString *kIUStyleManager = @"styleManager";
-static NSString *kIUStyleHoverManager = @"styleManagerHover";
-static NSString *kIUStyleActiveManager = @"styleManagerActive";
+static NSString *kIUActionManager = @"styleManagerHover";
 static NSString *kIUPositionManager = @"positionManager";
 static NSString *kIUPropertyManager = @"propertyManager";
 
@@ -67,8 +67,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
     
     /* data storage */
     NSMutableDictionary *_m_storageManagerDict;
-    IUStyleStorage *_cascadingStyleStorage;
-    IUStyleStorage *_currentStyleStorage;
 }
 
 + (NSImage *)classImage;
@@ -145,12 +143,15 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property (readonly) _binding_ IUPropertyStorage *cascadingPropertyStorage;
 @property (readonly) _binding_ IUPropertyStorage *currentPropertyStorage;
 
+@property (readonly) _binding_ IUActionStorage *defaultActionStorage;
+@property (readonly) _binding_ IUActionStorage *cascadingActionStorage;
+@property (readonly) _binding_ IUActionStorage *currentActionStorage;
 
 - (NSArray *)allCSSSelectors;
 - (void)setStorageManager:(IUDataStorageManager *)cssManager forSelector:(NSString *)selector;
 - (IUDataStorageManager *)dataManagerForSelector:(NSString *)selector;
 - (IUDataStorageManager *)defaultStyleManager;
-- (IUDataStorageManager *)hoverStyleManager;
+- (IUDataStorageManager *)actionManager;
 - (IUDataStorageManager *)positionManager;
 - (IUDataStorageManager *)propertyManager;
 

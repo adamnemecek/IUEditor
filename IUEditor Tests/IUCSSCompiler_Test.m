@@ -70,11 +70,11 @@
 
 - (void)test4_hover{
     box.cascadingStyleStorage.bgColor1 = [NSColor blueColor];
-    ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1 = [NSColor redColor];
+    ((IUActionStorage *)box.actionManager.cascadingStorage).hoverBGColor = [NSColor redColor];
     
     
     XCTAssertEqualObjects(box.cascadingStyleStorage.bgColor1, [NSColor blueColor]);
-    XCTAssertEqualObjects(((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1, [NSColor redColor]);
+    XCTAssertEqualObjects(((IUActionStorage *)box.actionManager.cascadingStorage).hoverBGColor, [NSColor redColor]);
     
     IUCSSCode *code = [compiler cssCodeForIU:box];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];

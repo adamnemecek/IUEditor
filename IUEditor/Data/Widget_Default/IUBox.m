@@ -86,14 +86,14 @@
     IUDataStorageManager *positionManager = [aDecoder decodeObjectForKey:@"positionManager"];
     IUDataStorageManager *styleManager = [aDecoder decodeObjectForKey:@"styleManager"];
     IUDataStorageManager *propertyManager = [aDecoder decodeObjectForKey:@"propertyManager"];
-    IUDataStorageManager *hoverManager = [aDecoder decodeObjectForKey:@"hoverStyleManager"];
+    IUDataStorageManager *actionManager = [aDecoder decodeObjectForKey:@"actionManager"];
     
     _m_storageManagerDict = [NSMutableDictionary dictionary];
     
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
     [self setStorageManager:styleManager forSelector:kIUStyleManager];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
-    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+    [self setStorageManager:actionManager forSelector:kIUActionManager];
     
     
     [self bindStorages];
@@ -121,6 +121,12 @@
         [self bind:@"cascadingPropertyStorage" toObject:self.propertyManager withKeyPath:@"cascadingStorage" options:nil];
         [self bind:@"defaultPropertyStorage" toObject:self.propertyManager withKeyPath:@"defaultStorage" options:nil];
     }
+    
+    if(self.actionManager){
+        [self bind:@"currentActionStorage" toObject:self.actionManager withKeyPath:@"currentStorage" options:nil];
+        [self bind:@"cascadingActionStorage" toObject:self.actionManager withKeyPath:@"cascadingStorage" options:nil];
+        [self bind:@"defaultActionStorage" toObject:self.actionManager withKeyPath:@"defaultStorage" options:nil];
+    }
 }
 
 - (void)unbindStorages {
@@ -135,6 +141,11 @@
     [self unbind:@"currentPropertyStorage"];
     [self unbind:@"cascadingPropertyStorage"];
     [self unbind:@"defaultPropertyStorage"];
+  
+    [self unbind:@"currentActionStorage"];
+    [self unbind:@"cascadingActionStorage"];
+    [self unbind:@"defaultActionStorage"];
+    
 }
 
 - (void)awakeAfterUsingJDCoder:(JDCoder *)aDecoder{
@@ -165,7 +176,7 @@
     [aCoder encodeObject:self.positionManager forKey:@"positionManager"];
     [aCoder encodeObject:self.defaultStyleManager forKey:@"styleManager"];
     [aCoder encodeObject:self.propertyManager forKey:@"propertyManager"];
-    [aCoder encodeObject:self.hoverStyleManager forKey:@"hoverStyleManager"];
+    [aCoder encodeObject:self.actionManager forKey:@"actionManager"];
 }
 
 -(id <IUProjectProtocol>)project{
@@ -226,8 +237,8 @@
     [self setStorageManager:styleManager forSelector:kIUStyleManager];
     IUDataStorageManager *positionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPositionStorage className]];
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
-    IUDataStorageManager *hoverManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUStyleStorage className]];
-    [self setStorageManager:hoverManager forSelector:kIUStyleHoverManager];
+    IUDataStorageManager *actionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUActionStorage className]];
+    [self setStorageManager:actionManager forSelector:kIUActionManager];
     IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage className]];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
 
@@ -241,10 +252,7 @@
 //  commented by JD. 14.12.09
 //  self.defaultStyleStorage.overflowType = @(IUOverflowTypeHidden); can manage at iu.css
 
-    [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setWidth:nil unit:@(IUFrameUnitPixel)];
-    [(IUStyleStorage *)self.hoverStyleManager.defaultStorage setHeight:nil unit:@(IUFrameUnitPixel)];
 }
-
 
 - (void)connectWithEditor{
     
@@ -385,8 +393,8 @@
 - (IUDataStorageManager *)defaultStyleManager{
     return _m_storageManagerDict[kIUStyleManager];
 }
-- (IUDataStorageManager *)hoverStyleManager{
-    return _m_storageManagerDict[kIUStyleHoverManager];
+- (IUDataStorageManager *)actionManager{
+    return _m_storageManagerDict[kIUActionManager];
 }
 - (IUDataStorageManager *)positionManager{
     return _m_storageManagerDict[kIUPositionManager];

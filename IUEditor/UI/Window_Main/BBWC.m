@@ -417,6 +417,17 @@
     }];
 }
 
+- (IBAction)zoomIn:(id)sender
+{
+    [_canvasVC zoomIn];
+}
+
+
+- (IBAction)zoomOut:(id)sender
+{
+    [_canvasVC zoomOut];
+}
+
 
 #pragma mark - debug
 #if DEBUG

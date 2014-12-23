@@ -149,8 +149,8 @@
 
 - (void)setLayerOriginWithZoom:(CGFloat)zoom{
     NSInteger left = [self currentLeft];
-    self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
-    
+//    self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left*zoom, 0);
+      self.layer.affineTransform = CGAffineTransformMake(zoom,0,0,zoom, left, 0);
     [self setNeedsDisplay:YES];
 
 }

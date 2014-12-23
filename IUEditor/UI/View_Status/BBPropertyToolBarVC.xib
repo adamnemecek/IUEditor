@@ -15,9 +15,9 @@
                 <outlet property="hStepper" destination="6fx-db-DV3" id="Rd7-NH-qYo"/>
                 <outlet property="hTextField" destination="Vhr-rD-eTs" id="Hu3-0s-JGq"/>
                 <outlet property="hUnitButton" destination="WQy-d3-dnM" id="qfb-rJ-Zbz"/>
-                <outlet property="horizontalCenterButton" destination="vIh-s9-xdu" id="ckd-Az-Hx2"/>
+                <outlet property="horizontalCenterButton" destination="Gf5-2B-3ys" id="5qC-fO-PLQ"/>
                 <outlet property="lightWeigtMenuItem" destination="OvY-yh-r6a" id="lMN-9b-L8B"/>
-                <outlet property="verticalCenterButton" destination="Gf5-2B-3ys" id="Lu9-GU-G5y"/>
+                <outlet property="verticalCenterButton" destination="vIh-s9-xdu" id="H5g-wB-lSo"/>
                 <outlet property="view" destination="QcR-wN-r3d" id="YNL-20-5cM"/>
                 <outlet property="wStepper" destination="LMQ-bG-CwM" id="gJ6-mz-Caq"/>
                 <outlet property="wTextField" destination="TR6-zl-0LG" id="NYL-Xh-f5o"/>

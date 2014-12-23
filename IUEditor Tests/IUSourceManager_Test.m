@@ -131,7 +131,7 @@
         IUBox *section = ((IUBox*)page.pageContent.children[0]);
         IUBox *box = section.children[0];
         
-        ((IUStyleStorage *)box.hoverStyleManager.cascadingStorage).bgColor1 = [NSColor yellowColor];
+        ((IUActionStorage *)box.actionManager.cascadingStorage).hoverBGColor = [NSColor yellowColor];
         
         [manager setNeedsUpdateCSS:box];
         

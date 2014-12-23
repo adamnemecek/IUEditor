@@ -142,22 +142,22 @@
     }
     
     
-    IUStyleStorage *hoverStorage = (IUStyleStorage *)[_iu.hoverStyleManager storageForViewPort:viewport];
-    if (hoverStorage) {
+    IUActionStorage *actionStorage = (IUActionStorage *)[_iu.actionManager storageForViewPort:viewport];
+    if (actionStorage) {
         [code setInsertingTarget:IUTargetBoth];
         
         //css has color or image
-        if(hoverStorage.imageX || hoverStorage.imageY){
-            if(hoverStorage.imageX){
-                [code insertTag:@"background-position-x" number:hoverStorage.imageX unit:IUUnitPixel];
+        if(actionStorage.hoverBGPositionX || actionStorage.hoverBGPositionY){
+            if(actionStorage.hoverBGPositionX){
+                [code insertTag:@"background-position-x" number:actionStorage.hoverBGPositionX unit:IUUnitPixel];
             }
-            if(hoverStorage.imageY){
-                [code insertTag:@"background-position-y" number:hoverStorage.imageY unit:IUUnitPixel];
+            if(actionStorage.hoverBGPositionY){
+                [code insertTag:@"background-position-y" number:actionStorage.hoverBGPositionY unit:IUUnitPixel];
             }
         }
-        else if(hoverStorage.bgColor1){
-            NSString *outputColor = [hoverStorage.bgColor1 cssBGColorString];
-            NSString *editorColor = [hoverStorage.bgColor1 rgbaString];
+        else if(actionStorage.hoverBGColor){
+            NSString *outputColor = [actionStorage.hoverBGColor cssBGColorString];
+            NSString *editorColor = [actionStorage.hoverBGColor rgbaString];
             if ([outputColor length] == 0) {
                 outputColor = @"black";
                 editorColor = @"black";
@@ -180,8 +180,8 @@
              */
         }
         
-        if(hoverStorage.fontColor){
-            [code insertTag:@"color" color:hoverStorage.fontColor];
+        if(actionStorage.hoverTextColor){
+            [code insertTag:@"color" color:actionStorage.hoverTextColor];
             
         }
         
