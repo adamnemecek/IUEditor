@@ -20,7 +20,7 @@
 #import "IUBoxes.h"
 
 #import "LMHelpWC.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 #import "IUDocumentProtocol.h"
 
 @interface LMCanvasVC ()
@@ -634,7 +634,7 @@
         [iu.cascadingPropertyStorage disableUpdate:self];
 
         if(element.innerText && [element.innerText stringByTrim].length > 0){
-            [[LMFontController sharedFontController] setLastUsedFontToIUBox:iu];
+            [[IUFontController sharedFontController] setLastUsedFontToIUBox:iu];
             iu.cascadingPropertyStorage.innerHTML = element.innerHTML;
         }
         else{

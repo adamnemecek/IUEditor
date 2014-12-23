@@ -614,50 +614,8 @@
 }
 
 
-- (void)updateCSSValuesBeforeUpdateEditor{
-    /*
-    if(_lineHeightAuto){
-        if(_css.effectiveTagDictionary[IUCSSTagPixelHeight]){
-            
-            NSInteger brCount = [self.sourceManager countOfLineWithIdentifier:self.htmlID];
-            CGFloat height = [_css.effectiveTagDictionary[IUCSSTagPixelHeight] floatValue];
-            CGFloat fontSize = [_css.effectiveTagDictionary[IUCSSTagFontSize] floatValue];
-            CGFloat lineheight;
-            
-            if(height < 0.1 || height < fontSize || brCount <0.1 || fontSize <0.1){
-                lineheight = 1.0;
-            }
-            else{
-                lineheight = ((height/brCount)/fontSize);
-            }
-            
-            if(brCount > 3 && lineheight > 50){
-                lineheight = 50;
-            }
-            [_css setValueWithoutUpdateCSS:@(lineheight) forTag:IUCSSTagLineHeight];
-        }
-    }
-     */
-}
-/*FIXME: Structre Error!!!
-
-//updateCSS는 delegate에 화면을 업데이트 하는 함수인데 함수가 다시 _css에 값을 세팅하고 있음.
-//2014.09.30
-updateCSS가 화면을 업데이트 하는 함수라기보다는 현재 css를 적용시킨다는 말이 맞는것같음???
-아니면 구분을 지어야할듯.
- 
-updateCSS를 updateCanvasForCSS, updateCSSValues로 두개를 호출하게.
- 
-현재상황에서는 css가 변할때마다 변화해야 하는 값들을 넣어주어야함.
-(media query를 support하기때문에 css값이지만 jquery+property에 의해서 정해지는 값)
-e.g. 만약 css로 옮긴다면)
-->css로 넘어가면 js를 호출할수가 없음(연결선을 빼야함->css.delegate->iu->iu.delegate)까지 연장해야함(가능)
-->iu property를 delegate쪽으로 빼야함.(이것도 struture error)
- */
 - (void)updateCSS{
-    
     if(self.sourceManager && self.isConnectedWithEditor){
-        [self updateCSSValuesBeforeUpdateEditor];
         [self.sourceManager setNeedsUpdateCSS:self];
     }
 }
@@ -665,15 +623,14 @@ e.g. 만약 css로 옮긴다면)
 
 - (void)updateCSSWithIdentifiers:(NSArray *)identifiers{
     if(self.sourceManager){
-        [self updateCSSValuesBeforeUpdateEditor];
         [self.sourceManager setNeedsUpdateCSS:self withIdentifiers:identifiers];
     }
 }
 
 - (void)setNeedsToUpdateStorage:(IUDataStorage*)storage keys:(NSArray *)keys{
-    //FIXME: 현재 바뀐 property값을 key로 받아서 updateHTML/updateCSS 에 맞게 호출
+    //TODO: 현재 바뀐 property값을 key로 받아서 updateHTML/updateCSS 에 맞게 호출
     if(self.sourceManager){
-        [self updateHTML];
+        [self updateCSS];
     }
 }
 

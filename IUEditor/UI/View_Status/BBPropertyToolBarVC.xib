@@ -460,9 +460,13 @@
                                         <rect key="frame" x="1" y="1" width="12" height="12"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6qb-co-6J5">
+                                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6qb-co-6J5" customClass="JDColorWell">
                                                 <rect key="frame" x="-8" y="-14" width="34" height="34"/>
                                                 <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                <connections>
+                                                    <action selector="clickBGColorWell:" target="-2" id="6om-jq-lyT"/>
+                                                    <outlet property="borderBox" destination="yVc-EZ-Bbf" id="L8I-N4-Sx0"/>
+                                                </connections>
                                             </colorWell>
                                         </subviews>
                                     </view>
@@ -542,13 +546,13 @@
                             <subviews>
                                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89S-Qn-DNT">
                                     <rect key="frame" x="-5" y="1" width="70" height="20"/>
-                                    <popUpButtonCell key="cell" type="bevel" title="Light" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" selectedItem="OvY-yh-r6a" id="RGG-mE-Ih1">
+                                    <popUpButtonCell key="cell" type="bevel" title="Normal" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="y6h-v1-Lfc" id="RGG-mE-Ih1">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
-                                        <menu key="menu" id="A06-im-TW1">
+                                        <menu key="menu" autoenablesItems="NO" id="A06-im-TW1">
                                             <items>
-                                                <menuItem title="Light" state="on" id="OvY-yh-r6a" userLabel="Light"/>
-                                                <menuItem title="Normal" id="y6h-v1-Lfc" userLabel="Normal"/>
+                                                <menuItem title="Light" id="OvY-yh-r6a" userLabel="Light"/>
+                                                <menuItem title="Normal" state="on" id="y6h-v1-Lfc" userLabel="Normal"/>
                                                 <menuItem title="Bold" id="njy-W5-cdT" userLabel="Bold"/>
                                             </items>
                                         </menu>
@@ -594,9 +598,12 @@
                                         <rect key="frame" x="1" y="1" width="12" height="12"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ms-4s-DQl">
+                                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ms-4s-DQl" customClass="JDColorWell">
                                                 <rect key="frame" x="-11" y="-11" width="34" height="34"/>
                                                 <color key="color" red="0.078431372550000003" green="0.54901960780000003" blue="0.82352941180000006" alpha="1" colorSpace="deviceRGB"/>
+                                                <connections>
+                                                    <outlet property="borderBox" destination="Txc-1l-Wfj" id="syK-oH-uol"/>
+                                                </connections>
                                             </colorWell>
                                         </subviews>
                                     </view>

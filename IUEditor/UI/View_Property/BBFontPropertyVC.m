@@ -7,7 +7,7 @@
 //
 
 #import "BBFontPropertyVC.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 
 @interface BBFontPropertyVC ()
 @property (weak) IBOutlet NSComboBox *fontNameComboBox;
@@ -20,7 +20,7 @@
 @property (weak) IBOutlet NSMatrix *textTypeMatrix;
 
 //font controller
-@property (weak) LMFontController *fontController;
+@property (weak) IUFontController *fontController;
 
 @end
 
@@ -29,7 +29,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        _fontController = [LMFontController sharedFontController];
+        _fontController = [IUFontController sharedFontController];
     }
     return self;
 }

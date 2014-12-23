@@ -133,7 +133,8 @@ typedef enum{
 @property (nonatomic, copy) NSString* fontName;
 @property (nonatomic) NSNumber* fontSize;
 @property (nonatomic) NSColor*  fontColor;
-@property (nonatomic) NSString* fontWeight;
+/* fontWeight value : 0 - light, 1- normal, 2- bold */
+@property (nonatomic) NSNumber* fontWeight;
 @property (nonatomic) NSNumber* fontItalic;
 @property (nonatomic) NSNumber* fontUnderline;
 

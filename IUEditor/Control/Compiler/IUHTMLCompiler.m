@@ -137,7 +137,7 @@
     }
      */
     
-    else if (target == IUTargetEditor && style) {
+    if (target == IUTargetEditor && style) {
         [attrDict addAttribute:@"style" value:style];
     }
     return attrDict;

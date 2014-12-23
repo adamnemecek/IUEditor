@@ -20,7 +20,7 @@
 
 #import "NSString+JDExtension.h"
 #import "NSDictionary+JDExtension.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 
 #import "IUProject.h"
 #import "IUWordpressProject.h"
@@ -209,7 +209,7 @@
             NSString *fontfamily = [innerHTML substringWithRange:[result range]];
             //** css font name만 남김
             fontfamily = [fontfamily substringWithRange:NSMakeRange(13, fontfamily.length-14)];
-            NSString *fontName = [[LMFontController sharedFontController] fontNameForFontCSS:fontfamily];
+            NSString *fontName = [[IUFontController sharedFontController] fontNameForFontCSS:fontfamily];
             if(fontName && fontName.length > 0){
                 [array addObject:@{IUCSSTagFontName:fontName}];
             }
@@ -249,7 +249,7 @@
 
     }
 
-    LMFontController *fontController = [LMFontController sharedFontController];
+    IUFontController *fontController = [IUFontController sharedFontController];
     return [fontController headerCodeForFont:fontArray];
 }
 
@@ -305,7 +305,7 @@
         
         //text editor - tinymce
         [code addCodeLine:@"<script type=\"text/javascript\">"];
-        NSString *currentFontList = [[LMFontController sharedFontController] mceFontList];
+        NSString *currentFontList = [[IUFontController sharedFontController] mceFontList];
         [code addCodeLineWithFormat:@"var iuFontList = %@;", currentFontList];
         [code addCodeLine:@"</script>"];
 
@@ -630,7 +630,7 @@
     JDCode *sourceCode = [[JDCode alloc] initWithCodeString:sourceString];
     
     
-    JDCode *webFontCode = [[LMFontController sharedFontController] headerCodeForAllFont];
+    JDCode *webFontCode = [[IUFontController sharedFontController] headerCodeForAllFont];
     [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
     
     JDCode *jsCode = [self javascriptHeader:iu isEdit:YES];

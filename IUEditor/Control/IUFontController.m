@@ -1,21 +1,21 @@
 //
-//  LMFontController.m
+//  IUFontController.m
 //  IUEditor
 //
 //  Created by ChoiSeungme on 2014. 5. 28..
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import "LMFontController.h"
+#import "IUFontController.h"
 
-static LMFontController *gFontController = nil;
+static IUFontController *gFontController = nil;
 
 
-@implementation LMFontController
+@implementation IUFontController
 
-+ (LMFontController *)sharedFontController{
++ (IUFontController *)sharedFontController{
     if(gFontController == nil){
-        gFontController = [[LMFontController alloc] init];
+        gFontController = [[IUFontController alloc] init];
         [gFontController loadFontList];
     }
     return gFontController;

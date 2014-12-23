@@ -7,7 +7,7 @@
 //
 
 #import "BBPropertyToolBarVC.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 
 @interface BBPropertyToolBarVC ()
 
@@ -43,7 +43,7 @@
 @property (weak) IBOutlet NSSegmentedControl *fontAlignSegmentedControl;
 
 //font controller
-@property (weak) LMFontController *fontController;
+@property (weak) IUFontController *fontController;
 
 //popover outlet
 @property (weak) IBOutlet NSButton *extendedFrameButton;
@@ -58,7 +58,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self){
-        _fontController = [LMFontController sharedFontController];
+        _fontController = [IUFontController sharedFontController];
     }
     return self;
 }
@@ -89,7 +89,7 @@
     
     //text binding
     [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
-    [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight"];
+    [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight" options:@{NSNullPlaceholderBindingOption:@(1), NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
 
     [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
@@ -99,11 +99,13 @@
     [self outlet:_minWidthTextField bind:NSValueBinding cascadingStyleStorageProperty:@"minWidth"];
     [self outlet:_minHeightTextField bind:NSValueBinding cascadingStyleStorageProperty:@"minHeight"];
     
+    
 }
 
 - (void)dealloc{
     JDSectionInfoLog(IULogDealloc, @"");
 }
+
 
 
 #pragma mark - ibaction

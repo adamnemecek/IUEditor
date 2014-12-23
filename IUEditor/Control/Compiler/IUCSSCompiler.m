@@ -10,7 +10,7 @@
 #import "IUCSSBaseCompiler.h"
 
 
-#import "LMFontController.h"
+#import "IUFontController.h"
 #import "IUCSS.h"
 #import "IUProject.h"
 
@@ -198,7 +198,7 @@
     IUStyleStorage *styleStorage = (IUStyleStorage *)[_iu.defaultStyleManager storageForViewPort:viewport];
     if(styleStorage){
         if(styleStorage.fontName){
-            NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:styleStorage.fontName];
+            NSString *fontFamily = [[IUFontController sharedFontController] cssForFontName:styleStorage.fontName];
             if(fontFamily){
                 [code insertTag:@"font-family" string:fontFamily];
             }

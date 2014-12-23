@@ -8,6 +8,7 @@
 
 #import "IUCSSBaseCompiler.h"
 #import "IUProjectProtocol.h"
+#import "IUFontController.h"
 
 @implementation IUCSSBaseCompiler
 
@@ -242,13 +243,11 @@
 
 - (void)updateCSSFontCode:(IUCSSCode*)code styleStorage:(IUStyleStorage *)styleStorage option:(NSDictionary *)options{
     if(styleStorage.fontName){
-#warning Cannot Use LMFontContrller at HERE
-        /*
-         NSString *fontFamily = [[LMFontController sharedFontController] cssForFontName:styleStorage.fontName];
+        
+         NSString *fontFamily = [[IUFontController sharedFontController] cssForFontName:styleStorage.fontName];
          if(fontFamily){
-         [code insertTag:@"font-family" string:fontFamily];
+             [code insertTag:@"font-family" string:fontFamily];
          }
-         */
     }
     
     if(styleStorage.fontSize){
@@ -264,7 +263,19 @@
     }
     
     if(styleStorage.fontWeight){
-        [code insertTag:@"font-weight" string:styleStorage.fontWeight];
+        NSNumber *weightNumber;
+        if([styleStorage.fontWeight isEqualToNumber:[NSNumber numberWithInteger:0]]){
+            weightNumber = [NSNumber numberWithInteger:300];
+        }
+        else if([styleStorage.fontWeight isEqualToNumber:[NSNumber numberWithInteger:1]]){
+            weightNumber = [NSNumber numberWithInteger:400];
+        }
+        else if([styleStorage.fontWeight isEqualToNumber:[NSNumber numberWithInteger:2]]){
+            weightNumber = [NSNumber numberWithInteger:700];
+        }
+        if(weightNumber){
+            [code insertTag:@"font-weight" number:weightNumber];
+        }
     }
     
     if(styleStorage.fontItalic && [styleStorage.fontItalic boolValue]){

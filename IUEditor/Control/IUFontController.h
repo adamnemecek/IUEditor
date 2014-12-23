@@ -1,5 +1,5 @@
 //
-//  LMFontController.h
+//  IUFontController.h
 //  IUEditor
 //
 //  Created by ChoiSeungme on 2014. 5. 28..
@@ -26,10 +26,10 @@ typedef enum{
 }LMFontBoldType;
 
 
-@interface LMFontController : NSObject
+@interface IUFontController : NSObject
 #pragma mark - default font setting
 
-+ (LMFontController *)sharedFontController;
++ (IUFontController *)sharedFontController;
 
 - (NSArray *)fontSizeArray;
 - (NSArray *)fontLetterSpacingArray;

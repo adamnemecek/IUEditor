@@ -8,7 +8,7 @@
 
 #import "LMPropertyFontVC.h"
 #import "IUCSS.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 #import "PGTextField.h"
 #import "PGTextView.h"
 #import "PGSubmitButton.h"
@@ -29,7 +29,7 @@
 @property (weak) IBOutlet NSMatrix *fontWeightMatrix;
 @property (weak) IBOutlet NSButtonCell *lightWeightButtonCell;
 
-@property (weak) LMFontController *fontController;
+@property (weak) IUFontController *fontController;
 @property (strong) IBOutlet NSDictionaryController *fontListDC;
 
 @property NSArray *fontDefaultSizes;
@@ -77,7 +77,7 @@
     [self addObserver:self forKeyPaths:observingList options:0 context:@"font"];
 
     
-    _fontController = [LMFontController sharedFontController];
+    _fontController = [IUFontController sharedFontController];
     [_fontListDC bind:NSContentDictionaryBinding toObject:_fontController withKeyPath:@"fontDict" options:nil];
     [_fontCB bind:NSContentBinding toObject:_fontListDC withKeyPath:@"arrangedObjects.key" options:IUBindingDictNotRaisesApplicable];
     

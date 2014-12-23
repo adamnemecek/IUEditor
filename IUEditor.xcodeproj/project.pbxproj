@@ -94,7 +94,7 @@
 		3D2EF40D19F780EA00BBBAE5 /* IUProjectDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40019F780EA00BBBAE5 /* IUProjectDocument.m */; };
 		3D2EF40E19F780EA00BBBAE5 /* IUResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40219F780EA00BBBAE5 /* IUResource.m */; };
 		3D2EF40F19F780EA00BBBAE5 /* IUSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */; };
-		3D2EF41019F780EA00BBBAE5 /* LMFontController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40619F780EA00BBBAE5 /* LMFontController.m */; };
+		3D2EF41019F780EA00BBBAE5 /* IUFontController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40619F780EA00BBBAE5 /* IUFontController.m */; };
 		3D2EF41119F780EA00BBBAE5 /* LMGeneralObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */; };
 		3D2EF42719F7815B00BBBAE5 /* IUDjangoProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF41B19F7815B00BBBAE5 /* IUDjangoProject.m */; };
 		3D2EF42819F7815B00BBBAE5 /* IUProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EF41E19F7815B00BBBAE5 /* IUProject.m */; };
@@ -809,6 +809,7 @@
 		3DEE5A491A44223F0061886F /* BBBottomToolBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A471A44223F0061886F /* BBBottomToolBarVC.m */; };
 		3DEE5A4A1A44223F0061886F /* BBBottomToolBarVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DEE5A481A44223F0061886F /* BBBottomToolBarVC.xib */; };
 		3DEE5A4F1A49003A0061886F /* IUActionStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A4E1A49003A0061886F /* IUActionStorage.m */; };
+		3DEE5A521A495E5F0061886F /* JDColorWell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DEE5A511A495E5E0061886F /* JDColorWell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -953,8 +954,8 @@
 		3D2EF40219F780EA00BBBAE5 /* IUResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUResource.m; path = Control/IUResource.m; sourceTree = "<group>"; };
 		3D2EF40319F780EA00BBBAE5 /* IUSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUSheetController.h; path = Control/IUSheetController.h; sourceTree = "<group>"; };
 		3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUSheetController.m; path = Control/IUSheetController.m; sourceTree = "<group>"; };
-		3D2EF40519F780EA00BBBAE5 /* LMFontController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMFontController.h; path = Control/LMFontController.h; sourceTree = "<group>"; };
-		3D2EF40619F780EA00BBBAE5 /* LMFontController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMFontController.m; path = Control/LMFontController.m; sourceTree = "<group>"; };
+		3D2EF40519F780EA00BBBAE5 /* IUFontController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUFontController.h; path = Control/IUFontController.h; sourceTree = "<group>"; };
+		3D2EF40619F780EA00BBBAE5 /* IUFontController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUFontController.m; path = Control/IUFontController.m; sourceTree = "<group>"; };
 		3D2EF40719F780EA00BBBAE5 /* LMGeneralObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMGeneralObject.h; path = Control/LMGeneralObject.h; sourceTree = "<group>"; };
 		3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMGeneralObject.m; path = Control/LMGeneralObject.m; sourceTree = "<group>"; };
 		3D2EF41A19F7815B00BBBAE5 /* IUDjangoProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUDjangoProject.h; path = Data/Project/IUDjangoProject.h; sourceTree = "<group>"; };
@@ -1953,6 +1954,8 @@
 		3DEE5A481A44223F0061886F /* BBBottomToolBarVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBBottomToolBarVC.xib; path = UI/View_Status/BBBottomToolBarVC.xib; sourceTree = "<group>"; };
 		3DEE5A4D1A49003A0061886F /* IUActionStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUActionStorage.h; path = Data/IU_Property/IUActionStorage.h; sourceTree = "<group>"; };
 		3DEE5A4E1A49003A0061886F /* IUActionStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUActionStorage.m; path = Data/IU_Property/IUActionStorage.m; sourceTree = "<group>"; };
+		3DEE5A501A495E5E0061886F /* JDColorWell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JDColorWell.h; path = JDLibrary/Subclass/JDColorWell.h; sourceTree = "<group>"; };
+		3DEE5A511A495E5E0061886F /* JDColorWell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JDColorWell.m; path = JDLibrary/Subclass/JDColorWell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2149,8 +2152,8 @@
 				3D2EF40219F780EA00BBBAE5 /* IUResource.m */,
 				3D2EF40319F780EA00BBBAE5 /* IUSheetController.h */,
 				3D2EF40419F780EA00BBBAE5 /* IUSheetController.m */,
-				3D2EF40519F780EA00BBBAE5 /* LMFontController.h */,
-				3D2EF40619F780EA00BBBAE5 /* LMFontController.m */,
+				3D2EF40519F780EA00BBBAE5 /* IUFontController.h */,
+				3D2EF40619F780EA00BBBAE5 /* IUFontController.m */,
 				3D2EF40719F780EA00BBBAE5 /* LMGeneralObject.h */,
 				3D2EF40819F780EA00BBBAE5 /* LMGeneralObject.m */,
 				09E8E4391A08BA1E0017419B /* IUSourceManager.h */,
@@ -3553,6 +3556,8 @@
 				3DD731C21A11B46100BD833F /* NSRulerView+CustomColor.m */,
 				09EBC9C81A47D72800E0E7C4 /* JDMemoryCheckVC.h */,
 				09EBC9C91A47D72800E0E7C4 /* JDMemoryCheckVC.m */,
+				3DEE5A501A495E5E0061886F /* JDColorWell.h */,
+				3DEE5A511A495E5E0061886F /* JDColorWell.m */,
 			);
 			name = Subclass;
 			sourceTree = "<group>";
@@ -4695,6 +4700,7 @@
 				3D2EFCB219F78CBD00BBBAE5 /* LMPropertyIUFBLikeVC.m in Sources */,
 				3D2EFC5019F788BA00BBBAE5 /* JDFormatter.m in Sources */,
 				3D2EF72F19F7850100BBBAE5 /* LMFileNaviVC.m in Sources */,
+				3DEE5A521A495E5F0061886F /* JDColorWell.m in Sources */,
 				3D2EF5AB19F7830100BBBAE5 /* LMHelpImagePopoverVC.m in Sources */,
 				3D082F661A30359000B653B1 /* BBProjectStructureVC.m in Sources */,
 				3D2EF60819F7842A00BBBAE5 /* SizeView.m in Sources */,
@@ -4803,7 +4809,7 @@
 				3D2EFCCF19F78EDD00BBBAE5 /* Reachability.m in Sources */,
 				09C8608F1A2C754E001C0A53 /* BBWidgetLibraryVC.m in Sources */,
 				3DD19CBB1A35987300A5198E /* BBWidgetPropertyVC.m in Sources */,
-				3D2EF41019F780EA00BBBAE5 /* LMFontController.m in Sources */,
+				3D2EF41019F780EA00BBBAE5 /* IUFontController.m in Sources */,
 				3D2EF6F419F784B500BBBAE5 /* LMEventScrollAnimationVC.m in Sources */,
 				3D2EF61419F7843800BBBAE5 /* GuideLineLayer.m in Sources */,
 				3D2EFCC419F78D5A00BBBAE5 /* LMPropertyIUCollectionVC.m in Sources */,

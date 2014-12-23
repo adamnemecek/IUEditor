@@ -7,11 +7,11 @@
 //
 
 #import "LMPreferenceFontVC.h"
-#import "LMFontController.h"
+#import "IUFontController.h"
 
 @interface LMPreferenceFontVC ()
 
-@property LMFontController *fontController;
+@property IUFontController *fontController;
 @property (strong) IBOutlet NSDictionaryController *fontListDC;
 
 @end
@@ -28,7 +28,7 @@
 }
 
 - (void)awakeFromNib{
-    _fontController = [LMFontController sharedFontController];
+    _fontController = [IUFontController sharedFontController];
     [_fontListDC bind:NSContentDictionaryBinding toObject:_fontController withKeyPath:@"fontDict" options:nil];
 }
 
