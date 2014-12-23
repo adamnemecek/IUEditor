@@ -93,30 +93,40 @@
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_view" imagePosition="only" alignment="left" state="on" tag="1" inset="2" id="DhZ-tq-KxQ">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">1</string>
+                                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_text" imagePosition="only" alignment="left" inset="2" id="JXG-oF-ctU">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">2</string>
+                                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_image" imagePosition="only" alignment="left" inset="2" id="NZh-Ea-j8r">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">3</string>
+                                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_transition" imagePosition="only" alignment="left" inset="2" id="l3i-Ro-kcf">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">4</string>
+                                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 </buttonCell>
                             </column>
                             <column>
                                 <buttonCell type="square" bezelStyle="shadowlessSquare" image="stack_centerbox" imagePosition="only" alignment="left" inset="2" id="Ssb-47-qrv">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent">5</string>
+                                    <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                                 </buttonCell>
                             </column>
                         </cells>
