@@ -11,7 +11,7 @@
 
 @interface BBMediaQueryVC : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (nonatomic, weak) IUProject *project;
+@property (nonatomic) IUProject *project; //project should be strong. it is used for binding
 - (void)loadMaxViewPort;
 
 @end
