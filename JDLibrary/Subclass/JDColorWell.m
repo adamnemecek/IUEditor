@@ -29,10 +29,10 @@
 
 - (void)changeBorderColor{
     if([self isActive]){
-        [self.borderBox setFillColor:[NSColor rgbColorRed:70 green:140 blue:200 alpha:1]];
+        [self.borderBox setFillColor:[NSColor rgbColorRed:100 green:100 blue:100 alpha:1]];
     }
     else{
-        [self.borderBox setFillColor:[NSColor rgbColorRed:204 green:204 blue:204 alpha:1]];
+        [self.borderBox setFillColor:[NSColor rgbColorRed:214 green:214 blue:214 alpha:1]];
     }
 }
 
