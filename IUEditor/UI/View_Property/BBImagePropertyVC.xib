@@ -375,7 +375,7 @@
                         <subviews>
                             <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="90a-EJ-1pm">
                                 <rect key="frame" x="-5" y="1" width="100" height="20"/>
-                                <popUpButtonCell key="cell" type="bevel" title="Fixed : Off" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" selectedItem="ZlV-My-2Dy" id="X7S-9K-PpJ">
+                                <popUpButtonCell key="cell" type="bevel" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="X7S-9K-PpJ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".HelveticaNeueDeskInterface-Regular"/>
                                     <menu key="menu" id="xy1-mc-slh">

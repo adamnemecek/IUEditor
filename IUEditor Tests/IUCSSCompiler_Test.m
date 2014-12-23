@@ -39,7 +39,7 @@
     box.cascadingPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
     box.cascadingPositionStorage.x = @(30);
 
-    IUCSSCode *code = [baseCompiler cssCodeForIU:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
+    IUCSSCode *code = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssertEqualObjects(dict[@".BOX"], @"left:30px;" );
@@ -60,7 +60,7 @@
     box.cascadingStyleStorage.shadowColorBlur = @(2);
     box.cascadingStyleStorage.shadowColor = [NSColor greenColor];
     
-    IUCSSCode *code = [compiler cssCodeForIU:box];
+    IUCSSCode *code = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     XCTAssertEqualObjects(dict.allKeys, @[@".BOX"]);
     XCTAssert([dict[@".BOX"] containsString:@"border-left-color"]);
@@ -76,7 +76,7 @@
     XCTAssertEqualObjects(box.cascadingStyleStorage.bgColor1, [NSColor blueColor]);
     XCTAssertEqualObjects(((IUActionStorage *)box.actionManager.cascadingStorage).hoverBGColor, [NSColor redColor]);
     
-    IUCSSCode *code = [compiler cssCodeForIU:box];
+    IUCSSCode *code = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
 
@@ -102,7 +102,7 @@
     XCTAssertEqualObjects(box.currentStyleStorage.fontColor, [NSColor blueColor]);
     
     
-    IUCSSCode *code = [compiler cssCodeForIU:box];
+    IUCSSCode *code = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     
@@ -116,7 +116,7 @@
 - (void)test6_bgcolor {
     box.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:1 green:0 blue:0 alpha:1];
     
-    IUCSSCode *code = [baseCompiler cssCodeForIU:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
+    IUCSSCode *code = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:IUDefaultViewPort];
     
     
@@ -129,13 +129,13 @@
     testBox.htmlID = @"testBox";
     [testBox setCurrentViewPort:480];
     testBox.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:1 green:0 blue:0 alpha:1];
-    IUCSSCode *code480 = [baseCompiler cssCodeForIU:testBox target:IUTargetEditor viewPort:480 option:nil];
+    IUCSSCode *code480 = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict = [code480 stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:480];
     XCTAssert([dict[@".testBox"] containsString:@"background-color:rgb(255,0,0)"]);
     
     [testBox setCurrentViewPort:960];
     testBox.cascadingStyleStorage.bgColor1 = [NSColor colorWithDeviceRed:0 green:1 blue:0 alpha:1];
-    IUCSSCode *code960 = [baseCompiler cssCodeForIU:testBox target:IUTargetEditor viewPort:960 option:nil];
+    IUCSSCode *code960 = [baseCompiler cssCodeForIUBox:box target:IUTargetEditor viewPort:IUDefaultViewPort option:nil];
     NSDictionary *dict2 = [code960 stringTagDictionaryWithIdentifier_storage:IUTargetEditor viewPort:960];
     XCTAssert([dict2[@".testBox"] containsString:@"background-color:rgb(0,255,0)"]);
 }
