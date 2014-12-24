@@ -84,7 +84,6 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property (copy) NSString *htmlID;
 @property (weak, nonatomic) IUBox    *parent;
 
-
 @property (readonly) BOOL canAddIUByUserInput;
 @property (readonly) BOOL canChangeXByUserInput;
 @property (readonly) BOOL canChangeYByUserInput;

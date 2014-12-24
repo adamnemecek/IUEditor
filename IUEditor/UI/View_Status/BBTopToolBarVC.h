@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "JDMemoryCheck.h"
+#import "IUSheetController.h"
+#import "IUController.h"
 
 @interface BBTopToolBarVC : JDMemoryCheckVC
 
@@ -17,5 +19,8 @@
 
 - (void)setSourceManager:(id)sourceManager;
 - (void)setProject:(id)project;
+@property (weak, nonatomic) IUSheetController *pageController;
+@property (weak, nonatomic) IUSheetController *classController;
+@property (weak, nonatomic) IUController *iuController;
 
 @end

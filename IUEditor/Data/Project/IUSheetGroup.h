@@ -17,10 +17,17 @@
 
 
 /**
- return all children sheets
+ return children
  */
 - (NSArray*)childrenFileItems;
-
+/**
+ @return all children file items including group file
+ */
+- (NSArray*)allChildrenFileItems;
+/**
+@return all children sheet file items
+ */
+- (NSArray *)allLeafChildrenFileItems;
 
 /**
  Add Item. Item can be IUSheet or IUSheet Group

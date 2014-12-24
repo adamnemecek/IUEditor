@@ -44,21 +44,17 @@
 - (void)resetCompositionPopUpButton{
     [_compositionPopUpButton removeAllItems];
     [_compositionPopUpButton addItemWithTitle:@"None"];
-    [_compositionPopUpButton addItemsWithTitles:[[_project classGroup].allLeafChildrenFileItems valueForKey:@"name"]];
+    
+    for(IUClass *class in self.project.classGroup.allLeafChildrenFileItems){
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:class.name action:nil keyEquivalent:@""];
+        item.representedObject = class;
+        [[_compositionPopUpButton menu] addItem:item];
+    }
 
 }
 - (IBAction)clickCompositionPopUpButton:(id)sender {
-    if([[sender title] isEqualToString:@"None"]){
-        for(IUImport *iu in self.iuController.selectedObjects){
-            iu.prototypeClass = nil;
-        }
-    }
-    else{
-        IUClass *class = [_project.classGroup.allLeafChildrenFileItems objectWithKey:@"name" value:_compositionPopUpButton.selectedItem.title];
-        for(IUImport *iu in self.iuController.selectedObjects){
-            iu.prototypeClass = class;
-        }
-    }
+    IUClass *class = [[sender selectedItem] representedObject];
+    [self.iuController.selection setValue:class forKey:@"prototypeClass"];
 }
 
 - (void)iuSelectionChange:(NSNotification *)notification{

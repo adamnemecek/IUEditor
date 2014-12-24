@@ -54,28 +54,28 @@
 #pragma mark - keyPath
 
 - (NSString *)pathForCascadingStyleStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.cascadingStyleStorage." stringByAppendingString:property];
+    return [@"iuController.selection.cascadingStyleStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForCascadingPositionStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.cascadingPositionStorage." stringByAppendingString:property];
+    return [@"iuController.selection.cascadingPositionStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForCascadingPropertyStorageProperty:(NSString *)property{
-    return [@"self.iuController.selection.cascadingPropertyStorage." stringByAppendingString:property];
+    return [@"iuController.selection.cascadingPropertyStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForProperty:(NSString *)property{
-    return [@"self.iuController.selection." stringByAppendingString:property];
+    return [@"iuController.selection." stringByAppendingString:property];
 }
 
 #pragma mark - storage 
 
 - (IUStyleStorage *)cascadingStyleStorage{
-    return [self valueForKeyPath:@"self.iuController.selection.cascadingStyleStorage"];
+    return [self valueForKeyPath:@"iuController.selection.cascadingStyleStorage"];
 }
 - (IUPositionStorage *)cascadingPositionStorage{
-    return [self valueForKeyPath:@"self.iuController.selection.cascadingPositionStorage"];
+    return [self valueForKeyPath:@"iuController.selection.cascadingPositionStorage"];
 }
 - (IUPropertyStorage *)cascadingPropertyStorage{
-     return [self valueForKeyPath:@"self.iuController.selection.cascadingPropertyStorage"];
+     return [self valueForKeyPath:@"iuController.selection.cascadingPropertyStorage"];
 }
 
 #pragma mark - property

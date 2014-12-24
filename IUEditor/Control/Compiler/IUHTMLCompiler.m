@@ -791,9 +791,7 @@
     
     [code addCodeLineWithFormat:@"<div %@>", attributeDict.attributeStringValue];
     
-    IUPropertyStorage *propertyStorage = [[html propertyManager] cascadingStorageForViewPort:viewPort];
-    NSString *innerHTML = [propertyStorage valueForKey:IUInnerHTMLKey];
-    [code addCodeLine:innerHTML];
+    [code addCodeLine:html.innerHTML];
     [code addCodeLineWithFormat:@"</div>"];
     return code;
 }

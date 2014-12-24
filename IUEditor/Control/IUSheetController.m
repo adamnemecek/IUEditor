@@ -65,6 +65,7 @@
     else{
         [currentSelection.parentFileItem addFileItem:object];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:self.project];
 }
 
 - (void)removeSelectedObjects{
@@ -82,6 +83,8 @@
         [sheet.parentFileItem removeFileItem:sheet];
 
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:IUNotificationSheetStructureDidChange object:self.project];
+
     [self setSelectedObjects:[alternatedSelection copy]];
 }
 

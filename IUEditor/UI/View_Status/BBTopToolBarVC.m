@@ -77,6 +77,18 @@
 - (void)setProject:(id)project{
     [_mediaQueryVC setProject:project];
 }
+- (void)setIuController:(IUController *)iuController{
+    _iuController = iuController;
+    [_quickWidgetVC setIuController:iuController];
+}
+- (void)setPageController:(IUSheetController *)pageController{
+    _pageController = pageController;
+    [_quickWidgetVC setPageController:pageController];
+}
+- (void)setClassController:(IUSheetController *)classController{
+    _classController = classController;
+    [_quickWidgetVC setClassController:classController];
+}
 
 #pragma mark - IBAction
 - (IBAction)clickReloadSheetButton:(id)sender {

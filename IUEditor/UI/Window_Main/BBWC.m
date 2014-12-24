@@ -135,11 +135,8 @@
         
         _iuController = [[IUController alloc] init];
         
-        //initailize manager
-        //[_topToolBarVC setSourceManager:_sourceManager];
-        [_projectStructureVC setIuController:_iuController];
-        [_structureToolBarVC setIuController:_iuController];
-        [_propertyToolBarVC setIuController:_iuController];
+        //initailize source manager
+        [_topToolBarVC setSourceManager:_sourceManager];
         
 #if DEBUG
         _debugWC = [[LMDebugSourceWC alloc] initWithWindowNibName:@"LMDebugSourceWC"];
@@ -291,12 +288,22 @@
     [_tracingPropertyVC setClassController:_classController];
     [_bottomToolBarVC setPageController:_pageController];
     [_bottomToolBarVC setClassController:_classController];
+    [_topToolBarVC setPageController:_pageController];
+    [_topToolBarVC setClassController:_classController];
     
     //iucontroller
+    [_topToolBarVC setIuController:_iuController];
+    
+    [_projectStructureVC setIuController:_iuController];
+    [_structureToolBarVC setIuController:_iuController];
+    [_propertyToolBarVC setIuController:_iuController];
+
     [_canvasVC setController:_iuController];
     [_widgetPropertyVC setIuController:_iuController];
     [_stylePropertyVC setIuController:_iuController];
     [_imagePropertyVC setIuController:_iuController];
+    [_actionPropertyVC setIuController:_iuController];
+
     
     //set iudata is connected
     [[self.document undoManager] disableUndoRegistration];

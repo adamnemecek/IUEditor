@@ -8,9 +8,6 @@
 
 #import "IUHTML.h"
 
-
-NSString * const IUInnerHTMLKey = @"IUInnerHTMLKey";
-
 @implementation IUHTML
 
 #pragma mark - class attributes
@@ -32,8 +29,7 @@ NSString * const IUInnerHTMLKey = @"IUInnerHTMLKey";
     [self.undoManager disableUndoRegistration];
     
     if(self){
-        NSString *innerHTML = @"<div style=\"text-align:center;\"> Edit HTML Code at property tab. </div>";
-        [self.defaultPropertyStorage setValue:innerHTML forKey:IUInnerHTMLKey];
+        _innerHTML = @"<div style=\"text-align:center;\"> Edit HTML Code at property tab. </div>";
     }
     
     [self.undoManager enableUndoRegistration];
@@ -57,9 +53,32 @@ NSString * const IUInnerHTMLKey = @"IUInnerHTMLKey";
     [aCoder encodeFromObject:self withProperties:[[IUHTML class] properties]];
 }
 
+- (id)copyWithZone:(NSZone *)zone{
+    IUHTML *html = [super copyWithZone:zone];
+    [self.undoManager disableUndoRegistration];
+    
+    if(html){
+        html.innerHTML = [_innerHTML copy];
+    }
+    [self.undoManager enableUndoRegistration];
+    return html;
+}
 
 -(BOOL)canAddIUByUserInput{
     return NO;
+}
+
+-(BOOL)hasInnerHTML{
+    if(_innerHTML){
+        return YES;
+    }
+    return NO;
+}
+
+-(void)setInnerHTML:(NSString *)aInnerHTML{
+    _innerHTML = aInnerHTML;
+    JDInfoLog(@"%@", aInnerHTML);
+    [self updateHTML];
 }
 
 @end

@@ -97,7 +97,7 @@
 - (void)test5_HTML {
     IUHTML *html = [[IUHTML alloc] initWithPreset];
     NSString *innerHTML = @"<div>Hello World</div>";
-    [html.defaultPropertyStorage setValue:innerHTML forKey:IUInnerHTMLKey];
+    html.innerHTML = innerHTML;
     
     IUCompiler *compiler = [[IUCompiler alloc] init];
     NSString *htmlCode;

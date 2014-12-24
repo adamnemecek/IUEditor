@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBActionPropertyVC">
@@ -12,7 +12,9 @@
                 <outlet property="hoverTextColorWell" destination="WZc-hl-16C" id="gQ1-6B-rP8"/>
                 <outlet property="hoverTimeTextField" destination="x6b-g3-7eM" id="EUP-ph-ztd"/>
                 <outlet property="linkDivPopupButton" destination="mwY-rt-4xz" id="Jbt-Ov-cTu"/>
+                <outlet property="linkOpenTypeMatrix" destination="Mqj-eQ-5O0" id="uVb-Yy-CTJ"/>
                 <outlet property="linkPagePopupButton" destination="t8l-nN-No1" id="dy0-Lo-a8g"/>
+                <outlet property="linkURLButton" destination="Jw6-Vi-lA9" id="Z9H-Wv-r8h"/>
                 <outlet property="linkURLTextField" destination="1AM-PB-pyE" id="bSL-K0-i78"/>
                 <outlet property="linkView" destination="o4n-qC-faP" id="sTX-a7-NUD"/>
                 <outlet property="mouseOverView" destination="CLd-uM-gb7" id="hQF-AY-JiK"/>
@@ -49,7 +51,7 @@
                     </box>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="YYG-2P-hkL">
                         <rect key="frame" x="-1" y="-1" width="241" height="720"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="G6z-DX-x6Q">
+                        <clipView key="contentView" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="G6z-DX-x6Q">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -149,6 +151,7 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
+                                    <action selector="clickLinkPagePopUpButton:" target="-2" id="1db-gI-BRq"/>
                                     <binding destination="yfO-1T-iid" name="content" keyPath="arrangedObjects.name" id="dBw-qB-3pS"/>
                                 </connections>
                             </popUpButton>
@@ -177,6 +180,9 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="clickLinkDivPopUpButton:" target="-2" id="HNR-nY-Acn"/>
+                                </connections>
                             </popUpButton>
                         </subviews>
                     </view>
@@ -197,6 +203,9 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="titleBar" size="12"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="clickLinkUrlButton:" target="-2" id="LYD-8D-8ZA"/>
+                    </connections>
                 </button>
                 <box autoresizesSubviews="NO" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="CZK-9v-Bye" userLabel="URL Field">
                     <rect key="frame" x="15" y="49" width="210" height="22"/>
@@ -234,6 +243,22 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUC-4x-bro">
+                    <rect key="frame" x="88" y="14" width="66" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Current Tab" id="G9z-gg-r8w">
+                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
+                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZTQ-Rz-NfY">
+                    <rect key="frame" x="175" y="14" width="52" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New Tab" id="7lt-ix-SBp">
+                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
+                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqj-eQ-5O0">
                     <rect key="frame" x="70" y="15" width="158" height="18"/>
                     <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -257,22 +282,6 @@
                         </column>
                     </cells>
                 </matrix>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wUC-4x-bro">
-                    <rect key="frame" x="88" y="14" width="66" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Current Tab" id="G9z-gg-r8w">
-                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
-                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZTQ-Rz-NfY">
-                    <rect key="frame" x="175" y="14" width="52" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New Tab" id="7lt-ix-SBp">
-                        <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
-                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="egf-fe-PQJ">
                     <rect key="frame" x="0.0" y="-1" width="241" height="5"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
