@@ -21,12 +21,15 @@
 //binding to cascadingStorageProperty or default property of selected iubox
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property;
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingActionStorageProperty:(NSString *)property;
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property;
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property;
 
 
+
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingStyleStorageProperty:(NSString *)property options:(NSDictionary *)options;
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property options:(NSDictionary *)options;
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingActionStorageProperty:(NSString *)property options:(NSDictionary *)options;
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property options:(NSDictionary *)options;
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property options:(NSDictionary *)options;
 
@@ -34,6 +37,7 @@
 - (IUStyleStorage *)cascadingStyleStorage;
 - (IUPositionStorage *)cascadingPositionStorage;
 - (IUPropertyStorage *)cascadingPropertyStorage;
+- (IUActionStorage *)cascadingActionStorage;
 
 //get property value
 - (id)valueForProperty:(NSString *)property;

@@ -29,6 +29,10 @@
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property{
     [self outlet:outlet bind:binding cascadingPositionStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
 }
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingActionStorageProperty:(NSString *)property{
+    [self outlet:outlet bind:binding cascadingActionStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
+}
+
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property{
      [self outlet:outlet bind:binding cascadingPropertyStorageProperty:property options:IUBindingDictNotRaisesApplicableAndContinuousUpdate];
 }
@@ -44,6 +48,10 @@
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPositionStorageProperty:(NSString *)property options:(NSDictionary *)options{
     [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingPositionStorageProperty:property] options:options];
 }
+- (void)outlet:(id)outlet bind:(NSString *)binding cascadingActionStorageProperty:(NSString *)property options:(NSDictionary *)options{
+    [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingActionStorageProperty:property] options:options];
+}
+
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property options:(NSDictionary *)options{
      [outlet bind:binding toObject:self withKeyPath:[self pathForCascadingPropertyStorageProperty:property] options:options];
 }
@@ -58,6 +66,9 @@
 }
 - (NSString *)pathForCascadingPositionStorageProperty:(NSString *)property{
     return [@"iuController.selection.cascadingPositionStorage." stringByAppendingString:property];
+}
+- (NSString *)pathForCascadingActionStorageProperty:(NSString *)property{
+    return [@"iuController.selection.cascadingActionStorage." stringByAppendingString:property];
 }
 - (NSString *)pathForCascadingPropertyStorageProperty:(NSString *)property{
     return [@"iuController.selection.cascadingPropertyStorage." stringByAppendingString:property];
@@ -76,6 +87,9 @@
 }
 - (IUPropertyStorage *)cascadingPropertyStorage{
      return [self valueForKeyPath:@"iuController.selection.cascadingPropertyStorage"];
+}
+- (IUActionStorage *)cascadingActionStorage{
+    return [self valueForKeyPath:@"iuController.selection.cascadingActionStorage"];
 }
 
 #pragma mark - property

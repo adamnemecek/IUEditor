@@ -52,7 +52,7 @@ typedef enum{
 
 /* default data manager name */
 static NSString *kIUStyleManager = @"styleManager";
-static NSString *kIUActionManager = @"styleManagerHover";
+static NSString *kIUActionManager = @"actionManager";
 static NSString *kIUPositionManager = @"positionManager";
 static NSString *kIUPropertyManager = @"propertyManager";
 

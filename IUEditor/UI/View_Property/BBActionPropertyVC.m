@@ -26,13 +26,18 @@
 @property (weak) IBOutlet NSMatrix *linkOpenTypeMatrix;
 
 /* mouse over view outlet */
-/* this property cannot be changed */
+@property (weak) IBOutlet NSButton *enableBGColorButton;
+@property (weak) IBOutlet NSButton *enableTextColorButton;
+@property (weak) IBOutlet NSButton *enableBGPositionButton;
+
 @property (weak) IBOutlet NSColorWell *selectedBgColorWell;
 @property (weak) IBOutlet NSColorWell *selectedTextColorWell;
 
 @property (weak) IBOutlet NSColorWell *hoverBGColorWell;
-@property (weak) IBOutlet NSTextField *hoverTimeTextField;
+@property (weak) IBOutlet NSTextField *hoverBGColorDurationTextField;
 @property (weak) IBOutlet NSColorWell *hoverTextColorWell;
+@property (weak) IBOutlet NSTextField *hoverTextColorDurationTextField;
+
 @property (weak) IBOutlet NSTextField *hoverBGXpositionTextField;
 @property (weak) IBOutlet NSTextField *hoverBGYPositionTextField;
 
@@ -48,9 +53,22 @@
     _childrenViewArray = @[_linkView, _mouseOverView];
     
     //binding
+    /* link */
+    [self outlet:_linkOpenTypeMatrix bind:NSSelectedIndexBinding property:@"linkTarget"];
+    
     /* mouse hover */
-    [self outlet:_selectedBgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor"];
+    /* default style */
+    [self outlet:_selectedBgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
     [self outlet:_selectedTextColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
+    
+    /* hover style */
+    [self outlet:_hoverBGColorWell bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGColor"];
+    [self outlet:_hoverBGColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGDuration"];
+    [self outlet:_hoverTextColorWell bind:NSValueBinding cascadingActionStorageProperty:@"hoverTextColor"];
+    [self outlet:_hoverTextColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverTextDuration"];
+    [self outlet:_hoverBGXpositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionX"];
+    [self outlet:_hoverBGYPositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionY"];
+    
     
     [self resetLinkPagePopupButton];
     [self resetLinkDivPopupButton];
@@ -115,8 +133,9 @@
 
 }
 
-/* update link information */
 - (void)iuSelectionChange:(NSNotification *)notification{
+    
+    /* update link information */
     BOOL isUseURL;
     id link = [self valueForProperty:@"link"];
     if([link isKindOfClass:[NSString class]]){
@@ -155,6 +174,29 @@
     
     [_linkURLButton setState:isUseURL];
     [self resetLinkOutletStatus];
+    
+    /* update mouse hover information */
+    if(self.cascadingActionStorage.hoverBGColor || self.cascadingActionStorage.hoverBGDuration){
+        [_enableBGColorButton setState:YES];
+    }
+    else{
+        [_enableBGColorButton setState:NO];
+    }
+    
+    if(self.cascadingActionStorage.hoverTextColor || self.cascadingActionStorage.hoverTextDuration){
+        [_enableTextColorButton setState:YES];
+    }
+    else{
+        [_enableTextColorButton setState:NO];
+    }
+    
+    if(self.cascadingActionStorage.hoverBGPositionX || self.cascadingActionStorage.hoverBGPositionY){
+        [_enableBGPositionButton setState:YES];
+    }
+    else{
+        [_enableBGPositionButton setState:NO];
+    }
+    
 }
 
 - (IBAction)clickLinkUrlButton:(id)sender {
@@ -172,6 +214,36 @@
     [_linkPagePopupButton setEnabled:!isUseURL];
     [_linkDivPopupButton setEnabled:!isUseURL];
 }
+
+#pragma mark - mouse hover
+
+- (IBAction)clickColorButton:(id)sender {
+    if ([sender state] == NO){
+        [self.cascadingActionStorage beginTransaction:self];
+        self.cascadingActionStorage.hoverBGColor = nil;
+        self.cascadingActionStorage.hoverBGDuration = nil;
+        [self.cascadingActionStorage commitTransaction:self];
+    }
+}
+
+- (IBAction)clickTextColorButton:(id)sender {
+    if ([sender state] == NO){
+        [self.cascadingActionStorage beginTransaction:self];
+        self.cascadingActionStorage.hoverTextColor = nil;
+        self.cascadingActionStorage.hoverTextDuration = nil;
+        [self.cascadingActionStorage commitTransaction:self];
+        
+    }
+}
+- (IBAction)clickBackgroundPositionButton:(id)sender {
+    if ([sender state] == NO){
+        [self.cascadingActionStorage beginTransaction:self];
+        self.cascadingActionStorage.hoverBGPositionX = nil;
+        self.cascadingActionStorage.hoverBGPositionY = nil;
+        [self.cascadingActionStorage commitTransaction:self];
+    }
+}
+
 #pragma mark - table view
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView{

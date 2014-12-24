@@ -29,6 +29,10 @@
         [self updateCSSBackgroundCode:code target:target storage:styleStorage option:option];
         [self updateCSSFontCode:code styleStorage:styleStorage option:option];
         [self updateCSSRadiusAndBorderCode:code styleStorage:styleStorage option:option];
+        
+        IUActionStorage *actionStorage = (iu.positionManager.currentViewPort == viewPort) ? iu.actionManager.cascadingStorage : [[iu actionManager] cascadingStorageForViewPort:viewPort];
+        [self updateCSSHoverCode:code IU:iu actionStorage:actionStorage option:option];
+        
        /*
         if([iu.link isKindOfClass:[IUBox class]]){
 #warning active class?
@@ -472,47 +476,82 @@
     }
 }
 
-#if 0
-- (void)updateCSSHoverCode:(IUCSSCode*)code hoverStyleStorage:(IUStyleStorage *)hoverStyleStorage option:(NSDictionary *)option{
+- (void)updateCSSHoverCode:(IUCSSCode*)code IU:(IUBox *)iu actionStorage:(IUActionStorage *)actionStorage option:(NSDictionary *)option{
+    
+    
+    /* notice
+     hover class의 경우에는 cascading order 에 의하여 inline이 더 나중에 적용하게 되기 때문에 editor모드에서는 important를 붙여서 사용하도록 한다.
+     */
+    [code setInsertingIdentifier:iu.cssHoverClass withType:IUCSSIdentifierTypeNonInline];
     //css has color or image
-    if(hoverStyleStorage.imageX || hoverStyleStorage.imageY){
-        if(hoverStyleStorage.imageX){
-            [code insertTag:@"background-position-x" number:hoverStyleStorage.imageX unit:IUUnitPixel];
+    if(actionStorage.hoverBGPositionX || actionStorage.hoverBGPositionY){
+        if(actionStorage.hoverBGPositionX){
+            [code setInsertingTarget:IUTargetOutput];
+            [code insertTag:@"background-position-x" number:actionStorage.hoverBGPositionX unit:IUUnitPixel];
+            [code setInsertingTarget:IUTargetEditor];
+            [code insertTag:@"background-position-x" string:[NSString stringWithFormat:@"%ldpx !important", [actionStorage.hoverBGPositionX integerValue]]];
+
+
         }
-        if(hoverStyleStorage.imageY){
-            [code insertTag:@"background-position-y" number:hoverStyleStorage.imageY unit:IUUnitPixel];
+        if(actionStorage.hoverBGPositionY){
+            [code setInsertingTarget:IUTargetOutput];
+            [code insertTag:@"background-position-y" number:actionStorage.hoverBGPositionY unit:IUUnitPixel];
+            [code setInsertingTarget:IUTargetEditor];
+            [code insertTag:@"background-position-y" string:[NSString stringWithFormat:@"%ldpx !important", [actionStorage.hoverBGPositionY integerValue]]];
+
         }
     }
-    else if(hoverStyleStorage.bgColor1){
-        NSString *outputColor = [hoverStyleStorage.bgColor1 cssBGColorString];
-        NSString *editorColor = [hoverStyleStorage.bgColor1 rgbaString];
+    else if(actionStorage.hoverBGColor){
+        NSString *outputColor = [actionStorage.hoverBGColor cssBGColorString];
+        NSString *editorColor = [actionStorage.hoverBGColor rgbaString];
         if ([outputColor length] == 0) {
             outputColor = @"black";
             editorColor = @"black";
         }
+        
         [code setInsertingTarget:IUTargetOutput];
         [code insertTag:@"background-color" string:outputColor];
         
         [code setInsertingTarget:IUTargetEditor];
-        [code insertTag:@"background-color" string:editorColor];
-        [code setInsertingTarget:IUTargetBoth];
+        [code insertTag:@"background-color" string:[editorColor stringByAppendingString:@" !important"]];
         
-        /*
-        if(hoverStyleStorage.bgColorDuration){
-            [code setInsertingIdentifier:_iu.cssIdentifier];
-            NSString *durationStr = [NSString stringWithFormat:@"background-color %lds", [hoverStyleStorage.bgColorDuration integerValue]];
-            [code insertTag:@"-webkit-transition" string:durationStr];
-            [code insertTag:@"transition" string:durationStr];
-        }
-         */
     }
     
-    if(hoverStyleStorage.fontColor){
-        [code insertTag:@"color" color:hoverStyleStorage.fontColor];
-        
+    if(actionStorage.hoverTextColor){
+        [code setInsertingTarget:IUTargetOutput];
+        [code insertTag:@"color" color:actionStorage.hoverTextColor];
+        [code setInsertingTarget:IUTargetEditor];
+        [code insertTag:@"color" string:[[actionStorage.hoverTextColor rgbaString] stringByAppendingString:@" !important"]];
+
     }
+    
+    
+    /* hover code 이긴 하지만, in-out에 동작하려면 cssidentifier 로 들어가야함. hoverIdentifier로는 in에만 duration이 적용 */
+    [code setInsertingIdentifier:iu.cssIdentifier];
+    if(actionStorage.hoverBGDuration || actionStorage.hoverTextDuration){
+        NSMutableString *timeStr = [NSMutableString string];
+        if(actionStorage.hoverBGDuration){
+            [timeStr appendString:[NSString stringWithFormat:@" background-color %lds ", [actionStorage.hoverBGDuration integerValue]]];
+        }
+        if(actionStorage.hoverBGDuration && actionStorage.hoverTextDuration){
+            [timeStr appendString:@","];
+        }
+        if(actionStorage.hoverTextDuration){
+            [timeStr appendString:[NSString stringWithFormat:@" color %lds ", [actionStorage.hoverTextDuration integerValue]]];
+        }
+        
+        [code setInsertingTarget:IUTargetEditor];
+        [code insertTag:@"transition" string:timeStr];
+
+        [code setInsertingTarget:IUTargetOutput];
+        NSString *webKitStr = [NSString stringWithFormat:@"-webkit-transition:%@", timeStr];
+        NSString *baseStr = [NSString stringWithFormat:@"%@; %@", timeStr, webKitStr];
+        [code insertTag:@"transition" string:baseStr];
+        
+        [code setInsertingTarget:IUTargetBoth];
+    }
+
 }
-#endif
 
 
 - (void)updateCSSAppearanceCode:(IUCSSCode*)code styleStorage:(IUStyleStorage *)styleStorage option:(NSDictionary *)option{

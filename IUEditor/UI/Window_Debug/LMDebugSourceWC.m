@@ -116,19 +116,21 @@
 - (IBAction)openAsAFile:(id)sender {
     NSString *buildPath = [_canvasVC.sheet.project absoluteBuildPath];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:buildPath]) {
-
-        //debug_html
-        NSString *debugFileName= [[_canvasVC.sheet.name stringByAppendingString:@"_debug"] stringByAppendingPathExtension:@"html"];
-        NSString *filePath = [buildPath stringByAppendingPathComponent:debugFileName];
-        
-        if ([[_codeTextView string] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil] == NO){
-            NSAssert(0, @"write fail");
-        }
-        
-        [[NSWorkspace sharedWorkspace] openFile:filePath];
-
+    if ([[NSFileManager defaultManager] fileExistsAtPath:buildPath] == NO) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:buildPath withIntermediateDirectories:NO attributes:nil error:nil];
     }
+
+    //debug_html
+    NSString *debugFileName= [[_canvasVC.sheet.name stringByAppendingString:@"_debug"] stringByAppendingPathExtension:@"html"];
+    NSString *filePath = [buildPath stringByAppendingPathComponent:debugFileName];
+    
+    if ([[_codeTextView string] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil] == NO){
+        NSAssert(0, @"write fail");
+    }
+    
+    [[NSWorkspace sharedWorkspace] openFile:filePath];
+    
+    
 }
 
 
