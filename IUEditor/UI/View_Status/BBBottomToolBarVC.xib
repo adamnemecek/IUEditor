@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBBottomToolBarVC">
@@ -71,7 +71,7 @@
                                     <rect key="frame" x="1" y="0.0" width="19" height="21"/>
                                     <popUpButtonCell key="cell" type="square" title="Index" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" inset="2" arrowPosition="noArrow" preferredEdge="maxY" altersStateOfSelectedItem="NO" selectedItem="K1J-K6-Zdb" id="bIR-q6-uo3">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" id="EuN-hl-Gfc">
                                             <items>
                                                 <menuItem title="Index" state="on" onStateImage="btn_next" offStateImage="btn_next" mixedStateImage="btn_next" enabled="NO" id="K1J-K6-Zdb"/>
@@ -124,14 +124,16 @@
                                         <constraint firstAttribute="width" constant="58" id="yxD-am-LSS"/>
                                     </constraints>
                                     <contentFilters>
-                                        <ciFilter name="CIColorInvert">
+                                        <ciFilter name="CIFalseColor">
                                             <configuration>
+                                                <ciColor key="inputColor0" red="1" green="1" blue="1" alpha="1"/>
+                                                <ciColor key="inputColor1" red="0.0" green="0.0" blue="0.0" alpha="1"/>
                                                 <null key="inputImage"/>
                                             </configuration>
                                         </ciFilter>
                                     </contentFilters>
                                     <comboBoxCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="100%" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="GkU-xe-65j">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <objectValues>
@@ -233,12 +235,12 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="Oze-jd-sGO">
+                                        <binding destination="-2" name="target" keyPath="self" previousBinding="Oze-jd-sGO" id="2Vl-zE-Ng0">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="-2" name="target" keyPath="self" previousBinding="Oze-jd-sGO" id="2Vl-zE-Ng0">
+                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="Oze-jd-sGO">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
                                             </dictionary>
@@ -305,12 +307,12 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
-                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="nvg-2P-iQh">
+                                        <binding destination="-2" name="target" keyPath="self" previousBinding="nvg-2P-iQh" id="Wnu-Pz-ieq">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
                                             </dictionary>
                                         </binding>
-                                        <binding destination="-2" name="target" keyPath="self" previousBinding="nvg-2P-iQh" id="Wnu-Pz-ieq">
+                                        <binding destination="XTx-Ca-ORm" name="argument" keyPath="self.representedObject" id="nvg-2P-iQh">
                                             <dictionary key="options">
                                                 <string key="NSSelectorName">clickCloseButtonForOpenFileItem:</string>
                                             </dictionary>
