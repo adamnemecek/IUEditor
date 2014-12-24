@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BBStylePropertyVC">
@@ -91,7 +91,7 @@
                     </box>
                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="lge-Q8-gq6">
                         <rect key="frame" x="-1" y="-1" width="241" height="720"/>
-                        <clipView key="contentView" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
+                        <clipView key="contentView" ambiguous="YES" misplaced="YES" drawsBackground="NO" copiesOnScroll="NO" id="R2P-SJ-AEq">
                             <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -220,27 +220,16 @@
                                     <rect key="frame" x="1" y="1" width="98" height="20"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <box autoresizesSubviews="NO" fixedFrame="YES" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="UVm-iM-8GQ" userLabel="Container">
-                                            <rect key="frame" x="3" y="3" width="92" height="14"/>
-                                            <view key="contentView">
-                                                <rect key="frame" x="1" y="1" width="90" height="12"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="laL-sX-anL">
-                                                        <rect key="frame" x="-1" y="-2" width="92" height="14"/>
-                                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove_color_large" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="hZI-Wc-z2w">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
-                                                        </buttonCell>
-                                                        <connections>
-                                                            <action selector="clickBGColorClearButton:" target="-2" id="n6h-wK-GIe"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </view>
-                                            <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
-                                            <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </box>
+                                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="laL-sX-anL">
+                                            <rect key="frame" x="-49" y="-11" width="196" height="40"/>
+                                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="btn_remove_color_wide" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="hZI-Wc-z2w">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="clickBGColorClearButton:" target="-2" id="n6h-wK-GIe"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -694,7 +683,7 @@
                     <color key="fillColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="d3w-D5-Jhg">
-                    <rect key="frame" x="0.0" y="181" width="241" height="4"/>
+                    <rect key="frame" x="0.0" y="181" width="241" height="9"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1121,7 +1110,7 @@
                     <color key="fillColor" red="0.55635751720000004" green="0.45606755459999998" blue="0.59999999999999998" alpha="0.0" colorSpace="calibratedRGB"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" alphaValue="0.99999999999999989" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="6sW-uV-SRA">
-                    <rect key="frame" x="0.0" y="149" width="241" height="9"/>
+                    <rect key="frame" x="0.0" y="149" width="241" height="4"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1419,9 +1408,68 @@
         </customView>
         <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'px'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="iqP-46-LRt" userLabel="px"/>
         <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="42" id="jy6-rz-E4d" userLabel="integer"/>
+        <customView wantsLayer="YES" id="7au-9x-8rj" userLabel="Opacity">
+            <rect key="frame" x="0.0" y="0.0" width="241" height="51"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="5ee-tt-fex">
+                    <rect key="frame" x="0.0" y="47" width="241" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8J-Jc-Y1v">
+                    <rect key="frame" x="13" y="17" width="49" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Opacity" id="P5y-Ur-32J">
+                        <font key="font" metaFont="titleBar" size="12"/>
+                        <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bp7-Ti-8dG">
+                    <rect key="frame" x="77" y="17" width="100" height="15"/>
+                    <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="6kM-W0-dK7"/>
+                </slider>
+                <box autoresizesSubviews="NO" wantsLayer="YES" fixedFrame="YES" cornerRadius="2" title="Box" boxType="custom" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="q0t-mc-2O0" userLabel="%">
+                    <rect key="frame" x="185" y="15" width="40" height="22"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="38" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQF-G1-CGt" userLabel="- Text Field">
+                                <rect key="frame" x="-1" y="-1" width="42" height="22"/>
+                                <contentFilters>
+                                    <ciFilter name="CIFalseColor">
+                                        <configuration>
+                                            <ciColor key="inputColor0" red="0.0" green="0.0" blue="0.0" alpha="1"/>
+                                            <ciColor key="inputColor1" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1"/>
+                                            <null key="inputImage"/>
+                                        </configuration>
+                                    </ciFilter>
+                                </contentFilters>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="100%" placeholderString="" drawsBackground="YES" id="P9K-6z-Ykl">
+                                    <font key="font" metaFont="titleBar" size="12"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="fillColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="SJ3-YA-vNw">
+                    <rect key="frame" x="0.0" y="-1" width="241" height="4"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="515.5" y="-351.5"/>
+        </customView>
     </objects>
     <resources>
-        <image name="btn_remove_color_large" width="92" height="14"/>
+        <image name="btn_remove_color_wide" width="98" height="20"/>
         <image name="dotline" width="260" height="1"/>
         <image name="ic_border" width="18" height="18"/>
         <image name="ic_border_bottom" width="18" height="18"/>
