@@ -6,8 +6,10 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import "BBDefaultPropertyVC.h"
 
-@interface BBBackEndPropertyVC : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface BBBackEndPropertyVC : BBDefaultPropertyVC <NSTableViewDataSource, NSTableViewDelegate>
+
+@property (weak) IUProject *project;
 
 @end

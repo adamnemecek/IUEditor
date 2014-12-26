@@ -8,7 +8,7 @@
 
 #import "IUDataStorage.h"
 /**
- manage hover, active data
+ manage hover, active, scroll data
  */
 @interface IUActionStorage : IUDataStorage
 
@@ -21,6 +21,10 @@
 
 @property (nonatomic) NSColor *activeBGColor;
 @property (nonatomic) NSColor *activeTextColor;
+
+@property (nonatomic) NSNumber *scrollXPosition;
+@property (nonatomic) NSNumber *scrollYPosition;
+@property (nonatomic) NSNumber *scrollOpacity;
 
 
 @end

@@ -396,20 +396,35 @@
                 if(styleStorage.topBorderColor){
                     [code insertTag:@"border-top-color" color:styleStorage.topBorderColor];
                 }
+                else{
+                    [code insertTag:@"border-top-color" color:[NSColor blackColor]];
+                }
                 if(styleStorage.bottomBorderColor){
                     [code insertTag:@"border-bottom-color" color:styleStorage.bottomBorderColor];
+                }
+                else{
+                    [code insertTag:@"border-bottom-color" color:[NSColor blackColor]];
                 }
                 if(styleStorage.leftBorderColor){
                     [code insertTag:@"border-left-color" color:styleStorage.leftBorderColor];
                 }
+                else{
+                    [code insertTag:@"border-left-color" color:[NSColor blackColor]];
+                }
                 if(styleStorage.rightBorderColor){
                     [code insertTag:@"border-right-color" color:styleStorage.rightBorderColor];
+                }
+                else{
+                    [code insertTag:@"border-right-color" color:[NSColor blackColor]];
                 }
                 
             }
             else{
                 [code insertTag:@"border-color" color:styleStorage.borderColor];
             }
+        }
+        else{
+            [code insertTag:@"border-color" color:[NSColor blackColor]];
         }
         
         //border style
@@ -461,6 +476,9 @@
         NSInteger blur = [styleStorage.shadowColorBlur integerValue];
         NSInteger spread = [styleStorage.shadowColorSpread integerValue];
         NSString *colorString = [styleStorage.shadowColor rgbaString];
+        if(styleStorage.shadowColor == nil){
+            colorString = [[NSColor blackColor] rgbString];
+        }
         
         [code insertTag:@"-moz-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, colorString]];
         [code insertTag:@"-webkit-box-shadow" string:[NSString stringWithFormat:@"%ldpx %ldpx %ldpx %ldpx %@", hOff, vOff, blur, spread, colorString]];

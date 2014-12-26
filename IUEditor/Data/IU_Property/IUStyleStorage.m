@@ -73,7 +73,6 @@
     [aCoder encodeObject:_fontAlign forKey:@"fontAlign"];
     [aCoder encodeObject:_fontLineHeight forKey:@"fontLineHeight"];
     [aCoder encodeObject:_fontLetterSpacing forKey:@"fontLetterSpacing"];
-    [aCoder encodeObject:_fontEllipsis forKey:@"fontEllipsis"];
 
     [aCoder encodeObject:_shadowColor forKey:@"shadowColor"];
     [aCoder encodeObject:_shadowColorVertical forKey:@"shadowColorVertical"];
@@ -137,7 +136,6 @@
         _fontAlign = [aDecoder decodeObjectForKey:@"fontAlign"];
         _fontLineHeight = [aDecoder decodeObjectForKey:@"fontLineHeight"];
         _fontLetterSpacing = [aDecoder decodeObjectForKey:@"fontLetterSpacing"];
-        _fontEllipsis = [aDecoder decodeObjectForKey:@"fontEllipsis"];
         
         _shadowColor = [aDecoder decodeObjectForKey:@"shadowColor"];
         _shadowColorVertical = [aDecoder decodeObjectForKey:@"shadowColorVertical"];
@@ -203,7 +201,6 @@
         copyStorage.fontAlign = _fontAlign;
         copyStorage.fontLineHeight = _fontLineHeight;
         copyStorage.fontLetterSpacing = _fontLetterSpacing;
-        copyStorage.fontEllipsis = _fontEllipsis;
         
         copyStorage.shadowColor = _shadowColor;
         copyStorage.shadowColorVertical = _shadowColorVertical;

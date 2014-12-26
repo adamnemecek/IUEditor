@@ -26,4 +26,5 @@ typedef enum{
 //0 for default, 1 for H1, 2 for H2
 @property (nonatomic) IUTextType textType;
 
+
 @end

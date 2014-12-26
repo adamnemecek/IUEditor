@@ -70,10 +70,10 @@
     
     
     //frame
-    [self outlet:_xTextField bind:NSValueBinding cascadingPositionStorageProperty:@"x"];
-    [self outlet:_yTextField bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
-    [self outlet:_wTextField bind:NSValueBinding cascadingStyleStorageProperty:@"width"];
-    [self outlet:_hTextField bind:NSValueBinding cascadingStyleStorageProperty:@"height"];
+    [self outlet:_xTextField bind:NSValueBinding cascadingPositionStorageProperty:@"x" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_yTextField bind:NSValueBinding cascadingPositionStorageProperty:@"y" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_wTextField bind:NSValueBinding cascadingStyleStorageProperty:@"width" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_hTextField bind:NSValueBinding cascadingStyleStorageProperty:@"height" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     
     [self outlet:_xStepper bind:NSValueBinding cascadingPositionStorageProperty:@"x"];
     [self outlet:_yStepper bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
@@ -88,10 +88,10 @@
     [self outlet:_bgColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bgColor1"];
     
     //text binding
-    [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName"];
+    [self outlet:_fontNameComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontName" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight" options:@{NSNullPlaceholderBindingOption:@(1), NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
 
-    [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize"];
+    [self outlet:_fontSizeComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontSize" options:@{NSNullPlaceholderBindingOption:@"-", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
     [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontAlign"];
     

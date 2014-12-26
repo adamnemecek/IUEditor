@@ -34,9 +34,9 @@
     
     
     //binding
-    [_tracingImageComboBox bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostImageName" options:IUBindingDictNotRaisesApplicable];
-    [_ghostXTextField bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostX" options:IUBindingDictNotRaisesApplicable];
-    [_ghostYTextField bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostY" options:IUBindingDictNotRaisesApplicable];
+    [_tracingImageComboBox bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostImageName" options:@{NSNullPlaceholderBindingOption:@"URL or Select image from library", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [_ghostXTextField bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostX" options:@{NSNullPlaceholderBindingOption:@"0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [_ghostYTextField bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostY" options:@{NSNullPlaceholderBindingOption:@"0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [_ghostOpacitySlider bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostOpacity" options:IUBindingDictNotRaisesApplicable];
     [_ghostOpacityTextField bind:NSValueBinding toObject:self withKeyPath:@"currentSheet.ghostOpacity" options:IUBindingDictNotRaisesApplicable];
     [_tracingModeButton bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"showGhost" options:nil];

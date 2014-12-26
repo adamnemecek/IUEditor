@@ -43,8 +43,8 @@
     [self outlet:_fontWeightPopUpButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontWeight" options:@{NSNullPlaceholderBindingOption:@(1), NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     
     [self outlet:_fontColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"fontColor"];
-    [self outlet:_lineHeightComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontLineHeight"];
-    [self outlet:_letterSpacingComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontLetterSpacing"];
+    [self outlet:_lineHeightComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontLineHeight" options:@{NSNullPlaceholderBindingOption:@"1.0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_letterSpacingComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"fontLetterSpacing" options:@{NSNullPlaceholderBindingOption:@"0.0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_fontAlignSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"fontAlign"];
 
     [self outlet:_textTypeMatrix bind:NSSelectedIndexBinding property:@"textType"];

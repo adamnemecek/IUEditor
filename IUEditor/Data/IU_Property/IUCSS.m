@@ -586,7 +586,6 @@
         [self convertToStyleStorageManager_setTag:IUCSSTagFontItalic toStorageWithkey:@"fontItalic"];
         [self convertToStyleStorageManager_setTag:IUCSSTagFontDecoration toStorageWithkey:@"fontDeco"];
         [self convertToStyleStorageManager_setTag:IUCSSTagTextLetterSpacing toStorageWithkey:@"fontLetterSpacing"];
-        [self convertToStyleStorageManager_setTag:IUCSSTagEllipsis toStorageWithkey:@"fontEllipsis"];
 
 
         /* shadow tag */

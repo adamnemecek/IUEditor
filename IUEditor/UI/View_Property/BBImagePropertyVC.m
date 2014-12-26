@@ -46,12 +46,12 @@
     //binding
     //image
     //content binding through imageArrayController in xib
-    [self outlet:_imageComboBox bind:NSValueBinding property:@"imagePath"];
-    [self outlet:_imageAltText bind:NSValueBinding property:@"altText"];
+    [self outlet:_imageComboBox bind:NSValueBinding property:@"imagePath" options:@{NSNullPlaceholderBindingOption:@"URL or Select image from library", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_imageAltText bind:NSValueBinding property:@"altText" options:@{NSNullPlaceholderBindingOption:@"Description of the Image", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     
     //background Image
     //content binding through imageArrayController in xib
-    [self outlet:_bgImageComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"imageName"];
+    [self outlet:_bgImageComboBox bind:NSValueBinding cascadingStyleStorageProperty:@"imageName" options:@{NSNullPlaceholderBindingOption:@"URL or Select image from library", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_bgImageSizeSegmentedControl bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageSizeType"];
     [self outlet:_bgImageRepeatPopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageRepeat"];
     [self outlet:_bgImageFixedPopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"imageAttachment"];

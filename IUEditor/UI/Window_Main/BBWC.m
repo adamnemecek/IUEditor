@@ -278,6 +278,7 @@
     [_topToolBarVC setProject:_project];
     [_actionPropertyVC setProject:_project];
     [_widgetPropertyVC setProject:_project];
+    [_backEndPropertyVC setProject:_project];
     
     //sheet controllers
     [_projectStructureVC setPageController:_pageController];
@@ -303,6 +304,7 @@
     [_stylePropertyVC setIuController:_iuController];
     [_imagePropertyVC setIuController:_iuController];
     [_actionPropertyVC setIuController:_iuController];
+    [_backEndPropertyVC setIuController:_iuController];
 
     
     //set iudata is connected

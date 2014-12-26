@@ -113,64 +113,64 @@
     
     /* radius */
     [self outlet:_radiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
-    [self outlet:_radiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
+    [self outlet:_radiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_radiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"borderRadius"];
     
     [self outlet:_topLeftRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
-    [self outlet:_topLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
+    [self outlet:_topLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_topLeftRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topLeftBorderRadius"];
 
     [self outlet:_topRightRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
-    [self outlet:_topRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
+    [self outlet:_topRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_topRightRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topRightBorderRadius"];
     
     [self outlet:_bottomLeftRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
-    [self outlet:_bottomLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
+    [self outlet:_bottomLeftRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_bottomLeftRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomLeftborderRadius"];
 
     [self outlet:_bottomRightRadiusSlider bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
-    [self outlet:_bottomRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
+    [self outlet:_bottomRightRadiusTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_bottomRightRadiusStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomRightBorderRadius"];
     
     /* border */
     [self outlet:_borderTypePopupButton bind:NSSelectedIndexBinding cascadingStyleStorageProperty:@"borderType"];
     [self outlet:_borderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"borderColor"];
-    [self outlet:_borderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];
+    [self outlet:_borderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_borderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"borderWidth"];
 
     [self outlet:_topBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderColor"];
-    [self outlet:_topBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderWidth"];
+    [self outlet:_topBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderWidth" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_topBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"topBorderWidth"];
 
     [self outlet:_leftBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderColor"];
-    [self outlet:_leftBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderWidth"];
+    [self outlet:_leftBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderWidth" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_leftBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"leftBorderWidth"];
 
     [self outlet:_rightBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderColor"];
-    [self outlet:_rightBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderWidth"];
+    [self outlet:_rightBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderWidth" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_rightBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"rightBorderWidth"];
 
     [self outlet:_bottomBorderColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderColor"];
-    [self outlet:_bottomBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderWidth"];
+    [self outlet:_bottomBorderSizeTextField bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderWidth" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_bottomBorderSizeStepper bind:NSValueBinding cascadingStyleStorageProperty:@"bottomBorderWidth"];
     
     /* shadow */
     [self outlet:_shadowColorWell bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColor"];
     
     [self outlet:_shadowColorVerticalSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
-    [self outlet:_shadowColorVerticalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
+    [self outlet:_shadowColorVerticalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_shadowColorVerticalStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorVertical"];
 
     [self outlet:_shadowColorHorizontalSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
-    [self outlet:_shadowColorHorizontalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
+    [self outlet:_shadowColorHorizontalTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_shadowColorHorizontalStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorHorizontal"];
 
     [self outlet:_shadowColorSpreadSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
-    [self outlet:_shadowColorSpreadTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
+    [self outlet:_shadowColorSpreadTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_shadowColorSpreadStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorSpread"];
 
     [self outlet:_shadowColorBlurSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
-    [self outlet:_shadowColorBlurTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
+    [self outlet:_shadowColorBlurTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_shadowColorBlurStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
 
     

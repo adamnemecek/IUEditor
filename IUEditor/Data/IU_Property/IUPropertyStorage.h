@@ -1,3 +1,4 @@
+
 //
 //  IUPropertyStorage.h
 //  IUEditor
@@ -19,13 +20,25 @@
  */
 @interface IUPropertyStorage : IUDataStorage
 
-@property (nonatomic) NSString* innerHTML;
-@property (nonatomic) NSNumber* collectionCount;
-@property (nonatomic) NSNumber* carouselArrowDisable;
-/*
- Move it to IUCarousel.
- static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
+/**
+ property for IUCollection
  */
+@property (nonatomic) NSNumber* collectionCount;
+/**
+ property for IUCarousel
+ static NSString *IUCSSTagCarouselArrowDisable = @"carouselDisable";
+*/
+@property (nonatomic) NSNumber* carouselArrowDisable;
+
+
+/**
+ property for IUText
+ */
+@property (nonatomic) NSString* innerHTML;
+/**
+ Programming ellipsis line for IUText
+ */
+@property (nonatomic) NSString *pgEllipsisLine;
 
 
 - (void)setPropertyValue:(id)value fromMQDataforKey:(NSString *)key;

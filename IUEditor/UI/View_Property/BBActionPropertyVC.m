@@ -63,11 +63,11 @@
     
     /* hover style */
     [self outlet:_hoverBGColorWell bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGColor"];
-    [self outlet:_hoverBGColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGDuration"];
+    [self outlet:_hoverBGColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGDuration" options:@{NSNullPlaceholderBindingOption:@"0.0 s", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_hoverTextColorWell bind:NSValueBinding cascadingActionStorageProperty:@"hoverTextColor"];
-    [self outlet:_hoverTextColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverTextDuration"];
-    [self outlet:_hoverBGXpositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionX"];
-    [self outlet:_hoverBGYPositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionY"];
+    [self outlet:_hoverTextColorDurationTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverTextDuration" options:@{NSNullPlaceholderBindingOption:@"0.0 s", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_hoverBGXpositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionX" options:@{NSNullPlaceholderBindingOption:@"0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
+    [self outlet:_hoverBGYPositionTextField bind:NSValueBinding cascadingActionStorageProperty:@"hoverBGPositionY" options:@{NSNullPlaceholderBindingOption:@"0", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     
     
     [self resetLinkPagePopupButton];

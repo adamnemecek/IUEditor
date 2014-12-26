@@ -164,7 +164,6 @@ typedef enum{
 @property (nonatomic) NSNumber* fontAlign;
 @property (nonatomic) NSNumber* fontLineHeight;
 @property (nonatomic) NSNumber* fontLetterSpacing;
-@property (nonatomic) NSNumber* fontEllipsis;
 
 /* shadow tag */
 @property (nonatomic) NSColor* shadowColor;
