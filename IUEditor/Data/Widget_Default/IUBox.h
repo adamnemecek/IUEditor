@@ -61,7 +61,7 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @class IUProject;
 
 
-@interface IUBox : NSObject <NSCopying, JDCoding, IUDataStorageManagerDelegate>{
+@interface IUBox : NSObject <NSCopying, JDCoding, IUDataStorageManagerDelegate, NSPasteboardReading, NSPasteboardWriting>{
     /* children */
     NSMutableArray *_m_children;
     

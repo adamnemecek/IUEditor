@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "IUController.h"
 
-@interface BBPageStructureVC : NSViewController <NSOutlineViewDelegate>
+@interface BBPageStructureVC : NSViewController <NSOutlineViewDelegate, NSOutlineViewDataSource>
 
 @property (nonatomic, weak) IUController *iuController;
 

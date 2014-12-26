@@ -6,7 +6,6 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-
 NSString *const IUWidgetLibrarySelectionDidChangeNotification = @"IUWidgetSelectionDidChangeNotification";
 NSString *const IUWidgetLibraryKey = @"selectedWidget";
 NSString *const IUWidgetLibrarySender = @"IUWidgetLibrarySender";

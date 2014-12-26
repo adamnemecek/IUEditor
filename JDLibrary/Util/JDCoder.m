@@ -105,6 +105,7 @@
     NSMutableDictionary *workingDict;
     NSMutableDictionary *decodedObjects; /* decoded Objects has objects which finished decoding. It is updated at when object is decoded */
     NSMutableArray *encodingObjects; /* encoding objects has objects in current encoding. It is updated at when object will be encoded */
+    BOOL isDecodeReferenceObject;
 }
 
 /**
@@ -118,6 +119,23 @@
     dataDict = workingDict;
     decodedObjects = [NSMutableDictionary dictionary];
     encodingObjects = [NSMutableArray array];
+    isDecodeReferenceObject = YES;
+    return self;
+}
+
+- (id)initWithData:(NSData *)data{
+    self = [super init];
+    if(self){
+        initSelectors = [NSMutableArray arrayWithObjects:@"awakeAfterUsingJDCoder:", nil];
+        decodedObjects = [NSMutableDictionary dictionary];
+        encodingObjects = [NSMutableArray array];
+
+        workingDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        dataDict = workingDict;
+        
+        isDecodeReferenceObject = NO;
+
+    }
     return self;
 }
 
@@ -244,16 +262,19 @@
 }
 
 - (id)decodeByRefObjectForKey:(NSString *)key{
-    if (workingDict[key]) {
-        NSString *memoryAddress = workingDict[key][@"memory__"];
-        if (decodedObjects[memoryAddress] == nil) {
-            [NSException raise:@"JDDecodeError" format:@"Object Not decoded before decodeByRefObjectForKey:%@ is called", key];
+    if(isDecodeReferenceObject){
+        if (workingDict[key]) {
+            NSString *memoryAddress = workingDict[key][@"memory__"];
+            if (decodedObjects[memoryAddress] == nil) {
+                [NSException raise:@"JDDecodeError" format:@"Object Not decoded before decodeByRefObjectForKey:%@ is called", key];
+            }
+            return decodedObjects[memoryAddress][@"object__"];
         }
-        return decodedObjects[memoryAddress][@"object__"];
+        else {
+            return nil;
+        }
     }
-    else {
-        return nil;
-    }
+    return nil;
 }
 
 - (void)encodeObject:(NSObject <JDCoding> *)obj{
@@ -437,7 +458,12 @@
     return [self decodeRootObject];
 }
 
-- (id)decodeRootObject {
+- (id)decodeRootObject{
+    return [self decodeRootObjectWithIsDecodeReferenceObject:YES];
+}
+
+- (id)decodeRootObjectWithIsDecodeReferenceObject:(BOOL)anIsDecodeReferenceObject{
+    isDecodeReferenceObject = anIsDecodeReferenceObject;
     NSString *className = workingDict[@"class__"];
     NSObject <JDCoding> *newObj = [(NSObject <JDCoding>  *)[NSClassFromString(className) alloc] initWithJDCoder:self];
     [decodedObjects setObject:@{@"workingDict__":dataDict, @"object__":newObj} forKey:workingDict[@"memory__"]];

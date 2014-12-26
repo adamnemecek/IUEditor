@@ -47,6 +47,8 @@
  */
 @interface JDCoder : NSObject
 
+- (id)initWithData:(NSData *)data;
+
 /**
  Register Notifications of initialize process
   awakeAfterUsingJDCoder: are called default.
@@ -84,6 +86,10 @@
  */
 - (void)encodeRootObject:(id<JDCoding>)object;
 - (id)decodeRootObject;
+/**
+ decode objects from root except reference objects
+ */
+- (id)decodeRootObjectWithIsDecodeReferenceObject:(BOOL)anIsDecodeReferenceObject;
 
 - (BOOL)writeToFilePath:(NSString *)filePath error:(NSError **)error;
 - (id)decodeContentOfData:(NSData *)data error:(NSError *__autoreleasing *)error;

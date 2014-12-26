@@ -656,6 +656,7 @@
 		3D744D8E1A42AF52007FAB8A /* BBHoverCellBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D744D8D1A42AF52007FAB8A /* BBHoverCellBox.m */; };
 		3D744D921A42BF12007FAB8A /* BBPagePreferenceWC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D744D901A42BF12007FAB8A /* BBPagePreferenceWC.m */; };
 		3D744D931A42BF12007FAB8A /* BBPagePreferenceWC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D744D911A42BF12007FAB8A /* BBPagePreferenceWC.xib */; };
+		3D75FCA01A4D3C6C008E7B0F /* IUPasteBoard_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D75FC9F1A4D3C6C008E7B0F /* IUPasteBoard_Test.m */; };
 		3DC616B01A398B9A00B94A4C /* IUController_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616AF1A398B9A00B94A4C /* IUController_Test.m */; };
 		3DC616B51A41352600B94A4C /* BBFontPropertyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC616B31A41352600B94A4C /* BBFontPropertyVC.m */; };
 		3DC616B61A41352600B94A4C /* BBFontPropertyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DC616B41A41352600B94A4C /* BBFontPropertyVC.xib */; };
@@ -1750,6 +1751,7 @@
 		3D744D8F1A42BF12007FAB8A /* BBPagePreferenceWC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBPagePreferenceWC.h; path = UI/Sheet_Preference/BBPagePreferenceWC.h; sourceTree = "<group>"; };
 		3D744D901A42BF12007FAB8A /* BBPagePreferenceWC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBPagePreferenceWC.m; path = UI/Sheet_Preference/BBPagePreferenceWC.m; sourceTree = "<group>"; };
 		3D744D911A42BF12007FAB8A /* BBPagePreferenceWC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BBPagePreferenceWC.xib; path = UI/Sheet_Preference/BBPagePreferenceWC.xib; sourceTree = "<group>"; };
+		3D75FC9F1A4D3C6C008E7B0F /* IUPasteBoard_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUPasteBoard_Test.m; sourceTree = "<group>"; };
 		3DC616AC1A385BC800B94A4C /* BBJSManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBJSManagerProtocol.h; path = UI/View_Canvas/BBJSManagerProtocol.h; sourceTree = "<group>"; };
 		3DC616AF1A398B9A00B94A4C /* IUController_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUController_Test.m; sourceTree = "<group>"; };
 		3DC616B21A41352600B94A4C /* BBFontPropertyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBFontPropertyVC.h; path = UI/View_Property/BBFontPropertyVC.h; sourceTree = "<group>"; };
@@ -3734,6 +3736,7 @@
 		3DE45F5D19F7BFB200A75567 /* IUEditor Tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D75FC9F1A4D3C6C008E7B0F /* IUPasteBoard_Test.m */,
 				3DC616AF1A398B9A00B94A4C /* IUController_Test.m */,
 				3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */,
 				3D082F611A30226E00B653B1 /* IUSheetController_Test.m */,
@@ -4946,6 +4949,7 @@
 				092605AA1A1A54E5008C40FC /* IUDataStorageTest.m in Sources */,
 				3D082F621A30226E00B653B1 /* IUSheetController_Test.m in Sources */,
 				094FA9EA1A2D5B1D00C446C2 /* BBWidgetLibrary_Test.m in Sources */,
+				3D75FCA01A4D3C6C008E7B0F /* IUPasteBoard_Test.m in Sources */,
 				3D4DFF341A281BD600418CE0 /* IUCopy_Test.m in Sources */,
 				092605AC1A1A54E5008C40FC /* CSSToCSSStorageConversion_Test.m in Sources */,
 				092605AD1A1A54E5008C40FC /* JDCoderTest.m in Sources */,

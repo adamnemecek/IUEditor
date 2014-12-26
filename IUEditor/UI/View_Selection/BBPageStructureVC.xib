@@ -24,7 +24,7 @@
                         <rect key="frame" x="1" y="1" width="148" height="398"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="26" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" outlineTableColumn="kgG-ue-9Je" id="50O-Vm-YUR">
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" rowHeight="26" viewBased="YES" indentationPerLevel="8" autosaveExpandedItems="YES" outlineTableColumn="kgG-ue-9Je" id="50O-Vm-YUR">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
@@ -311,6 +311,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <outlet property="dataSource" destination="-2" id="bZH-RE-gQW"/>
                                     <outlet property="delegate" destination="-2" id="pAg-sC-06E"/>
                                 </connections>
                             </outlineView>

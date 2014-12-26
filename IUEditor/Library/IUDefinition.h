@@ -18,8 +18,8 @@
 
 
 //for dragging (pasteboard)
-static NSString * kUTTypeIUType  =  @"kUTTypeIUType";
-static NSString * kUTTypeIUImageResource = @"kUTTypeIUImageResource";
+static NSString * kUTTypeIUData  =  @"com.jdlab.iu.kUTTypeIUData";
+static NSString * kUTTypeIUImageResource = @"com.jdlab.iu.kUTTypeIUImageResource";
 
 
 #define definedPrefixIdentifiers @[@"IU",@"mce",@"mceu"]

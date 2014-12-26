@@ -13,10 +13,12 @@
 #import "IUBoxes.h"
 #import "IUIdentifierManager.h"
 
+
 /**
  BBSectionPopover manage section property
  */
 @interface BBSectionPopover : NSPopover
+
 @property (weak) IUSection *currentSection;
 @property (weak) IBOutlet NSButton *fullscreenButton;
 
@@ -47,6 +49,8 @@
 
 @end
 
+/* outline view key */
+NSString *const kIUPageStrucutureMoveKey = @"kIUPageStrucutureMoveKey";
 
 @interface BBPageStructureVC ()
 
@@ -60,6 +64,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [_iuOutlineView registerForDraggedTypes:@[kUTTypeIUData]];
     
     [_iuOutlineView bind:NSContentBinding toObject:self.iuController withKeyPath:@"arrangedObjects" options:IUBindingDictNotRaisesApplicable];
     [_iuOutlineView bind:NSSelectionIndexPathsBinding toObject:self.iuController withKeyPath:@"selectionIndexPaths" options:IUBindingDictNotRaisesApplicable];
@@ -110,9 +116,6 @@
     if([[_iuController.content firstObject] isKindOfClass:[IUPage class]]){
         //allocation new section
         IUSection *newSection = [[IUSection alloc] initWithPreset];
-#if DEBUG
-        [self testaddIu:newSection];
-#endif
         
         //add section to pageContent
         IUPage *currentPage = [_iuController.content firstObject];
@@ -144,19 +147,79 @@
     [self.iuController removeSelectedObjects];
 }
 
-/* debug function */
-#if DEBUG
-- (void)testaddIu:(IUBox *)iu{
+#pragma mark - drag & drop 
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pasteboard{
     
-    IUBox *parent = iu;
-    for(int i=0; i< 10; i++){
-        IUBox *newIU = [[IUBox alloc] initWithPreset];
-        [parent addIU:newIU error:nil];
-        parent = newIU;
+    NSMutableArray *copyBoxes = [NSMutableArray array];
+    
+    for (NSTreeNode *node in items){
+        IUBox *iu = [node representedObject];
+        if([iu canMoveToOtherParent]){
+            [copyBoxes addObject:iu];
+        }
+    }
+    if(copyBoxes.count > 0){
+        [pasteboard writeObjects:[copyBoxes copy]];
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
+
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index{
+    IUBox *parent = [item representedObject];
+    if([parent canAddIUByUserInput]){
+        return NSDragOperationMove;
     }
     
-    
+    return NSDragOperationNone;
 }
-#endif
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index{
+    NSPasteboard *pBoard = [info draggingPasteboard];
+    BOOL isReadable = [pBoard canReadObjectForClasses:@[[IUBox class]] options:nil];
+    if(isReadable){
+        NSMutableArray *movedArray = [NSMutableArray array];
+        IUBox *parent = [item representedObject];
+        //자신의 window내에서 움직임.
+        if([outlineView isEqualTo:[info draggingSource]]){
+            //identifier를 가져와 현재 select된 iu를 찾는다.
+            NSArray *identifierArray = [pBoard readObjectsForClasses:@[[NSString class]] options:nil];
+            for(NSString *identifier in identifierArray){
+                IUBox *iu = [self.iuController IUBoxByIdentifier:identifier];
+                if([iu.allChildren containsObject:parent] == NO){
+                    [iu.parent removeIU:iu];
+                    [movedArray addObject:iu];
+                }
+            }
+        }
+        //다른 윈도우에서 넘어옴.
+        else{
+            NSArray *copiedArray = [pBoard readObjectsForClasses:@[[IUBox class]] options:nil];
+            for(IUBox *iu in copiedArray){
+                if([iu.allChildren containsObject:iu] == NO){
+                    [movedArray addObject:iu];
+                }
+            }
+        }
+        
+        //옮겨진 윈도우를 새로 옮김
+        for(IUBox *iu in movedArray){
+            if(index > parent.children.count){
+                [parent addIU:iu error:nil];
+            }
+            else{
+                [parent insertIU:iu atIndex:index error:nil];
+            }
+        }
+        
+        return YES;
+
+    }
+
+    return NO;
+}
 
 @end

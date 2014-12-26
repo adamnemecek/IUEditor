@@ -302,6 +302,11 @@
     }
 }
 
+- (BOOL)canSelectedWhenOpenProject{
+    return YES;
+}
+
+
 #pragma mark - copy
 
 - (id)copyWithZone:(NSZone *)zone{
@@ -367,8 +372,56 @@
 - (BOOL)canCopy{
     return YES;
 }
-- (BOOL)canSelectedWhenOpenProject{
-    return YES;
+
+#pragma mark - pasteboard protocol
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard{
+    static NSArray *writableTypes = nil;
+    
+    if (!writableTypes) {
+        writableTypes = [[NSArray alloc] initWithObjects:kUTTypeIUData, NSPasteboardTypeString, nil];
+    }
+    return writableTypes;
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type{
+    if ([type isEqualToString:kUTTypeIUData]){
+        JDCoder *coder = [[JDCoder alloc] init];
+        [coder encodeRootObject:self];
+        return [coder data];
+    }
+    else if ([type isEqualToString:NSPasteboardTypeString]){
+        return self.htmlID;
+    }
+    return nil;
+}
+
++ (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard{
+    static NSArray *readableTypes = nil;
+    
+    if (!readableTypes) {
+        readableTypes = [[NSArray alloc] initWithObjects:kUTTypeIUData, NSPasteboardTypeString, nil];
+    }
+    return readableTypes;
+}
+
++ (NSPasteboardReadingOptions)readingOptionsForType:(NSString *)type pasteboard:(NSPasteboard *)pboard {
+    if ([type isEqualToString:kUTTypeIUData]) {
+        return NSPasteboardReadingAsData;
+    }
+    else if ([type isEqualToString: NSPasteboardTypeString]) {
+        return [NSString readingOptionsForType:type pasteboard:pboard];
+    }
+    return 0;
+}
+
+
+- (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type{
+    if( [type isEqualToString:kUTTypeIUData]){
+        JDCoder *coder = [[JDCoder alloc] initWithData:propertyList];
+        return [coder decodeRootObjectWithIsDecodeReferenceObject:NO];
+    }
+    return [super init];
 }
 
 #pragma mark - css Manager

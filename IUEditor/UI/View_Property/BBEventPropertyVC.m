@@ -76,7 +76,11 @@
     
     id value = [self valueForKeyPath:currentKeyPath];
     if([currentKey isEqualToString:@"xUnit"]){
-        if (value && [value boolValue]){
+
+        if(value == NSNoSelectionMarker || value == NSMultipleValuesMarker || value == NSNotApplicableMarker){
+            [_xTextField setFormatter:nil];
+        }
+        else if (value && [value boolValue]){
             [_xTextField setFormatter:_percentFormatter];
         }
         else{
@@ -84,7 +88,10 @@
         }
     }
     else if ([currentKey isEqualToString:@"yUnit"]){
-        if (value && [value boolValue]){
+        if(value == NSNoSelectionMarker || value == NSMultipleValuesMarker || value == NSNotApplicableMarker){
+            [_xTextField setFormatter:nil];
+        }
+        else if (value && [value boolValue]){
             [_yTextField setFormatter:_percentFormatter];
         }
         else{

@@ -80,16 +80,35 @@
 #pragma mark - storage 
 
 - (IUStyleStorage *)cascadingStyleStorage{
-    return [self valueForKeyPath:@"iuController.selection.cascadingStyleStorage"];
+    id value = [self valueForKeyPath:@"iuController.selection.cascadingStyleStorage"];
+    if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
+        return nil;
+    }
+    return value;
 }
 - (IUPositionStorage *)cascadingPositionStorage{
-    return [self valueForKeyPath:@"iuController.selection.cascadingPositionStorage"];
+    id value = [self valueForKeyPath:@"iuController.selection.cascadingPositionStorage"];
+    if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
+        return nil;
+    }
+    return value;
+
 }
 - (IUPropertyStorage *)cascadingPropertyStorage{
-     return [self valueForKeyPath:@"iuController.selection.cascadingPropertyStorage"];
+    id value =  [self valueForKeyPath:@"iuController.selection.cascadingPropertyStorage"];
+    if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
+        return nil;
+    }
+    return value;
+
 }
 - (IUActionStorage *)cascadingActionStorage{
-    return [self valueForKeyPath:@"iuController.selection.cascadingActionStorage"];
+    id value = [self valueForKeyPath:@"iuController.selection.cascadingActionStorage"];
+    if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
+        return nil;
+    }
+    return value;
+
 }
 
 #pragma mark - property

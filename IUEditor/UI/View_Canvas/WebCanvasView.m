@@ -50,7 +50,7 @@
         
         [[[self mainFrame] frameView] setAllowsScrolling:NO];
         
-        [self registerForDraggedTypes:@[(id)kUTTypeIUType, (id)kUTTypeIUImageResource]];
+        [self registerForDraggedTypes:@[(id)kUTTypeIUImageResource]];
         
         isStartVC = NO;
         startVCIndicator = 0;
