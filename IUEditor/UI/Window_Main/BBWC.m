@@ -305,6 +305,7 @@
     [_imagePropertyVC setIuController:_iuController];
     [_actionPropertyVC setIuController:_iuController];
     [_backEndPropertyVC setIuController:_iuController];
+    [_eventPropertyVC setIuController:_iuController];
 
     
     //set iudata is connected

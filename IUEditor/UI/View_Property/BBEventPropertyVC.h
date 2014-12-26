@@ -8,7 +8,8 @@
 
 #import "BBDefaultPropertyVC.h"
 
-/* TODO : not coded yet */
 @interface BBEventPropertyVC : BBDefaultPropertyVC <NSTableViewDataSource, NSTableViewDelegate>
+
+@property (nonatomic) IUProject *project;
 
 @end
