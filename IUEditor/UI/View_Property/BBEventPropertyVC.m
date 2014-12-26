@@ -24,14 +24,12 @@
 
 /* default  position, style storages*/
 @property (weak) IBOutlet NSTextField *xTextField;
-@property (weak) IBOutlet NSButton *xUnitButton;
-@property (weak) IBOutlet NSButton *scrollXUnitButton;
-
 @property (weak) IBOutlet NSTextField *yTextField;
-@property (weak) IBOutlet NSButton *yUnitButton;
-@property (weak) IBOutlet NSButton *scrollYUnitButton;
-
 @property (weak) IBOutlet NSTextField *opacityTextField;
+
+/* formatter */
+@property (strong) IBOutlet NSNumberFormatter *pixelFormatter;
+@property (strong) IBOutlet NSNumberFormatter *percentFormatter;
 
 @end
 
@@ -53,49 +51,68 @@
     [self outlet:_xTextField bind:NSValueBinding cascadingPositionStorageProperty:@"x"];
     [self outlet:_yTextField bind:NSValueBinding cascadingPositionStorageProperty:@"y"];
     
-    [self outlet:_xUnitButton bind:NSValueBinding cascadingPositionStorageProperty:@"xUnit"];
-    [self outlet:_scrollXUnitButton bind:NSValueBinding cascadingPositionStorageProperty:@"xUnit"];
-    
-    [self outlet:_yUnitButton bind:NSValueBinding cascadingPositionStorageProperty:@"yUnit"];
-    [self outlet:_scrollYUnitButton bind:NSValueBinding cascadingPositionStorageProperty:@"yUnit"];
-    
-    [_xUnitButton setEnabled:NO];
-    [_scrollXUnitButton setEnabled:NO];
-    [_yUnitButton setEnabled:NO];
-    [_scrollYUnitButton setEnabled:NO];
-    
     /* style storages */
-    [self outlet:_opacityTextField bind:NSValueBinding cascadingStyleStorageProperty:@"opacity"];
+    [self outlet:_opacityTextField bind:NSValueBinding cascadingStyleStorageProperty:@"opacity" options:@{NSNullPlaceholderBindingOption:@"100%", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChange:) name:IUNotificationSelectionDidChange object:self.project];
+    /* add observers */
+    [self addObserver:self forKeyPath:[self pathForCascadingPositionStorageProperty:@"xUnit"] options:0 context:@"unit"];
+    [self addObserver:self forKeyPath:[self pathForCascadingPositionStorageProperty:@"yUnit"] options:0 context:@"unit"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(iuSelectionChange:) name:IUNotificationSelectionDidChange object:self.project];
 }
 
 - (void)dealloc{
+    [self removeObserver:self forKeyPath:[self pathForCascadingPositionStorageProperty:@"xUnit"]];
+    [self removeObserver:self forKeyPath:[self pathForCascadingPositionStorageProperty:@"yUnit"]];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     JDSectionInfoLog(IULogDealloc, @"");
 }
-#pragma mark -
+
+#pragma mark - observing
+- (void)unitContextDidChange:(NSDictionary *)dictionary{
+    NSString *currentKeyPath = dictionary[kJDKey];
+    NSString *currentKey = [currentKeyPath pathExtension];
+    
+    id value = [self valueForKeyPath:currentKeyPath];
+    if([currentKey isEqualToString:@"xUnit"]){
+        if (value && [value boolValue]){
+            [_xTextField setFormatter:_percentFormatter];
+        }
+        else{
+            [_xTextField setFormatter:_pixelFormatter];
+        }
+    }
+    else if ([currentKey isEqualToString:@"yUnit"]){
+        if (value && [value boolValue]){
+            [_yTextField setFormatter:_percentFormatter];
+        }
+        else{
+            [_yTextField setFormatter:_pixelFormatter];
+        }
+    }
+}
+
 
 - (void)iuSelectionChange:(NSNotification *)notification{
     if (self.cascadingActionStorage.scrollXPosition){
-        [_scrollXTextField setEnabled:YES];
+        [_enableScrollXButton setState:YES];
     }
     else{
-        [_scrollXTextField setEnabled:NO];
+        [_enableScrollXButton setState:NO];
     }
     
     if (self.cascadingActionStorage.scrollYPosition){
-        [_scrollYTextField setEnabled:YES];
+        [_enableScrollYButton setState:YES];
     }
     else{
-        [_scrollYTextField setEnabled:NO];
+        [_enableScrollYButton setState:NO];
     }
     if (self.cascadingActionStorage.scrollOpacity){
-        [_scrollOpacityTextField setEnabled:YES];
+        [_enableScrollOpacityButton setState:YES];
     }
     else{
-        [_scrollOpacityTextField setEnabled:NO];
+        [_enableScrollOpacityButton setState:NO];
     }
     
 }

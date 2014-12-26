@@ -33,6 +33,13 @@
 - (void)outlet:(id)outlet bind:(NSString *)binding cascadingPropertyStorageProperty:(NSString *)property options:(NSDictionary *)options;
 - (void)outlet:(id)outlet bind:(NSString *)binding property:(NSString *)property options:(NSDictionary *)options;
 
+//path
+- (NSString *)pathForCascadingStyleStorageProperty:(NSString *)property;
+- (NSString *)pathForCascadingPositionStorageProperty:(NSString *)property;
+- (NSString *)pathForCascadingActionStorageProperty:(NSString *)property;
+- (NSString *)pathForCascadingPropertyStorageProperty:(NSString *)property;
+- (NSString *)pathForProperty:(NSString *)property;
+
 //get cascadingStorage
 - (IUStyleStorage *)cascadingStyleStorage;
 - (IUPositionStorage *)cascadingPositionStorage;

@@ -868,7 +868,7 @@
 }
 
 - (NSRect)pixelFrameForIdentifier:(NSString *)identifier{
-    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", identifier];
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", identifier];
     id currentValue = [self evaluateWebScript:frameJS];
     NSRect percentFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
                                      [[currentValue valueForKey:@"top"] floatValue],
@@ -880,7 +880,7 @@
     return percentFrame;
 }
 - (NSRect)percentFrameForIdentifier:(NSString *)identifier{
-    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPosition()", identifier];
+    NSString *frameJS = [NSString stringWithFormat:@"$('#%@').iuPercentFrame()", identifier];
     id currentValue = [self evaluateWebScript:frameJS];
     NSRect pixelFrame = NSMakeRect([[currentValue valueForKey:@"left"] floatValue],
                                    [[currentValue valueForKey:@"top"] floatValue],
