@@ -606,11 +606,10 @@
     
     /* opacity */
     if(styleStorage.opacity){
-        float opacity = [styleStorage.opacity floatValue] / 100;
-        [code insertTag:@"opacity" number:@(opacity) unit:IUUnitNone];
+        [code insertTag:@"opacity" number:styleStorage.opacity unit:IUUnitNone];
         
         [code setInsertingTarget:IUTargetOutput];
-        [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%d)",[styleStorage.opacity intValue]] ];
+        [code insertTag:@"filter" string:[NSString stringWithFormat:@"alpha(opacity=%.0f)",[styleStorage.opacity floatValue]*100] ];
         
         [code setInsertingTarget:IUTargetBoth];
     }

@@ -19,6 +19,7 @@
 @property (strong) IBOutlet BBExpandableView *radiusView;
 @property (strong) IBOutlet BBExpandableView *borderView;
 @property (strong) IBOutlet NSView *shadowView;
+@property (strong) IBOutlet NSView *opacityView;
 
 /* property outlet */
 /* color */
@@ -91,6 +92,10 @@
 @property (weak) IBOutlet NSTextField *shadowColorBlurTextField;
 @property (weak) IBOutlet NSStepper *shadowColorBlurStepper;
 
+/* opacity */
+@property (weak) IBOutlet NSSlider *opacitySlider;
+@property (weak) IBOutlet NSTextField *opacityTextField;
+
 
 @end
 
@@ -101,7 +106,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _childrenViewArray = @[_colorView, _radiusView, _borderView, _shadowView];
+    _childrenViewArray = @[_colorView, _radiusView, _borderView, _shadowView, _opacityView];
     
     
     /* binding */
@@ -172,6 +177,10 @@
     [self outlet:_shadowColorBlurSlider bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
     [self outlet:_shadowColorBlurTextField bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur" options:@{NSNullPlaceholderBindingOption:@"0 px", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
     [self outlet:_shadowColorBlurStepper bind:NSValueBinding cascadingStyleStorageProperty:@"shadowColorBlur"];
+    
+    /* opacity */
+    [self outlet:_opacitySlider bind:NSValueBinding cascadingStyleStorageProperty:@"opacity"];
+    [self outlet:_opacityTextField bind:NSValueBinding cascadingStyleStorageProperty:@"opacity" options:@{NSNullPlaceholderBindingOption:@"0%", NSContinuouslyUpdatesValueBindingOption: @(YES), NSRaisesForNotApplicableKeysBindingOption:@(NO)}];
 
     
 }

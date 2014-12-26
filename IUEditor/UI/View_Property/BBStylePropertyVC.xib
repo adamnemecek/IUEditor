@@ -29,6 +29,9 @@
                 <outlet property="leftBorderColorWell" destination="XD6-7v-Uzu" id="TdK-B4-wXL"/>
                 <outlet property="leftBorderSizeStepper" destination="7Rj-Ta-9zI" id="r1M-Ee-S06"/>
                 <outlet property="leftBorderSizeTextField" destination="vYB-E9-zly" id="yNn-0y-5Wk"/>
+                <outlet property="opacitySlider" destination="Bp7-Ti-8dG" id="hSz-SE-pUZ"/>
+                <outlet property="opacityTextField" destination="uQF-G1-CGt" id="JLT-Fc-mQ6"/>
+                <outlet property="opacityView" destination="7au-9x-8rj" id="EAj-hi-nkO"/>
                 <outlet property="radiusSlider" destination="Xg0-9C-m8e" id="dgK-LF-v8b"/>
                 <outlet property="radiusStepper" destination="Znl-MU-6Xq" id="8XO-MJ-Jxd"/>
                 <outlet property="radiusTextField" destination="5sw-Hf-hsL" id="bdi-pt-u4p"/>
@@ -1406,6 +1409,11 @@
             </subviews>
             <point key="canvasLocation" x="515.5" y="-503"/>
         </customView>
+        <numberFormatter formatterBehavior="default10_4" numberStyle="percent" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="Ofj-4X-RQR" userLabel="%">
+            <integer key="multiplier" value="100"/>
+            <real key="minimum" value="0.0"/>
+            <real key="maximum" value="100"/>
+        </numberFormatter>
         <numberFormatter formatterBehavior="custom10_4" positiveFormat="# 'px'" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="iqP-46-LRt" userLabel="px"/>
         <customView wantsLayer="YES" id="7au-9x-8rj" userLabel="Opacity">
             <rect key="frame" x="0.0" y="0.0" width="241" height="51"/>
@@ -1451,6 +1459,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="formatter" destination="Ofj-4X-RQR" id="KBS-cl-NsX"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
