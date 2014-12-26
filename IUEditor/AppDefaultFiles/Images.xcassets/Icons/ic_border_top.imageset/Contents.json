@@ -3,12 +3,12 @@
     {
       "idiom" : "mac",
       "scale" : "1x",
-      "filename" : "ic_border_top-1.png"
+      "filename" : "ic_border_top.png"
     },
     {
       "idiom" : "mac",
       "scale" : "2x",
-      "filename" : "ic_border_top@2x-1.png"
+      "filename" : "ic_border_top@2x.png"
     }
   ],
   "info" : {
