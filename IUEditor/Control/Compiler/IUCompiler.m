@@ -216,11 +216,11 @@
 
 - (void)build_copyDefaultResourceFile:(IUProject *)project rule:(NSString*)rule error:(NSError **)error{
     
-    NSString *outputCSSPath = [[self outputCSSResourcePath:project.absoluteBuildResourcePath] stringByAppendingPathComponent:@"css"];
+    NSString *outputCSSPath = [self outputCSSResourcePath:project.absoluteBuildResourcePath];
     [[JDFileUtil util] overwriteBundleItem:@"reset.css" toDirectory:outputCSSPath error:nil];
     [[JDFileUtil util] overwriteBundleItem:@"iu.css" toDirectory:outputCSSPath error:nil];
     
-    NSString *outputJSPath = [[self outputJSResourcePath:project.absoluteBuildResourcePath] stringByAppendingPathComponent:@"js"];
+    NSString *outputJSPath = [self outputJSResourcePath:project.absoluteBuildResourcePath];
     [[JDFileUtil util] overwriteBundleItem:@"iu.js" toDirectory:outputJSPath error:nil];
     [[JDFileUtil util] overwriteBundleItem:@"iueditor.js" toDirectory:outputJSPath error:nil];
     [[JDFileUtil util] overwriteBundleItem:@"iucarousel.js" toDirectory:outputJSPath error:nil];
