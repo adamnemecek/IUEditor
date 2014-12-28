@@ -270,7 +270,7 @@
     
     //load properties when project is set
     //view part
-    [_widgetLibraryVC setWidgetNameList:[[_project class] widgetList]];
+    [_widgetLibraryVC setWidgetNameList:[_project widgetList]];
     
     //project
     [_sourceManager setProject:_project];

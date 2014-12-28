@@ -51,31 +51,5 @@
     }
 }
 
-- (void)test1 {
-    testWC = [[IUTestWC alloc] initWithWindowNibName:@"IUTestWC"];
-    testWC.delegate = self;
-    testWC.testModule = @"WidgetLibrary";
-    testWC.testNumber = 1;
-    [testWC showWindow:nil];
-
-    vc = [[BBWidgetLibraryVC alloc] initWithNibName:@"BBWidgetLibraryVC" bundle:nil];
-    [vc loadView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(listen:) name:IUWidgetLibrarySelectionDidChangeNotification object:vc.view.window];
-
-    [[[testWC window] contentView] addSubview:vc.view];
-    
-    [vc setWidgetNameList:[IUProject widgetList]];
-    
-//    XCTAssertEqualObjects([[vc.groupSelectPopupBtn selectedItem] title], @"Base");
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        vc.selectedGroupIndex = 1;
-    });
-    
-    [self waitForExpectationsWithTimeout:30 handler:^(NSError *error) {
-        XCTAssert(_result, @"Pass");
-    }];
-
-}
 
 @end

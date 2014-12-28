@@ -56,5 +56,6 @@ static NSString *kIUPageLayout = @"layout";
 -(IUSidebar *)sidebar;
 
 -(IUPageContent *)pageContent;
+-(NSSet *)includedClass;
 
 @end

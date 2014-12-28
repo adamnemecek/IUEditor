@@ -23,7 +23,7 @@
 
 #pragma mark - class attributes
 
-+ (NSArray *)widgetList{
+- (NSArray *)widgetList{
     NSMutableArray *defaultList = [[super widgetList] mutableCopy];
     [defaultList addObjectsFromArray:@[@"WPSiteTitle", @"WPSiteDescription", @"WPMenu",
                                        @"WPArticleList", @"WPPageLinks", @"WPSidebar",
@@ -31,11 +31,11 @@
     return defaultList;
 }
 
-+ (NSArray *)compilerRules{
+- (NSArray *)compilerRules{
     return @[IUCompileRuleHTML, IUCompileRulePresentation, IUCompileRuleWordpress];
 }
 
-+ (NSString *)defaultCompilerRule{
+- (NSString *)defaultCompilerRule{
     return IUCompileRuleWordpress;
 }
 

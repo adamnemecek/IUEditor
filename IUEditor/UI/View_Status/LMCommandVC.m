@@ -115,6 +115,7 @@
 
 
 - (IBAction)build:(id)sender {
+    /*
     IUSourceManager *sourceManager = [[[NSApp mainWindow] windowController] performSelector:@selector(sourceManager)];
 
     NSString *rule = sourceManager.compilerRule;
@@ -193,6 +194,8 @@
     //save document after build
     [[[[NSApp mainWindow] windowController] document] saveDocument:self];
     
+     
+     */
     
 }
 

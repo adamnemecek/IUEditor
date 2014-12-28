@@ -14,39 +14,7 @@
 
 @class IUClass;
 
-typedef enum _IUGitType{
-    IUGitTypeNone = 0,
-    IUGitTypeSource = 1,
-    IUGitTypeOutput = 2
-} IUGitType;
-
-
-
-
-//setting
-static NSString * IUProjectKeyType = @"projectType";
-static NSString * IUProjectKeyGit = @"git";
-static NSString * IUProjectKeyHeroku = @"heroku";
-
-//project.path : /~/~/abcd.iu
-static NSString * IUProjectKeyIUFilePath = @"iuFilePath";
-
-//appname : abcd
-static NSString * IUProjectKeyAppName = @"appName";
-
-static NSString * IUProjectKeyResourcePath = @"resPath";
-static NSString * IUProjectKeyBuildPath = @"buildPath";
-static NSString * IUProjectKeyConversion = @"conversion";
-
-//resource groupname
-static NSString *IUResourceGroupName = @"resource";
-
-//iupage groupname
-static NSString *IUPageGroupName = @"page";
-static NSString *IUClassGroupName = @"class";
-
-
-@interface IUProject : NSObject <JDCoding, NSFileManagerDelegate, IUProjectProtocol, IUFileItemProtocol>{
+@interface IUProject : IUFileItem <JDCoding, NSFileManagerDelegate, IUProjectProtocol> {
     IUSheetGroup *_pageGroup;
     IUSheetGroup *_classGroup;
     IUServerInfo *_serverInfo;
@@ -59,10 +27,9 @@ static NSString *IUClassGroupName = @"class";
 }
 
 //class properties
-+ (NSArray *)widgetList;
-+ (NSArray *)compilerRules;
-+ (NSString *)defaultCompilerRule;
-
+- (NSArray *)widgetList;
+- (NSArray *)compilerRules;
+- (NSString *)defaultCompilerRule;
 
 
 /**
@@ -70,15 +37,16 @@ static NSString *IUClassGroupName = @"class";
  */
 - (id)initForUntitledDocument;
 - (void)setAsStressTestMode;
++ (id)projectWithContentsOfPath:(NSString*)path;
 
 
 //project properties
 - (NSArray*)viewPorts;
 - (NSInteger)maxViewPort;
 
-
-
-
+// return groups
+- (IUSheetGroup*)pageGroup;
+- (IUSheetGroup*)classGroup;
 
 #if DEBUG
 //test 를 위해서 setting 가능하게 해놓음.
@@ -87,37 +55,87 @@ static NSString *IUClassGroupName = @"class";
 - (id <IUSourceManagerProtocol>) sourceManager;
 #endif
 
-/////////////////////////////////////
-//      Old Version                //
-/////////////////////////////////////
-
-//create project
-+ (id)projectWithContentsOfPath:(NSString*)path __deprecated;
-+ (NSString *)stringProjectType:(IUProjectType)type;
-
-
-/**
- css, js filename array
- */
-- (NSArray *)defaultOutputCSSArray;
-- (NSArray *)defaultEditorJSArray;
-- (NSArray *)defaultOutputJSArray;
+// server information
+- (IUServerInfo*)serverInfo;
 
 
 /*
  @ important
  name , path are set by IUProjectDocument
  */
-@property   (nonatomic) NSString *path;
-@property   NSString    *name, *author, *favicon;
+@property (nonatomic) NSString *path;
+- (NSString *)resourceRootPath;
+
+@property   NSString    *author, *favicon;
 @property   BOOL enableMinWidth;
 
 
+//followings are about build path control
+- (void)resetBuildPath;
 
 @property NSString *buildPath;
 @property NSString *buildResourcePath;
 - (NSString*)absoluteBuildPath;
 - (NSString*)absoluteBuildResourcePath;
+
+
+
+/**
+ Used to set prefix of resource, such as css and js
+ if buildResourcePrefix == nil,
+ */
+@property NSString *buildResourcePrefix;
+
+
+- (BOOL)runnable;
+- (void)connectWithEditor;
+- (void)setIsConnectedWithEditor;
+- (BOOL)isConnectedWithEditor;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+//      Old Version                //
+/////////////////////////////////////
+
+//create project
++ (NSString *)stringProjectType:(IUProjectType)type __deprecated;
+
+
+/**
+ css, js filename array
+ */
+- (NSArray *)defaultOutputCSSArray __deprecated;
+- (NSArray *)defaultEditorJSArray __deprecated;
+- (NSArray *)defaultOutputJSArray __deprecated;
+
+
+
+
+
 
 
 //build
@@ -127,34 +145,45 @@ static NSString *IUClassGroupName = @"class";
 - (IUIdentifierManager*)identifierManager;
 
 - (NSArray*)allSheets;
+- (NSArray*)allPages;
+
 - (IUClass *)classWithName:(NSString *)name;
 
 /* get all IU in project */
 - (NSSet*)allIUs;
 
-- (BOOL)runnable;
 
-// return groups
-- (IUSheetGroup*)pageGroup;
-- (IUSheetGroup*)classGroup;
 //- (IUResourceGroup *)resourceGroup;
 
 - (void)addItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
 - (void)removeItem:(IUSheet *)sheet toSheetGroup:(IUSheetGroup *)sheetGroup;
 
-- (void)connectWithEditor;
-- (void)setIsConnectedWithEditor;
-- (BOOL)isConnectedWithEditor;
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet*)sheet;
-
-// server information
-- (IUServerInfo*)serverInfo;
-
-- (void)resetBuildPath;
-
 
 - (NSData *)lastCreatedData;
 - (NSData *)createData;
 
 @end
+
+//setting
+static NSString * const IUProjectKeyType = @"projectType";
+static NSString * const IUProjectKeyGit = @"git";
+static NSString * const IUProjectKeyHeroku = @"heroku";
+
+//project.path : /~/~/abcd.iu
+static NSString * const IUProjectKeyIUFilePath = @"iuFilePath";
+
+//appname : abcd
+static NSString * const IUProjectKeyAppName = @"appName";
+
+static NSString * const IUProjectKeyResourcePath = @"resPath";
+static NSString * const IUProjectKeyBuildPath = @"buildPath";
+static NSString * const IUProjectKeyConversion = @"conversion";
+
+//resource groupname
+static NSString * const IUResourceGroupName = @"resource";
+
+//iupage groupname
+static NSString *const IUPageGroupName = @"page";
+static NSString *const IUClassGroupName = @"class";

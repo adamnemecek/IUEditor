@@ -95,8 +95,10 @@
 /*** DEBUG FUNCTIONS ***/
 - (NSString *)source;
 
-/* build */
-- (BOOL)build:(NSError **)error;
+/**
+ Build Product:
+ */
+- (BOOL)build:(NSError **)error rule:(NSString *)rule;
 
 - (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet;
 

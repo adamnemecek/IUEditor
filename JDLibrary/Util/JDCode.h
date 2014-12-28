@@ -11,6 +11,8 @@
 @interface JDCode : NSObject
 
 + (id)code;
+- (id)initWithCodeString:(NSString*)codeString;
+- (id)initWithMainBundleFileName:(NSString *)bundleFileName;
 
 - (void)increaseIndentLevelForEdit;
 - (void)decreaseIndentLevelForEdit;
@@ -26,13 +28,13 @@
 - (void)addString:(NSString *)aString;
 - (void)setCodeString:(NSString *)aString;
 - (NSString*)string;
+- (NSData *)UTF8Data;
 - (NSUInteger)length;
 
 - (void)pushIndent:(NSUInteger)indentLevel prependIndent:(BOOL)prepend;
 
 - (void)replaceCodeString:(NSString*)code toCode:(JDCode*)code;
 
-- (id)initWithCodeString:(NSString*)codeString;
 
 - (void)removeBlock:(NSString*)blockIdentifier;
 

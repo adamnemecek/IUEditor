@@ -94,21 +94,20 @@
     return value;
 
 }
-- (IUPropertyStorage *)cascadingPropertyStorage{
+- (IUDataStorage *)cascadingPropertyStorage{
     id value =  [self valueForKeyPath:@"iuController.selection.cascadingPropertyStorage"];
     if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
         return nil;
     }
     return value;
-
 }
+
 - (IUActionStorage *)cascadingActionStorage{
     id value = [self valueForKeyPath:@"iuController.selection.cascadingActionStorage"];
     if(value == NSMultipleValuesMarker || value == NSNoSelectionMarker || value == NSNotApplicableMarker){
         return nil;
     }
     return value;
-
 }
 
 #pragma mark - property

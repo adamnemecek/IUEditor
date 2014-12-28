@@ -158,9 +158,8 @@ static JDFileUtil *sharedJDFileUtill;
     return YES;
 }
 
--(NSError*)overwriteBundleItem:(NSString *)filename toDirectory:(NSString *)directoryPath{
+-(BOOL)overwriteBundleItem:(NSString *)filename toDirectory:(NSString *)directoryPath error:(NSError **)error{
     NSError *result;
-    
     NSString *resourceFilePath =[[NSBundle mainBundle] pathForResource:[filename stringByDeletingPathExtension] ofType:[filename pathExtension]];
     NSString *newFilePath      =[directoryPath stringByAppendingFormat:@"/%@",filename];
     if([[NSFileManager defaultManager] fileExistsAtPath:newFilePath]){
@@ -169,11 +168,12 @@ static JDFileUtil *sharedJDFileUtill;
     [[NSFileManager defaultManager] copyItemAtPath:resourceFilePath toPath:newFilePath error:&result];
     if (result) {
         JDErrorLog(@"%@", [result description]);
+        return NO;
     }
-    return result;
+    return YES;
 }
 
--(NSError*)copyBundleItem:(NSString *)filename toDirectory:(NSString *)directoryPath{
+-(BOOL)copyBundleItem:(NSString *)filename toDirectory:(NSString *)directoryPath{
     NSError *result;
     
     NSString *resourceFilePath =[[NSBundle mainBundle] pathForResource:[filename stringByDeletingPathExtension] ofType:[filename pathExtension]];
@@ -181,8 +181,9 @@ static JDFileUtil *sharedJDFileUtill;
     [[NSFileManager defaultManager] copyItemAtPath:resourceFilePath toPath:newFilePath error:&result];
     if (result) {
         JDErrorLog(@"%@", [result description]);
+        return NO;
     }
-    return result;
+    return YES;
 }
 
 - (BOOL) unzipResource:(NSString*)resource toDirectory:(NSString*)path createDirectory:(BOOL)createDirectory{

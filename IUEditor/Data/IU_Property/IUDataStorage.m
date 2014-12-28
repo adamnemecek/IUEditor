@@ -34,6 +34,7 @@
     int _transactionLevel;
     int _disableUpdateLevel;
     NSMutableArray *_changePropertyStack;
+    NSMutableDictionary *_dict;
 }
 
 /* using cache for multiple calling [IUDataStorage properties] */
@@ -46,8 +47,23 @@
 /**
 @brief iubox에서 사용하는 property list (datastorage 자체의 property와 구분하기 위해서 사용)
  */
-+(NSArray *)iuDataList{
++(NSArray *)IUStorageProperties{
     return nil;
+}
+
+- (void)setObject:(id)object forKey:(NSString *)aKey {
+    if (object == nil) {
+        [_storage removeObjectForKey:aKey];
+    }
+    else {
+        [self willChangeValueForKey:aKey];
+        [_storage setObject:object forKey:aKey];
+        [self didChangeValueForKey:aKey];
+    }
+}
+
+- (id)objectForKey:(NSString *)key {
+    return [_storage objectForKey:key];
 }
 
 - (void)disableUpdate:(id)sender{
@@ -64,18 +80,8 @@
     _changePropertyStack = [NSMutableArray array];
     _transactionLevel = 0;
     
-    /*
-    if (storageProperties_cache == nil) {
-        NSArray *properties = [[self class] observingList];
-        storageProperties_cache = [properties valueForKey:@"name"];
-    }
-
-    if(storageProperties_cache){
-        [self addObserver:self forKeyPaths:storageProperties_cache options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
-    }
-     */
-    if([[self class] iuDataList]){
-        NSArray *keyPaths = [[[self class] iuDataList] valueForKey:@"name"];
+    if([[self class] IUStorageProperties]){
+        NSArray *keyPaths = [[[self class] IUStorageProperties] valueForKey:@"name"];
         [self addObserver:self forKeyPaths:keyPaths options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:@"storageProperty"];
     }
     
@@ -86,8 +92,8 @@
 
 
 - (void)dealloc{
-    if([[self class] iuDataList]){
-        NSArray *keyPaths = [[[self class] iuDataList] valueForKey:@"name"];
+    if([[self class] IUStorageProperties]){
+        NSArray *keyPaths = [[[self class] IUStorageProperties] valueForKey:@"name"];
         for (NSString *keyPath in keyPaths) {
             [self removeObserver:self forKeyPath:keyPath];
         }
@@ -193,7 +199,7 @@
         }
     }
     
-    NSArray *keyArray = [[[self class] iuDataList] valueForKey:@"name"];
+    NSArray *keyArray = [[[self class] IUStorageProperties] valueForKey:@"name"];
     for (NSString *key in keyArray){
         if([self valueForKey:key] == nil){
             id value = [aStorage valueForKey:key];

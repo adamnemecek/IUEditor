@@ -32,9 +32,6 @@
     copyright.name = @"Copyright";
     copyright.enableHCenter = YES;
     
-    copyright.defaultPropertyStorage.innerHTML = @"Copyright (C) IUEditor all rights reserved";
-    copyright.defaultPositionStorage.y = @(40);
-    
     copyright.defaultStyleStorage.width = nil;
     copyright.defaultStyleStorage.height = nil;
     

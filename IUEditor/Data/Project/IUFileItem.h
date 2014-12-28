@@ -28,6 +28,8 @@
 - (NSString *)name;
 - (id <IUFileItemProtocol>)parentFileItem;
 - (BOOL)isLeaf;
+- (NSString *)path;
+- (NSInteger)fileItemLevel;
 @end
 
 

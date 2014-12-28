@@ -8,6 +8,7 @@
 
 #import "IUBox.h"
 
+#define IUInnerHTMLKey @"IUInnerHTML"
 
 /**
  @description insert HTML code directly.

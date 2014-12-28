@@ -16,7 +16,7 @@
 @end
 @implementation IUPositionStorage
 
-+ (NSArray *)iuDataList{
++ (NSArray *)IUStorageProperties{
     return [IUPositionStorage properties];
 }
 

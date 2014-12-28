@@ -6,7 +6,7 @@
 //  Copyright (c) 2014년 JDLab. All rights reserved.
 //
 
-#import "IUBox.h"
+#import "IUHTML.h"
 
 typedef enum{
     IUTextTypeDefault,
@@ -14,11 +14,12 @@ typedef enum{
     IUTextTypeH2,
 }IUTextType;
 
+
 /**
  @description IUText Widget is text-only object. It cannot have children.
  */
 
-@interface IUText : IUBox
+@interface IUText : IUHTML
 
 /* default box - already customized box */
 +(IUText *)copyrightBox;

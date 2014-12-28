@@ -90,11 +90,7 @@
 - (void)setProject:(IUProject *)project{
     _project = project;
     _documentBasePath = project.path;
-    
-    //TODO: last opened compiler를 program status로 저장?
-    self.compilerRule = [[project class] defaultCompilerRule];
-    //FIXME 
-    [_compiler setOutputResourceBasePath:@"resource"];
+    self.compilerRule = [project defaultCompilerRule];
 }
 
 - (void)setEditorResourceBasePath:(NSString *)path{
@@ -134,7 +130,7 @@
 }
 
 - (NSArray *)availableCompilerRule{
-    return [[_project class] compilerRules];
+    return [_project compilerRules];
 }
 
 #pragma mark - manage obj
@@ -352,138 +348,11 @@
 }
 
 
-/**** build ***/
-/*
- Get code from compiler
- Save it to approprite path.
- */
 
-- (BOOL)build:(NSError **)error {
-    JDErrorLog(@"build not coded");
-#if 0
-    /*
-     Note :
-     Do not delete build path. Instead, overwrite files.
-     If needed, remove all files (except hidden file started with '.'), due to issus of git, heroku and editer such as Coda.
-     NSFileManager's (BOOL)createFileAtPath:(NSString *)path contents:(NSData *)contents attributes:(NSDictionary *)attributes automatically overwrites file.
-     */
-    
-    /* make directory */
-    NSAssert(_project.buildPath != nil, @"");
-    NSAssert(_compiler != nil, @"");
-
-    NSString *buildDirectoryPath = [_project absoluteBuildPath];
-    NSString *buildResourcePath = [_project absoluteBuildResourcePath];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:buildDirectoryPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:buildDirectoryPath withIntermediateDirectories:YES attributes:nil error:error];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:buildResourcePath] == YES) {
-        [[NSFileManager defaultManager] removeItemAtPath:buildResourcePath error:nil];
-    }
-    
-    
-    /* copy resource */
-    //[[NSFileManager defaultManager] setDelegate:self];
-    
-    JDErrorLog(@"Currently, resource group does not copied");
-//    [[NSFileManager defaultManager] copyItemAtPath:_project.resourceGroup.absolutePath toPath:buildResourcePath error:error];
-    [self copyCSSJSResourceToBuildPath:buildResourcePath];
-    
-    
-    /* build clip art */
-    /*
-     Build Sheet 을 하면서 클립아트어레이를 만들 수도 있지만, 
-     코드를 분할하는데는 For-Loop를 두번 도는 것이 보기 좋음.
-     */
-    NSMutableArray *clipArtArray = [NSMutableArray array];
-    for (IUSheet *sheet in _project.allSheets) {
-        [clipArtArray addObjectsFromArray:[_compiler outputClipArtArray:sheet]];
-    }
-    if ([clipArtArray count]) {
-        NSString *copyPath = [buildResourcePath stringByAppendingPathComponent:@"clipArt"];
-        [[NSFileManager defaultManager] createDirectoryAtPath:copyPath withIntermediateDirectories:YES attributes:nil error:error];
-        
-        for(NSString *imageName in clipArtArray){
-            if ([[NSFileManager defaultManager] fileExistsAtPath:[buildResourcePath stringByAppendingPathComponent:imageName] isDirectory:NO] == NO) {
-                [[JDFileUtil util] copyBundleItem:[imageName lastPathComponent] toDirectory:copyPath];
-            }
-        }
-    }
-    
-    /* build sheet */
-    NSString *resourceCSSPath = [buildResourcePath stringByAppendingPathComponent:@"css"];
-    NSString *resourceJSPath = [buildResourcePath stringByAppendingPathComponent:@"js"];
-
-    for (IUSheet *sheet in _project.allSheets) {
-
-        //*If page, make js code */
-        if ([sheet isKindOfClass:[IUPage class]]) {
-            IUPage *page = (IUPage *)sheet;
-            /* make JS File */
-            NSString *jsInitCode = [_compiler jsInitSource:page storage:YES];
-            if (jsInitCode) {
-                NSString *jsFilePath = [resourceJSPath stringByAppendingPathComponent:[_compiler jsInitFileName:page]];
-                /* save */
-                if ([jsInitCode writeToFile:jsFilePath atomically:YES encoding:NSUTF8StringEncoding error:error] == NO){
-                    NSAssert(0, @"write fail");
-                    return NO;
-                }
-            }
-            
-            NSString *jsEventCode = [_compiler jsEventSource:page];
-            if (jsEventCode) {
-                NSString *jsFilePath = [resourceJSPath stringByAppendingPathComponent:[_compiler jsEventFileName:page]];
-                /* save */
-                if ([jsEventCode writeToFile:jsFilePath atomically:YES encoding:NSUTF8StringEncoding error:error] == NO){
-                    NSAssert(0, @"write fail");
-                    return NO;
-                }
-            }
-        }
-        
-        /* make html and css */
-        
-        //if compile mode is Presentation, add button
-        if (_compilerRule == IUCompileRulePresentation) {
-            NSAssert(0, @"Not Coded ");
-            return NO;
-        }
-        
-        //html
-        NSString *htmlSource = [_compiler outputHTMLSource:(IUPage *)sheet];
-        NSString *htmlPath = [self absoluteBuildPathForSheet:sheet];
-        
-        NSAssert(htmlSource, @"html Source is nil");
-        NSAssert(htmlPath, @"htmlPath is nil");
-        
-        //note : writeToFile: automatically overwrite
-        NSError *error;
-        if ([htmlSource writeToFile:htmlPath atomically:YES encoding:NSUTF8StringEncoding error:&error] == NO){
-            NSAssert(0, @"write fail");
-            return NO;
-        }
-        
-        //css
-        NSString *outputCSS = [_compiler outputCSSSource_storage:(IUPage *)sheet];
-        
-        NSString *cssPath = [[resourceCSSPath stringByAppendingPathComponent:sheet.name] stringByAppendingPathExtension:@"css"];
-        
-        //note : writeToFile: automatically overwrite
-        if ([outputCSS writeToFile:cssPath atomically:YES encoding:NSUTF8StringEncoding error:&error] == NO){
-            NSAssert(0, @"write fail");
-            return NO;
-        }
-        
-    }//end of all sheet forloop
-#endif
-    return NO;
+- (BOOL)build:(NSError **)error rule:(NSString *)rule{
+    return [_compiler build:_project rule:rule error:nil];
 }
 
-- (NSString*)absoluteBuildPathForSheet:(IUSheet *)sheet{
-    NSString *filePath = [[_project.absoluteBuildPath stringByAppendingPathComponent:[sheet.name lowercaseString]] stringByAppendingPathExtension:@"html"];
-    return filePath;
-}
 
 #if 0
             if ([sheet isKindOfClass:[IUPage class]]) {
@@ -503,52 +372,6 @@
             }
 #endif
 
-
-- (BOOL)copyCSSJSResourceToBuildPath:(NSString *)buildPath{
-    NSError *error;
-    
-    //css
-    NSString *resourceCSSPath = [buildPath stringByAppendingPathComponent:@"css"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:resourceCSSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:resourceCSSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    
-    [[NSFileManager defaultManager] createDirectoryAtPath:resourceCSSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    for(NSString *filename in [_project defaultOutputCSSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:resourceCSSPath];
-    }
-    
-    
-    //js
-    NSString *resourceJSPath = [buildPath stringByAppendingPathComponent:@"js"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:resourceJSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:resourceJSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    
-    for(NSString *filename in [_project defaultCopyJSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:resourceJSPath];
-    }
-    
-#if DEBUG
-    [[JDFileUtil util] overwriteBundleItem:@"stressTest.js" toDirectory:resourceJSPath];
-    
-#endif
-    
-    //copy js for IE
-    NSString *ieJSPath = [resourceJSPath stringByAppendingPathComponent:@"ie"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:ieJSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:ieJSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    for(NSString *filename in [_project defaultOutputIEJSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:ieJSPath];
-    }
-    
-    
-    if(error){
-        return NO;
-    }
-    return YES;
-}
 
 
 

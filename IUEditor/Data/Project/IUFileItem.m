@@ -28,6 +28,7 @@
     [aCoder encodeFromObject:self withProperties:[IUFileItem properties]];
 
 }
+
 - (IUProject *)project {
     if ([self isKindOfClass:[IUProject class]]) {
         return (IUProject *)self;
@@ -40,6 +41,22 @@
 
 - (BOOL)isLeaf {
     return YES;
+}
+
+- (NSString *)path {
+    if (self.parentFileItem == nil) {
+        return @"/";
+    }
+    else {
+        return [[self.parentFileItem path] stringByAppendingPathComponent:_name];
+    }
+}
+
+- (NSInteger)fileItemLevel {
+    if (self.parentFileItem == nil) {
+        return 0;
+    }
+    return [self.parentFileItem fileItemLevel] + 1;
 }
 
 @end

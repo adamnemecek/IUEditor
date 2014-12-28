@@ -58,8 +58,6 @@
 		2666986719FE2608009F98AE /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 2666986519FE2608009F98AE /* arrow_right.png */; };
 		3D04999F1A1C3CB70084632B /* IUPositionStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D04999E1A1C3CB70084632B /* IUPositionStorage.m */; };
 		3D0499A21A1C3D220084632B /* IUStyleStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0499A11A1C3D220084632B /* IUStyleStorage.m */; };
-		3D0499A51A1C798E0084632B /* IUPropertyStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0499A41A1C798E0084632B /* IUPropertyStorage.m */; };
-		3D0499A71A1C7C5C0084632B /* IUPropertyStorage_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0499A61A1C7C5C0084632B /* IUPropertyStorage_Test.m */; };
 		3D082F621A30226E00B653B1 /* IUSheetController_Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D082F611A30226E00B653B1 /* IUSheetController_Test.m */; };
 		3D082F661A30359000B653B1 /* BBProjectStructureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D082F641A30359000B653B1 /* BBProjectStructureVC.m */; };
 		3D082F671A30359000B653B1 /* BBProjectStructureVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D082F651A30359000B653B1 /* BBProjectStructureVC.xib */; };
@@ -899,9 +897,6 @@
 		3D04999E1A1C3CB70084632B /* IUPositionStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUPositionStorage.m; path = Data/IU_Property/IUPositionStorage.m; sourceTree = "<group>"; };
 		3D0499A01A1C3D220084632B /* IUStyleStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUStyleStorage.h; path = Data/IU_Property/IUStyleStorage.h; sourceTree = "<group>"; };
 		3D0499A11A1C3D220084632B /* IUStyleStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUStyleStorage.m; path = Data/IU_Property/IUStyleStorage.m; sourceTree = "<group>"; };
-		3D0499A31A1C798E0084632B /* IUPropertyStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IUPropertyStorage.h; path = Data/IU_Property/IUPropertyStorage.h; sourceTree = "<group>"; };
-		3D0499A41A1C798E0084632B /* IUPropertyStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IUPropertyStorage.m; path = Data/IU_Property/IUPropertyStorage.m; sourceTree = "<group>"; };
-		3D0499A61A1C7C5C0084632B /* IUPropertyStorage_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUPropertyStorage_Test.m; sourceTree = "<group>"; };
 		3D082F611A30226E00B653B1 /* IUSheetController_Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IUSheetController_Test.m; sourceTree = "<group>"; };
 		3D082F631A30359000B653B1 /* BBProjectStructureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBProjectStructureVC.h; path = UI/View_Selection/BBProjectStructureVC.h; sourceTree = "<group>"; };
 		3D082F641A30359000B653B1 /* BBProjectStructureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBProjectStructureVC.m; path = UI/View_Selection/BBProjectStructureVC.m; sourceTree = "<group>"; };
@@ -2251,8 +2246,6 @@
 				3D04999E1A1C3CB70084632B /* IUPositionStorage.m */,
 				3D0499A01A1C3D220084632B /* IUStyleStorage.h */,
 				3D0499A11A1C3D220084632B /* IUStyleStorage.m */,
-				3D0499A31A1C798E0084632B /* IUPropertyStorage.h */,
-				3D0499A41A1C798E0084632B /* IUPropertyStorage.m */,
 				3D2EF52A19F7822700BBBAE5 /* IUMQData.h */,
 				3D2EF52B19F7822700BBBAE5 /* IUMQData.m */,
 				09E6F9371A22CBFE00FD1EBB /* IUEvent.h */,
@@ -3741,7 +3734,6 @@
 				3DD19CA71A35472A00A5198E /* BBDefaultBindingVC.m */,
 				3D082F611A30226E00B653B1 /* IUSheetController_Test.m */,
 				3D4DFF331A281BD600418CE0 /* IUCopy_Test.m */,
-				3D0499A61A1C7C5C0084632B /* IUPropertyStorage_Test.m */,
 				3DE45F6B19F7C04000A75567 /* IUDataStorageTest.m */,
 				09D4AD141A144A96001421C9 /* CSSToCSSStorageConversion_Test.m */,
 				3DE45F6C19F7C04000A75567 /* JDCoderTest.m */,
@@ -4728,7 +4720,6 @@
 				3D2EFCB719F78CF700BBBAE5 /* LMPropertyIUCarouselVC.m in Sources */,
 				3D2EF6B919F784A400BBBAE5 /* LMPropertyIUMenuBarVC.m in Sources */,
 				3D2EF5BF19F7831F00BBBAE5 /* LMDebugSourceWC.m in Sources */,
-				3D0499A51A1C798E0084632B /* IUPropertyStorage.m in Sources */,
 				3D2EFCD219F78F0F00BBBAE5 /* IUCSSWPCompiler.m in Sources */,
 				3D2EF4D319F781E400BBBAE5 /* PGTextField.m in Sources */,
 				3D2EF41119F780EA00BBBAE5 /* LMGeneralObject.m in Sources */,
@@ -4962,7 +4953,6 @@
 				3DC616B01A398B9A00B94A4C /* IUController_Test.m in Sources */,
 				092605B21A1A54E5008C40FC /* IUCompiler_Test.m in Sources */,
 				092605B31A1A54E5008C40FC /* IUProject_Test.m in Sources */,
-				3D0499A71A1C7C5C0084632B /* IUPropertyStorage_Test.m in Sources */,
 				092605B41A1A54E5008C40FC /* IUSourceManager_Test.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

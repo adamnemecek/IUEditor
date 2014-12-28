@@ -62,14 +62,14 @@
 
 
 - (IBAction)build:(id)sender {
-    
+   /*
     NSString *rule = self.sourceManager.compilerRule;
 
     if ([rule isEqualToString:IUCompileRuleHTML]
         || [rule isEqualToString:IUCompileRuleWordpress]
         || [rule isEqualToString:IUCompileRulePresentation] ) {
         
-        BOOL result = [self.sourceManager build:nil];
+       BOOL result = [self.sourceManager build:nil];
         
         if (result == NO) {
             NSAssert(0, @"");
@@ -138,6 +138,7 @@
     //save document after build
     [[[[NSApp mainWindow] windowController] document] saveDocument:self];
     
+    */
     
 }
 

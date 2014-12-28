@@ -46,10 +46,11 @@
 }
 
 
-- (JDCode *)outputHTMLCode:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix rule:(NSString *)rule cssCodes:(NSDictionary *)codes {
-    return [self htmlCode:iu htmlIDPrefix:htmlIDPrefix target:IUTargetOutput rule:rule viewPort:0 cssCodes:codes option:nil];
-}
 
+- (JDCode *)outputHTMLCode:(IUBox *)iu rule:(NSString *)rule {
+    JDCode *code = [self htmlCode:iu htmlIDPrefix:nil target:IUTargetOutput rule:rule viewPort:0 cssCodes:nil option:nil];
+    return code;
+}
 
 /**
  실제로 JDCode를 만들어서 리턴하는 부분을 담당한다.
@@ -68,7 +69,9 @@
             //call widget html
             IMP imp = [self methodForSelector:selector];
             IUCSSCode *cssCode = cssCodes[iu.htmlID];
-            NSAssert(cssCode != nil, @"code is nil");
+            if (target == IUTargetEditor) {
+                NSAssert(cssCode != nil, @"code is nil");
+            }
             NSString *cssStyle = [cssCode stringCodeWithMainIdentifieForTarget:target viewPort:viewPort];
             IUAttributeDict *attrDict = [self defaultAttributes:iu htmlIDPrefix:HTMLIDPrefix rule:rule target:target viewPort:viewPort style:cssStyle];
             
@@ -146,58 +149,13 @@
 
 - (JDCode *)htmlCodeAsIUBox:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)dict cssCodes:(NSDictionary *)cssCodes option:(NSMutableDictionary *)option {
     JDCode *code = [[JDCode alloc] initWithCodeString:[NSString stringWithFormat:@"<div %@>", dict.attributeStringValue]];
-    
-    
-    if(target == IUTargetOutput){
-        NSAssert(0, @"not yet coded");
-#if 0
-        //TODO: WP
-        if ([iu conformsToProtocol:@protocol(IUSampleHTMLProtocol)] && _compiler.rule == IUCompileRuleDefault){
-            /* for example, WORDPRESS can be compiled as HTML */
-            IUBox <IUSampleHTMLProtocol> *sampleProtocolIU = (id)iu;
-            if ([sampleProtocolIU respondsToSelector:@selector(sampleInnerHTML)]) {
-                NSString *sampleInnerHTML = [sampleProtocolIU sampleInnerHTML];
-                [code addCodeWithFormat:sampleInnerHTML];
-            }
-            else if ([sampleProtocolIU respondsToSelector:@selector(sampleHTML)]) {
-                [code setCodeString: sampleProtocolIU.sampleHTML];
-            }
-            else {
-                assert(0);
-            }
-        }
-        else if ([iu conformsToProtocol:@protocol(IUPHPCodeProtocol)] && _compiler.rule == IUCompileRuleWordpress){
-            NSString *phpCode = [((IUBox <IUPHPCodeProtocol>*)iu) code];
-            [code addCodeLine:phpCode];
-        }
-#endif
-    }
-    if (target == IUTargetEditor || ( target == IUTargetOutput && [iu shouldCompileChildrenForOutput] )) {
-        for (IUBox *child in iu.children) {
-            JDCode *childCode = [self htmlCode:child htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort cssCodes:cssCodes option:nil];
-            if (childCode) {
-                [code addCodeWithIndent:childCode];
-            }
+    for (IUBox *child in iu.children) {
+        JDCode *childCode = [self htmlCode:child htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort cssCodes:cssCodes option:nil];
+        if (childCode) {
+            [code addCodeWithIndent:childCode];
         }
     }
-    /*
-    
-    if (target == IUTargetOutput && [iu conformsToProtocol:@protocol(IUPHPCodeProtocol)] && _compiler.rule == IUCompileRuleWordpress) {
-        if ([iu respondsToSelector:@selector(codeAfterChildren)]) {
-            NSString *phpCode = [((IUBox <IUPHPCodeProtocol>*)iu) codeAfterChildren];
-            [code addCodeLine:phpCode];
-        }
-    }
-    */
-    
     [code addCodeLine:@"</div>"];
-    /*
-    if ([iu.pgVisibleConditionVariable length] && _compiler.rule == IUCompileRuleDjango) {
-        [code addCodeLine:@"{% endif %}"];
-    }
-     */
-    
-    
     return code;
 }
 
@@ -508,30 +466,21 @@
             
         }
     }
-    if(textIU.propertyManager){
+    if([textIU.propertyManager countOfValueForKey:IUInnerHTMLKey]){
         /*
          IU has only one innerHTML
          */
-        if([textIU.propertyManager countOfValueForKey:@"innerHTML"] == 1){
-            IUPropertyStorage *propertyStorage = (IUPropertyStorage *)[textIU.propertyManager storageForViewPort:viewPort];
-            if(propertyStorage.innerHTML && propertyStorage.innerHTML.length > 0){
+        if([textIU.propertyManager countOfValueForKey:IUInnerHTMLKey] == 1){
+            IUDataStorage *propertyStorage = (IUDataStorage *)[textIU.propertyManager storageForViewPort:viewPort];
+            NSString *innerHTML = [propertyStorage objectForKey:IUInnerHTMLKey];
+            if(innerHTML){
                 [code increaseIndentLevelForEdit];
-                [code addCodeLine:propertyStorage.innerHTML];
+                [code addCodeLine:innerHTML];
                 [code decreaseIndentLevelForEdit];
             }
         }
-        /*
-         if IU has multiple inner html, this goes to javascript
-         */
-        else if(target == IUTargetEditor){
-            /* following code assumes propertyManager.currentViewPort should be equal parameter viewPort */
-            NSAssert(viewPort == textIU.propertyManager.currentViewPort, @"not equal");
-            
-            if(textIU.cascadingPropertyStorage.innerHTML && textIU.cascadingPropertyStorage.innerHTML.length > 0){
-                [code increaseIndentLevelForEdit];
-                [code addCodeLine:textIU.currentPropertyStorage.innerHTML];
-                [code decreaseIndentLevelForEdit];
-            }
+        else {
+            NSAssert(0, @"not coded");
         }
         
     }
@@ -791,7 +740,9 @@
     
     [code addCodeLineWithFormat:@"<div %@>", attributeDict.attributeStringValue];
     
-    [code addCodeLine:html.innerHTML];
+    IUDataStorage *propertyStorage = [[html propertyManager] cascadingStorageForViewPort:viewPort];
+    NSString *innerHTML = [propertyStorage valueForKey:IUInnerHTMLKey];
+    [code addCodeLine:innerHTML];
     [code addCodeLineWithFormat:@"</div>"];
     return code;
 }

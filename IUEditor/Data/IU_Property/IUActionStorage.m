@@ -11,7 +11,7 @@
 
 @implementation IUActionStorage
 
-+ (NSArray *)iuDataList{
++ (NSArray *)IUStorageProperties{
     return [IUActionStorage properties];
 }
 

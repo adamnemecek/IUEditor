@@ -11,7 +11,7 @@
 
 #import "IUMQData.h"
 #import "IUDataStorage.h"
-#import "IUPropertyStorage.h"
+#import "IUDataStorage.h"
 
 
 @interface IUMQData ()
@@ -21,7 +21,7 @@
 
 @implementation IUMQData{
     /* for version control; used in 'convertToStorageManager' */
-    IUPropertyStorage *convertPropertyStorage;
+    IUDataStorage *convertPropertyStorage;
     NSDictionary *convertTagDict;
 }
 
@@ -247,11 +247,11 @@
 
 
 - (IUDataStorageManager *)convertToPropertyStorageManager{
-    IUDataStorageManager *cssStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage class].className];
+    IUDataStorageManager *cssStorageManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUDataStorage class].className];
     
     for (NSNumber *number in self.allViewports) {
         cssStorageManager.currentViewPort = [number integerValue];
-        convertPropertyStorage = (IUPropertyStorage *)cssStorageManager.currentStorage;
+        convertPropertyStorage = (IUDataStorage *)cssStorageManager.currentStorage;
         convertTagDict = [self tagDictionaryForViewport:[number integerValue]];
         
         if(convertTagDict[IUMQDataTagInnerHTML]){

@@ -163,7 +163,6 @@
 }
 
 
-
 /* prepare update. for example, text editor enable/disable */
 - (void)beginUpdate{
     

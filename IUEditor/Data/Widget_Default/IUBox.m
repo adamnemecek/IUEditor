@@ -239,7 +239,7 @@
     [self setStorageManager:positionManager forSelector:kIUPositionManager];
     IUDataStorageManager *actionManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUActionStorage className]];
     [self setStorageManager:actionManager forSelector:kIUActionManager];
-    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUPropertyStorage className]];
+    IUDataStorageManager *propertyManager = [[IUDataStorageManager alloc] initWithStorageClassName:[IUDataStorage className]];
     [self setStorageManager:propertyManager forSelector:kIUPropertyManager];
 
     [self.defaultPositionStorage setFirstPosition:@(IUFirstPositionTypeAbsolute)];

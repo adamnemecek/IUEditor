@@ -57,7 +57,6 @@
             self.currentStyleStorage.fontColor = [NSColor rgbColorRed:50 green:50 blue:50 alpha:1];
             
             titleBox.textType = IUTextTypeH1;
-            titleBox.currentPropertyStorage.innerHTML = @"Header Area";
             
             [self addIU:titleBox error:nil];
 
@@ -68,7 +67,6 @@
             [self.currentStyleStorage setHeight:@(120) unit:@(IUFrameUnitPixel)];
             
             titleBox.currentStyleStorage.fontSize = @(12);
-            titleBox.currentPropertyStorage.innerHTML = @"Sidebar Area";
             
             [self addIU:titleBox error:nil];
 
@@ -77,9 +75,6 @@
         case IUClassPresetTypeFooter:{
             [self.currentStyleStorage setWidth:@(100) unit:@(IUFrameUnitPercent)];
             [self.currentStyleStorage setHeight:@(100) unit:@(IUFrameUnitPercent)];
-            
-            titleBox.currentPropertyStorage.innerHTML = @"Footer Area";
-            
             
             [self addIU:titleBox error:nil];
             

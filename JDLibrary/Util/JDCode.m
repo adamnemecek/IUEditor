@@ -86,6 +86,10 @@
     return [string copy];
 }
 
+- (NSData *)UTF8Data {
+    return [string dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 -(NSUInteger)length{
     return string.length;
 }
@@ -110,6 +114,14 @@
 - (id)initWithCodeString:(NSString*)codeString{
     self = [super init];
     string = [codeString mutableCopy];
+    whiteSpace = [NSString string];
+    return self;
+}
+
+- (id)initWithMainBundleFileName:(NSString *)bundleFileName {
+    self = [super init];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:[bundleFileName stringByDeletingPathExtension] withExtension:[bundleFileName pathExtension]];
+    string = [NSMutableString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
     whiteSpace = [NSString string];
     return self;
 }

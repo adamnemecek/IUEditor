@@ -106,4 +106,15 @@
     XCTAssertTrue([htmlCode containsString:innerHTML]);
 }
 
+-(void)test6_build {
+    IUProject *proj = [[IUProject alloc] initForUntitledDocument];
+    proj.buildPath = [NSHomeDirectory() stringByAppendingPathComponent:@"iutest"];
+    proj.buildResourcePath = [NSHomeDirectory() stringByAppendingPathComponent:@"iutest/res"];
+    proj.name = @"test";
+    IUCompiler *compiler = [[IUCompiler alloc] init];
+    NSError *err;
+    BOOL result = [compiler build:proj rule:IUCompileRuleHTML error:&err];
+    XCTAssertTrue(result);
+}
+
 @end

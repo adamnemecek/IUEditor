@@ -635,10 +635,10 @@
 
         if(element.innerText && [element.innerText stringByTrim].length > 0){
             [[IUFontController sharedFontController] setLastUsedFontToIUBox:iu];
-            iu.cascadingPropertyStorage.innerHTML = element.innerHTML;
+            [iu.cascadingPropertyStorage setObject:element.innerHTML forKey:IUInnerHTMLKey];
         }
         else{
-            iu.cascadingPropertyStorage.innerHTML = nil;
+            [iu.cascadingPropertyStorage setObject:element.innerHTML forKey:IUInnerHTMLKey];
         }
         
         [iu.cascadingPropertyStorage enableUpdate:self];

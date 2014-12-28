@@ -18,7 +18,6 @@
 #import "IUDataStorage.h"
 #import "IUStyleStorage.h"
 #import "IUPositionStorage.h"
-#import "IUPropertyStorage.h"
 #import "IUActionStorage.h"
 
 
@@ -138,9 +137,9 @@ static NSString *kIUPropertyManager = @"propertyManager";
 @property (readonly) _binding_ IUPositionStorage *cascadingPositionStorage;
 @property (readonly) _binding_ IUPositionStorage *currentPositionStorage;
 
-@property (readonly) _binding_ IUPropertyStorage *defaultPropertyStorage;
-@property (readonly) _binding_ IUPropertyStorage *cascadingPropertyStorage;
-@property (readonly) _binding_ IUPropertyStorage *currentPropertyStorage;
+@property (readonly) _binding_ IUDataStorage *defaultPropertyStorage;
+@property (readonly) _binding_ IUDataStorage *cascadingPropertyStorage;
+@property (readonly) _binding_ IUDataStorage *currentPropertyStorage;
 
 @property (readonly) _binding_ IUActionStorage *defaultActionStorage;
 @property (readonly) _binding_ IUActionStorage *cascadingActionStorage;

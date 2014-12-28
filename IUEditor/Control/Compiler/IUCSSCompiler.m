@@ -13,27 +13,7 @@
 #import "IUFontController.h"
 #import "IUCSS.h"
 #import "IUProject.h"
-
-#import "IUSection.h"
-#import "IUHeader.h"
-#import "IUFooter.h"
-
-#import "PGPageLinkSet.h"
-#import "IUMenuBar.h"
-#import "IUMenuItem.h"
-#import "IUCarousel.h"
-#import "PGTextView.h"
-#import "IUPageContent.h"
-
-#import "WPMenu.h"
-
-#import "WPSidebar.h"
-#import "WPWidget.h"
-#import "WPWidgetTitle.h"
-#import "WPWidgetBody.h"
-
-#import "WPPageLinks.h"
-#import "WPPageLink.h"
+#import "IUBoxes.h"
 
 #import "IUDataStorage.h"
 
@@ -71,6 +51,26 @@
     }
     return nil;
 }
+
+
+- (NSDictionary*)cssCodeDictionaryForIUWithChilren:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    dict[iu.htmlID] = [self cssCodeForIU:iu rule:rule target:target viewPort:viewPort option:option];
+    for (IUBox *child in iu.children) {
+        dict[child.htmlID] = [self cssCodeForIU:child rule:rule target:target viewPort:viewPort option:option];
+    }
+    return [dict copy];
+}
+
+- (NSArray*)cssCodesForIUWithChildren:(IUBox*)iu rule:(NSString*)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObject:[self cssCodeForIU:iu rule:rule target:target viewPort:viewPort option:option]];
+    for (IUBox *child in iu.children) {
+        [arr addObject:[self cssCodeForIU:child rule:rule target:target viewPort:viewPort option:option]];
+    }
+    return [arr copy];
+}
+
 
 - (IUCSSCode *)cssCodeForIUBox:(IUBox *)iu rule:(NSString *)rule target:(IUTarget)target viewPort:(NSInteger)viewPort option:(NSDictionary *)option {
     return [_baseCompiler cssCodeForIUBox:iu target:target viewPort:viewPort option:option];
@@ -375,7 +375,7 @@
         [code setInsertingViewPort:viewport];
         [code setInsertingIdentifiers:@[carousel.prevID, carousel.nextID] withType:IUCSSIdentifierTypeNonInline];
         
-        BOOL carouseldisable = [((IUPropertyStorage *)[carousel.propertyManager storageForViewPort:viewport]).carouselArrowDisable boolValue];
+        BOOL carouseldisable = [((IUDataStorage *)[carousel.propertyManager storageForViewPort:viewport]).carouselArrowDisable boolValue];
         
         if(carouseldisable){
             [code insertTag:@"display" string:@"none"];
@@ -387,6 +387,50 @@
 #endif
 
 }
+
+
+
+- (JDCode *)outputCSSCodeForSheet:(IUSheet *)sheet rule:(NSString *)rule{
+    if (sheet.project == nil){
+        NSAssert(0, @"cannot make output css source without project information");
+    }
+    
+    NSArray *viewPorts = sheet.project.viewPorts;
+    JDCode *code = [[JDCode alloc] init];
+    
+    /**
+     Implementation Rule:   1) use 'max-width' only. this support cascading css.
+                            2) if '960' and '768' is set, '900' will be shown by rule '768'.
+                            ex) if '960', '768', '580', '360' is set,
+                                default = 960 data, max vp 960 = 768 data, max vp 768 = 580 data, max 580 = 360 data
+     */
+    NSInteger prevViewPort = 0;
+    NSInteger viewPort = 0;
+    for (int i=0; i<viewPorts.count; i++){
+        if (i != 0) {
+            prevViewPort = viewPort;
+        }
+        viewPort = [[viewPorts objectAtIndex:i] integerValue];
+        if (prevViewPort != 0) {
+            [code addCodeWithFormat:@"@media screen and (max-width:%dpx) {" , prevViewPort];
+            [code increaseIndentLevelForEdit];
+        }
+        NSArray *cssCodes = [self cssCodesForIUWithChildren:sheet rule:rule target:IUTargetOutput viewPort:0 option:nil];
+        for (IUCSSCode *cssCode in cssCodes) {
+            NSDictionary *cssDict = [cssCode stringTagDictionaryWithIdentifierForOutputViewport:viewPort];
+            for (NSString *identifier in cssDict) {
+                NSAssert([[cssDict[identifier] stringByTrim] length], @"empty");
+                [code addCodeLineWithFormat:@"%@ {%@}", identifier, cssDict[identifier]];
+            }
+        }
+        if (prevViewPort != 0) {
+            [code decreaseIndentLevelForEdit];
+            [code addCodeLine:@"}"];
+        }
+    }
+    return code;
+}
+
 
 #pragma mark - WP Widgets
 /*

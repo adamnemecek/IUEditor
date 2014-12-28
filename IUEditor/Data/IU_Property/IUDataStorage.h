@@ -31,8 +31,8 @@ typedef enum IUFrameUnit{
 /**
  @note value and key should support JSON rule.
  */
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key;
-- (id)valueForUndefinedKey:(NSString *)key;
+- (void)setObject:(id)object forKey:(NSString *)aKey;
+- (id)objectForKey:(NSString *)key;
 - (NSDictionary*)dictionary;
 
 

@@ -35,7 +35,7 @@
 }
 
 #pragma mark - class attributes
-+ (NSArray *)widgetList{
+- (NSArray *)widgetList{
     return @[
              @"IUBox", @"IUText", @"IUCenterBox", @"IUImage", @"PGSubmitButton", @"PGForm", @"IUImport",
              @"IUMovie", @"IUHTML", @"IUTweetButton", @"IUGoogleMap", @"IUWebMovie", @"IUFBLike",
@@ -43,11 +43,11 @@
              ];
 }
 
-+ (NSArray *)compilerRules{
+- (NSArray *)compilerRules{
     return @[IUCompileRuleHTML, IUCompileRulePresentation];
 }
 
-+ (NSString *)defaultCompilerRule{
+- (NSString *)defaultCompilerRule{
     return IUCompileRuleHTML;
 }
 
@@ -69,6 +69,10 @@
     return project;
 }
 
+- (NSString *)resourceRootPath {
+    return [_path stringByAppendingPathComponent:@"resource"];
+}
+
 
 + (NSString *)stringProjectType:(IUProjectType)type{
     NSString *projectName ;
@@ -76,7 +80,7 @@
         case IUProjectTypeDefault:
             projectName = @"IUProject";
             break;
-        case IUProjectTypeDjango:
+        case IUProjectTypeDjango :
             projectName = @"IUDjangoProject";
             break;
         case IUProjectTypePresentation:
@@ -102,7 +106,8 @@
     [aCoder encodeObject:_pageGroup forKey:@"_pageGroup"];
     [aCoder encodeObject:_classGroup forKey:@"_classGroup"];
 //    [encoder encodeObject:_resourceGroup forKey:@"_resourceGroup"];
-    [aCoder encodeObject:_name forKey:@"_name"];
+    [aCoder encodeObject:self.name forKey:@"_name"];
+    
     [aCoder encodeObject:_favicon forKey:@"_favicon"];
     [aCoder encodeObject:_author forKey:@"_author"];
     
@@ -124,7 +129,7 @@
         _mqSizes = [[aDecoder decodeObjectForKey:@"viewPorts"] mutableCopy];
         _classGroup = [aDecoder decodeObjectForKey:@"_classGroup"];
         _pageGroup = [aDecoder decodeObjectForKey:@"_pageGroup"];
-        _name = [aDecoder decodeObjectForKey:@"_name"];
+        self.name = [aDecoder decodeObjectForKey:@"_name"];
         
         self.buildPath = [aDecoder decodeObjectForKey:@"_buildPath"];
         self.buildResourcePath = [aDecoder decodeObjectForKey:@"_buildResourcePath"];
@@ -608,10 +613,15 @@
 
 - (NSString*)absoluteBuildResourcePath{
     NSMutableString *str = [self.buildResourcePath mutableCopy];
-    [str replaceOccurrencesOfString:@"$IUBuildPath" withString:[self buildPath] options:0 range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"$IUFileDirectory" withString:[[self path] stringByDeletingLastPathComponent] options:0 range:NSMakeRange(0, [str length])];
-    [str replaceOccurrencesOfString:@"$AppName" withString:[self name] options:0 range:NSMakeRange(0, [str length])];
-    
+    if ([str containsString:@"$IUBuildPath"]) {
+        [str replaceOccurrencesOfString:@"$IUBuildPath" withString:[self buildPath] options:0 range:NSMakeRange(0, [str length])];
+    }
+    if ([str containsString:@"$IUFileDirectory"]) {
+        [str replaceOccurrencesOfString:@"$IUFileDirectory" withString:[[self path] stringByDeletingLastPathComponent] options:0 range:NSMakeRange(0, [str length])];
+    }
+    if ([str containsString:@"$AppName"]) {
+        [str replaceOccurrencesOfString:@"$AppName" withString:[self name] options:0 range:NSMakeRange(0, [str length])];
+    }
     
     NSString *returnPath = [str stringByExpandingTildeInPath];
     return returnPath;
@@ -629,48 +639,6 @@
 
 
 - (BOOL)copyCSSJSResourceToBuildPath:(NSString *)buildPath{
-    NSError *error;
-    
-    //css
-    NSString *resourceCSSPath = [buildPath stringByAppendingPathComponent:@"css"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:resourceCSSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:resourceCSSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    
-    [[NSFileManager defaultManager] createDirectoryAtPath:resourceCSSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    for(NSString *filename in [self defaultOutputCSSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:resourceCSSPath];
-    }
-
-    
-    //js
-    NSString *resourceJSPath = [buildPath stringByAppendingPathComponent:@"js"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:resourceJSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:resourceJSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    
-    for(NSString *filename in [self defaultCopyJSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:resourceJSPath];
-    }
-    
-#if DEBUG
-    [[JDFileUtil util] overwriteBundleItem:@"stressTest.js" toDirectory:resourceJSPath];
-
-#endif
-    
-    //copy js for IE
-    NSString *ieJSPath = [resourceJSPath stringByAppendingPathComponent:@"ie"];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:ieJSPath] == NO) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:ieJSPath withIntermediateDirectories:YES attributes:nil error:&error];
-    }
-    for(NSString *filename in [self defaultOutputIEJSArray]){
-        [[JDFileUtil util] overwriteBundleItem:filename toDirectory:ieJSPath];
-    }
-    
-    
-    if(error){
-        return NO;
-    }
     return YES;
 }
 
@@ -765,6 +733,10 @@
     return allSheets;
 }
 
+- (NSArray *)allPages{
+    return [[self allSheets] filteredArrayWithClass:[IUPage class]];
+}
+
 - (IUClass *)classWithName:(NSString *)name{
     return [_classGroup sheetWithHtmlID:name];
 }
@@ -849,12 +821,6 @@
     _lastCreatedData = [coder data];
     return _lastCreatedData;
 }
-
-- (IUProject *)project{
-    return self;
-}
-
-
 
 
 @end

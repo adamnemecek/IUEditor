@@ -7,6 +7,7 @@
 //
 
 #import "IUPage.h"
+#import "IUClass.h"
 #import "IUBackground.h"
 #import "IUPageContent.h"
 #import "IUImport.h"
@@ -224,6 +225,11 @@
     
     [[self undoManager] enableUndoRegistration];
     return page;
+}
+
+-(NSSet *)includedClass {
+    NSSet *set = [NSSet setWithArray:[[self allChildren] filteredArrayWithClass:[IUClass class]]];
+    return set;
 }
 
 - (BOOL)shouldCompileHeight{

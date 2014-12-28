@@ -18,9 +18,8 @@ typedef enum{
 - (NSDictionary*)stringTagDictionaryWithIdentifier:(NSInteger)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForOutputViewport:(NSInteger)viewport;
 - (NSDictionary*)stringTagDictionaryWithIdentifierForTarget:(IUTarget)target viewPort:(NSInteger)viewport;
-
+- (NSDictionary*)stringCodeWithIdentifierForTarget:(IUTarget)target viewPort:(NSInteger)viewport;
 - (NSString *)stringCodeWithMainIdentifieForTarget:(IUTarget)target viewPort:(NSInteger)viewport;
-
 
 - (NSArray*)allViewports;
 - (NSArray*)allIdentifiers;

@@ -100,7 +100,6 @@
     IUText *text404 = [[IUText alloc] initWithPreset];
     text404.htmlID = @"text404";
     text404.name = @"text404";
-    text404.defaultPropertyStorage.innerHTML= @"Sorry, but the page you are looking for has not been found.\nTry checking the URL for errors, then hit the refresh button.";
 
     //frame
     text404.enableHCenter = YES;

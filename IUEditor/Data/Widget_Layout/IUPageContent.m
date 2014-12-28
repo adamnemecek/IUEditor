@@ -42,7 +42,7 @@
         titleBox.defaultPositionStorage.y = @(285);
         titleBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
 
-        titleBox.cascadingPropertyStorage.innerHTML = @"Content Area";
+        //titleBox.cascadingPropertyStorage.innerHTML = @"Content Area";
         
         titleBox.enableHCenter = YES;
         
@@ -60,7 +60,7 @@
         contentBox.defaultPositionStorage.y = @(335);
         contentBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
         
-        contentBox.defaultPropertyStorage.innerHTML = @"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right.";
+        [contentBox.defaultPropertyStorage setObject:@"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right." forKey:IUInnerHTMLKey];
         
         contentBox.enableHCenter = YES;
         

@@ -43,7 +43,7 @@
 //get cascadingStorage
 - (IUStyleStorage *)cascadingStyleStorage;
 - (IUPositionStorage *)cascadingPositionStorage;
-- (IUPropertyStorage *)cascadingPropertyStorage;
+- (IUDataStorage *)cascadingPropertyStorage;
 - (IUActionStorage *)cascadingActionStorage;
 
 //get property value

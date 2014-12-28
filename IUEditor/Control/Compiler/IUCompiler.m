@@ -41,15 +41,266 @@
     self = [super init];
     if (self) {
         htmlCompiler = [[IUHTMLCompiler alloc] init];
-        _rule = @"HTML";
-        
         cssCompiler = [[IUCSSCompiler alloc] init];
-        
         jsCompiler = [[IUJSCompiler alloc] init];
         
+        _rule = IUCompileRuleHTML;
     }
     return self;
 }
+
+- (NSString *)editorSource:(IUSheet *)iu viewPort:(NSInteger)viewPort{
+    JDCode *sourceCode = [[JDCode alloc] initWithMainBundleFileName:@"webTemplate.html"];
+    
+    
+    JDCode *webFontCode = [[IUFontController sharedFontController] headerCodeForAllFont];
+    [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+    
+    JDCode *jsCode = [self javascriptHeader:iu target:IUTargetEditor URLPrefix:nil];
+    [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
+    
+    
+    JDCode *iuCSS = [self cssHeader:iu target:IUTargetEditor commonCSSURLPrefix:nil IUCSSURLPrefix:nil];
+    [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+    
+    //add for hover css
+    
+    NSDictionary *cssCodes;
+    NSString *sheetHTMLCode;
+    [self editorIUSource:iu htmlIDPrefix:nil viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
+    
+    [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
+    JDErrorLog(@"css should be updated");
+    
+    //change html
+    JDCode *htmlCode = [[JDCode alloc] init];
+    [htmlCode addCodeLine:sheetHTMLCode];
+    [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
+    
+    
+    
+    JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
+    
+    return sourceCode.string;
+}
+
+- (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort{
+    return [cssCompiler cssCodeForIU:iu rule:_rule target:IUTargetEditor viewPort:viewPort option:nil];
+}
+
+- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS {
+    NSMutableDictionary *cssDict = [NSMutableDictionary dictionary];
+    NSMutableDictionary *nonInlineCSSDict = [NSMutableDictionary dictionary];
+    NSMutableArray *arr = [NSMutableArray arrayWithObject:box];
+    [arr addObjectsFromArray:box.allChildren];
+    
+    for ( IUBox *child in arr ) {
+        IUCSSCode *cssCode = [cssCompiler cssCodeForIU:child rule:_rule target:IUTargetEditor viewPort:viewPort option:nil];
+        [cssDict setObject:cssCode forKey:child.htmlID];
+        NSDictionary *nonInlineDictOfChild = [cssCode nonInlineTagDictionaryForViewport:viewPort];
+        for (NSString* selector in nonInlineDictOfChild) {
+            NSString *style = [nonInlineDictOfChild objectForKey:selector];
+            nonInlineCSSDict[selector] = style;
+        }
+    }
+    JDCode *htmlCode = [htmlCompiler editorHTMLCode:box htmlIDPrefix:htmlIDPrefix rule:_rule viewPort:viewPort cssCodes:cssDict];
+    if (html) {
+        *html = htmlCode.string;
+    }
+    if (nonInlineCSS) {
+        *nonInlineCSS = nonInlineCSSDict;
+    }
+    return YES;
+}
+
+
+- (BOOL)build:(IUProject *)project rule:(NSString *)rule error:(NSError **)error{
+    /*
+     Note :
+     Do not delete build path. Instead, overwrite files.
+     If needed, remove all files (except hidden file started with '.'), due to issus of git, heroku and editer such as Coda.
+     NSFileManager's (BOOL)createFileAtPath:(NSString *)path contents:(NSData *)contents attributes:(NSDictionary *)attributes automatically overwrites file.
+     */
+    
+    /* make directory */
+    NSAssert(project.buildPath != nil, @"");
+    
+    
+    NSString *buildResourcePath = [project absoluteBuildResourcePath];
+    
+    [self build_prepareBuildDirectory:project rule:rule  error:error];
+    [self build_copyDefaultResourceFile:project rule:rule error:error];
+    
+    /****** Copy Resource *****/
+#warning Resource Files are not copied currently.
+    //[[NSFileManager defaultManager] copyItemAtPath:project.resourceRootPath toPath:buildResourcePath error:error];
+    
+    
+    /* build page */
+    NSString *buildCSSPath = [self outputCSSResourcePath:buildResourcePath];
+    NSString *buildJSPath = [self outputJSResourcePath:buildResourcePath];
+    
+    NSMutableArray *builtClasses = [NSMutableArray array];
+    for (IUPage *page in project.allPages) {
+        JDCode *sourceCode = [[JDCode alloc] initWithMainBundleFileName:@"webTemplate.html"];
+        
+        /* if resource prefix == nil,
+         set resource prefix as relative path */
+        JDCode *metaCode = [self metadataSource:page resourcePrefix:nil];
+        [sourceCode replaceCodeString:@"<!--METADATA_Insert-->" toCode:metaCode];
+        
+        JDCode *webFontCode = [self webfontImportSourceForOutput:page];
+        [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
+        
+        //relative path to js file
+        //NSString *relativePath = @"../../../res/js"
+        
+        JDCode *jsHeaderCode =[self javascriptHeader:page target:IUTargetOutput URLPrefix:nil];
+        [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsHeaderCode];
+            
+        JDCode *iuCSS = [self cssHeader:page target:IUTargetOutput commonCSSURLPrefix:nil IUCSSURLPrefix:nil];
+        [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
+
+        JDCode *pageCode = [htmlCompiler outputHTMLCode:page rule:rule];
+        [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:pageCode];
+        
+        /* save page */
+        NSString *filePath = [[project absoluteBuildPath] stringByAppendingPathComponent:[page path]];
+        [[NSFileManager defaultManager] createFileAtPath:filePath contents:sourceCode.UTF8Data attributes:nil];
+        
+        /* save js and css */
+        JDCode *jsCode = [jsCompiler JSCodeForSheet:page rule:rule];
+        NSString *jsPath =[buildJSPath stringByAppendingPathComponent:page.path];
+        [[NSFileManager defaultManager] createFileAtPath:jsPath contents:jsCode.UTF8Data attributes:nil];
+        
+        JDCode *cssCode = [cssCompiler outputCSSCodeForSheet:page rule:rule];
+        NSString *cssPath =[buildCSSPath stringByAppendingPathComponent:page.path];
+        [[NSFileManager defaultManager] createFileAtPath:cssPath contents:cssCode.UTF8Data attributes:nil];
+        
+        
+        /****** Make import src **********/
+        
+        NSSet *classes = page.includedClass;
+        for (IUClass *aClass in classes) {
+            if ([builtClasses containsObject:aClass]) {
+                continue;
+            }
+            [builtClasses addObject:aClass];
+            
+            JDCode *jsClassCode = [jsCompiler JSCodeForSheet:aClass rule:rule];
+            NSString *jsClassPath =[buildJSPath stringByAppendingPathComponent:aClass.path];
+            [[NSFileManager defaultManager] createFileAtPath:jsClassPath contents:jsClassCode.UTF8Data attributes:nil];
+            
+            JDCode *cssClassCode = [cssCompiler outputCSSCodeForSheet:aClass rule:rule];
+            NSString *cssClassPath =[buildCSSPath stringByAppendingPathComponent:aClass.path];
+            [[NSFileManager defaultManager] createFileAtPath:cssClassPath contents:cssClassCode.UTF8Data attributes:nil];
+        }
+    }
+    
+    return YES;
+}
+
+
+
+- (void)build_prepareBuildDirectory:(IUProject *)project rule:(NSString *)rule error:(NSError **)error{
+    [[NSFileManager defaultManager] createDirectoryAtPath:project.absoluteBuildPath withIntermediateDirectories:YES attributes:nil error:error];
+    [[NSFileManager defaultManager] createDirectoryAtPath:project.absoluteBuildResourcePath withIntermediateDirectories:YES attributes:nil error:error];
+    
+    NSString *resourceCSSPath = [self outputCSSResourcePath:project.absoluteBuildResourcePath];
+    [[NSFileManager defaultManager] createDirectoryAtPath:resourceCSSPath withIntermediateDirectories:YES attributes:nil error:error];
+    
+    NSString *resourceJSPath = [self outputJSResourcePath:project.absoluteBuildResourcePath];
+    [[NSFileManager defaultManager] createDirectoryAtPath:resourceJSPath withIntermediateDirectories:YES attributes:nil error:error];
+}
+
+
+- (void)build_copyDefaultResourceFile:(IUProject *)project rule:(NSString*)rule error:(NSError **)error{
+    
+    NSString *outputCSSPath = [[self outputCSSResourcePath:project.absoluteBuildResourcePath] stringByAppendingPathComponent:@"css"];
+    [[JDFileUtil util] overwriteBundleItem:@"reset.css" toDirectory:outputCSSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"iu.css" toDirectory:outputCSSPath error:nil];
+    
+    NSString *outputJSPath = [[self outputJSResourcePath:project.absoluteBuildResourcePath] stringByAppendingPathComponent:@"js"];
+    [[JDFileUtil util] overwriteBundleItem:@"iu.js" toDirectory:outputJSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"iueditor.js" toDirectory:outputJSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"iucarousel.js" toDirectory:outputJSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"jquery.event.move.js" toDirectory:outputJSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"jquery.event.swipe.js" toDirectory:outputJSPath error:nil];
+    
+#if DEBUG
+    [[JDFileUtil util] overwriteBundleItem:@"stressTest.js" toDirectory:outputJSPath error:nil];
+#endif
+    
+    // followings are needed for ie
+    [[JDFileUtil util] overwriteBundleItem:@"jquery.backgroundSize.js" toDirectory:outputJSPath error:nil];
+    [[JDFileUtil util] overwriteBundleItem:@"respond.min.js" toDirectory:outputJSPath error:nil];
+}
+
+
+- (NSString *)outputCSSResourcePath:(NSString *)buildResourcePath {
+    return [buildResourcePath stringByAppendingPathComponent:@"css"];
+}
+
+- (NSString *)outputJSResourcePath:(NSString *)buildResourcePath {
+    return [buildResourcePath stringByAppendingPathComponent:@"js"];
+}
+
+
+-(JDCode *)metadataSource:(IUPage *)page resourcePrefix:(NSString *)resourcePrefix{
+    
+    JDCode *code = [[JDCode alloc] init];
+    //for google
+    if(page.title && page.title.length != 0){
+        [code addCodeLineWithFormat:@"<title>%@</title>", page.title];
+        [code addCodeLineWithFormat:@"<meta property=\"og:title\" content=\"%@\" />", page.title];
+        [code addCodeLineWithFormat:@"<meta name=\"twitter:title\" content=\"%@\">", page.title];
+        [code addCodeLineWithFormat:@"<meta itemprop=\"name\" content=\"%@\">", page.title];
+        
+    }
+    if(page.desc && page.desc.length != 0){
+        [code addCodeLineWithFormat:@"<meta name=\"description\" content=\"%@\">", page.desc];
+        [code addCodeLineWithFormat:@"<meta property=\"og:description\" content=\"%@\" />", page.desc];
+        [code addCodeLineWithFormat:@"<meta name=\"twitter:description\" content=\"%@\">", page.desc];
+        [code addCodeLineWithFormat:@"<meta itemprop=\"description\" content=\"%@\">", page.desc];
+    }
+    if(page.keywords && page.keywords.length != 0){
+        [code addCodeLineWithFormat:@"<meta name=\"keywords\" content=\"%@\">", page.keywords];
+    }
+    if(page.project.author && page.project.author.length != 0){
+        [code addCodeLineWithFormat:@"<meta name=\"author\" content=\"%@\">", page.project.author];
+        [code addCodeLineWithFormat:@"<meta property=\"og:site_name\" content=\"%@\" />", page.project.author];
+        [code addCodeLineWithFormat:@"<meta name=\"twitter:creator\" content=\"%@\">", page.project.author];
+        
+    }
+    if(page.metaImage && page.metaImage.length !=0){
+        NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
+        [code addCodeLineWithFormat:@"<meta property=\"og:image\" content=\"%@\" />", imgSrc];
+        [code addCodeLineWithFormat:@"<meta name=\"twitter:image\" content=\"%@\">", imgSrc];
+        [code addCodeLineWithFormat:@"<meta itemprop=\"image\" content=\"%@\">", imgSrc];
+        
+    }
+    if(page.project.favicon && page.project.favicon.length > 0){
+        
+        NSString *type = [page.project.favicon faviconType];
+        if(type){
+            NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
+            [code addCodeLineWithFormat:@"<link rel=\"icon\" type=\"image/%@\" href=\"%@\">",type, imgSrc];
+            
+        }
+    }
+    //for google analytics
+    if(page.googleCode && page.googleCode.length != 0){
+        [code addCodeLine:page.googleCode];
+    }
+    
+    //js for tweet
+    if([page containClass:[IUTweetButton class]]){
+        [code addCodeLine:@"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"https://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>"];
+    }
+    
+    return code;
+}
+
 
 
 #pragma mark - Header Part
@@ -97,63 +348,6 @@
  
  */
 
--(JDCode *)metadataSource:(IUPage *)page resourcePrefix:(NSString *)resourcePrefix{
-
-    JDCode *code = [[JDCode alloc] init];
-    //for google
-    if(page.title && page.title.length != 0){
-        [code addCodeLineWithFormat:@"<title>%@</title>", page.title];
-        [code addCodeLineWithFormat:@"<meta property=\"og:title\" content=\"%@\" />", page.title];
-        [code addCodeLineWithFormat:@"<meta name=\"twitter:title\" content=\"%@\">", page.title];
-        [code addCodeLineWithFormat:@"<meta itemprop=\"name\" content=\"%@\">", page.title];
-
-    }
-    if(page.desc && page.desc.length != 0){
-        [code addCodeLineWithFormat:@"<meta name=\"description\" content=\"%@\">", page.desc];
-        [code addCodeLineWithFormat:@"<meta property=\"og:description\" content=\"%@\" />", page.desc];
-        [code addCodeLineWithFormat:@"<meta name=\"twitter:description\" content=\"%@\">", page.desc];
-        [code addCodeLineWithFormat:@"<meta itemprop=\"description\" content=\"%@\">", page.desc];
-    }
-    if(page.keywords && page.keywords.length != 0){
-        [code addCodeLineWithFormat:@"<meta name=\"keywords\" content=\"%@\">", page.keywords];
-    }
-    if(page.project.author && page.project.author.length != 0){
-        [code addCodeLineWithFormat:@"<meta name=\"author\" content=\"%@\">", page.project.author];
-        [code addCodeLineWithFormat:@"<meta property=\"og:site_name\" content=\"%@\" />", page.project.author];
-        [code addCodeLineWithFormat:@"<meta name=\"twitter:creator\" content=\"%@\">", page.project.author];
-
-    }
-    if(page.metaImage && page.metaImage.length !=0){
-        NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
-        [code addCodeLineWithFormat:@"<meta property=\"og:image\" content=\"%@\" />", imgSrc];
-        [code addCodeLineWithFormat:@"<meta name=\"twitter:image\" content=\"%@\">", imgSrc];
-        [code addCodeLineWithFormat:@"<meta itemprop=\"image\" content=\"%@\">", imgSrc];
-
-    }
-    if(page.project.favicon && page.project.favicon.length > 0){
-
-        NSString *type = [page.project.favicon faviconType];
-        if(type){
-            NSString *imgSrc = [resourcePrefix stringByAppendingPathComponent:page.metaImage];
-            [code addCodeLineWithFormat:@"<link rel=\"icon\" type=\"image/%@\" href=\"%@\">",type, imgSrc];
-            
-        }
-    }
-    //for google analytics
-    if(page.googleCode && page.googleCode.length != 0){
-        [code addCodeLine:page.googleCode];
-    }
-    
-    //js for tweet
-    if([page containClass:[IUTweetButton class]]){
-        [code addCodeLine:@"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"https://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");</script>"];
-        
-    }
-    
-
-
-    return code;
-}
 
 - (JDCode *)wordpressMetaDataSource:(IUWordpressProject *)project{
     JDCode *code = [[JDCode alloc] init];
@@ -282,10 +476,9 @@
 
 #pragma mark - html header
 
-- (JDCode *)javascriptHeader:(IUBox *)sheet isEdit:(BOOL)isEdit{
+- (JDCode *)javascriptHeader:(IUSheet *)page target:(IUTarget)target URLPrefix:(NSString *)prefix{
     JDCode *code = [[JDCode alloc] init];
-    if(isEdit){
-        
+    if(target == IUTargetEditor){
         NSString *jqueryPath = [[NSBundle mainBundle] pathForResource:@"jquery-1.10.2" ofType:@"js"];
         NSString *jqueryPathCode = [NSString stringWithFormat:@"<script src='file:%@'></script>", jqueryPath];
         [code addCodeLine:jqueryPathCode];
@@ -296,7 +489,8 @@
         [code addCodeLine:jqueryUIPathCode];
 
         
-        for(NSString *filename in sheet.project.defaultEditorJSArray){
+        NSArray *jsFiles = @[@"iueditor.js", @"iuframe.js", @"iugooglemap_theme.js"];
+        for(NSString *filename in jsFiles){
             NSString *jsPath = [[NSBundle mainBundle] pathForResource:[filename stringByDeletingPathExtension] ofType:[filename pathExtension]];
             [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"file:%@\"></script>", jsPath];
         }
@@ -311,33 +505,19 @@
         [code addCodeLineWithFormat:@"<script src='file:%@'></script>", mcePath];
      
     }
-    else{
-        
-        NSString *currentResourcePath = [self resourcePathForTarget:IUTargetOutput];
+    else{//output
         [code addCodeLine:@"<script src='http://code.jquery.com/jquery-1.10.2.js'></script>"];
         [code addCodeLine:@"<script src='http://code.jquery.com/ui/1.11.1/jquery-ui.js'></script>"];
         
-        for(NSString *filename in sheet.project.defaultOutputJSArray){
-            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@\"></script>", currentResourcePath, filename];
-        }
-        //each js for sheet
-        /*
-         no js event now
-        if(sheet.hasEvent){
-            [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-event.js\"></script>",currentResourcePath, sheet.name];
-        }
-         */
-        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/%@-init.js\"></script>",currentResourcePath, sheet.name];
-
-        if([sheet containClass:[IUGoogleMap class]]){
+#warning Currently, do not insert js file for each page
+        if([page containClass:[IUGoogleMap class]]){
             [code addCodeLine:@"<script src=\"http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true\"></script>"];
         }
-        if([sheet containClass:[IUWebMovie class]]){
+        if([page containClass:[IUWebMovie class]]){
             [code addCodeLine:@"<script src=\"http://f.vimeocdn.com/js/froogaloop2.min.js\"></script>"];
         }
-#if DEBUG
-        [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/stressTest.js\"></script>", currentResourcePath];
-#endif
+        
+        /*
         //support ie 8
         [code addCodeLine:@"<!--[if lt IE 9]>"];
         [code increaseIndentLevelForEdit];
@@ -345,24 +525,23 @@
         [code addCodeLineWithFormat:@"<script type=\"text/javascript\" src=\"%@/js/ie/respond.min.js\"></script>", currentResourcePath];
         [code decreaseIndentLevelForEdit];
         [code addCodeLine:@"<![endif]-->"];
-        
+         */
     }
     return code;
 }
 
-- (JDCode *)cssHeader:(IUBox *)box isEdit:(BOOL)isEdit{
+- (JDCode *)cssHeader:(IUSheet *)sheet target:(IUTarget)target commonCSSURLPrefix:(NSString *)commoneURLPrefix  IUCSSURLPrefix:(NSString *)cssURLPrefix{
     JDCode *code = [[JDCode alloc] init];
-    if(isEdit){
+    if(target == IUTargetEditor){
         NSString *resetCSSPath = [[NSBundle mainBundle] pathForResource:@"reset" ofType:@"css"];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%@\">", resetCSSPath];
         NSString *editorCSSPath = [[NSBundle mainBundle] pathForResource:@"iueditor" ofType:@"css"];
         [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"file://%@\">", editorCSSPath];
     }
     else{
-        NSString *currentResourcePath =  [self resourcePathForTarget:IUTargetOutput];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/reset.css\">", currentResourcePath];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/iu.css\">", currentResourcePath];
-        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",currentResourcePath, box.name];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/common/reset.css\">", commoneURLPrefix];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/common/iu.css\">",commoneURLPrefix   ];
+        [code addCodeLineWithFormat:@"<link rel=\"stylesheet\" type=\"text/css\" href=\"%@/css/%@.css\">",commoneURLPrefix, [sheet path]];
     }
     return code;
 }
@@ -587,79 +766,11 @@
     JDSectionInfoLog(IULogDealloc, @"");
 }
 
-- (IUCSSCode *)editorIUCSSSource:(IUBox *)iu viewPort:(NSInteger)viewPort{
-    return [cssCompiler cssCodeForIU:iu rule:_rule target:IUTargetEditor viewPort:viewPort option:nil];
-}
-
-- (BOOL)editorIUSource:(IUBox *)box htmlIDPrefix:(NSString *)htmlIDPrefix viewPort:(NSInteger)viewPort htmlSource:(NSString **)html nonInlineCSSSource:(NSDictionary **)nonInlineCSS {
-    NSMutableDictionary *cssDict = [NSMutableDictionary dictionary];
-    NSMutableDictionary *nonInlineCSSDict = [NSMutableDictionary dictionary];
-    NSMutableArray *arr = [NSMutableArray arrayWithObject:box];
-    [arr addObjectsFromArray:box.allChildren];
-    
-    for ( IUBox *child in arr ) {
-        IUCSSCode *cssCode = [cssCompiler cssCodeForIU:child rule:_rule target:IUTargetEditor viewPort:viewPort option:nil];
-        [cssDict setObject:cssCode forKey:child.htmlID];
-        NSDictionary *nonInlineDictOfChild = [cssCode nonInlineTagDictionaryForViewport:viewPort];
-        for (NSString* selector in nonInlineDictOfChild) {
-            NSString *style = [nonInlineDictOfChild objectForKey:selector];
-            nonInlineCSSDict[selector] = style;
-        }
-    }
-    JDCode *htmlCode = [htmlCompiler editorHTMLCode:box htmlIDPrefix:htmlIDPrefix rule:_rule viewPort:viewPort cssCodes:cssDict];
-    if (html) {
-        *html = htmlCode.string;
-    }
-    if (nonInlineCSS) {
-        *nonInlineCSS = nonInlineCSSDict;
-    }
-    return YES;
-}
 
 
 
-- (NSString *)editorSource:(IUBox *)iu viewPort:(NSInteger)viewPort{
-    NSString *templateFilePath = [[NSBundle mainBundle] pathForResource:@"webTemplate" ofType:@"html"];
-    if (templateFilePath == nil) {
-        NSAssert(0, @"Template file name wrong");
-        return nil;
-    }
-    
-    NSMutableString *sourceString = [NSMutableString stringWithContentsOfFile:templateFilePath encoding:NSUTF8StringEncoding error:nil];
-    
-    JDCode *sourceCode = [[JDCode alloc] initWithCodeString:sourceString];
-    
-    
-    JDCode *webFontCode = [[IUFontController sharedFontController] headerCodeForAllFont];
-    [sourceCode replaceCodeString:@"<!--WEBFONT_Insert-->" toCode:webFontCode];
-    
-    JDCode *jsCode = [self javascriptHeader:iu isEdit:YES];
-    [sourceCode replaceCodeString:@"<!--JAVASCRIPT_Insert-->" toCode:jsCode];
-    
-    
-    JDCode *iuCSS = [self cssHeader:iu isEdit:YES];
-    [sourceCode replaceCodeString:@"<!--CSS_Insert-->" toCode:iuCSS];
-    
-    //add for hover css
-    
-    NSDictionary *cssCodes;
-    NSString *sheetHTMLCode;
-    [self editorIUSource:iu htmlIDPrefix:nil viewPort:viewPort htmlSource:&sheetHTMLCode nonInlineCSSSource:&cssCodes];
-    
-    [sourceCode replaceCodeString:@"<!--CSS_Replacement-->" toCodeString:@"<style id=\"default\"></style>"];
-    JDErrorLog(@"css should be updated");
-    
-    //change html
-    JDCode *htmlCode = [[JDCode alloc] init];
-    [htmlCode addCodeLine:sheetHTMLCode];
-    [sourceCode replaceCodeString:@"<!--HTML_Replacement-->" toCode:htmlCode];
-    
-    
-    
-    JDSectionInfoLog( IULogSource, @"source : %@", [@"\n" stringByAppendingString:sourceCode.string]);
-    
-    return sourceCode.string;
-}
+
+
 
 
 - (BOOL)outputHTMLSource:(IUPage *)document resourcePrefix:(NSString *)resourcePrefix html:(NSString **)html css:(NSString **)css {
@@ -757,22 +868,6 @@
 }
 */
 
-- (NSString *)jsEventFileName:(IUPage *)document {
-    return [jsCompiler jsEventFileName:document];
-}
-
-
-- (NSString *)jsInitFileName:(IUPage *)document{
-    return [jsCompiler jsInitFileName:document];
-}
-
-- (NSString *)jsInitSource:(IUPage *)document storage:(BOOL)storage{
-    return [jsCompiler jsInitSource:document storage:storage];
-}
-
-- (NSString *)jsEventSource:(IUPage *)document{
-    return [jsCompiler jsEventSource:document];
-}
 
 #pragma mark - IUCompilerProtocol
 

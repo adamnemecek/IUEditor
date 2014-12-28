@@ -39,12 +39,10 @@
 /**
  @brief HTML 파일에 넣을 수 있는 HTML Code를 생성한다.
  
- @param cssCode IUCSSCompiler에서 생성된 CSSCode. mainIdentifier가 style에 들어가게 되며, 따라서 style에 들어가지 않는 필요없는 정보는 들어오면 안된다. 이 부분은 IUCSSCompiler가 책임질 것.
- @param rule const NSString형태의 컴파일 룰이다. HTMLCompiler에서는 기본적으로 default 가 들어오게 될 것이며,
  향후에 subclassing에 따라 Django에 대응하는 const NSString *이 들어올 수 있다.
 
  */
-- (JDCode *)outputHTMLCode:(IUBox *)iu htmlIDPrefix:(NSString *)htmlIDPrefix rule:(NSString *)rule cssCodes:(NSDictionary *)codes;
+- (JDCode *)outputHTMLCode:(IUBox *)iu rule:(NSString *)rule;
 
 /**
  compiler has common functions to compile iubox

@@ -31,16 +31,6 @@
     [super tearDown];
 }
 
-- (void)test_build {
-    IUProject *project = [[IUProject alloc] initForUntitledDocument];
-    project.buildPath = [NSTemporaryDirectory() stringByAppendingString:@"testBuild"];
-    
-    IUSourceManager *sManager = [[IUSourceManager alloc] init];
-    [sManager setProject:project];
-    [sManager setCompiler:[[IUCompiler alloc] init]];
-    BOOL result = [sManager build:nil];
-    XCTAssertTrue(result);
-}
 
 - (void)test_fileItem {
     IUProject *project = [[IUProject alloc] initForUntitledDocument];

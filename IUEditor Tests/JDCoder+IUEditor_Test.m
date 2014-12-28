@@ -115,7 +115,7 @@
     IUPage *page = [[IUPage alloc] initWithPresetWithLayout:IUPageLayoutDefault header:header footer:nil sidebar:nil];
     IUPageContent *pageContent = page.pageContent;
     IUText *titleBox = (IUText *)pageContent.children[0];
-    titleBox.defaultPropertyStorage.innerHTML = @"hihi";
+    [titleBox.defaultPropertyStorage setObject:@"hihi" forKey:IUInnerHTMLKey];
     
     JDCoder *coder = [[JDCoder alloc] init];
     [coder encodeRootObject:page];
@@ -128,8 +128,7 @@
 
     
     XCTAssertEqual(decodePage.layout, IUPageLayoutDefault);
-    XCTAssertEqual(decodeTitleBox.defaultPropertyStorage.innerHTML, @"hihi");
-
+    XCTAssertEqualObjects([decodeTitleBox.defaultPropertyStorage objectForKey:IUInnerHTMLKey], @"hihi");
 }
 
 - (void)test5_IUClass{

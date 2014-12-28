@@ -47,7 +47,7 @@
         
     }
     else {
-        NSAssert(0, @"NOT YET CODED");
+        //NSAssert(0, @"NOT YET CODED");
     }
     return code;
 }

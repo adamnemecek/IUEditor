@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
+#import "IUBoxes.h"
 #import "IUCSSCompiler.h"
 #import "IUCSSBaseCompiler.h"
 
@@ -90,7 +91,7 @@
 }
 
 - (void)test5_font{
-    box.cascadingPropertyStorage.innerHTML = @"test";
+    [box.cascadingPropertyStorage setObject:@"test" forKey:IUInnerHTMLKey];
     box.cascadingStyleStorage.fontName = @"Roboto";
     box.cascadingStyleStorage.fontSize = @(13);
     box.cascadingStyleStorage.fontColor = [NSColor blueColor];

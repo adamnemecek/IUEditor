@@ -167,4 +167,8 @@
     return self.parentFileItem.project;
 }
 
+- (NSString *)path {
+    return [[self.parentFileItem path] stringByAppendingPathComponent:self.name];
+}
+
 @end

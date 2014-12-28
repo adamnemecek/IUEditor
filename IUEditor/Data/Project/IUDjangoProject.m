@@ -16,16 +16,16 @@
 
 #pragma mark - class attributes
 
-+ (NSArray *)widgetList{
+- (NSArray *)widgetList{
     NSMutableArray *defaultList = [[super widgetList] mutableCopy];
     [defaultList addObjectsFromArray:@[@"IUCollection", @"IUCollectionView", @"PGPageLinkSet"]];
     return defaultList;
 }
 
-+ (NSArray *)compilerRules{
+- (NSArray *)compilerRules{
     return @[IUCompileRuleHTML, IUCompileRuleDjango, IUCompileRulePresentation];
 }
-+ (NSString *)defaultCompilerRule{
+- (NSString *)defaultCompilerRule{
     return IUCompileRuleDjango;
 }
 

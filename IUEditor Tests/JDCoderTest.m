@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "IUBox.h"
+#import "IUBoxes.h"
 #import "JDMutableArrayDict.h"
 
 @interface JDCoderTest : XCTestCase
@@ -146,7 +146,7 @@
     IUBox *oneBox = [[IUBox alloc] initWithPreset];
     oneBox.htmlID = @"OneBox";
     oneBox.defaultStyleStorage.fontName = @"Roboto";
-    oneBox.defaultPropertyStorage.innerHTML = @"aaa";
+    [oneBox.defaultPropertyStorage setObject:@"aaa" forKey:IUInnerHTMLKey];
     oneBox.defaultPositionStorage.y = @(20);
     
     JDCoder *coder = [[JDCoder alloc] init];
@@ -155,7 +155,6 @@
     
     XCTAssert([resultBox.htmlID isEqualToString:@"OneBox"], @"Pass");
     XCTAssert([resultBox.defaultStyleStorage.fontName isEqualToString:@"Roboto"], @"Pass");
-    XCTAssert([resultBox.defaultPropertyStorage.innerHTML isEqualToString:@"aaa"], @"Pass");
     XCTAssert([resultBox.defaultPositionStorage.y isEqualToNumber:@(20)], @"Pass");
 
 }

@@ -14,10 +14,14 @@
 
 @implementation IUJSCompiler
 
+- (JDCode *)JSCodeForSheet:(IUSheet *)sheet rule:(NSString*)rule {
+    return nil;
+}
+
 /* End-line function */
 
 - (NSString *)jsEventFileName:(IUPage *)page{
-    return [NSString stringWithFormat:@"%@-init.js", page.name];
+    return [NSString stringWithFormat:@"%@-event.js", page.name];
 }
 
 - (NSString *)jsInitFileName:(IUPage *)page{
