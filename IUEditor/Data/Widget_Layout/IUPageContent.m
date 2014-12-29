@@ -60,7 +60,8 @@
         contentBox.defaultPositionStorage.y = @(335);
         contentBox.defaultPositionStorage.firstPosition = @(IUFirstPositionTypeAbsolute);
         
-        [contentBox.defaultPropertyStorage setObject:@"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right." forKey:IUInnerHTMLKey];
+        
+        [contentBox.defaultPropertyStorage setObject:@"Double-click to edit text\n\nThis box has absolute-center position.\nFor free movement, see the position at the right." forKey:IUTextContentKey];
         
         contentBox.enableHCenter = YES;
         

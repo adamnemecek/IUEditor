@@ -91,7 +91,7 @@
 }
 
 - (void)test5_font{
-    [box.cascadingPropertyStorage setObject:@"test" forKey:IUInnerHTMLKey];
+    [box.cascadingPropertyStorage setObject:@"test" forKey:IUTextContentKey];
     box.cascadingStyleStorage.fontName = @"Roboto";
     box.cascadingStyleStorage.fontSize = @(13);
     box.cascadingStyleStorage.fontColor = [NSColor blueColor];

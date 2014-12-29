@@ -8,8 +8,6 @@
 
 #import "IUBox.h"
 
-#define IUInnerHTMLKey @"IUInnerHTML"
-
 /**
  @description insert HTML code directly.
  As converting to storage mode, 'innerHTML' will saved at default data storage, with IUInnerHTMLKey.

@@ -416,6 +416,7 @@
 }
 - (JDCode *)htmlCodeAsIUText:(IUText *)textIU htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSDictionary *)option{
     
+    JDCode *code = [[JDCode alloc] init];
     NSString *tag  = @"div";
     if (textIU.textType == IUTextTypeH1){
         tag = @"h1";
@@ -423,9 +424,20 @@
     else if (textIU.textType == IUTextTypeH2){
         tag = @"h2";
     }
-    return [self htmlCodeAsIUHTML:textIU htmlIDPrefix:htmlIDPrefix target:target rule:rule viewPort:viewPort attributeDict:attributeDict cssCodes:cssCodes option:@{@"Tag":tag}];
-
+    [code addCodeLineWithFormat:@"<%@ %@>",tag, attributeDict.attributeStringValue];
+    if (target == IUTargetEditor) {
+        [code addString:@"<p>"];
+        IUDataStorage *storage = [[textIU propertyManager] cascadingStorageForViewPort:viewPort];
+        [code addString:[storage objectForKey:IUTextContentKey]];
+        [code addString:@"</p>"];
+    }
+    else {
+        NSAssert(0, @"Not Coded");
+    }
+    [code addCodeLineWithFormat:@"</%@>", tag];
+    return code;
 }
+
 - (JDCode *)htmlCodeAsIUImage:(IUImage *)image htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSDictionary *)option {
     /*
     if (image.pgContentVariable && image.pgContentVariable.length > 0 && _compiler.rule == IUCompileRuleDjango) {
@@ -665,21 +677,14 @@
     return nil;
 }
 
+
 /* IUHTML does not have children */
 - (JDCode *)htmlCodeAsIUHTML:(IUHTML *)html htmlIDPrefix:(NSString *)htmlIDPrefix target:(IUTarget)target rule:(NSString *)rule viewPort:(NSInteger)viewPort attributeDict:(IUAttributeDict *)attributeDict  cssCodes:(NSDictionary *)cssCodes option:(NSDictionary *)option{
 
     JDCode *code = [[JDCode alloc] init];
-    NSString *tag = @"div";
-    if (option[@"Tag"]) {
-        tag = option[@"Tag"];
-    }
-    
-    [code addCodeLineWithFormat:@"<%@ %@>", tag, attributeDict.attributeStringValue];
-    
-    IUDataStorage *propertyStorage = [[html propertyManager] cascadingStorageForViewPort:viewPort];
-    NSString *innerHTML = [propertyStorage valueForKey:IUInnerHTMLKey];
-    [code addCodeLine:innerHTML];
-    [code addCodeLineWithFormat:@"</%@>", tag];
+    [code addCodeLineWithFormat:@"<div %@>", attributeDict.attributeStringValue];
+    [code addCodeLine:html.innerHTML];
+    [code addCodeLineWithFormat:@"</div>"];
     return code;
 }
 

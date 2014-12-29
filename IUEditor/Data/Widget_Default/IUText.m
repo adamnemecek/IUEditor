@@ -8,6 +8,8 @@
 
 #import "IUText.h"
 
+NSString * const IUTextContentKey = @"TextContentKey";
+
 @implementation IUText
 
 + (NSString *)widgetType{

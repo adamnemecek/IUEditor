@@ -14,12 +14,14 @@ typedef enum{
     IUTextTypeH2,
 }IUTextType;
 
+extern NSString * const IUTextContentKey;
 
 /**
  @description IUText Widget is text-only object. It cannot have children.
  */
 
-@interface IUText : IUHTML
+
+@interface IUText : IUBox
 
 /* default box - already customized box */
 +(IUText *)copyrightBox;
